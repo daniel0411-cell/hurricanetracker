@@ -1,0 +1,83 @@
+---
+import FaqBlock from "../components/FaqBlock.astro";
+import LiveDashboard from "../components/LiveDashboard.astro";
+import Layout from "../layouts/Layout.astro";
+import { differentiators, faqs, site } from "../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
+
+const title = "North America Hurricane Tracker and Emergency Decision Hub";
+const description = "Track active North American hurricanes, official NWS alerts, evacuation decision levels, and preparedness actions from NOAA, NHC, and NWS data.";
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url: site.url }),
+  faqSchema(faqs)
+);
+---
+<Layout title={title} description={description} canonical={site.url} jsonLd={jsonLd} showTopAd={true}>
+  <section class="hero band" aria-labelledby="home-title">
+    <div class="inner hero-grid">
+      <div>
+        <p class="eyebrow">North America hurricane operations</p>
+        <h1 id="home-title">HurricaneHub</h1>
+        <p class="answer">HurricaneHub shows active NHC storms, state NWS warnings, and a practical decision level so coastal households can monitor, prepare, act, or leave using official weather data and local emergency orders.</p>
+      </div>
+      <div class="dashboard" aria-label="Competitive positioning">
+        <div class="metric"><strong>NHC</strong><span>current storm feed</span></div>
+        <div class="metric"><strong>NWS</strong><span>state alerts</span></div>
+        <div class="metric"><strong>KV</strong><span>edge cache</span></div>
+        <div class="metric"><strong>R2</strong><span>asset store ready</span></div>
+      </div>
+    </div>
+  </section>
+
+  <LiveDashboard />
+
+  <section class="band" aria-labelledby="advantage-heading">
+    <div class="inner">
+      <p class="eyebrow">Differentiation from radar-only tracking</p>
+      <h2 id="advantage-heading">What HurricaneHub Adds</h2>
+      <div class="grid-2" style="margin-top: 18px;">
+        <article class="panel">
+          <h3>Emergency Decision Layer</h3>
+          <p>Stormtracking.io-style radar, satellite, and alert views answer what is happening. HurricaneHub adds what a household should decide next, with source-labeled state alerts and risk thresholds built for search and AI answer engines.</p>
+        </article>
+        <article class="panel">
+          <h3>First-Party Data Notes</h3>
+          <p>The MVP records feed path, cache window, and runtime behavior. These notes create information gain for SEO/GEO pages because they explain exactly how official data is acquired and refreshed.</p>
+        </article>
+      </div>
+      <div class="grid-3" style="margin-top: 18px;">
+        {differentiators.map((item) => (
+          <article class="panel">
+            <h3>{item.split(" ")[0]} Advantage</h3>
+            <p>{item}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="architecture-heading">
+    <div class="inner grid-2">
+      <div>
+        <p class="eyebrow">Cloudflare full-stack shape</p>
+        <h2 id="architecture-heading">Pages, Workers, KV, and R2</h2>
+        <p>Cloudflare Pages serves Astro output. Astro API routes run on Cloudflare Workers, proxy official NOAA/NHC/NWS feeds, cache normalized responses in KV, and leave R2 ready for map tiles, preparedness PDFs, and generated storm brief images.</p>
+      </div>
+      <div class="panel">
+        <h3>Data Flow</h3>
+        <table>
+          <thead><tr><th>Layer</th><th>MVP role</th></tr></thead>
+          <tbody>
+            <tr><td>Pages</td><td>Semantic pages, FAQ, JSON-LD, static assets</td></tr>
+            <tr><td>Workers</td><td>API proxy and normalization</td></tr>
+            <tr><td>KV</td><td>Short-lived NOAA/NWS feed cache</td></tr>
+            <tr><td>R2</td><td>Static emergency assets and future map bundles</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <FaqBlock faqs={faqs} />
+</Layout>

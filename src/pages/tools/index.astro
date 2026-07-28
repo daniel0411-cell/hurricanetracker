@@ -1,0 +1,34 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { faqs, site } from "../../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+
+const title = "Hurricane Tools";
+const description = "Use HurricaneHub tools for emergency preparedness, hurricane kit planning, and household decision support based on official NOAA and NHC source awareness.";
+const url = `${site.url}/tools/`;
+const lastModified = new Date().toISOString();
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  faqSchema(faqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="tools-title">
+    <div class="inner">
+      <p class="eyebrow">Emergency decision tools</p>
+      <h1 id="tools-title">Hurricane Tools</h1>
+      <p class="answer">HurricaneHub tools help households turn official NOAA/NHC storm information into preparedness actions, starting with a personalized emergency kit checklist.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="tools-list">
+    <div class="inner grid-3">
+      <article class="post-card">
+        <h2 id="tools-list">Preparedness Checklist Generator</h2>
+        <p>Create a household hurricane emergency kit list for 1-4 people, with optional pet supplies.</p>
+        <a href="/tools/preparedness-checklist/">Open tool</a>
+      </article>
+    </div>
+  </section>
+</Layout>

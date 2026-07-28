@@ -1,0 +1,16 @@
+---
+import Layout from "./Layout.astro";
+
+type Props = {
+  title: string;
+  description: string;
+  canonical?: string;
+  jsonLd?: object;
+  lastModified?: string;
+};
+
+const { title, description, canonical, jsonLd, lastModified } = Astro.props;
+---
+<Layout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={lastModified}>
+  <slot />
+</Layout>

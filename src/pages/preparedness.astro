@@ -1,0 +1,52 @@
+---
+import FaqBlock from "../components/FaqBlock.astro";
+import Layout from "../layouts/Layout.astro";
+import { faqs, site } from "../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
+
+const title = "Hurricane Preparedness Decision Matrix";
+const description = "Use a clear hurricane decision matrix for monitoring, preparing, acting, and leaving before tropical cyclone hazards arrive.";
+const url = `${site.url}/preparedness/`;
+const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url }), faqSchema(faqs));
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd}>
+  <section class="band" aria-labelledby="preparedness-title">
+    <div class="inner">
+      <p class="eyebrow">Emergency decision support</p>
+      <h1 id="preparedness-title">Hurricane Preparedness Decision Matrix</h1>
+      <p class="answer">Use monitor, prepare, act, and leave levels to convert official warnings into household actions before wind, surge, flooding, or road congestion removes good options.</p>
+    </div>
+  </section>
+  <section class="band" aria-labelledby="matrix-heading">
+    <div class="inner">
+      <h2 id="matrix-heading">Decision Levels</h2>
+      <table>
+        <thead>
+          <tr><th>Level</th><th>Trigger</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Monitor</td><td>No local warning and no nearby active system</td><td>Review forecast twice daily and confirm contact list.</td></tr>
+          <tr><td>Prepare</td><td>Tropical system active or watch/flood risk appears</td><td>Fuel vehicle, secure medication, document property, inspect supplies.</td></tr>
+          <tr><td>Act</td><td>Hurricane, surge, tornado, or flash flood warning</td><td>Move inland or shelter as directed; stop nonessential travel.</td></tr>
+          <tr><td>Leave</td><td>Evacuation, extreme wind, or life-threatening surge signal</td><td>Depart before deadline and tell contacts route and destination.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section class="band" aria-labelledby="geo-heading">
+    <div class="inner grid-2">
+      <article>
+        <h2 id="geo-heading">SEO and GEO Content Rules</h2>
+        <h3>Direct Answer</h3>
+        <p>Every page begins with a concise answer that can be lifted into search snippets and AI overviews.</p>
+        <h3>Structured Evidence</h3>
+        <p>FAQPage, Article, WebSite, and Organization JSON-LD are rendered server-side so crawlers do not need client JavaScript.</p>
+      </article>
+      <article class="panel">
+        <h2>Measured Implementation Note</h2>
+        <p>The current build uses Cloudflare-compatible Astro routes. In production, binding <code>HURRICANEHUB_CACHE</code> enables KV-backed cache hits for NHC and NWS responses.</p>
+      </article>
+    </div>
+  </section>
+  <FaqBlock faqs={faqs} />
+</Layout>

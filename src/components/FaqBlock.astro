@@ -1,0 +1,19 @@
+---
+type Faq = {
+  question: string;
+  answer: string;
+};
+
+const { faqs } = Astro.props as { faqs: Faq[] };
+---
+<section class="band" aria-labelledby="faq-heading">
+  <div class="inner stack">
+    <h2 id="faq-heading">Hurricane FAQ</h2>
+    {faqs.map((faq) => (
+      <article class="faq-item">
+        <h3>{faq.question}</h3>
+        <p>{faq.answer}</p>
+      </article>
+    ))}
+  </div>
+</section>

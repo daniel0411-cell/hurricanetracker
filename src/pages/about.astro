@@ -1,0 +1,40 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { faqs, site } from "../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
+
+const title = "About HurricaneHub";
+const description = "Learn about HurricaneHub's mission to provide accurate hurricane tracking, emergency preparedness guidance, and NOAA/NHC source transparency.";
+const url = `${site.url}/about/`;
+const lastModified = new Date().toISOString();
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  faqSchema(faqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="about-title">
+    <div class="inner">
+      <p class="eyebrow">Mission and source transparency</p>
+      <h1 id="about-title">About HurricaneHub</h1>
+      <p class="answer">HurricaneHub helps people track hurricanes, understand official alerts, and prepare earlier using NOAA, National Hurricane Center, and National Weather Service public data.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="mission-heading">
+    <div class="inner grid-2">
+      <article class="panel">
+        <h2 id="mission-heading">Our Mission</h2>
+        <h3>Accurate Tracking</h3>
+        <p>We organize official storm and alert feeds into readable decision support for North American coastal households.</p>
+        <h3>Preparedness Guidance</h3>
+        <p>We emphasize checklists, decision levels, and practical timing so users can prepare before watches become warnings.</p>
+      </article>
+      <article class="panel">
+        <h2>Data Sources</h2>
+        <p>HurricaneHub uses NOAA, National Hurricane Center, and National Weather Service public feeds. This site is not affiliated with NOAA or NHC and does not replace official emergency instructions.</p>
+      </article>
+    </div>
+  </section>
+</Layout>

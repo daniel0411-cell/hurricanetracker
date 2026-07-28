@@ -1,0 +1,20 @@
+---
+import { site } from "../data/site";
+
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/tracker/", label: "Tracker" },
+  { href: "/tools/", label: "Tools" },
+  { href: "/blog/", label: "Blog" },
+  { href: "/about/", label: "About" }
+];
+---
+<header class="site-header">
+  <a class="brand" href="/" aria-label="HurricaneHub home">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span>{site.name}</span>
+  </a>
+  <nav aria-label="Primary">
+    {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+  </nav>
+</header>

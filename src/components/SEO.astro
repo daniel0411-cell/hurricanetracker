@@ -1,0 +1,29 @@
+---
+import { graph, organizationSchema, websiteSchema } from "../lib/schema";
+
+type Props = {
+  title: string;
+  description: string;
+  canonical: string;
+  siteName: string;
+  jsonLd?: object;
+  lastModified?: string;
+};
+
+const { title, description, canonical, siteName, jsonLd, lastModified } = Astro.props;
+const modified = lastModified ?? new Date().toISOString();
+const schema = jsonLd ?? graph(websiteSchema(), organizationSchema());
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="last-modified" content={modified} />
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content={siteName} />
+<meta property="article:modified_time" content={modified} />
+<meta name="twitter:card" content="summary_large_image" />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />

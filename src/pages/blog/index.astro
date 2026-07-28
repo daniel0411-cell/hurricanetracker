@@ -1,0 +1,39 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { blogPosts } from "../../data/blog";
+import { faqs, site } from "../../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+
+const title = "Hurricane Preparedness Blog";
+const description = "Read HurricaneHub articles about hurricane season outlooks, home preparedness, alerts, and emergency decision-making using NOAA/NHC source context.";
+const url = `${site.url}/blog/`;
+const lastModified = new Date().toISOString();
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  faqSchema(faqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="blog-title">
+    <div class="inner">
+      <p class="eyebrow">Preparedness articles</p>
+      <h1 id="blog-title">Hurricane Preparedness Blog</h1>
+      <p class="answer">This blog explains hurricane outlooks, home preparation, official warning language, and emergency decisions using NOAA/NHC source context.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="post-list-heading">
+    <div class="inner stack">
+      <h2 id="post-list-heading">Latest Articles</h2>
+      {blogPosts.map((post) => (
+        <article class="post-card">
+          <h3>{post.title}</h3>
+          <p>{post.description}</p>
+          <p class="small">Last modified {post.dateModified}</p>
+          <a href={`/blog/${post.slug}/`}>Read article</a>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>

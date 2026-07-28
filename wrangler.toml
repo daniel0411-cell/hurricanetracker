@@ -1,0 +1,16 @@
+name = "hurricanehub"
+compatibility_date = "2026-07-28"
+pages_build_output_dir = "./dist"
+
+# Cloudflare Pages runs the Astro server bundle as Pages Functions.
+# Replace placeholder IDs after creating the namespaces in your account.
+[[kv_namespaces]]
+binding = "HURRICANEHUB_CACHE"
+id = "replace-with-production-kv-id"
+preview_id = "replace-with-preview-kv-id"
+
+# Reserved for future static map tiles, PDFs, generated preparedness assets, or media.
+[[r2_buckets]]
+binding = "HURRICANEHUB_ASSETS"
+bucket_name = "hurricanehub-assets"
+preview_bucket_name = "hurricanehub-assets-preview"

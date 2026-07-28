@@ -1,0 +1,143 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import Layout from "../../layouts/Layout.astro";
+import { faqs, site } from "../../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import type { NhcStorm, NwsAlert } from "../../lib/weather";
+
+type StormFeed = {
+  storms?: Array<NhcStorm & { summary?: string }>;
+  fetchedAt?: string;
+  updatedAt?: string;
+  error?: string;
+};
+
+type AlertFeed = {
+  alerts?: NwsAlert[];
+  decisionLevel?: string;
+  fetchedAt?: string;
+  updatedAt?: string;
+  error?: string;
+};
+
+const title = "Live Hurricane Tracker";
+const description = "Track live hurricanes approaching North America with NHC storm advisories, Alabama NWS alerts, and emergency decision context.";
+const url = `${site.url}/tracker/`;
+
+async function loadJson<T>(path: string): Promise<T | null> {
+  try {
+    const response = await fetch(new URL(path, Astro.url));
+    if (!response.ok) {
+      console.error("HurricaneHub tracker feed error", { path, status: response.status });
+      return null;
+    }
+    return await response.json() as T;
+  } catch (error) {
+    console.error("HurricaneHub tracker feed failed", { path, error });
+    return null;
+  }
+}
+
+const [stormFeed, alertFeed] = await Promise.all([
+  loadJson<StormFeed>("/api/nhc/current.json"),
+  loadJson<AlertFeed>("/api/nws/alerts.json?area=AL")
+]);
+
+const storms = stormFeed?.storms ?? [];
+const alerts = alertFeed?.alerts ?? [];
+const decisionLevel = alertFeed?.decisionLevel ?? (storms.length ? "Prepare" : "Monitor");
+const lastModified = stormFeed?.updatedAt ?? alertFeed?.updatedAt ?? new Date().toISOString();
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  faqSchema(faqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="tracker-title">
+    <div class="inner">
+      <p class="eyebrow">NHC + NWS live data</p>
+      <h1 id="tracker-title">Live Hurricane Tracker</h1>
+      <p class="answer">This page shows live hurricanes approaching North America, current NHC storm summaries, Alabama NWS alerts, and a decision level for emergency planning.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="live-data-heading">
+    <div class="inner grid-2">
+      <article>
+        <h2 id="live-data-heading">Active NHC Storms</h2>
+        <div class="map-shell" role="img" aria-label="Stylized Gulf and Atlantic hurricane risk map">
+          <div class="map-label">
+            <span class="badge danger">Warning decisions</span>
+            <span class="badge warn">Watch planning</span>
+            <span class="badge">NHC advisory feed</span>
+          </div>
+        </div>
+        <p class="source-note">Last checked: {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC</p>
+      </article>
+
+      <article class="panel">
+        <h2>Emergency Decision</h2>
+        <div class="metric" style="margin-top: 14px;">
+          <strong>{decisionLevel}</strong>
+          <span>current Alabama decision level from NWS alerts and NHC storm context</span>
+        </div>
+        <h3 style="margin-top: 18px;">How to Use This</h3>
+        <p>Start with your local warning, compare active storm movement, then choose whether to monitor, prepare, act, or leave before road and shelter options narrow.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="storms-heading">
+    <div class="inner">
+      <h2 id="storms-heading">Storm Advisory List</h2>
+      <div class="stack" style="margin-top: 18px;">
+        {storms.length ? storms.map((storm) => (
+          <article class="storm-row">
+            <header>
+              <h3>{storm.name ?? storm.id ?? "Active tropical system"}</h3>
+              <span class="badge warn">{storm.classification ?? "NHC"}</span>
+            </header>
+            <p>{storm.summary ?? "NHC advisory data loaded for this system."}</p>
+            <p class="small">
+              Position: {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"} ·
+              Pressure: {storm.pressure ?? "pending"} ·
+              Updated: {storm.lastUpdate ?? stormFeed?.fetchedAt ?? "pending"}
+            </p>
+            <a href={`/tracker/${encodeURIComponent(storm.id ?? storm.name ?? "storm")}/`}>View storm detail</a>
+          </article>
+        )) : (
+          <article class="panel">
+            <h3>暂无活跃风暴</h3>
+            <p>No active NHC tropical cyclone is listed right now. Keep monitoring official advisories during hurricane season because tropical outlooks can change quickly.</p>
+          </article>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="alerts-heading">
+    <div class="inner">
+      <h2 id="alerts-heading">Alabama NWS Alerts</h2>
+      <div class="stack" style="margin-top: 18px;">
+        {alerts.length ? alerts.slice(0, 10).map((alert) => (
+          <article class="alert-row">
+            <header>
+              <h3>{alert.event}</h3>
+              <span class={alert.severity === "Severe" || alert.severity === "Extreme" ? "badge danger" : "badge warn"}>{alert.severity}</span>
+            </header>
+            <p>{alert.headline || alert.areaDesc}</p>
+            <p class="small">{alert.urgency} · {alert.certainty} · expires {alert.expires}</p>
+          </article>
+        )) : (
+          <article class="panel">
+            <h3>No Active Alabama Alerts</h3>
+            <p>No active NWS alerts were returned for Alabama. Use this as a monitoring state, not an all-clear for your county.</p>
+          </article>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <FaqBlock faqs={faqs} />
+</Layout>
