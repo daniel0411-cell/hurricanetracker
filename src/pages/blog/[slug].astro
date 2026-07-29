@@ -10,24 +10,27 @@ const title = post.title;
 const description = post.description;
 const url = `${site.url}/blog/${post.slug}/`;
 const lastModified = new Date(post.dateModified).toISOString();
+const relatedPosts = blogPosts.filter((item) => item.slug !== post.slug).slice(0, 3);
+const imageUrl = new URL(post.image, site.url).href;
 const jsonLd = graph(
   websiteSchema(),
-  articleSchema({ title, description, url, dateModified: lastModified }),
+  articleSchema({ title, description, url, dateModified: lastModified, image: imageUrl }),
   faqSchema(faqs)
 );
 ---
-<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified} image={post.image}>
   <article class="band" aria-labelledby="post-title">
     <div class="inner">
       <p class="eyebrow">HurricaneHub blog</p>
       <h1 id="post-title">{post.title}</h1>
       <p class="answer">{post.description}</p>
       <p class="small">Published {post.datePublished} · Last modified {post.dateModified}</p>
+      <img class="article-hero-image" src={post.image} alt={post.imageAlt} width="1600" height="900" />
     </div>
   </article>
 
   <section class="band" aria-labelledby="article-body">
-    <div class="inner grid-2">
+    <div class="inner grid-2 article-grid">
       <div class="stack">
         <h2 id="article-body">Key Takeaways</h2>
         {post.sections.map((section, index) => (
@@ -41,13 +44,31 @@ const jsonLd = graph(
             )}
           </section>
         ))}
-        <div class="ad-slot ad-slot-incontent"><!-- AD SLOT 3: In-Content Native --></div>
+        <div class="ad-slot ad-slot-incontent ad-slot-compact"><!-- AD SLOT 3: In-Content Native --></div>
         <h3>Official Source Check</h3>
         <p>Before making a life-safety decision, check weather.gov, your local emergency management agency, and current NHC advisories.</p>
       </div>
-      <aside class="panel">
-        <h2>NOAA/NHC Source Note</h2>
-        <p>This article is informational and uses official weather agencies as source context. It is not an official forecast, evacuation order, or emergency instruction.</p>
+      <aside class="stack">
+        <section class="panel">
+          <h2>NOAA/NHC Source Note</h2>
+          <p>This article is informational and uses official weather agencies as source context. It is not an official forecast, evacuation order, or emergency instruction.</p>
+        </section>
+        <section class="panel">
+          <h2>Decision Tools</h2>
+          <ul class="check-list">
+            <li><a href="/tools/preparedness-checklist/">Preparedness checklist generator</a></li>
+            <li><a href="/tools/evacuation-decision-helper/">Evacuation decision helper</a></li>
+            <li><a href="/tracker/">Live hurricane tracker</a></li>
+          </ul>
+        </section>
+        <section class="panel">
+          <h2>Related Articles</h2>
+          <ul class="check-list">
+            {relatedPosts.map((item) => (
+              <li><a href={`/blog/${item.slug}/`}>{item.title}</a></li>
+            ))}
+          </ul>
+        </section>
       </aside>
     </div>
   </section>

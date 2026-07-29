@@ -8,11 +8,13 @@ type Props = {
   siteName: string;
   jsonLd?: object;
   lastModified?: string;
+  image?: string;
 };
 
-const { title, description, canonical, siteName, jsonLd, lastModified } = Astro.props;
+const { title, description, canonical, siteName, jsonLd, lastModified, image } = Astro.props;
 const modified = lastModified ?? new Date().toISOString();
 const schema = jsonLd ?? graph(websiteSchema(), organizationSchema());
+const absoluteImage = image ? new URL(image, canonical).href : undefined;
 ---
 <title>{title}</title>
 <meta name="description" content={description} />
@@ -24,6 +26,8 @@ const schema = jsonLd ?? graph(websiteSchema(), organizationSchema());
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:site_name" content={siteName} />
+{absoluteImage && <meta property="og:image" content={absoluteImage} />}
 <meta property="article:modified_time" content={modified} />
 <meta name="twitter:card" content="summary_large_image" />
+{absoluteImage && <meta name="twitter:image" content={absoluteImage} />}
 <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />

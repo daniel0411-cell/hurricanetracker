@@ -11,6 +11,7 @@ type Props = {
   canonical?: string;
   jsonLd?: object;
   lastModified?: string;
+  image?: string;
   showTopAd?: boolean;
   showBottomAd?: boolean;
 };
@@ -21,6 +22,7 @@ const {
   canonical = Astro.url.href,
   jsonLd,
   lastModified,
+  image,
   showTopAd = false,
   showBottomAd = false
 } = Astro.props;
@@ -38,6 +40,7 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
       siteName={site.name}
       jsonLd={jsonLd}
       lastModified={lastModified}
+      image={image}
     />
     <link rel="manifest" href="/manifest.webmanifest" />
   </head>
@@ -175,6 +178,13 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
   .ad-slot-bottom,
   .ad-slot-incontent {
     min-height: 250px;
+  }
+
+  .ad-slot-compact {
+    min-height: 0;
+    height: 1px;
+    margin: 24px 0;
+    opacity: 0.55;
   }
 
   main {
@@ -315,6 +325,40 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
   .panel,
   .post-card {
     padding: clamp(18px, 3vw, 28px);
+  }
+
+  .post-image,
+  .article-hero-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #dcecef;
+  }
+
+  .post-image {
+    margin: 0 0 16px;
+  }
+
+  .article-hero-image {
+    margin-top: 28px;
+    box-shadow: var(--shadow);
+  }
+
+  .panel h2,
+  .post-card h2 {
+    font-size: clamp(1.35rem, 2.2vw, 2rem);
+  }
+
+  .article-grid {
+    align-items: start;
+  }
+
+  .article-grid > aside {
+    align-self: start;
   }
 
   .stack {

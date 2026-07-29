@@ -47,12 +47,14 @@ export function articleSchema(params: {
   description: string;
   url: string;
   dateModified?: string;
+  image?: string;
 }) {
   return {
     "@type": "Article",
     headline: params.title,
     description: params.description,
     url: params.url,
+    image: params.image,
     dateModified: params.dateModified ?? new Date().toISOString(),
     author: organizationSchema(),
     publisher: organizationSchema(),

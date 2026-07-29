@@ -28,6 +28,7 @@ const jsonLd = graph(
       <h2 id="post-list-heading">Latest Articles</h2>
       {blogPosts.map((post) => (
         <article class="post-card">
+          <img class="post-image" src={post.image} alt={post.imageAlt} loading="lazy" width="1600" height="900" />
           <h3>{post.title}</h3>
           <p>{post.description}</p>
           <p class="small">Last modified {post.dateModified}</p>

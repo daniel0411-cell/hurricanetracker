@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Atlantic hurricane season outlook operations desk</title>
+  <desc id="desc">Editorial illustration of forecast monitors, Atlantic basin map lines, and emergency planning notes.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#cfe7ee"/><stop offset=".55" stop-color="#eef5f6"/><stop offset="1" stop-color="#f7fafb"/></linearGradient>
+    <linearGradient id="desk" x1="0" x2="1"><stop offset="0" stop-color="#20384d"/><stop offset="1" stop-color="#0e6f8f"/></linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <path d="M0 610 C260 560 380 660 620 615 C880 565 980 470 1230 505 C1390 528 1490 595 1600 570 L1600 900 L0 900 Z" fill="#d8e9eb"/>
+  <rect x="120" y="540" width="1360" height="260" rx="24" fill="url(#desk)"/>
+  <rect x="210" y="165" width="360" height="240" rx="18" fill="#17212b"/><rect x="630" y="120" width="420" height="285" rx="18" fill="#17212b"/><rect x="1110" y="165" width="300" height="240" rx="18" fill="#17212b"/>
+  <g fill="none" stroke="#74b7c9" stroke-width="5" opacity=".85">
+    <path d="M260 300 C330 230 450 230 520 300"/><path d="M250 335 C350 275 445 275 545 335"/><path d="M690 270 C780 170 930 170 1010 285"/><path d="M705 330 C825 250 925 260 1000 330"/><path d="M1155 270 C1220 215 1320 215 1375 282"/><path d="M1140 330 C1230 282 1305 288 1390 332"/>
+  </g>
+  <g fill="#fff" opacity=".88">
+    <rect x="260" y="610" width="270" height="120" rx="10"/><rect x="585" y="620" width="190" height="92" rx="10"/><rect x="825" y="596" width="220" height="128" rx="10"/>
+  </g>
+  <g fill="none" stroke="#c1442e" stroke-width="10" stroke-linecap="round"><path d="M780 250 c65-65 160-20 135 58 c-25 78-145 70-136-10 c8-70 88-98 150-54"/></g>
+  <circle cx="1270" cy="308" r="52" fill="#c1442e" opacity=".25"/><circle cx="1270" cy="308" r="22" fill="#c1442e" opacity=".55"/>
+</svg>
