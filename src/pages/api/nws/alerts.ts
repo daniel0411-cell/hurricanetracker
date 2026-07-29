@@ -73,7 +73,7 @@ export const GET: APIRoute = async ({ url }) => {
     const response = await fetch(source, {
       headers: {
         accept: "application/geo+json",
-        "user-agent": "HurricaneHub/0.1 (https://hurricanehub.pages.dev; weather-data@hurricanehub.pages.dev)"
+        "user-agent": "HurricaneHub/0.1 (https://www.hurricanetracker.cc; weather-data@hurricanetracker.cc)"
       }
     });
 

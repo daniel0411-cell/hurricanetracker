@@ -1,6 +1,6 @@
 export const site = {
   name: "HurricaneHub",
-  url: "https://hurricanehub.pages.dev",
+  url: "https://www.hurricanetracker.cc",
   description:
     "HurricaneHub tracks North American hurricanes, official warnings, risk windows, and evacuation decisions from NOAA, NHC, and NWS data.",
   sameAs: [

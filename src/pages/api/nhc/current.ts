@@ -50,7 +50,7 @@ export const GET: APIRoute = async () => {
     const response = await fetch(NHC_CURRENT_STORMS, {
       headers: {
         accept: "application/json",
-        "user-agent": "HurricaneHub/0.1 (https://hurricanehub.pages.dev; weather-data@hurricanehub.pages.dev)"
+        "user-agent": "HurricaneHub/0.1 (https://www.hurricanetracker.cc; weather-data@hurricanetracker.cc)"
       }
     });
 
