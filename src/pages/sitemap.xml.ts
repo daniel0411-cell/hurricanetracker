@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { blogPosts } from "../data/blog";
 import { site } from "../data/site";
+import { coastalStates } from "../data/states";
 
 const routes = [
   "",
@@ -9,6 +10,8 @@ const routes = [
   "preparedness/",
   "tools/",
   "tools/preparedness-checklist/",
+  "tools/evacuation-decision-helper/",
+  ...coastalStates.map((state) => `hurricane-tracker/${state.slug}/`),
   "blog/",
   ...blogPosts.map((post) => `blog/${post.slug}/`),
   "about/"

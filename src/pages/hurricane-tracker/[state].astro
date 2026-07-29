@@ -1,0 +1,171 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import Layout from "../../layouts/Layout.astro";
+import { faqs, site } from "../../data/site";
+import { getStateBySlug } from "../../data/states";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import type { NhcStorm, NwsAlert } from "../../lib/weather";
+
+type StormFeed = {
+  storms?: Array<NhcStorm & { summary?: string }>;
+  fetchedAt?: string;
+  updatedAt?: string;
+};
+
+type AlertFeed = {
+  alerts?: NwsAlert[];
+  decisionLevel?: string;
+  fetchedAt?: string;
+  updatedAt?: string;
+};
+
+const state = getStateBySlug(Astro.params.state);
+
+if (!state) {
+  return Astro.redirect("/tracker/");
+}
+
+async function loadJson<T>(path: string): Promise<T | null> {
+  try {
+    const response = await fetch(new URL(path, Astro.url));
+    if (!response.ok) {
+      console.error("HurricaneHub state tracker feed error", { path, status: response.status });
+      return null;
+    }
+    return await response.json() as T;
+  } catch (error) {
+    console.error("HurricaneHub state tracker feed failed", { path, error });
+    return null;
+  }
+}
+
+const [stormFeed, alertFeed] = await Promise.all([
+  loadJson<StormFeed>("/api/nhc/current.json"),
+  loadJson<AlertFeed>(`/api/nws/alerts.json?area=${state.code}`)
+]);
+
+const storms = stormFeed?.storms ?? [];
+const alerts = alertFeed?.alerts ?? [];
+const decisionLevel = alertFeed?.decisionLevel ?? (storms.length ? "Prepare" : "Monitor");
+const lastModified = alertFeed?.updatedAt ?? stormFeed?.updatedAt ?? new Date().toISOString();
+const title = `${state.name} Hurricane Tracker and Emergency Alerts`;
+const description = `Track ${state.name} hurricane risk with live NHC storm context, NWS alerts, and household emergency decision guidance for ${state.region}.`;
+const url = `${site.url}/hurricane-tracker/${state.slug}/`;
+const pageFaqs = [
+  {
+    question: `Is there an active hurricane threat for ${state.name}?`,
+    answer: `This page checks current NHC storm data and ${state.name} NWS alerts. Always confirm evacuation orders and shelter instructions with local emergency management.`
+  },
+  {
+    question: `What should ${state.name} households do when the decision level is Prepare?`,
+    answer: "Refill medications, photograph documents, fuel vehicles, charge battery packs, review evacuation zones, and finish storm shutters or window protection before warnings escalate."
+  },
+  ...faqs
+];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  faqSchema(pageFaqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="state-tracker-title">
+    <div class="inner">
+      <p class="eyebrow">{state.region} decision support</p>
+      <h1 id="state-tracker-title">{state.name} Hurricane Tracker and Emergency Alerts</h1>
+      <p class="answer">This page shows {state.name} hurricane risk using live NHC storm context, active NWS alerts, and a household decision level so residents can monitor, prepare, act, or leave using official warnings.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="current-situation">
+    <div class="inner grid-2">
+      <article class="panel">
+        <h2 id="current-situation">Current Situation</h2>
+        <div class="metric" style="margin-top: 16px;">
+          <strong>{decisionLevel}</strong>
+          <span>{state.name} decision level from NWS alerts and active NHC storm context</span>
+        </div>
+        <p class="source-note">Last checked: {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC</p>
+      </article>
+      <article class="panel">
+        <h2>Key {state.name} Risks</h2>
+        <ul class="check-list">
+          {state.risks.map((risk) => <li>{risk}</li>)}
+        </ul>
+        <p>{state.preparednessNote}</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="alerts-heading">
+    <div class="inner">
+      <h2 id="alerts-heading">Active {state.name} NWS Alerts</h2>
+      <div class="stack" style="margin-top: 18px;">
+        {alerts.length ? alerts.slice(0, 10).map((alert) => (
+          <article class="alert-row">
+            <header>
+              <h3>{alert.event}</h3>
+              <span class={alert.severity === "Severe" || alert.severity === "Extreme" ? "badge danger" : "badge warn"}>{alert.severity}</span>
+            </header>
+            <p>{alert.headline || alert.areaDesc}</p>
+            <p class="small">{alert.urgency} · {alert.certainty} · expires {alert.expires}</p>
+          </article>
+        )) : (
+          <article class="panel">
+            <h3>No Active {state.name} Alerts</h3>
+            <p>No active NWS alerts were returned for {state.name}. Treat this as a monitoring state, not an all-clear for your county or evacuation zone.</p>
+          </article>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="storm-heading">
+    <div class="inner grid-2">
+      <article>
+        <h2 id="storm-heading">NHC Storm Context</h2>
+        <div class="stack" style="margin-top: 18px;">
+          {storms.length ? storms.slice(0, 4).map((storm) => (
+            <article class="storm-row">
+              <header>
+                <h3>{storm.name ?? storm.id ?? "Active tropical system"}</h3>
+                <span class="badge warn">{storm.classification ?? "NHC"}</span>
+              </header>
+              <p>{storm.summary ?? "NHC advisory data loaded for this system."}</p>
+              <p class="small">Updated: {storm.lastUpdate ?? stormFeed?.fetchedAt ?? "pending"}</p>
+            </article>
+          )) : (
+            <article class="panel">
+              <h3>No Active NHC Storms</h3>
+              <p>No active NHC tropical cyclone is listed right now. Keep monitoring tropical outlooks during hurricane season because risk windows can change quickly.</p>
+            </article>
+          )}
+        </div>
+      </article>
+      <article class="panel">
+        <h2>County Planning Focus</h2>
+        <p>Start with these high-exposure counties and then confirm your exact evacuation zone, flood zone, and shelter options locally.</p>
+        <ul class="check-list">
+          {state.counties.map((county) => <li>{county} County</li>)}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="decision-table">
+    <div class="inner">
+      <h2 id="decision-table">Household Decision Guide</h2>
+      <table style="margin-top: 18px;">
+        <thead><tr><th>Level</th><th>What it means</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>Monitor</td><td>No active local warning returned.</td><td>Check official advisories twice daily during hurricane season.</td></tr>
+          <tr><td>Prepare</td><td>Storm context or watch-level hazards are present.</td><td>Finish supplies, documents, fuel, pet plans, and evacuation routes.</td></tr>
+          <tr><td>Act</td><td>Warning-level wind, flood, surge, or tornado hazards are possible.</td><td>Move vulnerable people early and follow county emergency instructions.</td></tr>
+          <tr><td>Leave</td><td>Evacuation, extreme wind, or life-threatening hazard language is present.</td><td>Follow official evacuation orders immediately if you can do so safely.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <FaqBlock faqs={pageFaqs} />
+</Layout>

@@ -2,6 +2,7 @@
 import FaqBlock from "../../components/FaqBlock.astro";
 import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
+import { coastalStates } from "../../data/states";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
 import type { NhcStorm, NwsAlert } from "../../lib/weather";
 
@@ -58,7 +59,23 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">NHC + NWS live data</p>
       <h1 id="tracker-title">Live Hurricane Tracker</h1>
-      <p class="answer">This page shows live hurricanes approaching North America, current NHC storm summaries, Alabama NWS alerts, and a decision level for emergency planning.</p>
+      <p class="answer">This page shows live hurricanes approaching North America, current NHC storm summaries, state NWS alerts, and decision-focused links for coastal households preparing for severe tropical weather.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="state-trackers-heading">
+    <div class="inner">
+      <h2 id="state-trackers-heading">Choose a State Hurricane Tracker</h2>
+      <p class="answer">Open a state page for local NWS alerts, county planning notes, source timestamps, and a Monitor/Prepare/Act/Leave decision guide.</p>
+      <div class="grid-3" style="margin-top: 18px;">
+        {coastalStates.map((state) => (
+          <article class="panel">
+            <h3>{state.name}</h3>
+            <p>{state.region}. Watch for {state.risks.slice(0, 2).join(" and ")}.</p>
+            <a href={`/hurricane-tracker/${state.slug}/`}>View {state.name} tracker</a>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -119,6 +136,7 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="alerts-heading">
     <div class="inner">
       <h2 id="alerts-heading">Alabama NWS Alerts</h2>
+      <p class="source-note">Alabama is shown as the default live example. Use the state tracker links above for other coastal states.</p>
       <div class="stack" style="margin-top: 18px;">
         {alerts.length ? alerts.slice(0, 10).map((alert) => (
           <article class="alert-row">

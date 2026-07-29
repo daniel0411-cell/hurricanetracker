@@ -1,0 +1,168 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import Layout from "../../layouts/Layout.astro";
+import { faqs, site } from "../../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+
+const title = "Hurricane Evacuation Decision Helper";
+const description = "Use a hurricane evacuation decision helper to sort household risk into Monitor, Prepare, Act, or Leave based on evacuation orders, surge zone, housing type, pets, and medical needs.";
+const url = `${site.url}/tools/evacuation-decision-helper/`;
+const lastModified = new Date().toISOString();
+const pageFaqs = [
+  {
+    question: "Should I evacuate for a hurricane watch?",
+    answer:
+      "A watch means hurricane conditions are possible. Evacuate during a watch if your local officials tell you to leave, you live in a surge zone, or your household needs extra travel time for medical, mobility, pet, or transportation reasons."
+  },
+  {
+    question: "What is the safest evacuation decision?",
+    answer:
+      "The safest decision is the one that follows local emergency management orders early enough for your household to travel before roads, fuel, shelters, or medical support become limited."
+  },
+  ...faqs
+];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  faqSchema(pageFaqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified} showBottomAd={true}>
+  <section class="band" aria-labelledby="helper-title">
+    <div class="inner">
+      <p class="eyebrow">Household decision support</p>
+      <h1 id="helper-title">Hurricane Evacuation Decision Helper</h1>
+      <p class="answer">This tool helps households turn hurricane watches, warnings, surge risk, housing vulnerability, pets, and medical needs into a Monitor, Prepare, Act, or Leave planning level.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="helper-form">
+    <div class="inner grid-2">
+      <form class="panel decision-tool" id="evacuation-tool">
+        <h2 id="helper-form">Check Your Decision Level</h2>
+
+        <label>
+          Official local status
+          <select name="officialStatus">
+            <option value="0">No watch, warning, or evacuation order</option>
+            <option value="1">Hurricane or tropical storm watch</option>
+            <option value="2">Hurricane, storm surge, flood, or tornado warning</option>
+            <option value="3">Mandatory evacuation order</option>
+          </select>
+        </label>
+
+        <label>
+          Home location
+          <select name="locationRisk">
+            <option value="0">Inland, outside known flood or surge zone</option>
+            <option value="1">Coastal county or low-lying area</option>
+            <option value="2">Flood zone, barrier island, bay, river, or surge zone</option>
+          </select>
+        </label>
+
+        <label>
+          Housing type
+          <select name="housingRisk">
+            <option value="0">Site-built home in good condition</option>
+            <option value="1">Older home, apartment, or many trees nearby</option>
+            <option value="2">Mobile home, RV, boat, or temporary housing</option>
+          </select>
+        </label>
+
+        <fieldset>
+          <legend>Household needs</legend>
+          <label><input type="checkbox" name="medical" /> Medical equipment, mobility needs, or refrigerated medicine</label>
+          <label><input type="checkbox" name="pets" /> Pets or livestock need transport planning</label>
+          <label><input type="checkbox" name="transport" /> Limited vehicle access, fuel, or long evacuation route</label>
+        </fieldset>
+
+        <button type="submit">Calculate Decision</button>
+      </form>
+
+      <article class="panel" aria-live="polite">
+        <h2>Recommended Planning Level</h2>
+        <div class="metric" style="margin-top: 14px;">
+          <strong id="decision-level">Monitor</strong>
+          <span id="decision-summary">No high-risk choices selected yet. Keep checking official NHC/NWS and local emergency updates.</span>
+        </div>
+        <h3 style="margin-top: 18px;">Action List</h3>
+        <ul class="check-list" id="decision-actions">
+          <li>Check your county emergency management page.</li>
+          <li>Review your evacuation zone and shelter options.</li>
+          <li>Keep a 3-day water, food, medicine, and document kit ready.</li>
+        </ul>
+        <p class="source-note">This tool is a planning aid only. Evacuation orders and shelter rules come from local officials and weather.gov alerts.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="method-heading">
+    <div class="inner">
+      <h2 id="method-heading">How the Decision Helper Works</h2>
+      <table style="margin-top: 18px;">
+        <thead><tr><th>Score</th><th>Level</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>0-1</td><td>Monitor</td><td>Stay aware and keep supplies ready.</td></tr>
+          <tr><td>2-3</td><td>Prepare</td><td>Finish supplies, fuel, documents, and route planning.</td></tr>
+          <tr><td>4-5</td><td>Act</td><td>Move vulnerable people early and follow local instructions.</td></tr>
+          <tr><td>6+</td><td>Leave</td><td>Use official evacuation routes if officials order or your household risk is high.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <FaqBlock faqs={pageFaqs} />
+</Layout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("#evacuation-tool");
+  const levelEl = document.querySelector<HTMLElement>("#decision-level");
+  const summaryEl = document.querySelector<HTMLElement>("#decision-summary");
+  const actionsEl = document.querySelector<HTMLElement>("#decision-actions");
+
+  const recommendations = [
+    {
+      max: 1,
+      level: "Monitor",
+      summary: "Keep checking official alerts and make sure your hurricane kit is ready.",
+      actions: ["Check NHC and NWS updates twice daily.", "Confirm your county evacuation zone.", "Charge phones and battery packs."]
+    },
+    {
+      max: 3,
+      level: "Prepare",
+      summary: "Finish household preparations now, before watches become warnings or roads become crowded.",
+      actions: ["Fuel your vehicle.", "Pack documents, medicine, water, food, and pet supplies.", "Confirm where you would go if conditions worsen."]
+    },
+    {
+      max: 5,
+      level: "Act",
+      summary: "Your risk profile needs early action, especially for vulnerable people, pets, or low-lying housing.",
+      actions: ["Move medically vulnerable people early.", "Secure windows, outdoor items, and vehicles.", "Follow county alerts and be ready to leave before conditions deteriorate."]
+    },
+    {
+      max: 99,
+      level: "Leave",
+      summary: "Follow official evacuation orders immediately if you can do so safely. Do not wait for peak wind or flooding.",
+      actions: ["Use official evacuation routes.", "Bring medication, IDs, documents, chargers, pets, and cash.", "Tell a contact where you are going and avoid flooded roads."]
+    }
+  ];
+
+  function render(score: number) {
+    const recommendation = recommendations.find((item) => score <= item.max) ?? recommendations[0];
+    if (!levelEl || !summaryEl || !actionsEl || !recommendation) return;
+    levelEl.textContent = recommendation.level;
+    summaryEl.textContent = recommendation.summary;
+    actionsEl.innerHTML = recommendation.actions.map((action) => `<li>${action}</li>`).join("");
+  }
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const baseScore =
+      Number(data.get("officialStatus") ?? 0) +
+      Number(data.get("locationRisk") ?? 0) +
+      Number(data.get("housingRisk") ?? 0);
+    const needsScore = ["medical", "pets", "transport"].reduce((total, key) => total + (data.get(key) ? 1 : 0), 0);
+    render(baseScore + needsScore);
+  });
+</script>

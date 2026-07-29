@@ -3,6 +3,7 @@ import FaqBlock from "../components/FaqBlock.astro";
 import LiveDashboard from "../components/LiveDashboard.astro";
 import Layout from "../layouts/Layout.astro";
 import { differentiators, faqs, site } from "../data/site";
+import { coastalStates } from "../data/states";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
 
 const title = "North America Hurricane Tracker and Emergency Decision Hub";
@@ -31,6 +32,45 @@ const jsonLd = graph(
   </section>
 
   <LiveDashboard />
+
+  <section class="band" aria-labelledby="state-heading">
+    <div class="inner">
+      <p class="eyebrow">Choose your state</p>
+      <h2 id="state-heading">State Hurricane Trackers</h2>
+      <p class="answer">Start with your state page to combine official NHC storm context, active NWS alerts, county planning notes, and a household decision level.</p>
+      <div class="grid-3" style="margin-top: 18px;">
+        {coastalStates.map((state) => (
+          <article class="panel">
+            <h3>{state.name} Hurricane Tracker</h3>
+            <p>{state.region}. Key risks include {state.risks.slice(0, 3).join(", ")}.</p>
+            <a href={`/hurricane-tracker/${state.slug}/`}>Open {state.name}</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="tools-heading">
+    <div class="inner grid-2">
+      <article>
+        <p class="eyebrow">Emergency decisions</p>
+        <h2 id="tools-heading">Tools That Turn Alerts Into Actions</h2>
+        <p>HurricaneHub is built around household decisions: what to pack, when to prepare, whether to leave early, and which official alert should change your plan.</p>
+      </article>
+      <div class="stack">
+        <article class="panel">
+          <h3>Preparedness Checklist Generator</h3>
+          <p>Create a kit list for 1-4 people, with optional pet supplies and document reminders.</p>
+          <a href="/tools/preparedness-checklist/">Build checklist</a>
+        </article>
+        <article class="panel">
+          <h3>Evacuation Decision Helper</h3>
+          <p>Answer a few household questions to sort your situation into Monitor, Prepare, Act, or Leave.</p>
+          <a href="/tools/evacuation-decision-helper/">Check decision level</a>
+        </article>
+      </div>
+    </div>
+  </section>
 
   <section class="band" aria-labelledby="advantage-heading">
     <div class="inner">
