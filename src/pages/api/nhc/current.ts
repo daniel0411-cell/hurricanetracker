@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro";
+import { env } from "cloudflare:workers";
 import { summarizeStorm, type NhcStorm } from "../../../lib/weather";
 
 const NHC_CURRENT_STORMS = "https://www.nhc.noaa.gov/CurrentStorms.json";
@@ -10,8 +11,8 @@ const CORS_HEADERS = {
   "access-control-allow-headers": "content-type"
 };
 
-function getCache(locals: App.Locals) {
-  return locals.runtime?.env?.HURRICANEHUB_CACHE;
+function getCache() {
+  return env.HURRICANEHUB_CACHE;
 }
 
 function jsonResponse(body: unknown, init: ResponseInit = {}) {
@@ -31,8 +32,8 @@ export const OPTIONS: APIRoute = () =>
     headers: CORS_HEADERS
   });
 
-export const GET: APIRoute = async ({ locals }) => {
-  const cache = getCache(locals);
+export const GET: APIRoute = async () => {
+  const cache = getCache();
   const cached = await cache?.get(CACHE_KEY);
   if (cached) {
     return new Response(cached, {

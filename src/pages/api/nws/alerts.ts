@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro";
+import { env } from "cloudflare:workers";
 import { decisionLevel, type NwsAlert } from "../../../lib/weather";
 
 const VALID_AREA = /^[A-Z]{2}$/;
@@ -9,8 +10,8 @@ const CORS_HEADERS = {
   "access-control-allow-headers": "content-type"
 };
 
-function getCache(locals: App.Locals) {
-  return locals.runtime?.env?.HURRICANEHUB_CACHE;
+function getCache() {
+  return env.HURRICANEHUB_CACHE;
 }
 
 function jsonResponse(body: unknown, init: ResponseInit = {}) {
@@ -46,13 +47,13 @@ export const OPTIONS: APIRoute = () =>
     headers: CORS_HEADERS
   });
 
-export const GET: APIRoute = async ({ locals, url }) => {
+export const GET: APIRoute = async ({ url }) => {
   const area = (url.searchParams.get("area") ?? url.searchParams.get("state") ?? "FL").trim().toUpperCase();
   if (!VALID_AREA.test(area)) {
     return jsonResponse({ error: "Use a two-letter US state or territory area code." }, { status: 400 });
   }
 
-  const cache = getCache(locals);
+  const cache = getCache();
   const cacheKey = `nws:alerts:${area}`;
   const cached = await cache?.get(cacheKey);
   if (cached) {

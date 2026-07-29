@@ -8,6 +8,7 @@ interface ImportMetaEnv {
 interface RuntimeEnv {
   HURRICANEHUB_CACHE?: KVNamespace;
   HURRICANEHUB_ASSETS?: R2Bucket;
+  HURRICANEHUB_STATIC?: Fetcher;
 }
 
 declare namespace App {
@@ -15,6 +16,14 @@ declare namespace App {
     runtime?: {
       env?: RuntimeEnv;
     };
+  }
+}
+
+declare namespace Cloudflare {
+  interface Env {
+    HURRICANEHUB_CACHE?: KVNamespace;
+    HURRICANEHUB_ASSETS?: R2Bucket;
+    HURRICANEHUB_STATIC: Fetcher;
   }
 }
 

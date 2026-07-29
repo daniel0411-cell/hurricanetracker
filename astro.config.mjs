@@ -5,7 +5,8 @@ export default defineConfig({
   site: "https://hurricanehub.pages.dev",
   output: "server",
   adapter: cloudflare({
-    imageService: "compile"
+    imageService: "compile",
+    inspectorPort: false
   }),
   build: {
     format: "directory"

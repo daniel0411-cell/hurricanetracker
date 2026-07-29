@@ -1,0 +1,22 @@
+name = "hurricanehub"
+main = "./dist/server/entry.mjs"
+compatibility_date = "2026-07-28"
+compatibility_flags = ["nodejs_compat"]
+no_bundle = true
+workers_dev = true
+preview_urls = true
+
+rules = [
+  { type = "ESModule", globs = ["**/*.js", "**/*.mjs"] }
+]
+
+[assets]
+binding = "HURRICANEHUB_STATIC"
+directory = "./dist/client"
+
+[[kv_namespaces]]
+binding = "SESSION"
+
+[[kv_namespaces]]
+binding = "HURRICANEHUB_CACHE"
+id = "0d55cd1eaac145b49e6367ff4c89397d"

@@ -1,16 +1,23 @@
 name = "hurricanehub"
 compatibility_date = "2026-07-28"
+compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "./dist"
 
-# Cloudflare Pages runs the Astro server bundle as Pages Functions.
-# Replace placeholder IDs after creating the namespaces in your account.
+[assets]
+binding = "HURRICANEHUB_STATIC"
+
+# Cloudflare adapter can auto-provision this SESSION binding.
+[[kv_namespaces]]
+binding = "SESSION"
+
+# NOAA/NHC/NWS response cache.
 [[kv_namespaces]]
 binding = "HURRICANEHUB_CACHE"
-id = "replace-with-production-kv-id"
-preview_id = "replace-with-preview-kv-id"
+id = "0d55cd1eaac145b49e6367ff4c89397d"
 
-# Reserved for future static map tiles, PDFs, generated preparedness assets, or media.
-[[r2_buckets]]
-binding = "HURRICANEHUB_ASSETS"
-bucket_name = "hurricanehub-assets"
-preview_bucket_name = "hurricanehub-assets-preview"
+# R2 is reserved for future static map tiles, PDFs, and media bundles.
+# The current Cloudflare account returned API code 10042: R2 is not enabled.
+# After enabling R2 in the Dashboard, create the bucket and uncomment:
+# [[r2_buckets]]
+# binding = "HURRICANEHUB_ASSETS"
+# bucket_name = "hurricanehub-assets"
