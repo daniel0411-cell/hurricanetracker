@@ -6,6 +6,11 @@ no_bundle = true
 workers_dev = true
 preview_urls = true
 
+routes = [
+  { pattern = "hurricanetracker.cc/*", zone_name = "hurricanetracker.cc" },
+  { pattern = "www.hurricanetracker.cc/*", zone_name = "hurricanetracker.cc" }
+]
+
 rules = [
   { type = "ESModule", globs = ["**/*.js", "**/*.mjs"] }
 ]
