@@ -45,6 +45,7 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
       image={image}
     />
     <link rel="manifest" href="/manifest.webmanifest" />
+    <slot name="head" />
   </head>
   <body>
     <Header />

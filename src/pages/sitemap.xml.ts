@@ -9,6 +9,7 @@ const updated = new Date().toISOString();
 const routes = [
   { path: "", lastmod: updated, priority: "1.0" },
   { path: "tracker/", lastmod: updated, priority: "0.8" },
+  { path: "radar/", lastmod: updated, priority: "0.8" },
   { path: "alerts/", lastmod: updated, priority: "0.8" },
   { path: "preparedness/", lastmod: updated, priority: "0.8" },
   { path: "tools/", lastmod: updated, priority: "0.8" },
