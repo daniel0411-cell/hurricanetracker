@@ -292,6 +292,40 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
     gap: 12px;
   }
 
+  .compact-dashboard {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .decision-card {
+    display: grid;
+    gap: 16px;
+    align-self: stretch;
+    padding: clamp(20px, 3vw, 30px);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow);
+  }
+
+  .decision-card h2 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    color: #fff;
+  }
+
+  .decision-card p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .decision-card .metric {
+    min-height: 92px;
+  }
+
+  .decision-card .metric strong {
+    font-size: clamp(1.4rem, 3vw, 2.1rem);
+  }
+
   .metric {
     min-height: 116px;
     padding: 16px;
@@ -567,6 +601,10 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
 
     .dashboard {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .compact-dashboard {
+      grid-template-columns: 1fr;
     }
   }
 

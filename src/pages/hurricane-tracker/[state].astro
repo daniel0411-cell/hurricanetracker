@@ -51,6 +51,44 @@ const lastModified = alertFeed?.updatedAt ?? stormFeed?.updatedAt ?? new Date().
 const title = `${state.name} Hurricane Tracker and Emergency Alerts`;
 const description = `Track ${state.name} hurricane risk with live NHC storm context, NWS alerts, and household emergency decision guidance for ${state.region}.`;
 const url = `${site.url}/hurricane-tracker/${state.slug}/`;
+const localActionNotes: Record<string, { headline: string; points: string[]; aside: string }> = {
+  florida: {
+    headline: "Florida priority actions",
+    points: [
+      "Check whether your home is in a storm surge, flood, or evacuation zone before the forecast cone changes.",
+      "Expect bridge, causeway, and fuel constraints to matter earlier than inland states.",
+      "Have a route that avoids low-lying roads and keeps medical or pet needs in the car."
+    ],
+    aside: "Florida households should treat surge and evacuation timing as separate decisions."
+  },
+  texas: {
+    headline: "Texas priority actions",
+    points: [
+      "Plan for long-drive evacuations, bay flooding, and the possibility of power outages lasting longer than the wind event.",
+      "Make sure fuel, cash, chargers, and a cooler plan are ready before traffic backs up.",
+      "If you rely on generators, keep them outside and away from enclosed spaces."
+    ],
+    aside: "Texas planning should combine coastal surge with inland rainfall and outage risk."
+  },
+  louisiana: {
+    headline: "Louisiana priority actions",
+    points: [
+      "Monitor levee, surge, and road-closure conditions separately because they can diverge fast.",
+      "Start evacuation decisions early if you live in a low-lying parish or mobile home.",
+      "Use one folder for documents, prescriptions, and insurance records."
+    ],
+    aside: "Louisiana households should not wait for peak wind if the route can close first."
+  }
+};
+const localAction = localActionNotes[state.slug] ?? {
+  headline: `${state.name} priority actions`,
+  points: [
+    "Confirm your evacuation zone and shelter option with local emergency management.",
+    "Match the current alert level to your household mobility, power dependency, and flood exposure.",
+    "Treat the forecast as a moving target and decide earlier than the county deadline if you need extra time."
+  ],
+  aside: `${state.name} planning should pair NWS alerts with county instructions and route checks.`
+};
 const pageFaqs = [
   {
     question: `Is there an active hurricane threat for ${state.name}?`,
@@ -93,6 +131,22 @@ const jsonLd = graph(
           {state.risks.map((risk) => <li>{risk}</li>)}
         </ul>
         <p>{state.preparednessNote}</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="local-actions">
+    <div class="inner grid-2">
+      <article class="panel">
+        <h2 id="local-actions">{localAction.headline}</h2>
+        <ul class="check-list">
+          {localAction.points.map((point) => <li>{point}</li>)}
+        </ul>
+      </article>
+      <article class="panel">
+        <h2>Why it matters</h2>
+        <p>{localAction.aside}</p>
+        <p>Use this page together with the official state and county emergency management site. HurricaneHub is strongest when the alert feed, the storm context, and the route decision all agree.</p>
       </article>
     </div>
   </section>

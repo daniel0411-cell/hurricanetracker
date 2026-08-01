@@ -5,33 +5,108 @@ import Layout from "../layouts/Layout.astro";
 import { differentiators, faqs, site } from "../data/site";
 import { coastalStates } from "../data/states";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
+import type { NhcStorm, NwsAlert } from "../lib/weather";
 
 const title = "North America Hurricane Tracker and Emergency Decision Hub";
 const description = "Track active North American hurricanes, official NWS alerts, evacuation decision levels, and preparedness actions from NOAA, NHC, and NWS data.";
+
+type StormFeed = {
+  storms?: Array<NhcStorm & { summary?: string }>;
+  fetchedAt?: string;
+  updatedAt?: string;
+};
+
+type AlertFeed = {
+  alerts?: NwsAlert[];
+  decisionLevel?: string;
+  fetchedAt?: string;
+  updatedAt?: string;
+};
+
+async function loadJson<T>(path: string): Promise<T | null> {
+  try {
+    const response = await fetch(new URL(path, Astro.url));
+    if (!response.ok) {
+      console.error("HurricaneHub home feed error", { path, status: response.status });
+      return null;
+    }
+    return await response.json() as T;
+  } catch (error) {
+    console.error("HurricaneHub home feed failed", { path, error });
+    return null;
+  }
+}
+
+const [stormFeed, floridaAlertFeed] = await Promise.all([
+  loadJson<StormFeed>("/api/nhc/current.json"),
+  loadJson<AlertFeed>("/api/nws/alerts.json?area=FL")
+]);
+
+const storms = stormFeed?.storms ?? [];
+const floridaAlerts = floridaAlertFeed?.alerts ?? [];
+const featuredDecisionLevel = floridaAlertFeed?.decisionLevel ?? (storms.length ? "Prepare" : "Monitor");
+const lastModified = floridaAlertFeed?.updatedAt ?? stormFeed?.updatedAt ?? new Date().toISOString();
+const nextAction =
+  featuredDecisionLevel === "Leave"
+    ? "Follow local evacuation orders now."
+    : featuredDecisionLevel === "Act"
+      ? "Move vulnerable people and finish protective actions."
+      : featuredDecisionLevel === "Prepare"
+        ? "Finish supplies, documents, fuel, and route planning."
+        : "Monitor official advisories and confirm your zone.";
+
 const jsonLd = graph(
   websiteSchema(),
-  articleSchema({ title, description, url: site.url }),
+  articleSchema({ title, description, url: site.url, dateModified: lastModified }),
   faqSchema(faqs)
 );
 ---
-<Layout title={title} description={description} canonical={site.url} jsonLd={jsonLd} showTopAd={true}>
+<Layout title={title} description={description} canonical={site.url} jsonLd={jsonLd} lastModified={lastModified} showTopAd={true}>
   <section class="hero band" aria-labelledby="home-title">
     <div class="inner hero-grid">
       <div>
         <p class="eyebrow">North America hurricane operations</p>
         <h1 id="home-title">HurricaneHub</h1>
-        <p class="answer">HurricaneHub shows active NHC storms, state NWS warnings, and a practical decision level so coastal households can monitor, prepare, act, or leave using official weather data and local emergency orders.</p>
+        <p class="answer">HurricaneHub shows live hurricanes approaching North America, official NHC storm context, state NWS warnings, and emergency decision tools so coastal households can monitor, prepare, act, or leave with fewer tabs open.</p>
       </div>
-      <div class="dashboard" aria-label="Competitive positioning">
-        <div class="metric"><strong>NHC</strong><span>current storm feed</span></div>
-        <div class="metric"><strong>NWS</strong><span>state alerts</span></div>
-        <div class="metric"><strong>KV</strong><span>edge cache</span></div>
-        <div class="metric"><strong>R2</strong><span>asset store ready</span></div>
+      <div class="decision-card" aria-label="Current emergency decision snapshot">
+        <p class="eyebrow">Current snapshot</p>
+        <h2>{featuredDecisionLevel}</h2>
+        <p>{nextAction}</p>
+        <div class="dashboard compact-dashboard" aria-label="Current official feed metrics">
+          <div class="metric"><strong>{storms.length}</strong><span>active NHC systems</span></div>
+          <div class="metric"><strong>{floridaAlerts.length}</strong><span>Florida NWS alerts</span></div>
+        </div>
+        <p class="source-note">Official-feed sample last checked {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC.</p>
       </div>
     </div>
   </section>
 
   <LiveDashboard />
+
+  <section class="band" aria-labelledby="quick-actions-heading">
+    <div class="inner">
+      <p class="eyebrow">5-second decision path</p>
+      <h2 id="quick-actions-heading">What To Do First</h2>
+      <div class="grid-3" style="margin-top: 18px;">
+        <article class="panel">
+          <span class="badge danger">Leave</span>
+          <h3>Evacuation order or surge zone?</h3>
+          <p>Do not wait for the map to look worse. Follow county orders, move early if anyone depends on power or medical equipment, and keep routes flexible.</p>
+        </article>
+        <article class="panel">
+          <span class="badge warn">Act</span>
+          <h3>Warning-level wind, surge, flood, or tornado alert?</h3>
+          <p>Finish window protection, bring in loose items, charge phones, move vehicles, and check shelter rules before conditions deteriorate.</p>
+        </article>
+        <article class="panel">
+          <span class="badge">Monitor</span>
+          <h3>No active local warning?</h3>
+          <p>Use the tracker and state page as a watch desk: confirm your zone, review the kit list, and check official advisories twice daily during hurricane season.</p>
+        </article>
+      </div>
+    </div>
+  </section>
 
   <section class="band" aria-labelledby="state-heading">
     <div class="inner">
