@@ -45,13 +45,30 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
       image={image}
     />
     <link rel="manifest" href="/manifest.webmanifest" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      is:inline
+      defer
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      crossorigin=""
+    ></script>
     <slot name="head" />
   </head>
-  <body>
+  <body class="site-body flex flex-col min-h-screen">
     <Header />
     <Disclaimer />
     {showTopAd && <div class="ad-slot ad-slot-top"><!-- AD SLOT 1: 728x90 Desktop / 320x100 Mobile --></div>}
-    <main>
+    <main class="flex-grow">
       <slot />
       {showBottomAd && <div class="ad-slot ad-slot-bottom"><!-- AD SLOT 2: 300x250 Rectangle --></div>}
     </main>
@@ -84,6 +101,47 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
     margin: 0;
     background: var(--surface);
     color: var(--ink);
+  }
+
+  .site-body,
+  .flex {
+    display: flex;
+  }
+
+  .flex-col {
+    flex-direction: column;
+  }
+
+  .min-h-screen {
+    min-height: 100vh;
+  }
+
+  .flex-grow {
+    flex-grow: 1;
+  }
+
+  .w-full {
+    width: 100%;
+  }
+
+  .h-\[70vh\] {
+    height: 70vh;
+  }
+
+  .bg-red-100 {
+    background: #fee2e2;
+  }
+
+  .p-2 {
+    padding: 0.5rem;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-sm {
+    font-size: 0.875rem;
   }
 
   a {
