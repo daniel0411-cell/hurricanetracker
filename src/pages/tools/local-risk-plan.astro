@@ -1,0 +1,67 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import LocationRiskPlanner from "../../components/LocationRiskPlanner.astro";
+import Layout from "../../layouts/Layout.astro";
+import { faqs, site } from "../../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+
+const title = "Local Hurricane Risk and 72-Hour Action Plan";
+const description = "Check local hurricane risk by ZIP code or state, see active NWS alerts, understand the main hazard type, and generate a 72/48/24-hour household action plan.";
+const url = `${site.url}/tools/local-risk-plan/`;
+const lastModified = site.contentLastModified;
+const pageFaqs = [
+  {
+    question: "Does a ZIP code result show my exact evacuation zone?",
+    answer:
+      "No. The ZIP code lookup identifies the state for a state-level NWS alert screen. County evacuation zones, flood zones, shelter rules, and evacuation orders must be verified with local emergency management."
+  },
+  {
+    question: "What does the Monitor, Prepare, Act, or Leave level mean?",
+    answer:
+      "Monitor means no high-priority alert was returned. Prepare means a watch, tropical system, or lower-level hazard needs supplies and route planning. Act means warning-level hazards require immediate protective actions. Leave means evacuation or extreme hazard language requires following official instructions now."
+  },
+  {
+    question: "When should I follow the action plan?",
+    answer:
+      "Use the plan as a preparation sequence, but official county evacuation orders and NWS instructions always take priority. If local officials say leave, do not wait for the 72-hour sequence to finish."
+  },
+  ...faqs
+];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  faqSchema(pageFaqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="risk-page-title">
+    <div class="inner">
+      <p class="eyebrow">Emergency decision tool</p>
+      <h1 id="risk-page-title">Local Hurricane Risk and 72-Hour Action Plan</h1>
+      <p class="answer">Check your ZIP code or state to see active NWS alerts, the main hazard types, and a practical 72/48/24-hour action plan for your household.</p>
+    </div>
+  </section>
+
+  <LocationRiskPlanner initialState={Astro.url.searchParams.get("state") ?? "FL"} />
+
+  <section class="band" aria-labelledby="method-title">
+    <div class="inner grid-2">
+      <article class="panel">
+        <h2 id="method-title">How This Screen Works</h2>
+        <p>HurricaneHub resolves a ZIP code to its state, requests the current active NWS alerts for that state, and translates the returned alert language into a household planning level.</p>
+        <p class="source-note">This is a screening tool, not a replacement for a county evacuation map, local emergency management order, or official weather.gov instruction.</p>
+      </article>
+      <article class="panel">
+        <h2>Decision Rules</h2>
+        <ul class="check-list">
+          <li>Evacuation or extreme wind language: Leave</li>
+          <li>Hurricane, surge, flood, or tornado warning: Act</li>
+          <li>Watch, tropical system, or severe hazard: Prepare</li>
+          <li>No high-priority alert returned: Monitor</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <FaqBlock faqs={pageFaqs} />
+</Layout>

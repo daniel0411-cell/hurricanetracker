@@ -314,6 +314,23 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
     font-size: clamp(1.05rem, 2vw, 1.25rem);
   }
 
+  .action-link {
+    min-height: 42px;
+    color: #fff;
+    background: var(--signal);
+    border-radius: 6px;
+    align-items: center;
+    padding: 0 14px;
+    font-weight: 800;
+    text-decoration: none;
+    display: inline-flex;
+  }
+
+  .action-link:hover,
+  .action-link:focus-visible {
+    background: #9f2d1f;
+  }
+
   .toolbar,
   .panel,
   .metric,

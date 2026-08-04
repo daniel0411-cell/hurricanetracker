@@ -29,6 +29,7 @@ export type NwsAlert = {
 };
 
 export type DecisionLevel = "Monitor" | "Prepare" | "Act" | "Leave";
+export type AlertRisk = "Evacuation" | "Storm surge" | "Hurricane wind" | "Flooding" | "Tornado" | "Tropical storm" | "Other";
 
 export function decisionLevel(alerts: NwsAlert[], storms: NhcStorm[]): DecisionLevel {
   const joined = alerts.map((alert) => `${alert.event} ${alert.severity} ${alert.urgency}`).join(" ");
@@ -36,6 +37,21 @@ export function decisionLevel(alerts: NwsAlert[], storms: NhcStorm[]): DecisionL
   if (/Hurricane|Storm Surge|Flash Flood Warning|Tornado Warning|Extreme/i.test(joined)) return "Act";
   if (/Tropical Storm|Flood Watch|Storm Surge Watch|Severe/i.test(joined) || storms.length > 0) return "Prepare";
   return "Monitor";
+}
+
+export function alertRisk(alert: Pick<NwsAlert, "event" | "headline" | "severity" | "urgency">): AlertRisk {
+  const text = `${alert.event} ${alert.headline} ${alert.severity} ${alert.urgency}`;
+  if (/Evacuation|Mandatory evacuation/i.test(text)) return "Evacuation";
+  if (/Storm Surge/i.test(text)) return "Storm surge";
+  if (/Hurricane|Extreme Wind/i.test(text)) return "Hurricane wind";
+  if (/Flash Flood|Flood/i.test(text)) return "Flooding";
+  if (/Tornado/i.test(text)) return "Tornado";
+  if (/Tropical Storm/i.test(text)) return "Tropical storm";
+  return "Other";
+}
+
+export function priorityRisks(alerts: NwsAlert[]) {
+  return [...new Set(alerts.map(alertRisk).filter((risk) => risk !== "Other"))];
 }
 
 export function summarizeStorm(storm: NhcStorm) {

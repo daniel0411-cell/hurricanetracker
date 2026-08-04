@@ -13,6 +13,7 @@ const routes = [
   { path: "alerts/", lastmod: updated, priority: "0.8", changefreq: "daily" },
   { path: "preparedness/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
   { path: "tools/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
+  { path: "tools/local-risk-plan/", lastmod: updated, priority: "0.9", changefreq: "daily" },
   { path: "tools/preparedness-checklist/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
   { path: "tools/evacuation-decision-helper/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
   ...coastalStates.map((state) => ({ path: `hurricane-tracker/${state.slug}/`, lastmod: updated, priority: "0.8", changefreq: "daily" })),

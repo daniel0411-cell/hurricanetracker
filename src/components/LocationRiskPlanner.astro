@@ -1,0 +1,370 @@
+---
+import { states } from "../data/site";
+
+type Props = {
+  initialState?: string;
+};
+
+const { initialState = "FL" } = Astro.props;
+---
+<section class="risk-planner band" aria-labelledby="risk-planner-title">
+  <div class="inner">
+    <div class="risk-planner-header">
+      <div>
+        <p class="eyebrow">Location-based decision support</p>
+        <h2 id="risk-planner-title">Check My Local Hurricane Risk</h2>
+        <p class="answer">Enter a ZIP code or choose a state to see active NWS alerts, the main hazard types, and the next household actions for your area.</p>
+      </div>
+      <p class="source-note">State-level screening only. County evacuation orders and evacuation zones always take priority.</p>
+    </div>
+
+    <form class="risk-form" id="risk-form">
+      <label for="risk-zip">US ZIP code</label>
+      <input id="risk-zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="\d{5}" placeholder="e.g. 33139" />
+      <span class="risk-form-divider">or</span>
+      <label for="risk-state">State</label>
+      <select id="risk-state" name="state">
+        {states.map(([code, name]) => <option value={code} selected={code === initialState.toUpperCase()}>{name}</option>)}
+      </select>
+      <button type="submit">Check Risk</button>
+    </form>
+
+    <p id="risk-status" class="small" role="status">Choose a ZIP code or state to load official alerts.</p>
+
+    <div id="risk-result" class="risk-result" hidden aria-live="polite">
+      <div class="risk-result-top">
+        <div>
+          <p class="eyebrow">Current local screen</p>
+          <h3 id="risk-location">Florida</h3>
+          <p id="risk-location-note" class="small"></p>
+        </div>
+        <div class="risk-level" id="risk-level" data-level="Monitor">
+          <strong id="risk-level-value">Monitor</strong>
+          <span id="risk-level-action">Monitor official alerts</span>
+        </div>
+      </div>
+
+      <div class="risk-columns">
+        <article class="panel">
+          <h3>What matters now</h3>
+          <ul id="risk-hazards" class="check-list"></ul>
+          <p id="risk-explanation" class="source-note"></p>
+        </article>
+        <article class="panel">
+          <h3>72 / 48 / 24 hour plan</h3>
+          <ol id="risk-plan" class="risk-plan"></ol>
+        </article>
+      </div>
+
+      <p class="risk-source" id="risk-source"></p>
+    </div>
+  </div>
+</section>
+
+<script>
+  type Alert = {
+    event?: string;
+    headline?: string;
+    severity?: string;
+    urgency?: string;
+    expires?: string;
+  };
+
+  type AlertFeed = {
+    alerts?: Alert[];
+    decisionLevel?: "Monitor" | "Prepare" | "Act" | "Leave";
+    updatedAt?: string;
+    fetchedAt?: string;
+  };
+
+  type LocationResult = {
+    zip: string;
+    city?: string;
+    state: string;
+    stateName: string;
+  };
+
+  const form = document.querySelector<HTMLFormElement>("#risk-form");
+  const zipInput = document.querySelector<HTMLInputElement>("#risk-zip");
+  const stateSelect = document.querySelector("#risk-state") as HTMLSelectElement | null;
+  const statusEl = document.querySelector<HTMLElement>("#risk-status");
+  const resultEl = document.querySelector<HTMLElement>("#risk-result");
+  const locationEl = document.querySelector<HTMLElement>("#risk-location");
+  const locationNoteEl = document.querySelector<HTMLElement>("#risk-location-note");
+  const levelEl = document.querySelector<HTMLElement>("#risk-level");
+  const levelValueEl = document.querySelector<HTMLElement>("#risk-level-value");
+  const levelActionEl = document.querySelector<HTMLElement>("#risk-level-action");
+  const hazardsEl = document.querySelector<HTMLElement>("#risk-hazards");
+  const explanationEl = document.querySelector<HTMLElement>("#risk-explanation");
+  const planEl = document.querySelector<HTMLElement>("#risk-plan");
+  const sourceEl = document.querySelector<HTMLElement>("#risk-source");
+
+  const stateNames: Record<string, string> = {
+    AL: "Alabama",
+    FL: "Florida",
+    GA: "Georgia",
+    LA: "Louisiana",
+    MS: "Mississippi",
+    NC: "North Carolina",
+    SC: "South Carolina",
+    TX: "Texas",
+    VA: "Virginia"
+  };
+
+  function setStatus(message: string, error = false) {
+    if (!statusEl) return;
+    statusEl.textContent = message;
+    statusEl.classList.toggle("risk-error", error);
+  }
+
+  function escapeHtml(value: unknown) {
+    const replacements: Record<string, string> = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    };
+    return String(value ?? "").replace(/[&<>"']/g, (char) => replacements[char] ?? char);
+  }
+
+  function riskTypes(alerts: Alert[]) {
+    const text = alerts.map((alert) => `${alert.event} ${alert.headline} ${alert.severity} ${alert.urgency}`).join(" ");
+    const risks: string[] = [];
+    if (/Evacuation|Mandatory evacuation/i.test(text)) risks.push("Evacuation language");
+    if (/Storm Surge/i.test(text)) risks.push("Storm surge");
+    if (/Hurricane|Extreme Wind/i.test(text)) risks.push("Hurricane-force wind");
+    if (/Flash Flood|Flood/i.test(text)) risks.push("Flooding");
+    if (/Tornado/i.test(text)) risks.push("Tornadoes");
+    if (/Tropical Storm/i.test(text)) risks.push("Tropical-storm conditions");
+    return risks.length ? risks : ["No high-priority hazard category returned"];
+  }
+
+  function levelAction(level: string) {
+    if (level === "Leave") return "Follow official evacuation instructions now";
+    if (level === "Act") return "Move vulnerable people and finish protective actions";
+    if (level === "Prepare") return "Finish supplies, fuel, documents, and routes";
+    return "Monitor official advisories and confirm your zone";
+  }
+
+  function planFor(level: string, hasAlerts: boolean) {
+    if (level === "Leave") {
+      return [
+        ["Now", "Follow local evacuation orders, use official routes, and take medication, IDs, chargers, water, pets, and cash."],
+        ["Before travel", "Tell a contact where you are going. Do not drive through flooded roads or wait for peak wind."],
+        ["After arrival", "Do not return until local officials confirm roads and utilities are safe."]
+      ];
+    }
+    if (level === "Act") {
+      return [
+        ["Within 24 hours", "Move medically vulnerable people early, secure windows and outdoor items, and keep vehicles ready."],
+        ["Within 48 hours", "Confirm shelter or destination, fuel vehicles, charge devices, and pack documents and medicine."],
+        ["Now", "Follow every warning and county instruction. Stop nonessential travel when conditions deteriorate."]
+      ];
+    }
+    if (level === "Prepare") {
+      return [
+        ["Within 72 hours", "Check the emergency kit, insurance records, prescriptions, evacuation zone, and family contacts."],
+        ["Within 48 hours", "Fuel vehicles, buy missing supplies, protect documents, and confirm a destination or shelter option."],
+        ["Within 24 hours", "Secure loose objects, charge phones, move vehicles, and be ready to act if a warning is issued."]
+      ];
+    }
+    return [
+      ["Within 72 hours", "Review your evacuation zone, emergency kit, medication needs, and family communication plan."],
+      ["Within 48 hours", "Check official outlooks and local emergency management information if a tropical system develops."],
+      ["Within 24 hours", hasAlerts ? "Read every active alert and be ready to move from monitoring to preparation." : "Keep checking official alerts during hurricane season; no active high-priority alert was returned."]
+    ];
+  }
+
+  async function lookupZip(zip: string): Promise<LocationResult | null> {
+    if (!zip) return null;
+    const response = await fetch(`/api/location/zip?zip=${encodeURIComponent(zip)}`);
+    if (!response.ok) throw new Error("ZIP code lookup failed");
+    return await response.json() as LocationResult;
+  }
+
+  async function loadRisk() {
+    if (!stateSelect || !resultEl || !locationEl || !locationNoteEl || !levelEl || !levelValueEl || !levelActionEl || !hazardsEl || !explanationEl || !planEl || !sourceEl) return;
+    setStatus("Loading official NWS alerts...");
+    const zip = zipInput?.value.trim() ?? "";
+    let state = stateSelect.value;
+    let stateName = stateNames[state] ?? state;
+    let city = "";
+
+    if (zip) {
+      const location = await lookupZip(zip);
+      if (!location) throw new Error("ZIP code lookup failed");
+      state = location.state;
+      stateName = location.stateName;
+      city = location.city ?? "";
+      if (!Array.from(stateSelect.options).some((option) => option.value === state)) {
+        stateSelect.add(new Option(stateName, state));
+      }
+      stateSelect.value = state;
+    }
+
+    const response = await fetch(`/api/nws/alerts.json?area=${encodeURIComponent(state)}`);
+    if (!response.ok) throw new Error("NWS alert feed failed");
+    const data = await response.json() as AlertFeed;
+    const alerts = data.alerts ?? [];
+    const level = data.decisionLevel ?? (alerts.length ? "Prepare" : "Monitor");
+    const hazards = riskTypes(alerts);
+    const plan = planFor(level, alerts.length > 0);
+    const updated = data.updatedAt ?? data.fetchedAt;
+
+    locationEl.textContent = city ? `${city}, ${stateName}` : stateName;
+    locationNoteEl.textContent = zip
+      ? `ZIP ${zip} · State-level NWS screening`
+      : `${state} · State-level NWS screening`;
+    levelEl.dataset.level = level;
+    levelValueEl.textContent = level;
+    levelActionEl.textContent = levelAction(level);
+    hazardsEl.innerHTML = hazards.map((hazard) => `<li>${escapeHtml(hazard)}</li>`).join("");
+    explanationEl.textContent = alerts.length
+      ? `${alerts.length} active NWS alert${alerts.length === 1 ? "" : "s"} returned. Read the official alert headline and instructions before acting.`
+      : "No active NWS alerts were returned for this state. This is a monitoring result, not an all-clear for a specific county or evacuation zone.";
+    planEl.innerHTML = plan.map(([window, action]) => `<li><strong>${escapeHtml(window)}</strong><span>${escapeHtml(action)}</span></li>`).join("");
+    sourceEl.textContent = `Source: National Weather Service active alerts · ${updated ? `checked ${new Date(updated).toLocaleString()}` : "check time unavailable"} · Verify county instructions at weather.gov.`;
+    resultEl.hidden = false;
+    setStatus("Risk screen updated from the official NWS alert proxy.");
+  }
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    loadRisk().catch((error) => {
+      console.error("HurricaneHub location risk planner failed", error);
+      setStatus("We could not load this location right now. Try the state selector or retry shortly.", true);
+    });
+  });
+</script>
+
+<style>
+  .risk-planner-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
+    gap: 24px;
+    align-items: end;
+  }
+
+  .risk-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin: 24px 0 10px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+  }
+
+  .risk-form label {
+    font-weight: 800;
+  }
+
+  .risk-form input,
+  .risk-form select {
+    min-width: 150px;
+  }
+
+  .risk-form-divider {
+    color: var(--muted);
+    font-weight: 800;
+  }
+
+  .risk-result {
+    margin-top: 22px;
+    padding: clamp(18px, 3vw, 28px);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #e8f3f5;
+  }
+
+  .risk-result-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    align-items: start;
+  }
+
+  .risk-level {
+    min-width: 250px;
+    padding: 16px;
+    border-radius: 8px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+  }
+
+  .risk-level strong {
+    display: block;
+    font-size: 2rem;
+  }
+
+  .risk-level[data-level="Prepare"] strong {
+    color: #8b5a00;
+  }
+
+  .risk-level[data-level="Act"] strong,
+  .risk-level[data-level="Leave"] strong {
+    color: var(--signal);
+  }
+
+  .risk-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  .risk-plan {
+    display: grid;
+    gap: 12px;
+    padding-left: 1.2rem;
+  }
+
+  .risk-plan li {
+    padding-left: 4px;
+  }
+
+  .risk-plan strong,
+  .risk-plan span {
+    display: block;
+  }
+
+  .risk-plan strong {
+    color: var(--ocean);
+  }
+
+  .risk-source {
+    margin: 16px 0 0;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  .risk-error {
+    color: var(--signal);
+  }
+
+  @media (max-width: 720px) {
+    .risk-planner-header,
+    .risk-columns {
+      grid-template-columns: 1fr;
+    }
+
+    .risk-form > * {
+      width: 100%;
+    }
+
+    .risk-form-divider {
+      text-align: center;
+    }
+
+    .risk-result-top {
+      display: grid;
+    }
+
+    .risk-level {
+      min-width: 0;
+    }
+  }
+</style>
