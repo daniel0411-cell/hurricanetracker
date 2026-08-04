@@ -1,5 +1,6 @@
 ---
 import FaqBlock from "../components/FaqBlock.astro";
+import AlertTimeline from "../components/AlertTimeline.astro";
 import LiveDashboard from "../components/LiveDashboard.astro";
 import Layout from "../layouts/Layout.astro";
 import { faqs, site, states } from "../data/site";
@@ -10,11 +11,13 @@ const description = "View active National Weather Service alerts by coastal stat
 const url = `${site.url}/alerts/`;
 
 let lastModified = site.contentLastModified;
+let initialAlerts: import("../lib/weather").NwsAlert[] = [];
 try {
   const response = await fetch(new URL("/api/nws/alerts.json?area=AL", Astro.url));
   if (response.ok) {
-    const feed = await response.json() as { updatedAt?: string; fetchedAt?: string };
+    const feed = await response.json() as { updatedAt?: string; fetchedAt?: string; alerts?: import("../lib/weather").NwsAlert[] };
     lastModified = feed.updatedAt ?? feed.fetchedAt ?? lastModified;
+    initialAlerts = feed.alerts ?? [];
   } else {
     console.error("HurricaneHub alerts page feed error", { status: response.status });
   }
@@ -33,6 +36,13 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url, d
     </div>
   </section>
   <LiveDashboard />
+  <section class="band" aria-labelledby="timeline-heading">
+    <div class="inner">
+      <h2 id="timeline-heading">Alabama Alert Timeline</h2>
+      <p class="answer">The timeline sorts the current Alabama example by alert status and effective time so you can see what is active now, what may start next, and when an alert expires.</p>
+      <AlertTimeline alerts={initialAlerts} stateName="Alabama" />
+    </div>
+  </section>
   <section class="band" aria-labelledby="state-coverage">
     <div class="inner">
       <h2 id="state-coverage">Initial Coverage</h2>

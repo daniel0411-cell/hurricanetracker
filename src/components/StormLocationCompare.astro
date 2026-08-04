@@ -1,0 +1,172 @@
+---
+type Props = {
+  stormName: string;
+  latitude?: string;
+  longitude?: string;
+  publicAdvisory?: string;
+  forecastAdvisory?: string;
+};
+
+const { stormName, latitude, longitude, publicAdvisory, forecastAdvisory } = Astro.props;
+const hasPosition = Boolean(latitude && longitude);
+---
+<section class="storm-location" aria-labelledby="location-compare-title">
+  <div>
+    <p class="eyebrow">Location context</p>
+    <h2 id="location-compare-title">Compare {stormName} With Your Location</h2>
+    <p class="answer">Enter a US ZIP code to compare its approximate center with this storm's current NHC position. This is straight-line context only, not a forecast track, impact radius, or evacuation decision.</p>
+  </div>
+
+  {hasPosition ? (
+    <>
+      <form id="storm-location-form" class="storm-location-form">
+        <label for="storm-location-zip">US ZIP code</label>
+        <input id="storm-location-zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="\d{5}" placeholder="e.g. 33139" required />
+        <button type="submit">Compare location</button>
+      </form>
+      <p id="storm-location-status" class="small" role="status">Use official NWS alerts and county guidance for protective decisions.</p>
+      <div id="storm-location-result" class="storm-location-result" hidden aria-live="polite">
+        <div>
+          <p class="eyebrow">Approximate distance</p>
+          <h3 id="storm-location-distance">--</h3>
+          <p id="storm-location-place" class="small"></p>
+        </div>
+        <p id="storm-location-guidance"></p>
+      </div>
+    </>
+  ) : (
+    <article class="panel" style="margin-top: 20px;">
+      <h3>Current position unavailable</h3>
+      <p>NHC did not provide a usable current position for this system. Check the official advisory for the latest map and forecast information.</p>
+    </article>
+  )}
+
+  <p class="source-note">Storm position: National Hurricane Center current-storm feed. ZIP center: Zippopotam.us. Distance is approximate and must not replace official forecasts or local orders.</p>
+  <p class="storm-location-links">
+    {publicAdvisory && <a href={publicAdvisory} rel="nofollow">Open official NHC public advisory</a>}
+    {forecastAdvisory && <a href={forecastAdvisory} rel="nofollow">Open official NHC forecast advisory</a>}
+  </p>
+</section>
+
+{hasPosition && (
+  <script is:inline define:vars={{ stormLatitude: latitude, stormLongitude: longitude }}>
+    const form = document.querySelector("#storm-location-form");
+    const zipInput = document.querySelector("#storm-location-zip");
+    const status = document.querySelector("#storm-location-status");
+    const result = document.querySelector("#storm-location-result");
+    const distanceEl = document.querySelector("#storm-location-distance");
+    const placeEl = document.querySelector("#storm-location-place");
+    const guidanceEl = document.querySelector("#storm-location-guidance");
+
+    function coordinate(value) {
+      const text = String(value ?? "").trim().toUpperCase();
+      const number = Number.parseFloat(text);
+      if (!Number.isFinite(number)) return null;
+      if (text.endsWith("S") || text.endsWith("W")) return -Math.abs(number);
+      return number;
+    }
+
+    function distanceMiles(lat1, lon1, lat2, lon2) {
+      const toRadians = (value) => value * Math.PI / 180;
+      const earthMiles = 3958.8;
+      const deltaLat = toRadians(lat2 - lat1);
+      const deltaLon = toRadians(lon2 - lon1);
+      const a = Math.sin(deltaLat / 2) ** 2
+        + Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(deltaLon / 2) ** 2;
+      return earthMiles * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    form?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const zip = zipInput?.value.trim() ?? "";
+      if (!/^\d{5}$/.test(zip)) {
+        if (status) status.textContent = "Enter a valid five-digit US ZIP code.";
+        return;
+      }
+
+      try {
+        if (status) status.textContent = "Looking up ZIP location...";
+        const response = await fetch(`/api/location/zip?zip=${encodeURIComponent(zip)}`);
+        if (!response.ok) throw new Error("ZIP lookup failed");
+        const location = await response.json();
+        const stormLat = coordinate(stormLatitude);
+        const stormLon = coordinate(stormLongitude);
+        const userLat = coordinate(location.latitude);
+        const userLon = coordinate(location.longitude);
+        if (stormLat === null || stormLon === null || userLat === null || userLon === null) {
+          throw new Error("Coordinates unavailable");
+        }
+
+        const miles = Math.round(distanceMiles(stormLat, stormLon, userLat, userLon));
+        const place = [location.city, location.stateName ?? location.state].filter(Boolean).join(", ");
+        if (distanceEl) distanceEl.textContent = `${miles.toLocaleString("en-US")} miles away`;
+        if (placeEl) placeEl.textContent = `Approximate ZIP center: ${place || `ZIP ${zip}`}.`;
+        if (guidanceEl) guidanceEl.textContent = "Distance alone does not show where impacts will occur. Check your state NWS alerts, official NHC forecast, and county evacuation zone before making travel or shelter decisions.";
+        if (result) result.hidden = false;
+        if (status) status.textContent = "Location comparison updated.";
+      } catch (error) {
+        console.error("HurricaneHub storm location comparison failed", error);
+        if (status) status.textContent = "We could not compare this ZIP right now. Try again shortly or use your state tracker.";
+      }
+    });
+  </script>
+)}
+
+<style>
+  .storm-location {
+    display: grid;
+    gap: 16px;
+  }
+
+  .storm-location-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+  }
+
+  .storm-location-form label {
+    font-weight: 800;
+  }
+
+  .storm-location-form input {
+    min-width: 180px;
+  }
+
+  .storm-location-result {
+    display: grid;
+    grid-template-columns: minmax(210px, 0.75fr) minmax(0, 1.25fr);
+    gap: 20px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #e8f3f5;
+  }
+
+  .storm-location-result h3 {
+    color: var(--ocean);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+  }
+
+  .storm-location-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 0;
+    font-weight: 800;
+  }
+
+  @media (max-width: 620px) {
+    .storm-location-form > * {
+      width: 100%;
+    }
+
+    .storm-location-result {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

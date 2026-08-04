@@ -64,6 +64,8 @@ export const GET: APIRoute = async ({ url }) => {
         "place name"?: string;
         "state abbreviation"?: string;
         state?: string;
+        latitude?: string;
+        longitude?: string;
       }>;
     };
     const place = data.places?.[0];
@@ -76,6 +78,8 @@ export const GET: APIRoute = async ({ url }) => {
       city: place["place name"] ?? "",
       state: place["state abbreviation"],
       stateName: place.state,
+      latitude: place.latitude ?? null,
+      longitude: place.longitude ?? null,
       source: "Zippopotam.us ZIP lookup",
       fetchedAt: new Date().toISOString()
     });

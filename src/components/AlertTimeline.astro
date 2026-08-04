@@ -1,0 +1,180 @@
+---
+import type { NwsAlert } from "../lib/weather";
+
+type Props = {
+  alerts: NwsAlert[];
+  stateName?: string;
+};
+
+const { alerts, stateName } = Astro.props;
+const now = Date.now();
+
+function toTime(value: string | undefined) {
+  const time = Date.parse(value ?? "");
+  return Number.isFinite(time) ? time : null;
+}
+
+function statusFor(alert: NwsAlert) {
+  const effective = toTime(alert.effective);
+  const expires = toTime(alert.expires);
+  if (effective && effective > now) return "Upcoming";
+  if (expires && expires <= now) return "Expired";
+  if (expires && expires - now <= 6 * 60 * 60 * 1000) return "Expiring soon";
+  return "Active";
+}
+
+function formatTime(value: string) {
+  const time = toTime(value);
+  if (!time) return "Time unavailable";
+  return new Intl.DateTimeFormat("en-US", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "UTC"
+  }).format(time);
+}
+
+const orderedAlerts = [...alerts].sort((a, b) => {
+  const rank = { Active: 0, "Expiring soon": 1, Upcoming: 2, Expired: 3 };
+  const statusDifference = rank[statusFor(a)] - rank[statusFor(b)];
+  if (statusDifference) return statusDifference;
+  return (toTime(a.effective) ?? Number.MAX_SAFE_INTEGER) - (toTime(b.effective) ?? Number.MAX_SAFE_INTEGER);
+});
+---
+<div class="alert-timeline" aria-live="polite">
+  {orderedAlerts.length ? orderedAlerts.map((alert) => {
+    const status = statusFor(alert);
+    const severe = alert.severity === "Severe" || alert.severity === "Extreme";
+    return (
+      <article class="timeline-event">
+        <div class="timeline-marker" aria-hidden="true"></div>
+        <div class="timeline-card">
+          <header>
+            <div>
+              <p class="timeline-kicker">{status}</p>
+              <h3>{alert.event}</h3>
+            </div>
+            <span class={severe ? "badge danger" : "badge warn"}>{alert.severity}</span>
+          </header>
+          <p>{alert.headline || alert.areaDesc}</p>
+          <dl class="timeline-times">
+            <div><dt>Effective</dt><dd>{formatTime(alert.effective)} UTC</dd></div>
+            <div><dt>Expires</dt><dd>{formatTime(alert.expires)} UTC</dd></div>
+          </dl>
+          <p class="small">{alert.urgency} · {alert.certainty} · {alert.areaDesc}</p>
+          {alert.instruction && <p class="timeline-instruction"><strong>Official action:</strong> {alert.instruction}</p>}
+        </div>
+      </article>
+    );
+  }) : (
+    <article class="panel">
+      <h3>No Active {stateName ?? "State"} Alerts Returned</h3>
+      <p>No active NWS alerts were returned. This is a monitoring result, not an all-clear for a specific county, flood zone, or evacuation zone.</p>
+    </article>
+  )}
+</div>
+
+<style>
+  .alert-timeline {
+    display: grid;
+    gap: 0;
+    max-width: 900px;
+    margin-top: 18px;
+  }
+
+  .timeline-event {
+    position: relative;
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr);
+    padding-bottom: 18px;
+  }
+
+  .timeline-event::before {
+    position: absolute;
+    top: 15px;
+    bottom: -4px;
+    left: 8px;
+    width: 2px;
+    background: var(--line);
+    content: "";
+  }
+
+  .timeline-event:last-child::before {
+    display: none;
+  }
+
+  .timeline-marker {
+    position: relative;
+    z-index: 1;
+    width: 18px;
+    height: 18px;
+    margin-top: 14px;
+    border: 4px solid #e8f3f5;
+    border-radius: 50%;
+    background: var(--ocean);
+  }
+
+  .timeline-card {
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+  }
+
+  .timeline-card header {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .timeline-kicker {
+    margin: 0 0 5px;
+    color: var(--ocean);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .timeline-times {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 14px 0;
+  }
+
+  .timeline-times div {
+    padding: 10px;
+    border-radius: 6px;
+    background: #eef4f6;
+  }
+
+  .timeline-times dt {
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .timeline-times dd {
+    margin: 4px 0 0;
+    font-size: 0.92rem;
+    font-weight: 700;
+  }
+
+  .timeline-instruction {
+    margin: 14px 0 0;
+    padding: 12px;
+    border-left: 4px solid var(--amber);
+    background: #fff8e8;
+  }
+
+  @media (max-width: 620px) {
+    .timeline-event {
+      grid-template-columns: 24px minmax(0, 1fr);
+    }
+
+    .timeline-times {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import FaqBlock from "../../components/FaqBlock.astro";
+import AlertTimeline from "../../components/AlertTimeline.astro";
 import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
 import { getStateBySlug } from "../../data/states";
@@ -155,23 +156,8 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="alerts-heading">
     <div class="inner">
       <h2 id="alerts-heading">Active {state.name} NWS Alerts</h2>
-      <div class="stack" style="margin-top: 18px;">
-        {alerts.length ? alerts.slice(0, 10).map((alert) => (
-          <article class="alert-row">
-            <header>
-              <h3>{alert.event}</h3>
-              <span class={alert.severity === "Severe" || alert.severity === "Extreme" ? "badge danger" : "badge warn"}>{alert.severity}</span>
-            </header>
-            <p>{alert.headline || alert.areaDesc}</p>
-            <p class="small">{alert.urgency} · {alert.certainty} · expires {alert.expires}</p>
-          </article>
-        )) : (
-          <article class="panel">
-            <h3>No Active {state.name} Alerts</h3>
-            <p>No active NWS alerts were returned for {state.name}. Treat this as a monitoring state, not an all-clear for your county or evacuation zone.</p>
-          </article>
-        )}
-      </div>
+      <p class="source-note">Times are displayed in UTC. Read each official instruction and verify your county or evacuation zone before acting.</p>
+      <AlertTimeline alerts={alerts} stateName={state.name} />
     </div>
   </section>
 
@@ -188,6 +174,7 @@ const jsonLd = graph(
               </header>
               <p>{storm.summary ?? "NHC advisory data loaded for this system."}</p>
               <p class="small">Updated: {storm.lastUpdate ?? stormFeed?.fetchedAt ?? "pending"}</p>
+              <a href={`/tracker/${encodeURIComponent(storm.id ?? storm.name ?? "storm")}/`}>View storm detail and compare your ZIP</a>
             </article>
           )) : (
             <article class="panel">

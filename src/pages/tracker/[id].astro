@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import StormLocationCompare from "../../components/StormLocationCompare.astro";
 import { faqs, site } from "../../data/site";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
 import type { NhcStorm } from "../../lib/weather";
@@ -11,8 +12,8 @@ type StormFeed = {
 };
 
 const id = Astro.params.id ?? "";
-const title = `Storm Detail ${id}`;
-const description = "View a live NHC storm detail summary with advisory context and emergency planning notes.";
+const title = `Live Hurricane Detail: ${id}`;
+const description = "View a live NHC storm detail with current position, advisory context, approximate ZIP distance, and official emergency-planning links.";
 const url = `${site.url}/tracker/${encodeURIComponent(id)}/`;
 
 let feed: StormFeed | null = null;
@@ -43,7 +44,7 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">NHC storm detail</p>
       <h1 id="storm-detail-title">{storm?.name ?? "暂无活跃风暴"}</h1>
-      <p class="answer">This storm detail page shows the latest matching NHC advisory data and translates it into emergency planning context for North American coastal users.</p>
+      <p class="answer">This page shows the latest NHC details for this active storm, including its current position, intensity, movement, official advisory links, and an approximate ZIP-to-storm distance for planning context.</p>
     </div>
   </section>
 
@@ -61,8 +62,13 @@ const jsonLd = graph(
                 <tr><th>Pressure</th><td>{storm.pressure ?? "pending"}</td></tr>
                 <tr><th>Position</th><td>{storm.latitude ?? "pending"}, {storm.longitude ?? "pending"}</td></tr>
                 <tr><th>Movement</th><td>{storm.movementDir ?? "pending"} at {storm.movementSpeed ?? "pending"}</td></tr>
+                <tr><th>NHC update</th><td>{storm.lastUpdate ?? feed?.updatedAt ?? "pending"}</td></tr>
               </tbody>
             </table>
+            <p class="storm-detail-links">
+              {storm.publicAdvisory && <a href={storm.publicAdvisory} rel="nofollow">Read NHC public advisory</a>}
+              {storm.forecastAdvisory && <a href={storm.forecastAdvisory} rel="nofollow">Read NHC forecast advisory</a>}
+            </p>
           </>
         ) : (
           <>
@@ -74,8 +80,33 @@ const jsonLd = graph(
       <article class="panel">
         <h2>Decision Note</h2>
         <h3>Before Acting</h3>
-        <p>Confirm your county warning, evacuation order, shelter status, and travel route. Storm details support planning, but local emergency management controls official instructions.</p>
+        <p>Confirm your county warning, evacuation order, shelter status, and travel route. A storm's current position does not show its future impact area, so local emergency management controls official instructions.</p>
+        <p><a class="action-link" href="/tools/local-risk-plan/">Check my local risk and action plan</a></p>
       </article>
     </div>
   </section>
+
+  {storm && (
+    <section class="band">
+      <div class="inner">
+        <StormLocationCompare
+          stormName={storm.name ?? storm.id ?? "this storm"}
+          latitude={storm.latitude}
+          longitude={storm.longitude}
+          publicAdvisory={storm.publicAdvisory}
+          forecastAdvisory={storm.forecastAdvisory}
+        />
+      </div>
+    </section>
+  )}
 </Layout>
+
+<style>
+  .storm-detail-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 18px 0 0;
+    font-weight: 800;
+  }
+</style>
