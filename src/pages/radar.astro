@@ -27,17 +27,17 @@ const jsonLd = graph(
   faqSchema(pageFaqs)
 );
 ---
-<Fragment slot="head">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
-  <script is:inline defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-</Fragment>
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <Fragment slot="head">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script is:inline defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  </Fragment>
   <section class="radar-page" aria-labelledby="radar-title">
     <div class="bg-red-100 p-2 text-center text-sm radar-warning">
       ⚠️ Data sourced from NOAA/RainViewer. Not for life-critical decisions. Visit <a href="https://www.weather.gov/">weather.gov</a>.
@@ -98,16 +98,16 @@ const jsonLd = graph(
             <div class="radar-card-head">
               <div>
                 <p class="eyebrow">Live alerts</p>
-                <h2>NWS Alert Panel</h2>
+                <h2>NWS Weather Alerts</h2>
               </div>
               <span class="badge" id="alert-decision">Loading</span>
             </div>
             <form class="radar-alert-form" id="radar-alert-form">
-              <label for="radar-state">State</label>
+              <label for="radar-state">Alert area</label>
               <select id="radar-state" name="state">
                 {states.map(([code, name]) => <option value={code} selected={code === "FL"}>{name}</option>)}
               </select>
-              <button type="submit">Load Alerts</button>
+              <button type="submit">Load alerts</button>
             </form>
             <div class="radar-metrics">
               <div><strong id="alert-count">--</strong><span>active alerts</span></div>

@@ -10,12 +10,12 @@ const navItems = [
   { href: "/about/", label: "About" }
 ];
 ---
-<header class="site-header">
+<header class="site-header" translate="no">
   <a class="brand" href="/" aria-label="HurricaneHub home">
     <span class="brand-mark" aria-hidden="true"></span>
     <span>{site.name}</span>
   </a>
-  <nav aria-label="Primary">
+  <nav aria-label="Primary" translate="no">
     {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
   </nav>
 </header>
