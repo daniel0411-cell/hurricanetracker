@@ -137,6 +137,7 @@ function renderPage(lastModified: string) {
         border-radius: 8px;
         background: rgba(255, 255, 255, 0.6);
       }
+      .ad-slot:empty { display: none; }
       .ad-slot-bottom {
         min-height: 250px;
       }
@@ -344,7 +345,7 @@ function renderPage(lastModified: string) {
 }
 
 export const GET: APIRoute = () =>
-  new Response(renderPage(new Date().toISOString()), {
+  new Response(renderPage(site.contentLastModified), {
     headers: {
       "content-type": "text/html; charset=utf-8",
       "cache-control": "public, max-age=300"

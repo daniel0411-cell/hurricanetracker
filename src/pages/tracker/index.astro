@@ -47,7 +47,7 @@ const [stormFeed, alertFeed] = await Promise.all([
 const storms = stormFeed?.storms ?? [];
 const alerts = alertFeed?.alerts ?? [];
 const decisionLevel = alertFeed?.decisionLevel ?? (storms.length ? "Prepare" : "Monitor");
-const lastModified = stormFeed?.updatedAt ?? alertFeed?.updatedAt ?? new Date().toISOString();
+const lastModified = stormFeed?.updatedAt ?? alertFeed?.updatedAt ?? site.contentLastModified;
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),

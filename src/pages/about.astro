@@ -6,7 +6,7 @@ import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
 const title = "About HurricaneHub";
 const description = "Learn about HurricaneHub's mission to provide accurate hurricane tracking, emergency preparedness guidance, and NOAA/NHC source transparency.";
 const url = `${site.url}/about/`;
-const lastModified = new Date().toISOString();
+const lastModified = site.contentLastModified;
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),

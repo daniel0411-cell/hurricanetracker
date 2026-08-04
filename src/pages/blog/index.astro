@@ -7,7 +7,7 @@ import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema
 const title = "Hurricane Preparedness Blog";
 const description = "Read HurricaneHub articles about hurricane season outlooks, home preparedness, alerts, and emergency decision-making using NOAA/NHC source context.";
 const url = `${site.url}/blog/`;
-const lastModified = new Date().toISOString();
+const lastModified = site.contentLastModified;
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),

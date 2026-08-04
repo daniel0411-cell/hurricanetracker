@@ -9,7 +9,7 @@ const title = "NWS Hurricane and Severe Weather Alerts by State";
 const description = "View active National Weather Service alerts by coastal state with hurricane-focused severity and urgency context.";
 const url = `${site.url}/alerts/`;
 
-let lastModified = new Date().toISOString();
+let lastModified = site.contentLastModified;
 try {
   const response = await fetch(new URL("/api/nws/alerts.json?area=AL", Astro.url));
   if (response.ok) {

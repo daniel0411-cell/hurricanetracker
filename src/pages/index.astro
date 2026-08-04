@@ -44,8 +44,9 @@ const [stormFeed, floridaAlertFeed] = await Promise.all([
 
 const storms = stormFeed?.storms ?? [];
 const floridaAlerts = floridaAlertFeed?.alerts ?? [];
+const featuredStateName = "Florida";
 const featuredDecisionLevel = floridaAlertFeed?.decisionLevel ?? (storms.length ? "Prepare" : "Monitor");
-const lastModified = floridaAlertFeed?.updatedAt ?? stormFeed?.updatedAt ?? new Date().toISOString();
+const lastModified = floridaAlertFeed?.updatedAt ?? stormFeed?.updatedAt ?? site.contentLastModified;
 const nextAction =
   featuredDecisionLevel === "Leave"
     ? "Follow local evacuation orders now."
@@ -75,9 +76,9 @@ const jsonLd = graph(
         <p>{nextAction}</p>
         <div class="dashboard compact-dashboard" aria-label="Current official feed metrics">
           <div class="metric"><strong>{storms.length}</strong><span>active NHC systems</span></div>
-          <div class="metric"><strong>{floridaAlerts.length}</strong><span>Florida NWS alerts</span></div>
+          <div class="metric"><strong>{floridaAlerts.length}</strong><span>{featuredStateName} NWS alerts</span></div>
         </div>
-        <p class="source-note">Official-feed sample last checked {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC.</p>
+        <p class="source-note">Official {featuredStateName} feed checked {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC.</p>
       </div>
     </div>
   </section>

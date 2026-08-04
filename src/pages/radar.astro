@@ -6,12 +6,22 @@ import { articleSchema, graph, websiteSchema } from "../lib/schema";
 const title = "Hurricane Radar | Live NOAA Data";
 const description = "Live hurricane radar feed, GOES satellite imagery, and real-time storm tracking for the North Atlantic using RainViewer and NOAA-linked public data sources.";
 const url = `${site.url}/radar/`;
-const lastModified = new Date().toISOString();
+const lastModified = site.contentLastModified;
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified })
 );
 ---
+<Fragment slot="head">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <script is:inline defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+</Fragment>
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
   <section class="radar-page" aria-labelledby="radar-title">
     <div class="bg-red-100 p-2 text-center text-sm radar-warning">

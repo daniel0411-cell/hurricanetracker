@@ -1,5 +1,6 @@
 ---
 import { graph, organizationSchema, websiteSchema } from "../lib/schema";
+import { site } from "../data/site";
 
 type Props = {
   title: string;
@@ -12,7 +13,7 @@ type Props = {
 };
 
 const { title, description, canonical, siteName, jsonLd, lastModified, image } = Astro.props;
-const modified = lastModified ?? new Date().toISOString();
+const modified = lastModified ?? site.contentLastModified;
 const schema = jsonLd ?? graph(websiteSchema(), organizationSchema());
 const absoluteImage = image ? new URL(image, canonical).href : undefined;
 ---

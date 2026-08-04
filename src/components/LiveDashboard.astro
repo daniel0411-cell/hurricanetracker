@@ -9,7 +9,7 @@ import { states } from "../data/site";
     <form class="toolbar" id="alert-form">
       <label for="state">State</label>
       <select id="state" name="state">
-        {states.map(([code, name]) => <option value={code}>{name}</option>)}
+        {states.map(([code, name]) => <option value={code} selected={code === "FL"}>{name}</option>)}
       </select>
       <button type="submit">Refresh Alerts</button>
       <span id="feed-status" class="small" role="status">Waiting for feed...</span>
@@ -63,10 +63,14 @@ import { states } from "../data/site";
   };
   type StormFeed = {
     storms?: Storm[];
+    fetchedAt?: string;
+    updatedAt?: string;
   };
   type AlertFeed = {
     alerts?: Alert[];
     decisionLevel?: string;
+    fetchedAt?: string;
+    updatedAt?: string;
   };
 
   const form = document.querySelector("#alert-form");
@@ -77,6 +81,7 @@ import { states } from "../data/site";
   const decisionEl = document.querySelector("#decision-level");
   const stormList = document.querySelector("#storm-list");
   const alertList = document.querySelector("#alert-list");
+  const DEFAULT_STATE = "FL";
 
   function badgeClass(text: string) {
     if (/Leave|Warning|Extreme|Evacuation|Severe/i.test(text)) return "badge danger";
@@ -95,7 +100,7 @@ import { states } from "../data/site";
     return String(value ?? "").replace(/[&<>"']/g, (char) => replacements[char] ?? char);
   }
 
-  async function loadFeeds(state = "FL") {
+  async function loadFeeds(state = DEFAULT_STATE) {
     if (!statusEl || !stormCount || !alertCount || !decisionEl || !stormList || !alertList) return;
     statusEl.textContent = "Loading official feeds...";
     const [stormsResponse, alertsResponse] = await Promise.all([
@@ -109,7 +114,11 @@ import { states } from "../data/site";
     stormCount.textContent = String(storms.length);
     alertCount.textContent = String(alerts.length);
     decisionEl.textContent = alertsData.decisionLevel ?? "Monitor";
-    statusEl.textContent = `Updated ${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+    const updatedAt = alertsData.updatedAt ?? alertsData.fetchedAt ?? stormsData.updatedAt ?? stormsData.fetchedAt;
+    const updatedLabel = updatedAt
+      ? new Date(updatedAt).toLocaleString([], { dateStyle: "medium", timeStyle: "short" })
+      : "time unavailable";
+    statusEl.textContent = `Official feeds checked ${updatedLabel}`;
     stormList.innerHTML = storms.length
       ? storms.slice(0, 5).map((storm) => `
         <article class="storm-row">
@@ -138,7 +147,7 @@ import { states } from "../data/site";
 
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
-    const state = stateSelect instanceof HTMLSelectElement ? stateSelect.value : "FL";
+    const state = stateSelect instanceof HTMLSelectElement ? stateSelect.value : DEFAULT_STATE;
     loadFeeds(state).catch(() => {
       if (statusEl) statusEl.textContent = "Feed unavailable; retry shortly.";
     });

@@ -1,6 +1,7 @@
 export const site = {
   name: "HurricaneHub",
   url: "https://www.hurricanetracker.cc",
+  contentLastModified: "2026-08-04T00:00:00.000Z",
   description:
     "HurricaneHub tracks North American hurricanes, official warnings, risk windows, and evacuation decisions from NOAA, NHC, and NWS data.",
   sameAs: [
@@ -19,8 +20,8 @@ export const primaryNav = [
 ];
 
 export const states = [
-  ["AL", "Alabama"],
   ["FL", "Florida"],
+  ["AL", "Alabama"],
   ["GA", "Georgia"],
   ["LA", "Louisiana"],
   ["MS", "Mississippi"],

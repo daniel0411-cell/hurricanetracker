@@ -7,7 +7,7 @@ import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema
 const title = "Hurricane Evacuation Decision Helper";
 const description = "Use a hurricane evacuation decision helper to sort household risk into Monitor, Prepare, Act, or Leave based on evacuation orders, surge zone, housing type, pets, and medical needs.";
 const url = `${site.url}/tools/evacuation-decision-helper/`;
-const lastModified = new Date().toISOString();
+const lastModified = site.contentLastModified;
 const pageFaqs = [
   {
     question: "Should I evacuate for a hurricane watch?",
