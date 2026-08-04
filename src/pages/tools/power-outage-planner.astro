@@ -1,0 +1,96 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import Layout from "../../layouts/Layout.astro";
+import { faqs, site } from "../../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+
+const title = "Hurricane Power Outage Planner";
+const description = "Build a hurricane power outage plan for food, water, medical equipment, refrigerated medicine, generators, pets, and communication.";
+const url = `${site.url}/tools/power-outage-planner/`;
+const pageFaqs = [
+  {
+    question: "What should I plan first for a hurricane power outage?",
+    answer: "Plan water, medications, communication, charging, food safety, and a safe place for medically vulnerable people or pets. Ask your medical provider about equipment and refrigerated medicine before a storm is close."
+  },
+  {
+    question: "Can I use a generator inside my home or garage?",
+    answer: "Never use a fuel-burning generator inside a home, garage, basement, or other enclosed space. Follow the generator manual and official emergency-safety guidance for placement, fuel, and electrical connection."
+  },
+  ...faqs
+];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: site.contentLastModified }),
+  faqSchema(pageFaqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified} showBottomAd={true}>
+  <section class="band" aria-labelledby="outage-title">
+    <div class="inner">
+      <p class="eyebrow">Power and continuity planning</p>
+      <h1 id="outage-title">Hurricane Power Outage Planner</h1>
+      <p class="answer">Answer four household questions to generate a practical outage plan for water, food, medicine, charging, generator safety, pets, and communication.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="outage-form-heading">
+    <div class="inner grid-2">
+      <form class="panel outage-form" id="outage-form">
+        <h2 id="outage-form-heading">Build Outage Plan</h2>
+        <label>People in household<select name="people"><option value="1">1 person</option><option value="2">2 people</option><option value="3">3 people</option><option value="4">4 people</option><option value="5">5+ people</option></select></label>
+        <label>Medical or refrigerated needs<select name="medical"><option value="no">No</option><option value="yes">Yes, plan needs carefully</option></select></label>
+        <label>Backup power<select name="power"><option value="none">No generator or battery system</option><option value="battery">Battery packs or power station</option><option value="generator">Fuel-burning generator</option></select></label>
+        <label>Pets<select name="pets"><option value="no">No pets</option><option value="yes">Pets need food, water, or transport</option></select></label>
+        <button type="submit">Generate outage plan</button>
+      </form>
+
+      <article class="panel" aria-live="polite">
+        <p class="eyebrow">Your plan</p>
+        <h2 id="outage-result-title">Select your household needs</h2>
+        <div id="outage-result">
+          <p class="source-note">This tool gives planning prompts, not medical or electrical engineering instructions. Follow product manuals and official safety guidance.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+  <FaqBlock faqs={pageFaqs} />
+</Layout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("#outage-form");
+  const resultTitle = document.querySelector<HTMLElement>("#outage-result-title");
+  const result = document.querySelector<HTMLElement>("#outage-result");
+  function escapeHtml(value: unknown) {
+    const replacements: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
+    return String(value ?? "").replace(/[&<>"']/g, (char) => replacements[char] ?? char);
+  }
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const people = Number(data.get("people") ?? 1);
+    const medical = data.get("medical") === "yes";
+    const power = String(data.get("power") ?? "none");
+    const pets = data.get("pets") === "yes";
+    const water = people * 3;
+    const items = [
+      `Store at least ${water} gallons of drinking water for a 3-day baseline.`,
+      "Keep flashlights, batteries, phone chargers, a battery radio, cash, and paper contacts together.",
+      "Use coolers and a food thermometer plan; discard food that is unsafe after an outage rather than tasting it.",
+      "Write down utility outage numbers, your destination, and one out-of-area contact."
+    ];
+    if (medical) items.unshift("Call your clinician or equipment provider about backup power, refrigerated medicine, oxygen, and a safe care location before the storm.");
+    if (power === "generator") items.push("Use the generator only outdoors and follow its manual; never connect it to home wiring without a qualified transfer-switch setup.");
+    if (power === "battery") items.push("Charge power stations before conditions worsen and reserve capacity for phones, radios, lights, and essential devices.");
+    if (power === "none") items.push("Identify a public cooling or charging location and a backup destination before an outage starts.");
+    if (pets) items.push("Pack pet food and water, a carrier or leash, records, waste bags, and a pet-friendly destination.");
+    if (resultTitle) resultTitle.textContent = `${people} ${people === 1 ? "person" : "people"} · outage priorities`;
+    if (result) result.innerHTML = `<ol class="check-list">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ol><p class="source-note">Recheck your utility, county emergency management, weather.gov, and care-provider instructions as conditions change.</p>`;
+  });
+</script>
+
+<style>
+  .outage-form { display: grid; gap: 14px; align-content: start; }
+  .outage-form label { display: grid; gap: 7px; font-weight: 800; }
+  #outage-result { margin-top: 18px; }
+  @media print { .site-header, .disclaimer, .outage-form, .site-footer, .ad-slot { display: none !important; } }
+</style>

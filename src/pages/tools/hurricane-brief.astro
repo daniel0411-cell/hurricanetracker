@@ -1,0 +1,219 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import Layout from "../../layouts/Layout.astro";
+import { faqs, site } from "../../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+
+const title = "Hurricane Brief Generator";
+const description = "Generate a printable hurricane brief from your ZIP code, live NWS alerts, and current NHC storm data.";
+const url = `${site.url}/tools/hurricane-brief/`;
+const pageFaqs = [
+  {
+    question: "What does the Hurricane Brief Generator include?",
+    answer: "It combines your ZIP location with current state-level NWS alerts and the current NHC storm feed, then formats the result as a concise household planning brief."
+  },
+  {
+    question: "Is the hurricane brief an evacuation order?",
+    answer: "No. It is a planning summary only. County emergency management, local officials, and official weather.gov alerts control evacuation, shelter, and road decisions."
+  },
+  ...faqs
+];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: site.contentLastModified }),
+  faqSchema(pageFaqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified} showBottomAd={true}>
+  <section class="band" aria-labelledby="brief-title">
+    <div class="inner">
+      <p class="eyebrow">Live household brief</p>
+      <h1 id="brief-title">Hurricane Brief Generator</h1>
+      <p class="answer">Enter a ZIP code to create a printable brief with your state NWS alert level, active alert headlines, current NHC storm context, and the next household decisions to review.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="brief-form-heading">
+    <div class="inner grid-2">
+      <form class="panel brief-form" id="brief-form">
+        <h2 id="brief-form-heading">Create My Brief</h2>
+        <label for="brief-zip">US ZIP code</label>
+        <input id="brief-zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="\d{5}" placeholder="e.g. 33139" required />
+        <label for="brief-needs">Household priority</label>
+        <select id="brief-needs">
+          <option value="standard">Standard household</option>
+          <option value="medical">Medical equipment or refrigerated medicine</option>
+          <option value="mobility">Limited mobility or transportation</option>
+          <option value="pets">Pets or livestock need transport planning</option>
+        </select>
+        <button type="submit">Build live brief</button>
+        <p id="brief-status" class="small" role="status">The brief calls the HurricaneHub data proxies when you submit.</p>
+      </form>
+
+      <article class="panel brief-output" id="brief-output" aria-live="polite">
+        <div class="brief-empty">
+          <p class="eyebrow">Waiting for a ZIP code</p>
+          <h2>Your household brief will appear here</h2>
+          <p>Print or share the result after the live feeds load. Recheck official alerts before acting.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <FaqBlock faqs={pageFaqs} />
+</Layout>
+
+<script>
+  type BriefLocation = {
+    zip: string;
+    city?: string;
+    state: string;
+    stateName: string;
+  };
+  type BriefAlert = {
+    event?: string;
+    headline?: string;
+    areaDesc?: string;
+    expires?: string;
+  };
+  type BriefStorm = {
+    name?: string;
+    id?: string;
+    classification?: string;
+    summary?: string;
+  };
+  type AlertsFeed = {
+    alerts?: BriefAlert[];
+    decisionLevel?: string;
+    updatedAt?: string;
+    fetchedAt?: string;
+  };
+  type StormsFeed = {
+    storms?: BriefStorm[];
+    updatedAt?: string;
+    fetchedAt?: string;
+  };
+
+  const form = document.querySelector<HTMLFormElement>("#brief-form");
+  const zipInput = document.querySelector<HTMLInputElement>("#brief-zip");
+  const needsSelect = document.querySelector("#brief-needs") as HTMLSelectElement | null;
+  const statusEl = document.querySelector<HTMLElement>("#brief-status");
+  const output = document.querySelector<HTMLElement>("#brief-output");
+
+  function escapeHtml(value: unknown) {
+    const replacements: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
+    return String(value ?? "").replace(/[&<>"']/g, (char) => replacements[char] ?? char);
+  }
+
+  function actionFor(level: string, needs: string) {
+    const actions: Record<string, string[]> = {
+      Monitor: ["Review your evacuation zone and household contacts.", "Keep the kit, medications, chargers, and pet supplies ready."],
+      Prepare: ["Fuel vehicles and finish supplies, documents, routes, and shelter research.", "Move special-needs planning earlier than the public deadline."],
+      Act: ["Secure the home, move vulnerable people early, and follow every warning.", "Stop nonessential travel as flooding, wind, or road closures increase."],
+      Leave: ["Follow official evacuation instructions and use official routes.", "Take medication, IDs, documents, chargers, water, pets, and cash."]
+    };
+    const priority: Record<string, string> = {
+      medical: "Call your provider about backup power, refrigerated medicine, and safe care arrangements.",
+      mobility: "Choose a destination and route that can support mobility needs before traffic worsens.",
+      pets: "Confirm a pet-friendly destination, carrier, food, records, and transport plan."
+    };
+    return [...(actions[level] ?? actions.Monitor), ...(priority[needs] ? [priority[needs]] : [])];
+  }
+
+  function renderBrief(
+    location: BriefLocation,
+    alerts: BriefAlert[],
+    storms: BriefStorm[],
+    decisionLevel: string,
+    updated: string | undefined,
+    needs: string
+  ) {
+    if (!output) return;
+    const alertMarkup = alerts.length
+      ? `<ul class="brief-list">${alerts.slice(0, 5).map((alert) => `<li><strong>${escapeHtml(alert.event)}</strong><span>${escapeHtml(alert.headline || alert.areaDesc)} · expires ${escapeHtml(alert.expires || "time unavailable")}</span></li>`).join("")}</ul>`
+      : `<p class="brief-muted">No active state alerts returned. This is not an all-clear for your county or evacuation zone.</p>`;
+    const stormMarkup = storms.length
+      ? `<ul class="brief-list">${storms.slice(0, 5).map((storm) => `<li><strong>${escapeHtml(storm.name || storm.id || "Active system")}</strong><span>${escapeHtml(storm.classification || "NHC")} · ${escapeHtml(storm.summary || "Current NHC storm data loaded.")}</span></li>`).join("")}</ul>`
+      : `<p class="brief-muted">No active NHC tropical cyclone listed in the current feed.</p>`;
+    const actions = actionFor(decisionLevel, needs);
+    const checked = updated ? new Date(updated).toLocaleString([], { dateStyle: "medium", timeStyle: "short" }) : "time unavailable";
+    output.innerHTML = `
+      <div class="brief-heading">
+        <div><p class="eyebrow">Current household brief</p><h2>${escapeHtml(location.city ? `${location.city}, ${location.stateName}` : location.stateName)}</h2><p class="small">ZIP ${escapeHtml(location.zip)} · checked ${escapeHtml(checked)}</p></div>
+        <span class="brief-level" data-level="${escapeHtml(decisionLevel)}">${escapeHtml(decisionLevel)}</span>
+      </div>
+      <div class="brief-grid">
+        <section><h3>Next decisions</h3><ul class="check-list">${actions.map((action) => `<li>${escapeHtml(action)}</li>`).join("")}</ul></section>
+        <section><h3>State NWS alerts</h3>${alertMarkup}</section>
+        <section><h3>Current NHC storms</h3>${stormMarkup}</section>
+      </div>
+      <div class="brief-actions"><button type="button" id="brief-print">Print brief</button><button type="button" id="brief-copy">Copy text</button></div>
+      <p class="brief-muted">Source: NWS active alerts and NHC current storm feed through HurricaneHub proxies. Verify official instructions at weather.gov and your county emergency management site.</p>
+    `;
+    document.querySelector("#brief-print")?.addEventListener("click", () => window.print());
+    document.querySelector("#brief-copy")?.addEventListener("click", async () => {
+      const text = output.innerText;
+      try {
+        await navigator.clipboard.writeText(text);
+        if (statusEl) statusEl.textContent = "Brief copied to clipboard.";
+      } catch {
+        if (statusEl) statusEl.textContent = "Copy is unavailable in this browser; use Print brief instead.";
+      }
+    });
+  }
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const zip = zipInput?.value.trim() ?? "";
+    const needs = needsSelect?.value ?? "standard";
+    if (!/^\d{5}$/.test(zip)) {
+      if (statusEl) statusEl.textContent = "Enter a valid five-digit US ZIP code.";
+      return;
+    }
+    try {
+      if (statusEl) statusEl.textContent = "Loading ZIP, NWS, and NHC data...";
+      const locationResponse = await fetch(`/api/location/zip?zip=${encodeURIComponent(zip)}`);
+      if (!locationResponse.ok) throw new Error("ZIP lookup failed");
+      const location = await locationResponse.json() as BriefLocation;
+      const [alertsResponse, stormsResponse] = await Promise.all([
+        fetch(`/api/nws/alerts.json?area=${encodeURIComponent(location.state)}`),
+        fetch("/api/nhc/current.json")
+      ]);
+      if (!alertsResponse.ok || !stormsResponse.ok) throw new Error("Official feed unavailable");
+      const alertsData = await alertsResponse.json() as AlertsFeed;
+      const stormsData = await stormsResponse.json() as StormsFeed;
+      renderBrief(
+        location,
+        alertsData.alerts ?? [],
+        stormsData.storms ?? [],
+        alertsData.decisionLevel ?? ((stormsData.storms ?? []).length ? "Prepare" : "Monitor"),
+        alertsData.updatedAt ?? alertsData.fetchedAt ?? stormsData.updatedAt ?? stormsData.fetchedAt,
+        needs
+      );
+      if (statusEl) statusEl.textContent = "Live brief updated. Verify local instructions before acting.";
+    } catch (error) {
+      console.error("HurricaneHub brief generator failed", error);
+      if (statusEl) statusEl.textContent = "The live brief could not load right now. Try again shortly or use the state tracker.";
+    }
+  });
+</script>
+
+<style>
+  .brief-form { display: grid; gap: 14px; align-content: start; }
+  .brief-output { min-height: 360px; }
+  .brief-heading { display: flex; justify-content: space-between; gap: 18px; align-items: start; }
+  .brief-level { display: inline-flex; min-height: 36px; padding: 0 12px; border-radius: 999px; align-items: center; background: #e8f3f5; color: var(--ocean); font-weight: 800; }
+  .brief-level[data-level="Prepare"] { background: #fff3d7; color: #8b5a00; }
+  .brief-level[data-level="Act"], .brief-level[data-level="Leave"] { background: #ffe3de; color: #9f2d1f; }
+  .brief-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 22px; }
+  .brief-grid section { padding-top: 16px; border-top: 1px solid var(--line); }
+  .brief-list { display: grid; gap: 10px; padding-left: 1.1rem; }
+  .brief-list strong, .brief-list span { display: block; }
+  .brief-list span { color: var(--muted); font-size: 0.9rem; }
+  .brief-muted { color: var(--muted); font-size: 0.9rem; }
+  .brief-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+  .brief-actions button { width: auto; padding: 0 14px; }
+  .brief-actions button + button { background: var(--navy); }
+  @media (max-width: 760px) { .brief-grid { grid-template-columns: 1fr; } .brief-heading { display: grid; } }
+  @media print { .site-header, .disclaimer, .brief-form, .site-footer, .ad-slot, .brief-actions { display: none !important; } .band { padding: 16px 0; } body { background: #fff; } }
+</style>

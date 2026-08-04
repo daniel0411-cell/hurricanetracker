@@ -11,6 +11,10 @@ export type BlogPost = {
     body: string;
     bullets?: string[];
   }>;
+  faqs?: Array<{
+    question: string;
+    answer: string;
+  }>;
 };
 
 export const blogPosts: BlogPost[] = [
@@ -176,6 +180,162 @@ export const blogPosts: BlogPost[] = [
         heading: "After You Arrive",
         body: "Your evacuation plan should include communication and return rules.",
         bullets: ["Text a contact when you leave and when you arrive.", "Keep receipts for possible insurance or assistance records.", "Do not return until local officials say roads and utilities are safe.", "Avoid floodwater, downed lines, and generator exhaust."]
+      }
+    ]
+  },
+  {
+    slug: "what-to-do-during-a-hurricane-warning",
+    title: "What to Do During a Hurricane Warning: 24-Hour Checklist",
+    description: "A 24-hour hurricane warning checklist for protecting people, medication, documents, vehicles, pets, and evacuation options before conditions deteriorate.",
+    datePublished: "2026-08-04",
+    dateModified: "2026-08-04",
+    image: "/images/blog/what-hurricane-watch-warning-means.svg",
+    imageAlt: "Emergency alert setup with phone, radio, flashlight, batteries, and evacuation map.",
+    sections: [
+      {
+        heading: "Direct Answer",
+        body: "During a hurricane warning, finish the actions that become unsafe or impossible later: follow local orders, prepare to leave if directed, charge devices, pack medication and documents, secure the home, and stop outdoor work when conditions worsen."
+      },
+      {
+        heading: "First Hour Priorities",
+        body: "Start with people, transport, and official instructions rather than errands.",
+        bullets: ["Read the full NWS alert and county emergency guidance.", "Contact anyone who needs help with transport, mobility, medication, or pets.", "Fuel the vehicle and choose a safe destination or shelter option.", "Pack IDs, prescriptions, insurance records, chargers, water, and pet supplies."]
+      },
+      {
+        heading: "Before Winds Increase",
+        body: "Complete outside work early and do not take risks to finish low-value tasks.",
+        bullets: ["Bring in loose furniture, trash bins, tools, and decorations.", "Move vehicles away from trees and flood-prone streets when possible.", "Charge phones, battery packs, and essential devices.", "Set a family communication check-in time and an out-of-area contact."]
+      },
+      {
+        heading: "When To Leave",
+        body: "Leave when officials order evacuation, when your evacuation zone is told to go, or earlier if your household needs extra travel time. A warning does not mean every area has the same risk, so use county instructions and evacuation-zone information."
+      }
+    ],
+    faqs: [
+      {
+        question: "Can I wait until the hurricane reaches my area before leaving?",
+        answer: "Do not wait for visible severe weather if local officials tell your zone to evacuate. Roads, fuel, bridges, shelters, and medical support can become limited before peak conditions arrive."
+      },
+      {
+        question: "What should I do if I am not in an evacuation zone?",
+        answer: "Follow local instructions, finish preparations, and plan to shelter away from windows and flood-prone rooms. Inland flooding, tornadoes, and power outages can still be dangerous."
+      }
+    ]
+  },
+  {
+    slug: "hurricane-power-outage-food-medicine-plan",
+    title: "Hurricane Power Outage Plan for Food, Medicine, and Devices",
+    description: "Prepare for a hurricane power outage with a practical plan for food safety, refrigerated medicine, medical equipment, charging, water, generators, and communication.",
+    datePublished: "2026-08-04",
+    dateModified: "2026-08-04",
+    image: "/images/blog/hurricane-emergency-kit-checklist.svg",
+    imageAlt: "Organized hurricane emergency kit with water, food, first aid, batteries, documents, and pet supplies.",
+    sections: [
+      {
+        heading: "Direct Answer",
+        body: "Prepare for a hurricane power outage by separating your plan into health needs, drinking water, food safety, charging, communication, and safe backup power. If anyone uses medical equipment or refrigerated medicine, contact the provider before the storm is close."
+      },
+      {
+        heading: "Protect Health Needs First",
+        body: "A power outage can become a medical or mobility problem before it becomes an inconvenience.",
+        bullets: ["Ask the clinician, pharmacy, or equipment provider about backup power and medicine storage.", "Keep prescriptions, device instructions, and contact numbers in a waterproof bag.", "Identify a safe destination with reliable power if your household cannot remain safely at home.", "Charge essential devices before watches become warnings."]
+      },
+      {
+        heading: "Food and Water Plan",
+        body: "Keep water ready for drinking and sanitation, and make a food-safety plan before a storm.",
+        bullets: ["Use coolers and ice to protect essential food if the outage lasts.", "Keep a food thermometer if available and discard food that is unsafe rather than tasting it.", "Store shelf-stable food that does not require cooking.", "Open refrigerator and freezer doors as little as possible."]
+      },
+      {
+        heading: "Generator and Charging Safety",
+        body: "Fuel-burning generators can create deadly carbon monoxide and electrical hazards. Use them only according to the manual and official safety guidance, outdoors and away from enclosed spaces. Never improvise a connection to home wiring."
+      }
+    ],
+    faqs: [
+      {
+        question: "Should I buy a generator for hurricane season?",
+        answer: "A generator can help some households, but it also creates fuel, carbon-monoxide, and electrical risks. Decide based on your household needs, learn the manual early, and follow local safety guidance."
+      },
+      {
+        question: "How should I plan for refrigerated medicine during an outage?",
+        answer: "Ask the prescribing clinician or pharmacist for the medicine-specific storage plan before the storm. Keep written instructions and provider numbers with your emergency documents."
+      }
+    ]
+  },
+  {
+    slug: "hurricane-documents-insurance-checklist",
+    title: "Hurricane Documents and Insurance Checklist",
+    description: "Prepare a hurricane documents checklist with IDs, insurance details, property photos, prescriptions, contacts, and records needed before evacuation or damage.",
+    datePublished: "2026-08-04",
+    dateModified: "2026-08-04",
+    image: "/images/blog/how-to-prepare-your-home-for-a-hurricane.svg",
+    imageAlt: "Coastal home prepared with storm shutters, secured outdoor items, and sandbags.",
+    sections: [
+      {
+        heading: "Direct Answer",
+        body: "Before a hurricane, gather identification, insurance information, property photos, prescriptions, emergency contacts, banking access details, and copies of key records in a waterproof, portable folder."
+      },
+      {
+        heading: "What To Photograph",
+        body: "Create a dated visual record before conditions change.",
+        bullets: ["Exterior walls, roof, windows, doors, and outdoor equipment.", "Each room, major appliances, electronics, and valuable items.", "Vehicle condition and serial numbers when practical.", "Receipts, inventory lists, and repairs that are already in progress."]
+      },
+      {
+        heading: "What To Take If You Evacuate",
+        body: "Keep the documents you may need while away from home in your go-bag instead of a storage bin.",
+        bullets: ["Photo IDs, insurance cards, policy contacts, and property address.", "Prescriptions, medical summaries, and device information.", "Emergency contacts, family meeting locations, and school or workplace details.", "Cash, cards, keys, and copies of important legal records."]
+      },
+      {
+        heading: "After the Storm",
+        body: "Use official re-entry instructions, document conditions safely, and keep a log of major actions and expenses. Do not enter damaged buildings, approach downed lines, or make unsafe repairs for the sake of documentation."
+      }
+    ],
+    faqs: [
+      {
+        question: "Should I store hurricane documents digitally or on paper?",
+        answer: "Use both when possible: a protected paper folder for evacuation and secure digital copies you can access if you cannot return home."
+      },
+      {
+        question: "When should I photograph my home for hurricane records?",
+        answer: "Photograph it before a storm threat is imminent, when you can safely capture clear images. Update the record after major purchases or repairs."
+      }
+    ]
+  },
+  {
+    slug: "hurricane-preparation-timeline-72-48-24-hours",
+    title: "Hurricane Preparation Timeline: 72, 48, and 24 Hours",
+    description: "Use a 72-, 48-, and 24-hour hurricane preparation timeline for supplies, evacuation routes, pets, documents, home protection, and final safety decisions.",
+    datePublished: "2026-08-04",
+    dateModified: "2026-08-04",
+    image: "/images/blog/hurricane-evacuation-checklist.svg",
+    imageAlt: "Evacuation preparation scene with go-bags, pet carrier, car, map, water, medicine pouch, and keys.",
+    sections: [
+      {
+        heading: "Direct Answer",
+        body: "Use the 72-hour window for planning and supplies, the 48-hour window for fuel, routes, documents, pets, and home protection, and the 24-hour window for final safety actions and official evacuation decisions."
+      },
+      {
+        heading: "72 Hours: Remove Friction",
+        body: "This is the best window to complete low-regret actions before stores and roads become stressed.",
+        bullets: ["Review your evacuation zone, destination, and communication plan.", "Refill critical medicine and check medical or pet needs.", "Build water, food, sanitation, battery, and document supplies.", "Photograph property and read insurance contacts."]
+      },
+      {
+        heading: "48 Hours: Prepare to Move",
+        body: "Shift from general readiness to the actions that protect your household if a warning arrives.",
+        bullets: ["Fuel the vehicle and choose a primary and backup route.", "Pack go-bags, including medication, IDs, chargers, cash, and pet supplies.", "Secure windows and outdoor items while conditions are safe.", "Confirm school, work, shelter, and care plans."]
+      },
+      {
+        heading: "24 Hours: Follow Official Decisions",
+        body: "At this point, focus on official warnings, evacuation-zone instructions, local flood and surge risk, and whether your household needs to leave earlier. Stop outdoor work when wind or conditions make it unsafe."
+      }
+    ],
+    faqs: [
+      {
+        question: "Should I wait until 24 hours before a hurricane to prepare?",
+        answer: "No. Use the earliest safe window for supplies, medication, routes, and household coordination. The final 24 hours should be reserved for official instructions and safety-critical actions."
+      },
+      {
+        question: "What changes the hurricane timeline for my household?",
+        answer: "Medical needs, limited mobility, pets, long travel routes, flood exposure, mobile homes, and evacuation-zone instructions can all require an earlier timeline."
       }
     ]
   }

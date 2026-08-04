@@ -1,21 +1,26 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import FaqBlock from "../../components/FaqBlock.astro";
 import { blogPosts } from "../../data/blog";
 import { faqs, site } from "../../data/site";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
 
 const slug = Astro.params.slug ?? "";
-const post = blogPosts.find((item) => item.slug === slug) ?? blogPosts[0];
+const post = blogPosts.find((item) => item.slug === slug);
+if (!post) {
+  return Astro.redirect("/blog/");
+}
 const title = post.title;
 const description = post.description;
 const url = `${site.url}/blog/${post.slug}/`;
 const lastModified = new Date(post.dateModified).toISOString();
 const relatedPosts = blogPosts.filter((item) => item.slug !== post.slug).slice(0, 3);
+const postFaqs = post.faqs?.length ? post.faqs : faqs;
 const imageUrl = new URL(post.image, site.url).href;
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified, image: imageUrl }),
-  faqSchema(faqs)
+  faqSchema(postFaqs)
 );
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified} image={post.image}>
@@ -72,4 +77,5 @@ const jsonLd = graph(
       </aside>
     </div>
   </section>
+  <FaqBlock faqs={postFaqs} />
 </Layout>

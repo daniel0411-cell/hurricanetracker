@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import FaqBlock from "../../components/FaqBlock.astro";
 import { faqs, site } from "../../data/site";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
 
@@ -39,6 +40,17 @@ const jsonLd = graph(
         <p>Sort your household into Monitor, Prepare, Act, or Leave using alert status, housing risk, pets, transport, and medical needs.</p>
         <a href="/tools/evacuation-decision-helper/">Open tool</a>
       </article>
+      <article class="post-card">
+        <h2>Hurricane Brief Generator</h2>
+        <p>Generate a printable ZIP-based brief with current NWS alerts, NHC storm context, and next household decisions.</p>
+        <a href="/tools/hurricane-brief/">Build a brief</a>
+      </article>
+      <article class="post-card">
+        <h2>Power Outage Planner</h2>
+        <p>Plan for water, food safety, medical equipment, charging, generators, pets, and communication during an outage.</p>
+        <a href="/tools/power-outage-planner/">Plan for outages</a>
+      </article>
     </div>
   </section>
+  <FaqBlock faqs={faqs} />
 </Layout>
