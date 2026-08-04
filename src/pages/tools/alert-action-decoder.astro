@@ -1,0 +1,140 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import Layout from "../../layouts/Layout.astro";
+import { faqs, site } from "../../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+
+const title = "Hurricane Alert Action Decoder";
+const description = "Decode hurricane watches, warnings, storm surge alerts, flash flood warnings, tornado warnings, and evacuation orders into household action steps.";
+const url = `${site.url}/tools/alert-action-decoder/`;
+const pageFaqs = [
+  {
+    question: "What does a hurricane warning mean I should do?",
+    answer: "A hurricane warning means hurricane conditions are expected. Finish protective actions, follow local instructions, and leave if officials order evacuation or your household needs extra time."
+  },
+  {
+    question: "Which alert should make me leave?",
+    answer: "Evacuation orders, storm surge warnings for your zone, unsafe housing, and household medical or mobility needs can all require leaving earlier. Local officials control evacuation decisions."
+  },
+  ...faqs
+];
+const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url, dateModified: site.contentLastModified }), faqSchema(pageFaqs));
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified} showBottomAd={true}>
+  <section class="band" aria-labelledby="decoder-title">
+    <div class="inner">
+      <p class="eyebrow">Plain-language alert actions</p>
+      <h1 id="decoder-title">Hurricane Alert Action Decoder</h1>
+      <p class="answer">Select an official alert type and your household risk to translate watch, warning, surge, flood, tornado, and evacuation language into practical next actions.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="decoder-form-heading">
+    <div class="inner grid-2">
+      <form class="panel decoder-form" id="decoder-form">
+        <h2 id="decoder-form-heading">Decode an Alert</h2>
+        <label>Official alert type
+          <select name="alert">
+            <option value="watch">Hurricane or tropical storm watch</option>
+            <option value="hurricane-warning">Hurricane warning</option>
+            <option value="surge">Storm surge watch or warning</option>
+            <option value="flood">Flash flood or flood warning</option>
+            <option value="tornado">Tornado warning</option>
+            <option value="evacuation">Evacuation order</option>
+          </select>
+        </label>
+        <label>Household risk
+          <select name="risk">
+            <option value="standard">Standard inland household</option>
+            <option value="coastal">Coastal, low-lying, barrier island, or flood zone</option>
+            <option value="vulnerable">Medical, mobility, transportation, pet, or mobile-home vulnerability</option>
+          </select>
+        </label>
+        <button type="submit">Decode action</button>
+      </form>
+
+      <article class="panel" aria-live="polite">
+        <p class="eyebrow">Recommended action level</p>
+        <h2 id="decoder-level">Prepare</h2>
+        <p id="decoder-summary">Choose an alert and household risk to see action steps.</p>
+        <ul class="check-list" id="decoder-actions">
+          <li>Read the full official alert at weather.gov.</li>
+          <li>Confirm county emergency management instructions.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <FaqBlock faqs={pageFaqs} />
+</Layout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("#decoder-form");
+  const levelEl = document.querySelector<HTMLElement>("#decoder-level");
+  const summaryEl = document.querySelector<HTMLElement>("#decoder-summary");
+  const actionsEl = document.querySelector<HTMLElement>("#decoder-actions");
+  const matrix: Record<string, { level: string; summary: string; actions: string[] }> = {
+    watch: {
+      level: "Prepare",
+      summary: "Conditions are possible. Finish low-regret preparations before warnings or evacuation pressure increases.",
+      actions: ["Fuel vehicles and charge devices.", "Pack documents, medication, water, food, and pet supplies.", "Review evacuation zone and destination."]
+    },
+    "hurricane-warning": {
+      level: "Act",
+      summary: "Hurricane conditions are expected. Finish protective actions and follow local instructions.",
+      actions: ["Secure windows and outdoor items while safe.", "Move vulnerable people early.", "Stop nonessential travel as conditions deteriorate."]
+    },
+    surge: {
+      level: "Act",
+      summary: "Water can make routes unsafe before peak wind. Treat surge instructions separately from wind alerts.",
+      actions: ["Check your evacuation zone.", "Move vehicles and documents away from flood-prone areas.", "Leave if officials order your zone to evacuate."]
+    },
+    flood: {
+      level: "Act",
+      summary: "Floodwater can rise quickly and make roads deadly.",
+      actions: ["Avoid flooded roads.", "Move to higher ground if instructed.", "Keep phones charged and monitor local warnings."]
+    },
+    tornado: {
+      level: "Act",
+      summary: "A tornado warning requires immediate sheltering action.",
+      actions: ["Go to an interior room on the lowest safe level.", "Stay away from windows.", "Keep shoes, flashlight, and phone nearby."]
+    },
+    evacuation: {
+      level: "Leave",
+      summary: "Official evacuation language means you should follow local instructions immediately if you can do so safely.",
+      actions: ["Use official routes.", "Take medication, IDs, documents, pets, chargers, water, and cash.", "Tell a contact where you are going."]
+    }
+  };
+
+  function escapeHtml(value: unknown) {
+    const replacements: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
+    return String(value ?? "").replace(/[&<>"']/g, (char) => replacements[char] ?? char);
+  }
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const alert = String(data.get("alert") ?? "watch");
+    const risk = String(data.get("risk") ?? "standard");
+    const base = matrix[alert] ?? matrix.watch;
+    const actions = [...base.actions];
+    let level = base.level;
+    let summary = base.summary;
+    if (risk === "coastal" && level === "Prepare") {
+      level = "Act";
+      summary = `${summary} Because you selected coastal or flood exposure, start action earlier and verify your evacuation zone.`;
+    }
+    if (risk === "vulnerable" && level !== "Leave") {
+      actions.push("Move people with medical, mobility, pet, transportation, or mobile-home vulnerability earlier than the public deadline.");
+      if (level === "Prepare") level = "Act";
+    }
+    if (levelEl) levelEl.textContent = level;
+    if (summaryEl) summaryEl.textContent = summary;
+    if (actionsEl) actionsEl.innerHTML = actions.map((action) => `<li>${escapeHtml(action)}</li>`).join("");
+  });
+</script>
+
+<style>
+  .decoder-form { display: grid; gap: 14px; align-content: start; }
+  .decoder-form label { display: grid; gap: 7px; font-weight: 800; }
+</style>

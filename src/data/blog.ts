@@ -338,5 +338,119 @@ export const blogPosts: BlogPost[] = [
         answer: "Medical needs, limited mobility, pets, long travel routes, flood exposure, mobile homes, and evacuation-zone instructions can all require an earlier timeline."
       }
     ]
+  },
+  {
+    slug: "how-far-is-a-hurricane-from-me",
+    title: "How Far Is a Hurricane From Me?",
+    description: "Learn what a hurricane's current distance from your location can tell you, what it cannot predict, and how to pair distance with official alerts.",
+    datePublished: "2026-08-04",
+    dateModified: "2026-08-04",
+    image: "/images/blog/2025-atlantic-hurricane-season-outlook.svg",
+    imageAlt: "Atlantic hurricane monitoring desk with map displays and emergency planning notes.",
+    sections: [
+      {
+        heading: "Direct Answer",
+        body: "A hurricane's distance from you shows only how far the current storm center is from your approximate location. It does not predict whether you will experience wind, surge, flooding, tornadoes, or evacuation conditions."
+      },
+      {
+        heading: "What Distance Can Help With",
+        body: "Distance is helpful for basic geographic context, especially when an active storm is offshore or moving between basins.",
+        bullets: ["Understand whether the storm is generally near your region.", "Compare multiple active systems at a glance.", "Pair the current position with the official NHC forecast discussion.", "Use local NWS alerts to determine whether your state has current hazards."]
+      },
+      {
+        heading: "Why Distance Is Not Enough",
+        body: "Hurricanes are large, moving systems. Their strongest impacts may occur far from the center, and water hazards can be dangerous well ahead of landfall. A current position cannot replace forecast cones, local flood guidance, or evacuation-zone instructions."
+      },
+      {
+        heading: "Best Next Step",
+        body: "Use the HurricaneHub distance calculator for context, then open your state tracker and local risk plan. The official alert for your county is more important than a distance number."
+      }
+    ],
+    faqs: [
+      {
+        question: "Is the closest hurricane always the most dangerous one?",
+        answer: "No. A more distant storm can still produce dangerous surf, surge, rainfall, or tornadoes depending on its size, track, and local geography."
+      },
+      {
+        question: "Where can I calculate current hurricane distance from my ZIP code?",
+        answer: "Use HurricaneHub's Storm Distance Calculator, then verify the official NHC advisory and your local NWS alerts."
+      }
+    ]
+  },
+  {
+    slug: "storm-surge-warning-vs-hurricane-warning",
+    title: "Storm Surge Warning vs. Hurricane Warning",
+    description: "Understand the difference between storm surge and hurricane warnings, why water hazards can arrive before peak wind, and when to leave.",
+    datePublished: "2026-08-04",
+    dateModified: "2026-08-04",
+    image: "/images/blog/what-hurricane-watch-warning-means.svg",
+    imageAlt: "Weather warning alert setup with a phone, radio, flashlight, batteries, and evacuation map.",
+    sections: [
+      {
+        heading: "Direct Answer",
+        body: "A hurricane warning addresses expected hurricane conditions, while a storm surge warning focuses on life-threatening water rising inland from the coast. Both require attention, but surge can make evacuation routes unsafe before peak winds arrive."
+      },
+      {
+        heading: "Why Storm Surge Needs Its Own Decision",
+        body: "Water changes travel and shelter decisions differently from wind.",
+        bullets: ["Flooded roads can become impassable before the storm center arrives.", "Barrier islands, bays, rivers, and low-lying neighborhoods may need earlier decisions.", "Storm surge risk can vary sharply by evacuation zone.", "A wind-safe building may still be inaccessible after water rises."]
+      },
+      {
+        heading: "What To Do",
+        body: "Read the full local alert, check your evacuation zone, and leave when your zone is directed to evacuate. Do not drive through floodwater or wait to see visible water on your street before acting."
+      },
+      {
+        heading: "Use More Than One Alert",
+        body: "Storm surge warnings can occur alongside hurricane, flash flood, tornado, or evacuation alerts. The HurricaneHub Alert Action Decoder can help turn the alert type into a household action list, but official local instructions control."
+      }
+    ],
+    faqs: [
+      {
+        question: "Should I evacuate for a storm surge warning?",
+        answer: "Follow evacuation-zone instructions from local officials. A surge warning can require leaving even when wind conditions do not yet seem severe."
+      },
+      {
+        question: "Can storm surge happen without a direct hurricane landfall?",
+        answer: "Yes. Coastal water impacts can occur when a storm passes nearby. Check the official local forecast and alerts for your area."
+      }
+    ]
+  },
+  {
+    slug: "hurricane-family-communication-plan",
+    title: "Hurricane Family Communication Plan",
+    description: "Build a hurricane family communication plan with contacts, meeting places, evacuation destinations, medication notes, pets, and check-in times.",
+    datePublished: "2026-08-04",
+    dateModified: "2026-08-04",
+    image: "/images/blog/hurricane-evacuation-checklist.svg",
+    imageAlt: "Hurricane evacuation preparation with go-bags, pet carrier, car, map, water, medicine pouch, and keys.",
+    sections: [
+      {
+        heading: "Direct Answer",
+        body: "A hurricane family communication plan should name an out-of-area contact, local contact, meeting place, evacuation destination, pet and medical needs, and clear check-in times for before and after travel."
+      },
+      {
+        heading: "Choose Two Contacts",
+        body: "Use one person nearby and one person outside the immediate risk area.",
+        bullets: ["Keep their names and numbers on paper as well as on phones.", "Agree that short texts are often more reliable than long calls during disruptions.", "Tell children, older relatives, and caregivers who will communicate updates.", "Confirm who can make decisions if the household becomes separated."]
+      },
+      {
+        heading: "Write Down the Plan",
+        body: "Write down the meeting place and destination instead of relying on memory. Include school pickup, work departure, pet transport, medication, mobility, and vehicle needs."
+      },
+      {
+        heading: "Practice Before the Storm",
+        body: "Review the plan at the start of hurricane season and whenever the household changes. The goal is not a perfect plan; it is fewer decisions when official warnings arrive."
+      }
+    ],
+    faqs: [
+      {
+        question: "What if my family has no local meeting place?",
+        answer: "Choose an approved shelter, a trusted relative, or another safe location outside the evacuation zone, then confirm it is available before relying on it."
+      },
+      {
+        question: "Should hurricane communication plans include pets?",
+        answer: "Yes. Include carriers, food, records, transport, and a pet-friendly destination so pets do not delay a safety decision."
+      }
+    ]
   }
 ];

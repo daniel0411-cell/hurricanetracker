@@ -1,0 +1,184 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import Layout from "../../layouts/Layout.astro";
+import { faqs, site } from "../../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+
+const title = "How Far Is the Hurricane From Me?";
+const description = "Use a ZIP code to estimate straight-line distance from your location to current NHC active storms, with official advisory links and planning notes.";
+const url = `${site.url}/tools/storm-distance-calculator/`;
+const pageFaqs = [
+  {
+    question: "Does hurricane distance show whether I will be hit?",
+    answer: "No. Distance from the current storm center is only context. Impacts depend on forecast track, storm size, wind field, surge, rainfall, tornadoes, terrain, and local warnings."
+  },
+  {
+    question: "What should I do if a storm is close to my ZIP code?",
+    answer: "Check your NWS alerts, county evacuation zone, official NHC advisory, and local emergency management instructions before making travel or shelter decisions."
+  },
+  ...faqs
+];
+const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url, dateModified: site.contentLastModified }), faqSchema(pageFaqs));
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified} showBottomAd={true}>
+  <section class="band" aria-labelledby="distance-title">
+    <div class="inner">
+      <p class="eyebrow">Storm location context</p>
+      <h1 id="distance-title">How Far Is the Hurricane From Me?</h1>
+      <p class="answer">Enter a US ZIP code to estimate the straight-line distance between your approximate ZIP center and current active NHC storm positions, then use official alerts to decide what to do next.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="distance-form-heading">
+    <div class="inner grid-2">
+      <form class="panel distance-form" id="distance-form">
+        <h2 id="distance-form-heading">Check Storm Distance</h2>
+        <label for="distance-zip">US ZIP code</label>
+        <input id="distance-zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="\d{5}" placeholder="e.g. 33139" required />
+        <button type="submit">Calculate distance</button>
+        <p id="distance-status" class="small" role="status">This tool uses current NHC storm positions and ZIP center coordinates.</p>
+      </form>
+
+      <article class="panel" id="distance-result" aria-live="polite">
+        <p class="eyebrow">Result</p>
+        <h2>Waiting for ZIP code</h2>
+        <p>When active storms exist, the nearest storm will be shown first. If no current NHC storms exist, use this page during the next active system.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="distance-limits">
+    <div class="inner grid-2">
+      <article>
+        <h2 id="distance-limits">What This Distance Does and Does Not Mean</h2>
+        <h3>Useful Context</h3>
+        <p>Distance can help you understand whether an active storm is in your general basin or far offshore. It is especially useful when paired with your state NWS alerts.</p>
+        <h3>Not a Forecast</h3>
+        <p>Distance does not show landfall timing, wind arrival, storm surge, rainfall risk, or evacuation need. Always check the official forecast and local instructions.</p>
+      </article>
+      <article class="panel">
+        <h2>Next Best Step</h2>
+        <p>After checking distance, open your state tracker and local risk plan so active warnings and household needs guide your next move.</p>
+        <p><a class="action-link" href="/tools/local-risk-plan/">Check local risk</a></p>
+      </article>
+    </div>
+  </section>
+
+  <FaqBlock faqs={pageFaqs} />
+</Layout>
+
+<script>
+  type LocationResult = {
+    zip: string;
+    city?: string;
+    state: string;
+    stateName: string;
+    latitude?: string | null;
+    longitude?: string | null;
+  };
+  type Storm = {
+    id?: string;
+    name?: string;
+    classification?: string;
+    latitude?: string;
+    longitude?: string;
+    summary?: string;
+    publicAdvisory?: string;
+    lastUpdate?: string;
+  };
+  type StormFeed = {
+    storms?: Storm[];
+    updatedAt?: string;
+    fetchedAt?: string;
+  };
+
+  const form = document.querySelector<HTMLFormElement>("#distance-form");
+  const zipInput = document.querySelector<HTMLInputElement>("#distance-zip");
+  const statusEl = document.querySelector<HTMLElement>("#distance-status");
+  const resultEl = document.querySelector<HTMLElement>("#distance-result");
+
+  function escapeHtml(value: unknown) {
+    const replacements: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
+    return String(value ?? "").replace(/[&<>"']/g, (char) => replacements[char] ?? char);
+  }
+
+  function coordinate(value: unknown) {
+    const text = String(value ?? "").trim().toUpperCase();
+    const number = Number.parseFloat(text);
+    if (!Number.isFinite(number)) return null;
+    if (text.endsWith("S") || text.endsWith("W")) return -Math.abs(number);
+    return number;
+  }
+
+  function distanceMiles(lat1: number, lon1: number, lat2: number, lon2: number) {
+    const toRadians = (value: number) => value * Math.PI / 180;
+    const earthMiles = 3958.8;
+    const deltaLat = toRadians(lat2 - lat1);
+    const deltaLon = toRadians(lon2 - lon1);
+    const a = Math.sin(deltaLat / 2) ** 2 + Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(deltaLon / 2) ** 2;
+    return earthMiles * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  }
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const zip = zipInput?.value.trim() ?? "";
+    if (!/^\d{5}$/.test(zip)) {
+      if (statusEl) statusEl.textContent = "Enter a valid five-digit ZIP code.";
+      return;
+    }
+    try {
+      if (statusEl) statusEl.textContent = "Loading location and NHC storm feed...";
+      const [locationResponse, stormResponse] = await Promise.all([
+        fetch(`/api/location/zip?zip=${encodeURIComponent(zip)}`),
+        fetch("/api/nhc/current.json")
+      ]);
+      if (!locationResponse.ok || !stormResponse.ok) throw new Error("Feed unavailable");
+      const location = await locationResponse.json() as LocationResult;
+      const stormFeed = await stormResponse.json() as StormFeed;
+      const userLat = coordinate(location.latitude);
+      const userLon = coordinate(location.longitude);
+      if (userLat === null || userLon === null) throw new Error("ZIP coordinates unavailable");
+      const rows = (stormFeed.storms ?? [])
+        .map((storm) => {
+          const stormLat = coordinate(storm.latitude);
+          const stormLon = coordinate(storm.longitude);
+          if (stormLat === null || stormLon === null) return null;
+          return { storm, miles: Math.round(distanceMiles(userLat, userLon, stormLat, stormLon)) };
+        })
+        .filter((item): item is { storm: Storm; miles: number } => Boolean(item))
+        .sort((a, b) => a.miles - b.miles);
+
+      if (!resultEl) return;
+      if (!rows.length) {
+        resultEl.innerHTML = `<p class="eyebrow">No active storm distance</p><h2>${escapeHtml(location.city || location.stateName)}</h2><p>No active NHC tropical cyclone with usable coordinates is listed right now. Keep monitoring official outlooks during hurricane season.</p>`;
+      } else {
+        const nearest = rows[0];
+        resultEl.innerHTML = `
+          <p class="eyebrow">Nearest active storm</p>
+          <h2>${escapeHtml(nearest.storm.name || nearest.storm.id || "Active storm")} is about ${nearest.miles.toLocaleString("en-US")} miles away</h2>
+          <p class="small">From approximate ZIP center: ${escapeHtml(location.city ? `${location.city}, ${location.stateName}` : location.stateName)}.</p>
+          <div class="distance-list">
+            ${rows.map(({ storm, miles }) => `
+              <article class="storm-row">
+                <header><h3>${escapeHtml(storm.name || storm.id || "Active storm")}</h3><span class="badge warn">${miles.toLocaleString("en-US")} mi</span></header>
+                <p>${escapeHtml(storm.summary || storm.classification || "NHC storm data loaded.")}</p>
+                <p class="small">Position: ${escapeHtml(storm.latitude)}, ${escapeHtml(storm.longitude)} · Updated: ${escapeHtml(storm.lastUpdate || stormFeed.updatedAt || "pending")}</p>
+                ${storm.publicAdvisory ? `<a href="${escapeHtml(storm.publicAdvisory)}" rel="nofollow">Official NHC advisory</a>` : ""}
+              </article>
+            `).join("")}
+          </div>
+          <p class="source-note">Distance is straight-line context only. It does not represent forecast track, wind arrival, surge, rainfall, or evacuation need.</p>
+        `;
+      }
+      if (statusEl) statusEl.textContent = "Storm distance updated from current NHC data.";
+    } catch (error) {
+      console.error("HurricaneHub storm distance failed", error);
+      if (statusEl) statusEl.textContent = "Storm distance could not load right now. Try again shortly.";
+    }
+  });
+</script>
+
+<style>
+  .distance-form { display: grid; gap: 14px; align-content: start; }
+  .distance-list { display: grid; gap: 12px; margin-top: 18px; }
+</style>

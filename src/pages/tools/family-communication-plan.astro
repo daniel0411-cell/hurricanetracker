@@ -1,0 +1,101 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import Layout from "../../layouts/Layout.astro";
+import { faqs, site } from "../../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+
+const title = "Hurricane Family Communication Plan Generator";
+const description = "Create a printable hurricane family communication plan with contacts, meeting places, evacuation destination, pets, medication notes, and check-in times.";
+const url = `${site.url}/tools/family-communication-plan/`;
+const pageFaqs = [
+  {
+    question: "What should a hurricane family communication plan include?",
+    answer: "Include an out-of-area contact, local contact, meeting place, evacuation destination, pet plan, medical notes, school or work pickup rules, and check-in times."
+  },
+  {
+    question: "Why use an out-of-area contact during a hurricane?",
+    answer: "Local calls and roads can be disrupted. An out-of-area contact can help family members relay status when everyone cannot reach each other directly."
+  },
+  ...faqs
+];
+const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url, dateModified: site.contentLastModified }), faqSchema(pageFaqs));
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified} showBottomAd={true}>
+  <section class="band" aria-labelledby="plan-title">
+    <div class="inner">
+      <p class="eyebrow">Family coordination</p>
+      <h1 id="plan-title">Hurricane Family Communication Plan Generator</h1>
+      <p class="answer">Fill in a few fields to create a printable family communication plan for check-ins, evacuation destinations, medical needs, pets, and backup contacts before a hurricane disrupts phones or travel.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="plan-form-heading">
+    <div class="inner grid-2">
+      <form class="panel family-plan-form" id="family-plan-form">
+        <h2 id="plan-form-heading">Build Communication Plan</h2>
+        <label>Out-of-area contact<input name="outsideContact" placeholder="Name and phone" /></label>
+        <label>Local contact<input name="localContact" placeholder="Name and phone" /></label>
+        <label>Meeting place<input name="meetingPlace" placeholder="School, shelter, relative, or landmark" /></label>
+        <label>Evacuation destination<input name="destination" placeholder="Address or town" /></label>
+        <label>Important needs<textarea name="needs" placeholder="Medication, pets, mobility, pickup, school, work, or equipment notes"></textarea></label>
+        <button type="submit">Generate plan</button>
+      </form>
+
+      <article class="panel" id="family-plan-output" aria-live="polite">
+        <p class="eyebrow">Printable plan</p>
+        <h2>Waiting for details</h2>
+        <p>Add contacts and destinations, then print or copy the plan for your household.</p>
+      </article>
+    </div>
+  </section>
+
+  <FaqBlock faqs={pageFaqs} />
+</Layout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("#family-plan-form");
+  const output = document.querySelector<HTMLElement>("#family-plan-output");
+  function escapeHtml(value: unknown) {
+    const replacements: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
+    return String(value ?? "").replace(/[&<>"']/g, (char) => replacements[char] ?? char);
+  }
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const outsideContact = String(data.get("outsideContact") || "Not set");
+    const localContact = String(data.get("localContact") || "Not set");
+    const meetingPlace = String(data.get("meetingPlace") || "Not set");
+    const destination = String(data.get("destination") || "Not set");
+    const needs = String(data.get("needs") || "No special notes added");
+    if (!output) return;
+    output.innerHTML = `
+      <p class="eyebrow">Printable family plan</p>
+      <h2>Hurricane Communication Plan</h2>
+      <table>
+        <tbody>
+          <tr><th>Out-of-area contact</th><td>${escapeHtml(outsideContact)}</td></tr>
+          <tr><th>Local contact</th><td>${escapeHtml(localContact)}</td></tr>
+          <tr><th>Meeting place</th><td>${escapeHtml(meetingPlace)}</td></tr>
+          <tr><th>Evacuation destination</th><td>${escapeHtml(destination)}</td></tr>
+          <tr><th>Important needs</th><td>${escapeHtml(needs)}</td></tr>
+        </tbody>
+      </table>
+      <h3 style="margin-top: 18px;">Check-in schedule</h3>
+      <ul class="check-list">
+        <li>Check in when a watch is issued.</li>
+        <li>Check in before leaving or sheltering.</li>
+        <li>Text after arrival or after conditions improve.</li>
+      </ul>
+      <p class="source-note">Print this plan and keep a copy with emergency documents. Follow official evacuation and shelter instructions.</p>
+      <p><button type="button" id="family-plan-print">Print plan</button></p>
+    `;
+    document.querySelector("#family-plan-print")?.addEventListener("click", () => window.print());
+  });
+</script>
+
+<style>
+  .family-plan-form { display: grid; gap: 14px; align-content: start; }
+  .family-plan-form label { display: grid; gap: 7px; font-weight: 800; }
+  .family-plan-form textarea { min-height: 120px; padding: 10px 12px; }
+  @media print { .site-header, .disclaimer, .family-plan-form, .site-footer, .ad-slot { display: none !important; } }
+</style>
