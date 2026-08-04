@@ -46,6 +46,7 @@ export function articleSchema(params: {
   title: string;
   description: string;
   url: string;
+  datePublished?: string;
   dateModified?: string;
   image?: string;
 }) {
@@ -55,10 +56,65 @@ export function articleSchema(params: {
     description: params.description,
     url: params.url,
     image: params.image,
+    datePublished: params.datePublished,
     dateModified: params.dateModified ?? new Date().toISOString(),
     author: organizationSchema(),
     publisher: organizationSchema(),
     about: ["Hurricane tracking", "Emergency management", "Weather alerts"]
+  };
+}
+
+export function webApplicationSchema(params: {
+  name: string;
+  description: string;
+  url: string;
+  featureList?: string[];
+}) {
+  return {
+    "@type": "WebApplication",
+    name: params.name,
+    description: params.description,
+    url: params.url,
+    applicationCategory: "WeatherApplication",
+    operatingSystem: "Any",
+    isAccessibleForFree: true,
+    creator: organizationSchema(),
+    publisher: organizationSchema(),
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD"
+    },
+    featureList: params.featureList ?? [
+      "Hurricane tracking",
+      "NWS alert decision support",
+      "Emergency preparedness planning"
+    ]
+  };
+}
+
+export function itemListSchema(items: Array<{ name: string; url: string; description?: string }>) {
+  return {
+    "@type": "ItemList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      description: item.description,
+      url: item.url
+    }))
+  };
+}
+
+export function breadcrumbSchema(items: Array<{ name: string; url: string }>) {
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url
+    }))
   };
 }
 

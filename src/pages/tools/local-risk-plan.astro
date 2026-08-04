@@ -3,7 +3,7 @@ import FaqBlock from "../../components/FaqBlock.astro";
 import LocationRiskPlanner from "../../components/LocationRiskPlanner.astro";
 import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
 
 const title = "Local Hurricane Risk and 72-Hour Action Plan";
 const description = "Check local hurricane risk by ZIP code or state, see active NWS alerts, understand the main hazard type, and generate a 72/48/24-hour household action plan.";
@@ -30,6 +30,12 @@ const pageFaqs = [
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
+  webApplicationSchema({
+    name: title,
+    description,
+    url,
+    featureList: ["ZIP code location screening", "NWS alert decision level", "72/48/24-hour household action plan"]
+  }),
   faqSchema(pageFaqs)
 );
 ---

@@ -2,7 +2,7 @@
 import FaqBlock from "../../components/FaqBlock.astro";
 import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
 
 const title = "Hurricane Power Outage Planner";
 const description = "Build a hurricane power outage plan for food, water, medical equipment, refrigerated medicine, generators, pets, and communication.";
@@ -21,6 +21,12 @@ const pageFaqs = [
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: site.contentLastModified }),
+  webApplicationSchema({
+    name: title,
+    description,
+    url,
+    featureList: ["Power outage planning", "Medical and refrigerated medicine prompts", "Generator safety reminders", "Pet and communication planning"]
+  }),
   faqSchema(pageFaqs)
 );
 ---

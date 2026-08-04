@@ -2,7 +2,7 @@
 import FaqBlock from "../../components/FaqBlock.astro";
 import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
 
 const title = "How Far Is the Hurricane From Me?";
 const description = "Use a ZIP code to estimate straight-line distance from your location to current NHC active storms, with official advisory links and planning notes.";
@@ -18,7 +18,17 @@ const pageFaqs = [
   },
   ...faqs
 ];
-const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url, dateModified: site.contentLastModified }), faqSchema(pageFaqs));
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: site.contentLastModified }),
+  webApplicationSchema({
+    name: title,
+    description,
+    url,
+    featureList: ["ZIP code distance lookup", "Current NHC storm coordinate comparison", "Official advisory links"]
+  }),
+  faqSchema(pageFaqs)
+);
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified} showBottomAd={true}>
   <section class="band" aria-labelledby="distance-title">

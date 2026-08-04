@@ -19,7 +19,7 @@ const postFaqs = post.faqs?.length ? post.faqs : faqs;
 const imageUrl = new URL(post.image, site.url).href;
 const jsonLd = graph(
   websiteSchema(),
-  articleSchema({ title, description, url, dateModified: lastModified, image: imageUrl }),
+  articleSchema({ title, description, url, datePublished: new Date(post.datePublished).toISOString(), dateModified: lastModified, image: imageUrl }),
   faqSchema(postFaqs)
 );
 ---

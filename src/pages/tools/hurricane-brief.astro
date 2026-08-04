@@ -2,7 +2,7 @@
 import FaqBlock from "../../components/FaqBlock.astro";
 import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
 
 const title = "Hurricane Brief Generator";
 const description = "Generate a printable hurricane brief from your ZIP code, live NWS alerts, and current NHC storm data.";
@@ -21,6 +21,12 @@ const pageFaqs = [
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: site.contentLastModified }),
+  webApplicationSchema({
+    name: title,
+    description,
+    url,
+    featureList: ["ZIP code brief generation", "NWS alert summary", "NHC storm context", "Printable household action brief"]
+  }),
   faqSchema(pageFaqs)
 );
 ---

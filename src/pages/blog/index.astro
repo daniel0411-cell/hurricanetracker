@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import { blogPosts } from "../../data/blog";
 import { faqs, site } from "../../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 
 const title = "Hurricane Preparedness Blog";
 const description = "Read HurricaneHub articles about hurricane season outlooks, home preparedness, alerts, and emergency decision-making using NOAA/NHC source context.";
@@ -11,6 +11,11 @@ const lastModified = site.contentLastModified;
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
+  itemListSchema(blogPosts.map((post) => ({
+    name: post.title,
+    description: post.description,
+    url: `${site.url}/blog/${post.slug}/`
+  }))),
   faqSchema(faqs)
 );
 ---

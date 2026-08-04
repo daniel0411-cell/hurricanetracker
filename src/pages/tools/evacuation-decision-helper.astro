@@ -2,7 +2,7 @@
 import FaqBlock from "../../components/FaqBlock.astro";
 import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
 
 const title = "Hurricane Evacuation Decision Helper";
 const description = "Use a hurricane evacuation decision helper to sort household risk into Monitor, Prepare, Act, or Leave based on evacuation orders, surge zone, housing type, pets, and medical needs.";
@@ -24,6 +24,12 @@ const pageFaqs = [
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
+  webApplicationSchema({
+    name: title,
+    description,
+    url,
+    featureList: ["Evacuation decision scoring", "Household vulnerability prompts", "Monitor/Prepare/Act/Leave recommendation"]
+  }),
   faqSchema(pageFaqs)
 );
 ---

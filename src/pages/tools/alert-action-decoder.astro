@@ -2,7 +2,7 @@
 import FaqBlock from "../../components/FaqBlock.astro";
 import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
 
 const title = "Hurricane Alert Action Decoder";
 const description = "Decode hurricane watches, warnings, storm surge alerts, flash flood warnings, tornado warnings, and evacuation orders into household action steps.";
@@ -18,7 +18,17 @@ const pageFaqs = [
   },
   ...faqs
 ];
-const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url, dateModified: site.contentLastModified }), faqSchema(pageFaqs));
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: site.contentLastModified }),
+  webApplicationSchema({
+    name: title,
+    description,
+    url,
+    featureList: ["Hurricane alert decoding", "Storm surge and flood action guidance", "Household risk escalation"]
+  }),
+  faqSchema(pageFaqs)
+);
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified} showBottomAd={true}>
   <section class="band" aria-labelledby="decoder-title">

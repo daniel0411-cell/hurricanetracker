@@ -2,7 +2,7 @@
 import FaqBlock from "../../components/FaqBlock.astro";
 import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
 
 const title = "Hurricane Family Communication Plan Generator";
 const description = "Create a printable hurricane family communication plan with contacts, meeting places, evacuation destination, pets, medication notes, and check-in times.";
@@ -18,7 +18,17 @@ const pageFaqs = [
   },
   ...faqs
 ];
-const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url, dateModified: site.contentLastModified }), faqSchema(pageFaqs));
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: site.contentLastModified }),
+  webApplicationSchema({
+    name: title,
+    description,
+    url,
+    featureList: ["Printable family communication plan", "Contact and meeting-place fields", "Evacuation destination and needs notes"]
+  }),
+  faqSchema(pageFaqs)
+);
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified} showBottomAd={true}>
   <section class="band" aria-labelledby="plan-title">

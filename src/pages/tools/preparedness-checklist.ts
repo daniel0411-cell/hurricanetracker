@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { faqs, site } from "../../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { articleSchema, breadcrumbSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
 
 const pageFaqs = [
   {
@@ -39,6 +39,17 @@ function renderPage(lastModified: string) {
   const jsonLd = graph(
     websiteSchema(),
     articleSchema({ title, description, url: canonical, dateModified: lastModified }),
+    webApplicationSchema({
+      name: title,
+      description,
+      url: canonical,
+      featureList: ["Household-size emergency kit calculation", "Pet supply option", "Markdown checklist output"]
+    }),
+    breadcrumbSchema([
+      { name: site.name, url: site.url },
+      { name: "Tools", url: `${site.url}/tools/` },
+      { name: "Preparedness Checklist", url: canonical }
+    ]),
     faqSchema(pageFaqs)
   );
 

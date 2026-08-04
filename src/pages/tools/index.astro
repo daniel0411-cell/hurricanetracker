@@ -2,15 +2,58 @@
 import Layout from "../../layouts/Layout.astro";
 import FaqBlock from "../../components/FaqBlock.astro";
 import { faqs, site } from "../../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 
 const title = "Hurricane Tools";
 const description = "Use HurricaneHub tools for emergency preparedness, hurricane kit planning, and household decision support based on official NOAA and NHC source awareness.";
 const url = `${site.url}/tools/`;
 const lastModified = site.contentLastModified;
+const tools = [
+  {
+    name: "Local Risk and Action Plan",
+    description: "Check a ZIP code or state, understand active NWS hazards, and generate a 72/48/24-hour household action plan.",
+    url: `${site.url}/tools/local-risk-plan/`
+  },
+  {
+    name: "Preparedness Checklist Generator",
+    description: "Create a household hurricane emergency kit list for 1-4 people, with optional pet supplies.",
+    url: `${site.url}/tools/preparedness-checklist/`
+  },
+  {
+    name: "Evacuation Decision Helper",
+    description: "Sort your household into Monitor, Prepare, Act, or Leave using alert status, housing risk, pets, transport, and medical needs.",
+    url: `${site.url}/tools/evacuation-decision-helper/`
+  },
+  {
+    name: "Hurricane Brief Generator",
+    description: "Generate a printable ZIP-based brief with current NWS alerts, NHC storm context, and next household decisions.",
+    url: `${site.url}/tools/hurricane-brief/`
+  },
+  {
+    name: "Power Outage Planner",
+    description: "Plan for water, food safety, medical equipment, charging, generators, pets, and communication during an outage.",
+    url: `${site.url}/tools/power-outage-planner/`
+  },
+  {
+    name: "Storm Distance Calculator",
+    description: "Compare your ZIP code with current NHC storm positions and understand the limits of distance-only context.",
+    url: `${site.url}/tools/storm-distance-calculator/`
+  },
+  {
+    name: "Alert Action Decoder",
+    description: "Translate hurricane, surge, flood, tornado, and evacuation alert language into immediate household actions.",
+    url: `${site.url}/tools/alert-action-decoder/`
+  },
+  {
+    name: "Family Communication Plan",
+    description: "Generate a printable contact, meeting-place, evacuation destination, pet, and medical-needs plan.",
+    url: `${site.url}/tools/family-communication-plan/`
+  }
+];
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
+  itemListSchema(tools),
   faqSchema(faqs)
 );
 ---
@@ -25,46 +68,13 @@ const jsonLd = graph(
 
   <section class="band" aria-labelledby="tools-list">
     <div class="inner grid-3">
-      <article class="post-card">
-        <h2 id="tools-list">Local Risk and Action Plan</h2>
-        <p>Check a ZIP code or state, understand active NWS hazards, and generate a 72/48/24-hour household action plan.</p>
-        <a href="/tools/local-risk-plan/">Check local risk</a>
-      </article>
-      <article class="post-card">
-        <h2>Preparedness Checklist Generator</h2>
-        <p>Create a household hurricane emergency kit list for 1-4 people, with optional pet supplies.</p>
-        <a href="/tools/preparedness-checklist/">Open tool</a>
-      </article>
-      <article class="post-card">
-        <h2>Evacuation Decision Helper</h2>
-        <p>Sort your household into Monitor, Prepare, Act, or Leave using alert status, housing risk, pets, transport, and medical needs.</p>
-        <a href="/tools/evacuation-decision-helper/">Open tool</a>
-      </article>
-      <article class="post-card">
-        <h2>Hurricane Brief Generator</h2>
-        <p>Generate a printable ZIP-based brief with current NWS alerts, NHC storm context, and next household decisions.</p>
-        <a href="/tools/hurricane-brief/">Build a brief</a>
-      </article>
-      <article class="post-card">
-        <h2>Power Outage Planner</h2>
-        <p>Plan for water, food safety, medical equipment, charging, generators, pets, and communication during an outage.</p>
-        <a href="/tools/power-outage-planner/">Plan for outages</a>
-      </article>
-      <article class="post-card">
-        <h2>Storm Distance Calculator</h2>
-        <p>Compare your ZIP code with current NHC storm positions and understand the limits of distance-only context.</p>
-        <a href="/tools/storm-distance-calculator/">Check storm distance</a>
-      </article>
-      <article class="post-card">
-        <h2>Alert Action Decoder</h2>
-        <p>Translate hurricane, surge, flood, tornado, and evacuation alert language into immediate household actions.</p>
-        <a href="/tools/alert-action-decoder/">Decode an alert</a>
-      </article>
-      <article class="post-card">
-        <h2>Family Communication Plan</h2>
-        <p>Generate a printable contact, meeting-place, evacuation destination, pet, and medical-needs plan.</p>
-        <a href="/tools/family-communication-plan/">Build plan</a>
-      </article>
+      {tools.map((tool, index) => (
+        <article class="post-card">
+          <h2 id={index === 0 ? "tools-list" : undefined}>{tool.name}</h2>
+          <p>{tool.description}</p>
+          <a href={new URL(tool.url).pathname}>Open tool</a>
+        </article>
+      ))}
     </div>
   </section>
   <FaqBlock faqs={faqs} />

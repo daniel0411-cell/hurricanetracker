@@ -1,5 +1,5 @@
 ---
-import { graph, organizationSchema, websiteSchema } from "../lib/schema";
+import { breadcrumbSchema, graph, organizationSchema, websiteSchema } from "../lib/schema";
 import { site } from "../data/site";
 
 type Props = {
@@ -16,6 +16,40 @@ const { title, description, canonical, siteName, jsonLd, lastModified, image } =
 const modified = lastModified ?? site.contentLastModified;
 const schema = jsonLd ?? graph(websiteSchema(), organizationSchema());
 const absoluteImage = image ? new URL(image, canonical).href : undefined;
+
+function labelForSegment(segment: string) {
+  return segment
+    .split("-")
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+function breadcrumbsFor(canonicalUrl: string) {
+  const url = new URL(canonicalUrl);
+  const segments = url.pathname.split("/").filter(Boolean);
+  const items = [{ name: site.name, url: site.url }];
+  segments.forEach((segment, index) => {
+    const path = `/${segments.slice(0, index + 1).join("/")}/`;
+    items.push({
+      name: labelForSegment(segment),
+      url: new URL(path, site.url).href
+    });
+  });
+  return breadcrumbSchema(items);
+}
+
+const breadcrumb = breadcrumbsFor(canonical);
+const schemaWithBreadcrumb = (() => {
+  const current = schema as { "@graph"?: object[] };
+  if (Array.isArray(current["@graph"])) {
+    return {
+      ...current,
+      "@graph": [...current["@graph"], breadcrumb]
+    };
+  }
+  return graph(current, breadcrumb);
+})();
 ---
 <title>{title}</title>
 <meta name="description" content={description} />
@@ -31,4 +65,4 @@ const absoluteImage = image ? new URL(image, canonical).href : undefined;
 <meta property="article:modified_time" content={modified} />
 <meta name="twitter:card" content="summary_large_image" />
 {absoluteImage && <meta name="twitter:image" content={absoluteImage} />}
-<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schemaWithBreadcrumb)} />
