@@ -1,15 +1,30 @@
 ---
+import FaqBlock from "../components/FaqBlock.astro";
 import Layout from "../layouts/Layout.astro";
-import { site } from "../data/site";
-import { articleSchema, graph, websiteSchema } from "../lib/schema";
+import { faqs, site, states } from "../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
 
 const title = "Hurricane Radar | Live NOAA Data";
 const description = "Live hurricane radar feed, GOES satellite imagery, and real-time storm tracking for the North Atlantic using RainViewer and NOAA-linked public data sources.";
 const url = `${site.url}/radar/`;
 const lastModified = site.contentLastModified;
+const pageFaqs = [
+  {
+    question: "What does the HurricaneHub radar page show?",
+    answer:
+      "It shows RainViewer precipitation radar, GOES-East infrared satellite imagery, current NHC storm markers when available, and a state-level NWS alert panel for decision context."
+  },
+  {
+    question: "How often should I refresh the radar and alerts?",
+    answer:
+      "Radar frames and alerts can change quickly. Use the refresh button, then verify important decisions with official NHC advisories, weather.gov alerts, and local emergency management."
+  },
+  ...faqs
+];
 const jsonLd = graph(
   websiteSchema(),
-  articleSchema({ title, description, url, dateModified: lastModified })
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  faqSchema(pageFaqs)
 );
 ---
 <Fragment slot="head">
@@ -46,16 +61,97 @@ const jsonLd = graph(
             <span>Satellite</span>
           </button>
         </div>
+        <div class="layer-toggle" role="group" aria-label="Map theme">
+          <button type="button" class="theme-button active" data-theme="light" aria-pressed="true">
+            <i class="fa-solid fa-sun" aria-hidden="true"></i>
+            <span>Light</span>
+          </button>
+          <button type="button" class="theme-button" data-theme="dark" aria-pressed="false">
+            <i class="fa-solid fa-moon" aria-hidden="true"></i>
+            <span>Dark</span>
+          </button>
+        </div>
+        <div class="layer-toggle radar-presets" role="group" aria-label="Map presets">
+          <button type="button" class="preset-button" data-view="atlantic">Atlantic</button>
+          <button type="button" class="preset-button" data-view="gulf">Gulf</button>
+          <button type="button" class="preset-button" data-view="florida">Florida</button>
+          <button type="button" class="preset-button" data-view="caribbean">Caribbean</button>
+        </div>
         <button type="button" class="map-action" id="reset-map">
           <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
           <span>Atlantic</span>
         </button>
+        <button type="button" class="map-action" id="refresh-map">
+          <i class="fa-solid fa-rotate" aria-hidden="true"></i>
+          <span>Refresh</span>
+        </button>
+        <button type="button" class="map-action" id="full-map">
+          <i class="fa-solid fa-expand" aria-hidden="true"></i>
+          <span>Full View</span>
+        </button>
       </div>
 
-      <div id="map" class="h-[70vh] w-full radar-map" style="height: 70vh;" aria-label="Interactive North Atlantic hurricane radar and satellite map"></div>
+      <div class="radar-layout">
+        <div id="map" class="h-[70vh] w-full radar-map" style="height: 70vh;" aria-label="Interactive North Atlantic hurricane radar and satellite map"></div>
+        <aside class="radar-sidebar" aria-label="Live storm and alert panel">
+          <section class="radar-card">
+            <div class="radar-card-head">
+              <div>
+                <p class="eyebrow">Live alerts</p>
+                <h2>NWS Alert Panel</h2>
+              </div>
+              <span class="badge" id="alert-decision">Loading</span>
+            </div>
+            <form class="radar-alert-form" id="radar-alert-form">
+              <label for="radar-state">State</label>
+              <select id="radar-state" name="state">
+                {states.map(([code, name]) => <option value={code} selected={code === "FL"}>{name}</option>)}
+              </select>
+              <button type="submit">Load Alerts</button>
+            </form>
+            <div class="radar-metrics">
+              <div><strong id="alert-count">--</strong><span>active alerts</span></div>
+              <div><strong id="storm-count">--</strong><span>NHC systems</span></div>
+            </div>
+            <div id="alert-list" class="radar-feed-list" aria-live="polite">
+              <p class="source-note">Loading state alerts...</p>
+            </div>
+          </section>
+
+          <section class="radar-card">
+            <div class="radar-card-head">
+              <div>
+                <p class="eyebrow">NHC storm markers</p>
+                <h2>Active Storms</h2>
+              </div>
+            </div>
+            <div id="storm-list" class="radar-feed-list" aria-live="polite">
+              <p class="source-note">Loading current storms...</p>
+            </div>
+          </section>
+        </aside>
+      </div>
 
       <div class="radar-attribution">
         <span id="radar-status" role="status">Loading radar...</span>
+      </div>
+    </section>
+
+    <section class="radar-notes" aria-labelledby="radar-ops-heading">
+      <h2 id="radar-ops-heading">Live Map Operations</h2>
+      <div class="grid-3">
+        <article class="panel">
+          <h3>Radar + Satellite Toggle</h3>
+          <p>Switch between precipitation radar and GOES-East infrared imagery. Use radar for rain bands and satellite for tropical cloud organization.</p>
+        </article>
+        <article class="panel">
+          <h3>Storm Markers</h3>
+          <p>When NHC provides current storm coordinates, the map drops storm markers and links to official NHC advisory pages.</p>
+        </article>
+        <article class="panel">
+          <h3>State Alerts</h3>
+          <p>The sidebar loads NWS active alerts for a selected state and turns them into a Monitor, Prepare, Act, or Leave decision snapshot.</p>
+        </article>
       </div>
     </section>
 
@@ -76,16 +172,35 @@ const jsonLd = graph(
         </article>
       </div>
     </section>
+    <FaqBlock faqs={pageFaqs} />
   </section>
 
   <script is:inline>
     document.addEventListener("DOMContentLoaded", () => {
       const ATLANTIC_CENTER = [25.0, -75.0];
       const ATLANTIC_ZOOM = 5;
+      const VIEWS = {
+        atlantic: { center: [25.0, -75.0], zoom: 5, label: "North Atlantic" },
+        gulf: { center: [26.0, -90.0], zoom: 5, label: "Gulf of Mexico" },
+        florida: { center: [27.7, -81.7], zoom: 6, label: "Florida peninsula" },
+        caribbean: { center: [18.5, -72.5], zoom: 5, label: "Caribbean" }
+      };
       const statusEl = document.querySelector("#radar-status");
       const resetButton = document.querySelector("#reset-map");
+      const refreshButton = document.querySelector("#refresh-map");
+      const fullButton = document.querySelector("#full-map");
       const buttons = Array.from(document.querySelectorAll(".layer-button"));
+      const themeButtons = Array.from(document.querySelectorAll(".theme-button"));
+      const presetButtons = Array.from(document.querySelectorAll(".preset-button"));
       const mapEl = document.querySelector("#map");
+      const stageEl = document.querySelector(".radar-stage");
+      const alertForm = document.querySelector("#radar-alert-form");
+      const stateSelect = document.querySelector("#radar-state");
+      const alertList = document.querySelector("#alert-list");
+      const stormList = document.querySelector("#storm-list");
+      const alertCountEl = document.querySelector("#alert-count");
+      const stormCountEl = document.querySelector("#storm-count");
+      const decisionEl = document.querySelector("#alert-decision");
 
       function setStatus(message, isError = false) {
         if (!statusEl) return;
@@ -99,6 +214,33 @@ const jsonLd = graph(
           button.classList.toggle("active", isActive);
           button.setAttribute("aria-pressed", String(isActive));
         });
+      }
+
+      function setActiveTheme(name) {
+        themeButtons.forEach((button) => {
+          const isActive = button.dataset.theme === name;
+          button.classList.toggle("active", isActive);
+          button.setAttribute("aria-pressed", String(isActive));
+        });
+      }
+
+      function escapeHtml(value) {
+        const replacements = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
+        return String(value ?? "").replace(/[&<>"']/g, (char) => replacements[char] ?? char);
+      }
+
+      function coordinate(value) {
+        const text = String(value ?? "").trim().toUpperCase();
+        const number = Number.parseFloat(text);
+        if (!Number.isFinite(number)) return null;
+        if (text.endsWith("S") || text.endsWith("W")) return -Math.abs(number);
+        return number;
+      }
+
+      function badgeClass(text) {
+        if (/Leave|Extreme|Severe|Warning|Evacuation/i.test(text)) return "badge danger";
+        if (/Act|Watch|Flood|Tropical|Prepare/i.test(text)) return "badge warn";
+        return "badge";
       }
 
       if (!mapEl || !window.L) {
@@ -117,12 +259,28 @@ const jsonLd = graph(
         scrollWheelZoom: true
       });
 
-      window.L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 8,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(map);
+      let activeBase = null;
+      const baseLayers = {
+        light: window.L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 8,
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }),
+        dark: window.L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+          maxZoom: 8,
+          attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a> &copy; OpenStreetMap'
+        })
+      };
+
+      function showTheme(name) {
+        const nextBase = baseLayers[name] ?? baseLayers.light;
+        if (activeBase) map.removeLayer(activeBase);
+        activeBase = nextBase.addTo(map);
+        setActiveTheme(name);
+        stageEl?.classList.toggle("radar-dark", name === "dark");
+      }
 
       let activeOverlay = null;
+      const stormLayer = window.L.layerGroup().addTo(map);
       const layers = {
         radar: null,
         satellite: window.L.tileLayer("https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/goes-east-ir-4km/{z}/{x}/{y}.png", {
@@ -146,6 +304,10 @@ const jsonLd = graph(
           const frames = data.radar?.past?.length ? data.radar.past : (data.radar?.nowcast ?? []);
           const latest = frames[frames.length - 1];
           if (!latest?.path || !data.host) throw new Error("RainViewer frame unavailable");
+          const radarTime = latest.time
+            ? new Date(latest.time * 1000).toLocaleString([], { dateStyle: "medium", timeStyle: "short" })
+            : "latest frame";
+          setStatus(`RainViewer radar frame loaded: ${radarTime}.`);
 
           return window.L.tileLayer(`${data.host}${latest.path}/256/{z}/{x}/{y}/2/1_1.png`, {
             opacity: 0.76,
@@ -177,13 +339,99 @@ const jsonLd = graph(
         );
         activeOverlay.addTo(map);
         setActiveButton(name);
-        setStatus(name === "radar" ? "RainViewer radar loaded." : "GOES infrared satellite loaded.");
+        if (name === "satellite") setStatus("GOES-East infrared satellite loaded.");
       }
 
+      async function loadAlerts(state = "FL") {
+        if (alertList) alertList.innerHTML = '<p class="source-note">Loading NWS alerts...</p>';
+        try {
+          const response = await fetch(`/api/nws/alerts.json?area=${encodeURIComponent(state)}`);
+          if (!response.ok) throw new Error("NWS alert feed failed");
+          const data = await response.json();
+          const alerts = data.alerts ?? [];
+          const decision = data.decisionLevel ?? (alerts.length ? "Prepare" : "Monitor");
+          if (alertCountEl) alertCountEl.textContent = String(alerts.length);
+          if (decisionEl) {
+            decisionEl.textContent = decision;
+            decisionEl.className = badgeClass(decision);
+          }
+          if (alertList) {
+            alertList.innerHTML = alerts.length
+              ? alerts.slice(0, 8).map((alert) => `
+                <article class="mini-alert">
+                  <header><h3>${escapeHtml(alert.event)}</h3><span class="${badgeClass(alert.severity)}">${escapeHtml(alert.severity)}</span></header>
+                  <p>${escapeHtml(alert.headline || alert.areaDesc)}</p>
+                  <p class="small">${escapeHtml(alert.urgency)} · ${escapeHtml(alert.certainty)} · expires ${escapeHtml(alert.expires || "time unavailable")}</p>
+                </article>
+              `).join("")
+              : '<p class="source-note">No active NWS alerts returned for this state. This is not an all-clear for your county or evacuation zone.</p>';
+          }
+        } catch (error) {
+          console.error("HurricaneHub radar alerts failed", error);
+          if (alertList) alertList.innerHTML = '<p class="source-note radar-error">Alerts temporarily unavailable. Check weather.gov for official alerts.</p>';
+          if (decisionEl) {
+            decisionEl.textContent = "Unavailable";
+            decisionEl.className = "badge danger";
+          }
+        }
+      }
+
+      async function loadStorms() {
+        stormLayer.clearLayers();
+        if (stormList) stormList.innerHTML = '<p class="source-note">Loading NHC storms...</p>';
+        try {
+          const response = await fetch("/api/nhc/current.json");
+          if (!response.ok) throw new Error("NHC feed failed");
+          const data = await response.json();
+          const storms = data.storms ?? [];
+          if (stormCountEl) stormCountEl.textContent = String(storms.length);
+          const stormItems = [];
+          storms.forEach((storm) => {
+            const lat = coordinate(storm.latitude);
+            const lon = coordinate(storm.longitude);
+            if (lat !== null && lon !== null) {
+              const marker = window.L.circleMarker([lat, lon], {
+                radius: 9,
+                color: "#9f2d1f",
+                weight: 3,
+                fillColor: "#ffe3de",
+                fillOpacity: 0.9
+              }).addTo(stormLayer);
+              marker.bindPopup(`
+                <strong>${escapeHtml(storm.name || storm.id || "Active storm")}</strong><br />
+                ${escapeHtml(storm.classification || "NHC storm")}<br />
+                ${escapeHtml(storm.summary || "Current NHC storm marker.")}
+                ${storm.publicAdvisory ? `<br /><a href="${escapeHtml(storm.publicAdvisory)}" rel="nofollow">NHC advisory</a>` : ""}
+              `);
+            }
+            stormItems.push(`
+              <article class="mini-alert">
+                <header><h3>${escapeHtml(storm.name || storm.id || "Active storm")}</h3><span class="badge warn">${escapeHtml(storm.classification || "NHC")}</span></header>
+                <p>${escapeHtml(storm.summary || "Current NHC storm data loaded.")}</p>
+                <p class="small">Position: ${escapeHtml(storm.latitude || "pending")}, ${escapeHtml(storm.longitude || "pending")} · ${escapeHtml(storm.lastUpdate || data.updatedAt || "time pending")}</p>
+                ${storm.publicAdvisory ? `<a href="${escapeHtml(storm.publicAdvisory)}" rel="nofollow">Official NHC advisory</a>` : ""}
+              </article>
+            `);
+          });
+          if (stormList) {
+            stormList.innerHTML = stormItems.length
+              ? stormItems.join("")
+              : '<p class="source-note">No active NHC tropical cyclone listed right now. Keep monitoring during hurricane season.</p>';
+          }
+        } catch (error) {
+          console.error("HurricaneHub radar storm markers failed", error);
+          if (stormList) stormList.innerHTML = '<p class="source-note radar-error">NHC storm markers temporarily unavailable.</p>';
+          if (stormCountEl) stormCountEl.textContent = "--";
+        }
+      }
+
+      showTheme("light");
       createRainViewerLayer().then((layer) => {
         layers.radar = layer;
         showLayer("radar");
       });
+      loadAlerts("FL");
+      loadStorms();
 
       buttons.forEach((button) => {
         button.addEventListener("click", () => {
@@ -192,10 +440,55 @@ const jsonLd = graph(
         });
       });
 
+      themeButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const theme = button.dataset.theme;
+          if (theme === "light" || theme === "dark") showTheme(theme);
+        });
+      });
+
+      presetButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const view = VIEWS[button.dataset.view] ?? VIEWS.atlantic;
+          map.setView(view.center, view.zoom);
+          setStatus(`View focused on ${view.label}.`);
+        });
+      });
+
       resetButton?.addEventListener("click", () => {
         map.setView(ATLANTIC_CENTER, ATLANTIC_ZOOM);
         setStatus("View reset to the North Atlantic hurricane belt.");
       });
+
+      refreshButton?.addEventListener("click", async () => {
+        setStatus("Refreshing radar, alerts, and storm markers...");
+        const selectedState = stateSelect instanceof HTMLSelectElement ? stateSelect.value : "FL";
+        const radarLayer = await createRainViewerLayer();
+        layers.radar = radarLayer;
+        showLayer("radar");
+        await Promise.all([loadAlerts(selectedState), loadStorms()]);
+        setStatus("Radar, alerts, and storm markers refreshed.");
+      });
+
+      fullButton?.addEventListener("click", () => {
+        stageEl?.classList.toggle("radar-fullscreen");
+        const expanded = stageEl?.classList.contains("radar-fullscreen") ?? false;
+        fullButton.querySelector("span").textContent = expanded ? "Exit Full" : "Full View";
+        setStatus(expanded ? "Full view enabled." : "Full view closed.");
+        window.setTimeout(() => map.invalidateSize(), 150);
+      });
+
+      alertForm?.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const selectedState = stateSelect instanceof HTMLSelectElement ? stateSelect.value : "FL";
+        loadAlerts(selectedState);
+      });
+
+      window.setInterval(() => {
+        const selectedState = stateSelect instanceof HTMLSelectElement ? stateSelect.value : "FL";
+        loadAlerts(selectedState);
+        loadStorms();
+      }, 10 * 60 * 1000);
 
       window.setTimeout(() => map.invalidateSize(), 150);
     });
@@ -238,7 +531,6 @@ const jsonLd = graph(
 
   .radar-stage {
     position: relative;
-    overflow: hidden;
     border: 1px solid var(--line);
     border-radius: 8px;
     background: #dcecef;
@@ -249,7 +541,7 @@ const jsonLd = graph(
     position: absolute;
     inset-inline: 12px;
     top: 12px;
-    z-index: 500;
+    z-index: 700;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -270,6 +562,8 @@ const jsonLd = graph(
   }
 
   .layer-button,
+  .theme-button,
+  .preset-button,
   .map-action {
     width: auto;
     min-height: 38px;
@@ -291,11 +585,26 @@ const jsonLd = graph(
     color: #fff;
   }
 
+  .theme-button.active {
+    background: var(--ocean);
+    color: #fff;
+  }
+
+  .preset-button {
+    padding-inline: 10px;
+  }
+
   .map-action {
     border: 1px solid rgba(23, 33, 43, 0.12);
     background: rgba(255, 255, 255, 0.94);
     box-shadow: 0 10px 30px rgba(23, 33, 43, 0.14);
     pointer-events: auto;
+  }
+
+  .radar-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(310px, 0.36fr);
+    min-height: 70vh;
   }
 
   .radar-map {
@@ -304,6 +613,107 @@ const jsonLd = graph(
     min-height: 500px;
     background: #dcecef;
     touch-action: pan-x pan-y;
+  }
+
+  .radar-sidebar {
+    display: grid;
+    gap: 12px;
+    align-content: start;
+    max-height: 70vh;
+    overflow: auto;
+    padding: 78px 12px 12px;
+    border-left: 1px solid var(--line);
+    background: rgba(244, 247, 248, 0.96);
+  }
+
+  .radar-card {
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+  }
+
+  .radar-card h2 {
+    font-size: 1.25rem;
+  }
+
+  .radar-card-head {
+    display: flex;
+    gap: 12px;
+    align-items: start;
+    justify-content: space-between;
+  }
+
+  .radar-alert-form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .radar-alert-form label {
+    grid-column: 1 / -1;
+    font-weight: 800;
+  }
+
+  .radar-alert-form button {
+    width: auto;
+    padding-inline: 12px;
+  }
+
+  .radar-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin: 12px 0;
+  }
+
+  .radar-metrics div {
+    padding: 10px;
+    border-radius: 6px;
+    background: #e8f3f5;
+  }
+
+  .radar-metrics strong,
+  .radar-metrics span {
+    display: block;
+  }
+
+  .radar-metrics strong {
+    font-size: 1.4rem;
+  }
+
+  .radar-metrics span {
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 800;
+  }
+
+  .radar-feed-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .mini-alert {
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .mini-alert header {
+    display: flex;
+    gap: 8px;
+    align-items: start;
+    justify-content: space-between;
+  }
+
+  .mini-alert h3 {
+    font-size: 0.98rem;
+  }
+
+  .mini-alert p {
+    margin: 8px 0 0;
   }
 
   .radar-attribution {
@@ -330,8 +740,54 @@ const jsonLd = graph(
     padding: clamp(28px, 5vw, 54px) 0;
   }
 
+  .radar-dark .radar-sidebar {
+    background: rgba(23, 33, 43, 0.96);
+  }
+
+  .radar-dark .radar-card,
+  .radar-dark .mini-alert {
+    background: #213343;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+
+  .radar-dark .source-note,
+  .radar-dark .small {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .radar-fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100vh;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .radar-fullscreen .radar-layout,
+  .radar-fullscreen .radar-map,
+  .radar-fullscreen .radar-sidebar {
+    min-height: 100vh;
+    max-height: 100vh;
+  }
+
   .radar-notes h2 {
     margin-bottom: 18px;
+  }
+
+  @media (max-width: 1020px) {
+    .radar-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .radar-sidebar {
+      max-height: none;
+      padding-top: 12px;
+      border-left: 0;
+      border-top: 1px solid var(--line);
+    }
   }
 
   @media (max-width: 720px) {
@@ -365,12 +821,18 @@ const jsonLd = graph(
       flex: 1 1 100%;
     }
 
-    .layer-button {
+    .layer-button,
+    .theme-button,
+    .preset-button {
       flex: 1 1 0;
     }
 
     .radar-map {
       min-height: 440px;
+    }
+
+    .radar-alert-form {
+      grid-template-columns: 1fr;
     }
   }
 </style>
