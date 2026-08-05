@@ -55,23 +55,36 @@ const jsonLd = graph(
 );
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
-  <section class="band" aria-labelledby="tracker-title">
-    <div class="inner">
-      <p class="eyebrow">NHC + NWS live data</p>
-      <h1 id="tracker-title">Live Hurricane Tracker</h1>
-      <p class="answer">This page shows live hurricanes approaching North America, current NHC storm summaries, state NWS alerts, and decision-focused links for coastal households preparing for severe tropical weather.</p>
-      <p style="margin-top: 22px;">
-        <a class="action-link" href="/tools/my-hurricane-dashboard/">Build my dashboard</a>
-        <a class="action-link tracker-secondary" href="/storm-archive/">Open storm archive</a>
-      </p>
+  <section class="band tracker-hero" aria-labelledby="tracker-title">
+    <div class="inner tracker-hero-grid">
+      <article class="section-intro">
+        <p class="eyebrow">NHC + NWS live data</p>
+        <h1 id="tracker-title">Live Hurricane Tracker</h1>
+        <p class="answer">This page shows live hurricanes approaching North America, current NHC storm summaries, state NWS alerts, and decision-focused links for coastal households preparing for severe tropical weather.</p>
+        <p class="section-actions">
+          <a class="action-link" href="/tools/my-hurricane-dashboard/">Build my dashboard</a>
+          <a class="action-link tracker-secondary" href="/storm-archive/">Open storm archive</a>
+        </p>
+      </article>
+
+      <aside class="panel tracker-summary" aria-label="Current tracker summary">
+        <p class="eyebrow">Current snapshot</p>
+        <h2>{decisionLevel}</h2>
+        <div class="tracker-metrics">
+          <div class="metric"><strong>{storms.length}</strong><span>active NHC systems</span></div>
+          <div class="metric"><strong>{alerts.length}</strong><span>Alabama NWS alerts</span></div>
+        </div>
+        <p class="source-note">Updated {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC.</p>
+      </aside>
     </div>
   </section>
 
   <section class="band" aria-labelledby="state-trackers-heading">
     <div class="inner">
+      <p class="eyebrow">State desks</p>
       <h2 id="state-trackers-heading">Choose a State Hurricane Tracker</h2>
       <p class="answer">Open a state page for local NWS alerts, county planning notes, source timestamps, and a Monitor/Prepare/Act/Leave decision guide.</p>
-      <div class="grid-3" style="margin-top: 18px;">
+      <div class="grid-3 section-grid">
         {coastalStates.map((state) => (
           <article class="panel">
             <h3>{state.name}</h3>
@@ -84,8 +97,9 @@ const jsonLd = graph(
   </section>
 
   <section class="band" aria-labelledby="live-data-heading">
-    <div class="inner grid-2">
-      <article>
+    <div class="inner live-data-grid">
+      <article class="storm-visual">
+        <p class="eyebrow">Official feed view</p>
         <h2 id="live-data-heading">Active NHC Storms</h2>
         <div class="map-shell" role="img" aria-label="Stylized Gulf and Atlantic hurricane risk map">
           <div class="map-label">
@@ -97,13 +111,13 @@ const jsonLd = graph(
         <p class="source-note">Last checked: {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC</p>
       </article>
 
-      <article class="panel">
+      <article class="panel decision-panel">
         <h2>Emergency Decision</h2>
-        <div class="metric" style="margin-top: 14px;">
+        <div class="metric">
           <strong>{decisionLevel}</strong>
           <span>current Alabama decision level from NWS alerts and NHC storm context</span>
         </div>
-        <h3 style="margin-top: 18px;">How to Use This</h3>
+        <h3>How to Use This</h3>
         <p>Start with your local warning, compare active storm movement, then choose whether to monitor, prepare, act, or leave before road and shelter options narrow.</p>
       </article>
     </div>
@@ -111,8 +125,9 @@ const jsonLd = graph(
 
   <section class="band" aria-labelledby="storms-heading">
     <div class="inner">
+      <p class="eyebrow">NHC advisories</p>
       <h2 id="storms-heading">Storm Advisory List</h2>
-      <div class="stack" style="margin-top: 18px;">
+      <div class="stack section-grid">
         {storms.length ? storms.map((storm) => (
           <article class="storm-row">
             <header>
@@ -139,9 +154,10 @@ const jsonLd = graph(
 
   <section class="band" aria-labelledby="alerts-heading">
     <div class="inner">
+      <p class="eyebrow">Default state alert feed</p>
       <h2 id="alerts-heading">Alabama NWS Alerts</h2>
       <p class="source-note">Alabama is shown as the default live example. Use the state tracker links above for other coastal states.</p>
-      <div class="stack" style="margin-top: 18px;">
+      <div class="stack section-grid">
         {alerts.length ? alerts.slice(0, 10).map((alert) => (
           <article class="alert-row">
             <header>
@@ -166,7 +182,66 @@ const jsonLd = graph(
 
 <style>
   .tracker-secondary {
-    margin-left: 10px;
     background: var(--navy);
+  }
+
+  .tracker-hero {
+    padding-top: clamp(54px, 7vw, 90px);
+    padding-bottom: clamp(54px, 7vw, 90px);
+  }
+
+  .tracker-hero-grid,
+  .live-data-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 430px);
+    gap: clamp(24px, 4vw, 56px);
+    align-items: center;
+  }
+
+  .tracker-summary {
+    display: grid;
+    gap: 16px;
+  }
+
+  .tracker-summary h2 {
+    font-size: clamp(2rem, 4vw, 3.1rem);
+  }
+
+  .tracker-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .tracker-metrics .metric {
+    min-height: 104px;
+  }
+
+  .section-grid {
+    margin-top: 22px;
+  }
+
+  .storm-visual {
+    min-width: 0;
+  }
+
+  .storm-visual .map-shell {
+    margin-top: 18px;
+  }
+
+  .decision-panel {
+    display: grid;
+    gap: 18px;
+  }
+
+  .decision-panel .metric {
+    min-height: 132px;
+  }
+
+  @media (max-width: 920px) {
+    .tracker-hero-grid,
+    .live-data-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
