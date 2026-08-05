@@ -132,13 +132,13 @@ const jsonLd = graph(
   </section>
 
   <section class="band" aria-labelledby="tools-heading">
-    <div class="inner grid-2">
-      <article>
+    <div class="inner">
+      <article class="section-intro">
         <p class="eyebrow">Emergency decisions</p>
         <h2 id="tools-heading">Tools That Turn Alerts Into Actions</h2>
-        <p>HurricaneHub is built around household decisions: what to pack, when to prepare, whether to leave early, and which official alert should change your plan.</p>
+        <p class="answer">HurricaneHub is built around household decisions: what to pack, when to prepare, whether to leave early, and which official alert should change your plan.</p>
       </article>
-      <div class="stack">
+      <div class="tool-grid section-grid">
         <article class="panel">
           <h3>Preparedness Checklist Generator</h3>
           <p>Create a kit list for 1-4 people, with optional pet supplies and document reminders.</p>
@@ -240,5 +240,41 @@ const jsonLd = graph(
 
   .section-grid {
     margin-top: 22px;
+  }
+
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: clamp(16px, 2vw, 22px);
+  }
+
+  .tool-grid .panel {
+    grid-column: span 2;
+  }
+
+  .tool-grid .panel:nth-last-child(2) {
+    grid-column: 2 / span 2;
+  }
+
+  .tool-grid .panel:last-child {
+    grid-column: 4 / span 2;
+  }
+
+  @media (max-width: 920px) {
+    .tool-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .tool-grid .panel,
+    .tool-grid .panel:nth-last-child(2),
+    .tool-grid .panel:last-child {
+      grid-column: auto;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .tool-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
