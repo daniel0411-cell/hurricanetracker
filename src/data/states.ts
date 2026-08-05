@@ -97,6 +97,17 @@ export const coastalStates: CoastalState[] = [
     risks: ["coastal surge", "river flooding", "mobile home vulnerability", "extended outages"],
     preparednessNote:
       "Mississippi planning should include early shelter decisions for mobile homes, low-lying roads, and medically dependent household members."
+  },
+  {
+    code: "VA",
+    slug: "virginia",
+    name: "Virginia",
+    region: "Mid-Atlantic Coast and Chesapeake Bay",
+    priority: 9,
+    counties: ["Virginia Beach", "Norfolk", "Chesapeake", "Hampton", "Accomack", "Northampton"],
+    risks: ["Chesapeake Bay flooding", "tidal flooding", "river flooding", "tree damage", "power outages"],
+    preparednessNote:
+      "Virginia households should watch coastal flooding, tidal river impacts, bridge and tunnel constraints, and inland tree damage when tropical systems move up the coast."
   }
 ];
 

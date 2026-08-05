@@ -452,5 +452,120 @@ export const blogPosts: BlogPost[] = [
         answer: "Yes. Include carriers, food, records, transport, and a pet-friendly destination so pets do not delay a safety decision."
       }
     ]
+  },
+  {
+    slug: "how-to-check-your-hurricane-evacuation-zone",
+    title: "How to Check Your Hurricane Evacuation Zone",
+    description: "Learn how to check your hurricane evacuation zone, why ZIP codes are not enough, and what to do when local officials issue evacuation instructions.",
+    datePublished: "2026-08-05",
+    dateModified: "2026-08-05",
+    image: "/images/blog/hurricane-evacuation-checklist.svg",
+    imageAlt: "Evacuation preparation scene with go-bags, pet carrier, car, map, water, medicine pouch, and keys.",
+    sections: [
+      {
+        heading: "Direct Answer",
+        body: "Check your hurricane evacuation zone through your county, city, parish, or state emergency management website. A ZIP code can identify your general area, but evacuation zones often follow flood, surge, road, and neighborhood boundaries."
+      },
+      {
+        heading: "Why ZIP Codes Are Not Enough",
+        body: "Two homes in the same ZIP code can have different storm surge, flood, road, and shelter instructions.",
+        bullets: ["Use your exact address when the official local map allows it.", "Check whether your zone is based on storm surge, river flooding, or another hazard.", "Write down the zone name before a storm is close.", "Recheck local instructions when watches or warnings are issued."]
+      },
+      {
+        heading: "When To Act",
+        body: "Leave when officials order your zone to evacuate, or earlier if your household needs extra time because of medical needs, limited mobility, pets, transportation, or long-distance travel."
+      },
+      {
+        heading: "Use HurricaneHub With Official Maps",
+        body: "Use HurricaneHub's local risk plan and alert decoder to understand current warning language, then verify your exact zone with local emergency management before deciding whether to leave."
+      }
+    ],
+    faqs: [
+      {
+        question: "Can HurricaneHub tell me my exact evacuation zone?",
+        answer: "No. HurricaneHub can screen by ZIP or state, but exact evacuation zones come from local emergency management maps and official orders."
+      },
+      {
+        question: "Should I evacuate before my zone is ordered?",
+        answer: "Consider leaving earlier if you have medical, mobility, pet, transportation, mobile-home, or long-route constraints. Follow local instructions and do not wait until roads are unsafe."
+      }
+    ]
+  },
+  {
+    slug: "hurricane-radar-vs-satellite",
+    title: "Hurricane Radar vs. Satellite: What Each View Shows",
+    description: "Understand the difference between hurricane radar and satellite views, when each is useful, and why neither replaces official NOAA/NWS alerts.",
+    datePublished: "2026-08-05",
+    dateModified: "2026-08-05",
+    image: "/images/blog/2025-atlantic-hurricane-season-outlook.svg",
+    imageAlt: "Atlantic hurricane monitoring desk with map displays and emergency planning notes.",
+    sections: [
+      {
+        heading: "Direct Answer",
+        body: "Radar is best for recent precipitation and rain bands where radar coverage exists. Satellite is best for cloud structure, cold cloud tops, and tropical organization over open water. Both are context tools, not official evacuation guidance."
+      },
+      {
+        heading: "When Radar Helps",
+        body: "Radar is useful when precipitation is near land or within ground radar coverage.",
+        bullets: ["Watch rain bands and squall lines.", "See where stronger precipitation is moving.", "Pair radar with tornado, flood, and wind warnings.", "Expect weaker coverage over parts of open ocean."]
+      },
+      {
+        heading: "When Satellite Helps",
+        body: "Satellite imagery is useful for open-water tropical systems and broad cloud organization.",
+        bullets: ["View storms before they reach radar range.", "Compare cloud-top cooling and organization.", "Watch the Gulf, Caribbean, Bahamas, and Atlantic at a basin scale.", "Use official NHC advisories for intensity, forecast track, and warnings."]
+      },
+      {
+        heading: "Best Use on HurricaneHub",
+        body: "Open the radar page, switch between RainViewer radar and GOES-East infrared satellite, then use the NWS alert panel and NHC storm markers to decide what official source to read next."
+      }
+    ],
+    faqs: [
+      {
+        question: "Is radar or satellite better for hurricane tracking?",
+        answer: "Neither is always better. Satellite is often better over open ocean; radar is better for nearby rain bands and precipitation details where radar coverage exists."
+      },
+      {
+        question: "Can I use radar to decide whether to evacuate?",
+        answer: "No. Use radar for context, but evacuation decisions come from official local instructions, evacuation zones, and weather.gov alerts."
+      }
+    ]
+  },
+  {
+    slug: "nws-hurricane-alert-meanings",
+    title: "NWS Hurricane Alert Meanings: Watch, Warning, Surge, Flood, Tornado",
+    description: "Decode common NWS hurricane-related alerts and learn which ones should trigger monitoring, preparation, action, or evacuation review.",
+    datePublished: "2026-08-05",
+    dateModified: "2026-08-05",
+    image: "/images/blog/what-hurricane-watch-warning-means.svg",
+    imageAlt: "Emergency weather alert setup with phone, radio, flashlight, batteries, and evacuation map.",
+    sections: [
+      {
+        heading: "Direct Answer",
+        body: "A hurricane watch means conditions are possible, a hurricane warning means conditions are expected, storm surge alerts focus on life-threatening coastal water, flood warnings focus on rising water, tornado warnings require immediate shelter, and evacuation orders come from local officials."
+      },
+      {
+        heading: "Common Alert Types",
+        body: "Read the full alert text, not only the headline.",
+        bullets: ["Watch: finish supplies, routes, documents, and fuel.", "Warning: complete protective action and follow local instructions.", "Storm surge: check your evacuation zone and leave if ordered.", "Flash flood: avoid flooded roads and move to safer ground if instructed.", "Tornado warning: shelter immediately in an interior room."]
+      },
+      {
+        heading: "What Changes the Action Level",
+        body: "A household with medical equipment, mobility limits, pets, no vehicle, mobile-home exposure, or a long route may need to act earlier than a standard household."
+      },
+      {
+        heading: "Use the Alert Decoder",
+        body: "HurricaneHub's Alert Action Decoder turns the alert type and household risk into a practical action list, while still pointing users back to official weather.gov and local emergency management instructions."
+      }
+    ],
+    faqs: [
+      {
+        question: "Which NWS hurricane alert is most urgent?",
+        answer: "Evacuation orders, tornado warnings, storm surge warnings for your zone, flash flood warnings, and hurricane warnings can all be urgent depending on your location and household risk."
+      },
+      {
+        question: "Should I only pay attention to hurricane warnings?",
+        answer: "No. Storm surge, flood, tornado, tropical storm, and evacuation messages can all require immediate action even when the headline is not simply hurricane warning."
+      }
+    ]
   }
 ];
