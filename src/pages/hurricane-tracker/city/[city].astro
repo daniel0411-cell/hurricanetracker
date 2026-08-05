@@ -1,0 +1,91 @@
+---
+import FaqBlock from "../../../components/FaqBlock.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { hurricaneCities, getCityBySlug } from "../../../data/cities";
+import { faqs, site } from "../../../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../../../lib/schema";
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return hurricaneCities.map((city) => ({
+    params: { city: city.slug },
+    props: { city }
+  }));
+}
+
+const city = Astro.props.city ?? getCityBySlug(Astro.params.city);
+if (!city) {
+  return Astro.redirect("/tracker/");
+}
+
+const title = `${city.name} Hurricane Tracker and Local Risk Guide`;
+const description = `Track ${city.name} hurricane risk with state NWS alerts, NHC storm context, evacuation planning notes, and emergency decision tools.`;
+const url = `${site.url}/hurricane-tracker/city/${city.slug}/`;
+const lastModified = site.contentLastModified;
+const pageFaqs = [
+  {
+    question: `Is HurricaneHub an official ${city.name} evacuation source?`,
+    answer: `No. HurricaneHub helps ${city.name} households organize official weather information, but evacuation zones, road closures, shelters, and orders come from local emergency management and weather.gov.`
+  },
+  {
+    question: `What should ${city.name} residents check first during a hurricane threat?`,
+    answer: `Check your exact evacuation zone, active NWS alerts for ${city.stateName}, current NHC advisory context, and whether your household needs extra time for medical, mobility, pet, or transportation needs.`
+  },
+  ...faqs
+];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  faqSchema(pageFaqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="city-title">
+    <div class="inner">
+      <p class="eyebrow">{city.region}</p>
+      <h1 id="city-title">{city.name} Hurricane Tracker and Local Risk Guide</h1>
+      <p class="answer">This page helps {city.name} residents connect state NWS alerts, NHC storm context, evacuation-zone checks, and household planning tools before wind, surge, flooding, or road constraints reduce options.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="city-actions">
+    <div class="inner grid-2">
+      <article class="panel">
+        <h2 id="city-actions">{city.name} Priority Risks</h2>
+        <ul class="check-list">
+          {city.risks.map((risk) => <li>{risk}</li>)}
+        </ul>
+        <p>{city.planningNote}</p>
+      </article>
+      <article class="panel">
+        <h2>Start Here</h2>
+        <ul class="check-list">
+          <li><a href={`/hurricane-tracker/${city.stateName.toLowerCase().replaceAll(" ", "-")}/`}>Open the {city.stateName} state tracker</a></li>
+          <li><a href={`/tools/local-risk-plan/?state=${city.stateCode}`}>Build a local risk action plan</a></li>
+          <li><a href="/radar/">Open live radar and satellite</a></li>
+          <li><a href="/tools/hurricane-brief/">Generate a printable hurricane brief</a></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="city-counties">
+    <div class="inner grid-2">
+      <article>
+        <h2 id="city-counties">Nearby Counties and Local Checks</h2>
+        <p>Use these nearby county or city names as a starting point, then verify exact emergency instructions with local officials.</p>
+        <ul class="check-list">
+          {city.nearbyCounties.map((county) => <li>{county}</li>)}
+        </ul>
+      </article>
+      <article class="panel">
+        <h2>Decision Reminder</h2>
+        <p>HurricaneHub can screen state-level alerts and storm context. It cannot determine your exact evacuation zone, shelter eligibility, bridge closure, or road safety.</p>
+        <p><a class="action-link" href="/tools/alert-action-decoder/">Decode an official alert</a></p>
+      </article>
+    </div>
+  </section>
+
+  <FaqBlock faqs={pageFaqs} />
+</Layout>

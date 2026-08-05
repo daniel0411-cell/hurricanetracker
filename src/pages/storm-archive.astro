@@ -1,0 +1,94 @@
+---
+import FaqBlock from "../components/FaqBlock.astro";
+import Layout from "../layouts/Layout.astro";
+import { faqs, site } from "../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
+import type { NhcStorm } from "../lib/weather";
+
+type StormFeed = {
+  storms?: Array<NhcStorm & { summary?: string }>;
+  updatedAt?: string;
+  fetchedAt?: string;
+};
+
+const title = "Storm Archive and Current Advisory History";
+const description = "View current NHC storms, advisory links, and HurricaneHub archive placeholders for future storm history pages.";
+const url = `${site.url}/storm-archive/`;
+
+let feed: StormFeed | null = null;
+try {
+  const response = await fetch(new URL("/api/nhc/current.json", Astro.url));
+  if (response.ok) {
+    feed = await response.json() as StormFeed;
+  }
+} catch (error) {
+  console.error("HurricaneHub storm archive feed failed", { error });
+}
+
+const storms = feed?.storms ?? [];
+const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
+const pageFaqs = [
+  {
+    question: "Does HurricaneHub store historical NHC advisories?",
+    answer: "The current MVP shows active NHC storms and advisory links. A deeper named-storm archive can be added as future NHC data normalization expands."
+  },
+  ...faqs
+];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  faqSchema(pageFaqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="archive-title">
+    <div class="inner">
+      <p class="eyebrow">Storm history foundation</p>
+      <h1 id="archive-title">Storm Archive and Current Advisory History</h1>
+      <p class="answer">This page lists current NHC storm records and advisory links today, while reserving a clean archive structure for future named-storm history and advisory timelines.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="current-storms">
+    <div class="inner">
+      <h2 id="current-storms">Current NHC Storm Records</h2>
+      <div class="stack" style="margin-top: 18px;">
+        {storms.length ? storms.map((storm) => (
+          <article class="storm-row">
+            <header>
+              <h3>{storm.name ?? storm.id ?? "Active storm"}</h3>
+              <span class="badge warn">{storm.classification ?? "NHC"}</span>
+            </header>
+            <p>{storm.summary ?? "Current NHC storm data loaded."}</p>
+            <p class="small">Position: {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"} · Updated: {storm.lastUpdate ?? lastModified}</p>
+            <p>
+              {storm.publicAdvisory && <a href={storm.publicAdvisory} rel="nofollow">NHC public advisory</a>}
+              {storm.forecastAdvisory && <> · <a href={storm.forecastAdvisory} rel="nofollow">NHC forecast advisory</a></>}
+            </p>
+          </article>
+        )) : (
+          <article class="panel">
+            <h3>No Active NHC Storms</h3>
+            <p>No active NHC tropical cyclone is listed in the current feed. Future archive entries will appear here as HurricaneHub expands advisory history tracking.</p>
+          </article>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="archive-plan">
+    <div class="inner grid-2">
+      <article>
+        <h2 id="archive-plan">Archive Roadmap</h2>
+        <p>Next archive iterations can normalize advisory timestamps, storm names, storm IDs, intensity, location, and advisory URLs into stable pages for each named storm.</p>
+      </article>
+      <article class="panel">
+        <h2>Use Today</h2>
+        <p>For current decisions, pair the tracker with state NWS alerts, radar, and local emergency instructions.</p>
+        <p><a class="action-link" href="/tracker/">Open live tracker</a></p>
+      </article>
+    </div>
+  </section>
+
+  <FaqBlock faqs={pageFaqs} />
+</Layout>

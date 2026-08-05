@@ -60,6 +60,10 @@ const jsonLd = graph(
       <p class="eyebrow">NHC + NWS live data</p>
       <h1 id="tracker-title">Live Hurricane Tracker</h1>
       <p class="answer">This page shows live hurricanes approaching North America, current NHC storm summaries, state NWS alerts, and decision-focused links for coastal households preparing for severe tropical weather.</p>
+      <p style="margin-top: 22px;">
+        <a class="action-link" href="/tools/my-hurricane-dashboard/">Build my dashboard</a>
+        <a class="action-link tracker-secondary" href="/storm-archive/">Open storm archive</a>
+      </p>
     </div>
   </section>
 
@@ -159,3 +163,10 @@ const jsonLd = graph(
 
   <FaqBlock faqs={faqs} />
 </Layout>
+
+<style>
+  .tracker-secondary {
+    margin-left: 10px;
+    background: var(--navy);
+  }
+</style>

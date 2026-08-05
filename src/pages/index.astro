@@ -1,6 +1,7 @@
 ---
 import FaqBlock from "../components/FaqBlock.astro";
 import LiveDashboard from "../components/LiveDashboard.astro";
+import ReminderSignup from "../components/ReminderSignup.astro";
 import Layout from "../layouts/Layout.astro";
 import { differentiators, faqs, site } from "../data/site";
 import { coastalStates } from "../data/states";
@@ -69,7 +70,10 @@ const jsonLd = graph(
         <p class="eyebrow">North America hurricane operations</p>
         <h1 id="home-title">HurricaneHub</h1>
         <p class="answer">HurricaneHub shows live hurricanes approaching North America, official NHC storm context, state NWS warnings, and emergency decision tools so coastal households can monitor, prepare, act, or leave with fewer tabs open.</p>
-        <p style="margin-top: 22px;"><a class="action-link" href="/tools/local-risk-plan/">Check my local risk and action plan</a></p>
+        <p style="margin-top: 22px;">
+          <a class="action-link" href="/tools/my-hurricane-dashboard/">Build my hurricane dashboard</a>
+          <a class="action-link secondary-action" href="/tools/local-risk-plan/">Check local risk</a>
+        </p>
       </div>
       <div class="decision-card" aria-label="Current emergency decision snapshot">
         <p class="eyebrow">Current snapshot</p>
@@ -151,6 +155,11 @@ const jsonLd = graph(
           <a href="/tools/hurricane-brief/">Generate a brief</a>
         </article>
         <article class="panel">
+          <h3>Impact Window Estimator</h3>
+          <p>Use current alert timing and storm context to decide whether your household should monitor, prepare, act, or leave.</p>
+          <a href="/tools/impact-window-estimator/">Estimate impact window</a>
+        </article>
+        <article class="panel">
           <h3>Storm Distance Calculator</h3>
           <p>Compare a ZIP code with the current NHC storm position, then verify the forecast and local alerts.</p>
           <a href="/tools/storm-distance-calculator/">Check distance</a>
@@ -206,5 +215,34 @@ const jsonLd = graph(
     </div>
   </section>
 
+  <section class="band" aria-labelledby="city-heading">
+    <div class="inner">
+      <p class="eyebrow">Local landing pages</p>
+      <h2 id="city-heading">City Hurricane Trackers</h2>
+      <p class="answer">Start with a city page for local planning notes, nearby counties, state alert links, and decision tools.</p>
+      <div class="grid-3" style="margin-top: 18px;">
+        <article class="panel"><h3>Miami Hurricane Tracker</h3><p>South Florida surge, evacuation traffic, flooding, and rain-band tornado planning.</p><a href="/hurricane-tracker/city/miami/">Open Miami</a></article>
+        <article class="panel"><h3>Tampa Hurricane Tracker</h3><p>Tampa Bay surge, bridge access, evacuation routes, and power outage planning.</p><a href="/hurricane-tracker/city/tampa/">Open Tampa</a></article>
+        <article class="panel"><h3>Houston Hurricane Tracker</h3><p>Bayou flooding, coastal surge, long-duration rain, and extended outage planning.</p><a href="/hurricane-tracker/city/houston/">Open Houston</a></article>
+      </div>
+    </div>
+  </section>
+
+  <ReminderSignup source="Homepage reminder signup" />
+
   <FaqBlock faqs={faqs} />
 </Layout>
+
+<style>
+  .secondary-action {
+    margin-left: 10px;
+    background: var(--navy);
+  }
+
+  @media (max-width: 560px) {
+    .secondary-action {
+      margin-left: 0;
+      margin-top: 10px;
+    }
+  }
+</style>

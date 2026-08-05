@@ -7,9 +7,10 @@ import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
 const title = "Hurricane Preparedness Decision Matrix";
 const description = "Use a clear hurricane decision matrix for monitoring, preparing, acting, and leaving before tropical cyclone hazards arrive.";
 const url = `${site.url}/preparedness/`;
-const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url }), faqSchema(faqs));
+const lastModified = site.contentLastModified;
+const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url, dateModified: lastModified }), faqSchema(faqs));
 ---
-<Layout title={title} description={description} canonical={url} jsonLd={jsonLd}>
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
   <section class="band" aria-labelledby="preparedness-title">
     <div class="inner">
       <p class="eyebrow">Emergency decision support</p>

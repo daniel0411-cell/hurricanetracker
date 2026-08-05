@@ -1,0 +1,206 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import Layout from "../../layouts/Layout.astro";
+import { faqs, site } from "../../data/site";
+import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
+
+const title = "My Hurricane Dashboard";
+const description = "Create a ZIP-based hurricane dashboard with state alerts, active storms, radar links, decision tools, and a printable action path.";
+const url = `${site.url}/tools/my-hurricane-dashboard/`;
+const pageFaqs = [
+  {
+    question: "What does My Hurricane Dashboard show?",
+    answer: "It combines a ZIP lookup, state NWS alerts, active NHC storms, and links to the most relevant HurricaneHub decision tools for your household."
+  },
+  {
+    question: "Does the dashboard replace county emergency instructions?",
+    answer: "No. Use it as a planning hub, then verify evacuation zones, shelter rules, and road instructions with local emergency management and weather.gov."
+  },
+  ...faqs
+];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: site.contentLastModified }),
+  webApplicationSchema({
+    name: title,
+    description,
+    url,
+    featureList: ["ZIP-based alert dashboard", "NHC storm summary", "Radar and decision-tool shortcuts", "Household action path"]
+  }),
+  faqSchema(pageFaqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified} showBottomAd={true}>
+  <section class="band" aria-labelledby="dashboard-title">
+    <div class="inner">
+      <p class="eyebrow">Personal storm desk</p>
+      <h1 id="dashboard-title">My Hurricane Dashboard</h1>
+      <p class="answer">Enter a ZIP code to build a personal hurricane dashboard with state alerts, active storms, radar shortcuts, and the next decision tools your household should use.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="dashboard-form-heading">
+    <div class="inner">
+      <form class="dashboard-form panel" id="dashboard-form">
+        <h2 id="dashboard-form-heading">Build Dashboard</h2>
+        <label for="dashboard-zip">US ZIP code</label>
+        <input id="dashboard-zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="\d{5}" placeholder="e.g. 33139" required />
+        <button type="submit">Load my dashboard</button>
+        <span id="dashboard-status" class="small" role="status">Loads official NWS and NHC proxy data after submit.</span>
+      </form>
+
+      <div class="dashboard-result" id="dashboard-result" hidden aria-live="polite">
+        <section class="panel dashboard-summary">
+          <p class="eyebrow">Current decision snapshot</p>
+          <h2 id="dashboard-location">Your location</h2>
+          <div class="dashboard-metrics">
+            <div><strong id="dashboard-level">Monitor</strong><span>decision level</span></div>
+            <div><strong id="dashboard-alert-count">0</strong><span>state alerts</span></div>
+            <div><strong id="dashboard-storm-count">0</strong><span>NHC storms</span></div>
+          </div>
+          <p id="dashboard-note" class="source-note"></p>
+        </section>
+
+        <section class="panel">
+          <h2>Next Best Actions</h2>
+          <ol class="check-list" id="dashboard-actions"></ol>
+        </section>
+
+        <section class="panel">
+          <h2>Quick Links</h2>
+          <ul class="check-list" id="dashboard-links"></ul>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <FaqBlock faqs={pageFaqs} />
+</Layout>
+
+<script>
+  type LocationResult = { zip: string; city?: string; state: string; stateName: string };
+  type AlertFeed = { alerts?: Array<{ event?: string; headline?: string }>; decisionLevel?: string; updatedAt?: string; fetchedAt?: string };
+  type StormFeed = { storms?: Array<{ name?: string; id?: string; classification?: string; summary?: string }>; updatedAt?: string; fetchedAt?: string };
+
+  const form = document.querySelector<HTMLFormElement>("#dashboard-form");
+  const zipInput = document.querySelector<HTMLInputElement>("#dashboard-zip");
+  const statusEl = document.querySelector<HTMLElement>("#dashboard-status");
+  const resultEl = document.querySelector<HTMLElement>("#dashboard-result");
+  const locationEl = document.querySelector<HTMLElement>("#dashboard-location");
+  const levelEl = document.querySelector<HTMLElement>("#dashboard-level");
+  const alertCountEl = document.querySelector<HTMLElement>("#dashboard-alert-count");
+  const stormCountEl = document.querySelector<HTMLElement>("#dashboard-storm-count");
+  const noteEl = document.querySelector<HTMLElement>("#dashboard-note");
+  const actionsEl = document.querySelector<HTMLElement>("#dashboard-actions");
+  const linksEl = document.querySelector<HTMLElement>("#dashboard-links");
+
+  function escapeHtml(value: unknown) {
+    const replacements: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
+    return String(value ?? "").replace(/[&<>"']/g, (char) => replacements[char] ?? char);
+  }
+
+  function actionsFor(level: string) {
+    if (level === "Leave") return ["Follow local evacuation instructions immediately if you can do so safely.", "Take medicine, IDs, documents, chargers, pets, water, and cash.", "Use official routes and avoid flooded roads."];
+    if (level === "Act") return ["Read every active warning and local instruction.", "Move vulnerable people early and finish protective actions.", "Use the evacuation helper if your home, pets, or medical needs add risk."];
+    if (level === "Prepare") return ["Finish supplies, fuel, documents, and route planning.", "Generate a hurricane brief and family communication plan.", "Open radar and official advisories twice daily."];
+    return ["Confirm your evacuation zone and household contacts.", "Check the emergency kit and power outage plan.", "Monitor official alerts during hurricane season."];
+  }
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const zip = zipInput?.value.trim() ?? "";
+    if (!/^\d{5}$/.test(zip)) {
+      if (statusEl) statusEl.textContent = "Enter a valid five-digit ZIP code.";
+      return;
+    }
+    try {
+      if (statusEl) statusEl.textContent = "Loading your dashboard...";
+      const locationResponse = await fetch(`/api/location/zip?zip=${encodeURIComponent(zip)}`);
+      if (!locationResponse.ok) throw new Error("ZIP lookup failed");
+      const location = await locationResponse.json() as LocationResult;
+      const [alertsResponse, stormsResponse] = await Promise.all([
+        fetch(`/api/nws/alerts.json?area=${encodeURIComponent(location.state)}`),
+        fetch("/api/nhc/current.json")
+      ]);
+      if (!alertsResponse.ok || !stormsResponse.ok) throw new Error("Official feed unavailable");
+      const alerts = await alertsResponse.json() as AlertFeed;
+      const storms = await stormsResponse.json() as StormFeed;
+      const alertCount = alerts.alerts?.length ?? 0;
+      const stormCount = storms.storms?.length ?? 0;
+      const level = alerts.decisionLevel ?? (stormCount ? "Prepare" : "Monitor");
+      if (locationEl) locationEl.textContent = location.city ? `${location.city}, ${location.stateName}` : location.stateName;
+      if (levelEl) levelEl.textContent = level;
+      if (alertCountEl) alertCountEl.textContent = String(alertCount);
+      if (stormCountEl) stormCountEl.textContent = String(stormCount);
+      if (noteEl) noteEl.textContent = `ZIP ${zip} · State-level alert screen for ${location.stateName}. Verify county evacuation zones and local orders.`;
+      if (actionsEl) actionsEl.innerHTML = actionsFor(level).map((action) => `<li>${escapeHtml(action)}</li>`).join("");
+      if (linksEl) {
+        linksEl.innerHTML = [
+          [`/tools/local-risk-plan/?state=${encodeURIComponent(location.state)}`, "Local risk and 72-hour plan"],
+          ["/radar/", "Live radar and satellite"],
+          ["/tools/hurricane-brief/", "Printable hurricane brief"],
+          ["/tools/evacuation-decision-helper/", "Evacuation decision helper"],
+          ["/tools/power-outage-planner/", "Power outage planner"]
+        ].map(([href, label]) => `<li><a href="${href}">${escapeHtml(label)}</a></li>`).join("");
+      }
+      if (resultEl) resultEl.hidden = false;
+      if (statusEl) statusEl.textContent = "Dashboard updated from HurricaneHub data proxies.";
+    } catch (error) {
+      console.error("HurricaneHub dashboard failed", error);
+      if (statusEl) statusEl.textContent = "Dashboard could not load right now. Try a state tracker or retry shortly.";
+    }
+  });
+</script>
+
+<style>
+  .dashboard-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .dashboard-form h2,
+  .dashboard-form .small {
+    flex: 1 1 100%;
+  }
+
+  .dashboard-form label {
+    font-weight: 800;
+  }
+
+  .dashboard-result {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) repeat(2, minmax(250px, 0.95fr));
+    gap: 18px;
+    margin-top: 22px;
+  }
+
+  .dashboard-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .dashboard-metrics div {
+    padding: 12px;
+    border-radius: 8px;
+    background: #e8f3f5;
+  }
+
+  .dashboard-metrics strong,
+  .dashboard-metrics span {
+    display: block;
+  }
+
+  .dashboard-metrics strong {
+    font-size: 1.8rem;
+  }
+
+  @media (max-width: 920px) {
+    .dashboard-result {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

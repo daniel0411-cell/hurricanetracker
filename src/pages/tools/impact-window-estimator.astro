@@ -1,0 +1,120 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import Layout from "../../layouts/Layout.astro";
+import { faqs, site, states } from "../../data/site";
+import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
+
+const title = "Storm Impact Window Estimator";
+const description = "Estimate a household action window from active state alerts, NHC storm context, and official alert timing without pretending to predict landfall.";
+const url = `${site.url}/tools/impact-window-estimator/`;
+const pageFaqs = [
+  {
+    question: "Does the impact window estimator predict landfall?",
+    answer: "No. It uses active alert language, NWS timing fields, and NHC storm context to organize household action windows. It does not forecast landfall, wind arrival, or storm surge."
+  },
+  {
+    question: "What should I do if the estimator says Act or Leave?",
+    answer: "Read the official alert, check county emergency management, and follow evacuation or shelter instructions. Move vulnerable people earlier when needed."
+  },
+  ...faqs
+];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: site.contentLastModified }),
+  webApplicationSchema({
+    name: title,
+    description,
+    url,
+    featureList: ["NWS alert timing summary", "Monitor/Prepare/Act/Leave window", "Household action guidance"]
+  }),
+  faqSchema(pageFaqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified} showBottomAd={true}>
+  <section class="band" aria-labelledby="window-title">
+    <div class="inner">
+      <p class="eyebrow">Action timing</p>
+      <h1 id="window-title">Storm Impact Window Estimator</h1>
+      <p class="answer">Choose a state to estimate a practical household action window from active NWS alerts and current NHC storm context, without treating the result as a landfall forecast.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="window-form-heading">
+    <div class="inner grid-2">
+      <form class="panel window-form" id="window-form">
+        <h2 id="window-form-heading">Estimate Action Window</h2>
+        <label for="window-state">State</label>
+        <select id="window-state">
+          {states.map(([code, name]) => <option value={code} selected={code === "FL"}>{name}</option>)}
+        </select>
+        <button type="submit">Estimate window</button>
+        <p id="window-status" class="small" role="status">Uses active NWS alerts and current NHC storm count.</p>
+      </form>
+
+      <article class="panel" aria-live="polite">
+        <p class="eyebrow">Estimated window</p>
+        <h2 id="window-level">Waiting for state</h2>
+        <p id="window-summary">Select a state to load official alert timing.</p>
+        <ul id="window-actions" class="check-list"></ul>
+      </article>
+    </div>
+  </section>
+
+  <FaqBlock faqs={pageFaqs} />
+</Layout>
+
+<script>
+  type AlertFeed = { alerts?: Array<{ event?: string; headline?: string; effective?: string; expires?: string; severity?: string; urgency?: string }>; decisionLevel?: string; updatedAt?: string; fetchedAt?: string };
+  type StormFeed = { storms?: unknown[]; updatedAt?: string; fetchedAt?: string };
+
+  const form = document.querySelector<HTMLFormElement>("#window-form");
+  const stateSelect = document.querySelector("#window-state") as HTMLSelectElement | null;
+  const statusEl = document.querySelector<HTMLElement>("#window-status");
+  const levelEl = document.querySelector<HTMLElement>("#window-level");
+  const summaryEl = document.querySelector<HTMLElement>("#window-summary");
+  const actionsEl = document.querySelector<HTMLElement>("#window-actions");
+
+  function escapeHtml(value: unknown) {
+    const replacements: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
+    return String(value ?? "").replace(/[&<>"']/g, (char) => replacements[char] ?? char);
+  }
+
+  function actionSet(level: string, alertCount: number, stormCount: number) {
+    if (level === "Leave") return ["Follow official evacuation instructions immediately if safe.", "Use official routes and avoid flooded roads.", "Take medicine, IDs, documents, chargers, pets, water, and cash."];
+    if (level === "Act") return ["Read active warning instructions now.", "Move vulnerable people and pets early.", "Secure the home only while conditions are safe."];
+    if (level === "Prepare") return ["Finish water, food, medicine, documents, fuel, and routes.", "Generate a hurricane brief and family communication plan.", stormCount ? "Monitor NHC advisories at least twice daily." : "Keep checking official outlooks during hurricane season."];
+    return alertCount ? ["Read every active alert and watch for escalation.", "Confirm evacuation zone and shelter rules.", "Keep supplies and contacts ready."] : ["No active high-priority alert returned.", "Review evacuation zone, supplies, and contacts.", "Monitor official advisories during hurricane season."];
+  }
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const state = stateSelect?.value ?? "FL";
+    try {
+      if (statusEl) statusEl.textContent = "Loading official feeds...";
+      const [alertResponse, stormResponse] = await Promise.all([
+        fetch(`/api/nws/alerts.json?area=${encodeURIComponent(state)}`),
+        fetch("/api/nhc/current.json")
+      ]);
+      if (!alertResponse.ok || !stormResponse.ok) throw new Error("Feed unavailable");
+      const alerts = await alertResponse.json() as AlertFeed;
+      const storms = await stormResponse.json() as StormFeed;
+      const alertCount = alerts.alerts?.length ?? 0;
+      const stormCount = storms.storms?.length ?? 0;
+      const level = alerts.decisionLevel ?? (stormCount ? "Prepare" : "Monitor");
+      const expires = alerts.alerts?.map((alert) => Date.parse(alert.expires ?? "")).filter(Number.isFinite).sort((a, b) => a - b)[0];
+      const expireText = expires ? ` Next listed alert expiration: ${new Date(expires).toLocaleString([], { dateStyle: "medium", timeStyle: "short" })}.` : "";
+      if (levelEl) levelEl.textContent = level;
+      if (summaryEl) summaryEl.textContent = `${alertCount} active state alert${alertCount === 1 ? "" : "s"} and ${stormCount} active NHC system${stormCount === 1 ? "" : "s"} were returned.${expireText}`;
+      if (actionsEl) actionsEl.innerHTML = actionSet(level, alertCount, stormCount).map((action) => `<li>${escapeHtml(action)}</li>`).join("");
+      if (statusEl) statusEl.textContent = "Impact window updated. Verify official local instructions before acting.";
+    } catch (error) {
+      console.error("HurricaneHub impact window failed", error);
+      if (statusEl) statusEl.textContent = "Impact window unavailable. Check weather.gov and retry shortly.";
+    }
+  });
+</script>
+
+<style>
+  .window-form { display: grid; gap: 14px; align-content: start; }
+  .window-form label { font-weight: 800; }
+</style>
