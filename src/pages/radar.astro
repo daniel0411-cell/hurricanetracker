@@ -12,7 +12,7 @@ const pageFaqs = [
   {
     question: "What does the HurricaneHub radar page show?",
     answer:
-      "It shows RainViewer precipitation radar, interactive NASA GIBS satellite tiles (GOES-East Air Mass and VIIRS infrared), a high-resolution NOAA GOES-East full-disk preview, current NHC storm markers when available, and a state-level NWS alert panel for decision context."
+      "It shows RainViewer precipitation radar, an interactive GOES-East GeoColor true-color satellite layer and VIIRS infrared cloud-top temperature, a high-resolution NOAA GOES-East full-disk preview, current NHC storm markers when available, and a state-level NWS alert panel for decision context."
   },
   {
     question: "How often should I refresh the radar and alerts?",
@@ -117,15 +117,14 @@ const jsonLd = graph(
           <div id="map" class="h-[70vh] w-full radar-map" style="height: 70vh;" aria-label="Interactive North Atlantic hurricane radar and satellite map"></div>
           <div class="satellite-preview" id="satellite-preview" hidden aria-live="polite">
             <div class="satellite-preview-head">
-              <span id="satellite-preview-title">GOES-East Air Mass</span>
+              <span id="satellite-preview-title">GOES-East GeoColor</span>
               <div class="satellite-bands" role="group" aria-label="Satellite band">
-                <button type="button" class="band-button active" data-band="airmass" aria-pressed="true">Geo</button>
+                <button type="button" class="band-button active" data-band="geocolor" aria-pressed="true">Geo</button>
                 <button type="button" class="band-button" data-band="ir" aria-pressed="false">IR</button>
-                <button type="button" class="band-button" data-band="visible" aria-pressed="false">Vis</button>
               </div>
             </div>
             <div class="satellite-preview-body">
-              <p id="satellite-preview-desc">Interactive GOES-East air-mass RGB tiles. Pan and zoom the map to inspect Atlantic cloud organization.</p>
+              <p id="satellite-preview-desc">Natural-color GOES-East imagery over the Atlantic and Americas. Pan and zoom to inspect cloud systems in true color.</p>
               <div class="satellite-opacity">
                 <label for="satellite-opacity">Layer opacity</label>
                 <input id="satellite-opacity" type="range" min="0.2" max="1" step="0.05" value="0.85" />
@@ -252,7 +251,7 @@ const jsonLd = graph(
         </article>
         <article class="panel">
           <h3>Interactive Satellite Layers</h3>
-          <p>Switch to satellite mode for zoomable NASA GIBS tiles: GOES-East Air Mass RGB for moisture boundaries and VIIRS infrared for cloud-top temperature. Open the NOAA full-disk preview for high-resolution detail.</p>
+          <p>Switch to satellite mode for a zoomable GOES-East GeoColor true-color layer and VIIRS infrared cloud-top temperature. Open the NOAA full-disk preview for high-resolution detail.</p>
         </article>
         <article class="panel">
           <h3>Decision Check</h3>
@@ -281,39 +280,35 @@ const jsonLd = graph(
       const US_STATES = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
 
       let activeScheme = 2;
-      let activeSatBand = "airmass";
+      let activeSatBand = "geocolor";
       let satOpacity = 0.85;
       let currentScope = { state: "FL" };
       let lastAlerts = [];
       const alertGeo = new Map();
       const shownAlerts = new Map();
+      // GOES-East full-disk imagery is a geostationary disk. We anchor it to the
+      // real sub-satellite footprint (centered near 75W) so the Atlantic and
+      // Americas line up naturally on the web-mercator map.
+      const GOES_EAST_BOUNDS = [[75, -160], [-75, 10]];
       const SATELLITE_SOURCES = {
-        airmass: {
-          title: "GOES-East Air Mass",
-          desc: "Interactive GOES-East air-mass RGB tiles. Pan and zoom the map to inspect Atlantic moisture and dry-air boundaries.",
-          url: "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/GOES-East_ABI_Air_Mass/default/GoogleMapsCompatible_Level6/{z}/{y}/{x}.jpg",
-          attribution: '<a href="https://earthdata.nasa.gov/gibs">NASA GIBS</a>',
-          maxZoom: 6,
-          ext: "jpg",
+        geocolor: {
+          title: "GOES-East GeoColor",
+          desc: "Natural-color GOES-East imagery (day true color fused with night infrared) over the Atlantic and Americas. Pan and zoom to inspect cloud systems in true color.",
+          type: "image",
+          url: "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/1808x1808.jpg",
+          bounds: GOES_EAST_BOUNDS,
+          cacheBust: true,
+          attribution: '<a href="https://www.star.nesdis.noaa.gov/goes/">NOAA</a>',
           fullDisk: "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/1808x1808.jpg"
         },
         ir: {
           title: "VIIRS IR Band I5",
           desc: "Interactive infrared brightness temperature tiles from VIIRS NOAA-20. Brighter clouds are colder and higher.",
+          type: "tile",
           url: "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_NOAA20_Brightness_Temp_BandI5_Night/default/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg",
           attribution: '<a href="https://earthdata.nasa.gov/gibs">NASA GIBS</a>',
           maxZoom: 8,
-          ext: "jpg",
-          fullDisk: "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/Channel13/1808x1808.jpg"
-        },
-        visible: {
-          title: "GOES-East Visible",
-          desc: "High-resolution GOES-East visible full disk preview. Best viewed via the full-disk image below.",
-          url: "",
-          attribution: '<a href="https://www.star.nesdis.noaa.gov/goes/">NOAA</a>',
-          maxZoom: 6,
-          ext: "jpg",
-          fullDisk: "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/Channel02/1808x1808.jpg"
+          fullDisk: "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/1808x1808.jpg"
         }
       };
 
@@ -458,9 +453,15 @@ const jsonLd = graph(
       const layers = { radar: null, satellite: null };
 
       function createSatelliteLayer(band) {
-        const source = SATELLITE_SOURCES[band] || SATELLITE_SOURCES.airmass;
-        if (!source.url) {
-          return null;
+        const source = SATELLITE_SOURCES[band] || SATELLITE_SOURCES.geocolor;
+        if (source.type === "image") {
+          const url = source.cacheBust
+            ? `${source.url}?t=${Math.floor(Date.now() / 600000)}`
+            : source.url;
+          return L.imageOverlay(url, source.bounds, {
+            opacity: satOpacity,
+            attribution: source.attribution
+          });
         }
         const layer = L.tileLayer(source.url, {
           opacity: satOpacity,
@@ -475,12 +476,12 @@ const jsonLd = graph(
       }
 
       function updateSatellitePreview(band) {
-        const source = SATELLITE_SOURCES[band] || SATELLITE_SOURCES.airmass;
+        const source = SATELLITE_SOURCES[band] || SATELLITE_SOURCES.geocolor;
         if (satellitePreviewTitle) satellitePreviewTitle.textContent = source.title;
         if (satellitePreviewDesc) satellitePreviewDesc.textContent = source.desc;
         if (satelliteModalImage) {
           satelliteModalImage.src = source.fullDisk;
-          satelliteModalImage.alt = `Latest NOAA GOES-East full disk ${band} satellite view`;
+          satelliteModalImage.alt = `Latest NOAA GOES-East full disk ${source.title} satellite view`;
         }
       }
 
@@ -532,7 +533,7 @@ const jsonLd = graph(
             activeOverlay = satLayer.addTo(map);
             setStatus(`${SATELLITE_SOURCES[activeSatBand]?.title || "Satellite"} layer active. Pan and zoom to explore.`);
           } else {
-            setStatus("Visible band uses the full-disk preview. Tap the HD button for detail.");
+            setStatus("Satellite layer temporarily unavailable. Tap the HD button for the full-disk preview.");
           }
           setActiveButton(name);
           return;
@@ -820,10 +821,10 @@ const jsonLd = graph(
 
       function openFullDisk() {
         if (satelliteModal instanceof HTMLElement) {
-          const source = SATELLITE_SOURCES[activeSatBand] || SATELLITE_SOURCES.airmass;
+          const source = SATELLITE_SOURCES[activeSatBand] || SATELLITE_SOURCES.geocolor;
           if (satelliteModalImage) {
             satelliteModalImage.src = source.fullDisk;
-            satelliteModalImage.alt = `Latest NOAA GOES-East full disk ${activeSatBand} satellite view`;
+            satelliteModalImage.alt = `Latest NOAA GOES-East full disk ${source.title} satellite view`;
           }
           satelliteModal.hidden = false;
         }
