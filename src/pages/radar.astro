@@ -5,14 +5,14 @@ import { faqs, site, states } from "../data/site";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
 
 const title = "Hurricane Radar | Live NOAA Data";
-const description = "Live hurricane radar feed, GOES satellite imagery, and real-time storm tracking for the North Atlantic using RainViewer and NOAA-linked public data sources.";
+const description = "Live hurricane radar feed, interactive GOES-East and VIIRS satellite layers, and real-time storm tracking for the North Atlantic using RainViewer, NASA GIBS, and NOAA-linked public data sources.";
 const url = `${site.url}/radar/`;
 const lastModified = site.contentLastModified;
 const pageFaqs = [
   {
     question: "What does the HurricaneHub radar page show?",
     answer:
-      "It shows RainViewer precipitation radar, a NOAA GOES-East satellite preview, current NHC storm markers when available, and a state-level NWS alert panel for decision context."
+      "It shows RainViewer precipitation radar, interactive NASA GIBS satellite tiles (GOES-East Air Mass and VIIRS infrared), a high-resolution NOAA GOES-East full-disk preview, current NHC storm markers when available, and a state-level NWS alert panel for decision context."
   },
   {
     question: "How often should I refresh the radar and alerts?",
@@ -117,20 +117,43 @@ const jsonLd = graph(
           <div id="map" class="h-[70vh] w-full radar-map" style="height: 70vh;" aria-label="Interactive North Atlantic hurricane radar and satellite map"></div>
           <div class="satellite-preview" id="satellite-preview" hidden aria-live="polite">
             <div class="satellite-preview-head">
-              <span>NOAA GOES-East</span>
+              <span id="satellite-preview-title">GOES-East Air Mass</span>
               <div class="satellite-bands" role="group" aria-label="Satellite band">
-                <button type="button" class="band-button active" data-band="GEOCOLOR" aria-pressed="true">Geo</button>
-                <button type="button" class="band-button" data-band="13" aria-pressed="false">IR</button>
-                <button type="button" class="band-button" data-band="02" aria-pressed="false">Vis</button>
+                <button type="button" class="band-button active" data-band="airmass" aria-pressed="true">Geo</button>
+                <button type="button" class="band-button" data-band="ir" aria-pressed="false">IR</button>
+                <button type="button" class="band-button" data-band="visible" aria-pressed="false">Vis</button>
               </div>
             </div>
-            <img
-              id="satellite-preview-image"
-              src="https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/1808x1808.jpg"
-              alt="Latest NOAA GOES-East full disk GeoColor satellite view"
-              loading="lazy"
-            />
-            <p>Satellite imagery is shown as an official NOAA preview instead of a low-zoom map tile overlay, which prevents projection artifacts in the North Atlantic view.</p>
+            <div class="satellite-preview-body">
+              <p id="satellite-preview-desc">Interactive GOES-East air-mass RGB tiles. Pan and zoom the map to inspect Atlantic cloud organization.</p>
+              <div class="satellite-opacity">
+                <label for="satellite-opacity">Layer opacity</label>
+                <input id="satellite-opacity" type="range" min="0.2" max="1" step="0.05" value="0.85" />
+              </div>
+              <button type="button" class="satellite-full-disk" id="open-full-disk">
+                <i class="fa-solid fa-expand" aria-hidden="true"></i>
+                <span>Open full-disk HD image</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="satellite-modal" id="satellite-modal" hidden>
+            <div class="satellite-modal-backdrop"></div>
+            <div class="satellite-modal-content" role="dialog" aria-modal="true" aria-labelledby="satellite-modal-title">
+              <div class="satellite-modal-head">
+                <h3 id="satellite-modal-title">NOAA GOES-East Full Disk</h3>
+                <button type="button" class="satellite-modal-close" id="close-full-disk" aria-label="Close full disk view">
+                  <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+              </div>
+              <img
+                id="satellite-modal-image"
+                src="https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/1808x1808.jpg"
+                alt="Latest NOAA GOES-East full disk GeoColor satellite view"
+                loading="lazy"
+              />
+              <p>High-resolution full disk preview from NOAA GOES-East. Use the interactive map layer for zoomed analysis.</p>
+            </div>
           </div>
         </div>
         <aside class="radar-sidebar" aria-label="Live storm and alert panel">
@@ -228,8 +251,8 @@ const jsonLd = graph(
           <p>Use the radar layer to inspect recent precipitation bands and squall-line structure. Radar coverage is strongest where ground radar networks are available.</p>
         </article>
         <article class="panel">
-          <h3>GOES-East Preview</h3>
-          <p>Use the satellite preview to inspect Atlantic, Caribbean, Gulf of Mexico, and Bahamas cloud organization without relying on a misaligned low-zoom tile overlay.</p>
+          <h3>Interactive Satellite Layers</h3>
+          <p>Switch to satellite mode for zoomable NASA GIBS tiles: GOES-East Air Mass RGB for moisture boundaries and VIIRS infrared for cloud-top temperature. Open the NOAA full-disk preview for high-resolution detail.</p>
         </article>
         <article class="panel">
           <h3>Decision Check</h3>
@@ -258,10 +281,41 @@ const jsonLd = graph(
       const US_STATES = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
 
       let activeScheme = 2;
+      let activeSatBand = "airmass";
+      let satOpacity = 0.85;
       let currentScope = { state: "FL" };
       let lastAlerts = [];
       const alertGeo = new Map();
       const shownAlerts = new Map();
+      const SATELLITE_SOURCES = {
+        airmass: {
+          title: "GOES-East Air Mass",
+          desc: "Interactive GOES-East air-mass RGB tiles. Pan and zoom the map to inspect Atlantic moisture and dry-air boundaries.",
+          url: "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/GOES-East_ABI_Air_Mass/default/GoogleMapsCompatible_Level6/{z}/{y}/{x}.jpg",
+          attribution: '<a href="https://earthdata.nasa.gov/gibs">NASA GIBS</a>',
+          maxZoom: 6,
+          ext: "jpg",
+          fullDisk: "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/1808x1808.jpg"
+        },
+        ir: {
+          title: "VIIRS IR Band I5",
+          desc: "Interactive infrared brightness temperature tiles from VIIRS NOAA-20. Brighter clouds are colder and higher.",
+          url: "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_NOAA20_Brightness_Temp_BandI5_Night/default/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg",
+          attribution: '<a href="https://earthdata.nasa.gov/gibs">NASA GIBS</a>',
+          maxZoom: 8,
+          ext: "jpg",
+          fullDisk: "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/Channel13/1808x1808.jpg"
+        },
+        visible: {
+          title: "GOES-East Visible",
+          desc: "High-resolution GOES-East visible full disk preview. Best viewed via the full-disk image below.",
+          url: "",
+          attribution: '<a href="https://www.star.nesdis.noaa.gov/goes/">NOAA</a>',
+          maxZoom: 6,
+          ext: "jpg",
+          fullDisk: "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/Channel02/1808x1808.jpg"
+        }
+      };
 
       const statusEl = document.querySelector("#radar-status");
       const resetButton = document.querySelector("#reset-map");
@@ -284,7 +338,13 @@ const jsonLd = graph(
       const stormCountEl = document.querySelector("#storm-count");
       const decisionEl = document.querySelector("#alert-decision");
       const satellitePreview = document.querySelector("#satellite-preview");
-      const satellitePreviewImage = document.querySelector("#satellite-preview-image");
+      const satellitePreviewTitle = document.querySelector("#satellite-preview-title");
+      const satellitePreviewDesc = document.querySelector("#satellite-preview-desc");
+      const satelliteOpacityInput = document.querySelector("#satellite-opacity");
+      const openFullDiskButton = document.querySelector("#open-full-disk");
+      const satelliteModal = document.querySelector("#satellite-modal");
+      const closeFullDiskButton = document.querySelector("#close-full-disk");
+      const satelliteModalImage = document.querySelector("#satellite-modal-image");
       const categoriesEl = document.querySelector("#alert-categories");
       const alertScopeEl = document.querySelector("#alert-scope");
       const watchListEl = document.querySelector("#watch-list");
@@ -395,7 +455,34 @@ const jsonLd = graph(
       const stormLayer = L.layerGroup().addTo(map);
       const alertPolyLayer = L.layerGroup().addTo(map);
       let activeOverlay = null;
-      const layers = { radar: null };
+      const layers = { radar: null, satellite: null };
+
+      function createSatelliteLayer(band) {
+        const source = SATELLITE_SOURCES[band] || SATELLITE_SOURCES.airmass;
+        if (!source.url) {
+          return null;
+        }
+        const layer = L.tileLayer(source.url, {
+          opacity: satOpacity,
+          maxZoom: source.maxZoom,
+          attribution: source.attribution,
+          subdomains: ""
+        });
+        layer.on("tileerror", () => {
+          setStatus(`${source.title} tile temporarily unavailable.`, true);
+        });
+        return layer;
+      }
+
+      function updateSatellitePreview(band) {
+        const source = SATELLITE_SOURCES[band] || SATELLITE_SOURCES.airmass;
+        if (satellitePreviewTitle) satellitePreviewTitle.textContent = source.title;
+        if (satellitePreviewDesc) satellitePreviewDesc.textContent = source.desc;
+        if (satelliteModalImage) {
+          satelliteModalImage.src = source.fullDisk;
+          satelliteModalImage.alt = `Latest NOAA GOES-East full disk ${band} satellite view`;
+        }
+      }
 
       function attachTileError(layer, message) {
         layer.on("tileerror", () => setStatus(message, true));
@@ -439,8 +526,15 @@ const jsonLd = graph(
             activeOverlay = null;
           }
           if (satellitePreview instanceof HTMLElement) satellitePreview.hidden = false;
+          const satLayer = createSatelliteLayer(activeSatBand);
+          layers.satellite = satLayer;
+          if (satLayer) {
+            activeOverlay = satLayer.addTo(map);
+            setStatus(`${SATELLITE_SOURCES[activeSatBand]?.title || "Satellite"} layer active. Pan and zoom to explore.`);
+          } else {
+            setStatus("Visible band uses the full-disk preview. Tap the HD button for detail.");
+          }
           setActiveButton(name);
-          setStatus("NOAA GOES-East satellite preview loaded. Radar overlay hidden to avoid projection artifacts.");
           return;
         }
 
@@ -451,6 +545,7 @@ const jsonLd = graph(
         }
 
         if (satellitePreview instanceof HTMLElement) satellitePreview.hidden = true;
+        if (satelliteModal instanceof HTMLElement) satelliteModal.hidden = true;
         if (activeOverlay) map.removeLayer(activeOverlay);
         activeOverlay = attachTileError(nextLayer, "Radar temporarily unavailable.");
         activeOverlay.addTo(map);
@@ -494,13 +589,9 @@ const jsonLd = graph(
           : '<span class="small">No categorized alerts.</span>';
       }
 
-      if (satellitePreviewImage instanceof HTMLImageElement) {
-        satellitePreviewImage.addEventListener("error", () => {
-          if (satellitePreview instanceof HTMLElement) satellitePreview.classList.add("satellite-preview-error");
-          setStatus("NOAA satellite preview is temporarily unavailable. Radar remains available.", true);
-        });
-        satellitePreviewImage.addEventListener("load", () => {
-          satellitePreview?.classList.remove("satellite-preview-error");
+      if (satelliteModalImage instanceof HTMLImageElement) {
+        satelliteModalImage.addEventListener("error", () => {
+          setStatus("NOAA full-disk preview is temporarily unavailable. Interactive tiles remain available.", true);
         });
       }
 
@@ -661,6 +752,7 @@ const jsonLd = graph(
       }
 
       showTheme("light");
+      updateSatellitePreview(activeSatBand);
       createRainViewerLayer().then((layer) => {
         layers.radar = layer;
         showLayer("radar");
@@ -704,16 +796,48 @@ const jsonLd = graph(
       bandButtons.forEach((button) => {
         button.addEventListener("click", () => {
           const band = button.dataset.band;
+          if (!band || !SATELLITE_SOURCES[band]) return;
+          activeSatBand = band;
           bandButtons.forEach((other) => {
             const isActive = other === button;
             other.classList.toggle("active", isActive);
             other.setAttribute("aria-pressed", String(isActive));
           });
-          if (satellitePreviewImage instanceof HTMLImageElement) {
-            satellitePreviewImage.src = `https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/${band}/1808x1808.jpg`;
-            satellitePreviewImage.alt = `Latest NOAA GOES-East full disk ${band} satellite view`;
+          updateSatellitePreview(band);
+          const isSatelliteMode = buttons.some((btn) => btn.dataset.layer === "satellite" && btn.classList.contains("active"));
+          if (isSatelliteMode) {
+            showLayer("satellite");
           }
         });
+      });
+
+      satelliteOpacityInput?.addEventListener("input", (event) => {
+        satOpacity = Number(event.target?.value) || 0.85;
+        if (activeOverlay && activeOverlay.setOpacity) {
+          activeOverlay.setOpacity(satOpacity);
+        }
+      });
+
+      function openFullDisk() {
+        if (satelliteModal instanceof HTMLElement) {
+          const source = SATELLITE_SOURCES[activeSatBand] || SATELLITE_SOURCES.airmass;
+          if (satelliteModalImage) {
+            satelliteModalImage.src = source.fullDisk;
+            satelliteModalImage.alt = `Latest NOAA GOES-East full disk ${activeSatBand} satellite view`;
+          }
+          satelliteModal.hidden = false;
+        }
+      }
+
+      function closeFullDisk() {
+        if (satelliteModal instanceof HTMLElement) satelliteModal.hidden = true;
+      }
+
+      openFullDiskButton?.addEventListener("click", openFullDisk);
+      closeFullDiskButton?.addEventListener("click", closeFullDisk);
+      satelliteModal?.querySelector(".satellite-modal-backdrop")?.addEventListener("click", closeFullDisk);
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeFullDisk();
       });
 
       presetButtons.forEach((button) => {
@@ -1055,24 +1179,130 @@ const jsonLd = graph(
     gap: 4px;
   }
 
-  .satellite-preview img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    background: #08141f;
+  .satellite-preview-body {
+    padding: 12px;
+    display: grid;
+    gap: 12px;
   }
 
-  .satellite-preview p {
+  .satellite-preview-body p {
     margin: 0;
-    padding: 10px 12px 12px;
     color: rgba(255, 255, 255, 0.74);
     font-size: 0.84rem;
     line-height: 1.45;
   }
 
-  .satellite-preview-error img {
-    opacity: 0.18;
+  .satellite-opacity {
+    display: grid;
+    gap: 6px;
+  }
+
+  .satellite-opacity label {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .satellite-opacity input[type="range"] {
+    width: 100%;
+    accent-color: var(--signal);
+  }
+
+  .satellite-full-disk {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid rgba(226, 239, 243, 0.28);
+    border-radius: 6px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .satellite-full-disk:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .satellite-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+  }
+
+  .satellite-modal[hidden] {
+    display: none;
+  }
+
+  .satellite-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(7, 20, 29, 0.86);
+  }
+
+  .satellite-modal-content {
+    position: relative;
+    z-index: 1;
+    width: min(980px, calc(100vw - 48px));
+    max-height: calc(100vh - 48px);
+    overflow: auto;
+    border-radius: 12px;
+    background: #08141f;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  }
+
+  .satellite-modal-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(226, 239, 243, 0.18);
+    color: #fff;
+  }
+
+  .satellite-modal-head h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .satellite-modal-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+
+  .satellite-modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .satellite-modal-content img {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #08141f;
+  }
+
+  .satellite-modal-content p {
+    margin: 0;
+    padding: 12px 18px 16px;
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.84rem;
+    line-height: 1.45;
   }
 
   .radar-sidebar {
