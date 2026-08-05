@@ -70,7 +70,7 @@ const jsonLd = graph(
         <p class="eyebrow">North America hurricane operations</p>
         <h1 id="home-title">HurricaneHub</h1>
         <p class="answer">HurricaneHub shows live hurricanes approaching North America, official NHC storm context, state NWS warnings, and emergency decision tools so coastal households can monitor, prepare, act, or leave with fewer tabs open.</p>
-        <p style="margin-top: 22px;">
+        <p class="section-actions">
           <a class="action-link" href="/tools/my-hurricane-dashboard/">Build my hurricane dashboard</a>
           <a class="action-link secondary-action" href="/tools/local-risk-plan/">Check local risk</a>
         </p>
@@ -94,7 +94,7 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">5-second decision path</p>
       <h2 id="quick-actions-heading">What To Do First</h2>
-      <div class="grid-3" style="margin-top: 18px;">
+      <div class="grid-3 section-grid">
         <article class="panel">
           <span class="badge danger">Leave</span>
           <h3>Evacuation order or surge zone?</h3>
@@ -119,7 +119,7 @@ const jsonLd = graph(
       <p class="eyebrow">Choose your state</p>
       <h2 id="state-heading">State Hurricane Trackers</h2>
       <p class="answer">Start with your state page to combine official NHC storm context, active NWS alerts, county planning notes, and a household decision level.</p>
-      <div class="grid-3" style="margin-top: 18px;">
+      <div class="grid-3 section-grid">
         {coastalStates.map((state) => (
           <article class="panel">
             <h3>{state.name} Hurricane Tracker</h3>
@@ -172,7 +172,7 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">Differentiation from radar-only tracking</p>
       <h2 id="advantage-heading">What HurricaneHub Adds</h2>
-      <div class="grid-2" style="margin-top: 18px;">
+      <div class="grid-2 section-grid">
         <article class="panel">
           <h3>Emergency Decision Layer</h3>
           <p>Stormtracking.io-style radar, satellite, and alert views answer what is happening. HurricaneHub adds what a household should decide next, with source-labeled state alerts and risk thresholds built for search and AI answer engines.</p>
@@ -182,7 +182,7 @@ const jsonLd = graph(
           <p>The MVP records feed path, cache window, and runtime behavior. These notes create information gain for SEO/GEO pages because they explain exactly how official data is acquired and refreshed.</p>
         </article>
       </div>
-      <div class="grid-3" style="margin-top: 18px;">
+      <div class="grid-3 section-grid">
         {differentiators.map((item) => (
           <article class="panel">
             <h3>{item.split(" ")[0]} Advantage</h3>
@@ -220,7 +220,7 @@ const jsonLd = graph(
       <p class="eyebrow">Local landing pages</p>
       <h2 id="city-heading">City Hurricane Trackers</h2>
       <p class="answer">Start with a city page for local planning notes, nearby counties, state alert links, and decision tools.</p>
-      <div class="grid-3" style="margin-top: 18px;">
+      <div class="grid-3 section-grid">
         <article class="panel"><h3>Miami Hurricane Tracker</h3><p>South Florida surge, evacuation traffic, flooding, and rain-band tornado planning.</p><a href="/hurricane-tracker/city/miami/">Open Miami</a></article>
         <article class="panel"><h3>Tampa Hurricane Tracker</h3><p>Tampa Bay surge, bridge access, evacuation routes, and power outage planning.</p><a href="/hurricane-tracker/city/tampa/">Open Tampa</a></article>
         <article class="panel"><h3>Houston Hurricane Tracker</h3><p>Bayou flooding, coastal surge, long-duration rain, and extended outage planning.</p><a href="/hurricane-tracker/city/houston/">Open Houston</a></article>
@@ -235,14 +235,10 @@ const jsonLd = graph(
 
 <style>
   .secondary-action {
-    margin-left: 10px;
     background: var(--navy);
   }
 
-  @media (max-width: 560px) {
-    .secondary-action {
-      margin-left: 0;
-      margin-top: 10px;
-    }
+  .section-grid {
+    margin-top: 22px;
   }
 </style>
