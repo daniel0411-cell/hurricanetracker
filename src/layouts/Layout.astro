@@ -33,6 +33,17 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
 <html lang="en">
   <head>
     <GoogleTag />
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem("hurricanehub:theme");
+          var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+          if (saved === "dark" || (!saved && prefersDark)) {
+            document.documentElement.dataset.theme = "dark";
+          }
+        } catch (e) {}
+      })();
+    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <SEO
@@ -730,5 +741,52 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
       width: 100%;
       justify-content: center;
     }
+  }
+
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ink: #e8eef1;
+    --muted: #9fb0bb;
+    --line: #2a3a47;
+    --panel: #15212c;
+    --surface: #0e1922;
+    --navy: #0c1722;
+    --shadow: 0 18px 50px rgba(0, 0, 0, 0.42);
+    --soft-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  :root[data-theme="dark"] body {
+    background: var(--surface);
+    color: var(--ink);
+  }
+
+  :root[data-theme="dark"] .site-header {
+    background: #11202b;
+    border-bottom-color: var(--line);
+  }
+
+  :root[data-theme="dark"] .site-header nav a {
+    color: var(--muted);
+  }
+
+  :root[data-theme="dark"] .site-header nav a:hover,
+  :root[data-theme="dark"] .site-header nav a:focus-visible {
+    background: #1c2e3b;
+    color: var(--ink);
+  }
+
+  :root[data-theme="dark"] .disclaimer {
+    filter: brightness(0.92);
+  }
+
+  :root[data-theme="dark"] .site-footer {
+    background: #11202b;
+    border-top-color: var(--line);
+    color: var(--muted);
+  }
+
+  :root[data-theme="dark"] .ad-slot {
+    border-color: var(--line);
+    background: rgba(255, 255, 255, 0.04);
   }
 </style>

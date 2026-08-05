@@ -17,5 +17,68 @@ const navItems = [
   </a>
   <nav aria-label="Primary" translate="no">
     {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+      <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+      <span class="theme-toggle-label">Dark</span>
+    </button>
   </nav>
 </header>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById("theme-toggle");
+    if (!btn) return;
+    var icon = btn.querySelector(".theme-toggle-icon");
+    var label = btn.querySelector(".theme-toggle-label");
+    function sync() {
+      var dark = document.documentElement.dataset.theme === "dark";
+      if (icon) icon.textContent = dark ? "☀️" : "🌙";
+      if (label) label.textContent = dark ? "Light" : "Dark";
+      btn.setAttribute("aria-pressed", String(dark));
+    }
+    sync();
+    btn.addEventListener("click", function () {
+      var dark = document.documentElement.dataset.theme === "dark";
+      var next = dark ? "light" : "dark";
+      if (next === "dark") document.documentElement.dataset.theme = "dark";
+      else delete document.documentElement.dataset.theme;
+      try { localStorage.setItem("hurricanehub:theme", next); } catch (e) {}
+      sync();
+    });
+  })();
+</script>
+
+<style>
+  .theme-toggle {
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-left: 6px;
+    padding: 0 11px;
+    border-radius: 6px;
+    border: 1px solid rgba(122, 134, 142, 0.4);
+    background: transparent;
+    color: var(--muted);
+    font-size: 0.86rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .theme-toggle:hover,
+  .theme-toggle:focus-visible {
+    background: #e7eef1;
+    color: var(--ink);
+  }
+
+  :root[data-theme="dark"] .theme-toggle {
+    color: var(--muted);
+    border-color: rgba(159, 176, 187, 0.5);
+  }
+
+  :root[data-theme="dark"] .theme-toggle:hover,
+  :root[data-theme="dark"] .theme-toggle:focus-visible {
+    background: #1c2e3b;
+    color: var(--ink);
+  }
+</style>

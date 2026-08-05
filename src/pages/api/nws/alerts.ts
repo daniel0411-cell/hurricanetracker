@@ -37,7 +37,9 @@ function normalizeAlert(feature: any): NwsAlert {
     areaDesc: properties.areaDesc ?? "",
     effective: properties.effective ?? "",
     expires: properties.expires ?? "",
-    instruction: properties.instruction ?? ""
+    instruction: properties.instruction ?? "",
+    geometry: feature.geometry ?? null,
+    sent: properties.sent ?? properties.effective ?? ""
   };
 }
 
@@ -47,14 +49,36 @@ export const OPTIONS: APIRoute = () =>
     headers: CORS_HEADERS
   });
 
+function isValidPoint(value: string | null): { lat: number; lon: number } | null {
+  if (!value) return null;
+  const parts = value.split(",").map((part) => Number.parseFloat(part.trim()));
+  if (parts.length !== 2 || !Number.isFinite(parts[0]) || !Number.isFinite(parts[1])) return null;
+  const [lat, lon] = parts;
+  if (lat < -90 || lat > 90 || lon < -180 || lon > 180) return null;
+  return { lat, lon };
+}
+
 export const GET: APIRoute = async ({ url }) => {
+  const point = isValidPoint(url.searchParams.get("point"));
   const area = (url.searchParams.get("area") ?? url.searchParams.get("state") ?? "FL").trim().toUpperCase();
-  if (!VALID_AREA.test(area)) {
-    return jsonResponse({ error: "Use a two-letter US state or territory area code." }, { status: 400 });
+
+  let source: string;
+  let cacheKey: string;
+  let scope: Record<string, string>;
+  if (point) {
+    source = `https://api.weather.gov/alerts/active?point=${point.lat},${point.lon}`;
+    cacheKey = `nws:alerts:point:${point.lat.toFixed(3)},${point.lon.toFixed(3)}`;
+    scope = { point: `${point.lat},${point.lon}`, state: "" };
+  } else {
+    if (!VALID_AREA.test(area)) {
+      return jsonResponse({ error: "Use a two-letter US state or territory area code, or a point=lat,lon query." }, { status: 400 });
+    }
+    source = `https://api.weather.gov/alerts/active?area=${area}`;
+    cacheKey = `nws:alerts:${area}`;
+    scope = { area, state: area, point: "" };
   }
 
   const cache = getCache();
-  const cacheKey = `nws:alerts:${area}`;
   const cached = await cache?.get(cacheKey);
   if (cached) {
     return new Response(cached, {
@@ -66,8 +90,6 @@ export const GET: APIRoute = async ({ url }) => {
       }
     });
   }
-
-  const source = `https://api.weather.gov/alerts/active?area=${area}`;
 
   try {
     const response = await fetch(source, {
@@ -87,8 +109,7 @@ export const GET: APIRoute = async ({ url }) => {
     const fetchedAt = new Date().toISOString();
     const body = JSON.stringify({
       source,
-      area,
-      state: area,
+      ...scope,
       fetchedAt,
       updatedAt: raw.updated ?? fetchedAt,
       cacheTtlSeconds: CACHE_TTL_SECONDS,

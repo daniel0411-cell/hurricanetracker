@@ -26,6 +26,10 @@ export type NwsAlert = {
   effective: string;
   expires: string;
   instruction?: string;
+  /** GeoJSON geometry from NWS, used to draw the alert on the map. */
+  geometry?: unknown;
+  /** ISO timestamp the alert was first issued, used for the NEW badge. */
+  sent?: string;
 };
 
 export type DecisionLevel = "Monitor" | "Prepare" | "Act" | "Leave";
