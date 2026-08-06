@@ -15,3 +15,7 @@
 /offline
   Cache-Control: no-cache
 
+/embed/*
+  Content-Security-Policy: frame-ancestors *;
+  X-Frame-Options: ALLOWALL
+

@@ -78,7 +78,12 @@ const showControls = params.get("controls") !== "0";
       import L from "leaflet";
       import "leaflet/dist/leaflet.css";
 
-      document.addEventListener("DOMContentLoaded", () => {
+      window.addEventListener("error", (ev) => {
+        const s = document.querySelector("#embed-status");
+        if (s) { s.textContent = "Error: " + (ev.message || "failed to initialize"); s.classList.add("error"); }
+      });
+
+      function initRadar() {
         const VIEWS = {
           atlantic: { center: [25.0, -75.0], zoom: 5 },
           gulf: { center: [26.0, -90.0], zoom: 5 },
@@ -188,7 +193,14 @@ const showControls = params.get("controls") !== "0";
         // Keep the embed sized correctly inside iframes.
         window.setTimeout(() => map.invalidateSize(), 200);
         window.addEventListener("resize", () => map.invalidateSize());
-      });
+        window.addEventListener("load", () => map.invalidateSize());
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initRadar);
+      } else {
+        initRadar();
+      }
     </script>
   </body>
 </html>
