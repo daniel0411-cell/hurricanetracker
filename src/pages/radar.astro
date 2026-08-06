@@ -1,5 +1,6 @@
 ---
 import FaqBlock from "../components/FaqBlock.astro";
+import StormCard from "../components/StormCard.astro";
 import Layout from "../layouts/Layout.astro";
 import { faqs, site, states } from "../data/site";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
@@ -219,6 +220,7 @@ const jsonLd = graph(
             <div id="storm-list" class="radar-feed-list" aria-live="polite">
               <p class="source-note">Loading current storms...</p>
             </div>
+            <StormCard />
           </section>
 
           <section class="radar-card">
