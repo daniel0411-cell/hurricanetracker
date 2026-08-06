@@ -1,0 +1,533 @@
+---
+import Layout from "../layouts/Layout.astro";
+import FaqBlock from "../components/FaqBlock.astro";
+import {
+  BENCHMARK_STORMS,
+  categoryLabel,
+  categoryFromWindKt,
+  ktToMph,
+  formatDamageUsd
+} from "../data/storms";
+
+const benchmarksJson = JSON.stringify(BENCHMARK_STORMS);
+
+const description =
+  "Compare an active Atlantic hurricane against historical benchmarks Katrina (2005), Ian (2022), and Sandy (2012) — track maps, peak category, minimum pressure, max winds, damage, and intensity at the same latitude.";
+
+const pageFaqs = [
+  {
+    question: "Where does the historical track data come from?",
+    answer:
+      "The benchmark tracks are simplified point samples drawn from the National Hurricane Center HURDAT2 / IBTrACS public best-track archives for Katrina, Ian, and Sandy. They are illustrative subsets (not every synoptic fix) chosen so you can compare shape, intensity, and landfall with a live storm."
+  },
+  {
+    question: "Why compare storms at the same latitude?",
+    answer:
+      "A storm's strength at a given latitude is a useful reality check: if today's system is already a Category 3 at the same latitude where Katrina was a Category 1, that is a meaningful signal even before landfall. Latitude-based comparison controls for how much warm ocean and low wind shear a storm has had time to use."
+  },
+  {
+    question: "Is the active storm's track shown?",
+    answer:
+      "The National Hurricane Center current-storm feed provides the live position, wind, and pressure but not the full past track. We plot the active storm as a live marker and compare its current intensity and latitude against the historical benchmarks."
+  },
+  {
+    question: "Should I use this instead of official forecasts?",
+    answer:
+      "No. This is an educational context tool. Always follow official NHC advisories, NWS warnings, and local emergency management instructions for life-safety decisions."
+  }
+];
+---
+
+<Layout title="Hurricane Comparison Tool — Katrina, Ian, Sandy vs. Active Storm" description={description}>
+  <main class="compare-page">
+    <section class="compare-hero">
+      <h1>Hurricane Comparison Tool</h1>
+      <p class="lede">
+        Overlay today's active Atlantic storm against three modern benchmarks — <strong>Katrina (2005)</strong>,
+        <strong>Ian (2022)</strong>, and <strong>Sandy (2012)</strong> — to see how its track, intensity, and
+        latitude stack up against storms we already know were catastrophic.
+      </p>
+    </section>
+
+    <section class="compare-controls" aria-label="Comparison controls">
+      <div class="control-group">
+        <label for="benchmark-select">Compare active storm against</label>
+        <select id="benchmark-select">
+          {BENCHMARK_STORMS.map((s) => (
+            <option value={s.id}>{s.name} {s.year} — {categoryLabel(s.peakCategory)} peak</option>
+          ))}
+        </select>
+      </div>
+      <div class="control-group toggle-group" role="group" aria-label="Map theme">
+        <button type="button" class="theme-button active" data-map-theme="dark" aria-pressed="true">Dark map</button>
+        <button type="button" class="theme-button" data-map-theme="light" aria-pressed="false">Light map</button>
+      </div>
+      <div class="control-group toggle-group" id="layer-toggles" role="group" aria-label="Storm layers">
+        {BENCHMARK_STORMS.map((s) => (
+          <button
+            type="button"
+            class="storm-toggle active"
+            data-storm={s.id}
+            aria-pressed="true"
+            style={`--storm-color:${s.color}`}
+          >
+            <span class="dot" aria-hidden="true"></span>{s.name} {s.year}
+          </button>
+        ))}
+        <button type="button" class="storm-toggle active" data-storm="active" aria-pressed="true">
+          <span class="dot active-dot" aria-hidden="true"></span>Active now
+        </button>
+      </div>
+    </section>
+
+    <section class="compare-map-wrap" aria-label="Storm track map">
+      <div id="compare-map" role="img" aria-label="Map of historical hurricane tracks and the active storm"></div>
+      <p id="compare-status" class="compare-status">Loading active storm from NHC…</p>
+    </section>
+
+    <section class="compare-metrics" aria-label="Metrics comparison">
+      <h2>Side-by-side metrics</h2>
+      <div class="metrics-grid" id="metrics-grid">
+        <!-- populated by client script -->
+      </div>
+    </section>
+
+    <section class="compare-insight" aria-label="Latitude insight" id="insight-panel" hidden>
+      <h2>Intensity at the same latitude</h2>
+      <div id="insight-body" class="insight-body"></div>
+    </section>
+
+    <section class="compare-scale" aria-label="Saffir-Simpson scale">
+      <h2>Saffir-Simpson reference</h2>
+      <ul class="scale-list">
+        <li><span class="swatch" style="background:#5ebaff"></span>Tropical Depression / Storm</li>
+        <li><span class="swatch" style="background:#ffffcc"></span>Category 1</li>
+        <li><span class="swatch" style="background:#ffe775"></span>Category 2</li>
+        <li><span class="swatch" style="background:#ffc140"></span>Category 3</li>
+        <li><span class="swatch" style="background:#ff8f20"></span>Category 4</li>
+        <li><span class="swatch" style="background:#ff6060"></span>Category 5</li>
+      </ul>
+    </section>
+
+    <FaqBlock faqs={pageFaqs} />
+  </main>
+
+  <script define:vars={{ benchmarksJson }}>
+    // @ts-nocheck
+    import L from "leaflet";
+    import "leaflet/dist/leaflet.css";
+    import { categoryLabel, categoryFromWindKt, ktToMph, formatDamageUsd } from "../data/storms";
+
+    const BENCHMARKS = JSON.parse(benchmarksJson);
+
+    function catColor(cat) {
+      if (cat <= 0) return "#5ebaff";
+      if (cat === 1) return "#ffffcc";
+      if (cat === 2) return "#ffe775";
+      if (cat === 3) return "#ffc140";
+      if (cat === 4) return "#ff8f20";
+      return "#ff6060";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const mapEl = document.querySelector("#compare-map");
+      const statusEl = document.querySelector("#compare-status");
+      const selectEl = document.querySelector("#benchmark-select");
+      const metricsGrid = document.querySelector("#metrics-grid");
+      const insightPanel = document.querySelector("#insight-panel");
+      const insightBody = document.querySelector("#insight-body");
+      const themeButtons = Array.from(document.querySelectorAll(".theme-button"));
+      const stormToggles = Array.from(document.querySelectorAll(".storm-toggle"));
+      if (!mapEl || typeof L === "undefined") return;
+
+      const map = L.map("compare-map", {
+        center: [27.0, -82.0],
+        zoom: 5,
+        minZoom: 3,
+        maxZoom: 8,
+        worldCopyJump: true
+      });
+
+      const baseLayers = {
+        light: L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 8,
+          attribution: '&copy; OpenStreetMap'
+        }),
+        dark: L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+          maxZoom: 8,
+          attribution: '&copy; CARTO &copy; OpenStreetMap'
+        })
+      };
+      let activeBase = baseLayers.dark.addTo(map);
+      function showTheme(name) {
+        const next = baseLayers[name] ?? baseLayers.light;
+        if (activeBase) map.removeLayer(activeBase);
+        activeBase = next.addTo(map);
+        themeButtons.forEach((b) => {
+          const on = b.dataset.mapTheme === name;
+          b.classList.toggle("active", on);
+          b.setAttribute("aria-pressed", String(on));
+        });
+      }
+      themeButtons.forEach((b) => b.addEventListener("click", () => showTheme(b.dataset.mapTheme)));
+
+      // Draw benchmark tracks.
+      const stormLayers = {};
+      BENCHMARKS.forEach((storm) => {
+        const group = L.layerGroup();
+        const latlngs = storm.track.map((p) => [p.lat, p.lon]);
+        L.polyline(latlngs, { color: storm.color, weight: 3, opacity: 0.9 }).addTo(group);
+        storm.track.forEach((p) => {
+          const cat = categoryFromWindKt(p.windKt);
+          L.circleMarker([p.lat, p.lon], {
+            radius: 3 + cat * 1.6,
+            color: catColor(cat),
+            weight: 1,
+            fillColor: catColor(cat),
+            fillOpacity: 0.85
+          }).addTo(group);
+        });
+        // peak marker
+        const peak = storm.track.reduce((a, b) => (b.windKt > a.windKt ? b : a));
+        L.circleMarker([peak.lat, peak.lon], {
+          radius: 7,
+          color: "#fff",
+          weight: 2,
+          fillColor: storm.color,
+          fillOpacity: 1
+        })
+          .bindPopup(`<strong>${storm.name} ${storm.year}</strong><br>Peak: ${categoryLabel(storm.peakCategory)} (${ktToMph(storm.maxWindKt)} mph)<br>Min pressure: ${storm.minPressureMb} hPa`)
+          .addTo(group);
+        group.addTo(map);
+        stormLayers[storm.id] = group;
+      });
+
+      // Active storm marker layer.
+      const activeLayer = L.layerGroup().addTo(map);
+      let activeStorm = null;
+
+      function renderActiveMarker(storm) {
+        activeLayer.clearLayers();
+        if (!storm) return;
+        const lat = parseFloat(storm.latitude);
+        const lon = parseFloat(storm.longitude);
+        if (!isFinite(lat) || !isFinite(lon)) return;
+        const cat = storm._cat ?? 0;
+        const marker = L.circleMarker([lat, lon], {
+          radius: 9,
+          color: "#fff",
+          weight: 2,
+          fillColor: "#ff2d55",
+          fillOpacity: 1
+        }).bindPopup(`<strong>${storm.name ?? "Active storm"}</strong><br>${storm.classification ?? ""}<br>${storm._windMph ? storm._windMph + " mph" : (storm.windSpeed ?? "")}<br>${storm.pressure ? "Pressure: " + storm.pressure + " hPa" : ""}`);
+        marker.addTo(activeLayer);
+        marker.openPopup();
+        map.setView([lat, lon], Math.max(map.getZoom(), 5));
+      }
+
+      async function loadActiveStorm() {
+        try {
+          const res = await fetch("/api/nhc/current");
+          if (!res.ok) throw new Error("feed " + res.status);
+          const data = await res.json();
+          const storms = (data.storms ?? []).filter((s) => /hurricane|tropical/i.test(s.classification ?? ""));
+          if (storms.length === 0) {
+            if (statusEl) statusEl.textContent = "No active Atlantic hurricane/tropical storm right now — comparing historical benchmarks.";
+            activeStorm = null;
+          } else {
+            const s = storms[0];
+            const windMatch = /(\d+)\s*kt/.exec(s.windSpeed || s.intensity || "");
+            const windKt = windMatch ? parseInt(windMatch[1], 10) : NaN;
+            s._windMph = isFinite(windKt) ? ktToMph(windKt) : null;
+            s._cat = isFinite(windKt) ? categoryFromWindKt(windKt) : 0;
+            activeStorm = s;
+            if (statusEl) statusEl.textContent = `Active: ${s.name ?? "storm"} — ${s.classification ?? ""}, ${s._windMph ? s._windMph + " mph" : (s.windSpeed ?? "")}.`;
+          }
+          renderActiveMarker(activeStorm);
+          updateMetrics();
+        } catch (e) {
+          if (statusEl) statusEl.textContent = "Could not load active storm (NHC feed unavailable). Showing historical benchmarks.";
+          updateMetrics();
+        }
+      }
+
+      function selectedBenchmark() {
+        const id = selectEl ? selectEl.value : BENCHMARKS[0].id;
+        return BENCHMARKS.find((b) => b.id === id) || BENCHMARKS[0];
+      }
+
+      function metricRow(label, activeVal, benchVal, betterIsLower = false) {
+        let cls = "";
+        if (activeVal && benchVal) {
+          const a = parseFloat(String(activeVal).replace(/[^0-9.]/g, ""));
+          const b = parseFloat(String(benchVal).replace(/[^0-9.]/g, ""));
+          if (isFinite(a) && isFinite(b)) {
+            if (betterIsLower ? a < b : a > b) cls = "stronger";
+            else if (betterIsLower ? a > b : a < b) cls = "weaker";
+          }
+        }
+        return `<div class="metric-row"><span class="metric-label">${label}</span><span class="metric-active ${cls}">${activeVal ?? "—"}</span><span class="metric-bench">${benchVal}</span></div>`;
+      }
+
+      function updateMetrics() {
+        if (!metricsGrid) return;
+        const bench = selectedBenchmark();
+        const a = activeStorm;
+        const aWind = a && a._windMph ? `${a._windMph} mph` : (a ? (a.windSpeed ?? "—") : "—");
+        const aCat = a ? (a._cat != null ? categoryLabel(a._cat) : (a.classification ?? "—")) : "—";
+        const aPres = a && a.pressure ? `${a.pressure} hPa` : "—";
+        const aLat = a && a.latitude ? `${parseFloat(a.latitude).toFixed(1)}°N` : "—";
+        metricsGrid.innerHTML =
+          `<div class="metric-row metric-head"><span class="metric-label">Metric</span><span class="metric-active">Active now${a ? " (" + (a.name ?? "") + ")" : ""}</span><span class="metric-bench">${bench.name} ${bench.year}</span></div>` +
+          metricRow("Current / peak category", aCat, categoryLabel(bench.peakCategory)) +
+          metricRow("Max sustained wind", aWind, `${ktToMph(bench.maxWindKt)} mph`) +
+          metricRow("Min pressure", aPres, `${bench.minPressureMb} hPa`, true) +
+          metricRow("Est. U.S. damage", "—", formatDamageUsd(bench.usDamageUsd)) +
+          metricRow("Fatalities", "—", bench.fatalities.toLocaleString()) +
+          metricRow("Latitude", aLat, "—") +
+          `<div class="metric-row metric-landfall"><span class="metric-label">Landfall</span><span class="metric-active">${a ? (a.landfall ? a.landfall : "in progress") : "—"}</span><span class="metric-bench">${bench.landfall}</span></div>`;
+        renderInsight(bench);
+      }
+
+      function renderInsight(bench) {
+        if (!insightPanel || !insightBody) return;
+        if (!activeStorm || !activeStorm.latitude) {
+          insightPanel.hidden = true;
+          return;
+        }
+        const lat = parseFloat(activeStorm.latitude);
+        // Find benchmark point nearest in latitude.
+        let nearest = bench.track[0];
+        let best = Infinity;
+        bench.track.forEach((p) => {
+          const d = Math.abs(p.lat - lat);
+          if (d < best) { best = d; nearest = p; }
+        });
+        const cat = categoryFromWindKt(nearest.windKt);
+        insightPanel.hidden = false;
+        insightBody.innerHTML =
+          `At about <strong>${lat.toFixed(1)}°N</strong>, <strong>${bench.name} ${bench.year}</strong> was a ` +
+          `<strong>${categoryLabel(cat)}</strong> with <strong>${ktToMph(nearest.windKt)} mph</strong> winds ` +
+          `(min pressure ${nearest.pressureMb ? nearest.pressureMb + " hPa" : "n/a"}). ` +
+          `Today's active storm is at ${lat.toFixed(1)}°N with ${activeStorm._windMph ? activeStorm._windMph + " mph" : (activeStorm.windSpeed ?? "unknown strength")}.`;
+      }
+
+      // Wire up toggles.
+      stormToggles.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.dataset.storm;
+          const on = btn.classList.toggle("active");
+          btn.setAttribute("aria-pressed", String(on));
+          if (id === "active") {
+            if (on) activeLayer.addTo(map); else map.removeLayer(activeLayer);
+          } else if (stormLayers[id]) {
+            if (on) stormLayers[id].addTo(map); else map.removeLayer(stormLayers[id]);
+          }
+        });
+      });
+      if (selectEl) selectEl.addEventListener("change", updateMetrics);
+
+      loadActiveStorm();
+    });
+  </script>
+
+<style>
+  .compare-page {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 28px 20px 64px;
+  }
+  .compare-hero h1 {
+    font-size: 2rem;
+    margin: 0 0 10px;
+  }
+  .lede {
+    color: var(--muted, #6b7280);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0 0 22px;
+  }
+  .compare-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-end;
+    margin-bottom: 18px;
+  }
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .control-group label {
+    font-size: 0.8rem;
+    color: var(--muted, #6b7280);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  #benchmark-select {
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border, #d1d5db);
+    background: var(--surface, #fff);
+    color: var(--text, #111);
+    font-size: 0.95rem;
+    min-width: 260px;
+  }
+  .toggle-group {
+    flex-direction: row;
+    gap: 0;
+  }
+  .theme-button,
+  .storm-toggle {
+    padding: 8px 12px;
+    border: 1px solid var(--border, #d1d5db);
+    background: var(--surface, #fff);
+    color: var(--text, #111);
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  .theme-button:first-child,
+  .storm-toggle:first-of-type {
+    border-radius: 8px 0 0 8px;
+  }
+  .theme-button:last-child {
+    border-radius: 0 8px 8px 0;
+    border-left: none;
+  }
+  .theme-button.active,
+  .storm-toggle.active {
+    background: var(--accent, #0e6f8f);
+    color: #fff;
+    border-color: var(--accent, #0e6f8f);
+  }
+  .storm-toggle {
+    border-radius: 8px;
+    border-left: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .storm-toggle:first-of-type {
+    border-left: 1px solid var(--border, #d1d5db);
+  }
+  .storm-toggle:not(.active) {
+    opacity: 0.55;
+  }
+  .storm-toggle .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--storm-color, #888);
+    display: inline-block;
+  }
+  .storm-toggle .active-dot {
+    background: #ff2d55;
+  }
+  .compare-map-wrap {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border, #d1d5db);
+    margin-bottom: 26px;
+  }
+  #compare-map {
+    height: 520px;
+    width: 100%;
+    background: #0b1220;
+  }
+  .compare-status {
+    margin: 0;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    color: var(--muted, #6b7280);
+    background: var(--surface-2, #f3f4f6);
+    border-top: 1px solid var(--border, #d1d5db);
+  }
+  .compare-metrics h2,
+  .compare-insight h2,
+  .compare-scale h2 {
+    font-size: 1.25rem;
+    margin: 0 0 14px;
+  }
+  .metrics-grid {
+    border: 1px solid var(--border, #d1d5db);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 30px;
+  }
+  .metric-row {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1.4fr;
+    gap: 10px;
+    padding: 11px 16px;
+    border-top: 1px solid var(--border, #d1d5db);
+    font-size: 0.95rem;
+  }
+  .metric-row:first-child {
+    border-top: none;
+  }
+  .metric-head {
+    background: var(--surface-2, #f3f4f6);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--muted, #6b7280);
+  }
+  .metric-label {
+    color: var(--muted, #6b7280);
+  }
+  .metric-active {
+    font-weight: 600;
+  }
+  .metric-active.stronger {
+    color: #b91c1c;
+  }
+  .metric-active.weaker {
+    color: #047857;
+  }
+  .metric-bench {
+    color: var(--text, #111);
+  }
+  .metric-landfall {
+    grid-template-columns: 1fr 1.4fr 1.6fr;
+    align-items: start;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .insight-body {
+    background: var(--surface-2, #f3f4f6);
+    border-left: 4px solid var(--accent, #0e6f8f);
+    padding: 14px 18px;
+    border-radius: 8px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+  .scale-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px;
+  }
+  .scale-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+  }
+  .swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.15);
+    display: inline-block;
+  }
+  @media (max-width: 640px) {
+    #compare-map { height: 380px; }
+    .metric-row, .metric-landfall { grid-template-columns: 1fr; gap: 2px; }
+    .metric-label { font-weight: 600; }
+  }
+</style>
+</Layout>
