@@ -1,9 +1,21 @@
 {
-  "name": "HurricaneHub",
+  "name": "HurricaneHub — Hurricane Tracker & Alerts",
   "short_name": "HurricaneHub",
-  "description": "North America hurricane tracking and emergency decision support.",
+  "description": "Real-time North American hurricane tracking, NOAA/NHC warnings, radar, and emergency decision support. Works offline when connectivity is poor.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#f4f7f8",
-  "theme_color": "#0e6f8f"
+  "orientation": "any",
+  "background_color": "#0b1f2a",
+  "theme_color": "#0e6f8f",
+  "categories": ["weather", "news", "utilities"],
+  "icons": [
+    { "src": "/icons/app-icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icons/app-icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Live Radar", "url": "/radar/" },
+    { "name": "Active Alerts", "url": "/alerts/" },
+    { "name": "Preparedness", "url": "/hurricane-tracker/preparedness/" }
+  ]
 }

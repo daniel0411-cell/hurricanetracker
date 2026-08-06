@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HurricaneHub — Offline</title>
+<style>
+  :root { --accent:#0e6f8f; --bg:#0b1f2a; --card:#13303d; --text:#eaf4f7; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; background: var(--bg); color: var(--text);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+  }
+  .card {
+    max-width: 560px; width: 100%; background: var(--card);
+    border: 1px solid rgba(255,255,255,.08); border-radius: 16px;
+    padding: 28px 26px; box-shadow: 0 20px 50px rgba(0,0,0,.4);
+  }
+  .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .brand img { width: 44px; height: 44px; }
+  h1 { font-size: 1.35rem; margin: 0; }
+  p.lead { color: #b9d4dd; margin: 14px 0 18px; line-height: 1.5; }
+  ul { margin: 0 0 20px; padding-left: 20px; line-height: 1.7; color: #d6e9ef; }
+  li b { color: #fff; }
+  button {
+    appearance: none; border: 0; background: var(--accent); color: #fff;
+    font-size: 1rem; font-weight: 700; padding: 12px 18px; border-radius: 10px;
+    cursor: pointer; width: 100%;
+  }
+  button:active { transform: translateY(1px); }
+  .small { font-size: .82rem; color: #88a7b1; margin-top: 14px; text-align: center; }
+</style>
+</head>
+<body>
+  <main class="card">
+    <div class="brand">
+      <img src="/icons/app-icon-maskable.svg" alt="HurricaneHub" />
+      <h1>You're offline</h1>
+    </div>
+    <p class="lead">HurricaneHub couldn't reach the network. While you wait for a connection, here are the basics to stay safe during a hurricane or tropical storm.</p>
+    <ul>
+      <li><b>Stay informed:</b> Keep a battery or hand-crank radio tuned to NOAA Weather Radio for official updates.</li>
+      <li><b>Don't evacuate unless told:</b> Follow local official evacuation orders only — leaving unnecessarily puts you in danger.</li>
+      <li><b>Shelter in an interior room:</b> Avoid windows; go to a small, windowless room on the lowest safe floor.</li>
+      <li><b>Charge everything:</b> Power banks, phones, and medical devices before the storm arrives.</li>
+      <li><b>Water &amp; food:</b> One gallon of water per person per day for at least 3 days, plus a 3-day food supply.</li>
+    </ul>
+    <button id="retry" type="button">Retry connection</button>
+    <p class="small">This page is cached on your device by HurricaneHub so it works without internet.</p>
+  </main>
+  <script>
+    document.getElementById("retry").addEventListener("click", function () {
+      window.location.reload();
+    });
+  </script>
+</body>
+</html>

@@ -68,6 +68,15 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
       {showBottomAd && <div class="ad-slot ad-slot-bottom"><!-- AD SLOT 2: 300x250 Rectangle --></div>}
     </main>
     <Footer />
+    <script is:inline>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("/sw.js").catch(function (e) {
+            console.warn("HurricaneHub service worker registration failed", e);
+          });
+        });
+      }
+    </script>
   </body>
 </html>
 
