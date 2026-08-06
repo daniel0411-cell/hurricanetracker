@@ -12,7 +12,7 @@ const pageFaqs = [
   {
     question: "What does the HurricaneHub radar page show?",
     answer:
-      "It shows RainViewer precipitation radar, an interactive GOES-East GeoColor true-color satellite layer and VIIRS infrared cloud-top temperature, a high-resolution NOAA GOES-East full-disk preview, current NHC storm markers when available, and a state-level NWS alert panel for decision context."
+      "It shows RainViewer precipitation radar, an interactive GOES-East GeoColor true-color satellite layer and VIIRS infrared cloud-top temperature, a high-resolution NOAA GOES-East full-disk preview, the NCEP HRRR forecast radar layer, a server-key wind layer, current NHC storm markers when available, and a state-level NWS alert panel for decision context."
   },
   {
     question: "How often should I refresh the radar and alerts?",
@@ -58,6 +58,14 @@ const jsonLd = graph(
             <button type="button" class="layer-button" data-layer="satellite" aria-pressed="false">
               <i class="fa-solid fa-satellite-dish" aria-hidden="true"></i>
               <span>Satellite</span>
+            </button>
+            <button type="button" class="layer-button" data-layer="forecast" aria-pressed="false">
+              <i class="fa-solid fa-bolt-lightning" aria-hidden="true"></i>
+              <span>Forecast</span>
+            </button>
+            <button type="button" class="layer-button" data-layer="wind" aria-pressed="false">
+              <i class="fa-solid fa-wind" aria-hidden="true"></i>
+              <span>Wind</span>
             </button>
           </div>
           <div class="layer-toggle" role="group" aria-label="Map theme">
@@ -450,7 +458,7 @@ const jsonLd = graph(
       const stormLayer = L.layerGroup().addTo(map);
       const alertPolyLayer = L.layerGroup().addTo(map);
       let activeOverlay = null;
-      const layers = { radar: null, satellite: null };
+      const layers = { radar: null, satellite: null, forecast: null, wind: null };
 
       function createSatelliteLayer(band) {
         const source = SATELLITE_SOURCES[band] || SATELLITE_SOURCES.geocolor;
@@ -487,6 +495,41 @@ const jsonLd = graph(
 
       function attachTileError(layer, message) {
         layer.on("tileerror", () => setStatus(message, true));
+        return layer;
+      }
+
+      // HRRR simulated reflectivity (forecast radar) from Iowa Environmental
+      // Mesonet. hrrr::REFD-F0000-0 = latest model run, minute-0 (analysis)
+      // reflectivity. Free, no key. Standard XYZ tiles.
+      function createHrrrLayer() {
+        const layer = L.tileLayer(
+          "https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/hrrr::REFD-F0000-0/{z}/{x}/{y}.png",
+          {
+            opacity: 0.7,
+            maxZoom: 8,
+            attribution: '<a href="https://mesonet.agron.iastate.edu/">IEM</a> / NCEP HRRR'
+          }
+        );
+        layer.on("tileerror", () =>
+          setStatus("HRRR forecast radar temporarily unavailable.", true)
+        );
+        return layer;
+      }
+
+      // Surface wind field, proxied through /api/wind so the API key stays
+      // server-side. Requires OPENWEATHER_API_KEY configured on Cloudflare.
+      function createWindLayer() {
+        const layer = L.tileLayer("/api/wind/{z}/{x}/{y}.png", {
+          opacity: 0.65,
+          maxZoom: 8,
+          attribution: '<a href="https://openweathermap.org/">OpenWeatherMap</a>'
+        });
+        layer.on("tileerror", () =>
+          setStatus(
+            "Wind layer needs an OpenWeatherMap API key configured on the server. See project notes.",
+            true
+          )
+        );
         return layer;
       }
 
@@ -541,16 +584,21 @@ const jsonLd = graph(
 
         const nextLayer = layers[name];
         if (!nextLayer) {
-          setStatus("Radar temporarily unavailable. Please refresh shortly.", true);
+          setStatus("Layer temporarily unavailable. Please refresh shortly.", true);
           return;
         }
 
         if (satellitePreview instanceof HTMLElement) satellitePreview.hidden = true;
         if (satelliteModal instanceof HTMLElement) satelliteModal.hidden = true;
         if (activeOverlay) map.removeLayer(activeOverlay);
-        activeOverlay = attachTileError(nextLayer, "Radar temporarily unavailable.");
+        activeOverlay = name === "radar" ? attachTileError(nextLayer, "Radar temporarily unavailable.") : nextLayer;
         activeOverlay.addTo(map);
         setActiveButton(name);
+        if (name === "forecast") {
+          setStatus("HRRR forecast radar active — simulated reflectivity from the latest NCEP model run.");
+        } else if (name === "wind") {
+          setStatus("Surface wind layer loading. If tiles fail, the server needs an OpenWeatherMap key.");
+        }
       }
 
       function toggleAlertOnMap(id) {
@@ -753,6 +801,8 @@ const jsonLd = graph(
       }
 
       showTheme("light");
+      layers.forecast = createHrrrLayer();
+      layers.wind = createWindLayer();
       updateSatellitePreview(activeSatBand);
       createRainViewerLayer().then((layer) => {
         layers.radar = layer;
@@ -766,7 +816,7 @@ const jsonLd = graph(
       buttons.forEach((button) => {
         button.addEventListener("click", () => {
           const layer = button.dataset.layer;
-          if (layer === "radar" || layer === "satellite") showLayer(layer);
+          if (layer) showLayer(layer);
         });
       });
 
@@ -1739,8 +1789,10 @@ const jsonLd = graph(
     }
 
     .radar-toolbar {
-      inset-inline: 10px;
-      justify-content: stretch;
+      position: static;
+      inset-inline: auto;
+      margin: 10px 0 0;
+      grid-template-columns: 1fr;
     }
 
     .layer-toggle,
@@ -1782,5 +1834,32 @@ const jsonLd = graph(
 
   .radar-map .leaflet-control-attribution a {
     color: #95d9ea;
+  }
+
+  @media (max-width: 480px) {
+    .layer-button span,
+    .theme-button span,
+    .map-action span,
+    .preset-button span,
+    .band-button span {
+      display: none;
+    }
+
+    .layer-button,
+    .theme-button,
+    .scheme-button,
+    .band-button,
+    .preset-button {
+      padding-inline: 8px;
+    }
+
+    .radar-map {
+      min-height: 460px;
+      height: 460px !important;
+    }
+
+    .radar-toolbar-cluster {
+      gap: 6px;
+    }
   }
 </style>
