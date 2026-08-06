@@ -23,16 +23,20 @@ const siteUrl = "https://www.hurricanetracker.cc";
     <div class="storm-card-picker" id="storm-card-picker" hidden></div>
 
     <div class="storm-card-canvas-wrap">
-      <canvas id="storm-card-canvas" width="2400" height="1260" aria-label="Storm status card preview"></canvas>
+      <canvas id="storm-card-canvas" width="1200" height="630" aria-label="Storm status card preview"></canvas>
+      <div class="storm-card-loading" id="storm-card-loading" hidden>
+        <span class="storm-card-spinner" aria-hidden="true"></span>
+        <span>Loading live storm data…</span>
+      </div>
     </div>
 
     <p class="storm-card-msg" id="storm-card-msg" role="status"></p>
 
     <div class="storm-card-actions">
-      <button type="button" class="storm-card-download" id="storm-card-download">
+      <button type="button" class="storm-card-download" id="storm-card-download" disabled>
         <i class="fa-solid fa-download" aria-hidden="true"></i> Download PNG
       </button>
-      <button type="button" class="storm-card-share" id="storm-card-share">
+      <button type="button" class="storm-card-share" id="storm-card-share" disabled>
         <i class="fa-solid fa-share-from-square" aria-hidden="true"></i> Share / Copy
       </button>
     </div>
@@ -56,28 +60,75 @@ const siteUrl = "https://www.hurricanetracker.cc";
   }
   .storm-card-trigger:hover { background: rgba(14, 111, 143, 0.4); }
 
-  .storm-card-modal { position: fixed; inset: 0; z-index: 1200; display: flex; align-items: center; justify-content: center; padding: 20px; }
-  .storm-card-backdrop { position: absolute; inset: 0; background: rgba(4, 12, 18, 0.72); backdrop-filter: blur(4px); }
+  .storm-card-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .storm-card-modal[hidden] { display: none; }
+
+  .storm-card-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 12, 18, 0.82);
+  }
   .storm-card-content {
     position: relative;
     width: min(680px, 100%);
+    max-height: calc(100vh - 40px);
+    overflow: auto;
     background: #0b1c27;
     border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 14px;
     padding: 18px;
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    pointer-events: auto;
   }
   .storm-card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
   .storm-card-head h3 { margin: 0; font-size: 1.05rem; color: #eaf6fb; }
   .storm-card-close { border: 0; background: transparent; color: #cfe3ec; font-size: 1.1rem; cursor: pointer; }
   .storm-card-picker { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .storm-card-picker[hidden] { display: none; }
   .storm-card-picker button {
     border: 1px solid rgba(255, 255, 255, 0.2); background: transparent; color: #eaf6fb;
     border-radius: 999px; padding: 5px 12px; font-size: 0.82rem; font-weight: 700; cursor: pointer;
   }
   .storm-card-picker button.active { background: #0e6f8f; border-color: #0e6f8f; }
-  .storm-card-canvas-wrap { border-radius: 10px; overflow: hidden; background: #07141d; }
+  .storm-card-canvas-wrap {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #07141d;
+    min-height: 240px;
+  }
   #storm-card-canvas { display: block; width: 100%; height: auto; }
+  .storm-card-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(7, 20, 29, 0.78);
+    color: #eaf6fb;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+  .storm-card-loading[hidden] { display: none; }
+  .storm-card-spinner {
+    width: 28px;
+    height: 28px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #0e6f8f;
+    border-radius: 50%;
+    animation: storm-card-spin 0.8s linear infinite;
+  }
+  @keyframes storm-card-spin { to { transform: rotate(360deg); } }
   .storm-card-msg { min-height: 18px; margin: 10px 2px 4px; font-size: 0.85rem; color: #b9d4df; }
   .storm-card-msg.error { color: #ff8a7a; }
   .storm-card-actions { display: flex; gap: 10px; }
@@ -85,9 +136,14 @@ const siteUrl = "https://www.hurricanetracker.cc";
     flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
     padding: 11px; border: 0; border-radius: 9px; font-weight: 800; font-size: 0.9rem; cursor: pointer;
   }
+  .storm-card-actions button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    filter: grayscale(0.4);
+  }
   .storm-card-download { background: var(--signal, #ff6b35); color: #fff; }
   .storm-card-share { background: #0e6f8f; color: #fff; }
-  .storm-card-actions button:hover { filter: brightness(1.08); }
+  .storm-card-actions button:hover:not(:disabled) { filter: brightness(1.08); }
 </style>
 
 <script>
@@ -97,12 +153,14 @@ const siteUrl = "https://www.hurricanetracker.cc";
   const modal = document.querySelector("#storm-card-modal");
   const canvas = document.querySelector("#storm-card-canvas");
   const picker = document.querySelector("#storm-card-picker");
+  const loadingEl = document.querySelector("#storm-card-loading");
   const msgEl = document.querySelector("#storm-card-msg");
   const downloadBtn = document.querySelector("#storm-card-download");
   const shareBtn = document.querySelector("#storm-card-share");
 
   let storms = [];
   let activeIndex = 0;
+  let loadAbort = null;
 
   function catColor(intensity, classification) {
     const text = `${intensity || ""} ${classification || ""}`.toLowerCase();
@@ -131,15 +189,15 @@ const siteUrl = "https://www.hurricanetracker.cc";
     ctx.globalAlpha = alpha;
     ctx.translate(cx, cy);
     ctx.strokeStyle = "#ffffff";
-    ctx.lineWidth = 10 * scale;
+    ctx.lineWidth = 6 * scale;
     ctx.lineCap = "round";
     const turns = 2.4;
+    const steps = 120;
     ctx.beginPath();
-    const steps = 240;
     for (let i = 0; i <= steps; i++) {
       const t = i / steps;
       const theta = t * turns * Math.PI * 2;
-      const r = 40 * scale + t * 520 * scale;
+      const r = 22 * scale + t * 265 * scale;
       const x = r * Math.cos(theta);
       const y = r * Math.sin(theta);
       if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
@@ -163,7 +221,7 @@ const siteUrl = "https://www.hurricanetracker.cc";
     ctx.fillRect(0, 0, W, H);
 
     // Decorative spiral (top-right)
-    drawSpiral(ctx, W * 0.86, H * 0.22, 1.7, 0.12);
+    drawSpiral(ctx, W * 0.86, H * 0.22, 0.9, 0.12);
 
     const name = storm?.name || storm?.id || "Active Disturbance";
     const classification = storm?.classification || "Tropical Cyclone";
@@ -178,29 +236,33 @@ const siteUrl = "https://www.hurricanetracker.cc";
 
     // Brand
     ctx.fillStyle = "#eaf6fb";
-    ctx.font = "700 46px system-ui, sans-serif";
-    ctx.fillText("HURRICANEHUB", 90, 110);
+    ctx.font = "700 23px system-ui, sans-serif";
+    ctx.fillText("HURRICANEHUB", 45, 55);
     ctx.fillStyle = "rgba(234,246,251,0.7)";
-    ctx.font = "600 30px system-ui, sans-serif";
-    ctx.fillText("LIVE STORM STATUS", 92, 158);
+    ctx.font = "600 15px system-ui, sans-serif";
+    ctx.fillText("LIVE STORM STATUS", 46, 79);
 
     // Storm name + classification
     ctx.fillStyle = "#ffffff";
-    ctx.font = "800 130px system-ui, sans-serif";
-    ctx.fillText(name.toUpperCase(), 88, 360);
+    ctx.font = "800 65px system-ui, sans-serif";
+    ctx.fillText(name.toUpperCase(), 44, 180);
     ctx.fillStyle = "rgba(234,246,251,0.85)";
-    ctx.font = "600 48px system-ui, sans-serif";
-    ctx.fillText(classification, 92, 430);
+    ctx.font = "600 24px system-ui, sans-serif";
+    ctx.fillText(classification, 46, 215);
 
     // Category badge
     const catLabel = intensity ? intensity.toUpperCase() : classification.toUpperCase();
-    ctx.font = "800 44px system-ui, sans-serif";
-    const badgeW = ctx.measureText(catLabel).width + 80;
-    roundRect(ctx, 92, 470, badgeW, 92, 18);
+    ctx.font = "800 22px system-ui, sans-serif";
+    const badgeW = ctx.measureText(catLabel).width + 40;
+    const badgeH = 46;
+    const badgeY = 235;
+    roundRect(ctx, 46, badgeY, badgeW, badgeH, 9);
     ctx.fillStyle = badgeBg;
     ctx.fill();
     ctx.fillStyle = badgeFg;
-    ctx.fillText(catLabel, 132, 535);
+    ctx.textBaseline = "middle";
+    ctx.fillText(catLabel, 66, badgeY + badgeH / 2 + 1);
+    ctx.textBaseline = "alphabetic";
 
     // Metrics
     const metrics = [
@@ -208,38 +270,40 @@ const siteUrl = "https://www.hurricanetracker.cc";
       ["PRESSURE", pressure],
       ["MOVEMENT", movement],
     ];
-    const cardW = (W - 180 - 60) / 3;
+    const cardW = (W - 90 - 30) / 3;
+    const cardH = 150;
+    const startY = 325;
     metrics.forEach((m, i) => {
-      const x = 90 + i * (cardW + 30);
-      const y = 650;
-      roundRect(ctx, x, y, cardW, 300, 22);
+      const x = 45 + i * (cardW + 15);
+      const y = startY;
+      roundRect(ctx, x, y, cardW, cardH, 11);
       ctx.fillStyle = "rgba(255,255,255,0.07)";
       ctx.fill();
       ctx.strokeStyle = "rgba(255,255,255,0.16)";
-      ctx.lineWidth = 3;
+      ctx.lineWidth = 2;
       ctx.stroke();
       ctx.fillStyle = "rgba(234,246,251,0.65)";
-      ctx.font = "700 38px system-ui, sans-serif";
-      ctx.fillText(m[0], x + 40, y + 90);
+      ctx.font = "700 19px system-ui, sans-serif";
+      ctx.fillText(m[0], x + 20, y + 45);
       ctx.fillStyle = "#ffffff";
-      ctx.font = "800 62px system-ui, sans-serif";
+      ctx.font = "800 31px system-ui, sans-serif";
       const lines = String(m[1]).split(" at ");
       if (lines.length > 1) {
-        ctx.fillText(lines[0], x + 40, y + 180);
-        ctx.font = "600 40px system-ui, sans-serif";
+        ctx.fillText(lines[0], x + 20, y + 92);
+        ctx.font = "600 20px system-ui, sans-serif";
         ctx.fillStyle = "rgba(234,246,251,0.85)";
-        ctx.fillText(lines[1], x + 40, y + 232);
+        ctx.fillText(lines[1], x + 20, y + 116);
       } else {
-        ctx.fillText(m[1], x + 40, y + 185);
+        ctx.fillText(m[1], x + 20, y + 92);
       }
     });
 
     // Footer
     ctx.fillStyle = "rgba(234,246,251,0.8)";
-    ctx.font = "600 32px system-ui, sans-serif";
-    ctx.fillText(`Updated ${updated}`, 92, H - 90);
+    ctx.font = "600 16px system-ui, sans-serif";
+    ctx.fillText(`Updated ${updated}`, 46, H - 45);
     ctx.textAlign = "right";
-    ctx.fillText("hurricanetracker.cc  ·  Source: NHC", W - 90, H - 90);
+    ctx.fillText("hurricanetracker.cc  ·  Source: NHC", W - 46, H - 45);
     ctx.textAlign = "left";
   }
 
@@ -247,6 +311,15 @@ const siteUrl = "https://www.hurricanetracker.cc";
     if (!msgEl) return;
     msgEl.textContent = text;
     msgEl.classList.toggle("error", isError);
+  }
+
+  function setBusy(busy) {
+    if (loadingEl) loadingEl.hidden = !busy;
+  }
+
+  function setActionsEnabled(enabled) {
+    if (downloadBtn) downloadBtn.disabled = !enabled;
+    if (shareBtn) shareBtn.disabled = !enabled;
   }
 
   function renderPicker() {
@@ -260,30 +333,46 @@ const siteUrl = "https://www.hurricanetracker.cc";
       b.addEventListener("click", () => {
         activeIndex = Number(b.dataset.i);
         renderPicker();
-        renderCard(storms[activeIndex]);
+        requestAnimationFrame(() => renderCard(storms[activeIndex]));
         setMsg("");
       });
     });
   }
 
+  function fetchWithTimeout(url, opts = {}, ms = 10000) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), ms);
+    return fetch(url, { ...opts, signal: controller.signal }).finally(() => clearTimeout(timeout));
+  }
+
   async function loadStorms() {
+    setBusy(true);
+    setActionsEnabled(false);
     setMsg("Loading live NHC storm data…");
     try {
-      const res = await fetch(`${SITE}/api/nhc/current`, { headers: { Accept: "application/json" } });
+      const res = await fetchWithTimeout(`${SITE}/api/nhc/current`, { headers: { Accept: "application/json" } }, 8000);
       if (!res.ok) throw new Error("feed " + res.status);
       const data = await res.json();
       storms = (data.storms || []).filter((s) => s && (s.name || s.id));
       if (storms.length === 0) {
+        activeIndex = 0;
+        renderPicker();
         renderCard(null);
+        setBusy(false);
+        setActionsEnabled(true);
         setMsg("No active named storm right now. Showing a sample card — open during an active system for live data.", true);
         return;
       }
       activeIndex = 0;
       renderPicker();
-      renderCard(storms[activeIndex]);
+      requestAnimationFrame(() => renderCard(storms[activeIndex]));
+      setBusy(false);
+      setActionsEnabled(true);
       setMsg(`Live data · ${storms.length} active system${storms.length > 1 ? "s" : ""} from NHC.`);
     } catch (e) {
       renderCard(null);
+      setBusy(false);
+      setActionsEnabled(true);
       setMsg("Could not reach the NHC feed. Showing a sample card.", true);
     }
   }
@@ -292,7 +381,13 @@ const siteUrl = "https://www.hurricanetracker.cc";
     return new Promise((resolve) => canvas.toBlob((b) => resolve(b), "image/png"));
   }
 
+  function withTimeout(promise, ms, fallback) {
+    const timer = new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), ms));
+    return Promise.race([promise, timer]).catch(() => fallback);
+  }
+
   async function doDownload() {
+    if (downloadBtn?.disabled) return;
     const blob = await canvasToBlob();
     if (!blob) return;
     const url = URL.createObjectURL(blob);
@@ -305,18 +400,20 @@ const siteUrl = "https://www.hurricanetracker.cc";
   }
 
   async function doShare() {
+    if (shareBtn?.disabled) return;
     const blob = await canvasToBlob();
     if (!blob) return;
     const file = new File([blob], "hurricanehub-storm-card.png", { type: "image/png" });
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
       try {
-        await navigator.share({ files: [file], title: "HurricaneHub storm status", text: "Live hurricane status from HurricaneHub" });
+        await withTimeout(navigator.share({ files: [file], title: "HurricaneHub storm status", text: "Live hurricane status from HurricaneHub" }), 5000, undefined);
+        setMsg("Shared successfully.");
         return;
       } catch { /* fall through */ }
     }
     // Fallback: copy image to clipboard, then download
     try {
-      await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+      await withTimeout(navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]), 4000, undefined);
       setMsg("Card image copied to clipboard. You can also download it.");
     } catch {
       doDownload();
@@ -326,10 +423,16 @@ const siteUrl = "https://www.hurricanetracker.cc";
 
   function openModal() {
     if (modal) modal.hidden = false;
-    loadStorms();
+    // Render a sample card immediately so the preview is never blank,
+    // then fetch live data in the background.
+    requestAnimationFrame(() => {
+      renderCard(null);
+      loadStorms();
+    });
   }
   function closeModal() {
     if (modal) modal.hidden = true;
+    if (loadAbort) { try { loadAbort.abort(); } catch {} loadAbort = null; }
   }
 
   trigger?.addEventListener("click", openModal);

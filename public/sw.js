@@ -5,7 +5,7 @@
  */
 const RUNTIME_CACHE = "hurricanehub-runtime-v1";
 const OFFLINE_URL = "/offline";
-const PRECACHE = [OFFLINE_URL, "/icons/icon.svg", "/icons/icon-maskable.svg"];
+const PRECACHE = [OFFLINE_URL, "/icons/app-icon-maskable.svg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
