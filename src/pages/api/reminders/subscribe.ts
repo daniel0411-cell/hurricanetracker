@@ -20,37 +20,70 @@ function jsonResponse(body: unknown, init: ResponseInit = {}) {
   });
 }
 
+async function hashKey(input: string): Promise<string> {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(input));
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
 export const OPTIONS: APIRoute = () =>
-  new Response(null, {
-    status: 204,
-    headers: CORS_HEADERS
-  });
+  new Response(null, { status: 204, headers: CORS_HEADERS });
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const payload = await request.json() as { email?: string; zip?: string; state?: string; source?: string };
+    const payload = (await request.json()) as {
+      email?: string;
+      zip?: string;
+      state?: string;
+      source?: string;
+      subscription?: { endpoint: string; keys?: { p256dh?: string; auth?: string } };
+    };
     const email = (payload.email ?? "").trim().toLowerCase();
     const zip = (payload.zip ?? "").trim();
     const state = (payload.state ?? "").trim().toUpperCase();
-    if (!EMAIL_PATTERN.test(email)) {
-      return jsonResponse({ error: "Enter a valid email address." }, { status: 400 });
+    const sub = payload.subscription;
+
+    if (sub) {
+      if (!sub.endpoint || !sub.keys?.p256dh || !sub.keys?.auth) {
+        return jsonResponse({ error: "Invalid push subscription object." }, { status: 400 });
+      }
+    } else if (!EMAIL_PATTERN.test(email)) {
+      return jsonResponse({ error: "Enter a valid email address or enable device alerts." }, { status: 400 });
     }
     if (zip && !ZIP_PATTERN.test(zip)) {
       return jsonResponse({ error: "Enter a valid five-digit ZIP code or leave ZIP blank." }, { status: 400 });
     }
 
-    const body = JSON.stringify({
-      email,
-      zip,
-      state,
-      source: payload.source ?? "HurricaneHub reminder form",
-      createdAt: new Date().toISOString()
-    });
     const cache = env.HURRICANEHUB_CACHE;
-    await cache?.put(`reminder:${email}`, body, { expirationTtl: 60 * 60 * 24 * 365 });
-    return jsonResponse({ ok: true, message: "Reminder request saved. Email delivery provider is not connected yet." });
+    const now = new Date().toISOString();
+
+    if (email) {
+      await cache?.put(
+        `reminder:${email}`,
+        JSON.stringify({ email, zip, state, source: payload.source ?? "HurricaneHub", createdAt: now }),
+        { expirationTtl: 60 * 60 * 24 * 365 }
+      );
+    }
+
+    if (sub) {
+      const id = await hashKey(sub.endpoint);
+      await cache?.put(
+        `pushsub:${id}`,
+        JSON.stringify({ endpoint: sub.endpoint, keys: sub.keys, zip, email, createdAt: now }),
+        { expirationTtl: 60 * 60 * 24 * 365 }
+      );
+    }
+
+    return jsonResponse({
+      ok: true,
+      pushSaved: Boolean(sub),
+      message: sub
+        ? "Device alerts enabled. We'll notify you when NWS issues a hurricane alert for your area."
+        : "Reminder request saved."
+    });
   } catch (error) {
-    console.error("HurricaneHub reminder subscribe failed", { error });
-    return jsonResponse({ error: "Reminder request failed." }, { status: 500 });
+    console.error("HurricaneHub subscribe failed", { error });
+    return jsonResponse({ error: "Subscription request failed." }, { status: 500 });
   }
 };

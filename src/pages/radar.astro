@@ -29,6 +29,14 @@ const jsonLd = graph(
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
   <Fragment slot="head">
+    <link rel="preconnect" href="https://cdn.star.nesdis.noaa.gov" crossorigin />
+    <link rel="preconnect" href="https://gibs.earthdata.nasa.gov" crossorigin />
+    <link rel="preconnect" href="https://{s}.tile.openstreetmap.org" />
+    <link rel="preconnect" href="https://{s}.basemaps.cartocdn.com" />
+    <link rel="preconnect" href="https://mesonet.agron.iastate.edu" crossorigin />
+    <link rel="preconnect" href="https://tile.openweathermap.org" crossorigin />
+    <link rel="preconnect" href="https://api.weather.gov" crossorigin />
+    <link rel="preconnect" href="https://api.rainviewer.com" crossorigin />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"

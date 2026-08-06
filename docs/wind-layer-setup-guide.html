@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>风场图层开启图文教程 · HurricaneHub</title>
+<style>
+  :root {
+    --bg: #0c1622;
+    --panel: #142233;
+    --panel-2: #1b2d42;
+    --accent: #5ec8e0;
+    --accent-2: #f5a623;
+    --text: #e8eef5;
+    --muted: #9fb3c8;
+    --ok: #4caf78;
+    --warn: #f5a623;
+    --line: #2c3e54;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 26px; margin: 0 0 6px; }
+  h2 { font-size: 20px; margin: 40px 0 14px; padding-left: 12px; border-left: 4px solid var(--accent); }
+  .sub { color: var(--muted); margin: 0 0 8px; }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin: 16px 0;
+  }
+  .step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .step:last-child { border-bottom: none; }
+  .num {
+    flex: 0 0 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #06222b;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+    font-size: 16px;
+  }
+  .step-body { flex: 1; }
+  .step-body b { color: var(--accent); }
+  .click { color: var(--accent-2); font-weight: 600; }
+  code {
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 2px 7px;
+    font-size: 13px;
+    color: #ffd9a0;
+  }
+  .note {
+    background: rgba(245,166,35,0.08);
+    border: 1px solid rgba(245,166,35,0.35);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: #ffe3b0;
+    margin: 14px 0;
+    font-size: 14px;
+  }
+  .ok {
+    background: rgba(76,175,120,0.08);
+    border: 1px solid rgba(76,175,120,0.35);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: #bff0d2;
+    font-size: 14px;
+  }
+  .mock {
+    margin: 12px 0;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--panel-2);
+    padding: 14px;
+  }
+  .mock .cap { color: var(--muted); font-size: 12px; margin-bottom: 8px; }
+  .flow { width: 100%; height: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; }
+  footer { color: var(--muted); font-size: 12px; margin-top: 40px; text-align: center; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>🌬️ 风场图层开启图文教程</h1>
+  <p class="sub">目标：给 HurricaneHub 雷达页的「Wind（地面风场）」图层配上数据。全程约 5–10 分钟，不需要写代码。</p>
+
+  <div class="note">
+    <b>为什么要做这一步？</b><br/>
+    雷达页已经有 4 个图层（Rain / Satellite / Forecast / Wind）。其中前三个已经能直接用；
+    唯独 <b>Wind</b> 需要一张「风的瓦片地图」，数据源是 OpenWeatherMap，要用一个免费 API Key 才能出图。
+    不配也能正常用网站，只是 Wind 图层会提示「需要配置 Key」——配了之后就能看到实时风场。
+  </div>
+
+  <h2>一、整体流程</h2>
+  <div class="card">
+    <svg class="flow" viewBox="0 0 820 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="配置流程图">
+      <defs>
+        <marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6 Z" fill="#5ec8e0"/>
+        </marker>
+      </defs>
+      <!-- boxes -->
+      <g font-family="sans-serif" font-size="14" fill="#e8eef5">
+        <rect x="10" y="95" width="150" height="60" rx="10" fill="#1b2d42" stroke="#5ec8e0"/>
+        <text x="85" y="120" text-anchor="middle">① 注册 OpenWeatherMap</text>
+        <text x="85" y="140" text-anchor="middle" fill="#9fb3c8" font-size="11">拿免费 API Key</text>
+
+        <rect x="200" y="95" width="150" height="60" rx="10" fill="#1b2d42" stroke="#5ec8e0"/>
+        <text x="275" y="120" text-anchor="middle">② 登录 Cloudflare</text>
+        <text x="275" y="140" text-anchor="middle" fill="#9fb3c8" font-size="11">dash.cloudflare.com</text>
+
+        <rect x="390" y="95" width="160" height="60" rx="10" fill="#1b2d42" stroke="#5ec8e0"/>
+        <text x="470" y="120" text-anchor="middle">③ 找到 hurricanehub</text>
+        <text x="470" y="140" text-anchor="middle" fill="#9fb3c8" font-size="11">Workers &amp; Pages</text>
+
+        <rect x="590" y="95" width="170" height="60" rx="10" fill="#1b2d42" stroke="#f5a623"/>
+        <text x="675" y="120" text-anchor="middle">④ 添加环境变量</text>
+        <text x="675" y="140" text-anchor="middle" fill="#9fb3c8" font-size="11">OPENWEATHER_API_KEY</text>
+
+        <rect x="370" y="190" width="200" height="50" rx="10" fill="#16321f" stroke="#4caf78"/>
+        <text x="470" y="220" text-anchor="middle" fill="#bff0d2">✅ 完成，刷新雷达页看风场</text>
+      </g>
+      <!-- arrows -->
+      <g stroke="#5ec8e0" stroke-width="2" fill="none" marker-end="url(#ar)">
+        <line x1="160" y1="125" x2="196" y2="125"/>
+        <line x1="350" y1="125" x2="386" y2="125"/>
+        <line x1="550" y1="125" x2="586" y2="125"/>
+        <path d="M675,155 L675,184"/>
+      </g>
+    </svg>
+  </div>
+
+  <h2>二、详细步骤</h2>
+
+  <div class="card">
+    <h3 style="margin-top:0;color:var(--accent)">第 1 部分：拿 OpenWeatherMap 的 Key</h3>
+
+    <div class="step">
+      <div class="num">1</div>
+      <div class="step-body">
+        打开注册页：<br/>
+        <a href="https://home.openweathermap.org/users/sign_up" target="_blank">https://home.openweathermap.org/users/sign_up</a><br/>
+        填 <b>邮箱</b> 和 <b>密码</b>，点 <span class="click">Create account</span>。
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">2</div>
+      <div class="step-body">
+        去你的邮箱，找到 OpenWeatherMap 发来的验证邮件，<b>点里面的确认链接</b>激活账号。
+        <div class="note" style="margin-top:10px">没收到？检查垃圾邮件箱；或等 1–2 分钟再刷新。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">3</div>
+      <div class="step-body">
+        登录后，打开 API Key 页面：<br/>
+        <a href="https://home.openweathermap.org/api_keys" target="_blank">https://home.openweathermap.org/api_keys</a><br/>
+        页面上会有一条叫 <b>Default</b> 的 Key（一长串字母和数字）。<br/>
+        点它右边的 <span class="click">复制（Copy）</span> 按钮，把 Key 存到备忘录里。
+      </div>
+    </div>
+
+    <div class="mock">
+      <div class="cap">示意图：API Keys 页面（红框处就是你要复制的 Key）</div>
+      <svg viewBox="0 0 520 120" width="100%" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="520" height="120" rx="10" fill="#0c1622" stroke="#2c3e54"/>
+        <text x="20" y="28" fill="#9fb3c8" font-size="13" font-family="sans-serif">API keys</text>
+        <rect x="20" y="44" width="480" height="34" rx="6" fill="#142233" stroke="#2c3e54"/>
+        <text x="32" y="66" fill="#e8eef5" font-size="12" font-family="monospace">Key  &#160;&#160;&#160; 0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d</text>
+        <rect x="392" y="50" width="100" height="22" rx="5" fill="#f5a623"/>
+        <text x="442" y="65" fill="#06222b" font-size="11" font-family="sans-serif" text-anchor="middle">Copy</text>
+        <text x="20" y="100" fill="#5ec8e0" font-size="11" font-family="sans-serif">Default</text>
+      </svg>
+    </div>
+
+    <div class="note">
+      新注册的 Key 偶尔要等几分钟到几小时才生效（OWM 激活延迟）。如果第 4 步配完后风场还是 401，
+      先放一放，过 1–2 小时再试，不用怀疑自己配错了。
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0;color:var(--accent)">第 2 部分：把 Key 配到 Cloudflare</h3>
+
+    <div class="step">
+      <div class="num">4</div>
+      <div class="step-body">
+        打开 <a href="https://dash.cloudflare.com" target="_blank">https://dash.cloudflare.com</a> 并登录
+        （就是你部署 HurricaneHub 时用的那个 Cloudflare 账号）。
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">5</div>
+      <div class="step-body">
+        左侧菜单点 <span class="click">Workers &amp; Pages</span>（中文界面叫「Workers 和 Pages」），
+        在列表里找到名为 <b>hurricanehub</b> 的 Worker，点进去。
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">6</div>
+      <div class="step-body">
+        点顶部标签页里的 <span class="click">Settings</span>（设置），
+        往下滚找到 <b>Variables and Secrets</b>（环境变量与密钥）这一块。
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">7</div>
+      <div class="step-body">
+        点 <span class="click">Add</span> / <span class="click">Add variable</span>（添加变量），填两项：
+        <table>
+          <tr><th>名称 (Variable name)</th><th>值 (Value)</th></tr>
+          <tr><td><code>OPENWEATHER_API_KEY</code></td><td>刚才复制的那串 Key</td></tr>
+        </table>
+        类型选 <b>Text / Variable（明文变量）</b> 即可；想更稳妥可以选 <b>Secret（加密）</b>。<br/>
+        填完点 <span class="click">Save</span> / <span class="click">Deploy</span> 保存。
+      </div>
+    </div>
+
+    <div class="mock">
+      <div class="cap">示意图：Variables 添加界面</div>
+      <svg viewBox="0 0 520 140" width="100%" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="520" height="140" rx="10" fill="#0c1622" stroke="#2c3e54"/>
+        <text x="20" y="26" fill="#9fb3c8" font-size="13" font-family="sans-serif">Variables and Secrets</text>
+        <rect x="20" y="40" width="240" height="30" rx="6" fill="#142233" stroke="#2c3e54"/>
+        <text x="30" y="60" fill="#e8eef5" font-size="12" font-family="monospace">OPENWEATHER_API_KEY</text>
+        <rect x="270" y="40" width="180" height="30" rx="6" fill="#142233" stroke="#2c3e54"/>
+        <text x="280" y="60" fill="#9fb3c8" font-size="12" font-family="monospace">0a1b2c3d4e5f…</text>
+        <rect x="20" y="90" width="90" height="30" rx="6" fill="#4caf78"/>
+        <text x="65" y="110" fill="#06222b" font-size="12" font-family="sans-serif" text-anchor="middle">Save</text>
+      </svg>
+    </div>
+
+    <div class="note">
+      ⚠️ <b>重要（很多人卡在这）：</b>这个 Worker 是用命令行 <code>wrangler deploy</code> 部署的，
+      在 Dashboard 里加的变量<b>经常不会被正在跑的 Worker 读取到</b>。两个可靠做法（二选一）：
+      <br/><br/>
+      <b>做法 A（推荐，最稳）：用终端写入加密密钥，写的同时会自动重新部署。</b><br/>
+      在你电脑的「终端」里依次粘贴执行（首次会弹浏览器让你登录 Cloudflare，点允许）：
+      <table>
+        <tr><td><code>cd /Users/canbao1/Documents/hurricanetracker</code></td></tr>
+        <tr><td><code>npx wrangler login</code></td></tr>
+        <tr><td><code>npx wrangler secret put OPENWEATHER_API_KEY --config wrangler.deploy.toml</code><br/><span style="color:var(--muted)">终端提示 Enter a secret value: 时，粘贴你的 OWM Key 并回车</span></td></tr>
+      </table>
+      执行完会自动部署，无需再手动 deploy。
+      <br/><br/>
+      <b>做法 B（已用 Dashboard 加过的，补一步）：</b>回到终端执行
+      <code>npx wrangler deploy --config wrangler.deploy.toml</code> 重新部署一次，让变量打包进 Worker。
+      如果重新部署后点 Wind 仍提示需要 Key，说明 Dashboard 的变量没被采纳，请用<b>做法 A</b>。
+    </div>
+  </div>
+
+  <h2>三、验证是否成功</h2>
+  <div class="card">
+    <div class="step">
+      <div class="num">8</div>
+      <div class="step-body">
+        打开 <a href="https://www.hurricanetracker.cc/radar/" target="_blank">https://www.hurricanetracker.cc/radar/</a>，
+        点左下角图层栏里的 <b>Wind</b> 按钮。<br/>
+        <span class="ok" style="display:inline-block;margin-top:8px">成功标志：地图上出现一层半透明的风的箭头/色块（风速与风向）。</span>
+      </div>
+    </div>
+    <div class="note">
+      如果还是提示「需要配置 Key」或一片空白：先确认变量名是 <code>OPENWEATHER_API_KEY</code>（大小写、下划线别拼错），
+      再确认 Key 已复制完整，最后等 1–2 小时（OWM 新 Key 激活延迟）后刷新重试。
+    </div>
+  </div>
+
+  <h2>四、常见问题</h2>
+  <div class="card">
+    <table>
+      <tr><th>现象</th><th>原因 / 解决</th></tr>
+      <tr>
+        <td>点了 Wind 还是「需要配置 Key」</td>
+        <td>变量名拼错（必须是 <code>OPENWEATHER_API_KEY</code>），或还没保存成功。回去第 6–7 步核对。</td>
+      </tr>
+      <tr>
+        <td>风场 401 / 403 错误</td>
+        <td>OWM 新 Key 未激活，等 1–2 小时再试；或 Key 复制不完整。</td>
+      </tr>
+      <tr>
+        <td>风场一直空白但不报错</td>
+        <td>该区域当时无风场数据（罕见）。换到飓风活跃区（如墨西哥湾、大西洋）再看。</td>
+      </tr>
+      <tr>
+        <td>不配 Key 会影响其他功能吗</td>
+        <td>不会。Rain / Satellite / Forecast 三个图层完全独立，照常使用。</td>
+      </tr>
+    </table>
+  </div>
+
+  <footer>
+    本教程对应 HurricaneHub 代码：风场经 <code>/api/wind/*</code> 代理转发至 OpenWeatherMap <code>wind_new</code> 图层，Key 仅存于服务端，不会暴露到浏览器。<br/>
+    生成于 2026-08-06 · 非技术用户友好版
+  </footer>
+
+</div>
+</body>
+</html>

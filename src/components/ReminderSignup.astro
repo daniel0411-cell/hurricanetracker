@@ -10,7 +10,7 @@ const { source = "HurricaneHub reminder form" } = Astro.props;
     <article>
       <p class="eyebrow">Reminder capture</p>
       <h2 id="reminder-title">Get a Hurricane Readiness Reminder</h2>
-      <p class="answer">Save a ZIP code and email for future readiness reminders. The current MVP stores the request in Cloudflare KV; email delivery can be connected later.</p>
+      <p class="answer">Save a ZIP code and email for future readiness reminders, or enable device alerts to get a push notification the moment NWS issues a hurricane, tropical storm, or storm-surge alert for your area.</p>
     </article>
     <form class="panel reminder-form" id="reminder-form" data-source={source}>
       <label for="reminder-email">Email</label>
@@ -18,7 +18,8 @@ const { source = "HurricaneHub reminder form" } = Astro.props;
       <label for="reminder-zip">ZIP code</label>
       <input id="reminder-zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="\d{5}" placeholder="e.g. 33139" />
       <button type="submit">Save reminder request</button>
-      <p id="reminder-status" class="small" role="status">No marketing provider is connected yet. This saves a readiness request for future alerts.</p>
+      <button type="button" id="enable-push" class="secondary">Enable device alerts</button>
+      <p id="reminder-status" class="small" role="status">Save your details, then enable device alerts for instant push notifications.</p>
     </form>
   </div>
 </section>
@@ -26,6 +27,17 @@ const { source = "HurricaneHub reminder form" } = Astro.props;
 <script>
   const form = document.querySelector<HTMLFormElement>("#reminder-form");
   const statusEl = document.querySelector<HTMLElement>("#reminder-status");
+  const pushBtn = document.querySelector<HTMLButtonElement>("#enable-push");
+
+  const urlBase64ToUint8Array = (base64String: string): Uint8Array => {
+    const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+    const raw = atob(base64);
+    const out = new Uint8Array(raw.length);
+    for (let i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
+    return out;
+  };
+
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const data = new FormData(form);
@@ -49,6 +61,53 @@ const { source = "HurricaneHub reminder form" } = Astro.props;
       if (statusEl) statusEl.textContent = "Could not save this reminder request right now.";
     }
   });
+
+  pushBtn?.addEventListener("click", async () => {
+    if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+      if (statusEl) statusEl.textContent = "This browser does not support push notifications.";
+      return;
+    }
+    try {
+      if (statusEl) statusEl.textContent = "Requesting notification permission...";
+      const permission = await Notification.requestPermission();
+      if (permission !== "granted") {
+        if (statusEl) statusEl.textContent = "Notification permission was not granted.";
+        return;
+      }
+      const reg = await navigator.serviceWorker.register("/sw.js");
+      await navigator.serviceWorker.ready;
+      const { publicKey } = (await (await fetch("/api/vapid-public")).json()) as { publicKey: string | null };
+      if (!publicKey) {
+        if (statusEl) statusEl.textContent = "Push is not configured on the server yet.";
+        return;
+      }
+      const existing = await reg.pushManager.getSubscription();
+      const subscription =
+        existing ||
+        (await reg.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: urlBase64ToUint8Array(publicKey) as BufferSource
+        }));
+      const zipEl = document.querySelector<HTMLInputElement>("#reminder-zip");
+      const emailEl = document.querySelector<HTMLInputElement>("#reminder-email");
+      const response = await fetch("/api/reminders/subscribe", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          subscription,
+          zip: zipEl?.value ?? "",
+          email: emailEl?.value ?? "",
+          source: form?.dataset.source ?? "device"
+        })
+      });
+      const body = await response.json() as { message?: string; error?: string };
+      if (!response.ok) throw new Error(body.error ?? "Subscription failed");
+      if (statusEl) statusEl.textContent = body.message ?? "Device alerts enabled.";
+    } catch (error) {
+      console.error("HurricaneHub push subscribe failed", error);
+      if (statusEl) statusEl.textContent = "Could not enable device alerts right now.";
+    }
+  });
 </script>
 
 <style>
@@ -56,8 +115,12 @@ const { source = "HurricaneHub reminder form" } = Astro.props;
     display: grid;
     gap: 10px;
   }
-
   .reminder-form label {
     font-weight: 800;
+  }
+  .reminder-form .secondary {
+    background: transparent;
+    border: 1px solid var(--accent, #0e6f8f);
+    color: var(--accent, #0e6f8f);
   }
 </style>
