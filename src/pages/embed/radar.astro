@@ -1,0 +1,194 @@
+---
+// Standalone, embeddable hurricane radar for cross-origin <iframe> use.
+// Query params:
+//   ?layer=radar|satellite|both   (default radar)
+//   ?theme=light|dark             (default dark)
+//   ?view=atlantic|gulf|florida|caribbean  (default atlantic)
+//   ?loc=lat,lon                  (override center)
+//   ?controls=0                   (hide the toggle bar)
+const params = Astro.url.searchParams;
+const layer = params.get("layer") || "radar";
+const theme = params.get("theme") || "dark";
+const view = params.get("view") || "atlantic";
+const loc = params.get("loc");
+const showControls = params.get("controls") !== "0";
+---
+<!doctype html>
+<html lang="en" data-theme={theme === "dark" ? "dark" : "light"}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>HurricaneHub Live Radar</title>
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://cdn.star.nesdis.noaa.gov" crossorigin />
+    <link rel="preconnect" href="https://{s}.tile.openstreetmap.org" />
+    <link rel="preconnect" href="https://{s}.basemaps.cartocdn.com" />
+    <link rel="preconnect" href="https://api.rainviewer.com" crossorigin />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      :root { color-scheme: dark light; }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; height: 100%; }
+      body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; background: #0b2231; }
+      #map { position: absolute; inset: 0; z-index: 1; background: #0b2231; }
+      .embed-bar {
+        position: absolute; z-index: 600; left: 10px; top: 10px; right: 10px;
+        display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between;
+        pointer-events: none;
+      }
+      .embed-toggle { display: inline-flex; gap: 4px; padding: 4px; border-radius: 8px;
+        background: rgba(7, 20, 29, 0.74); border: 1px solid rgba(226, 239, 243, 0.26);
+        box-shadow: 0 12px 30px rgba(7, 20, 29, 0.3); backdrop-filter: blur(12px); pointer-events: auto; }
+      .embed-toggle button {
+        width: auto; min-height: 34px; display: inline-flex; align-items: center; gap: 6px;
+        border: 0; border-radius: 6px; padding: 0 11px; background: transparent;
+        color: rgba(255, 255, 255, 0.86); font-size: 0.84rem; font-weight: 800; cursor: pointer; }
+      .embed-toggle button.active { background: #c1442e; color: #fff; }
+      .embed-toggle button:hover { background: rgba(255, 255, 255, 0.16); }
+      .embed-toggle button.active:hover { background: #a8351f; }
+      .embed-credit { pointer-events: auto; display: inline-flex; align-items: center; gap: 6px;
+        padding: 6px 10px; border-radius: 8px; background: rgba(7, 20, 29, 0.74);
+        border: 1px solid rgba(226, 239, 243, 0.26); color: rgba(255, 255, 255, 0.86);
+        font-size: 0.78rem; font-weight: 800; text-decoration: none; backdrop-filter: blur(12px); }
+      .embed-credit i { color: #95d9ea; }
+      .embed-status { position: absolute; z-index: 600; left: 10px; bottom: 10px;
+        padding: 6px 10px; border-radius: 8px; background: rgba(7, 20, 29, 0.74);
+        border: 1px solid rgba(226, 239, 243, 0.22); color: rgba(255, 255, 255, 0.8);
+        font-size: 0.76rem; font-weight: 700; max-width: calc(100% - 20px); }
+      .embed-status.error { color: #ffd9d2; border-color: rgba(240, 93, 79, 0.6); }
+      #map .leaflet-bar a, #map .leaflet-control-attribution { background: rgba(7, 20, 29, 0.78); color: rgba(255, 255, 255, 0.86); }
+      #map .leaflet-control-attribution a { color: #95d9ea; }
+    </style>
+  </head>
+  <body>
+    <div id="map" aria-label="HurricaneHub live radar and satellite map"></div>
+    {showControls && (
+      <div class="embed-bar">
+        <div class="embed-toggle" role="group" aria-label="Map layer">
+          <button type="button" data-layer="radar" class={layer === "radar" || layer === "both" ? "active" : ""} aria-pressed={layer === "radar" || layer === "both"}><i class="fa-solid fa-cloud-showers-heavy"></i><span>Radar</span></button>
+          <button type="button" data-layer="satellite" class={layer === "satellite" || layer === "both" ? "active" : ""} aria-pressed={layer === "satellite" || layer === "both"}><i class="fa-solid fa-satellite-dish"></i><span>Satellite</span></button>
+        </div>
+        <a class="embed-credit" href="https://www.hurricanetracker.cc/radar/" target="_blank" rel="noopener"><i class="fa-solid fa-circle-nodes"></i> HurricaneHub</a>
+      </div>
+    )}
+    <div class="embed-status" id="embed-status" role="status">Loading radar…</div>
+
+    <script>
+      // @ts-nocheck
+      import L from "leaflet";
+      import "leaflet/dist/leaflet.css";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const VIEWS = {
+          atlantic: { center: [25.0, -75.0], zoom: 5 },
+          gulf: { center: [26.0, -90.0], zoom: 5 },
+          florida: { center: [27.7, -81.7], zoom: 6 },
+          caribbean: { center: [18.5, -72.5], zoom: 5 }
+        };
+        const GOES_EAST_BOUNDS = [[75, -160], [-75, 10]];
+        const statusEl = document.querySelector("#embed-status");
+        const mapEl = document.querySelector("#map");
+        const toggleButtons = Array.from(document.querySelectorAll(".embed-toggle button"));
+
+        const url = new URL(window.location.href);
+        const qLayer = url.searchParams.get("layer") || "radar";
+        const qTheme = url.searchParams.get("theme") || "dark";
+        const qView = url.searchParams.get("view") || "atlantic";
+        const qLoc = url.searchParams.get("loc"); // "lat,lon"
+
+        function setStatus(msg, isError = false) {
+          if (!statusEl) return;
+          statusEl.textContent = msg;
+          statusEl.classList.toggle("error", isError);
+        }
+
+        if (!mapEl || typeof L === "undefined") {
+          setStatus("Radar unavailable.", true);
+          return;
+        }
+
+        const initial = qLoc && qLoc.split(",").length === 2
+          ? { center: [parseFloat(qLoc.split(",")[0]), parseFloat(qLoc.split(",")[1])], zoom: 6 }
+          : (VIEWS[qView] || VIEWS.atlantic);
+
+        const map = L.map("map", {
+          center: initial.center, zoom: initial.zoom, minZoom: 3, maxZoom: 8,
+          zoomControl: true, worldCopyJump: true, scrollWheelZoom: true, touchZoom: true
+        });
+
+        const bases = {
+          light: L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 8, attribution: '&copy; OpenStreetMap' }),
+          dark: L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", { maxZoom: 8, attribution: '&copy; CARTO &copy; OpenStreetMap' })
+        };
+        let activeBase = (bases[qTheme] || bases.dark).addTo(map);
+
+        const stormLayer = L.layerGroup().addTo(map);
+        let activeOverlay = null;
+        let satOpacity = 0.85;
+
+        function createSatelliteLayer() {
+          const u = "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/1808x1808.jpg";
+          const url = `${u}?t=${Math.floor(Date.now() / 600000)}`;
+          return L.imageOverlay(url, GOES_EAST_BOUNDS, { opacity: satOpacity, attribution: '<a href="https://www.star.nesdis.noaa.gov/goes/">NOAA</a>' });
+        }
+
+        async function createRainViewerLayer(scheme = 2) {
+          try {
+            const res = await fetch("/api/radar/rainviewer.json", { cache: "no-store" });
+            if (!res.ok) throw new Error("RainViewer unavailable");
+            const data = await res.json();
+            const frames = data.radar?.past?.length ? data.radar.past : (data.radar?.nowcast ?? []);
+            const latest = frames[frames.length - 1];
+            if (!latest?.path || !data.host) throw new Error("frame unavailable");
+            setStatus("RainViewer radar loaded.");
+            return L.tileLayer(`${data.host}${latest.path}/256/{z}/{x}/{y}/${scheme}/1_1.png`, { opacity: 0.78, maxZoom: 8, attribution: '<a href="https://www.rainviewer.com/">RainViewer</a>' });
+          } catch (e) {
+            console.error("embed radar failed", e);
+            setStatus("Radar temporarily unavailable. Satellite mode may still work.", true);
+            return null;
+          }
+        }
+
+        async function showLayer(name) {
+          if (activeOverlay) { map.removeLayer(activeOverlay); activeOverlay = null; }
+          if (name === "satellite") {
+            activeOverlay = createSatelliteLayer().addTo(map);
+            setStatus("NOAA GOES-East GeoColor satellite active.");
+          } else {
+            const layer = await createRainViewerLayer(2);
+            if (layer) { activeOverlay = layer.addTo(map); }
+          }
+        }
+
+        async function showBoth() {
+          if (activeOverlay) { map.removeLayer(activeOverlay); activeOverlay = null; }
+          const radar = await createRainViewerLayer(2);
+          if (radar) radar.addTo(map);
+          const sat = createSatelliteLayer().addTo(map);
+          sat.setOpacity(0.5);
+          activeOverlay = sat;
+          setStatus("Radar + satellite active.");
+        }
+
+        // Initial layer
+        if (qLayer === "both") showBoth();
+        else if (qLayer === "satellite") showLayer("satellite");
+        else showLayer("radar");
+
+        toggleButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const lyr = btn.dataset.layer;
+            if (!lyr) return;
+            toggleButtons.forEach((b) => { const on = b === btn; b.classList.toggle("active", on); b.setAttribute("aria-pressed", String(on)); });
+            if (lyr === "satellite") showLayer("satellite");
+            else showLayer("radar");
+          });
+        });
+
+        // Keep the embed sized correctly inside iframes.
+        window.setTimeout(() => map.invalidateSize(), 200);
+        window.addEventListener("resize", () => map.invalidateSize());
+      });
+    </script>
+  </body>
+</html>
