@@ -76,6 +76,12 @@ const jsonLd = graph(
               <span>Wind</span>
             </button>
           </div>
+          <div class="layer-toggle fema-toggle" role="group" aria-label="FEMA flood overlay">
+            <button type="button" class="fema-button" id="fema-toggle" data-fema="on" aria-pressed="false">
+              <i class="fa-solid fa-water" aria-hidden="true"></i>
+              <span>FEMA Flood</span>
+            </button>
+          </div>
           <div class="layer-toggle" role="group" aria-label="Map theme">
             <button type="button" class="theme-button active" data-theme="light" aria-pressed="true">
               <i class="fa-solid fa-sun" aria-hidden="true"></i>
@@ -234,6 +240,7 @@ const jsonLd = graph(
           <span><i class="legend-swatch rain"></i> Rain bands</span>
           <span><i class="legend-swatch alert"></i> NWS alert area</span>
           <span><i class="legend-swatch storm"></i> NHC storm marker</span>
+          <span><i class="legend-swatch fema"></i> FEMA flood zone</span>
         </div>
         <span id="radar-status" role="status">Loading radar...</span>
       </div>
@@ -394,6 +401,16 @@ const jsonLd = graph(
       const heatmapSummaryEl = document.querySelector("#heatmap-summary");
       const heatmapGridEl = document.querySelector("#heatmap-grid");
       const heatmapTopEl = document.querySelector("#heatmap-top");
+      const femaButton = document.querySelector("#fema-toggle");
+
+      // FEMA National Flood Hazard Layer overlay (client-side fetch; no Worker proxy).
+      let femaActive = false;
+      let femaOnMap = false;
+      let femaLoading = false;
+      let femaLayerId = null;
+      let femaTimer = null;
+      const femaLayer = L.layerGroup();
+      const FEMA_BASE = "https://hazards.fema.gov/gis/nfhl/rest/services/public/NFHL/MapServer";
 
       function setStatus(message, isError = false) {
         if (!statusEl) return;
@@ -664,6 +681,96 @@ const jsonLd = graph(
         }
       }
 
+      function femaStyle(feature) {
+        const props = feature.properties || {};
+        const zone = String(props.ZONE_SUBTY || props.FLD_ZONE || props.zone || "").toUpperCase();
+        if (/^V|^AE|^A/.test(zone)) {
+          // Special Flood Hazard Area (100-year / coastal high-risk)
+          return { color: "#ff4d6d", weight: 1.5, fillColor: "#ff4d6d", fillOpacity: 0.22 };
+        }
+        if (/^X/.test(zone)) {
+          // Minimal / moderate flood hazard (0.2% annual chance)
+          return { color: "#3fa7ff", weight: 1, fillColor: "#3fa7ff", fillOpacity: 0.08 };
+        }
+        return { color: "#ffb703", weight: 1, fillColor: "#ffb703", fillOpacity: 0.14 };
+      }
+
+      async function discoverFemaLayer() {
+        if (femaLayerId !== null) return femaLayerId;
+        const res = await fetch(`${FEMA_BASE}?f=json`, { headers: { Accept: "application/json" } });
+        if (!res.ok) throw new Error("NFHL metadata " + res.status);
+        const data = await res.json();
+        const layersMeta = data.layers || [];
+        let found = layersMeta.find((l) => /flood[_\s-]?hazard[_\s-]?zone/i.test(l.name));
+        if (!found) found = layersMeta.find((l) => /flood/i.test(l.name));
+        femaLayerId = found ? found.id : (layersMeta[0] && layersMeta[0].id);
+        return femaLayerId;
+      }
+
+      async function loadFemaZones() {
+        if (femaLoading) return;
+        femaLoading = true;
+        try {
+          const layerId = await discoverFemaLayer();
+          if (layerId === null || layerId === undefined) throw new Error("No NFHL layer found");
+          const b = map.getBounds();
+          const sw = b.getSouthWest();
+          const ne = b.getNorthEast();
+          const bbox = `${sw.lng},${sw.lat},${ne.lng},${ne.lat}`;
+          const url =
+            `${FEMA_BASE}/${layerId}/query` +
+            `?where=1%3D1` +
+            `&geometry=${encodeURIComponent(bbox)}` +
+            `&geometryType=esriGeometryEnvelope` +
+            `&spatialRel=esriSpatialRelIntersects` +
+            `&inSR=4326&outSR=4326&maxAllowableOffset=0.015` +
+            `&resultRecordCount=2500&f=geojson&returnGeometry=true`;
+          const res = await fetch(url, { headers: { Accept: "application/json" } });
+          if (!res.ok) throw new Error("NFHL query " + res.status);
+          const gj = await res.json();
+          femaLayer.clearLayers();
+          const drawn = L.geoJSON(gj, {
+            style: femaStyle,
+            onEachFeature: (f, layer) => {
+              const p = f.properties || {};
+              const z = p.ZONE_SUBTY || p.FLD_ZONE || "";
+              layer.bindTooltip(`FEMA flood zone: ${z || "see map"}`);
+            }
+          });
+          femaLayer.addLayer(drawn);
+          const count = (gj.features || []).length;
+          setStatus(`FEMA flood zones loaded (${count}). Source: FEMA National Flood Hazard Layer.`);
+        } catch (error) {
+          console.error("HurricaneHub FEMA layer failed", error);
+          femaActive = false;
+          femaOnMap = false;
+          femaButton?.classList.remove("active");
+          femaButton?.setAttribute("aria-pressed", "false");
+          if (femaLayer._map) map.removeLayer(femaLayer);
+          setStatus("FEMA flood data unavailable right now (provider blocked cross-origin or offline). Radar stays on.", true);
+        } finally {
+          femaLoading = false;
+        }
+      }
+
+      function toggleFema() {
+        femaActive = !femaActive;
+        femaButton?.classList.toggle("active", femaActive);
+        femaButton?.setAttribute("aria-pressed", String(femaActive));
+        if (femaActive) {
+          if (!femaOnMap) {
+            femaLayer.addTo(map);
+            femaOnMap = true;
+          }
+          setStatus("Loading FEMA flood zones for the current view…");
+          loadFemaZones();
+        } else if (femaOnMap) {
+          map.removeLayer(femaLayer);
+          femaLayer.clearLayers();
+          femaOnMap = false;
+        }
+      }
+
       function renderCategories(alerts) {
         if (!categoriesEl) return;
         const cats = {};
@@ -858,6 +965,14 @@ const jsonLd = graph(
           const layer = button.dataset.layer;
           if (layer) showLayer(layer);
         });
+      });
+
+      femaButton?.addEventListener("click", toggleFema);
+      map.on("moveend", () => {
+        if (femaActive && femaOnMap) {
+          window.clearTimeout(femaTimer);
+          femaTimer = window.setTimeout(loadFemaZones, 600);
+        }
       });
 
       themeButtons.forEach((button) => {
@@ -1151,6 +1266,7 @@ const jsonLd = graph(
   .scheme-button,
   .band-button,
   .preset-button,
+  .fema-button,
   .map-action {
     width: auto;
     min-height: 38px;
@@ -1169,6 +1285,11 @@ const jsonLd = graph(
 
   .layer-button.active {
     background: var(--signal);
+    color: #fff;
+  }
+
+  .fema-button.active {
+    background: #2563eb;
     color: #fff;
   }
 
@@ -1730,6 +1851,10 @@ const jsonLd = graph(
 
   .legend-swatch.storm {
     background: #f05d4f;
+  }
+
+  .legend-swatch.fema {
+    background: #2563eb;
   }
 
   .radar-error {
