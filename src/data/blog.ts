@@ -189,8 +189,8 @@ export const blogPosts: BlogPost[] = [
     description: "A 24-hour hurricane warning checklist for protecting people, medication, documents, vehicles, pets, and evacuation options before conditions deteriorate.",
     datePublished: "2026-08-04",
     dateModified: "2026-08-04",
-    image: "/images/blog/what-hurricane-watch-warning-means.svg",
-    imageAlt: "Emergency alert setup with phone, radio, flashlight, batteries, and evacuation map.",
+    image: "/images/blog/hurricane-warning-24-hour-action.svg",
+    imageAlt: "Warning-period action clock with a red hurricane warning triangle marking the final 24 hours before landfall.",
     sections: [
       {
         heading: "Direct Answer",
@@ -228,8 +228,8 @@ export const blogPosts: BlogPost[] = [
     description: "Prepare for a hurricane power outage with a practical plan for food safety, refrigerated medicine, medical equipment, charging, water, generators, and communication.",
     datePublished: "2026-08-04",
     dateModified: "2026-08-04",
-    image: "/images/blog/hurricane-emergency-kit-checklist.svg",
-    imageAlt: "Organized hurricane emergency kit with water, food, first aid, batteries, documents, and pet supplies.",
+    image: "/images/blog/hurricane-power-outage-generator.svg",
+    imageAlt: "Portable generator, refrigerator, and flashlight representing a hurricane power-outage plan for food, medicine, and devices.",
     sections: [
       {
         heading: "Direct Answer",
@@ -267,8 +267,8 @@ export const blogPosts: BlogPost[] = [
     description: "Prepare a hurricane documents checklist with IDs, insurance details, property photos, prescriptions, contacts, and records needed before evacuation or damage.",
     datePublished: "2026-08-04",
     dateModified: "2026-08-04",
-    image: "/images/blog/how-to-prepare-your-home-for-a-hurricane.svg",
-    imageAlt: "Coastal home prepared with storm shutters, secured outdoor items, and sandbags.",
+    image: "/images/blog/hurricane-documents-insurance.svg",
+    imageAlt: "Folder of insurance papers, an ID card, and a camera for property photos in a hurricane documents checklist.",
     sections: [
       {
         heading: "Direct Answer",
@@ -306,8 +306,8 @@ export const blogPosts: BlogPost[] = [
     description: "Use a 72-, 48-, and 24-hour hurricane preparation timeline for supplies, evacuation routes, pets, documents, home protection, and final safety decisions.",
     datePublished: "2026-08-04",
     dateModified: "2026-08-04",
-    image: "/images/blog/hurricane-evacuation-checklist.svg",
-    imageAlt: "Evacuation preparation scene with go-bags, pet carrier, car, map, water, medicine pouch, and keys.",
+    image: "/images/blog/hurricane-preparation-timeline.svg",
+    imageAlt: "Three clock markers on a timeline labeled 72, 48, and 24 hours for staged hurricane preparation.",
     sections: [
       {
         heading: "Direct Answer",
@@ -345,8 +345,8 @@ export const blogPosts: BlogPost[] = [
     description: "Learn what a hurricane's current distance from your location can tell you, what it cannot predict, and how to pair distance with official alerts.",
     datePublished: "2026-08-04",
     dateModified: "2026-08-04",
-    image: "/images/blog/2025-atlantic-hurricane-season-outlook.svg",
-    imageAlt: "Atlantic hurricane monitoring desk with map displays and emergency planning notes.",
+    image: "/images/blog/hurricane-distance-map.svg",
+    imageAlt: "Map with a location pin and a hurricane spiral connected by a dashed distance line with a mile measurement.",
     sections: [
       {
         heading: "Direct Answer",
@@ -383,8 +383,8 @@ export const blogPosts: BlogPost[] = [
     description: "Understand the difference between storm surge and hurricane warnings, why water hazards can arrive before peak wind, and when to leave.",
     datePublished: "2026-08-04",
     dateModified: "2026-08-04",
-    image: "/images/blog/what-hurricane-watch-warning-means.svg",
-    imageAlt: "Weather warning alert setup with a phone, radio, flashlight, batteries, and evacuation map.",
+    image: "/images/blog/storm-surge-coastal-flooding.svg",
+    imageAlt: "Coastal house with rising blue storm-surge water and an evacuation arrow showing water arriving before peak wind.",
     sections: [
       {
         heading: "Direct Answer",
@@ -421,8 +421,8 @@ export const blogPosts: BlogPost[] = [
     description: "Build a hurricane family communication plan with contacts, meeting places, evacuation destinations, medication notes, pets, and check-in times.",
     datePublished: "2026-08-04",
     dateModified: "2026-08-04",
-    image: "/images/blog/hurricane-evacuation-checklist.svg",
-    imageAlt: "Hurricane evacuation preparation with go-bags, pet carrier, car, map, water, medicine pouch, and keys.",
+    image: "/images/blog/hurricane-family-communication.svg",
+    imageAlt: "Two smartphones exchanging message bubbles above a small house, representing a hurricane family communication plan.",
     sections: [
       {
         heading: "Direct Answer",
@@ -459,8 +459,8 @@ export const blogPosts: BlogPost[] = [
     description: "Learn how to check your hurricane evacuation zone, why ZIP codes are not enough, and what to do when local officials issue evacuation instructions.",
     datePublished: "2026-08-05",
     dateModified: "2026-08-05",
-    image: "/images/blog/hurricane-evacuation-checklist.svg",
-    imageAlt: "Evacuation preparation scene with go-bags, pet carrier, car, map, water, medicine pouch, and keys.",
+    image: "/images/blog/hurricane-evacuation-zone-map.svg",
+    imageAlt: "Coastal map divided into colored evacuation zones A, B, and C with a highlighted zone and location pin.",
     sections: [
       {
         heading: "Direct Answer",
@@ -497,8 +497,8 @@ export const blogPosts: BlogPost[] = [
     description: "Understand the difference between hurricane radar and satellite views, when each is useful, and why neither replaces official NOAA/NWS alerts.",
     datePublished: "2026-08-05",
     dateModified: "2026-08-05",
-    image: "/images/blog/2025-atlantic-hurricane-season-outlook.svg",
-    imageAlt: "Atlantic hurricane monitoring desk with map displays and emergency planning notes.",
+    image: "/images/blog/hurricane-radar-vs-satellite.svg",
+    imageAlt: "Split illustration comparing a green Doppler radar sweep on the left with a satellite cloud spiral on the right.",
     sections: [
       {
         heading: "Direct Answer",
@@ -536,8 +536,8 @@ export const blogPosts: BlogPost[] = [
     description: "Decode common NWS hurricane-related alerts and learn which ones should trigger monitoring, preparation, action, or evacuation review.",
     datePublished: "2026-08-05",
     dateModified: "2026-08-05",
-    image: "/images/blog/what-hurricane-watch-warning-means.svg",
-    imageAlt: "Emergency weather alert setup with phone, radio, flashlight, batteries, and evacuation map.",
+    image: "/images/blog/nws-alert-banners.svg",
+    imageAlt: "Phone showing color-coded NWS alert banners for hurricane watch, warning, storm surge, and advisory.",
     sections: [
       {
         heading: "Direct Answer",

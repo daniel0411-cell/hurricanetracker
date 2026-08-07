@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">24-hour hurricane warning action clock</title>
+  <desc id="desc">A warning triangle beside a clock face marking the final 24 hours before a hurricane makes landfall.</desc>
+  <rect width="1600" height="900" fill="#edf4f5"/>
+  <rect x="0" y="0" width="1600" height="360" fill="#cdb3a0"/>
+  <circle cx="800" cy="510" r="300" fill="#fff" stroke="#20384d" stroke-width="14"/>
+  <circle cx="800" cy="510" r="20" fill="#20384d"/>
+  <line x1="800" y1="510" x2="800" y2="290" stroke="#20384d" stroke-width="14" stroke-linecap="round"/>
+  <line x1="800" y1="510" x2="960" y2="510" stroke="#c1442e" stroke-width="14" stroke-linecap="round"/>
+  <path d="M470 470 l44 -76 l44 76 Z" fill="#c1442e"/>
+  <rect x="540" y="350" width="120" height="18" rx="9" fill="#c1442e"/>
+  <text x="800" y="800" font-family="system-ui, sans-serif" font-size="64" font-weight="800" fill="#c1442e" text-anchor="middle">FINAL 24 HOURS</text>
+</svg>

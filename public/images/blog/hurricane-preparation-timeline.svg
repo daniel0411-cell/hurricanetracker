@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Hurricane preparation timeline 72 48 24 hours</title>
+  <desc id="desc">Three clock markers along a timeline labeled 72, 48, and 24 hours for staged hurricane preparation.</desc>
+  <rect width="1600" height="900" fill="#edf4f5"/>
+  <rect x="0" y="0" width="1600" height="360" fill="#b9d2d9"/>
+  <line x1="200" y1="510" x2="1400" y2="510" stroke="#20384d" stroke-width="10"/>
+  <circle cx="320" cy="510" r="110" fill="#fff" stroke="#0e6f8f" stroke-width="12"/>
+  <circle cx="800" cy="510" r="110" fill="#fff" stroke="#c9891a" stroke-width="12"/>
+  <circle cx="1280" cy="510" r="110" fill="#fff" stroke="#c1442e" stroke-width="12"/>
+  <text x="320" y="528" font-family="system-ui, sans-serif" font-size="56" font-weight="800" fill="#0e6f8f" text-anchor="middle">72h</text>
+  <text x="800" y="528" font-family="system-ui, sans-serif" font-size="56" font-weight="800" fill="#c9891a" text-anchor="middle">48h</text>
+  <text x="1280" y="528" font-family="system-ui, sans-serif" font-size="56" font-weight="800" fill="#c1442e" text-anchor="middle">24h</text>
+</svg>

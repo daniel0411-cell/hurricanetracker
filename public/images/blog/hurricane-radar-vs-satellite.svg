@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Hurricane radar and satellite comparison</title>
+  <desc id="desc">Split illustration comparing a green Doppler radar sweep on the left with a satellite cloud spiral on the right.</desc>
+  <rect width="1600" height="900" fill="#0b1c27"/>
+  <rect x="0" y="0" width="800" height="900" fill="#0e2a33"/>
+  <rect x="800" y="0" width="800" height="900" fill="#081820"/>
+  <g transform="translate(400,450)">
+    <circle r="300" fill="none" stroke="#1f5a68" stroke-width="6"/>
+    <circle r="200" fill="none" stroke="#1f5a68" stroke-width="6"/>
+    <circle r="100" fill="none" stroke="#1f5a68" stroke-width="6"/>
+    <path d="M0 0 L300 0 A300 300 0 0 1 212 212 Z" fill="#1f8f5a" opacity=".35"/>
+    <line x1="0" y1="0" x2="300" y2="0" stroke="#39d39a" stroke-width="8"/>
+    <circle cx="120" cy="-60" r="16" fill="#39d39a"/>
+    <circle cx="-150" cy="120" r="16" fill="#39d39a"/>
+  </g>
+  <g transform="translate(1200,450)">
+    <circle r="260" fill="#0e3550" opacity=".5"/>
+    <path d="M0 0 C90 -30 150 40 120 130 C95 205 -25 220 -85 160 C-150 95 -110 -25 -10 -40" fill="none" stroke="#e7f0f2" stroke-width="18" stroke-linecap="round" opacity=".9"/>
+    <circle cx="-30" cy="40" r="40" fill="#fff" opacity=".25"/>
+  </g>
+  <rect x="780" y="0" width="40" height="900" fill="#0e6f8f"/>
+</svg>

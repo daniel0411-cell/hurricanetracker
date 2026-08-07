@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Storm surge flooding a coastal home</title>
+  <desc id="desc">A house on the coast with rising blue storm-surge water and an evacuation arrow showing water arriving before peak wind.</desc>
+  <rect width="1600" height="900" fill="#e9f1f2"/>
+  <rect x="0" y="0" width="1600" height="380" fill="#b9d2d9"/>
+  <rect x="520" y="380" width="560" height="300" fill="#dfd4c4"/>
+  <path d="M520 380 L800 300 L1080 380 Z" fill="#c1442e"/>
+  <rect x="600" y="460" width="120" height="220" fill="#0e6f8f"/>
+  <rect x="800" y="460" width="140" height="120" fill="#0e6f8f"/>
+  <rect x="0" y="640" width="1600" height="260" fill="#1f7fb0" opacity=".85"/>
+  <path d="M0 640 C200 600 400 690 600 640 C800 600 1000 690 1200 640 C1400 600 1600 690 1600 640 L1600 900 L0 900 Z" fill="#1f7fb0"/>
+  <path d="M1180 760 l90 -50 l0 40 l70 -40 l-10 60 l-150 40 Z" fill="#fff" opacity=".9"/>
+</svg>
