@@ -50,7 +50,7 @@ GSC 左侧 → **Coverage（覆盖率 / 索引覆盖率）** 报告：
 - **有效 (Valid)**：已收录的正常网址。
 - **已排除 (Excluded)**：
   - `Discovered - currently not indexed`：已发现但未抓取，通常因抓取配额有限，可对上述网址主动请求索引。
-  - `Duplicate, submitted URL not selected as canonical`：有重复内容，检查是否有多套路由指向同一内容（本站在意：州页唯一使用 `/hurricane-tracker/{slug}/` 规范路径）。
+  - `Duplicate, submitted URL not selected as canonical`：有重复内容，检查是否有多套路由指向同一内容（本站在意：州页唯一使用 `/tracker/{slug}/` 规范路径，旧的 `/hurricane-tracker/{slug}/` 已 301 重定向到 `/tracker/{slug}/`）。
   - `Page with redirect`：被重定向，正常。
 - **错误 (Errors)**：
   - `Server error (5xx)`：服务端返回 5xx，需排查 Cloudflare Worker / 源站。

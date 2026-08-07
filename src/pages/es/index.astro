@@ -151,7 +151,7 @@ const jsonLd = graph(
           <article class="panel">
             <h3>Rastreador de Huracanes {state.name}</h3>
             <p>{state.region}. Los riesgos principales incluyen {state.risks.slice(0, 3).join(", ")}.</p>
-            <a href={`/hurricane-tracker/${state.slug}/`}>Abrir {state.name}</a>
+            <a href={`/tracker/${state.slug}/`}>Abrir {state.name}</a>
           </article>
         ))}
       </div>

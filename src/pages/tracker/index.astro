@@ -89,7 +89,7 @@ const jsonLd = graph(
           <article class="panel">
             <h3>{state.name}</h3>
             <p>{state.region}. Watch for {state.risks.slice(0, 2).join(" and ")}.</p>
-            <a href={`/hurricane-tracker/${state.slug}/`}>View {state.name} tracker</a>
+            <a href={`/tracker/${state.slug}/`}>View {state.name} tracker</a>
           </article>
         ))}
       </div>

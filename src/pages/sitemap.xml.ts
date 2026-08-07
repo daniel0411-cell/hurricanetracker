@@ -29,7 +29,6 @@ const routes = [
   { path: "tools/storm-distance-calculator/", lastmod: updated, priority: "0.8", changefreq: "daily" },
   { path: "tools/alert-action-decoder/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
   { path: "tools/family-communication-plan/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
-  ...coastalStates.map((state) => ({ path: `hurricane-tracker/${state.slug}/`, lastmod: updated, priority: "0.9", changefreq: "hourly" })),
   ...coastalStates.map((state) => ({ path: `tracker/${state.slug}/`, lastmod: updated, priority: "0.9", changefreq: "hourly" })),
   ...hurricaneCities.map((city) => ({ path: `hurricane-tracker/city/${city.slug}/`, lastmod: updated, priority: "0.8", changefreq: "daily" })),
   { path: "storm-archive/", lastmod: updated, priority: "0.7", changefreq: "daily" },

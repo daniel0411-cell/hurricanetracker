@@ -50,7 +50,7 @@ const decisionLevel = alertFeed?.decisionLevel ?? (storms.length ? "Prepare" : "
 const lastModified = alertFeed?.updatedAt ?? stormFeed?.updatedAt ?? site.contentLastModified;
 const title = `${state.name} Hurricane Tracker – Live NHC Data & Alerts`;
 const description = `Get ${state.name} real-time hurricane tracking with NOAA data, NWS alerts, evacuation info, and live updates for ${state.region}.`;
-const url = `${site.url}/hurricane-tracker/${state.slug}/`;
+const url = `${site.url}/tracker/${state.slug}/`;
 const localActionNotes: Record<string, { headline: string; points: string[]; aside: string }> = {
   florida: {
     headline: "Florida priority actions",
@@ -295,7 +295,7 @@ const jsonLd = graph(
       <ul class="check-list">
         {adjacentStates[state.slug].map((slug) => {
           const neighbor = getStateBySlug(slug);
-          return neighbor ? <li><a href={`/hurricane-tracker/${neighbor.slug}/`}>{neighbor.name} Hurricane Tracker</a></li> : null;
+          return neighbor ? <li><a href={`/tracker/${neighbor.slug}/`}>{neighbor.name} Hurricane Tracker</a></li> : null;
         })}
       </ul>
     </div>
