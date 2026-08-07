@@ -38,7 +38,6 @@ const routes = [
   { path: "blog/flood-advisory-vs-watch-vs-warning/", lastmod: blogLastMod, priority: "0.7", changefreq: "weekly" },
   { path: "blog/rip-current-statement-gulf-coast/", lastmod: blogLastMod, priority: "0.7", changefreq: "weekly" },
   { path: "decision-guide/", lastmod: blogLastMod, priority: "0.8", changefreq: "monthly" },
-  { path: "es/", lastmod: updated, priority: "0.9", changefreq: "daily" },
   { path: "about/", lastmod: updated, priority: "0.8", changefreq: "monthly" }
 ].filter((route) => !route.path.startsWith("api/") && !route.path.startsWith("admin/"));
 

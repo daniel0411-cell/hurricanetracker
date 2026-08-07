@@ -51,6 +51,11 @@ const showControls = params.get("controls") !== "0";
         border: 1px solid rgba(226, 239, 243, 0.26); color: rgba(255, 255, 255, 0.86);
         font-size: 0.78rem; font-weight: 800; text-decoration: none; backdrop-filter: blur(12px); }
       .embed-credit i { color: #95d9ea; }
+      .embed-home { pointer-events: auto; display: inline-flex; align-items: center; gap: 6px;
+        padding: 6px 10px; border-radius: 8px; background: rgba(7, 20, 29, 0.74);
+        border: 1px solid rgba(226, 239, 243, 0.26); color: #fff;
+        font-size: 0.78rem; font-weight: 800; text-decoration: none; backdrop-filter: blur(12px); }
+      .embed-home:hover { background: rgba(255, 255, 255, 0.16); }
       .embed-status { position: absolute; z-index: 600; left: 10px; bottom: 10px;
         padding: 6px 10px; border-radius: 8px; background: rgba(7, 20, 29, 0.74);
         border: 1px solid rgba(226, 239, 243, 0.22); color: rgba(255, 255, 255, 0.8);
@@ -64,6 +69,7 @@ const showControls = params.get("controls") !== "0";
     <div id="map" aria-label="HurricaneHub live radar and satellite map"></div>
     {showControls && (
       <div class="embed-bar">
+        <a class="embed-home" href="/" target="_self" rel="noopener" aria-label="Back to HurricaneHub home"><i class="fa-solid fa-house"></i> Home</a>
         <div class="embed-toggle" role="group" aria-label="Map layer">
           <button type="button" data-layer="radar" class={layer === "radar" || layer === "both" ? "active" : ""} aria-pressed={layer === "radar" || layer === "both"}><i class="fa-solid fa-cloud-showers-heavy"></i><span>Radar</span></button>
           <button type="button" data-layer="satellite" class={layer === "satellite" || layer === "both" ? "active" : ""} aria-pressed={layer === "satellite" || layer === "both"}><i class="fa-solid fa-satellite-dish"></i><span>Satellite</span></button>

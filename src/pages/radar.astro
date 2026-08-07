@@ -284,38 +284,6 @@ const jsonLd = graph(
         </article>
       </div>
     </section>
-    <section class="radar-notes" aria-labelledby="embed-heading">
-      <h2 id="embed-heading">Embed This Radar</h2>
-      <div class="grid-2">
-        <article class="panel">
-          <h3>Drop the live radar on any site</h3>
-          <p>Copy the snippet below to embed HurricaneHub's live radar on your own site, blog, or dashboard. It is a self-contained iframe — no API keys, scripts, or styling needed on your side.</p>
-          <p class="small">Options: <code>?layer=radar|satellite|both</code>, <code>?theme=light|dark</code>, <code>?view=atlantic|gulf|florida|caribbean</code>, <code>?loc=lat,lon</code>, <code>?controls=0</code> to hide the toggle bar.</p>
-        </article>
-        <article class="panel">
-          <label for="embed-code" class="embed-label">Embed code</label>
-          <textarea id="embed-code" class="embed-code" readonly rows="5">&lt;iframe src="https://www.hurricanetracker.cc/embed/radar?theme=dark&amp;layer=radar" title="HurricaneHub Live Radar" style="width:100%;height:480px;border:0;border-radius:12px;" loading="lazy"&gt;&lt;/iframe&gt;</textarea>
-          <button type="button" class="embed-copy" id="embed-copy">Copy embed code</button>
-          <p class="small"><a href="/embed/radar" target="_blank" rel="noopener">Open the standalone radar in a new tab ↗</a> — a clean, full-screen view with no site chrome (this is the page the embed loads).</p>
-        </article>
-      </div>
-    </section>
-
-    <script>
-      // @ts-nocheck
-      const copyBtn = document.querySelector("#embed-copy");
-      const codeEl = document.querySelector("#embed-code");
-      copyBtn?.addEventListener("click", async () => {
-        try {
-          await navigator.clipboard.writeText(codeEl?.value ?? "");
-          if (copyBtn) copyBtn.textContent = "Copied!";
-          window.setTimeout(() => { if (copyBtn) copyBtn.textContent = "Copy embed code"; }, 1800);
-        } catch {
-          if (copyBtn) copyBtn.textContent = "Select and copy manually";
-        }
-      });
-    </script>
-
     <FaqBlock faqs={pageFaqs} />
   </section>
 
@@ -1904,32 +1872,6 @@ const jsonLd = graph(
 
   .radar-notes h2 {
     margin-bottom: 18px;
-  }
-
-  .embed-label {
-    display: block;
-    font-weight: 800;
-    margin-bottom: 8px;
-  }
-
-  .embed-code {
-    width: 100%;
-    min-height: 108px;
-    resize: vertical;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: 0.82rem;
-    line-height: 1.45;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid var(--line);
-    background: var(--surface);
-    color: var(--ink);
-  }
-
-  .embed-copy {
-    margin-top: 10px;
-    width: auto;
-    padding-inline: 16px;
   }
 
   @media (max-width: 1020px) {

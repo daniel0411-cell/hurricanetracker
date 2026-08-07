@@ -9,8 +9,6 @@ import {
   formatDamageUsd
 } from "../data/storms";
 
-const benchmarksJson = JSON.stringify(BENCHMARK_STORMS);
-
 const description =
   "Compare an active Atlantic hurricane against historical benchmarks Katrina (2005), Ian (2022), and Sandy (2012) — track maps, peak category, minimum pressure, max winds, damage, and intensity at the same latitude.";
 
@@ -112,13 +110,13 @@ const pageFaqs = [
     <FaqBlock faqs={pageFaqs} />
   </main>
 
-  <script define:vars={{ benchmarksJson }}>
+  <script>
     // @ts-nocheck
     import L from "leaflet";
     import "leaflet/dist/leaflet.css";
-    import { categoryLabel, categoryFromWindKt, ktToMph, formatDamageUsd } from "../data/storms";
+    import { BENCHMARK_STORMS, categoryLabel, categoryFromWindKt, ktToMph, formatDamageUsd } from "../data/storms";
 
-    const BENCHMARKS = JSON.parse(benchmarksJson);
+    const BENCHMARKS = BENCHMARK_STORMS;
 
     function catColor(cat) {
       if (cat <= 0) return "#5ebaff";
@@ -129,16 +127,20 @@ const pageFaqs = [
       return "#ff6060";
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const mapEl = document.querySelector("#compare-map");
-      const statusEl = document.querySelector("#compare-status");
-      const selectEl = document.querySelector("#benchmark-select");
-      const metricsGrid = document.querySelector("#metrics-grid");
-      const insightPanel = document.querySelector("#insight-panel");
-      const insightBody = document.querySelector("#insight-body");
-      const themeButtons = Array.from(document.querySelectorAll(".theme-button"));
-      const stormToggles = Array.from(document.querySelectorAll(".storm-toggle"));
-      if (!mapEl || typeof L === "undefined") return;
+document.addEventListener("DOMContentLoaded", () => {
+ try {
+  const mapEl = document.querySelector("#compare-map");
+  const statusEl = document.querySelector("#compare-status");
+  const selectEl = document.querySelector("#benchmark-select");
+  const metricsGrid = document.querySelector("#metrics-grid");
+  const insightPanel = document.querySelector("#insight-panel");
+  const insightBody = document.querySelector("#insight-body");
+  const themeButtons = Array.from(document.querySelectorAll(".theme-button"));
+  const stormToggles = Array.from(document.querySelectorAll(".storm-toggle"));
+  if (!mapEl || typeof L === "undefined") {
+    if (statusEl) { statusEl.textContent = "Map library failed to load. Please refresh."; statusEl.classList.add("radar-error"); }
+    return;
+  }
 
       const map = L.map("compare-map", {
         center: [27.0, -82.0],
@@ -328,7 +330,12 @@ const pageFaqs = [
       if (selectEl) selectEl.addEventListener("change", updateMetrics);
 
       loadActiveStorm();
-    });
+    } catch (err) {
+      console.error("Compare tool failed to initialize", err);
+      const s = document.querySelector("#compare-status");
+      if (s) { s.textContent = "Comparison tool failed to load. Please refresh the page."; s.classList.add("radar-error"); }
+    }
+  });
   </script>
 
 <style>
@@ -442,6 +449,10 @@ const pageFaqs = [
     color: var(--muted, #6b7280);
     background: var(--surface-2, #f3f4f6);
     border-top: 1px solid var(--border, #d1d5db);
+  }
+  .radar-error {
+    color: #b91c1c;
+    font-weight: 800;
   }
   .compare-metrics h2,
   .compare-insight h2,

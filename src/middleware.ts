@@ -17,6 +17,13 @@ export const onRequest = defineMiddleware(async (context, next) => {
   try {
     const url = new URL(context.request.url);
 
+    // Removed Spanish section (2026-08-07): redirect any stale /es* link to home.
+    if (url.pathname === "/es" || url.pathname.startsWith("/es/")) {
+      const destination = new URL("/", url);
+      destination.hostname = canonicalHost;
+      return Response.redirect(destination.toString(), 301);
+    }
+
     // Legacy /hurricane-tracker/{state} -> /tracker/{state} (canonical state pages).
     // Combined with the www canonicalization into a single 301 when possible.
     const pathname = url.pathname.replace(/\/+$/, "");
