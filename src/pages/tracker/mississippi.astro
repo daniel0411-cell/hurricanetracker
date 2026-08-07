@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import StateAlerts from "../../components/StateAlerts.astro";
+import { getStateBySlug } from "../../data/states";
+import { faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { site } from "../../data/site";
+
+const state = getStateBySlug("mississippi")!;
+const code = state.code;
+const name = state.name;
+const region = state.region;
+const title = `${name} Hurricane Tracker – Live NHC Data & Alerts`;
+const description = `${name} real-time hurricane tracking with NOAA data, NWS alerts, evacuation info, and live updates for ${region}.`;
+const canonical = `${site.url}/tracker/${state.slug}/`;
+const lastModified = "2026-08-07";
+
+const intro = `Mississippi's Gulf coast is the shortest of the hurricane-prone states at roughly 44 miles, yet it has absorbed some of the most violent landfalls in U.S. history. Storms typically approach from the southeast across warm Gulf water that fuels rapid intensification, then drive into Hancock, Harrison, and Jackson counties. The low, flat coast and the Bay of St. Louis make surge the dominant threat. In 1969, Hurricane Camille came ashore as a catastrophic Category 5, among the strongest storms ever recorded, and Hurricane Katrina (2005) then devastated the coast and flooded coastal communities. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is already within the active period, when Gulf warmth peaks. Because much of the coast is low-lying, officials urge early evacuation for mobile-home residents and medically dependent households before routes close.`;
+
+const adjacent = ["louisiana", "alabama"];
+
+const faqs = [
+  {
+    question: `When is hurricane season in ${name}?`,
+    answer: `Mississippi's season follows June 1–November 30, peaking from August through September as warm Gulf waters fuel rapid intensification. Early August is within the active window, so the Gulf Coast should keep plans current.`
+  },
+  {
+    question: `What was the worst hurricane to hit ${name}?`,
+    answer: `Hurricane Camille (1969) was a catastrophic Category 5 landfall on the Mississippi coast, among the strongest ever recorded in the U.S. Hurricane Katrina (2005) then devastated the coast and flooded coastal communities days apart decades later.`
+  },
+  {
+    question: `Does ${name} have hurricane evacuation routes?`,
+    answer: `Yes. Mississippi's coastal counties use evacuation zones and Contraflow on I-10 and U.S. 49. Because much of the coast is low-lying, officials urge early departure for mobile-home residents and medically dependent households.`
+  }
+];
+
+const jsonLd = graph(websiteSchema(), faqSchema(faqs));
+---
+<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={lastModified}>
+  <article class="band" aria-labelledby="tracker-state-title">
+    <div class="inner">
+      <p class="eyebrow">{region} hurricane operations</p>
+      <h1 id="tracker-state-title">{name} Hurricane Tracker – Live Updates</h1>
+      <p class="answer">{intro}</p>
+
+      <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
+      <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
+      <StateAlerts state={code} />
+
+      <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
+      <ul class="check-list">
+        {adjacent.map((slug) => {
+          const neighbor = getStateBySlug(slug);
+          return neighbor ? <li><a href={`/tracker/${neighbor.slug}/`}>{neighbor.name} Hurricane Tracker</a></li> : null;
+        })}
+      </ul>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .answer { font-size: 1.05rem; line-height: 1.75; }
+</style>

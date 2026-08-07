@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import StateAlerts from "../../components/StateAlerts.astro";
+import { getStateBySlug } from "../../data/states";
+import { faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { site } from "../../data/site";
+
+const state = getStateBySlug("texas")!;
+const code = state.code;
+const name = state.name;
+const region = state.region;
+const title = `${name} Hurricane Tracker – Live NHC Data & Alerts`;
+const description = `${name} real-time hurricane tracking with NOAA data, NWS alerts, evacuation info, and live updates for ${region}.`;
+const canonical = `${site.url}/tracker/${state.slug}/`;
+const lastModified = "2026-08-07";
+
+const intro = `Texas guards about 367 miles of Gulf of Mexico coastline, from the marshy upper coast near Port Arthur to the brush country around Brownsville. Most Texas hurricanes form in the western Gulf or recurve out of the Bay of Campeche, then drive north or northeast toward Galveston, Matagorda, or Corpus Christi. The state's wide, shallow shelf amplifies storm surge, while slow-moving systems can dump feet of rain far inland around Houston. Historically, Hurricane Harvey (2017) stalled over South Texas and became the wettest tropical cyclone in U.S. history, flooding entire communities. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is within the ramp to the September peak, when Gulf waters are warmest. Because Texas evacuations can mean 100-plus-mile drives inland and long power outages, residents should prepare generators safely, stock water and fuel, and learn their county evacuation zone before a storm threatens.`;
+
+const adjacent = ["louisiana"];
+
+const faqs = [
+  {
+    question: `When is hurricane season in ${name}?`,
+    answer: `The Atlantic hurricane season runs June 1 to November 30, with Texas most active from August through September as Gulf waters peak in warmth. Early August is within the ramp to peak season, so Gulf Coast households should keep an evacuation and power-outage plan ready.`
+  },
+  {
+    question: `What was the worst hurricane to hit ${name}?`,
+    answer: `Hurricane Harvey (2017) stalled over South Texas and dropped more than 60 inches of rain near Houston, causing catastrophic flooding. It remains the wettest tropical cyclone in U.S. recorded history and one of the costliest disasters nationwide.`
+  },
+  {
+    question: `Does ${name} have hurricane evacuation routes?`,
+    answer: `Yes. Texas coastal counties publish evacuation zones and use lane reversals (Contraflow) on major highways like I-45 and I-37. Residents should know their county zone, plan for long drives inland, and leave early because traffic and fuel shortages develop quickly.`
+  }
+];
+
+const jsonLd = graph(websiteSchema(), faqSchema(faqs));
+---
+<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={lastModified}>
+  <article class="band" aria-labelledby="tracker-state-title">
+    <div class="inner">
+      <p class="eyebrow">{region} hurricane operations</p>
+      <h1 id="tracker-state-title">{name} Hurricane Tracker – Live Updates</h1>
+      <p class="answer">{intro}</p>
+
+      <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
+      <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
+      <StateAlerts state={code} />
+
+      <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
+      <ul class="check-list">
+        {adjacent.map((slug) => {
+          const neighbor = getStateBySlug(slug);
+          return neighbor ? <li><a href={`/tracker/${neighbor.slug}/`}>{neighbor.name} Hurricane Tracker</a></li> : null;
+        })}
+      </ul>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .answer { font-size: 1.05rem; line-height: 1.75; }
+</style>

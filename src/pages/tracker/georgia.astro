@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import StateAlerts from "../../components/StateAlerts.astro";
+import { getStateBySlug } from "../../data/states";
+import { faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { site } from "../../data/site";
+
+const state = getStateBySlug("georgia")!;
+const code = state.code;
+const name = state.name;
+const region = state.region;
+const title = `${name} Hurricane Tracker – Live NHC Data & Alerts`;
+const description = `${name} real-time hurricane tracking with NOAA data, NWS alerts, evacuation info, and live updates for ${region}.`;
+const canonical = `${site.url}/tracker/${state.slug}/`;
+const lastModified = "2026-08-07";
+
+const intro = `Georgia's Atlantic coastline is short—about 100 miles—but densely developed from the Savannah metro down to Brunswick and the Golden Isles. Hurricanes usually reach Georgia after tracking up the Southeast seaboard or crossing Florida, often arriving as hurricanes or strong tropical storms with high rain rates and tornadoes. The coastal plain's rivers and tidal creeks flood readily, and wind-toppled trees are a major power-outage driver. In 2018, Hurricane Michael crossed into Georgia as a hurricane and inflicted historic wind damage across southwest Georgia's forests, the most damaging tropical cyclone in recent state memory. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is within the active period, so the coast from Savannah to St. Simons should stay alert, pair NWS alerts with county instructions, and keep an evacuation route ready.`;
+
+const adjacent = ["florida", "south-carolina"];
+
+const faqs = [
+  {
+    question: `When is hurricane season in ${name}?`,
+    answer: `Georgia's season runs June 1–November 30, with coastal risk highest from August through September as storms track up the Southeast seaboard. Early August is within the active window, so the coast from Brunswick to Savannah should stay alert.`
+  },
+  {
+    question: `What was the worst hurricane to hit ${name}?`,
+    answer: `Hurricane Michael (2018) crossed into Georgia as a hurricane and produced historic wind damage in southwest Georgia, including widespread timber losses. It was the most damaging tropical cyclone to hit the state in modern memory.`
+  },
+  {
+    question: `Does ${name} have hurricane evacuation routes?`,
+    answer: `Yes. Georgia's coastal counties (Chatham, Glynn, Camden and neighbors) use evacuation zones and Contraflow on I-16 toward Macon. Residents should pair NWS alerts with county instructions and leave before coastal and river flooding peak.`
+  }
+];
+
+const jsonLd = graph(websiteSchema(), faqSchema(faqs));
+---
+<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={lastModified}>
+  <article class="band" aria-labelledby="tracker-state-title">
+    <div class="inner">
+      <p class="eyebrow">{region} hurricane operations</p>
+      <h1 id="tracker-state-title">{name} Hurricane Tracker – Live Updates</h1>
+      <p class="answer">{intro}</p>
+
+      <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
+      <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
+      <StateAlerts state={code} />
+
+      <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
+      <ul class="check-list">
+        {adjacent.map((slug) => {
+          const neighbor = getStateBySlug(slug);
+          return neighbor ? <li><a href={`/tracker/${neighbor.slug}/`}>{neighbor.name} Hurricane Tracker</a></li> : null;
+        })}
+      </ul>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .answer { font-size: 1.05rem; line-height: 1.75; }
+</style>

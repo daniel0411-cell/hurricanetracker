@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import StateAlerts from "../../components/StateAlerts.astro";
+import { getStateBySlug } from "../../data/states";
+import { faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { site } from "../../data/site";
+
+const state = getStateBySlug("south-carolina")!;
+const code = state.code;
+const name = state.name;
+const region = state.region;
+const title = `${name} Hurricane Tracker – Live NHC Data & Alerts`;
+const description = `${name} real-time hurricane tracking with NOAA data, NWS alerts, evacuation info, and live updates for ${region}.`;
+const canonical = `${site.url}/tracker/${state.slug}/`;
+const lastModified = "2026-08-07";
+
+const intro = `South Carolina's Atlantic coast spans roughly 185 miles, anchored by the Lowcountry around Charleston and the Grand Strand near Myrtle Beach. Hurricanes typically approach from the southeast or track up the Southeast seaboard, then curve into the coast where wide tidal estuaries and salt marshes magnify storm surge. The Lowcountry's bridges and causeways become vulnerable as winds rise, and heavy rain compounds coastal flooding. In 1989, Hurricane Hugo made a devastating Category 4 landfall near Charleston, leveling timber and producing a memorable surge that remains the state benchmark. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is inside the active window, so coastal households should confirm their evacuation zone and plan to leave before the reversal of I-26 and other routes jams with traffic.`;
+
+const adjacent = ["north-carolina", "georgia"];
+
+const faqs = [
+  {
+    question: `When is hurricane season in ${name}?`,
+    answer: `South Carolina's season follows June 1–November 30, with the greatest danger from August through September as systems approach the Southeast coast. Early August is within the active period, so Lowcountry households should confirm zones before storms form.`
+  },
+  {
+    question: `What was the worst hurricane to hit ${name}?`,
+    answer: `Hurricane Hugo (1989) made landfall near Charleston as a major Category 4 storm, causing widespread wind damage and a devastating surge. It remains one of the most powerful hurricanes to strike the South Carolina coast.`
+  },
+  {
+    question: `Does ${name} have hurricane evacuation routes?`,
+    answer: `Yes. South Carolina designates coastal evacuation zones by county and uses lane reversals on I-26 (the Charleston reversal) and other routes. Residents should learn their zone and leave early, since Lowcountry bridges and causeways close as winds rise.`
+  }
+];
+
+const jsonLd = graph(websiteSchema(), faqSchema(faqs));
+---
+<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={lastModified}>
+  <article class="band" aria-labelledby="tracker-state-title">
+    <div class="inner">
+      <p class="eyebrow">{region} hurricane operations</p>
+      <h1 id="tracker-state-title">{name} Hurricane Tracker – Live Updates</h1>
+      <p class="answer">{intro}</p>
+
+      <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
+      <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
+      <StateAlerts state={code} />
+
+      <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
+      <ul class="check-list">
+        {adjacent.map((slug) => {
+          const neighbor = getStateBySlug(slug);
+          return neighbor ? <li><a href={`/tracker/${neighbor.slug}/`}>{neighbor.name} Hurricane Tracker</a></li> : null;
+        })}
+      </ul>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .answer { font-size: 1.05rem; line-height: 1.75; }
+</style>

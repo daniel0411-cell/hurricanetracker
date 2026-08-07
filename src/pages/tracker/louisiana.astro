@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import StateAlerts from "../../components/StateAlerts.astro";
+import { getStateBySlug } from "../../data/states";
+import { faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { site } from "../../data/site";
+
+const state = getStateBySlug("louisiana")!;
+const code = state.code;
+const name = state.name;
+const region = state.region;
+const title = `${name} Hurricane Tracker – Live NHC Data & Alerts`;
+const description = `${name} real-time hurricane tracking with NOAA data, NWS alerts, evacuation info, and live updates for ${region}.`;
+const canonical = `${site.url}/tracker/${state.slug}/`;
+const lastModified = "2026-08-07";
+
+const intro = `Louisiana's Gulf coastline stretches nearly 400 miles, but its true exposure lies in thousands of miles of bayous, estuaries, and low-lying parishes that sit at or below sea level behind a fragile levee system. Storms usually organize in the central or eastern Gulf and track northwest toward New Orleans, the River Parishes, and the Cajun coast. Shallow, warm water lets systems rapidly intensify only hours before landfall. In 2005, Hurricane Katrina breached levees and flooded New Orleans, and Hurricane Rita struck weeks later, reshaping state evacuation policy. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is already inside the most active window, when Gulf heat content peaks. Because many Louisiana routes flood before peak wind, officials urge residents of low-lying parishes and mobile homes to decide early and keep documents, medications, and evacuation plans staged.`;
+
+const adjacent = ["texas", "mississippi"];
+
+const faqs = [
+  {
+    question: `When is hurricane season in ${name}?`,
+    answer: `Louisiana's hurricane season follows the June 1–November 30 window, with the highest threat from August through September as Gulf heat content peaks. Early August is already inside the most active period, so low-lying parishes should pre-stage plans and documents.`
+  },
+  {
+    question: `What was the worst hurricane to hit ${name}?`,
+    answer: `Hurricane Katrina (2005) devastated southeast Louisiana, breaching levees and flooding New Orleans. Hurricane Rita struck weeks later. Together they remain the deadliest and costliest Gulf disasters for the state, reshaping evacuation and levee policy.`
+  },
+  {
+    question: `Does ${name} have hurricane evacuation routes?`,
+    answer: `Yes. Louisiana designates coastal evacuation zones by parish and uses Contraflow on I-10, I-49, and I-59. Because many routes flood early, officials urge residents in low-lying parishes and mobile homes to decide before the storm strengthens.`
+  }
+];
+
+const jsonLd = graph(websiteSchema(), faqSchema(faqs));
+---
+<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={lastModified}>
+  <article class="band" aria-labelledby="tracker-state-title">
+    <div class="inner">
+      <p class="eyebrow">{region} hurricane operations</p>
+      <h1 id="tracker-state-title">{name} Hurricane Tracker – Live Updates</h1>
+      <p class="answer">{intro}</p>
+
+      <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
+      <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
+      <StateAlerts state={code} />
+
+      <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
+      <ul class="check-list">
+        {adjacent.map((slug) => {
+          const neighbor = getStateBySlug(slug);
+          return neighbor ? <li><a href={`/tracker/${neighbor.slug}/`}>{neighbor.name} Hurricane Tracker</a></li> : null;
+        })}
+      </ul>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .answer { font-size: 1.05rem; line-height: 1.75; }
+</style>
