@@ -62,8 +62,20 @@ const jsonLd = graph(
   articleSchema({ title, description, url: site.url, dateModified: lastModified }),
   faqSchema(faqs)
 );
+
+const tools = [
+  { href: "/tools/preparedness-checklist/", icon: "fa-clipboard-check", title: "Preparedness Checklist Generator", body: "Create a kit list for 1–4 people, with optional pet supplies and document reminders." },
+  { href: "/tools/evacuation-decision-helper/", icon: "fa-route", title: "Evacuation Decision Helper", body: "Answer a few household questions to sort your situation into Monitor, Prepare, Act, or Leave." },
+  { href: "/tools/hurricane-brief/", icon: "fa-file-lines", title: "Hurricane Brief Generator", body: "Turn a ZIP code and live official feeds into a printable household brief you can share with family." },
+  { href: "/tools/impact-window-estimator/", icon: "fa-clock", title: "Impact Window Estimator", body: "Use current alert timing and storm context to decide whether to monitor, prepare, act, or leave." },
+  { href: "/tools/storm-distance-calculator/", icon: "fa-location-crosshairs", title: "Storm Distance Calculator", body: "Compare a ZIP code with the current NHC storm position, then verify the forecast and local alerts." }
+];
 ---
+
 <Layout title={title} description={description} canonical={site.url} jsonLd={jsonLd} lastModified={lastModified} showTopAd={true}>
+  <Fragment slot="head">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </Fragment>
   <section class="hero band" aria-labelledby="home-title">
     <div class="inner hero-grid">
       <div>
@@ -92,20 +104,21 @@ const jsonLd = graph(
 
   <section class="band why-hub" id="why-hurricanehub" aria-labelledby="why-heading">
     <div class="inner">
+      <p class="eyebrow">Preparedness platform</p>
       <h2 id="why-heading">Why HurricaneHub?</h2>
       <div class="grid-3 why-grid">
         <article class="why-card">
-          <div class="why-icon" aria-hidden="true">🌪️</div>
+          <span class="why-icon" aria-hidden="true"><i class="fa-solid fa-satellite-dish"></i></span>
           <h3>Real-Time NOAA Data</h3>
           <p>HurricaneHub pulls live storm positions and alerts straight from NOAA and the National Hurricane Center, so you see the same official data meteorologists use—no third-party delays or reinterpretation.</p>
         </article>
         <article class="why-card">
-          <div class="why-icon" aria-hidden="true">📱</div>
+          <span class="why-icon" aria-hidden="true"><i class="fa-solid fa-mobile-screen-button"></i></span>
           <h3>No App Download Needed</h3>
           <p>Everything runs in your browser. Open the tracker, check your state, and build a plan on any phone or laptop—no install, no account, no update prompts getting in the way when a storm approaches.</p>
         </article>
         <article class="why-card">
-          <div class="why-icon" aria-hidden="true">🧹</div>
+          <span class="why-icon" aria-hidden="true"><i class="fa-solid fa-broom"></i></span>
           <h3>Clean, Ad-Light Experience</h3>
           <p>Unlike cluttered weather portals buried in autoplay video and pop-ups, HurricaneHub stays focused on the decision in front of you: monitor, prepare, act, or leave.</p>
         </article>
@@ -121,17 +134,17 @@ const jsonLd = graph(
       <p class="eyebrow">5-second decision path</p>
       <h2 id="quick-actions-heading">What To Do First</h2>
       <div class="grid-3 section-grid">
-        <article class="panel">
+        <article class="state-card">
           <span class="badge danger">Leave</span>
           <h3>Evacuation order or surge zone?</h3>
           <p>Do not wait for the map to look worse. Follow county orders, move early if anyone depends on power or medical equipment, and keep routes flexible.</p>
         </article>
-        <article class="panel">
+        <article class="state-card">
           <span class="badge warn">Act</span>
           <h3>Warning-level wind, surge, flood, or tornado alert?</h3>
           <p>Finish window protection, bring in loose items, charge phones, move vehicles, and check shelter rules before conditions deteriorate.</p>
         </article>
-        <article class="panel">
+        <article class="state-card">
           <span class="badge">Monitor</span>
           <h3>No active local warning?</h3>
           <p>Use the tracker and state page as a watch desk: confirm your zone, review the kit list, and check official advisories twice daily during hurricane season.</p>
@@ -147,9 +160,11 @@ const jsonLd = graph(
       <p class="answer">Start with your state page to combine official NHC storm context, active NWS alerts, county planning notes, and a household decision level.</p>
       <div class="grid-3 section-grid">
         {coastalStates.map((state) => (
-          <article class="panel">
+          <article class="state-card">
             <h3>{state.name} Hurricane Tracker</h3>
-            <p>{state.region}. Key risks include {state.risks.slice(0, 3).join(", ")}.</p>
+            <div class="risk-tags">
+              {state.risks.slice(0, 3).map((risk) => <span class="risk-tag">{risk}</span>)}
+            </div>
             <a href={`/tracker/${state.slug}/`}>Open {state.name}</a>
           </article>
         ))}
@@ -165,31 +180,14 @@ const jsonLd = graph(
         <p class="answer">HurricaneHub is built around household decisions: what to pack, when to prepare, whether to leave early, and which official alert should change your plan.</p>
       </article>
       <div class="tool-grid section-grid">
-        <article class="panel">
-          <h3>Preparedness Checklist Generator</h3>
-          <p>Create a kit list for 1-4 people, with optional pet supplies and document reminders.</p>
-          <a href="/tools/preparedness-checklist/">Build checklist</a>
-        </article>
-        <article class="panel">
-          <h3>Evacuation Decision Helper</h3>
-          <p>Answer a few household questions to sort your situation into Monitor, Prepare, Act, or Leave.</p>
-          <a href="/tools/evacuation-decision-helper/">Check decision level</a>
-        </article>
-        <article class="panel">
-          <h3>Hurricane Brief Generator</h3>
-          <p>Turn a ZIP code and live official feeds into a printable household brief you can share with family.</p>
-          <a href="/tools/hurricane-brief/">Generate a brief</a>
-        </article>
-        <article class="panel">
-          <h3>Impact Window Estimator</h3>
-          <p>Use current alert timing and storm context to decide whether your household should monitor, prepare, act, or leave.</p>
-          <a href="/tools/impact-window-estimator/">Estimate impact window</a>
-        </article>
-        <article class="panel">
-          <h3>Storm Distance Calculator</h3>
-          <p>Compare a ZIP code with the current NHC storm position, then verify the forecast and local alerts.</p>
-          <a href="/tools/storm-distance-calculator/">Check distance</a>
-        </article>
+        {tools.map((tool) => (
+          <article class="tool-card">
+            <span class="tool-icon" aria-hidden="true"><i class="fa-solid {tool.icon}"></i></span>
+            <h3>{tool.title}</h3>
+            <p>{tool.body}</p>
+            <a href={tool.href}>Open tool</a>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -199,44 +197,22 @@ const jsonLd = graph(
       <p class="eyebrow">Differentiation from radar-only tracking</p>
       <h2 id="advantage-heading">What HurricaneHub Adds</h2>
       <div class="grid-2 section-grid">
-        <article class="panel">
+        <article class="state-card">
           <h3>Emergency Decision Layer</h3>
           <p>Stormtracking.io-style radar, satellite, and alert views answer what is happening. HurricaneHub adds what a household should decide next, with source-labeled state alerts and risk thresholds built for search and AI answer engines.</p>
         </article>
-        <article class="panel">
+        <article class="state-card">
           <h3>First-Party Data Notes</h3>
           <p>The MVP records feed path, cache window, and runtime behavior. These notes create information gain for SEO/GEO pages because they explain exactly how official data is acquired and refreshed.</p>
         </article>
       </div>
       <div class="grid-3 section-grid">
         {differentiators.map((item) => (
-          <article class="panel">
+          <article class="state-card">
             <h3>{item.split(" ")[0]} Advantage</h3>
             <p>{item}</p>
           </article>
         ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="band" aria-labelledby="architecture-heading">
-    <div class="inner grid-2">
-      <div>
-        <p class="eyebrow">Cloudflare full-stack shape</p>
-        <h2 id="architecture-heading">Pages, Workers, KV, and R2</h2>
-        <p>Cloudflare Pages serves Astro output. Astro API routes run on Cloudflare Workers, proxy official NOAA/NHC/NWS feeds, cache normalized responses in KV, and leave R2 ready for map tiles, preparedness PDFs, and generated storm brief images.</p>
-      </div>
-      <div class="panel">
-        <h3>Data Flow</h3>
-        <table>
-          <thead><tr><th>Layer</th><th>MVP role</th></tr></thead>
-          <tbody>
-            <tr><td>Pages</td><td>Semantic pages, FAQ, JSON-LD, static assets</td></tr>
-            <tr><td>Workers</td><td>API proxy and normalization</td></tr>
-            <tr><td>KV</td><td>Short-lived NOAA/NWS feed cache</td></tr>
-            <tr><td>R2</td><td>Static emergency assets and future map bundles</td></tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </section>
@@ -247,9 +223,9 @@ const jsonLd = graph(
       <h2 id="city-heading">City Hurricane Trackers</h2>
       <p class="answer">Start with a city page for local planning notes, nearby counties, state alert links, and decision tools.</p>
       <div class="grid-3 section-grid">
-        <article class="panel"><h3>Miami Hurricane Tracker</h3><p>South Florida surge, evacuation traffic, flooding, and rain-band tornado planning.</p><a href="/hurricane-tracker/city/miami/">Open Miami</a></article>
-        <article class="panel"><h3>Tampa Hurricane Tracker</h3><p>Tampa Bay surge, bridge access, evacuation routes, and power outage planning.</p><a href="/hurricane-tracker/city/tampa/">Open Tampa</a></article>
-        <article class="panel"><h3>Houston Hurricane Tracker</h3><p>Bayou flooding, coastal surge, long-duration rain, and extended outage planning.</p><a href="/hurricane-tracker/city/houston/">Open Houston</a></article>
+        <article class="state-card"><h3>Miami Hurricane Tracker</h3><div class="risk-tags"><span class="risk-tag">Surge</span><span class="risk-tag">Flood</span><span class="risk-tag">Tornado</span></div><a href="/hurricane-tracker/city/miami/">Open Miami</a></article>
+        <article class="state-card"><h3>Tampa Hurricane Tracker</h3><div class="risk-tags"><span class="risk-tag">Surge</span><span class="risk-tag">Bridge</span><span class="risk-tag">Outage</span></div><a href="/hurricane-tracker/city/tampa/">Open Tampa</a></article>
+        <article class="state-card"><h3>Houston Hurricane Tracker</h3><div class="risk-tags"><span class="risk-tag">Bayou</span><span class="risk-tag">Surge</span><span class="risk-tag">Rain</span></div><a href="/hurricane-tracker/city/houston/">Open Houston</a></article>
       </div>
     </div>
   </section>
@@ -268,42 +244,100 @@ const jsonLd = graph(
     margin-top: 22px;
   }
 
-  .tool-grid {
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: clamp(16px, 2vw, 22px);
+  /* Subtle tech grid across the whole homepage body (theme-aware, faint). */
+  :global(body) {
+    background-image: radial-gradient(circle at 1px 1px, rgba(14, 111, 143, 0.05) 1px, transparent 0);
+    background-size: 28px 28px;
   }
 
-  .tool-grid .panel {
-    grid-column: span 2;
+  /* ---------- Hero: command-center treatment ---------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
   }
 
-  .tool-grid .panel:nth-last-child(2) {
-    grid-column: 2 / span 2;
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+    background-size: 42px 42px;
+    -webkit-mask-image: radial-gradient(ellipse at 28% 42%, #000 28%, transparent 78%);
+    mask-image: radial-gradient(ellipse at 28% 42%, #000 28%, transparent 78%);
+    pointer-events: none;
   }
 
-  .tool-grid .panel:last-child {
-    grid-column: 4 / span 2;
+  .hero::after {
+    content: "";
+    position: absolute;
+    width: 52%;
+    height: 130%;
+    top: -25%;
+    right: -8%;
+    background: radial-gradient(circle, rgba(120, 220, 240, 0.30), transparent 62%);
+    filter: blur(46px);
+    pointer-events: none;
   }
 
-  @media (max-width: 920px) {
-    .tool-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .tool-grid .panel,
-    .tool-grid .panel:nth-last-child(2),
-    .tool-grid .panel:last-child {
-      grid-column: auto;
-    }
+  .hero h1 {
+    background: linear-gradient(120deg, #ffffff 0%, #bdeef7 55%, #74c7d9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
-  @media (max-width: 560px) {
-    .tool-grid {
-      grid-template-columns: 1fr;
-    }
+  .decision-card {
+    box-shadow: 0 26px 64px rgba(0, 0, 0, 0.38);
   }
 
+  .decision-card .metric {
+    background: rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.18);
+    color: #fff;
+  }
+
+  .decision-card .metric span {
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .decision-card .source-note {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* ---------- Shared card surface (tech glass) ---------- */
+  .why-card,
+  .state-card,
+  .tool-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--panel);
+    box-shadow: var(--soft-shadow);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+
+  .why-card:hover,
+  .state-card:hover,
+  .tool-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+    border-color: rgba(14, 111, 143, 0.4);
+  }
+
+  .why-card::before,
+  .state-card::before,
+  .tool-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--ocean), #6fd0e0);
+  }
+
+  /* ---------- Why cards ---------- */
   .why-hub {
     background: #f0f6ff;
   }
@@ -313,25 +347,140 @@ const jsonLd = graph(
   }
 
   .why-card {
-    background: #fff;
-    border: 1px solid #d7e6fb;
-    border-radius: 14px;
-    padding: 22px 20px;
-    box-shadow: 0 1px 2px rgba(20, 50, 90, 0.04);
+    padding: 26px 22px;
   }
 
   .why-icon {
-    font-size: 2rem;
-    margin-bottom: 8px;
-    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(14, 111, 143, 0.10);
+    color: var(--ocean);
+    font-size: 1.35rem;
+    margin-bottom: 14px;
   }
 
   .why-card h3 {
     margin: 0 0 8px;
   }
 
+  .why-card p {
+    margin: 0;
+    color: var(--muted);
+  }
+
   .why-cta {
     margin-top: 26px;
     text-align: center;
+  }
+
+  /* ---------- State / generic cards ---------- */
+  .state-card {
+    padding: 20px;
+  }
+
+  .state-card h3 {
+    margin: 0 0 10px;
+  }
+
+  .state-card p {
+    color: var(--muted);
+    margin: 0 0 14px;
+  }
+
+  .risk-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 14px;
+  }
+
+  .risk-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: rgba(14, 111, 143, 0.10);
+    color: var(--ocean);
+    border: 1px solid rgba(14, 111, 143, 0.18);
+  }
+
+  .state-card a {
+    font-weight: 800;
+    color: var(--ocean);
+    text-decoration: none;
+  }
+
+  .state-card a:hover {
+    text-decoration: underline;
+  }
+
+  /* ---------- Badges (decision levels) ---------- */
+  .badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    background: var(--ocean);
+    color: #fff;
+  }
+
+  .badge.danger { background: var(--signal); }
+  .badge.warn { background: var(--amber); }
+
+  /* ---------- Tools grid (clean, no fragile centering) ---------- */
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: clamp(16px, 2vw, 22px);
+  }
+
+  .tool-card {
+    display: flex;
+    flex-direction: column;
+    padding: 22px 20px;
+  }
+
+  .tool-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(14, 111, 143, 0.10);
+    color: var(--ocean);
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+  }
+
+  .tool-card h3 {
+    margin: 0 0 8px;
+  }
+
+  .tool-card p {
+    color: var(--muted);
+    margin: 0 0 16px;
+  }
+
+  .tool-card a {
+    margin-top: auto;
+    align-self: flex-start;
+    font-weight: 800;
+    color: var(--ocean);
+    text-decoration: none;
+  }
+
+  .tool-card a:hover {
+    text-decoration: underline;
   }
 </style>
