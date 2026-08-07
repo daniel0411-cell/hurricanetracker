@@ -16,7 +16,7 @@ rules = [
 ]
 
 [assets]
-binding = "HURRICANEHUB_STATIC"
+binding = "ASSETS"
 directory = "./dist/client"
 
 [[kv_namespaces]]
