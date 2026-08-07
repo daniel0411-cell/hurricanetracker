@@ -1,10 +1,19 @@
 ---
+import { useTranslations, type Lang } from "../i18n/ui";
+
+type Props = {
+  lang?: Lang;
+};
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
 ---
+
 <footer class="site-footer">
-  <p>Uses official NOAA, National Hurricane Center, and National Weather Service public feeds. Decision support only; follow official alerts at weather.gov.</p>
+  <p>{t("footer.text")}</p>
   <div class="footer-links">
-    <a href="/sitemap.xml">Sitemap</a>
-    <a href="/rss.xml">RSS</a>
+    <a href="/sitemap.xml">{t("footer.sitemap")}</a>
+    <a href="/rss.xml">{t("footer.rss")}</a>
     <span><!-- FTC DISCLOSURE: Future affiliate links --></span>
   </div>
 </footer>

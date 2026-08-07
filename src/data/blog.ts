@@ -618,5 +618,179 @@ export const blogPosts: BlogPost[] = [
         answer: "No. The Saffir-Simpson scale rates hurricanes by wind speed only. Storm surge, rainfall flooding, and tornado risk are separate hazards that can be deadly even in lower-category storms."
       }
     ]
+  },
+  {
+    slug: "how-to-read-the-hurricane-cone-of-uncertainty",
+    title: "How to Read the Hurricane Cone of Uncertainty",
+    description: "Learn what the National Hurricane Center cone really represents, common misreadings, and how to use it with watches, warnings, and storm surge maps.",
+    datePublished: "2026-08-07",
+    dateModified: "2026-08-07",
+    image: "/images/blog/hurricane-cone-of-uncertainty.svg",
+    imageAlt: "A stylized coastal map showing a hurricane forecast track with a widening cone of uncertainty extending into the ocean.",
+    sections: [
+      {
+        heading: "What the Cone Actually Shows",
+        body:
+          "The cone is a visualization of forecast-track uncertainty. It is drawn so that the center of the storm is expected to remain inside the cone roughly two-thirds of the time, based on historical forecast errors. It is not a representation of the storm's size, impacts, or warning area."
+      },
+      {
+        heading: "What the Cone Does Not Show",
+        body: "Many people misread the cone and assume only the areas inside it are at risk. In reality, hazards can extend far outside the cone.",
+        bullets: [
+          "The cone does not show storm size. Tropical-storm-force winds can reach dozens of miles outside the cone.",
+          "The cone does not show storm surge or rainfall flooding, which can occur outside the track.",
+          "The center line is not a wall; storms often track to the left or right of it.",
+          "The cone widens with time because forecast uncertainty grows farther into the future."
+        ]
+      },
+      {
+        heading: "How to Use the Cone in Decisions",
+        body:
+          "Use the cone as one input among several. If your location is inside or near the cone, begin monitoring NHC advisories and local NWS alerts closely. If the cone shifts toward your area, move from preparation to action. If the cone shifts away, continue watching until the storm has passed, because cones can move back."
+      },
+      {
+        heading: "Pair the Cone With Other NHC Products",
+        body:
+          "The cone of uncertainty should be read alongside the storm surge watch/warning graphic, the rainfall forecast, the wind-field map, and the official discussion. Each product answers a different question: where, how high the water, how much rain, and how strong the wind."
+      }
+    ],
+    faqs: [
+      {
+        question: "Does being outside the cone mean I am safe?",
+        answer: "No. The cone only represents uncertainty in the forecast track of the storm's center. Wind, rain, surge, and tornadoes can affect areas well outside the cone. Always follow local watches and warnings."
+      },
+      {
+        question: "Why does the cone get wider over time?",
+        answer: "Forecast uncertainty increases with time. The National Hurricane Center bases the cone width on the average track error of past forecasts at 12, 24, 36, 48, 72, 96, and 120 hours. Later forecast periods have larger possible errors, so the cone widens."
+      },
+      {
+        question: "Is the center line the most likely path?",
+        answer: "The center line represents the single best estimate of where the storm center will go, but it is not more likely than nearby points inside the cone. Impacts can occur on either side of the line."
+      }
+    ]
+  },
+  {
+    slug: "hurricane-insurance-deductibles-guide",
+    title: "Hurricane Insurance Deductibles: What Coastal Homeowners Should Know",
+    description: "Understand percentage hurricane deductibles, named-storm versus windstorm deductibles, flood coverage gaps, and how to review your policy before a storm.",
+    datePublished: "2026-08-07",
+    dateModified: "2026-08-07",
+    image: "/images/blog/hurricane-insurance-deductibles.svg",
+    imageAlt: "A coastal home under a protective umbrella next to an insurance policy document and a calculator, representing hurricane deductible review.",
+    sections: [
+      {
+        heading: "Hurricane Deductible vs Standard Deductible",
+        body:
+          "A standard homeowners deductible is usually a flat dollar amount, such as $1,000. A hurricane deductible is often a percentage of your dwelling coverage, commonly 1%, 2%, or even 5%. On a $400,000 policy, a 2% deductible means you pay $8,000 out of pocket before insurance covers the rest."
+      },
+      {
+        heading: "Named-Storm, Windstorm, and Hurricane Deductibles",
+        body: "Coastal states use different triggers for these special deductibles. Know which one applies in your policy and when it is activated.",
+        bullets: [
+          "Named-storm deductible applies once a tropical storm or hurricane is named.",
+          "Hurricane deductible applies only when the storm reaches hurricane strength.",
+          "Windstorm deductible may apply to any damaging wind, named or not.",
+          "Trigger rules vary by state and insurer, so read the declarations page carefully."
+        ]
+      },
+      {
+        heading: "Flood Coverage Is Separate",
+        body:
+          "Standard homeowners insurance does not cover storm surge or inland flooding. You need a separate flood insurance policy, typically through the National Flood Insurance Program or a private carrier. Flood policies often have a 30-day waiting period, so waiting until a storm is named is usually too late."
+      },
+      {
+        heading: "Prepare Before Storm Season",
+        body:
+          "Review your declarations page, update your home inventory, photograph rooms and valuables, and store policy numbers and adjuster contacts in a waterproof, portable format. Confirm your deductible amount and whether it is a percentage or flat dollar value."
+      },
+      {
+        heading: "After a Storm: Document and Claim",
+        body:
+          "Once it is safe, photograph all damage before cleanup, keep receipts for emergency repairs, and contact your insurer promptly. A well-documented inventory will speed the claim process and help justify replacement-cost coverage."
+      }
+    ],
+    faqs: [
+      {
+        question: "Is storm surge covered by homeowners insurance?",
+        answer: "No. Storm surge is considered flooding and is excluded from standard homeowners policies. You need a separate flood insurance policy to cover surge-related damage."
+      },
+      {
+        question: "Can I change my hurricane deductible right before a storm?",
+        answer: "Usually no. Insurers place moratoriums on new or changed coverage once a storm is named or threatens an area. Make deductible and coverage decisions well before hurricane season."
+      },
+      {
+        question: "What records should I keep for a hurricane insurance claim?",
+        answer: "Keep your declarations page, recent home photos, a room-by-room inventory with purchase dates and values, receipts for repairs and temporary lodging, and correspondence with your adjuster. Store copies offsite or in cloud storage."
+      }
+    ]
+  },
+  {
+    slug: "hurricane-tracking-after-landfall-inland-flooding-tornadoes",
+    title: "Hurricane Tracking After Landfall: Why Inland Flooding and Tornado Alerts Matter Most",
+    description: "Most hurricane deaths happen after landfall from inland flooding and tornadoes. Learn how real-time hurricane tracking and extreme weather alerts keep inland residents safe.",
+    datePublished: "2026-08-07",
+    dateModified: "2026-08-07",
+    image: "/images/blog/hurricane-inland-flooding-tornado-alerts.svg",
+    imageAlt: "Hurricane moving from ocean to inland with tornadoes, flood waters, and warning banners illustrating post-landfall threats.",
+    sections: [
+      {
+        heading: "Direct Answer",
+        body: "Water, not wind, causes roughly 90 percent of hurricane-related deaths. After a hurricane makes landfall, inland flooding and tornado outbreaks in rain bands continue to threaten communities hundreds of miles from the coast. Real-time hurricane tracking and extreme weather alerts are just as critical inland as they are on the shoreline."
+      },
+      {
+        heading: "The Hidden Killer After Landfall: Inland Flooding",
+        body: "Storm surge dominates coastal headlines, but inland flooding—driven by extreme rainfall on saturated ground—causes more fatalities in most hurricane seasons. When a hurricane moves inland, it often slows down. Warm, moisture-laden air continues to feed the system even after the eye collapses. Orographic lifting along mountains and frontal boundaries can squeeze out rainfall totals that double or triple the original coastal forecast. Hurricane Harvey dropped over 60 inches of rain in Texas after stalling inland. Hurricane Helene in 2024 caused catastrophic Appalachian flooding hundreds of miles from landfall."
+      },
+      {
+        heading: "How Inland Flood Warnings Differ from Coastal Surge Alerts",
+        body: "Coastal residents watch storm surge warnings and evacuation zones. Inland residents need a different alert vocabulary. A Flash Flood Warning means life-threatening flooding is imminent or already occurring—the most dangerous inland alert. A River Flood Warning means rivers and streams are expected to exceed flood stage, often hours or days after the heaviest rain. The Weather Prediction Center also issues Excessive Rainfall Outlooks for areas where rainfall rates could overwhelm drainage systems. Unlike surge, which arrives in hours, inland flooding can build over days. A real-time hurricane tracker that shows rainfall accumulation forecasts—not just the storm center—is essential for inland safety."
+      },
+      {
+        heading: "Tornado Outbreaks Inside Hurricane Rain Bands",
+        body: "Every major hurricane that makes landfall in the United States spawns tornadoes. The right-front quadrant—where wind shear and low-level spin are maximized—can produce dozens of tornado warnings across a 48-hour window. Hurricane Ivan in 2004 generated 120 tornadoes across nine states, from Florida to Pennsylvania. Hurricane Katrina produced 57 confirmed tornadoes. These are not weak spin-ups; hurricane-spawned tornadoes can reach EF2 intensity and develop with almost no visual warning because they are wrapped in heavy rain."
+      },
+      {
+        heading: "Reading Hurricane-Spawned Tornado Alerts",
+        body: "The tornado warning system works the same way during a hurricane as it does during a spring outbreak, but the context is different. Tornado warnings inside hurricane rain bands often have shorter lead times—sometimes five to ten minutes. Doppler radar can detect rotation inside rain bands, but debris signatures are harder to confirm when rain clutter is intense. Nighttime tornadoes during hurricanes are especially dangerous because people have lost power and cannot see or hear warnings. This is why extreme weather alerts must remain active on your phone even after the hurricane 'passes' your location. The storm may be 100 miles away, but its outer rain bands can still trigger tornado warnings in your county."
+      },
+      {
+        heading: "Why Real-Time Hurricane Tracking Continues Inland",
+        body: "A common misconception is that a hurricane 'ends' at landfall. In reality, the National Hurricane Center continues issuing advisories until the system dissipates or transitions to post-tropical. These advisories include inland rainfall forecasts, tornado risk areas, and wind field maps extending hundreds of miles from the center. Modern real-time hurricane tracking tools use ground-based NEXRAD radar to track rain band rotation and tornado circulations, satellite infrared imagery to monitor remaining convection, and surface weather station networks to report actual wind gusts, pressure falls, and rainfall totals. For inland residents, watching the storm's track after landfall is as important as watching the approach. A hurricane that slows down over Tennessee can produce more local rainfall in 24 hours than a fast-moving Category 3 that crosses Florida in six hours."
+      },
+      {
+        heading: "Tools for Inland Extreme Weather Alerts",
+        body: "Inland households should configure multiple alert layers. Wireless Emergency Alerts (WEA) on every smartphone provide tornado and flash flood warnings. NOAA Weather Radio with battery backup works when cell towers fail. Local NWS office feeds deliver county-specific warning language. A real-time hurricane tracker like HurricaneHub overlays NWS active alerts, radar, and satellite on a single map. Do not rely on coastal landfall as your 'all clear.' Wait for your local National Weather Service office to confirm that all warnings have expired for your county."
+      },
+      {
+        heading: "Inland Safety Checklist During Hurricane Remnants",
+        body: "If a hurricane or tropical storm is tracking inland toward your region, complete these actions before the rain arrives:",
+        bullets: [
+          "Check your flood zone, even if you live hundreds of miles from the coast. FEMA flood maps and local watershed data identify flash-flood-prone areas.",
+          "Move vehicles to higher ground if your neighborhood has drainage history.",
+          "Charge backup batteries and medical devices before power lines start failing.",
+          "Pack a go-bag with the same urgency as coastal residents. Inland flash floods can force evacuations with little notice.",
+          "Identify interior rooms on the lowest floor for tornado warnings—typically a windowless bathroom or closet.",
+          "Monitor upstream rainfall. If a storm drops 10 inches of rain in the mountains above your town, the river may not crest for 12 to 24 hours."
+        ]
+      },
+      {
+        heading: "Track the Full Storm Lifecycle with HurricaneHub",
+        body: "HurricaneHub is built to track hurricanes from first advisory to final dissipation. Our real-time hurricane tracker overlays GOES-East satellite imagery, RainViewer Doppler radar, NWS active alerts by state, and a live alert heat map so you can see inland tornado and flood warnings as they appear—not just coastal wind forecasts. During the 2026 Atlantic hurricane season, bookmark HurricaneHub and keep the radar page open even after a storm makes landfall. The deadliest phase of a hurricane often happens where the cameras have stopped rolling. Use real-time hurricane tracking and extreme weather alerts to stay ahead of inland flooding, tornadoes, and power outages until the final warning expires."
+      }
+    ],
+    faqs: [
+      {
+        question: "Are inland areas safe once a hurricane makes landfall?",
+        answer: "No. Inland flooding, tornadoes, and damaging winds can continue for days after landfall. Some of the deadliest hurricane impacts have occurred hundreds of miles from the coast."
+      },
+      {
+        question: "What is the most dangerous inland hurricane hazard?",
+        answer: "Inland flooding, including flash floods and river flooding, causes the majority of hurricane-related fatalities. Tornadoes spawned by hurricane rain bands are the second most dangerous inland threat."
+      },
+      {
+        question: "How long should I keep monitoring extreme weather alerts after a hurricane passes?",
+        answer: "Continue monitoring until your local National Weather Service office confirms that all warnings have expired for your county. Remnant systems can regenerate or produce new tornado and flood warnings far from the original center."
+      }
+    ]
   }
 ];

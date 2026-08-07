@@ -1,0 +1,260 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import ReminderSignup from "../../components/ReminderSignup.astro";
+import Layout from "../../layouts/Layout.astro";
+import { coastalStates } from "../../data/states";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { site } from "../../data/site";
+import type { NhcStorm, NwsAlert } from "../../lib/weather";
+
+const title = "Rastreador de Huracanes de Norteamérica y Centro de Decisiones de Emergencia";
+const description =
+  "Siga huracanes activos en Norteamérica, alertas oficiales del NWS, niveles de decisión de evacuación y acciones de preparación con datos de NOAA, NHC y NWS.";
+
+type StormFeed = {
+  storms?: Array<NhcStorm & { summary?: string }>;
+  fetchedAt?: string;
+  updatedAt?: string;
+};
+
+type AlertFeed = {
+  alerts?: NwsAlert[];
+  decisionLevel?: string;
+  fetchedAt?: string;
+  updatedAt?: string;
+};
+
+async function loadJson<T>(path: string): Promise<T | null> {
+  try {
+    const response = await fetch(new URL(path, Astro.url));
+    if (!response.ok) {
+      console.error("HurricaneHub ES feed error", { path, status: response.status });
+      return null;
+    }
+    return (await response.json()) as T;
+  } catch (error) {
+    console.error("HurricaneHub ES feed failed", { path, error });
+    return null;
+  }
+}
+
+const [stormFeed, floridaAlertFeed] = await Promise.all([
+  loadJson<StormFeed>("/api/nhc/current.json"),
+  loadJson<AlertFeed>("/api/nws/alerts.json?area=FL")
+]);
+
+const storms = stormFeed?.storms ?? [];
+const floridaAlerts = floridaAlertFeed?.alerts ?? [];
+const featuredStateName = "Florida";
+const featuredDecisionLevel = floridaAlertFeed?.decisionLevel ?? (storms.length ? "Prepare" : "Monitor");
+const lastModified = floridaAlertFeed?.updatedAt ?? stormFeed?.updatedAt ?? site.contentLastModified;
+const nextAction =
+  featuredDecisionLevel === "Leave"
+    ? "Siga las órdenes locales de evacuación ahora."
+    : featuredDecisionLevel === "Act"
+      ? "Mueva personas vulnerables y termine acciones de protección."
+      : featuredDecisionLevel === "Prepare"
+        ? "Termine suministros, documentos, combustible y plan de ruta."
+        : "Monitoree avisos oficiales y confirme su zona.";
+
+const esFaqs = [
+  {
+    question: "¿Es gratis HurricaneHub?",
+    answer:
+      "Sí. HurricaneHub usa fuentes públicas de NOAA y el Centro Nacional de Huracanes y es gratuito. Siempre cruce la información con los avisos oficiales de hurricanes.gov y weather.gov."
+  },
+  {
+    question: "¿Con qué frecuencia se actualizan los datos?",
+    answer:
+      "Los avisos del NHC suelen actualizarse cada seis horas, y cada tres horas cuando un ciclón está a menos de 48 horas de tocar tierra. Las alertas del NWS se refrescan según emisiones oficiales."
+  },
+  {
+    question: "¿Puedo confiar solo en el radar?",
+    answer:
+      "No. El radar muestra dónde llueve ahora, pero no el peligro de marejada ciclónica, inundaciones ni tornados. Use radar, satélite y alertas oficiales juntas para decidir."
+  }
+];
+
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url: `${site.url}/es/`, dateModified: lastModified }),
+  faqSchema(esFaqs)
+);
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonical={`${site.url}/es/`}
+  jsonLd={jsonLd}
+  lastModified={lastModified}
+  lang="es"
+  showTopAd={true}
+>
+  <section class="hero band" aria-labelledby="home-title">
+    <div class="inner hero-grid">
+      <div>
+        <p class="eyebrow">Operaciones de huracanes en Norteamérica</p>
+        <h1 id="home-title">HurricaneHub</h1>
+        <p class="answer">
+          HurricaneHub muestra huracanes activos cerca de Norteamérica, contexto oficial del NHC, advertencias estatales del NWS y herramientas de decisión de emergencia para que los hogares costeros monitoreen, preparen, actúen o evacúen con menos pestañas abiertas.
+        </p>
+        <p class="section-actions">
+          <a class="action-link" href="/tools/my-hurricane-dashboard/">Crear mi panel de huracanes</a>
+          <a class="action-link secondary-action" href="/tools/local-risk-plan/">Revisar riesgo local</a>
+        </p>
+      </div>
+      <div class="decision-card" aria-label="Instantánea de decisión de emergencia actual">
+        <p class="eyebrow">Instantánea actual</p>
+        <h2>{featuredDecisionLevel}</h2>
+        <p>{nextAction}</p>
+        <div class="dashboard compact-dashboard" aria-label="Métricas de fuentes oficiales actuales">
+          <div class="metric"><strong>{storms.length}</strong><span>sistemas NHC activos</span></div>
+          <div class="metric"><strong>{floridaAlerts.length}</strong><span>alertas NWS en {featuredStateName}</span></div>
+        </div>
+        <p class="source-note">Fuente oficial de {featuredStateName} consultada {new Date(lastModified).toLocaleString("es-ES", { timeZone: "UTC" })} UTC.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="quick-actions-heading">
+    <div class="inner">
+      <p class="eyebrow">Ruta de decisión en 5 segundos</p>
+      <h2 id="quick-actions-heading">Qué Hacer Primero</h2>
+      <div class="grid-3 section-grid">
+        <article class="panel">
+          <span class="badge danger">Evacuar</span>
+          <h3>¿Orden de evacuación o zona de marejada?</h3>
+          <p>No espere a que el mapa empeore. Siga las órdenes del condado, salga temprano si alguien depende de energía o equipo médico, y mantenga rutas flexibles.</p>
+        </article>
+        <article class="panel">
+          <span class="badge warn">Actuar</span>
+          <h3>¿Alerta por viento, marejada, inundación o tornado?</h3>
+          <p>Termine de proteger ventanas, guarde objetos sueltos, cargue teléfonos, mueva vehículos y revise reglas de refugio antes de que el clima empeore.</p>
+        </article>
+        <article class="panel">
+          <span class="badge">Monitorear</span>
+          <h3>¿Sin alerta local activa?</h3>
+          <p>Use el rastreador y la página estatal como mesa de operaciones: confirme su zona, revise la lista de suministros y consulte avisos oficiales dos veces al día durante la temporada.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="state-heading">
+    <div class="inner">
+      <p class="eyebrow">Elija su estado</p>
+      <h2 id="state-heading">Rastreadores de Huracanes por Estado</h2>
+      <p class="answer">Comience por la página de su estado para combinar contexto oficial del NHC, alertas activas del NWS, notas de planeación por condado y un nivel de decisión para el hogar.</p>
+      <div class="grid-3 section-grid">
+        {coastalStates.map((state) => (
+          <article class="panel">
+            <h3>Rastreador de Huracanes {state.name}</h3>
+            <p>{state.region}. Los riesgos principales incluyen {state.risks.slice(0, 3).join(", ")}.</p>
+            <a href={`/hurricane-tracker/${state.slug}/`}>Abrir {state.name}</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="tools-heading">
+    <div class="inner">
+      <article class="section-intro">
+        <p class="eyebrow">Decisiones de emergencia</p>
+        <h2 id="tools-heading">Herramientas Que Convierten Alertas en Acciones</h2>
+        <p class="answer">HurricaneHub se construye alrededor de decisiones del hogar: qué empacar, cuándo prepararse, si evacuar temprano y qué alerta oficial debe cambiar su plan.</p>
+      </article>
+      <div class="tool-grid section-grid">
+        <article class="panel">
+          <h3>Generador de Lista de Preparación</h3>
+          <p>Cree una lista de suministros para 1-4 personas, con opciones para mascotas y recordatorios de documentos.</p>
+          <a href="/tools/preparedness-checklist/">Crear lista</a>
+        </article>
+        <article class="panel">
+          <h3>Ayudante de Decisión de Evacuación</h3>
+          <p>Responda unas preguntas del hogar para clasificar su situación en Monitorear, Preparar, Actuar o Evacuar.</p>
+          <a href="/tools/evacuation-decision-helper/">Ver nivel de decisión</a>
+        </article>
+        <article class="panel">
+          <h3>Generador de Resumen de Huracán</h3>
+          <p>Convierta un código ZIP y fuentes oficiales en un resumen imprimible para compartir con la familia.</p>
+          <a href="/tools/hurricane-brief/">Generar resumen</a>
+        </article>
+        <article class="panel">
+          <h3>Estimador de Ventana de Impacto</h3>
+          <p>Use el tiempo actual de alertas y el contexto de la tormenta para decidir si su hogar debe monitorear, preparar, actuar o evacuar.</p>
+          <a href="/tools/impact-window-estimator/">Estimar ventana</a>
+        </article>
+        <article class="panel">
+          <h3>Calculadora de Distancia a la Tormenta</h3>
+          <p>Compare un código ZIP con la posición actual del NHC y luego verifique el pronóstico y alertas locales.</p>
+          <a href="/tools/storm-distance-calculator/">Ver distancia</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="city-heading">
+    <div class="inner">
+      <p class="eyebrow">Páginas locales</p>
+      <h2 id="city-heading">Rastreadores de Huracanes por Ciudad</h2>
+      <p class="answer">Comience por una página de ciudad para notas de planeación local, condados cercanos, enlaces de alertas estatales y herramientas de decisión.</p>
+      <div class="grid-3 section-grid">
+        <article class="panel"><h3>Rastreador de Huracanes Miami</h3><p>Marejada en el sur de Florida, tráfico de evacuación, inundaciones y planificación de tornados en bandas de lluvia.</p><a href="/hurricane-tracker/city/miami/">Abrir Miami</a></article>
+        <article class="panel"><h3>Rastreador de Huracanes Tampa</h3><p>Marejada en la bahía de Tampa, acceso a puentes, rutas de evacuación y planificación de cortes de energía.</p><a href="/hurricane-tracker/city/tampa/">Abrir Tampa</a></article>
+        <article class="panel"><h3>Rastreador de Huracanes Houston</h3><p>Inundaciones en bayous, marejada costera, lluvia de larga duración y planificación de cortes extendidos.</p><a href="/hurricane-tracker/city/houston/">Abrir Houston</a></article>
+      </div>
+    </div>
+  </section>
+
+  <ReminderSignup source="Spanish homepage reminder signup" />
+
+  <FaqBlock faqs={esFaqs} />
+</Layout>
+
+<style>
+  .secondary-action {
+    background: var(--navy);
+  }
+
+  .section-grid {
+    margin-top: 22px;
+  }
+
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: clamp(16px, 2vw, 22px);
+  }
+
+  .tool-grid .panel {
+    grid-column: span 2;
+  }
+
+  .tool-grid .panel:nth-last-child(2) {
+    grid-column: 2 / span 2;
+  }
+
+  .tool-grid .panel:last-child {
+    grid-column: 4 / span 2;
+  }
+
+  @media (max-width: 920px) {
+    .tool-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .tool-grid .panel,
+    .tool-grid .panel:nth-last-child(2),
+    .tool-grid .panel:last-child {
+      grid-column: auto;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .tool-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

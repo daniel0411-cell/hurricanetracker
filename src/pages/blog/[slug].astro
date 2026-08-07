@@ -17,13 +17,14 @@ const lastModified = new Date(post.dateModified).toISOString();
 const relatedPosts = blogPosts.filter((item) => item.slug !== post.slug).slice(0, 3);
 const postFaqs = post.faqs?.length ? post.faqs : faqs;
 const imageUrl = new URL(post.image, site.url).href;
+const ogImage = post.image.replace(/\.svg$/i, ".png").replace("/images/blog/", "/images/blog/og/");
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, datePublished: new Date(post.datePublished).toISOString(), dateModified: lastModified, image: imageUrl }),
   faqSchema(postFaqs)
 );
 ---
-<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified} image={post.image}>
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified} image={post.image} ogImage={ogImage}>
   <article class="band" aria-labelledby="post-title">
     <div class="inner">
       <p class="eyebrow">HurricaneHub blog</p>

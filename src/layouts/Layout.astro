@@ -5,6 +5,7 @@ import GoogleTag from "../components/GoogleTag.astro";
 import Header from "../components/Header.astro";
 import SEO from "../components/SEO.astro";
 import { site } from "../data/site";
+import { defaultLang, type Lang } from "../i18n/ui";
 
 type Props = {
   title: string;
@@ -13,6 +14,8 @@ type Props = {
   jsonLd?: object;
   lastModified?: string;
   image?: string;
+  ogImage?: string;
+  lang?: Lang;
   showTopAd?: boolean;
   showBottomAd?: boolean;
 };
@@ -24,13 +27,15 @@ const {
   jsonLd,
   lastModified,
   image,
+  ogImage,
+  lang = defaultLang,
   showTopAd = false,
   showBottomAd = false
 } = Astro.props;
 const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
 ---
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <GoogleTag />
     <script is:inline>
@@ -55,19 +60,20 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
       jsonLd={jsonLd}
       lastModified={lastModified}
       image={image}
+      ogImage={ogImage}
     />
     <link rel="manifest" href="/manifest.webmanifest" />
     <slot name="head" />
   </head>
   <body class="site-body flex flex-col min-h-screen">
-    <Header />
-    <Disclaimer />
+    <Header lang={lang} />
+    <Disclaimer lang={lang} />
     {showTopAd && <div class="ad-slot ad-slot-top"><!-- AD SLOT 1: 728x90 Desktop / 320x100 Mobile --></div>}
     <main class="flex-grow">
       <slot />
       {showBottomAd && <div class="ad-slot ad-slot-bottom"><!-- AD SLOT 2: 300x250 Rectangle --></div>}
     </main>
-    <Footer />
+    <Footer lang={lang} />
     <script is:inline>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", function () {

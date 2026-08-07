@@ -1,5 +1,14 @@
 ---
+import { useTranslations, type Lang } from "../i18n/ui";
+
+type Props = {
+  lang?: Lang;
+};
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
 ---
+
 <aside class="disclaimer" aria-label="NOAA and National Hurricane Center data disclaimer">
-  <p>⚠️ Data sourced from NOAA/National Hurricane Center. This site is for informational purposes only and should not be used for life-critical decisions. Please rely on official alerts at <a href="https://www.weather.gov/">weather.gov</a>.</p>
+  <p set:html={t("disclaimer.text")} />
 </aside>

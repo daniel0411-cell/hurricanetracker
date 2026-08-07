@@ -64,6 +64,56 @@ export function articleSchema(params: {
   };
 }
 
+export function blogPostingSchema(params: {
+  title: string;
+  description: string;
+  url: string;
+  datePublished: string;
+  dateModified: string;
+  image?: string;
+  authorName?: string;
+}) {
+  return {
+    "@type": "BlogPosting",
+    headline: params.title,
+    description: params.description,
+    url: params.url,
+    image: params.image,
+    datePublished: params.datePublished,
+    dateModified: params.dateModified,
+    author: {
+      "@type": "Organization",
+      name: params.authorName ?? site.name
+    },
+    publisher: organizationSchema(),
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": params.url
+    },
+    about: ["Hurricane safety", "Emergency preparedness", "Weather alerts"]
+  };
+}
+
+export function howToSchema(params: {
+  name: string;
+  description: string;
+  url?: string;
+  steps: Array<{ name: string; text: string }>;
+}) {
+  return {
+    "@type": "HowTo",
+    name: params.name,
+    description: params.description,
+    ...(params.url ? { url: params.url } : {}),
+    step: params.steps.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step.name,
+      text: step.text
+    }))
+  };
+}
+
 export function webApplicationSchema(params: {
   name: string;
   description: string;

@@ -1,0 +1,37 @@
+---
+export const prerender = true;
+
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+
+const title = "Page not found";
+const description = "We could not find the page you were looking for. Use the links below to return to the live hurricane tracker, radar, alerts, or preparedness guide.";
+const canonical = `${site.url}/404/`;
+---
+
+<Layout title={title} description={description} canonical={canonical} lastModified={site.contentLastModified}>
+  <section class="band" aria-labelledby="not-found-title">
+    <div class="inner text-center">
+      <p class="eyebrow">Error 404</p>
+      <h1 id="not-found-title">That page could not be found.</h1>
+      <p class="answer">
+        The link may be outdated or the address may have been mistyped. Use the navigation above or the links below to get back to the tools that matter during hurricane season.
+      </p>
+      <div class="section-actions justify-center">
+        <a class="action-link" href="/">Go home</a>
+        <a class="action-link" href="/tracker/">Live tracker</a>
+        <a class="action-link" href="/radar/">Interactive radar</a>
+        <a class="action-link" href="/alerts/">Active alerts</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .text-center {
+    text-align: center;
+  }
+  .justify-center {
+    justify-content: center;
+  }
+</style>

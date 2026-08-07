@@ -29,6 +29,7 @@ const routes = [
   { path: "storm-archive/", lastmod: updated, priority: "0.7", changefreq: "daily" },
   { path: "blog/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
   ...blogPosts.map((post) => ({ path: `blog/${post.slug}/`, lastmod: new Date(post.dateModified).toISOString(), priority: "0.8", changefreq: "monthly" })),
+  { path: "es/", lastmod: updated, priority: "0.9", changefreq: "daily" },
   { path: "about/", lastmod: updated, priority: "0.8", changefreq: "monthly" }
 ];
 

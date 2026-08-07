@@ -1,0 +1,122 @@
+---
+// StateAlerts.astro
+// Live, client-side NWS active alerts for a US state.
+// Fetched directly from api.weather.gov (CORS-enabled) to avoid the
+// documented Worker server-side egress block for .gov hosts.
+interface Props {
+  state: string;
+}
+const { state } = Astro.props;
+---
+
+<section class="state-alerts" data-state-alerts={state} aria-live="polite">
+  <p class="state-alerts-status">Loading live {state} NWS alerts…</p>
+</section>
+
+<style>
+  .state-alerts :global(.state-alerts-status),
+  .state-alerts :global(.state-alerts-empty) {
+    color: var(--muted, #5b6b7b);
+    font-size: 0.95rem;
+    margin: 8px 0;
+  }
+  .state-alerts :global(.state-alerts-list) {
+    display: grid;
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .state-alerts :global(.state-alert) {
+    border: 1px solid var(--border, #d7e0ea);
+    border-left: 5px solid var(--accent, #2b6cb0);
+    border-radius: 10px;
+    padding: 14px 16px;
+    background: var(--card, #ffffff);
+  }
+  .state-alerts :global(.state-alert-extreme),
+  .state-alerts :global(.state-alert-severe) {
+    border-left-color: #c0392b;
+  }
+  .state-alerts :global(.state-alert-moderate) {
+    border-left-color: #e67e22;
+  }
+  .state-alerts :global(.state-alert header) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .state-alerts :global(.state-alert-event) {
+    font-weight: 700;
+    font-size: 1.02rem;
+  }
+  .state-alerts :global(.state-alert-sev) {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #c0392b;
+    font-weight: 700;
+  }
+  .state-alerts :global(.state-alert-area) {
+    margin: 6px 0 0;
+    color: var(--muted, #5b6b7b);
+  }
+  .state-alerts :global(.state-alert-headline) {
+    margin: 8px 0 0;
+  }
+  .state-alerts :global(.state-alert-meta) {
+    margin: 8px 0 0;
+    font-size: 0.82rem;
+    color: var(--muted, #5b6b7b);
+  }
+  .state-alerts :global(.state-alert-instruction) {
+    margin: 8px 0 0;
+    background: #fff6f5;
+    border-radius: 8px;
+    padding: 8px 10px;
+  }
+</style>
+
+<script>
+  // @ts-nocheck
+  async function loadStateAlerts() {
+    const root = document.querySelector("[data-state-alerts]");
+    if (!root) return;
+    const state = root.getAttribute("data-state-alerts");
+    if (!state) return;
+    const status = root.querySelector(".state-alerts-status");
+    try {
+      const res = await fetch(`https://api.weather.gov/alerts/active?area=${encodeURIComponent(state)}`, {
+        headers: { Accept: "application/geo+json" }
+      });
+      if (!res.ok) throw new Error(`status ${res.status}`);
+      const data = await res.json();
+      const features = (data.features || []).slice(0, 12);
+      if (!features.length) {
+        root.innerHTML = `<p class="state-alerts-empty">No active NWS alerts for ${state} right now. Continue to monitor official advisories during hurricane season.</p>`;
+        return;
+      }
+      const rows = features.map((f) => {
+        const p = f.properties || {};
+        const sev = (p.severity || "unknown").toLowerCase();
+        const expires = p.expires ? new Date(p.expires).toUTCString() : "";
+        const sent = p.sent ? new Date(p.sent).toUTCString() : "";
+        return `<article class="state-alert state-alert-${sev}">
+          <header>
+            <span class="state-alert-event">${p.event || "Alert"}</span>
+            <span class="state-alert-sev">${p.severity || ""}</span>
+          </header>
+          <p class="state-alert-area">${p.areaDesc || ""}</p>
+          ${p.headline ? `<p class="state-alert-headline">${p.headline}</p>` : ""}
+          <p class="state-alert-meta">Issued ${sent} · Expires ${expires}</p>
+          ${p.instruction ? `<p class="state-alert-instruction">${p.instruction}</p>` : ""}
+        </article>`;
+      }).join("");
+      root.innerHTML = `<div class="state-alerts-list">${rows}</div>`;
+    } catch (err) {
+      if (status) status.textContent = `Live ${state} alerts could not be loaded. Check weather.gov for current alerts.`;
+    }
+  }
+  loadStateAlerts();
+  document.addEventListener("astro:page-load", loadStateAlerts);
+</script>
