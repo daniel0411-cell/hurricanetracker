@@ -6,7 +6,12 @@ import { coastalStates } from "../data/states";
 
 export const prerender = true;
 
+// Sitemap priorities/changefreq per section (SEO batch):
+//  home daily/1.0 · state pages hourly/0.9 · blog weekly/0.7 · decision-guide monthly/0.8
+//  Excludes /api/* and /admin/* (never added to the route list below).
 const updated = site.contentLastModified;
+const blogLastMod = "2026-08-07";
+
 const routes = [
   { path: "", lastmod: updated, priority: "1.0", changefreq: "daily" },
   { path: "tracker/", lastmod: updated, priority: "0.8", changefreq: "daily" },
@@ -24,14 +29,18 @@ const routes = [
   { path: "tools/storm-distance-calculator/", lastmod: updated, priority: "0.8", changefreq: "daily" },
   { path: "tools/alert-action-decoder/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
   { path: "tools/family-communication-plan/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
-  ...coastalStates.map((state) => ({ path: `hurricane-tracker/${state.slug}/`, lastmod: updated, priority: "0.8", changefreq: "daily" })),
+  ...coastalStates.map((state) => ({ path: `hurricane-tracker/${state.slug}/`, lastmod: updated, priority: "0.9", changefreq: "hourly" })),
   ...hurricaneCities.map((city) => ({ path: `hurricane-tracker/city/${city.slug}/`, lastmod: updated, priority: "0.8", changefreq: "daily" })),
   { path: "storm-archive/", lastmod: updated, priority: "0.7", changefreq: "daily" },
-  { path: "blog/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
-  ...blogPosts.map((post) => ({ path: `blog/${post.slug}/`, lastmod: new Date(post.dateModified).toISOString(), priority: "0.8", changefreq: "monthly" })),
+  { path: "blog/", lastmod: blogLastMod, priority: "0.8", changefreq: "weekly" },
+  ...blogPosts.map((post) => ({ path: `blog/${post.slug}/`, lastmod: new Date(post.dateModified).toISOString(), priority: "0.7", changefreq: "weekly" })),
+  { path: "blog/hurricane-watch-vs-warning/", lastmod: blogLastMod, priority: "0.7", changefreq: "weekly" },
+  { path: "blog/flood-advisory-vs-watch-vs-warning/", lastmod: blogLastMod, priority: "0.7", changefreq: "weekly" },
+  { path: "blog/rip-current-statement-gulf-coast/", lastmod: blogLastMod, priority: "0.7", changefreq: "weekly" },
+  { path: "decision-guide/", lastmod: blogLastMod, priority: "0.8", changefreq: "monthly" },
   { path: "es/", lastmod: updated, priority: "0.9", changefreq: "daily" },
   { path: "about/", lastmod: updated, priority: "0.8", changefreq: "monthly" }
-];
+].filter((route) => !route.path.startsWith("api/") && !route.path.startsWith("admin/"));
 
 export const GET: APIRoute = () => {
   const body = `<?xml version="1.0" encoding="UTF-8"?>

@@ -1,0 +1,118 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { site } from "../../data/site";
+import { blogPostingSchema } from "../../lib/schema";
+
+const slug = "flood-advisory-vs-watch-vs-warning";
+const title = "Flood Advisory vs Flood Watch vs Flood Warning Explained";
+const description =
+  "NWS flood terms are a three-step scale: advisory, watch, and warning. Understand what each means for Louisiana and Mississippi residents and when to move to higher ground.";
+const canonical = `${site.url}/blog/${slug}/`;
+const date = "2026-08-07";
+const jsonLd = blogPostingSchema({
+  title,
+  description,
+  url: canonical,
+  datePublished: date,
+  dateModified: date,
+  authorName: "HurricaneHub team"
+});
+---
+
+<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={date}>
+  <main class="prose">
+    <article>
+      <h1>{title}</h1>
+      <p class="lead">
+        Flooding causes more hurricane deaths than wind. Yet the three NWS flood terms —
+        <strong>advisory</strong>, <strong>watch</strong>, and <strong>warning</strong> — are routinely mixed
+        up. Each step up the scale means water is closer to you and you have less time to react.
+      </p>
+
+      <h2>Flood Advisory: Nuisance, But Pay Attention</h2>
+      <p>
+        A <strong>flood advisory</strong> is the lowest tier. It means minor flooding is occurring or expected
+        — the kind that pools on roads, fills ditches, and turns low underpasses into hazards. No immediate
+        threat to life is expected, but driving through standing water is never safe. "Turn around, don't
+        drown" applies even at the advisory level.
+      </p>
+      <p>
+        Along the low-lying parishes tracked on the
+        <a href="/hurricane-tracker/louisiana/">Louisiana flood risk</a> page, advisories are common during
+        routine summer storms. Treat them as a reminder to avoid flood-prone commutes and to keep drains clear.
+      </p>
+
+      <h2>Flood Watch: Be Ready to Act</h2>
+      <p>
+        A <strong>flood watch</strong> means conditions are favorable for flooding within the next several
+        hours to a day. Flooding is not happening yet, but the atmosphere is primed for it — heavy rain rates,
+        saturated ground, or a surge scenario. During a watch, move valuables off the floor, charge devices,
+        and identify higher ground.
+      </p>
+      <p>
+        Because the <a href="/hurricane-tracker/mississippi/">Mississippi hurricane tracker</a> coastline sits
+        at the confluence of river and Gulf systems, a flood watch there can escalate quickly when rainfall
+        bands stall. A watch is the time to decide: if water starts rising, where will my household go?
+      </p>
+
+      <h2>Flood Warning: Water Is Here or Imminent</h2>
+      <p>
+        A <strong>flood warning</strong> means flooding is occurring, is imminent, or has a very high
+        probability. This is the act-now tier. If you are in a warned area — especially a flash-flood or storm-
+        surge warning zone — move to higher ground immediately and do not wait for the water to arrive.
+      </p>
+      <p>
+        Storm-surge flood warnings deserve special respect: surge can outrun a car and arrives ahead of peak
+        winds. When a warning names your zone, evacuation orders are often already in effect.
+      </p>
+
+      <h2>How to Read the Three Tiers at a Glance</h2>
+      <ul>
+        <li><strong>Advisory</strong> — minor flooding likely; avoid water on roads, stay aware.</li>
+        <li><strong>Watch</strong> — flooding possible; prepare, move items up, pick higher ground.</li>
+        <li><strong>Warning</strong> — flooding happening or imminent; move to safety now.</li>
+      </ul>
+      <p>
+        The simplest memory aid: advisory is "be careful," watch is "get ready," warning is "go." When in doubt
+        during a hurricane, always defer to the more serious term and to local official instructions.
+      </p>
+
+      <p class="byline">
+        This article was updated for the 2026 hurricane season by the HurricaneHub team.
+      </p>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .prose {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 3rem;
+    line-height: 1.7;
+  }
+  .prose h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .prose h2 {
+    font-size: 1.35rem;
+    margin: 2rem 0 0.75rem;
+  }
+  .lead {
+    font-size: 1.1rem;
+    color: var(--muted, #4a5568);
+  }
+  .prose a {
+    color: var(--accent, #1f6feb);
+    text-decoration: underline;
+  }
+  .byline {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border, #e2e8f0);
+    font-style: italic;
+    color: var(--muted, #4a5568);
+  }
+</style>

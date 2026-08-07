@@ -1,0 +1,120 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { site } from "../../data/site";
+import { blogPostingSchema } from "../../lib/schema";
+
+const slug = "rip-current-statement-gulf-coast";
+const title = "Rip Current Statement: What Gulf Coast Families Need to Know";
+const description =
+  "A rip current statement warns of dangerous surf along the Gulf Coast. Learn how to spot a rip current, why Alabama and Georgia beaches are vulnerable, and how to escape one.";
+const canonical = `${site.url}/blog/${slug}/`;
+const date = "2026-08-07";
+const jsonLd = blogPostingSchema({
+  title,
+  description,
+  url: canonical,
+  datePublished: date,
+  dateModified: date,
+  authorName: "HurricaneHub team"
+});
+---
+
+<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={date}>
+  <main class="prose">
+    <article>
+      <h1>{title}</h1>
+      <p class="lead">
+        You do not need a named storm to drown at the beach. A <strong>rip current statement</strong> — issued
+        by the National Weather Service when strong, life-threatening rip currents are likely — is one of the
+        most underrated coastal hazards of hurricane season.
+      </p>
+
+      <h2>What a Rip Current Statement Means</h2>
+      <p>
+        A rip current statement is a targeted NWS product warning that surf zone conditions will produce
+        powerful, channelized currents pulling away from shore. These are most common when a distant hurricane
+        or tropical storm sends long-period swells toward the coast, even hundreds of miles from the storm
+        center. The water looks inviting; the pull is not.
+      </p>
+      <p>
+        On the <a href="/hurricane-tracker/alabama/">Alabama beach safety</a> page, rip current risk climbs
+        whenever a system churns in the eastern Gulf. The same distant swells that create photogenic waves also
+        build the currents that drag swimmers seaward.
+      </p>
+
+      <h2>Why Gulf Coast Beaches Are Especially Vulnerable</h2>
+      <p>
+        The Gulf's gentle slope and narrow continental shelf let wave energy concentrate into strong, shallow
+        rip channels. Beaches along the <a href="/hurricane-tracker/georgia/">Georgia coast alerts</a> zone and
+        the central Gulf see elevated risk during any active tropical pattern. Rip currents are the #1
+        hurricane-season killer away from the storm itself — responsible for more deaths than many landfalling
+        systems.
+      </p>
+
+      <h2>How to Spot and Survive a Rip Current</h2>
+      <ul>
+        <li>
+          <strong>Spot it:</strong> look for a gap of darker, choppier water, a line of foam or debris moving
+          steadily seaward, or a break in the wave pattern.
+        </li>
+        <li>
+          <strong>Don't fight it:</strong> swimming straight back to shore exhausts you. Swim parallel to the
+          beach until you escape the channel, then angle in.
+        </li>
+        <li>
+          <strong>Float and signal:</strong> if you cannot escape, tread water, face the shore, and wave for
+          help. Rip currents narrow and dissipate farther out.
+        </li>
+        <li>
+          <strong>Plan ahead:</strong> check the daily rip current risk before any beach day and never swim
+          alone or without a lifeguard.
+        </li>
+      </ul>
+
+      <h2>What Families Should Do When a Statement Is Active</h2>
+      <p>
+        When a rip current statement is in effect, the safest choice is to stay out of the water entirely.
+        Supervise children constantly, heed flag systems, and share the escape technique above with everyone in
+        your group. A statement is a forecast of danger, not a reason to cancel the trip — just keep your feet
+        on the sand until conditions improve.
+      </p>
+
+      <p class="byline">
+        This article was updated for the 2026 hurricane season by the HurricaneHub team.
+      </p>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .prose {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 3rem;
+    line-height: 1.7;
+  }
+  .prose h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .prose h2 {
+    font-size: 1.35rem;
+    margin: 2rem 0 0.75rem;
+  }
+  .lead {
+    font-size: 1.1rem;
+    color: var(--muted, #4a5568);
+  }
+  .prose a {
+    color: var(--accent, #1f6feb);
+    text-decoration: underline;
+  }
+  .byline {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border, #e2e8f0);
+    font-style: italic;
+    color: var(--muted, #4a5568);
+  }
+</style>
