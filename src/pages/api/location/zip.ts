@@ -34,7 +34,12 @@ export const GET: APIRoute = async ({ url }) => {
 
   const cache = env.HURRICANEHUB_CACHE;
   const cacheKey = `location:zip:${zip}`;
-  const cached = await cache?.get(cacheKey);
+  let cached: string | null = null;
+  try {
+    cached = (await cache?.get(cacheKey)) ?? null;
+  } catch (kvError) {
+    console.error("ZIP cache read failed, skipping cache", { zip, error: kvError });
+  }
   if (cached) {
     return new Response(cached, {
       headers: {

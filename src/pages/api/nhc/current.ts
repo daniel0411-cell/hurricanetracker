@@ -34,7 +34,12 @@ export const OPTIONS: APIRoute = () =>
 
 export const GET: APIRoute = async () => {
   const cache = getCache();
-  const cached = await cache?.get(CACHE_KEY);
+  let cached: string | null = null;
+  try {
+    cached = (await cache?.get(CACHE_KEY)) ?? null;
+  } catch (kvError) {
+    console.error("NHC cache read failed, skipping cache", { error: kvError });
+  }
   if (cached) {
     return new Response(cached, {
       headers: {

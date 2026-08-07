@@ -79,7 +79,12 @@ export const GET: APIRoute = async ({ url }) => {
   }
 
   const cache = getCache();
-  const cached = await cache?.get(cacheKey);
+  let cached: string | null = null;
+  try {
+    cached = (await cache?.get(cacheKey)) ?? null;
+  } catch (kvError) {
+    console.error("NWS alerts cache read failed, skipping cache", { cacheKey, error: kvError });
+  }
   if (cached) {
     return new Response(cached, {
       headers: {
