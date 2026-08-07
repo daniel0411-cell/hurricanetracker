@@ -7,10 +7,12 @@ type Props = {
   canonical?: string;
   jsonLd?: object;
   lastModified?: string;
+  image?: string;
+  ogImage?: string;
 };
 
-const { title, description, canonical, jsonLd, lastModified } = Astro.props;
+const { title, description, canonical, jsonLd, lastModified, image, ogImage } = Astro.props;
 ---
-<Layout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={lastModified}>
+<Layout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={lastModified} image={image} ogImage={ogImage}>
   <slot />
 </Layout>
