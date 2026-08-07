@@ -1,47 +1,76 @@
 ---
 import { states } from "../data/site";
 ---
-<section class="band" aria-labelledby="live-heading">
+<section class="band dashboard-band" aria-labelledby="live-heading">
   <div class="inner">
-    <p class="eyebrow">Official-feed MVP</p>
-    <h2 id="live-heading">Live Decision Dashboard</h2>
-    <p class="source-note">Measured note: browser requests call local Cloudflare API routes, which cache official feeds in KV when a binding is available.</p>
-    <form class="toolbar" id="alert-form">
-      <label for="state">State</label>
-      <select id="state" name="state">
-        {states.map(([code, name]) => <option value={code} selected={code === "FL"}>{name}</option>)}
-      </select>
-      <button type="submit">Refresh Alerts</button>
-      <span id="feed-status" class="small" role="status">Waiting for feed...</span>
-    </form>
-    <div class="dashboard" aria-label="Current operational metrics">
+    <div class="dashboard-header">
+      <div>
+        <p class="eyebrow">Live operations</p>
+        <h2 id="live-heading">Decision Dashboard</h2>
+      </div>
+      <form class="dashboard-toolbar" id="alert-form">
+        <label class="sr-only" for="state">State</label>
+        <div class="select-wrap">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          <select id="state" name="state">
+            {states.map(([code, name]) => <option value={code} selected={code === "FL"}>{name}</option>)}
+          </select>
+        </div>
+        <button type="submit" aria-label="Refresh alerts" title="Refresh alerts">
+          <i class="fa-solid fa-rotate" aria-hidden="true"></i>
+        </button>
+        <span id="feed-status" class="feed-status" role="status">Waiting for feed...</span>
+      </form>
+    </div>
+
+    <div class="metric-strip" aria-label="Current operational metrics">
       <div class="metric">
-        <strong id="storm-count">--</strong>
-        <span>active NHC systems</span>
+        <i class="fa-solid fa-hurricane" aria-hidden="true"></i>
+        <div>
+          <strong id="storm-count">--</strong>
+          <span>active NHC systems</span>
+        </div>
       </div>
       <div class="metric">
-        <strong id="alert-count">--</strong>
-        <span>state alerts</span>
+        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+        <div>
+          <strong id="alert-count">--</strong>
+          <span>state alerts</span>
+        </div>
       </div>
       <div class="metric">
-        <strong id="decision-level">--</strong>
-        <span>decision level</span>
+        <i class="fa-solid fa-crosshairs" aria-hidden="true"></i>
+        <div>
+          <strong id="decision-level">--</strong>
+          <span>decision level</span>
+        </div>
       </div>
       <div class="metric">
-        <strong>10m</strong>
-        <span>target cache window</span>
+        <i class="fa-solid fa-clock" aria-hidden="true"></i>
+        <div>
+          <strong>10m</strong>
+          <span>cache window</span>
+        </div>
       </div>
     </div>
-    <div class="grid-2" style="margin-top: 18px;">
-      <article class="panel">
+
+    <div class="dashboard-body">
+      <article class="panel storm-panel">
         <h3>Active Storms</h3>
-        <div id="storm-list" class="stack" aria-live="polite"></div>
+        <div id="storm-list" class="storm-bar" aria-live="polite">
+          <p class="source-note">Loading storms...</p>
+        </div>
       </article>
-      <article class="panel">
+
+      <article class="panel alert-panel">
         <h3>Priority Alerts</h3>
-        <div id="alert-list" class="stack" aria-live="polite"></div>
+        <div id="alert-list" class="alert-list" aria-live="polite">
+          <p class="source-note">Loading alerts...</p>
+        </div>
       </article>
     </div>
+
+    <p class="source-note dashboard-note">Official feeds are fetched through Cloudflare API routes and cached in KV when a binding is available.</p>
   </div>
 </section>
 
@@ -83,10 +112,17 @@ import { states } from "../data/site";
   const alertList = document.querySelector("#alert-list");
   const DEFAULT_STATE = "FL";
 
-  function badgeClass(text: string) {
-    if (/Leave|Warning|Extreme|Evacuation|Severe/i.test(text)) return "badge danger";
-    if (/Act|Watch|Flood|Tropical/i.test(text)) return "badge warn";
-    return "badge";
+  function severityClass(text: string) {
+    if (/Extreme|Severe|Warning|Leave|Evacuation/i.test(text)) return "severity-leave";
+    if (/Watch|Act|Flood|Tornado|Thunderstorm|Marine/i.test(text)) return "severity-act";
+    return "severity-monitor";
+  }
+
+  function decisionClass(text: string) {
+    if (/Leave/i.test(text)) return "decision-leave";
+    if (/Act/i.test(text)) return "decision-act";
+    if (/Prepare/i.test(text)) return "decision-prepare";
+    return "decision-monitor";
   }
 
   function escapeHtml(value: unknown) {
@@ -102,7 +138,7 @@ import { states } from "../data/site";
 
   async function loadFeeds(state = DEFAULT_STATE) {
     if (!statusEl || !stormCount || !alertCount || !decisionEl || !stormList || !alertList) return;
-    statusEl.textContent = "Loading official feeds...";
+    statusEl.textContent = "Loading...";
     const [stormsResponse, alertsResponse] = await Promise.all([
       fetch("/api/nhc/current.json"),
       fetch(`/api/nws/alerts.json?state=${encodeURIComponent(state)}`)
@@ -113,35 +149,45 @@ import { states } from "../data/site";
     const alerts = alertsData.alerts ?? [];
     stormCount.textContent = String(storms.length);
     alertCount.textContent = String(alerts.length);
-    decisionEl.textContent = alertsData.decisionLevel ?? "Monitor";
+    const decision = alertsData.decisionLevel ?? "Monitor";
+    decisionEl.textContent = decision;
+    decisionEl.className = decisionClass(decision);
     const updatedAt = alertsData.updatedAt ?? alertsData.fetchedAt ?? stormsData.updatedAt ?? stormsData.fetchedAt;
     const updatedLabel = updatedAt
       ? new Date(updatedAt).toLocaleString([], { dateStyle: "medium", timeStyle: "short" })
       : "time unavailable";
-    statusEl.textContent = `Official feeds checked ${updatedLabel}`;
+    statusEl.textContent = `Checked ${updatedLabel}`;
+
     stormList.innerHTML = storms.length
-      ? storms.slice(0, 5).map((storm) => `
-        <article class="storm-row">
-          <header>
-            <h3>${escapeHtml(storm.name ?? storm.id ?? "Active system")}</h3>
-            <span class="${badgeClass(storm.classification ?? "")}">${escapeHtml(storm.classification ?? "NHC")}</span>
-          </header>
-          <p>${escapeHtml(storm.summary ?? "Official advisory loaded.")}</p>
-          ${storm.publicAdvisory ? `<a href="${escapeHtml(storm.publicAdvisory)}" rel="nofollow">NHC advisory</a>` : ""}
+      ? storms.slice(0, 5).map((storm) => {
+        const severity = severityClass(storm.classification ?? "");
+        return `
+        <article class="storm-chip ${severity}">
+          <span class="storm-name">${escapeHtml(storm.name ?? storm.id ?? "Active system")}</span>
+          <span class="storm-class">${escapeHtml(storm.classification ?? "NHC")}</span>
+          ${storm.publicAdvisory ? `<a href="${escapeHtml(storm.publicAdvisory)}" rel="nofollow" aria-label="NHC advisory">NHC</a>` : ""}
         </article>
-      `).join("")
-      : '<p class="source-note">No active NHC tropical cyclone listed in the current feed.</p>';
+      `;
+      }).join("")
+      : '<p class="source-note">No active NHC tropical cyclone in the current feed.</p>';
+
     alertList.innerHTML = alerts.length
-      ? alerts.slice(0, 6).map((alert) => `
-        <article class="alert-row">
-          <header>
-            <h3>${escapeHtml(alert.event)}</h3>
-            <span class="${badgeClass(alert.severity ?? "")}">${escapeHtml(alert.severity)}</span>
-          </header>
-          <p>${escapeHtml(alert.headline || alert.areaDesc)}</p>
-          <p class="small">${escapeHtml(alert.urgency)} · expires ${escapeHtml(alert.expires)}</p>
+      ? alerts.slice(0, 6).map((alert) => {
+        const severity = severityClass(alert.severity ?? alert.event ?? "");
+        return `
+        <article class="alert-row ${severity}">
+          <div class="alert-severity" aria-hidden="true"></div>
+          <div class="alert-content">
+            <header>
+              <h4>${escapeHtml(alert.event)}</h4>
+              <span class="badge">${escapeHtml(alert.severity)}</span>
+            </header>
+            <p>${escapeHtml(alert.headline || alert.areaDesc)}</p>
+            <p class="small">${escapeHtml(alert.urgency)} · expires ${escapeHtml(alert.expires)}</p>
+          </div>
         </article>
-      `).join("")
+      `;
+      }).join("")
       : '<p class="source-note">No active alerts returned for this state.</p>';
   }
 
