@@ -526,6 +526,13 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
     gap: clamp(14px, 2vw, 18px);
   }
 
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: clamp(16px, 2vw, 22px);
+    align-items: start;
+  }
+
   .check-list {
     padding-left: 1.2rem;
     line-height: 1.7;
