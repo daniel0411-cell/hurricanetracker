@@ -1,0 +1,147 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
+import { faqSchema, howToSchema, graph, websiteSchema } from "../lib/schema";
+
+const title = "HurricaneHub Decision Levels – When to Monitor, Prepare, Act, or Leave";
+const description = "A plain-language guide to hurricane decision levels: what Monitor, Prepare, Act, and Leave mean, the official signals behind each, and the household actions to take at every stage.";
+const url = `${site.url}/decision-guide/`;
+const lastModified = "2026-08-07";
+
+const levels = [
+  {
+    id: "monitor",
+    name: "Monitor",
+    body: "Monitor is the everyday baseline during the June 1–November 30 hurricane season. No hurricane watch or warning is active for your location, but tropical systems may be developing hundreds of miles away. At this level the right move is preparation without panic: learn your evacuation zone, bookmark official sources, and keep your emergency kit stocked and current. Monitor is also when households with medical, mobility, or pet needs should map out extra time and routes. Because hurricane risk can rise from calm to warning in days, the Monitor habit—checking advisories and confirming plans—keeps you ahead of the forecast instead of reacting to it.",
+    points: [
+      "Check NHC and NWS advisories at least twice daily during hurricane season.",
+      "Confirm your county evacuation zone and shelter options before a storm forms.",
+      "Keep your emergency kit, documents, and medication list current.",
+      "Note bridge, causeway, and fuel constraints that matter for your area."
+    ]
+  },
+  {
+    id: "prepare",
+    name: "Prepare",
+    body: "Prepare means a tropical storm or hurricane, or watch-level hazards such as storm surge or flooding, is possible within roughly 48 hours. This is the window to remove friction before conditions worsen. Finish groceries, water, fuel, and cash; photograph documents and back up records; charge battery packs; and confirm pet and medication plans. Most households should not evacuate at Prepare, but those in mobile homes, flood-prone areas, or with limited mobility should start moving early. Prepare is about decisions made in calm weather: once a warning is issued, roads, shelters, and supplies get harder to secure.",
+    points: [
+      "Stock water, food, cash, fuel, and a cooler plan before traffic builds.",
+      "Photograph documents, back up records, and refill prescriptions.",
+      "Charge battery packs and prepare power-outage options safely.",
+      "If you live in a mobile home, flood zone, or need extra time, begin leaving."
+    ]
+  },
+  {
+    id: "act",
+    name: "Act",
+    body: "Act is triggered when warning-level hazards—hurricane-force wind, storm surge, flooding, or tornado watches—are possible, usually within about 36 hours. The forecast is now specific enough to act on. Move elderly, medically dependent, or vulnerable people to safe locations early, finish window protection, bring in loose outdoor items, and charge every device. Follow county emergency instructions and be ready to relocate to a shelter or inland. If you intend to evacuate, Act is the time to do it: routes and shelters are still operable, and waiting for the warning often means driving in deteriorating conditions.",
+    points: [
+      "Move vulnerable people and pets to safe locations early.",
+      "Finish window protection and secure outdoor items.",
+      "Charge devices and prepare a go-bag with documents and medicine.",
+      "Begin evacuation if you planned to leave; shelters and roads are still open."
+    ]
+  },
+  {
+    id: "leave",
+    name: "Leave",
+    body: "Leave applies when authorities issue an evacuation order for your zone, or when extreme wind, life-threatening storm surge, or flooding is expected. Follow official evacuation orders immediately if you can leave safely—delaying places you, responders, and family at risk. Leave is mandatory only inside an ordered zone; elsewhere it is a strong recommendation based on your exposure. Use designated Contraflow routes, take your go-bag, and tell someone your destination. If you are not in an ordered zone but face rising water or losing power, treat Leave as your personal trigger and go.",
+    points: [
+      "Follow evacuation orders for your specific zone immediately and safely.",
+      "Use designated Contraflow highways and avoid low-lying or flooded roads.",
+      "Take your go-bag: documents, medicine, phone chargers, and water.",
+      "Tell a contact your destination and expected arrival."
+    ]
+  }
+];
+
+const faqs = [
+  {
+    question: "What does Monitor level mean?",
+    answer: "Monitor is the baseline level during hurricane season when no watch or warning is active for your area. At Monitor you check official advisories, confirm your evacuation zone, and keep your kit current—preparation without panic."
+  },
+  {
+    question: "Should I evacuate at Prepare level?",
+    answer: "Most households should not evacuate at Prepare. Finish supplies, documents, fuel, and routes. Begin leaving early only if you live in a mobile home, flood-prone area, or need extra time to reach safety."
+  },
+  {
+    question: "How often do levels update?",
+    answer: "Decision levels are derived from official NWS alerts and NHC storm context that update continuously. Re-check several times per day during an active threat, because watches and warnings can be issued or upgraded with little notice."
+  },
+  {
+    question: "Can I get alerts for my specific county?",
+    answer: "Yes. NWS issues alerts by county and zone, and HurricaneHub state pages and the alerts dashboard show active warnings for specific areas. You can also enable browser push notifications and use the local risk planner for your county."
+  },
+  {
+    question: "Is Leave level mandatory?",
+    answer: "Leave is mandatory only when emergency management issues an evacuation order for your specific zone. Outside an ordered zone it is a strong recommendation based on your risk exposure."
+  },
+  {
+    question: "Does HurricaneHub send push notifications?",
+    answer: "Yes. After you enable reminders, HurricaneHub can notify you when new NWS alerts or decision-level changes affect your chosen area, so you do not have to keep the page open."
+  }
+];
+
+const jsonLd = graph(
+  websiteSchema(),
+  faqSchema(faqs),
+  howToSchema({
+    name: "How to choose your hurricane decision level",
+    description: "Match the current official alert and storm context to one of four household actions: Monitor, Prepare, Act, or Leave.",
+    url,
+    steps: [
+      { name: "Monitor", text: "During hurricane season with no active watch or warning, check NHC and NWS advisories twice daily and confirm your evacuation zone." },
+      { name: "Prepare", text: "When a storm or watch-level hazard is possible within about 48 hours, finish supplies, documents, fuel, pet plans, and routes before warnings escalate." },
+      { name: "Act", text: "When warning-level wind, surge, flood, or tornado hazards are possible within about 36 hours, move vulnerable people early and follow county instructions." },
+      { name: "Leave", text: "When an evacuation order or life-threatening hazard applies to your zone, follow official orders immediately if you can leave safely." }
+    ]
+  })
+);
+---
+
+<BaseLayout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <article class="band" aria-labelledby="dg-title">
+    <div class="inner">
+      <p class="eyebrow">Household decision framework</p>
+      <h1 id="dg-title">HurricaneHub Decision Levels – When to Monitor, Prepare, Act, or Leave</h1>
+      <p class="answer">HurricaneHub sorts official alerts and storm context into four simple levels so a household knows what to do next. Use the level that matches your current official warning, not the scariest forecast headline.</p>
+    </div>
+  </article>
+
+  {
+    levels.map((level) => (
+      <section class="band" aria-labelledby={`level-${level.id}`}>
+        <div class="inner">
+          <h2 id={`level-${level.id}`}>{level.name} Level</h2>
+          <p>{level.body}</p>
+          <ul class="check-list">
+            {level.points.map((point) => <li>{point}</li>)}
+          </ul>
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="band" aria-labelledby="dg-faq">
+    <div class="inner stack">
+      <h2 id="dg-faq">Decision Level FAQ</h2>
+      {faqs.map((faq) => (
+        <article class="faq-item">
+          <h3>{faq.question}</h3>
+          <p>{faq.answer}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="dg-cta">
+    <div class="inner">
+      <h2 id="dg-cta">Put Your Level to Work</h2>
+      <p class="answer">Open your state tracker for live NWS alerts, or build a personal action plan that maps your household to the right level automatically.</p>
+      <p class="section-actions">
+        <a class="action-link" href="/hurricane-tracker/florida/">Open a state tracker</a>
+        <a class="action-link secondary-action" href="/tools/local-risk-plan/">Build my action plan</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
