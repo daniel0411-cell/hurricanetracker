@@ -88,7 +88,33 @@ const jsonLd = graph(
     </div>
   </section>
 
-  <LiveDashboard />
+  <div id="dashboard"><LiveDashboard /></div>
+
+  <section class="band why-hub" id="why-hurricanehub" aria-labelledby="why-heading">
+    <div class="inner">
+      <h2 id="why-heading">Why HurricaneHub?</h2>
+      <div class="grid-3 why-grid">
+        <article class="why-card">
+          <div class="why-icon" aria-hidden="true">🌪️</div>
+          <h3>Real-Time NOAA Data</h3>
+          <p>HurricaneHub pulls live storm positions and alerts straight from NOAA and the National Hurricane Center, so you see the same official data meteorologists use—no third-party delays or reinterpretation.</p>
+        </article>
+        <article class="why-card">
+          <div class="why-icon" aria-hidden="true">📱</div>
+          <h3>No App Download Needed</h3>
+          <p>Everything runs in your browser. Open the tracker, check your state, and build a plan on any phone or laptop—no install, no account, no update prompts getting in the way when a storm approaches.</p>
+        </article>
+        <article class="why-card">
+          <div class="why-icon" aria-hidden="true">🧹</div>
+          <h3>Clean, Ad-Light Experience</h3>
+          <p>Unlike cluttered weather portals buried in autoplay video and pop-ups, HurricaneHub stays focused on the decision in front of you: monitor, prepare, act, or leave.</p>
+        </article>
+      </div>
+      <p class="why-cta">
+        <a class="action-link" href="#dashboard">Start Tracking Now — No Signup, No Clutter</a>
+      </p>
+    </div>
+  </section>
 
   <section class="band" aria-labelledby="quick-actions-heading">
     <div class="inner">
@@ -276,5 +302,36 @@ const jsonLd = graph(
     .tool-grid {
       grid-template-columns: 1fr;
     }
+  }
+
+  .why-hub {
+    background: #f0f6ff;
+  }
+
+  .why-grid {
+    margin-top: 22px;
+  }
+
+  .why-card {
+    background: #fff;
+    border: 1px solid #d7e6fb;
+    border-radius: 14px;
+    padding: 22px 20px;
+    box-shadow: 0 1px 2px rgba(20, 50, 90, 0.04);
+  }
+
+  .why-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+
+  .why-card h3 {
+    margin: 0 0 8px;
+  }
+
+  .why-cta {
+    margin-top: 26px;
+    text-align: center;
   }
 </style>
