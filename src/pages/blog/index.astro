@@ -37,11 +37,13 @@ const jsonLd = graph(
       <div class="blog-grid">
         {sortedPosts.map((post) => (
           <article class="post-card">
-            <img class="post-image" src={post.image} alt={post.imageAlt} loading="lazy" width="1600" height="900" />
-            <h3>{post.title}</h3>
+            <a href={`/blog/${post.slug}/`} class="post-card-media" aria-hidden="true" tabindex="-1">
+              <img class="post-image" src={post.image} alt={post.imageAlt} loading="lazy" width="1600" height="900" />
+            </a>
+            <h3><a href={`/blog/${post.slug}/`} class="post-card-title">{post.title}</a></h3>
             <p>{post.description}</p>
             <p class="small">Last modified {post.dateModified}</p>
-            <a href={`/blog/${post.slug}/`}>Read article</a>
+            <a href={`/blog/${post.slug}/`} class="post-card-link">Read article</a>
           </article>
         ))}
       </div>

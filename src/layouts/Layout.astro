@@ -530,7 +530,33 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
     gap: clamp(16px, 2vw, 22px);
-    align-items: start;
+    align-items: stretch;
+  }
+
+  /* Each card is a flex column so the "Read article" link can be pinned to
+     the bottom; combined with align-items:stretch this keeps every card in a
+     row the same height and the links bottom-aligned (no jagged rows). */
+  .blog-grid .post-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-card-media {
+    display: block;
+  }
+
+  .post-card-title {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .post-card-title:hover,
+  .post-card-title:focus-visible {
+    text-decoration: underline;
+  }
+
+  .blog-grid .post-card-link {
+    margin-top: auto;
   }
 
   .check-list {
