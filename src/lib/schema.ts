@@ -9,7 +9,7 @@ export function organizationSchema() {
   return {
     "@type": "Organization",
     name: site.name,
-    url: site.url,
+    url: site.canonicalUrl,
     sameAs: site.sameAs
   };
 }
@@ -18,11 +18,11 @@ export function websiteSchema() {
   return {
     "@type": "WebSite",
     name: site.name,
-    url: site.url,
+    url: site.canonicalUrl,
     description: site.description,
     potentialAction: {
       "@type": "SearchAction",
-      target: `${site.url}/alerts/?state={search_term_string}`,
+      target: `${site.canonicalUrl}alerts/?state={search_term_string}`,
       "query-input": "required name=search_term_string"
     }
   };

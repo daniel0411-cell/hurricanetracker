@@ -1,6 +1,10 @@
 export const site = {
   name: "HurricaneHub",
   url: "https://www.hurricanetracker.cc",
+  // Canonical URL with a trailing slash — used for self-referencing URLs in
+  // structured data (WebSite/Organization/Article/Breadcrumb) so they exactly
+  // match the HTML <link rel=canonical>, avoiding "duplicate, no canonical chosen".
+  canonicalUrl: "https://www.hurricanetracker.cc/",
   contentLastModified: "2026-08-10T00:00:00.000Z",
   description:
     "HurricaneHub tracks North American hurricanes, official warnings, risk windows, and evacuation decisions from NOAA, NHC, and NWS data.",

@@ -46,7 +46,7 @@ function renderPage(lastModified: string) {
       featureList: ["Household-size emergency kit calculation", "Pet supply option", "Markdown checklist output"]
     }),
     breadcrumbSchema([
-      { name: site.name, url: site.url },
+      { name: site.name, url: site.canonicalUrl },
       { name: "Tools", url: `${site.url}/tools/` },
       { name: "Preparedness Checklist", url: canonical }
     ]),

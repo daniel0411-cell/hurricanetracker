@@ -45,7 +45,7 @@ function labelForSegment(segment: string) {
 function breadcrumbsFor(canonicalUrl: string) {
   const url = new URL(canonicalUrl);
   const segments = url.pathname.split("/").filter(Boolean);
-  const items = [{ name: site.name, url: site.url }];
+  const items = [{ name: site.name, url: site.canonicalUrl }];
   segments.forEach((segment, index) => {
     const path = `/${segments.slice(0, index + 1).join("/")}/`;
     items.push({

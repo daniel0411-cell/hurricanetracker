@@ -59,7 +59,7 @@ const nextAction =
 
 const jsonLd = graph(
   websiteSchema(),
-  articleSchema({ title, description, url: site.url, dateModified: lastModified }),
+  articleSchema({ title, description, url: site.canonicalUrl, dateModified: lastModified }),
   faqSchema(faqs)
 );
 
