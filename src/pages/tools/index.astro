@@ -65,6 +65,9 @@ const tools = [
     url: `${site.url}/compare/`
   }
 ];
+
+const popularTools = [tools[0], tools[3], tools[4], tools[2]];
+
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
@@ -78,6 +81,22 @@ const jsonLd = graph(
       <p class="eyebrow">Emergency decision tools</p>
       <h1 id="tools-title">Hurricane Tools</h1>
       <p class="answer">HurricaneHub tools help households turn official NOAA/NHC storm information into preparedness actions, starting with a personalized emergency kit checklist.</p>
+    </div>
+  </section>
+
+  <section class="band popular-band" aria-labelledby="popular-heading">
+    <div class="inner">
+      <p class="eyebrow">Most used</p>
+      <h2 id="popular-heading">Start With These</h2>
+      <div class="grid-3">
+        {popularTools.map((tool) => (
+          <article class="post-card">
+            <h3>{tool.name}</h3>
+            <p>{tool.description}</p>
+            <a href={new URL(tool.url).pathname}>Open tool</a>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
