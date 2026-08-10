@@ -2,6 +2,7 @@
 import FaqBlock from "../components/FaqBlock.astro";
 import AlertTimeline from "../components/AlertTimeline.astro";
 import LiveDashboard from "../components/LiveDashboard.astro";
+import LocalRiskWidget from "../components/LocalRiskWidget.astro";
 import Layout from "../layouts/Layout.astro";
 import { faqs, site, states } from "../data/site";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
@@ -35,24 +36,30 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url, d
       <p class="answer">This page shows live NWS hurricane and severe weather alerts by state, with urgency, severity, and a HurricaneHub decision level for emergency planning.</p>
     </div>
   </section>
+  <LocalRiskWidget />
   <LiveDashboard />
   <section class="band" aria-labelledby="timeline-heading">
     <div class="inner">
-      <h2 id="timeline-heading">Alabama Alert Timeline</h2>
-      <p class="answer">The timeline sorts the current Alabama example by alert status and effective time so you can see what is active now, what may start next, and when an alert expires.</p>
+      <h2 id="timeline-heading">Example Alert Timeline</h2>
+      <p class="answer">The timeline sorts a current example feed by alert status and effective time so you can see what is active now, what may start next, and when an alert expires.</p>
       <AlertTimeline alerts={initialAlerts} stateName="Alabama" />
     </div>
   </section>
   <section class="band" aria-labelledby="state-coverage">
     <div class="inner">
-      <h2 id="state-coverage">Initial Coverage</h2>
+      <h2 id="state-coverage">Tracked Coastal States</h2>
+      <p class="answer">Open any state tracker for live NWS alerts, NHC storm context, county planning notes, and a household decision level.</p>
       <div class="grid-3" style="margin-top: 18px;">
-        {states.map(([code, name]) => (
-          <article class="panel">
-            <h3>{name}</h3>
-            <p>Use state code {code} in the Worker route: <code>/api/nws/alerts.json?area={code}</code>.</p>
-          </article>
-        ))}
+        {states.map(([code, name]) => {
+          const slug = name.toLowerCase().replace(/[^a-z]+/g, "-").replace(/^-|-$/g, "");
+          return (
+            <article class="panel">
+              <h3>{name}</h3>
+              <p>Active NWS alerts, storm context, and a household decision level for {name}.</p>
+              <p><a class="action-link" href={`/tracker/${slug}/`}>Open {name} tracker</a></p>
+            </article>
+          );
+        })}
       </div>
     </div>
   </section>

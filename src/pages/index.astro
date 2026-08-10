@@ -1,6 +1,7 @@
 ---
 import FaqBlock from "../components/FaqBlock.astro";
 import LiveDashboard from "../components/LiveDashboard.astro";
+import LocalRiskWidget from "../components/LocalRiskWidget.astro";
 import ReminderSignup from "../components/ReminderSignup.astro";
 import Layout from "../layouts/Layout.astro";
 import { differentiators, faqs, site, stats } from "../data/site";
@@ -127,6 +128,8 @@ const tools = [
       </div>
     </div>
   </section>
+
+  <LocalRiskWidget />
 
   <section class="band stats-band" aria-labelledby="stats-heading">
     <div class="inner">

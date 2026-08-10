@@ -1,0 +1,360 @@
+---
+/**
+ * LocalRiskWidget — "Get your local hurricane alerts" call to action.
+ *
+ * Two entry points, both fully client-side (no Worker egress dependency):
+ *  1. Geolocation: navigator.geolocation -> api.weather.gov/alerts/active?point=lat,lon
+ *  2. ZIP fallback: /api/location/zip -> lat/lon + state -> same NWS point lookup
+ *
+ * Renders active NWS alerts with severity colour bars and, when a tracked
+ * coastal state can be resolved, a deep link to its /tracker/{slug}/ page.
+ *
+ * Safe to drop on multiple pages — the script scopes per `.local-risk-card`.
+ */
+---
+
+<section class="band local-risk-band" aria-labelledby="local-risk-heading">
+  <div class="inner">
+    <div class="local-risk-card panel">
+      <p class="eyebrow">Your local risk</p>
+      <h2 id="local-risk-heading">Get your local hurricane alerts</h2>
+      <p class="answer">
+        Find active National Weather Service alerts for your exact location. We use your
+        browser location or a US ZIP code — the only external call is the official
+        weather.gov lookup.
+      </p>
+
+      <div class="local-risk-actions">
+        <button type="button" class="locate-btn" data-action="geolocate" aria-live="polite">
+          <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
+          Use my location
+        </button>
+        <form class="local-risk-zip" novalidate>
+          <input
+            type="text"
+            inputmode="numeric"
+            autocomplete="postal-code"
+            maxlength="5"
+            pattern="\d{5}"
+            placeholder="ZIP code"
+            aria-label="US ZIP code"
+          />
+          <button type="submit">Check</button>
+        </form>
+      </div>
+
+      <div class="local-risk-feed" data-local-risk-feed>
+        <p class="local-risk-status">
+          Tap “Use my location” or enter a ZIP code to load your local alerts.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .local-risk-card {
+    max-width: 880px;
+  }
+
+  .local-risk-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-top: 18px;
+  }
+
+  .locate-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 8px;
+    border: 1px solid var(--ocean);
+    background: var(--ocean);
+    color: #fff;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .locate-btn:hover,
+  .locate-btn:focus-visible {
+    background: #0c5b76;
+  }
+
+  .locate-btn[disabled] {
+    opacity: 0.6;
+    cursor: progress;
+  }
+
+  .local-risk-zip {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .local-risk-zip input {
+    width: 130px;
+    letter-spacing: 0.08em;
+  }
+
+  .local-risk-feed {
+    display: grid;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .local-risk-status,
+  .local-risk-error,
+  .local-risk-empty {
+    color: var(--muted);
+  }
+
+  .local-risk-error a {
+    color: var(--accent);
+  }
+
+  .local-risk-statelink {
+    margin: 4px 0 0;
+  }
+
+  .local-risk-statelink .action-link {
+    width: auto;
+    justify-content: center;
+  }
+
+  /* Shared alert item styling (mirrors the city page live feed). */
+  .alert-item {
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--ocean);
+    border-radius: 10px;
+    padding: 12px 14px;
+    background: rgba(127, 127, 127, 0.04);
+  }
+
+  .alert-item-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+
+  .alert-event {
+    font-weight: 700;
+  }
+
+  .alert-sev {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+  }
+
+  .alert-headline {
+    margin: 6px 0 4px;
+  }
+
+  .alert-meta {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .sev-extreme {
+    border-left-color: #b91c1c;
+  }
+
+  .sev-severe {
+    border-left-color: #ef4444;
+  }
+
+  .sev-moderate {
+    border-left-color: #f59e0b;
+  }
+
+  .sev-minor {
+    border-left-color: #3b82f6;
+  }
+
+  .sev-unknown {
+    border-left-color: var(--line);
+  }
+</style>
+
+<script>
+  (function () {
+    var widgets = document.querySelectorAll(".local-risk-card");
+    if (!widgets.length) return;
+
+    var COASTAL = [
+      { name: "Florida", slug: "florida" },
+      { name: "Texas", slug: "texas" },
+      { name: "Louisiana", slug: "louisiana" },
+      { name: "North Carolina", slug: "north-carolina" },
+      { name: "South Carolina", slug: "south-carolina" },
+      { name: "Georgia", slug: "georgia" },
+      { name: "Alabama", slug: "alabama" },
+      { name: "Mississippi", slug: "mississippi" },
+      { name: "Virginia", slug: "virginia" }
+    ];
+    var POSTAL_TO_SLUG = {
+      FL: "florida",
+      TX: "texas",
+      LA: "louisiana",
+      NC: "north-carolina",
+      SC: "south-carolina",
+      GA: "georgia",
+      AL: "alabama",
+      MS: "mississippi",
+      VA: "virginia"
+    };
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+      });
+    }
+
+    function sevClass(sev) {
+      sev = (sev || "").toLowerCase();
+      if (sev === "extreme") return "sev-extreme";
+      if (sev === "severe") return "sev-severe";
+      if (sev === "moderate") return "sev-moderate";
+      if (sev === "minor") return "sev-minor";
+      return "sev-unknown";
+    }
+
+    function deriveState(features) {
+      for (var i = 0; i < features.length; i++) {
+        var geo = features[i].properties && features[i].properties.geocode;
+        var ugc = geo && geo.UGC;
+        if (ugc && ugc.length) {
+          var st = String(ugc[0]).slice(0, 2).toUpperCase();
+          if (POSTAL_TO_SLUG[st]) {
+            return { slug: POSTAL_TO_SLUG[st], name: (COASTAL.find(function (c) { return c.slug === POSTAL_TO_SLUG[st]; }) || {}).name || POSTAL_TO_SLUG[st] };
+          }
+        }
+      }
+      var areaDesc = (features[0].properties && features[0].properties.areaDesc) || "";
+      for (var j = 0; j < COASTAL.length; j++) {
+        if (areaDesc.indexOf(COASTAL[j].name) !== -1) return COASTAL[j];
+      }
+      return null;
+    }
+
+    function renderAlerts(feed, features, stateInfo) {
+      if (!features.length) {
+        feed.innerHTML =
+          '<p class="local-risk-empty">No active NWS alerts for this location right now. Check back during a storm threat.</p>';
+        return;
+      }
+      var html = features
+        .map(function (f) {
+          var p = f.properties || {};
+          var sev = (p.severity || "unknown").toLowerCase();
+          var expires = p.expires ? new Date(p.expires).toLocaleString() : "";
+          var event = p.event || "Alert";
+          var headline = p.headline || "";
+          return (
+            '<article class="alert-item ' + sevClass(sev) + '">' +
+            '<div class="alert-item-head"><span class="alert-event">' + escapeHtml(event) + "</span>" +
+            '<span class="alert-sev">' + escapeHtml(p.severity || "") + "</span></div>" +
+            (headline ? '<p class="alert-headline">' + escapeHtml(headline) + "</p>" : "") +
+            (expires ? '<p class="alert-meta">Expires: ' + escapeHtml(expires) + "</p>" : "") +
+            "</article>"
+          );
+        })
+        .join("");
+      if (stateInfo && stateInfo.slug) {
+        html +=
+          '<p class="local-risk-statelink"><a class="action-link" href="/tracker/' +
+          encodeURI(stateInfo.slug) +
+          '/">Open the ' + escapeHtml(stateInfo.name) + " tracker →</a></p>";
+      }
+      feed.innerHTML = html;
+    }
+
+    function fetchAlerts(feed, lat, lon, stateInfo) {
+      feed.innerHTML = '<p class="local-risk-status">Loading live alerts…</p>';
+      var url = "https://api.weather.gov/alerts/active?point=" + lat + "," + lon;
+      fetch(url, { headers: { Accept: "application/geo+json" } })
+        .then(function (r) {
+          if (!r.ok) throw new Error("bad status");
+          return r.json();
+        })
+        .then(function (data) {
+          var features = (data && data.features) || [];
+          var link = stateInfo || deriveState(features);
+          renderAlerts(feed, features, link);
+        })
+        .catch(function () {
+          feed.innerHTML =
+            '<p class="local-risk-error">Live alerts are temporarily unavailable. Check ' +
+            '<a href="https://www.weather.gov/" target="_blank" rel="noopener">weather.gov</a> for official alerts.</p>';
+        });
+    }
+
+    widgets.forEach(function (widget) {
+      var geoBtn = widget.querySelector(".locate-btn");
+      var form = widget.querySelector(".local-risk-zip");
+      var zipInput = form ? form.querySelector("input") : null;
+      var feed = widget.querySelector("[data-local-risk-feed]");
+      if (!feed) return;
+
+      function setStatus(msg, cls) {
+        feed.innerHTML = '<p class="local-risk-status ' + (cls || "") + '">' + msg + "</p>";
+      }
+
+      if (geoBtn) {
+        geoBtn.addEventListener("click", function () {
+          if (!("geolocation" in navigator)) {
+            setStatus("Geolocation is not supported by your browser. Enter a ZIP code instead.");
+            return;
+          }
+          geoBtn.disabled = true;
+          setStatus("Requesting your location…");
+          navigator.geolocation.getCurrentPosition(
+            function (pos) {
+              geoBtn.disabled = false;
+              fetchAlerts(feed, pos.coords.latitude, pos.coords.longitude, null);
+            },
+            function () {
+              geoBtn.disabled = false;
+              setStatus("Location permission denied. Enter a ZIP code below instead.");
+            },
+            { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 }
+          );
+        });
+      }
+
+      if (form && zipInput) {
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var zip = zipInput.value.trim();
+          if (!/^\d{5}$/.test(zip)) {
+            setStatus("Enter a valid five-digit US ZIP code.");
+            return;
+          }
+          setStatus("Looking up " + zip + "…");
+          fetch("/api/location/zip?zip=" + encodeURIComponent(zip))
+            .then(function (r) {
+              if (!r.ok) throw new Error("lookup failed");
+              return r.json();
+            })
+            .then(function (loc) {
+              if (!loc.latitude || !loc.longitude) throw new Error("no coordinates");
+              var match = COASTAL.find(function (c) { return c.name === loc.stateName; });
+              var stateInfo = match || null;
+              fetchAlerts(feed, loc.latitude, loc.longitude, stateInfo);
+            })
+            .catch(function () {
+              setStatus("Could not look up that ZIP code. Try again or use your location.");
+            });
+        });
+      }
+    });
+  })();
+</script>
