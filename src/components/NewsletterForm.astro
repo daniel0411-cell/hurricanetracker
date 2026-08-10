@@ -1,0 +1,54 @@
+---
+type Props = {
+  source?: string;
+};
+
+const { source = "HurricaneHub newsletter form" } = Astro.props;
+---
+<form class="panel newsletter-form" data-source={source}>
+  <label for="newsletter-email">Email address</label>
+  <input id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+  <button type="submit">Subscribe</button>
+  <p class="newsletter-status small" role="status">Get hurricane-season readiness emails. No spam, unsubscribe anytime.</p>
+</form>
+
+<script>
+  const forms = document.querySelectorAll<HTMLFormElement>(".newsletter-form");
+  forms.forEach((form) => {
+    const statusEl = form.querySelector<HTMLElement>(".newsletter-status");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      try {
+        if (statusEl) statusEl.textContent = "Subscribing...";
+        const response = await fetch("/api/subscribe", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ email: data.get("email"), source: form.dataset.source })
+        });
+        const body = await response.json() as { message?: string; error?: string };
+        if (!response.ok) throw new Error(body.error ?? "Request failed");
+        if (statusEl) statusEl.textContent = body.message ?? "You're subscribed.";
+        form.reset();
+      } catch (error) {
+        console.error("HurricaneHub newsletter form failed", error);
+        if (statusEl) statusEl.textContent = "Could not subscribe right now. Try again later.";
+      }
+    });
+  });
+</script>
+
+<style>
+  .newsletter-form {
+    display: grid;
+    gap: 10px;
+    max-width: 440px;
+  }
+  .newsletter-form label {
+    font-weight: 800;
+  }
+  .newsletter-form .newsletter-status {
+    color: var(--muted);
+    margin: 0;
+  }
+</style>

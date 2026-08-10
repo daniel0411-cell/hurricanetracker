@@ -3,8 +3,9 @@ import FaqBlock from "../components/FaqBlock.astro";
 import LiveDashboard from "../components/LiveDashboard.astro";
 import ReminderSignup from "../components/ReminderSignup.astro";
 import Layout from "../layouts/Layout.astro";
-import { differentiators, faqs, site } from "../data/site";
+import { differentiators, faqs, site, stats } from "../data/site";
 import { coastalStates } from "../data/states";
+import { blogPosts } from "../data/blog";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
 import type { NhcStorm, NwsAlert } from "../lib/weather";
 
@@ -96,6 +97,19 @@ const tools = [
           <div class="metric"><strong>{floridaAlerts.length}</strong><span>{featuredStateName} NWS alerts</span></div>
         </div>
         <p class="source-note">Official {featuredStateName} feed checked {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band stats-band" aria-labelledby="stats-heading">
+    <div class="inner">
+      <p class="eyebrow">By the numbers</p>
+      <h2 id="stats-heading">HurricaneHub At A Glance</h2>
+      <div class="metric-strip">
+        <div class="metric"><i class="fa-solid fa-map-location-dot"></i><div><strong>{coastalStates.length}</strong><span>coastal states tracked</span></div></div>
+        <div class="metric"><i class="fa-solid fa-satellite-dish"></i><div><strong>{stats.liveFeeds}</strong><span>live official data feeds</span></div></div>
+        <div class="metric"><i class="fa-solid fa-toolbox"></i><div><strong>{stats.tools}</strong><span>decision tools</span></div></div>
+        <div class="metric"><i class="fa-solid fa-book-open"></i><div><strong>{blogPosts.length}</strong><span>preparedness guides</span></div></div>
       </div>
     </div>
   </section>

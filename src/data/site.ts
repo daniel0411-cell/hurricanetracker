@@ -59,3 +59,9 @@ export const differentiators = [
   "SEO and generative-answer pages with direct answers, source notes, and reusable JSON-LD.",
   "Cloudflare KV caching and Worker-side proxying so NOAA/NWS APIs are not exposed as brittle browser-only dependencies."
 ];
+
+export const stats = {
+  statesCovered: 9,
+  tools: 11,
+  liveFeeds: 2
+};

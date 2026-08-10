@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import FaqBlock from "../../components/FaqBlock.astro";
 import { blogPosts } from "../../data/blog";
 import { faqs, site } from "../../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { blogPostingSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
 
 const slug = Astro.params.slug ?? "";
 const post = blogPosts.find((item) => item.slug === slug);
@@ -22,7 +22,7 @@ const postFaqs = post.faqs?.length ? post.faqs : faqs;
 const ogImage = post.image.replace(/\.svg$/i, ".png").replace("/images/blog/", "/images/blog/og/");
 const jsonLd = graph(
   websiteSchema(),
-  articleSchema({ title, description, url, datePublished: new Date(post.datePublished).toISOString(), dateModified: lastModified, image: new URL(ogImage, site.url).href }),
+  blogPostingSchema({ title, description, url, datePublished: new Date(post.datePublished).toISOString(), dateModified: lastModified, image: new URL(ogImage, site.url).href }),
   faqSchema(postFaqs)
 );
 ---

@@ -1,5 +1,6 @@
 ---
 import { useTranslations, type Lang } from "../i18n/ui";
+import NewsletterForm from "./NewsletterForm.astro";
 
 type Props = {
   lang?: Lang;
@@ -8,12 +9,46 @@ type Props = {
 const { lang = "en" } = Astro.props;
 const t = useTranslations(lang);
 ---
-
+<div class="footer-newsletter">
+  <div class="inner">
+    <p class="eyebrow">Hurricane season updates</p>
+    <h2>Get Hurricane Readiness Emails</h2>
+    <p>One or two practical emails per storm season — preparedness timing, official-alert explainers, and evacuation-decision checklists. No spam, unsubscribe anytime.</p>
+    <NewsletterForm source="Footer newsletter signup" />
+    <p class="footer-note"><a href="/newsletter/">What you'll get &amp; how to unsubscribe</a></p>
+  </div>
+</div>
 <footer class="site-footer">
   <p>{t("footer.text")}</p>
   <div class="footer-links">
     <a href="/sitemap.xml">{t("footer.sitemap")}</a>
     <a href="/rss.xml">{t("footer.rss")}</a>
+    <a href="/newsletter/">Newsletter</a>
     <span><!-- FTC DISCLOSURE: Future affiliate links --></span>
   </div>
 </footer>
+
+<style>
+  .footer-newsletter {
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    padding: clamp(34px, 5vw, 56px) var(--page-x);
+  }
+  .footer-newsletter .inner {
+    width: min(var(--container), 100%);
+    margin: 0 auto;
+  }
+  .footer-newsletter h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin: 6px 0 10px;
+  }
+  .footer-newsletter p {
+    max-width: 620px;
+    color: var(--muted);
+    margin: 0 0 16px;
+  }
+  .footer-note {
+    margin-top: 12px;
+    font-size: 0.9rem;
+  }
+</style>

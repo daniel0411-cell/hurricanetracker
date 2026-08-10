@@ -1,0 +1,59 @@
+---
+import Layout from "../layouts/Layout.astro";
+import NewsletterForm from "../components/NewsletterForm.astro";
+import FaqBlock from "../components/FaqBlock.astro";
+import { faqs, site } from "../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
+
+const title = "Hurricane Readiness Newsletter";
+const description =
+  "Subscribe to HurricaneHub's hurricane-season email list for preparedness timing, official-alert explainers, and evacuation-decision checklists — practical, low-volume, no spam.";
+const url = `${site.url}/newsletter/`;
+const lastModified = site.contentLastModified;
+const pageFaqs = [
+  {
+    question: "How often will you email me?",
+    answer:
+      "Only during hurricane season, and only when there is something useful to share — typically one or two practical emails per season, plus an early-season preparedness reminder."
+  },
+  {
+    question: "What will the emails include?",
+    answer:
+      "Preparedness timing, plain-language explainers of NWS alerts, evacuation-decision checklists, and links back to the live tracker and tools."
+  },
+  {
+    question: "Is this a replacement for official alerts?",
+    answer:
+      "No. Email is a slow channel. For life-safety decisions always rely on official NHC advisories, NWS warnings, and local emergency management instructions."
+  },
+  {
+    question: "How do I unsubscribe?",
+    answer: "Every email includes an unsubscribe link. We store only your email address and the signup source."
+  }
+];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  faqSchema(pageFaqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="nl-title">
+    <div class="inner nl-inner">
+      <p class="eyebrow">Stay ready, not surprised</p>
+      <h1 id="nl-title">Hurricane Readiness Newsletter</h1>
+      <p class="answer">{description}</p>
+      <NewsletterForm source="Newsletter landing page" />
+    </div>
+  </section>
+  <FaqBlock faqs={pageFaqs} />
+</Layout>
+
+<style>
+  .nl-inner {
+    max-width: 640px;
+  }
+  .nl-inner .answer {
+    margin-bottom: 22px;
+  }
+</style>

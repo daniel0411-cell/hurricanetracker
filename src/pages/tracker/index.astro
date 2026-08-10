@@ -3,7 +3,7 @@ import FaqBlock from "../../components/FaqBlock.astro";
 import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
 import { coastalStates } from "../../data/states";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { articleSchema, faqSchema, governmentServiceSchema, graph, websiteSchema } from "../../lib/schema";
 import type { NhcStorm, NwsAlert } from "../../lib/weather";
 
 type StormFeed = {
@@ -51,6 +51,7 @@ const lastModified = stormFeed?.updatedAt ?? alertFeed?.updatedAt ?? site.conten
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
+  governmentServiceSchema({ areaServed: "United States Atlantic and Gulf Coast states" }),
   faqSchema(faqs)
 );
 ---

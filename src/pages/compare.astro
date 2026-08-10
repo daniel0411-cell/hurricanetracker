@@ -1,6 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import FaqBlock from "../components/FaqBlock.astro";
+import { site } from "../data/site";
+import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
 import {
   BENCHMARK_STORMS,
   categoryLabel,
@@ -34,9 +36,21 @@ const pageFaqs = [
       "No. This is an educational context tool. Always follow official NHC advisories, NWS warnings, and local emergency management instructions for life-safety decisions."
   }
 ];
+
+const canonical = `${site.url}/compare/`;
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({
+    title: "Hurricane Comparison Tool — Katrina, Ian, Sandy vs. Active Storm",
+    description,
+    url: canonical,
+    dateModified: site.contentLastModified
+  }),
+  faqSchema(pageFaqs)
+);
 ---
 
-<Layout title="Hurricane Comparison Tool — Katrina, Ian, Sandy vs. Active Storm" description={description}>
+<Layout title="Hurricane Comparison Tool — Katrina, Ian, Sandy vs. Active Storm" description={description} canonical={canonical} jsonLd={jsonLd} lastModified={site.contentLastModified}>
   <main class="compare-page">
     <section class="compare-hero">
       <h1>Hurricane Comparison Tool</h1>
