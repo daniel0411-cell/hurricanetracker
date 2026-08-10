@@ -27,9 +27,15 @@ export const onRequest = defineMiddleware(async (context, next) => {
       return Response.redirect(destination.toString(), 301);
     }
 
-    // Force canonical host (non-www -> www) for everything else.
+    // Force canonical host (non-www -> www). Redirect target is upgraded to
+    // https://www. in a single hop so crawlers don't follow a chained
+    // http://www -> https://www redirect (which Bing distrusts).
+    // NOTE: only normalize on a hostname mismatch. Under Cloudflare Flexible
+    // SSL the Worker always receives an http:// request, so checking the
+    // protocol here would cause an infinite redirect loop.
     if (url.hostname !== canonicalHost) {
       url.hostname = canonicalHost;
+      url.protocol = "https:";
       return Response.redirect(url.toString(), 301);
     }
 

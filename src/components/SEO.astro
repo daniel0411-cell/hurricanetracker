@@ -16,8 +16,23 @@ type Props = {
 const { title, description, canonical, siteName, jsonLd, lastModified, image, ogImage } = Astro.props;
 const modified = lastModified ?? site.contentLastModified;
 const schema = jsonLd ?? graph(websiteSchema(), organizationSchema());
-const absoluteImage = image ? new URL(image, canonical).href : undefined;
-const absoluteOgImage = ogImage ? new URL(ogImage, canonical).href : absoluteImage ?? new URL("/images/og/default-og.png", canonical).href;
+
+// Canonicalize every page's canonical to https://www.<host>/... so it matches
+// the sitemap URLs and the middleware redirect target exactly. Fixes the
+// homepage's missing trailing slash (site.url has none) and any stray http://
+// or non-www variants crawlers might discover.
+const canonicalHost = new URL(site.url).hostname;
+function normalizeCanonical(input: string): string {
+  const u = new URL(input);
+  u.protocol = "https:";
+  u.hostname = canonicalHost;
+  if (u.pathname === "") u.pathname = "/";
+  return u.href;
+}
+const canonicalHref = normalizeCanonical(canonical);
+
+const absoluteImage = image ? new URL(image, canonicalHref).href : undefined;
+const absoluteOgImage = ogImage ? new URL(ogImage, canonicalHref).href : absoluteImage ?? new URL("/images/og/default-og.png", canonicalHref).href;
 
 function labelForSegment(segment: string) {
   return segment
@@ -41,7 +56,7 @@ function breadcrumbsFor(canonicalUrl: string) {
   return breadcrumbSchema(items);
 }
 
-const breadcrumb = breadcrumbsFor(canonical);
+const breadcrumb = breadcrumbsFor(canonicalHref);
 const schemaWithBreadcrumb = (() => {
   const current = schema as { "@graph"?: object[] };
   if (Array.isArray(current["@graph"])) {
@@ -55,13 +70,13 @@ const schemaWithBreadcrumb = (() => {
 ---
 <title>{title}</title>
 <meta name="description" content={description} />
-<link rel="canonical" href={canonical} />
+<link rel="canonical" href={canonicalHref} />
 <meta name="last-modified" content={modified} />
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:url" content={canonical} />
+<meta property="og:url" content={canonicalHref} />
 <meta property="og:site_name" content={siteName} />
 {absoluteOgImage && <meta property="og:image" content={absoluteOgImage} />}
 <meta property="article:modified_time" content={modified} />
