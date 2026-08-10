@@ -2,6 +2,7 @@
 export const prerender = true;
 
 import Layout from "../layouts/Layout.astro";
+import SearchModal from "../components/SearchModal.astro";
 import { site } from "../data/site";
 
 const title = "Page not found";
@@ -15,8 +16,9 @@ const canonical = `${site.url}/404/`;
       <p class="eyebrow">Error 404</p>
       <h1 id="not-found-title">That page could not be found.</h1>
       <p class="answer">
-        The link may be outdated or the address may have been mistyped. Use the navigation above or the links below to get back to the tools that matter during hurricane season.
+        The link may be outdated or the address may have been mistyped. Use the navigation above, search the site, or the links below to get back to the tools that matter during hurricane season.
       </p>
+      <SearchModal variant="inline" />
       <div class="section-actions justify-center">
         <a class="action-link" href="/">Go home</a>
         <a class="action-link" href="/tracker/">Live tracker</a>

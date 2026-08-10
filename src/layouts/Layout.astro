@@ -85,6 +85,119 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
         });
       }
     </script>
+    <script is:inline>
+      (function () {
+        var INDEX_URL = "/search-index.json";
+        var indexCache = null;
+        var modal = document.getElementById("search-modal");
+        var toggle = document.getElementById("search-toggle");
+        var modalInput = document.getElementById("search-input-modal");
+        var modalResults = document.getElementById("search-results-modal");
+
+        function loadIndex() {
+          if (indexCache) return Promise.resolve(indexCache);
+          return fetch(INDEX_URL)
+            .then(function (r) { return r.json(); })
+            .then(function (data) { indexCache = (data && data.entries) || []; return indexCache; })
+            .catch(function () { return []; });
+        }
+
+        function escapeHtml(s) {
+          return String(s).replace(/[&<>"']/g, function (c) {
+            return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+          });
+        }
+
+        function scoreEntry(entry, terms) {
+          var title = (entry.title || "").toLowerCase();
+          var desc = (entry.description || "").toLowerCase();
+          var body = (entry.body || "").toLowerCase();
+          var cat = (entry.category || "").toLowerCase();
+          var score = 0;
+          for (var i = 0; i < terms.length; i++) {
+            var t = terms[i];
+            if (!t) continue;
+            if (title.indexOf(t) !== -1) score += title.indexOf(t) === 0 ? 12 : 8;
+            if (cat.indexOf(t) !== -1) score += 6;
+            if (desc.indexOf(t) !== -1) score += 3;
+            if (body.indexOf(t) !== -1) score += 1;
+          }
+          return score;
+        }
+
+        function render(container, entries, query) {
+          if (!container) return;
+          if (!query) { container.innerHTML = ""; return; }
+          var terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+          var scored = entries
+            .map(function (e) { return { e: e, s: scoreEntry(e, terms) }; })
+            .filter(function (x) { return x.s > 0; })
+            .sort(function (a, b) { return b.s - a.s; })
+            .slice(0, 8);
+          if (!scored.length) {
+            container.innerHTML = '<p class="search-empty">No results for "' + escapeHtml(query) + '". Try another term.</p>';
+            return;
+          }
+          container.innerHTML = scored.map(function (x) {
+            var e = x.e;
+            return '<a class="search-result" href="' + encodeURI(e.url) + '">' +
+              '<span class="sr-cat">' + escapeHtml(e.category) + '</span>' +
+              '<span class="sr-title">' + escapeHtml(e.title) + '</span>' +
+              '<span class="sr-desc">' + escapeHtml(e.description) + '</span>' +
+              '</a>';
+          }).join("");
+        }
+
+        function openModal() {
+          if (!modal) return;
+          modal.hidden = false;
+          if (toggle) toggle.setAttribute("aria-expanded", "true");
+          if (modalInput) modalInput.focus();
+        }
+
+        function closeModal() {
+          if (!modal) return;
+          modal.hidden = true;
+          if (toggle) toggle.setAttribute("aria-expanded", "false");
+        }
+
+        if (toggle) {
+          toggle.addEventListener("click", function () {
+            if (modal && !modal.hidden) closeModal();
+            else { loadIndex(); openModal(); }
+          });
+        }
+
+        if (modal) {
+          modal.querySelectorAll("[data-search-close]").forEach(function (el) {
+            el.addEventListener("click", closeModal);
+          });
+        }
+
+        document.addEventListener("keydown", function (e) {
+          var tag = (e.target && e.target.tagName) || "";
+          if (e.key === "/" && !/^(INPUT|TEXTAREA|SELECT)$/.test(tag) && !(e.target && e.target.isContentEditable)) {
+            if (modal) { e.preventDefault(); loadIndex(); openModal(); }
+          } else if (e.key === "Escape" && modal && !modal.hidden) {
+            closeModal();
+          }
+        });
+
+        function bindInput(input, results) {
+          if (!input || !results) return;
+          input.addEventListener("input", function () {
+            var q = input.value.trim();
+            loadIndex().then(function (entries) { render(results, entries, q); });
+          });
+        }
+
+        bindInput(modalInput, modalResults);
+
+        var inline = document.querySelector(".search-inline .hh-search-input");
+        var inlineResults = document.querySelector(".search-inline .hh-search-results");
+        bindInput(inline, inlineResults);
+      })();
+    </script>
   </body>
 </html>
 
@@ -1029,6 +1142,177 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
     align-items: center;
   }
 
+  /* --- Site search --- */
+  .search-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 38px;
+    margin-left: 6px;
+    padding: 0 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(122, 134, 142, 0.4);
+    background: transparent;
+    color: var(--muted);
+    font-size: 0.86rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .search-toggle:hover,
+  .search-toggle:focus-visible {
+    background: #e7eef1;
+    color: var(--ink);
+  }
+
+  .search-toggle-label {
+    display: inline;
+  }
+
+  .search-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: clamp(20px, 8vh, 96px) 16px 16px;
+  }
+
+  .search-modal[hidden] {
+    display: none;
+  }
+
+  .search-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(14, 25, 34, 0.55);
+    backdrop-filter: blur(2px);
+  }
+
+  .search-modal-panel {
+    position: relative;
+    width: min(640px, 100%);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 14px;
+  }
+
+  .search-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 4px 12px;
+    background: var(--surface);
+  }
+
+  .search-field-icon {
+    flex: none;
+    font-size: 1rem;
+  }
+
+  .hh-search-input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    padding: 12px 0;
+    font-size: 1.05rem;
+    color: var(--ink);
+  }
+
+  .hh-search-input:focus {
+    outline: none;
+  }
+
+  .hh-search-results {
+    display: grid;
+    gap: 4px;
+    margin-top: 10px;
+    max-height: min(60vh, 420px);
+    overflow-y: auto;
+  }
+
+  .hh-search-results:empty {
+    display: none;
+  }
+
+  .search-result {
+    display: grid;
+    gap: 2px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--ink);
+    border: 1px solid transparent;
+  }
+
+  .search-result:hover,
+  .search-result:focus-visible,
+  .search-result.active {
+    background: var(--surface);
+    border-color: var(--line);
+  }
+
+  .search-result .sr-cat {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 800;
+    color: var(--ocean);
+  }
+
+  .search-result .sr-title {
+    font-weight: 800;
+    font-size: 0.98rem;
+  }
+
+  .search-result .sr-desc {
+    font-size: 0.84rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .search-empty {
+    padding: 16px 12px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .search-hint {
+    margin: 10px 2px 2px;
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .search-hint kbd,
+  .search-modal kbd {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 5px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    font-size: 0.78rem;
+    font-family: ui-monospace, monospace;
+  }
+
+  .search-inline {
+    max-width: 520px;
+    margin: 0 auto 28px;
+  }
+
+  @media (max-width: 520px) {
+    .search-toggle-label {
+      display: none;
+    }
+  }
+
   @media (max-width: 860px) {
     .hero-grid,
     .grid-2,
@@ -1156,5 +1440,22 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
   :root[data-theme="dark"] .ad-slot {
     border-color: var(--line);
     background: rgba(255, 255, 255, 0.04);
+  }
+
+  :root[data-theme="dark"] .search-toggle:hover,
+  :root[data-theme="dark"] .search-toggle:focus-visible {
+    background: #1c2e3b;
+    color: var(--ink);
+  }
+
+  :root[data-theme="dark"] .search-modal-panel,
+  :root[data-theme="dark"] .search-field {
+    background: var(--panel);
+  }
+
+  :root[data-theme="dark"] .search-result:hover,
+  :root[data-theme="dark"] .search-result:focus-visible,
+  :root[data-theme="dark"] .search-result.active {
+    background: var(--surface);
   }
 </style>

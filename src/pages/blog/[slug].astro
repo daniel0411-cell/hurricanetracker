@@ -16,11 +16,13 @@ const url = `${site.url}/blog/${post.slug}/`;
 const lastModified = new Date(post.dateModified).toISOString();
 const relatedPosts = blogPosts.filter((item) => item.slug !== post.slug).slice(0, 3);
 const postFaqs = post.faqs?.length ? post.faqs : faqs;
-const imageUrl = new URL(post.image, site.url).href;
+// Blog posts are SSR, so we cannot statically assert asset existence at request time.
+// The gen-og prebuild step guarantees an OG PNG exists for every cover SVG referenced
+// by blog.ts, so the specific card is always safe to reference.
 const ogImage = post.image.replace(/\.svg$/i, ".png").replace("/images/blog/", "/images/blog/og/");
 const jsonLd = graph(
   websiteSchema(),
-  articleSchema({ title, description, url, datePublished: new Date(post.datePublished).toISOString(), dateModified: lastModified, image: imageUrl }),
+  articleSchema({ title, description, url, datePublished: new Date(post.datePublished).toISOString(), dateModified: lastModified, image: new URL(ogImage, site.url).href }),
   faqSchema(postFaqs)
 );
 ---

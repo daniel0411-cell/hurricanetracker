@@ -1,0 +1,32 @@
+---
+type Props = { variant?: "trigger" | "inline" };
+const { variant = "trigger" } = Astro.props;
+---
+
+{variant === "trigger" && (
+  <button type="button" class="search-toggle" id="search-toggle" aria-label="Search site" aria-expanded="false" aria-controls="search-modal">
+    <span aria-hidden="true">🔍</span><span class="search-toggle-label">Search</span>
+  </button>
+)}
+
+{variant === "inline" && (
+  <div class="search-field search-inline" role="search">
+    <span class="search-field-icon" aria-hidden="true">🔍</span>
+    <input type="search" class="hh-search-input" placeholder="Search articles, tools, states…" aria-label="Search" autocomplete="off" />
+    <div class="hh-search-results" role="listbox" aria-label="Search results"></div>
+  </div>
+)}
+
+{variant === "trigger" && (
+  <div class="search-modal" id="search-modal" hidden>
+    <div class="search-modal-backdrop" data-search-close></div>
+    <div class="search-modal-panel" role="dialog" aria-modal="true" aria-label="Search HurricaneHub">
+      <div class="search-field">
+        <span class="search-field-icon" aria-hidden="true">🔍</span>
+        <input type="search" class="hh-search-input" id="search-input-modal" placeholder="Search articles, tools, states…" aria-label="Search" autocomplete="off" />
+        <div class="hh-search-results" id="search-results-modal" role="listbox" aria-label="Search results"></div>
+      </div>
+      <p class="search-hint">Press <kbd>/</kbd> to search · <kbd>Esc</kbd> to close</p>
+    </div>
+  </div>
+)}

@@ -1,6 +1,7 @@
 ---
 import { site } from "../data/site";
 import { useTranslations, type Lang } from "../i18n/ui";
+import SearchModal from "./SearchModal.astro";
 
 type Props = {
   lang?: Lang;
@@ -32,6 +33,7 @@ const navItems = [
   </button>
   <nav class="primary-nav" id="primary-nav" aria-label="Primary">
     {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+    <SearchModal variant="trigger" />
     <button type="button" id="theme-toggle" class="theme-toggle" aria-label={t("theme.toggle")} aria-pressed="false">
       <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
       <span class="theme-toggle-label">{t("theme.dark")}</span>
