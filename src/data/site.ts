@@ -1,7 +1,7 @@
 export const site = {
   name: "HurricaneHub",
   url: "https://www.hurricanetracker.cc",
-  contentLastModified: "2026-08-05T00:00:00.000Z",
+  contentLastModified: "2026-08-10T00:00:00.000Z",
   description:
     "HurricaneHub tracks North American hurricanes, official warnings, risk windows, and evacuation decisions from NOAA, NHC, and NWS data.",
   sameAs: [

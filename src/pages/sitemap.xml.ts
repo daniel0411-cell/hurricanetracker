@@ -10,7 +10,7 @@ export const prerender = true;
 //  home daily/1.0 · state pages hourly/0.9 · blog weekly/0.7 · decision-guide monthly/0.8
 //  Excludes /api/* and /admin/* (never added to the route list below).
 const updated = site.contentLastModified;
-const blogLastMod = "2026-08-07";
+const blogLastMod = "2026-08-10";
 
 const routes = [
   { path: "", lastmod: updated, priority: "1.0", changefreq: "daily" },
