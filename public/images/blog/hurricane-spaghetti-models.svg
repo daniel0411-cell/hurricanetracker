@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Hurricane spaghetti models forecast tracks</title>
+  <desc id="desc">A map with multiple forecast model track lines diverging from a single hurricane position, showing how different computer models predict different paths.</desc>
+  <rect width="1600" height="900" fill="#dcecef"/>
+  <rect x="0" y="0" width="1600" height="340" fill="#b9d2d9"/>
+  <path d="M0 280 C280 220 480 300 760 240 C1060 170 1280 250 1600 190 L1600 340 L0 340 Z" fill="#8fb4bf" opacity=".7"/>
+  <rect x="0" y="450" width="1600" height="450" fill="#d4c8b6"/>
+  <g opacity=".1">
+    <path d="M100 500 L100 880 M300 500 L300 880 M500 500 L500 880 M700 500 L700 880 M900 500 L900 880 M1100 500 L1100 880 M1300 500 L1300 880 M1500 500 L1500 880" stroke="#20384d" stroke-width="2"/>
+    <path d="M0 550 L1600 550 M0 650 L1600 650 M0 750 L1600 750 M0 850 L1600 850" stroke="#20384d" stroke-width="2"/>
+  </g>
+  <path d="M350 720 C500 650 650 560 800 450 C950 350 1100 280 1300 230" fill="none" stroke="#0e6f8f" stroke-width="5" stroke-linecap="round"/>
+  <path d="M350 720 C480 670 600 620 780 500 C920 400 1050 330 1250 300" fill="none" stroke="#2f7d4f" stroke-width="5" stroke-linecap="round"/>
+  <path d="M350 720 C520 680 700 640 880 520 C1020 420 1180 360 1380 340" fill="none" stroke="#c9891a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M350 720 C450 660 580 580 750 480 C900 380 1030 310 1200 280" fill="none" stroke="#8b5cb8" stroke-width="5" stroke-linecap="round"/>
+  <path d="M350 720 C540 700 760 660 950 580 C1080 520 1200 460 1340 420" fill="none" stroke="#c1442e" stroke-width="5" stroke-linecap="round"/>
+  <path d="M350 720 C420 650 520 540 680 420 C820 320 950 250 1080 210" fill="none" stroke="#0e6f8f" stroke-width="5" stroke-linecap="round" stroke-dasharray="10 8"/>
+  <circle cx="350" cy="720" r="30" fill="#c1442e" opacity=".9"/>
+  <circle cx="350" cy="720" r="48" fill="none" stroke="#c1442e" stroke-width="4" opacity=".5"/>
+  <g transform="translate(1300,250)">
+    <rect x="-10" y="-10" width="160" height="30" rx="6" fill="#20384d" opacity=".85"/>
+    <text x="70" y="10" font-family="Arial,sans-serif" font-size="16" fill="#fff" text-anchor="middle">Model spread</text>
+  </g>
+  <g transform="translate(320,760)">
+    <rect x="-10" y="-10" width="140" height="30" rx="6" fill="#c1442e" opacity=".85"/>
+    <text x="60" y="10" font-family="Arial,sans-serif" font-size="16" fill="#fff" text-anchor="middle">Current position</text>
+  </g>
+  <g transform="translate(90,80)">
+    <rect x="0" y="0" width="300" height="140" rx="16" fill="#fff" stroke="#20384d" stroke-width="3"/>
+    <text x="20" y="35" font-family="Arial,sans-serif" font-size="18" font-weight="bold" fill="#20384d">Model Legend</text>
+    <circle cx="30" cy="62" r="6" fill="#0e6f8f"/><text x="46" y="68" font-family="Arial,sans-serif" font-size="16" fill="#20384d">GFS (American)</text>
+    <circle cx="30" cy="88" r="6" fill="#2f7d4f"/><text x="46" y="94" font-family="Arial,sans-serif" font-size="16" fill="#20384d">ECMWF (European)</text>
+    <circle cx="30" cy="114" r="6" fill="#c1442e"/><text x="46" y="120" font-family="Arial,sans-serif" font-size="16" fill="#20384d">HWRF (Hurricane)</text>
+  </g>
+</svg>

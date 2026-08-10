@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1f2e"/>
+      <stop offset="1" stop-color="#0e6f8f"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.34" r="0.55">
+      <stop offset="0" stop-color="#2bb6d6" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#2bb6d6" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.4" fill="#ffffff" fill-opacity="0.10"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <g transform="translate(945,245)" fill="none" stroke="#9fe3f0" stroke-opacity="0.55">
+    <circle r="158" stroke-width="2"/>
+    <circle r="112" stroke-width="1.5" stroke-opacity="0.35"/>
+    <circle r="66" stroke-width="1.5" stroke-opacity="0.25"/>
+    <path d="M0 0 L158 0 A158 158 0 0 1 112 112 Z" fill="#2bb6d6" fill-opacity="0.18" stroke="none"/>
+  </g>
+  <g transform="translate(945,245)" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-opacity="0.92">
+    <path d="M0 -42 C 32 -42 58 -16 58 16 C 58 48 26 74 -6 74 C -37 74 -62 48 -62 16 C -62 -10 -42 -32 -16 -32"/>
+  </g>
+  <text x="80" y="248" font-family="Helvetica, Arial, sans-serif" font-size="92" font-weight="800" fill="#ffffff" letter-spacing="-1">HurricaneHub</text>
+  <text x="82" y="312" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="600" fill="#bfe6ef">North America Hurricane Tracker</text>
+  <text x="82" y="356" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="600" fill="#bfe6ef">&amp; Emergency Decision Hub</text>
+  <rect x="82" y="528" width="44" height="8" rx="4" fill="#2bb6d6"/>
+  <text x="82" y="572" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#7fd3e6" letter-spacing="1">hurricanetracker.cc</text>
+</svg>

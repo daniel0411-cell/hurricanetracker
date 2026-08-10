@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Saffir-Simpson hurricane wind scale categories 1 to 5</title>
+  <desc id="desc">Five hurricane icons of increasing size and intensity from Category 1 to Category 5, each labeled with wind speed ranges and damage potential.</desc>
+  <rect width="1600" height="900" fill="#edf4f5"/>
+  <rect x="0" y="0" width="1600" height="300" fill="#b9d2d9"/>
+  <path d="M0 240 C260 190 460 250 720 205 C1040 150 1240 225 1600 165 L1600 300 L0 300 Z" fill="#8fb4bf" opacity=".7"/>
+  <rect x="0" y="440" width="1600" height="460" fill="#dfd4c4"/>
+  <g transform="translate(180,360)">
+    <circle cx="0" cy="0" r="60" fill="none" stroke="#2f7d4f" stroke-width="10" opacity=".7"/>
+    <circle cx="0" cy="0" r="30" fill="#2f7d4f" opacity=".5"/>
+    <circle cx="0" cy="0" r="10" fill="#2f7d4f"/>
+    <text x="0" y="100" font-family="Arial,sans-serif" font-size="28" font-weight="bold" fill="#2f7d4f" text-anchor="middle">Cat 1</text>
+    <text x="0" y="135" font-family="Arial,sans-serif" font-size="20" fill="#20384d" text-anchor="middle">74-95 mph</text>
+    <text x="0" y="165" font-family="Arial,sans-serif" font-size="18" fill="#5a6b75" text-anchor="middle">Very dangerous</text>
+  </g>
+  <g transform="translate(480,360)">
+    <circle cx="0" cy="0" r="72" fill="none" stroke="#c9891a" stroke-width="11" opacity=".7"/>
+    <circle cx="0" cy="0" r="40" fill="#c9891a" opacity=".5"/>
+    <circle cx="0" cy="0" r="12" fill="#c9891a"/>
+    <text x="0" y="105" font-family="Arial,sans-serif" font-size="28" font-weight="bold" fill="#c9891a" text-anchor="middle">Cat 2</text>
+    <text x="0" y="140" font-family="Arial,sans-serif" font-size="20" fill="#20384d" text-anchor="middle">96-110 mph</text>
+    <text x="0" y="170" font-family="Arial,sans-serif" font-size="18" fill="#5a6b75" text-anchor="middle">Extremely dangerous</text>
+  </g>
+  <g transform="translate(800,360)">
+    <circle cx="0" cy="0" r="86" fill="none" stroke="#c1442e" stroke-width="12" opacity=".75"/>
+    <circle cx="0" cy="0" r="52" fill="#c1442e" opacity=".55"/>
+    <circle cx="0" cy="0" r="16" fill="#c1442e"/>
+    <text x="0" y="110" font-family="Arial,sans-serif" font-size="28" font-weight="bold" fill="#c1442e" text-anchor="middle">Cat 3</text>
+    <text x="0" y="145" font-family="Arial,sans-serif" font-size="20" fill="#20384d" text-anchor="middle">111-129 mph</text>
+    <text x="0" y="175" font-family="Arial,sans-serif" font-size="18" fill="#5a6b75" text-anchor="middle">Devastating damage</text>
+  </g>
+  <g transform="translate(1120,360)">
+    <circle cx="0" cy="0" r="100" fill="none" stroke="#a02a17" stroke-width="13" opacity=".8"/>
+    <circle cx="0" cy="0" r="62" fill="#a02a17" opacity=".6"/>
+    <circle cx="0" cy="0" r="20" fill="#a02a17"/>
+    <text x="0" y="115" font-family="Arial,sans-serif" font-size="28" font-weight="bold" fill="#a02a17" text-anchor="middle">Cat 4</text>
+    <text x="0" y="150" font-family="Arial,sans-serif" font-size="20" fill="#20384d" text-anchor="middle">130-156 mph</text>
+    <text x="0" y="180" font-family="Arial,sans-serif" font-size="18" fill="#5a6b75" text-anchor="middle">Catastrophic damage</text>
+  </g>
+  <g transform="translate(1420,360)">
+    <circle cx="0" cy="0" r="114" fill="none" stroke="#6b0f06" stroke-width="14" opacity=".85"/>
+    <circle cx="0" cy="0" r="72" fill="#6b0f06" opacity=".65"/>
+    <circle cx="0" cy="0" r="24" fill="#6b0f06"/>
+    <circle cx="0" cy="0" r="10" fill="#fff"/>
+    <text x="0" y="120" font-family="Arial,sans-serif" font-size="28" font-weight="bold" fill="#6b0f06" text-anchor="middle">Cat 5</text>
+    <text x="0" y="155" font-family="Arial,sans-serif" font-size="20" fill="#20384d" text-anchor="middle">157+ mph</text>
+    <text x="0" y="185" font-family="Arial,sans-serif" font-size="18" fill="#5a6b75" text-anchor="middle">Total destruction</text>
+  </g>
+  <rect x="80" y="680" width="1440" height="10" rx="5" fill="#d7dde2"/>
+  <rect x="80" y="680" width="288" height="10" rx="5" fill="#2f7d4f"/>
+  <rect x="368" y="680" width="288" height="10" rx="5" fill="#c9891a"/>
+  <rect x="656" y="680" width="288" height="10" rx="5" fill="#c1442e"/>
+  <rect x="944" y="680" width="288" height="10" rx="5" fill="#a02a17"/>
+  <rect x="1232" y="680" width="288" height="10" rx="5" fill="#6b0f06"/>
+  <text x="800" y="740" font-family="Arial,sans-serif" font-size="24" font-weight="bold" fill="#20384d" text-anchor="middle">Saffir-Simpson Hurricane Wind Scale</text>
+  <text x="800" y="775" font-family="Arial,sans-serif" font-size="18" fill="#5a6b75" text-anchor="middle">Categories based on maximum sustained wind speed</text>
+</svg>

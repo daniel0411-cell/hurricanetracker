@@ -62,6 +62,8 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
       image={image}
       ogImage={ogImage}
     />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <slot name="head" />
   </head>
@@ -217,6 +219,41 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
   .site-header nav a:focus-visible {
     background: #e7eef1;
     color: var(--ink);
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .nav-toggle .bar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--ink);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .nav-toggle[aria-expanded="true"] .bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded="true"] .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle[aria-expanded="true"] .bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
   }
 
   .disclaimer {
@@ -999,14 +1036,43 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
     }
 
     .site-header {
-      align-items: flex-start;
-      display: grid;
-      min-height: 0;
-      padding-top: 12px;
-      padding-bottom: 12px;
+      position: relative;
+      min-height: 64px;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .nav-toggle {
+      display: inline-flex;
     }
 
     .site-header nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      padding: 10px var(--page-x) 16px;
+      box-shadow: var(--shadow);
+      display: none;
+      z-index: 30;
+    }
+
+    .site-header nav.open {
+      display: flex;
+    }
+
+    .site-header nav a {
+      justify-content: flex-start;
+      min-height: 44px;
+    }
+
+    .site-header nav .theme-toggle {
+      margin: 6px 0 0;
       justify-content: flex-start;
     }
 
