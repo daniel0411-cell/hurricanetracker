@@ -902,7 +902,8 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
     gap: 12px;
   }
 
-  .alert-row {
+  /* Dashboard alert rows only — do NOT apply to tracker/alerts pages that also use .alert-row with different markup. */
+  .alert-list .alert-row {
     display: grid;
     grid-template-columns: 6px 1fr;
     gap: 0;
@@ -914,28 +915,28 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
     box-shadow: none;
   }
 
-  .alert-row .alert-severity {
+  .alert-list .alert-row .alert-severity {
     border-radius: 0;
   }
 
-  .alert-row.severity-leave .alert-severity {
+  .alert-list .alert-row.severity-leave .alert-severity {
     background: #9f2d1f;
   }
 
-  .alert-row.severity-act .alert-severity {
+  .alert-list .alert-row.severity-act .alert-severity {
     background: #c9891a;
   }
 
-  .alert-row.severity-monitor .alert-severity {
+  .alert-list .alert-row.severity-monitor .alert-severity {
     background: var(--ocean);
   }
 
-  .alert-row .alert-content {
+  .alert-list .alert-row .alert-content {
     padding: 13px 15px;
     min-width: 0;
   }
 
-  .alert-row header {
+  .alert-list .alert-row header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -943,16 +944,16 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
     margin-bottom: 4px;
   }
 
-  .alert-row header h4 {
+  .alert-list .alert-row header h4 {
     margin: 0;
     font-size: 1rem;
   }
 
-  .alert-row p {
+  .alert-list .alert-row p {
     margin: 4px 0 0;
   }
 
-  .alert-row .badge {
+  .alert-list .alert-row .badge {
     flex: none;
   }
 
