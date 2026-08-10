@@ -7,6 +7,8 @@ export type HurricaneCity = {
   risks: string[];
   planningNote: string;
   nearbyCounties: string[];
+  lat: number;
+  lon: number;
 };
 
 export const hurricaneCities: HurricaneCity[] = [
@@ -19,7 +21,9 @@ export const hurricaneCities: HurricaneCity[] = [
     risks: ["storm surge", "evacuation traffic", "flash flooding", "tornadoes in rain bands"],
     nearbyCounties: ["Miami-Dade", "Broward", "Monroe"],
     planningNote:
-      "Miami households should know their evacuation zone, flood exposure, bridge and causeway routes, and backup destination before a watch becomes a warning."
+      "Miami households should know their evacuation zone, flood exposure, bridge and causeway routes, and backup destination before a watch becomes a warning.",
+    lat: 25.7617,
+    lon: -80.1918
   },
   {
     slug: "tampa",
@@ -30,7 +34,9 @@ export const hurricaneCities: HurricaneCity[] = [
     risks: ["Tampa Bay storm surge", "evacuation route congestion", "freshwater flooding", "power outages"],
     nearbyCounties: ["Hillsborough", "Pinellas", "Pasco", "Manatee"],
     planningNote:
-      "Tampa Bay storm surge and bridge access can drive decisions before peak wind, so residents should compare official evacuation zones with household mobility needs."
+      "Tampa Bay storm surge and bridge access can drive decisions before peak wind, so residents should compare official evacuation zones with household mobility needs.",
+    lat: 27.9506,
+    lon: -82.4572
   },
   {
     slug: "houston",
@@ -41,7 +47,9 @@ export const hurricaneCities: HurricaneCity[] = [
     risks: ["bayou flooding", "coastal surge", "long-duration rainfall", "extended outages"],
     nearbyCounties: ["Harris", "Galveston", "Brazoria", "Chambers"],
     planningNote:
-      "Houston planning should treat inland rainfall and bayou flooding as serious hurricane hazards even when the storm center is not directly over the city."
+      "Houston planning should treat inland rainfall and bayou flooding as serious hurricane hazards even when the storm center is not directly over the city.",
+    lat: 29.7604,
+    lon: -95.3698
   },
   {
     slug: "new-orleans",
@@ -52,7 +60,9 @@ export const hurricaneCities: HurricaneCity[] = [
     risks: ["levee and drainage stress", "storm surge", "low-lying roads", "extended outages"],
     nearbyCounties: ["Orleans", "Jefferson", "St. Bernard", "Plaquemines"],
     planningNote:
-      "New Orleans households should make route, fuel, medical, pet, and document decisions early because low-lying routes and long-drive evacuations can become constrained."
+      "New Orleans households should make route, fuel, medical, pet, and document decisions early because low-lying routes and long-drive evacuations can become constrained.",
+    lat: 29.9511,
+    lon: -90.0715
   },
   {
     slug: "virginia-beach",
@@ -63,7 +73,9 @@ export const hurricaneCities: HurricaneCity[] = [
     risks: ["tidal flooding", "storm surge", "bridge and tunnel disruption", "tree damage"],
     nearbyCounties: ["Virginia Beach", "Norfolk", "Chesapeake", "Hampton"],
     planningNote:
-      "Virginia Beach residents should watch tidal flooding, Chesapeake Bay impacts, bridge and tunnel constraints, and inland tree damage during coastal tropical systems."
+      "Virginia Beach residents should watch tidal flooding, Chesapeake Bay impacts, bridge and tunnel constraints, and inland tree damage during coastal tropical systems.",
+    lat: 36.8529,
+    lon: -75.9779
   }
 ];
 

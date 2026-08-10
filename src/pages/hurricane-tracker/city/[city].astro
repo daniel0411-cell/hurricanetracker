@@ -87,5 +87,123 @@ const jsonLd = graph(
     </div>
   </section>
 
+  <section class="band" aria-labelledby="city-live">
+    <div class="inner">
+      <p class="eyebrow">Live from NWS</p>
+      <h2 id="city-live">Active {city.name} Area Alerts</h2>
+      <p class="answer">Active National Weather Service alerts for the {city.name} area, loaded live from the official NWS feed. Always confirm details with local emergency management.</p>
+      <div id="city-alerts" class="alert-feed" data-lat={city.lat} data-lon={city.lon}>
+        <p class="alert-feed-status">Loading live alerts…</p>
+      </div>
+    </div>
+  </section>
+
   <FaqBlock faqs={pageFaqs} />
 </Layout>
+
+<style is:global>
+  .alert-feed {
+    display: grid;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .alert-feed-status,
+  .alert-feed-empty,
+  .alert-feed-error {
+    color: var(--muted);
+  }
+  .alert-feed-error a {
+    color: var(--accent);
+  }
+  .alert-item {
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--accent);
+    border-radius: 10px;
+    padding: 12px 14px;
+    background: rgba(127, 127, 127, 0.04);
+  }
+  .alert-item-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+  .alert-event {
+    font-weight: 700;
+  }
+  .alert-sev {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+  }
+  .alert-headline {
+    margin: 6px 0 4px;
+  }
+  .alert-meta {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin: 0;
+  }
+  .sev-extreme {
+    border-left-color: #b91c1c;
+  }
+  .sev-severe {
+    border-left-color: #ef4444;
+  }
+  .sev-moderate {
+    border-left-color: #f59e0b;
+  }
+  .sev-minor {
+    border-left-color: #3b82f6;
+  }
+  .sev-unknown {
+    border-left-color: var(--line);
+  }
+</style>
+
+<script>
+  (function () {
+    var el = document.getElementById("city-alerts");
+    if (!el) return;
+    var lat = el.dataset.lat;
+    var lon = el.dataset.lon;
+    if (!lat || !lon) return;
+    var url = "https://api.weather.gov/alerts/active?point=" + lat + "," + lon;
+    fetch(url, { headers: { Accept: "application/geo+json" } })
+      .then(function (r) {
+        if (!r.ok) throw new Error("bad status");
+        return r.json();
+      })
+      .then(function (data) {
+        var features = (data && data.features) || [];
+        if (!features.length) {
+          el.innerHTML =
+            '<p class="alert-feed-empty">No active NWS alerts for this area right now. Check back during a storm threat.</p>';
+          return;
+        }
+        el.innerHTML = features
+          .map(function (f) {
+            var p = f.properties || {};
+            var sev = (p.severity || "unknown").toLowerCase();
+            var expires = p.expires ? new Date(p.expires).toLocaleString() : "";
+            var event = p.event || "Alert";
+            var headline = p.headline || "";
+            return (
+              '<article class="alert-item sev-' + sev + '">' +
+              '<div class="alert-item-head"><span class="alert-event">' + event + "</span>" +
+              '<span class="alert-sev">' + (p.severity || "") + "</span></div>" +
+              (headline ? '<p class="alert-headline">' + headline + "</p>" : "") +
+              (expires ? '<p class="alert-meta">Expires: ' + expires + "</p>" : "") +
+              "</article>"
+            );
+          })
+          .join("");
+      })
+      .catch(function () {
+        el.innerHTML =
+          '<p class="alert-feed-error">Live alerts are temporarily unavailable. Check <a href="https://www.weather.gov/" target="_blank" rel="noopener">weather.gov</a> for official alerts.</p>';
+      });
+  })();
+</script>
