@@ -799,8 +799,8 @@ export const blogPosts: BlogPost[] = [
     description: "Rapid intensification catches coastal communities off guard. Learn what fuels sudden hurricane strengthening, recent storm examples, and how real-time tracking saves lives in 2026.",
     datePublished: "2026-08-10",
     dateModified: "2026-08-10",
-    image: "/images/blog/hurricane-rapid-intensification.svg",
-    imageAlt: "Three hurricane stages growing from a weak tropical swirl to a Category 4 major hurricane beside a wind-speed graph showing a rapid intensification jump.",
+    image: "/images/blog/hurricane-rapid-intensification.png",
+    imageAlt: "A coastal resident holds a smartphone showing a hurricane tracker alert while standing on a wooden porch at sunset with storm clouds gathering over the Atlantic Ocean.",
     sections: [
       {
         heading: "Direct Answer",
@@ -858,8 +858,8 @@ export const blogPosts: BlogPost[] = [
     description: "A clear breakdown of hurricane Categories 1 through 5, their wind speeds, storm surge potential, and real-world damage so you can gauge risk during the 2026 Atlantic season.",
     datePublished: "2026-08-10",
     dateModified: "2026-08-10",
-    image: "/images/blog/saffir-simpson-scale-explained.svg",
-    imageAlt: "Five hurricane icons of increasing size from Category 1 to Category 5, each labeled with wind speed ranges and damage descriptions on a color gradient bar.",
+    image: "/images/blog/saffir-simpson-scale.png",
+    imageAlt: "A woman in a safety vest surveys hurricane damage in a residential neighborhood with a fallen oak tree, damaged roof, and emergency vehicles in the background.",
     sections: [
       {
         heading: "Direct Answer",
@@ -920,8 +920,8 @@ export const blogPosts: BlogPost[] = [
     description: "Spaghetti models show multiple forecast tracks at once. Learn what each model line means, why they diverge, and how to use them with a real-time hurricane tracker to judge storm risk.",
     datePublished: "2026-08-10",
     dateModified: "2026-08-10",
-    image: "/images/blog/hurricane-spaghetti-models.svg",
-    imageAlt: "A map with multiple colored forecast track lines diverging from a single hurricane position, with a legend identifying the GFS, ECMWF, and HWRF models.",
+    image: "/images/blog/hurricane-spaghetti-models.png",
+    imageAlt: "A meteorologist points at a computer monitor showing colorful spaghetti model forecast tracks radiating from a hurricane position in a NOAA operations center.",
     sections: [
       {
         heading: "Direct Answer",
@@ -979,8 +979,8 @@ export const blogPosts: BlogPost[] = [
     description: "Hurricanes, typhoons, and cyclones are the same type of storm with different names. Learn which ocean each name applies to, why the seasons differ, and how to track them.",
     datePublished: "2026-08-10",
     dateModified: "2026-08-10",
-    image: "/images/blog/hurricane-typhoon-cyclone.svg",
-    imageAlt: "A world map showing three tropical cyclone regions labeled Hurricane in the Atlantic and Northeast Pacific, Typhoon in the Northwest Pacific, and Cyclone in the South Pacific and Indian Ocean.",
+    image: "/images/blog/hurricane-typhoon-vs-cyclone.png",
+    imageAlt: "A child stands in a museum in front of a large illuminated globe showing glowing hurricane symbols over different ocean basins.",
     sections: [
       {
         heading: "Direct Answer",
