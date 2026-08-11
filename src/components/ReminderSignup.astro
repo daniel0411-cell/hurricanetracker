@@ -103,6 +103,53 @@ const { source = "HurricaneHub reminder form" } = Astro.props;
       const body = await response.json() as { message?: string; error?: string };
       if (!response.ok) throw new Error(body.error ?? "Subscription failed");
       if (statusEl) statusEl.textContent = body.message ?? "Device alerts enabled.";
+
+      // Store the monitor location in the SW so it can check NWS directly from
+      // the browser (no server egress needed) and show local notifications.
+      try {
+        const regNow = await navigator.serviceWorker.ready;
+        const zipVal = (document.querySelector<HTMLInputElement>("#reminder-zip")?.value || "").trim();
+        let monitor: { zip?: string; lat: number; lon: number; state?: string } | null = null;
+        if (zipVal) {
+          try {
+            const locRes = await fetch(`/api/location/zip?zip=${encodeURIComponent(zipVal)}`);
+            if (locRes.ok) {
+              const loc = (await locRes.json()) as { latitude: number; longitude: number; stateName?: string };
+              monitor = { zip: zipVal, lat: loc.latitude, lon: loc.longitude, state: loc.stateName };
+            }
+          } catch {
+            /* zip geocode failed; fall back to geolocation */
+          }
+        }
+        if (!monitor && navigator.geolocation) {
+          monitor = await new Promise((resolve) => {
+            navigator.geolocation.getCurrentPosition(
+              (pos) => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude, zip: zipVal }),
+              () => resolve(null),
+              { timeout: 8000 }
+            );
+          });
+        }
+        if (monitor && regNow.active) {
+          regNow.active.postMessage({ type: "hh-set-monitor", monitor });
+          try {
+            localStorage.setItem("hh-subscribed", "1");
+          } catch {
+            /* ignore */
+          }
+          // Best-effort background sync on Chromium (needs periodic-background-sync permission).
+          try {
+            const perms = await (navigator.permissions.query as any)({ name: "periodic-background-sync" });
+            if (perms && perms.state === "granted" && "periodicSync" in regNow) {
+              await (regNow as any).periodicSync.register("hh-alerts", { minInterval: 15 * 60 * 1000 });
+            }
+          } catch {
+            /* not supported — foreground page poll will cover it */
+          }
+        }
+      } catch {
+        /* non-fatal: real Web Push subscription already succeeded */
+      }
     } catch (error) {
       console.error("HurricaneHub push subscribe failed", error);
       if (statusEl) statusEl.textContent = "Could not enable device alerts right now.";

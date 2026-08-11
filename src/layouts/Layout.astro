@@ -83,6 +83,17 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
           navigator.serviceWorker.register("/sw.js").catch(function (e) {
             console.warn("HurricaneHub service worker registration failed", e);
           });
+          // For subscribed users, periodically ask the SW to check local NWS
+          // alerts from the browser (covers foreground; background uses Periodic Sync).
+          try {
+            if (localStorage.getItem("hh-subscribed") === "1") {
+              navigator.serviceWorker.ready.then(function (reg) {
+                setInterval(function () {
+                  if (reg.active) reg.active.postMessage({ type: "hh-check-now" });
+                }, 15 * 60 * 1000);
+              });
+            }
+          } catch (e) {}
         });
       }
     </script>
