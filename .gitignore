@@ -8,3 +8,6 @@ dist/
 
 # Google service account key — NEVER commit (contains private key)
 gcp-sa.json
+
+# ImageGen output (not source)
+generated-images/
