@@ -24,8 +24,8 @@ export const blogPosts: BlogPost[] = [
     description: "A practical overview of seasonal hurricane risk signals and how households should interpret outlooks before storms form.",
     datePublished: "2025-05-20",
     dateModified: "2026-07-28",
-    image: "/images/blog/2025-atlantic-hurricane-season-outlook.svg",
-    imageAlt: "Forecast operations desk with Atlantic hurricane outlook monitors and emergency planning notes.",
+    image: "/images/blog/2025-atlantic-hurricane-season-outlook.png",
+    imageAlt: "A meteorologist reviews a large Atlantic hurricane season outlook display in a weather operations center.",
     sections: [
       {
         heading: "What the Outlook Means",
@@ -55,8 +55,8 @@ export const blogPosts: BlogPost[] = [
     description: "A homeowner checklist for shutters, drainage, documents, supplies, and evacuation timing before hurricane watches become warnings.",
     datePublished: "2025-06-03",
     dateModified: "2026-07-28",
-    image: "/images/blog/how-to-prepare-your-home-for-a-hurricane.svg",
-    imageAlt: "Coastal home prepared with storm shutters, secured outdoor items, and sandbags.",
+    image: "/images/blog/how-to-prepare-your-home-for-a-hurricane.png",
+    imageAlt: "Homeowners install storm shutters and stack sandbags while preparing a coastal home for an approaching hurricane.",
     sections: [
       {
         heading: "Start Outside",
@@ -86,8 +86,8 @@ export const blogPosts: BlogPost[] = [
     description: "A plain-language guide to hurricane watches, warnings, storm surge alerts, and when to shift from monitoring to action.",
     datePublished: "2025-06-18",
     dateModified: "2026-07-28",
-    image: "/images/blog/what-hurricane-watch-warning-means.svg",
-    imageAlt: "Emergency weather alert setup with phone, radio, flashlight, batteries, and evacuation map.",
+    image: "/images/blog/what-hurricane-watch-warning-means.png",
+    imageAlt: "A kitchen counter with a smartphone showing weather alerts, a NOAA weather radio, flashlight, batteries, and an evacuation map.",
     sections: [
       {
         heading: "Watch vs Warning",
@@ -117,8 +117,8 @@ export const blogPosts: BlogPost[] = [
     description: "A decision-focused hurricane emergency kit checklist covering water, food, medicine, documents, power, pets, and evacuation bags.",
     datePublished: "2026-07-29",
     dateModified: "2026-07-29",
-    image: "/images/blog/hurricane-emergency-kit-checklist.svg",
-    imageAlt: "Organized hurricane emergency kit with water, food, first aid, batteries, documents, and pet supplies.",
+    image: "/images/blog/hurricane-emergency-kit-checklist.png",
+    imageAlt: "A family in a kitchen checks a hurricane emergency kit laid out on a table with water, food, first aid, flashlight, and pet supplies.",
     sections: [
       {
         heading: "Direct Answer",
@@ -153,8 +153,8 @@ export const blogPosts: BlogPost[] = [
     description: "A practical hurricane evacuation checklist for when to leave, what to pack, how to choose routes, and how to protect vulnerable household members.",
     datePublished: "2026-07-29",
     dateModified: "2026-07-29",
-    image: "/images/blog/hurricane-evacuation-checklist.svg",
-    imageAlt: "Evacuation preparation scene with go-bags, pet carrier, car, map, water, medicine pouch, and keys.",
+    image: "/images/blog/hurricane-evacuation-checklist.png",
+    imageAlt: "A family loads go-bags and a pet carrier into an SUV while preparing to evacuate before a hurricane.",
     sections: [
       {
         heading: "Direct Answer",
@@ -189,8 +189,8 @@ export const blogPosts: BlogPost[] = [
     description: "A 24-hour hurricane warning checklist for protecting people, medication, documents, vehicles, pets, and evacuation options before conditions deteriorate.",
     datePublished: "2026-08-04",
     dateModified: "2026-08-04",
-    image: "/images/blog/hurricane-warning-24-hour-action.svg",
-    imageAlt: "Warning-period action clock with a red hurricane warning triangle marking the final 24 hours before landfall.",
+    image: "/images/blog/what-to-do-during-a-hurricane-warning.png",
+    imageAlt: "A couple sits in a living room during a hurricane warning, listening to a weather radio and checking a smartphone as rain streaks the window.",
     sections: [
       {
         heading: "Direct Answer",
@@ -228,8 +228,8 @@ export const blogPosts: BlogPost[] = [
     description: "Prepare for a hurricane power outage with a practical plan for food safety, refrigerated medicine, medical equipment, charging, water, generators, and communication.",
     datePublished: "2026-08-04",
     dateModified: "2026-08-04",
-    image: "/images/blog/hurricane-power-outage-generator.svg",
-    imageAlt: "Portable generator, refrigerator, and flashlight representing a hurricane power-outage plan for food, medicine, and devices.",
+    image: "/images/blog/hurricane-power-outage-food-medicine-plan.png",
+    imageAlt: "A man operates a portable generator on a covered porch beside a refrigerator and a flashlight during a power outage.",
     sections: [
       {
         heading: "Direct Answer",
@@ -267,8 +267,8 @@ export const blogPosts: BlogPost[] = [
     description: "Prepare a hurricane documents checklist with IDs, insurance details, property photos, prescriptions, contacts, and records needed before evacuation or damage.",
     datePublished: "2026-08-04",
     dateModified: "2026-08-04",
-    image: "/images/blog/hurricane-documents-insurance.svg",
-    imageAlt: "Folder of insurance papers, an ID card, and a camera for property photos in a hurricane documents checklist.",
+    image: "/images/blog/hurricane-documents-insurance-checklist.png",
+    imageAlt: "A person photographs home belongings with a smartphone for insurance while an insurance folder and ID cards sit on the table.",
     sections: [
       {
         heading: "Direct Answer",
@@ -306,8 +306,8 @@ export const blogPosts: BlogPost[] = [
     description: "Use a 72-, 48-, and 24-hour hurricane preparation timeline for supplies, evacuation routes, pets, documents, home protection, and final safety decisions.",
     datePublished: "2026-08-04",
     dateModified: "2026-08-04",
-    image: "/images/blog/hurricane-preparation-timeline.svg",
-    imageAlt: "Three clock markers on a timeline labeled 72, 48, and 24 hours for staged hurricane preparation.",
+    image: "/images/blog/hurricane-preparation-timeline-72-48-24-hours.png",
+    imageAlt: "A homeowner nails plywood storm shutters over windows while a neighbor helps, staged 48 hours before a storm.",
     sections: [
       {
         heading: "Direct Answer",
@@ -345,8 +345,8 @@ export const blogPosts: BlogPost[] = [
     description: "Learn what a hurricane's current distance from your location can tell you, what it cannot predict, and how to pair distance with official alerts.",
     datePublished: "2026-08-04",
     dateModified: "2026-08-04",
-    image: "/images/blog/hurricane-distance-map.svg",
-    imageAlt: "Map with a location pin and a hurricane spiral connected by a dashed distance line with a mile measurement.",
+    image: "/images/blog/how-far-is-a-hurricane-from-me.png",
+    imageAlt: "A resident stands on a porch looking at a distant hurricane spiral on the ocean horizon while holding a phone with a map.",
     sections: [
       {
         heading: "Direct Answer",
@@ -383,8 +383,8 @@ export const blogPosts: BlogPost[] = [
     description: "Understand the difference between storm surge and hurricane warnings, why water hazards can arrive before peak wind, and when to leave.",
     datePublished: "2026-08-04",
     dateModified: "2026-08-04",
-    image: "/images/blog/storm-surge-coastal-flooding.svg",
-    imageAlt: "Coastal house with rising blue storm-surge water and an evacuation arrow showing water arriving before peak wind.",
+    image: "/images/blog/storm-surge-warning-vs-hurricane-warning.png",
+    imageAlt: "A coastal homeowner studies an evacuation route sign while seawater begins lapping at the yard.",
     sections: [
       {
         heading: "Direct Answer",
@@ -421,8 +421,8 @@ export const blogPosts: BlogPost[] = [
     description: "Build a hurricane family communication plan with contacts, meeting places, evacuation destinations, medication notes, pets, and check-in times.",
     datePublished: "2026-08-04",
     dateModified: "2026-08-04",
-    image: "/images/blog/hurricane-family-communication.svg",
-    imageAlt: "Two smartphones exchanging message bubbles above a small house, representing a hurricane family communication plan.",
+    image: "/images/blog/hurricane-family-communication-plan.png",
+    imageAlt: "A multigenerational family plans communication together, smartphones and a handwritten contact list on the table.",
     sections: [
       {
         heading: "Direct Answer",
@@ -459,8 +459,8 @@ export const blogPosts: BlogPost[] = [
     description: "Learn how to check your hurricane evacuation zone, why ZIP codes are not enough, and what to do when local officials issue evacuation instructions.",
     datePublished: "2026-08-05",
     dateModified: "2026-08-05",
-    image: "/images/blog/hurricane-evacuation-zone-map.svg",
-    imageAlt: "Coastal map divided into colored evacuation zones A, B, and C with a highlighted zone and location pin.",
+    image: "/images/blog/how-to-check-your-hurricane-evacuation-zone.png",
+    imageAlt: "A person views a color-coded coastal hurricane evacuation zone map on a laptop and points at the screen.",
     sections: [
       {
         heading: "Direct Answer",
@@ -497,8 +497,8 @@ export const blogPosts: BlogPost[] = [
     description: "Understand the difference between hurricane radar and satellite views, when each is useful, and why neither replaces official NOAA/NWS alerts.",
     datePublished: "2026-08-05",
     dateModified: "2026-08-05",
-    image: "/images/blog/hurricane-radar-vs-satellite.svg",
-    imageAlt: "Split illustration comparing a green Doppler radar sweep on the left with a satellite cloud spiral on the right.",
+    image: "/images/blog/hurricane-radar-vs-satellite.png",
+    imageAlt: "A meteorologist compares a green Doppler radar display and a satellite cloud spiral on dual monitors.",
     sections: [
       {
         heading: "Direct Answer",
@@ -536,8 +536,8 @@ export const blogPosts: BlogPost[] = [
     description: "Decode common NWS hurricane-related alerts and learn which ones should trigger monitoring, preparation, action, or evacuation review.",
     datePublished: "2026-08-05",
     dateModified: "2026-08-05",
-    image: "/images/blog/nws-alert-banners.svg",
-    imageAlt: "Phone showing color-coded NWS alert banners for hurricane watch, warning, storm surge, and advisory.",
+    image: "/images/blog/nws-hurricane-alert-meanings.png",
+    imageAlt: "Close-up of hands holding a smartphone showing color-coded NWS alert banners for watch, warning, surge, and advisory.",
     sections: [
       {
         heading: "Direct Answer",
@@ -574,8 +574,8 @@ export const blogPosts: BlogPost[] = [
     description: "Live 2026 Atlantic hurricane season update, real-time tracking tools, and a step-by-step extreme weather alert playbook for coastal households.",
     datePublished: "2026-08-06",
     dateModified: "2026-08-06",
-    image: "/images/blog/real-time-hurricane-tracking-2026.svg",
-    imageAlt: "Live hurricane tracking dashboard screen showing satellite spiral imagery, radar sweep, forecast cone, and alert panels.",
+    image: "/images/blog/real-time-hurricane-tracking-2026.png",
+    imageAlt: "A person views a live hurricane tracking dashboard on a large monitor showing satellite, radar, and a forecast cone.",
     sections: [
       {
         heading: "Direct Answer",
@@ -625,8 +625,8 @@ export const blogPosts: BlogPost[] = [
     description: "Learn what the National Hurricane Center cone really represents, common misreadings, and how to use it with watches, warnings, and storm surge maps.",
     datePublished: "2026-08-07",
     dateModified: "2026-08-07",
-    image: "/images/blog/hurricane-cone-of-uncertainty.svg",
-    imageAlt: "A stylized coastal map showing a hurricane forecast track with a widening cone of uncertainty extending into the ocean.",
+    image: "/images/blog/how-to-read-the-hurricane-cone-of-uncertainty.png",
+    imageAlt: "A resident holds a tablet showing a hurricane forecast cone map, standing by a window with a coastal view behind.",
     sections: [
       {
         heading: "What the Cone Actually Shows",
@@ -675,8 +675,8 @@ export const blogPosts: BlogPost[] = [
     description: "Understand percentage hurricane deductibles, named-storm versus windstorm deductibles, flood coverage gaps, and how to review your policy before a storm.",
     datePublished: "2026-08-07",
     dateModified: "2026-08-07",
-    image: "/images/blog/hurricane-insurance-deductibles.svg",
-    imageAlt: "A coastal home under a protective umbrella next to an insurance policy document and a calculator, representing hurricane deductible review.",
+    image: "/images/blog/hurricane-insurance-deductibles-guide.png",
+    imageAlt: "A homeowner reviews an insurance policy document with a calculator and pen at a dining table, coastal house visible through the window.",
     sections: [
       {
         heading: "Hurricane Deductible vs Standard Deductible",
@@ -730,8 +730,8 @@ export const blogPosts: BlogPost[] = [
     description: "Most hurricane deaths happen after landfall from inland flooding and tornadoes. Learn how real-time hurricane tracking and extreme weather alerts keep inland residents safe.",
     datePublished: "2026-08-07",
     dateModified: "2026-08-07",
-    image: "/images/blog/hurricane-inland-flooding-tornado-alerts.svg",
-    imageAlt: "Hurricane moving from ocean to inland with tornadoes, flood waters, and warning banners illustrating post-landfall threats.",
+    image: "/images/blog/hurricane-tracking-after-landfall-inland-flooding-tornadoes.png",
+    imageAlt: "A resident wades through a flooded inland street after a hurricane, a downed tree across the road and a distant funnel cloud on the horizon.",
     sections: [
       {
         heading: "Direct Answer",
@@ -1038,8 +1038,8 @@ export const blogPosts: BlogPost[] = [
     description: "Storm surge causes half of all hurricane deaths. Learn how forecasters predict coastal flooding and how to track surge warnings in real time.",
     datePublished: "2026-08-11",
     dateModified: "2026-08-11",
-    image: "/images/blog/hurricane-storm-surge-forecasting.svg",
-    imageAlt: "Aerial view of a coastal neighborhood with rising storm surge water flooding streets while a hurricane approaches offshore under dark clouds.",
+    image: "/images/blog/hurricane-storm-surge-forecasting.png",
+    imageAlt: "A resident stands on a porch watching storm surge seawater rising over a coastal residential street while dark hurricane clouds gather over the ocean.",
     sections: [
       {
         heading: "Direct Answer",
@@ -1100,6 +1100,80 @@ export const blogPosts: BlogPost[] = [
       {
         question: "Where can I see real-time storm surge forecasts?",
         answer: "The National Hurricane Center publishes the Potential Storm Surge Flooding Map at hurricanes.gov. You can also use HurricaneHub's real-time hurricane tracker, which overlays NHC surge zones with radar, satellite, and active NWS alerts on a single map."
+      }
+    ]
+  },
+  {
+    slug: "below-normal-hurricane-season-2026-real-time-tracker",
+    title: "Below-Normal Hurricane Season 2026: Why You Still Need a Real-Time Tracker",
+    description: "NOAA's August 2026 hurricane outlook predicts a below-normal Atlantic season—but two Gulf storms have already made landfall and Cristobal may form this week. Here's why lower storm counts don't equal lower risk, and how a real-time tracker keeps you prepared.",
+    datePublished: "2026-08-12",
+    dateModified: "2026-08-12",
+    image: "/images/blog/below-normal-hurricane-season-2026-tracker.svg",
+    imageAlt: "An Atlantic basin map showing past Gulf storms Arthur and Bertha, a developing system near Cape Verde, and a smartphone displaying a real-time hurricane tracker with an active storm surge watch alert.",
+    sections: [
+      {
+        heading: "Direct Answer",
+        body: "NOAA's August 6, 2026 update confirms a below-normal Atlantic hurricane season—7 to 13 named storms, 2 to 6 hurricanes, and 0 to 2 major hurricanes. But 'below normal' is not the same as 'no risk.' Two tropical storms have already made Gulf landfalls this season (Arthur and Bertha), and a system near the Cape Verde Islands has a 70% chance of becoming Tropical Storm Cristobal this week. The climatological peak of hurricane season—mid-August through mid-October—has just begun. A quiet season can still produce a single devastating storm. That is why you need a real-time hurricane tracker, not a seasonal forecast, to stay safe."
+      },
+      {
+        heading: "What NOAA's August 2026 Update Actually Says",
+        body: "On August 6, NOAA's National Weather Service released its updated Atlantic hurricane season outlook. The numbers are notably below historical averages. A typical Atlantic season produces 14 named storms, 7 hurricanes, and 3 major hurricanes (Category 3 or higher). The updated forecast calls for 7 to 13 named storms, of which only 2 to 6 are expected to become hurricanes, and 0 to 2 are expected to reach major hurricane status. NOAA puts the probability of a below-normal season at 75%, with just a 20% chance of near-normal activity and a mere 5% chance of an above-normal season.",
+        bullets: [
+          "Named storms: 7–13 (normal: 14)",
+          "Hurricanes: 2–6 (normal: 7)",
+          "Major hurricanes: 0–2 (normal: 3)",
+          "Accumulated Cyclone Energy (ACE) so far: 2.6 units—78% below the 1991–2020 average"
+        ]
+      },
+      {
+        heading: "El Nino Is the Main Driver — But It Is Not a Shield",
+        body: "The dominant factor suppressing Atlantic activity is El Nino, which emerged in the equatorial Pacific in June 2026 and continues to strengthen. El Nino increases vertical wind shear over the tropical Atlantic—essentially, it disrupts the organized vertical structure a tropical cyclone needs to form and intensify. When wind speed changes dramatically with height, thunderstorms cannot stack vertically. The circulation tilts, the storm's heat engine stalls, and development is either prevented or capped at a lower intensity. NOAA lead forecaster Matt Rosencrans noted that as El Nino matures, it typically becomes the dominant factor in total seasonal activity, outweighing other mechanisms like sea-surface temperatures or the West African monsoon. But El Nino is not a shield. It reduces the odds—it does not eliminate them. Hurricanes have formed, intensified, and made catastrophic landfall in El Nino years before. The 1992 season, an El Nino year, produced only 7 named storms. One of them was Hurricane Andrew."
+      },
+      {
+        heading: "Two Gulf Storms Have Already Hit: Arthur and Bertha",
+        body: "Despite the below-normal forecast, the 2026 season has already produced two named tropical storms—both in the Gulf of Mexico and both making landfall on the U.S. Gulf Coast. Tropical Storm Arthur formed in mid-June in the warm Gulf waters off the Texas coast. It brought record rainfall to portions of Louisiana and spawned tornadoes along the Gulf Coast before dissipating. Tropical Storm Bertha formed in mid-July south of the Florida Panhandle and made landfall in St. Bernard Parish, Louisiana, with sustained winds of 50 knots (58 mph). Neither storm reached hurricane strength, but both caused significant inland flooding—a reminder that even a tropical storm can deliver life-threatening impacts. NWS Director Ken Graham highlighted Arthur as a case study in why residents should prepare for every storm projected to affect their area, even if it never reaches hurricane intensity."
+      },
+      {
+        heading: "Cristobal May Form This Week: Peak Season Is Just Beginning",
+        body: "As of August 11, the National Hurricane Center is monitoring an area of low pressure located about 500 miles southwest of the Cape Verde Islands in the central tropical Atlantic. Environmental conditions are forecast to become more favorable for development, and the NHC gives the system a 30% chance of formation within 48 hours and a 70% chance within 7 days. If it reaches tropical storm strength, it would be named Cristobal—the third named storm of the 2026 Atlantic hurricane season. The system is moving westward to west-northwestward across the central tropical Atlantic, a classic Cape Verde track that can bring storms toward the Caribbean and, potentially, the U.S. East Coast. This is the pattern that produces the most powerful and long-lived Atlantic hurricanes. The climatological peak of hurricane season runs from mid-August through mid-October. Historically, more than 85% of all major hurricanes occur during this window. The lull so far is normal—what matters is what happens next."
+      },
+      {
+        heading: "The 1992 Lesson: Why 'Below Normal' Is Not 'No Risk'",
+        body: "The most important number in any seasonal hurricane outlook is not the total storm count. It is the maximum intensity of any single storm. The 1992 Atlantic season produced only 7 named storms—exactly the low end of the 2026 forecast range. It was a textbook El Nino-suppressed season. But one of those seven storms was Hurricane Andrew, a compact Category 5 that struck South Florida on August 24 with winds of 165 mph. Andrew destroyed more than 63,000 homes, caused $27.3 billion in damage (1992 dollars), and remained the costliest hurricane in U.S. history until Katrina in 2005. The lesson is not that every below-normal season produces an Andrew. It is that statistical outlooks describe basin-wide activity, not local risk. A season with only 3 hurricanes can still deliver one to your coastline. A season with zero major hurricanes in the forecast can still produce a Category 4 or 5. You track storms individually, not statistically."
+      },
+      {
+        heading: "How to Track Hurricanes in a Low-Activity Season",
+        body: "A quiet seasonal outlook is not an excuse to stop paying attention. It is an opportunity to build better tracking habits—so that when the next storm does form, you are already oriented.",
+        bullets: [
+          "Check the NHC Tropical Weather Outlook daily during peak season. It is updated at 2 AM, 8 AM, 2 PM, and 8 PM EDT and highlights every disturbance with formation potential.",
+          "Use a real-time hurricane tracker that overlays the NHC forecast cone, storm surge watch and warning zones, GOES-East satellite imagery, and NWS active alerts on a single interactive map.",
+          "Monitor Accumulated Cyclone Energy (ACE), not just storm counts. ACE measures total wind energy over a storm's lifetime and gives a truer picture of seasonal activity than raw numbers.",
+          "Follow the spaghetti models. When a significant disturbance appears, ensemble forecast tracks show the range of possible paths and help you understand uncertainty before the NHC cone narrows.",
+          "Enable extreme weather alerts on your phone. NWS warnings for storm surge, flash flooding, and tornadoes often arrive hours ahead of the hurricane's core winds."
+        ]
+      },
+      {
+        heading: "Extreme Weather Alerts Do Not Follow Seasonal Forecasts",
+        body: "A below-normal hurricane season does not mean a below-normal severe weather season. The same atmospheric patterns that suppress tropical cyclone counts can still produce extreme rainfall, inland flooding, tornado outbreaks, and dangerous rip currents along the coast. Tropical Storm Arthur demonstrated this clearly: it never reached hurricane strength, but its slow movement and heavy rainfall set records in Louisiana. Inland flooding is now the deadliest hazard associated with tropical cyclones in the United States, surpassing storm surge in many recent years. Even if the Atlantic produces fewer hurricanes in 2026, any single storm that does form can trigger a cascade of extreme weather alerts—flash flood warnings, tornado watches, and storm surge warnings—that require real-time monitoring, not seasonal assumptions."
+      },
+      {
+        heading: "Stay Ahead of Every Storm with HurricaneHub",
+        body: "HurricaneHub is built to give you the full picture in one place. Our real-time hurricane tracker combines the NHC forecast cone with GOES-East satellite, RainViewer Doppler radar, NWS active alerts, storm surge zones, and evacuation zone overlays—all on a single interactive map. When a named storm enters your basin, you can track its position, intensity, and forecast path without switching between multiple websites. You can zoom into your community, overlay local alerts, and check the latest NWS watches and warnings. Whether the 2026 Atlantic season produces 7 storms or 13, the principle is the same: you need real-time information, not a seasonal summary. Bookmark HurricaneHub for the rest of the 2026 hurricane season. Do not let a below-normal forecast make you complacent. The most dangerous storm of any season is the one you did not see coming."
+      }
+    ],
+    faqs: [
+      {
+        question: "Does a below-normal hurricane season mean I do not need to prepare?",
+        answer: "No. A below-normal forecast means fewer storms are expected overall, but any single storm can still be devastating. The 1992 season produced only 7 named storms, but one of them was Category 5 Hurricane Andrew. Prepare every season regardless of the outlook."
+      },
+      {
+        question: "How does El Nino affect hurricane activity in the Atlantic?",
+        answer: "El Nino increases vertical wind shear over the tropical Atlantic, which disrupts the organized vertical structure hurricanes need to form and intensify. Strong wind shear can tear a developing storm apart or prevent it from forming at all. However, El Nino does not guarantee a quiet season—it only reduces the statistical odds."
+      },
+      {
+        question: "Where can I track hurricanes in real time during the 2026 season?",
+        answer: "The National Hurricane Center at hurricanes.gov provides official forecasts, advisories, and the Tropical Weather Outlook. For a unified view, HurricaneHub's real-time hurricane tracker overlays the NHC forecast cone, satellite, radar, NWS alerts, and storm surge zones on one interactive map at hurricanetracker.cc."
       }
     ]
   }
