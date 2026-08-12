@@ -527,4 +527,25 @@ const tools = [
   .tool-card a:hover {
     text-decoration: underline;
   }
+
+  /* ---------- Homepage card grids: equal height + bottom-aligned CTAs ---------- */
+  .persona-grid,
+  .why-grid,
+  .section-grid {
+    align-items: stretch;
+  }
+
+  .persona-card,
+  .why-card,
+  .section-grid > .state-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .persona-card > a:last-child,
+  .section-grid > .state-card > a:last-child {
+    margin-top: auto;
+    align-self: flex-start;
+  }
 </style>
