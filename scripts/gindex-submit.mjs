@@ -118,7 +118,7 @@ async function publishUrl(url, token) {
       authorization: `Bearer ${token}`,
       "content-type": "application/json",
     },
-    body: JSON.stringify({ url }),
+    body: JSON.stringify({ url, type: "URL_UPDATED" }),
   });
   return res;
 }
