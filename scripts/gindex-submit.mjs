@@ -120,8 +120,11 @@ async function publishUrl(url, token) {
     },
     body: JSON.stringify({ url, type: "URL_UPDATED" }),
   });
-  return res;
+  const ok = res.status >= 200 && res.status < 300;
+  const text = ok ? "" : (await res.text().catch(() => "")).slice(0, 500);
+  return { status: res.status, body: text };
 }
+
 
 async function main() {
   if (DRY_RUN) {
@@ -161,14 +164,15 @@ async function main() {
   for (let i = 0; i < urls.length; i += CONCURRENCY) {
     const batch = urls.slice(i, i + CONCURRENCY);
     const results = await Promise.all(
-      batch.map(async (u) => {
+            batch.map(async (u) => {
         try {
           const r = await publishUrl(u, token);
-          return { u, status: r.status };
+          return { u, status: r.status, err: r.body };
         } catch (e) {
           return { u, status: 0, err: e.message };
         }
       })
+
     );
     for (const r of results) {
       if (r.status >= 200 && r.status < 300) ok++;
