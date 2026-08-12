@@ -8,7 +8,10 @@
     "dev": "ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG_PATH=.wrangler/logs astro dev --host 127.0.0.1",
     "build": "ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG_PATH=.wrangler/logs astro check && ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG_PATH=.wrangler/logs astro build",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG_PATH=.wrangler/logs astro preview --host 127.0.0.1",
-    "astro": "ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG_PATH=.wrangler/logs astro"
+    "astro": "ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG_PATH=.wrangler/logs astro",
+    "indexnow": "node scripts/indexnow-submit.mjs",
+    "deploy": "wrangler deploy --config wrangler.deploy.toml && node scripts/indexnow-submit.mjs",
+    "ship": "npm run build && npm run deploy"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
