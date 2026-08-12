@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { blogPosts } from "../../data/blog";
+import { blogPosts, getCategory, BLOG_CATEGORY_LIST } from "../../data/blog";
 import { faqs, site } from "../../data/site";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 
@@ -34,19 +34,80 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="post-list-heading">
     <div class="inner">
       <h2 id="post-list-heading">Latest Articles</h2>
+      <div class="filter-bar" role="group" aria-label="Filter articles by category">
+        {BLOG_CATEGORY_LIST.map((cat) => (
+          <button type="button" class="filter-chip" data-filter={cat} aria-pressed={cat === "All" ? "true" : "false"}>{cat}</button>
+        ))}
+      </div>
       <div class="blog-grid">
-        {sortedPosts.map((post) => (
-          <article class="post-card">
+        {sortedPosts.map((post) => {
+          const cat = getCategory(post.slug);
+          return (
+          <article class="post-card" data-category={cat}>
             <a href={`/blog/${post.slug}/`} class="post-card-media" aria-hidden="true" tabindex="-1">
               <img class="post-image" src={post.image} alt={post.imageAlt} loading="lazy" width="1600" height="900" />
             </a>
+            <span class="post-category">{cat}</span>
             <h3><a href={`/blog/${post.slug}/`} class="post-card-title">{post.title}</a></h3>
             <p>{post.description}</p>
             <p class="small">Last modified {post.dateModified}</p>
             <a href={`/blog/${post.slug}/`} class="post-card-link">Read article</a>
           </article>
-        ))}
+          );
+        })}
       </div>
     </div>
   </section>
+  <style>
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.5rem 0 1.75rem;
+    }
+    .filter-chip {
+      border: 1px solid #2a3b56;
+      background: transparent;
+      color: #cdd9ec;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .filter-chip:hover { border-color: #4a7aaa; }
+    .filter-chip[aria-pressed="true"] {
+      background: #4a7aaa;
+      color: #fff;
+      border-color: #4a7aaa;
+    }
+    .post-category {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #5b9bd5;
+      margin: 0.6rem 0 0.2rem;
+      font-weight: 600;
+    }
+    .is-hidden { display: none !important; }
+  </style>
+
+  <script>
+    const bar = document.querySelector(".filter-bar");
+    if (bar) {
+      const chips = bar.querySelectorAll(".filter-chip");
+      const cards = document.querySelectorAll(".post-card");
+      bar.addEventListener("click", (e) => {
+        const btn = e.target.closest(".filter-chip");
+        if (!btn) return;
+        const filter = btn.dataset.filter;
+        chips.forEach((c) => c.setAttribute("aria-pressed", c === btn ? "true" : "false"));
+        cards.forEach((card) => {
+          const show = filter === "All" || card.dataset.category === filter;
+          card.classList.toggle("is-hidden", !show);
+        });
+      });
+    }
+  </script>
 </Layout>

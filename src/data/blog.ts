@@ -1293,8 +1293,112 @@ export const blogPosts: BlogPost[] = [
         answer: "Register at DisasterAssistance.gov or call 1-800-621-3362 after a presidential disaster declaration for your area. Apply even if you have insurance - FEMA aid is supplemental. Keep your registration number and meet the inspector promptly, and watch the application deadline."
       }
     ]
+  },
+  {
+    slug: "hurricane-pet-safety",
+    title: "Hurricane Pet Safety: A Complete Preparedness Guide for Dogs, Cats, and Livestock",
+    description: "How to prepare dogs, cats, and backyard livestock for a hurricane: pet go-bags, ID and microchips, pet-friendly evacuation, and post-storm hazards to avoid.",
+    datePublished: "2026-08-12",
+    dateModified: "2026-08-12",
+    image: "/images/blog/hurricane-pet-safety.png",
+    imageAlt: "A family secures a dog in a crate while packing an emergency pet bag during hurricane preparations at home.",
+    sections: [
+      {
+        heading: "Direct Answer: Prepare Your Pets Before You Need To",
+        body: "Pets cannot evacuate or shelter themselves, so their safety depends entirely on your plan. As soon as a hurricane threatens, assume you may have to leave with every animal in the household within a few hours. Build a pet go-bag now, confirm your pets are microchipped and tagged, and identify pet-friendly shelters or hotels along your evacuation route before the storm arrives."
+      },
+      {
+        heading: "Build a Pet Go-Bag",
+        body: "Pack a dedicated emergency kit for each pet so you are not scrambling at the last minute.",
+        bullets: [
+          "Food and water for at least 5-7 days, plus bowls.",
+          "Medications, a copy of veterinary records, and proof of rabies vaccination.",
+          "Leashes, harnesses, and a sturdy carrier or crate labeled with your phone number.",
+          "A photo of you with each pet to prove ownership if separated.",
+          "Waste bags, litter and a small litter box, and a familiar blanket or toy for comfort."
+        ]
+      },
+      {
+        heading: "ID and Microchip Before the Storm",
+        body: "A collar tag with a working phone number is the fastest way to reunite. Microchipping is the backup that cannot fall off. Make sure your microchip registration points to a current phone number and address, because after a storm many families relocate temporarily and shelters scan chips to match animals with owners."
+      },
+      {
+        heading: "Know Your Pet-Friendly Evacuation Options",
+        body: "Do not assume your regular shelter accepts animals. County emergency shelters sometimes take pets in a separate area, but many do not. Identify pet-friendly hotels along your route in advance, and keep a list of boarding facilities outside the evacuation zone. Never leave pets behind if you evacuate - they are unlikely to survive a hurricane alone."
+      },
+      {
+        heading: "During the Storm: Keep Pets Indoors and Calm",
+        body: "Bring outdoor pets inside well before wind and rain arrive. Keep cats and small animals in carriers so they cannot bolt if a door blows open. Close off unsafe rooms, and never let dogs out unsupervised during the eye, when calm weather tricks animals into wandering. Play soft radio or white noise to mask frightening sounds."
+      },
+      {
+        heading: "After the Storm: Hazards That Hurt Pets",
+        body: "The hours after landfall are the most dangerous for animals. Floodwater hides sharp debris and carries bacteria, downed lines still carry current, and displaced wildlife may be aggressive. Keep pets leashed and on high ground, and check their paws for cuts before walking them on broken pavement or glass."
+      },
+      {
+        heading: "Special Cases: Livestock and Backyard Animals",
+        body: "For horses, chickens, and other livestock, early movement is the safest option because trailering during a storm is dangerous. If you cannot relocate them, provide high ground, sturdy shelter, and several days of feed and clean water that will survive flooding. Mark animals with halters or tags where possible so they can be identified if fences fail."
+      }
+    ],
+    faqs: [
+      {
+        question: "Should I evacuate with my pet even if the storm looks weak?",
+        answer: "Yes if local officials order evacuation. A weak-looking storm can still produce deadly surge, inland flooding, and tornadoes. Take every pet with you - shelters, hotels, and boarding options fill up fast, and leaving animals behind usually ends badly."
+      },
+      {
+        question: "What should I do if my pet is lost after the hurricane?",
+        answer: "Search nearby shelters and post on local lost-pet networks immediately, and make sure your microchip and tag information is current. Animals displaced by storms are often scanned at intake, so an up-to-date chip is the strongest reunion tool."
+      },
+      {
+        question: "Can I leave pets at home if I have to evacuate?",
+        answer: "No. Pets left behind during a mandatory evacuation are rarely rescued and face flooding, heat, starvation, and loose debris. Plan to take them with you or place them with a caregiver outside the danger zone before roads close."
+      }
+    ]
   }
 ];
+
+// ── Blog category taxonomy (used by the blog index filter UI) ───────────
+export const BLOG_CATEGORIES: Record<string, string> = {
+  "2025-atlantic-hurricane-season-outlook": "Tracking & Forecasting",
+  "how-to-prepare-your-home-for-a-hurricane": "Preparedness",
+  "what-hurricane-watch-warning-means": "Safety & Warnings",
+  "hurricane-emergency-kit-checklist": "Preparedness",
+  "hurricane-evacuation-checklist": "Preparedness",
+  "what-to-do-during-a-hurricane-warning": "Preparedness",
+  "hurricane-power-outage-food-medicine-plan": "Preparedness",
+  "hurricane-documents-insurance-checklist": "Insurance & Recovery",
+  "hurricane-preparation-timeline-72-48-24-hours": "Preparedness",
+  "how-far-is-a-hurricane-from-me": "Safety & Warnings",
+  "storm-surge-warning-vs-hurricane-warning": "Safety & Warnings",
+  "hurricane-family-communication-plan": "Preparedness",
+  "how-to-check-your-hurricane-evacuation-zone": "Safety & Warnings",
+  "hurricane-radar-vs-satellite": "Tracking & Forecasting",
+  "nws-hurricane-alert-meanings": "Safety & Warnings",
+  "real-time-hurricane-tracking-2026": "Tracking & Forecasting",
+  "how-to-read-the-hurricane-cone-of-uncertainty": "Tracking & Forecasting",
+  "hurricane-insurance-deductibles-guide": "Insurance & Recovery",
+  "hurricane-tracking-after-landfall-inland-flooding-tornadoes": "Tracking & Forecasting",
+  "hurricane-rapid-intensification": "Tracking & Forecasting",
+  "saffir-simpson-hurricane-wind-scale-explained": "Science & Basics",
+  "how-to-read-hurricane-spaghetti-models": "Tracking & Forecasting",
+  "hurricane-vs-typhoon-vs-cyclone": "Science & Basics",
+  "hurricane-storm-surge-forecasting": "Tracking & Forecasting",
+  "below-normal-hurricane-season-2026-real-time-tracker": "Tracking & Forecasting",
+  "what-to-do-after-a-hurricane": "Insurance & Recovery",
+  "hurricane-pet-safety": "Preparedness"
+};
+
+export const BLOG_CATEGORY_LIST = [
+  "All",
+  "Preparedness",
+  "Safety & Warnings",
+  "Insurance & Recovery",
+  "Tracking & Forecasting",
+  "Science & Basics"
+];
+
+export function getCategory(slug: string): string {
+  return BLOG_CATEGORIES[slug] ?? "Preparedness";
+}
 
 // Internal-linking helper: returns topically related posts ranked by TF-IDF
 // keyword overlap. Rare, specific terms (e.g. "fema", "deductible", "mold")
