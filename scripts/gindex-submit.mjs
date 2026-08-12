@@ -118,6 +118,7 @@ async function publishUrl(url, token) {
       authorization: `Bearer ${token}`,
       "content-type": "application/json",
     },
+    // type is REQUIRED by the Indexing API (URL_UPDATED | URL_DELETED)
     body: JSON.stringify({ url, type: "URL_UPDATED" }),
   });
   const ok = res.status >= 200 && res.status < 300;
@@ -160,8 +161,15 @@ async function main() {
 
   let ok = 0;
   let fail = 0;
-  const CONCURRENCY = 10;
+  let rateLimited = false;
+  const CONCURRENCY = 1; // polite: Indexing API daily quota is 200; burst submissions are wasteful
+  const DELAY_MS = 300;  // small pause between requests to avoid looking like a burst
   for (let i = 0; i < urls.length; i += CONCURRENCY) {
+    if (rateLimited) {
+      log(`  STOPPING early: daily quota already exhausted; remaining ${urls.length - i} URLs skipped.`);
+      fail += urls.length - i;
+      break;
+    }
     const batch = urls.slice(i, i + CONCURRENCY);
     const results = await Promise.all(
             batch.map(async (u) => {
@@ -175,6 +183,7 @@ async function main() {
 
     );
     for (const r of results) {
+      if (r.status === 429) rateLimited = true;
       if (r.status >= 200 && r.status < 300) ok++;
       else {
         fail++;
@@ -182,9 +191,16 @@ async function main() {
       }
     }
     log(`Progress: ${Math.min(i + CONCURRENCY, urls.length)}/${urls.length} (ok=${ok} fail=${fail})`);
+    if (i + CONCURRENCY < urls.length && !rateLimited) {
+      await new Promise((res) => setTimeout(res, DELAY_MS));
+    }
   }
   log(`\nDone. Submitted ${ok} URLs, ${fail} failed.`);
-  if (fail > 0) log("Warning: some URLs failed; Google may retry or you can re-run.");
+  if (rateLimited) {
+    log("Note: hit Google Indexing API daily quota (200 requests/day). The skipped URLs will be retried by the next scheduled run.");
+  } else if (fail > 0) {
+    log("Warning: some URLs failed; Google may retry or you can re-run.");
+  }
 }
 
 main().catch((err) => {
