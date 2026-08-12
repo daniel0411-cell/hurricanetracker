@@ -142,7 +142,14 @@ async function main() {
   }
   log(`Using service account: ${sa.client_email}`);
 
-  const token = await getAccessToken(sa);
+  let token;
+  try {
+    token = await getAccessToken(sa);
+  } catch (e) {
+    log("WARN: could not obtain Google access token (" + e.message + ").");
+    log("Skipping Indexing API submission — deploy continues. Verify network/credentials later.");
+    process.exit(0);
+  }
   log("Obtained access token.");
 
   const urls = await loadUrls();
@@ -177,6 +184,7 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error("gindex error:", err.message);
-  process.exit(1);
+  console.error("gindex warning:", err.message);
+  console.error("Indexing API submission skipped; deploy continues.");
+  process.exit(0);
 });

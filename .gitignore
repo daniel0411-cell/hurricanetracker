@@ -5,3 +5,6 @@ dist/
 .workbuddy/
 .DS_Store
 *.log
+
+# Google service account key — NEVER commit (contains private key)
+gcp-sa.json
