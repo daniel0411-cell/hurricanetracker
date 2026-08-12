@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import FaqBlock from "../../components/FaqBlock.astro";
-import { blogPosts } from "../../data/blog";
+import { blogPosts, getRelatedPosts } from "../../data/blog";
 import { faqs, site } from "../../data/site";
 import { blogPostingSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
 
@@ -14,7 +14,7 @@ const title = post.title;
 const description = post.description;
 const url = `${site.url}/blog/${post.slug}/`;
 const lastModified = new Date(post.dateModified).toISOString();
-const relatedPosts = blogPosts.filter((item) => item.slug !== post.slug).slice(0, 3);
+const relatedPosts = getRelatedPosts(post.slug, 3);
 const postFaqs = post.faqs?.length ? post.faqs : faqs;
 // Blog posts are SSR, so we cannot statically assert asset existence at request time.
 // The gen-og prebuild step guarantees an OG PNG exists for every cover SVG referenced
@@ -33,7 +33,7 @@ const jsonLd = graph(
       <h1 id="post-title">{post.title}</h1>
       <p class="answer">{post.description}</p>
       <p class="small">Published {post.datePublished} · Last modified {post.dateModified}</p>
-      <img class="article-hero-image" src={post.image} alt={post.imageAlt} width="1600" height="900" />
+      <img class="article-hero-image" src={post.image} alt={post.imageAlt} width="1600" height="900" decoding="async" fetchpriority="high" />
     </div>
   </article>
 
@@ -71,9 +71,12 @@ const jsonLd = graph(
         </section>
         <section class="panel">
           <h2>Related Articles</h2>
-          <ul class="check-list">
+          <ul class="related-list">
             {relatedPosts.map((item) => (
-              <li><a href={`/blog/${item.slug}/`}>{item.title}</a></li>
+              <li>
+                <a href={`/blog/${item.slug}/`} class="related-link">{item.title}</a>
+                <p class="related-desc">{item.description}</p>
+              </li>
             ))}
           </ul>
         </section>
@@ -82,3 +85,29 @@ const jsonLd = graph(
   </section>
   <FaqBlock faqs={postFaqs} />
 </Layout>
+
+<style>
+  .related-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+  }
+  .related-link {
+    display: block;
+    font-weight: 800;
+    line-height: 1.35;
+    color: var(--accent, #0b63ce);
+    text-decoration: none;
+  }
+  .related-link:hover {
+    text-decoration: underline;
+  }
+  .related-desc {
+    margin: 4px 0 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--muted, #6b7280);
+  }
+</style>

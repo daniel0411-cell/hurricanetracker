@@ -1295,3 +1295,106 @@ export const blogPosts: BlogPost[] = [
     ]
   }
 ];
+
+// Internal-linking helper: returns topically related posts ranked by TF-IDF
+// keyword overlap. Rare, specific terms (e.g. "fema", "deductible", "mold")
+// weigh more than common hurricane vocabulary, so matches are genuinely on-topic.
+// Title/heading tokens are boosted. Falls back to the most recent posts when a
+// post has too little topical signal.
+const RELATED_STOPWORDS = new Set([
+  "the", "and", "for", "are", "you", "your", "with", "this", "that", "from",
+  "will", "have", "has", "how", "what", "when", "where", "why", "which", "who",
+  "our", "out", "can", "should", "before", "after", "during", "into", "more",
+  "than", "then", "them", "they", "their", "there", "here", "also", "not",
+  "but", "use", "used", "using", "get", "gets", "got", "just", "like", "need",
+  "know", "make", "made", "keep", "stay", "help", "plan", "read", "track",
+  "hurricane", "storm", "storms", "hurricanes", "weather", "safety", "guide",
+  "tips", "step", "steps", "best", "top", "way", "ways", "time", "important",
+  "about", "over", "under", "between", "while", "against", "each", "may",
+  "forecast", "warning", "warnings", "alert", "alerts", "advisory", "coastal",
+  "flood", "floods", "flooding", "wind", "winds", "rain", "rains", "damage",
+  "risk", "area", "areas", "local", "map", "maps", "data", "live", "real",
+  "tracking", "radar", "satellite", "season", "atlantic", "current", "update",
+  "today", "news", "year", "years", "watch", "watches", "surge", "zone", "zones",
+  "information", "learn", "find", "understand", "explain", "explained", "including",
+  "make", "sure", "need", "one", "two", "first", "second", "many", "much",
+]);
+
+function tokenize(text: string): string[] {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .split(/\s+/)
+    .filter((w) => w.length >= 3 && !RELATED_STOPWORDS.has(w));
+}
+
+function postTokens(p: BlogPost): Map<string, number> {
+  const m = new Map<string, number>();
+  const add = (text: string, weight: number) => {
+    for (const t of tokenize(text)) m.set(t, (m.get(t) ?? 0) + weight);
+  };
+  add(p.title, 3);
+  add(p.description, 2);
+  for (const s of p.sections) {
+    add(s.heading, 2);
+    add(s.body, 1);
+    for (const b of s.bullets ?? []) add(b, 1);
+  }
+  for (const f of p.faqs ?? []) {
+    add(f.question, 1);
+    add(f.answer, 1);
+  }
+  return m;
+}
+
+let RELATED_VEC: { slug: string; vec: Map<string, number>; norm: number }[] | null = null;
+let RELATED_DF: Map<string, number> | null = null;
+
+function buildRelatedIndex() {
+  if (RELATED_VEC && RELATED_DF) return;
+  const posts = blogPosts.map((p) => ({ slug: p.slug, tf: postTokens(p) }));
+  const df = new Map<string, number>();
+  for (const { tf } of posts) for (const tok of tf.keys()) {
+    df.set(tok, (df.get(tok) ?? 0) + 1);
+  }
+  RELATED_DF = df;
+  const n = posts.length;
+  const idf = (tok: string) => 1 + Math.log(n / (df.get(tok) ?? 1));
+  RELATED_VEC = posts.map(({ slug, tf }) => {
+    const vec = new Map<string, number>();
+    let sumSq = 0;
+    for (const [tok, w] of tf) {
+      const val = w * idf(tok);
+      vec.set(tok, val);
+      sumSq += val * val;
+    }
+    return { slug, vec, norm: Math.sqrt(sumSq) || 1 };
+  });
+}
+
+export function getRelatedPosts(slug: string, limit = 3): BlogPost[] {
+  const idx = blogPosts.findIndex((p) => p.slug === slug);
+  if (idx < 0) return [];
+  buildRelatedIndex();
+  const vec = RELATED_VEC!;
+  const cur = vec[idx];
+  const scored = blogPosts
+    .map((p, i) => {
+      if (i === idx) return { p, score: -1 };
+      const cand = vec[i];
+      let dot = 0;
+      for (const [tok, v] of cur.vec) {
+        const v2 = cand.vec.get(tok);
+        if (v2) dot += v * v2;
+      }
+      return { p, score: dot / (cur.norm * cand.norm) };
+    })
+    .sort((a, b) => b.score - a.score);
+  const related = scored.filter((s) => s.score > 0).slice(0, limit).map((s) => s.p);
+  if (related.length >= limit) return related;
+  const seen = new Set(related.map((r) => r.slug));
+  const fallback = blogPosts
+    .filter((p) => p.slug !== slug && !seen.has(p.slug))
+    .slice(0, limit - related.length);
+  return [...related, ...fallback];
+}
