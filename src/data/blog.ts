@@ -1109,8 +1109,8 @@ export const blogPosts: BlogPost[] = [
     description: "NOAA's August 2026 hurricane outlook predicts a below-normal Atlantic season—but two Gulf storms have already made landfall and Cristobal may form this week. Here's why lower storm counts don't equal lower risk, and how a real-time tracker keeps you prepared.",
     datePublished: "2026-08-12",
     dateModified: "2026-08-12",
-    image: "/images/blog/below-normal-hurricane-season-2026-tracker.svg",
-    imageAlt: "An Atlantic basin map showing past Gulf storms Arthur and Bertha, a developing system near Cape Verde, and a smartphone displaying a real-time hurricane tracker with an active storm surge watch alert.",
+    image: "/images/blog/below-normal-hurricane-season-2026-tracker.png",
+    imageAlt: "A coastal resident in a plaid shirt checks a hurricane alert on his smartphone while standing on a wooden deck overlooking an overcast Atlantic coastline, grey storm clouds gathering on the horizon.",
     sections: [
       {
         heading: "Direct Answer",
