@@ -4,17 +4,21 @@ import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
 import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
 
-const title = "My Hurricane Dashboard";
-const description = "Create a ZIP-based hurricane dashboard with state alerts, active storms, radar links, decision tools, and a printable action path.";
+const title = "My Location Hurricane Alert Center";
+const description = "Save up to five US locations and monitor local NWS alerts, active NHC storms, decision levels, and alert preferences from one hurricane dashboard.";
 const url = `${site.url}/tools/my-hurricane-dashboard/`;
 const pageFaqs = [
   {
-    question: "What does My Hurricane Dashboard show?",
-    answer: "It combines a ZIP lookup, state NWS alerts, active NHC storms, and links to the most relevant HurricaneHub decision tools for your household."
+    question: "Where are my saved locations stored?",
+    answer: "Saved locations and alert preferences stay in this browser on this device. HurricaneHub does not require an account for this dashboard."
   },
   {
-    question: "Does the dashboard replace county emergency instructions?",
-    answer: "No. Use it as a planning hub, then verify evacuation zones, shelter rules, and road instructions with local emergency management and weather.gov."
+    question: "How precise are dashboard alerts?",
+    answer: "The dashboard uses the approximate ZIP-code center to request active NWS alerts for that point. Always verify your county, evacuation zone, and official local instructions."
+  },
+  {
+    question: "Do dashboard alert preferences enable push notifications?",
+    answer: "Not yet. The preferences saved here control how each location is presented and prepare the dashboard for a later push-alert upgrade."
   },
   ...faqs
 ];
@@ -25,52 +29,63 @@ const jsonLd = graph(
     name: title,
     description,
     url,
-    featureList: ["ZIP-based alert dashboard", "NHC storm summary", "Radar and decision-tool shortcuts", "Household action path"]
+    featureList: ["Multiple saved ZIP locations", "Point-based NWS alerts", "NHC storm summary", "Per-location alert preferences"]
   }),
   faqSchema(pageFaqs)
 );
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified} showBottomAd={true}>
   <section class="band" aria-labelledby="dashboard-title">
-    <div class="inner">
-      <p class="eyebrow">Personal storm desk</p>
-      <h1 id="dashboard-title">My Hurricane Dashboard</h1>
-      <p class="answer">Enter a ZIP code to build a personal hurricane dashboard with state alerts, active storms, radar shortcuts, and the next decision tools your household should use.</p>
+    <div class="inner dashboard-heading">
+      <div>
+        <p class="eyebrow">Personal storm desk</p>
+        <h1 id="dashboard-title">My Location Alert Center</h1>
+        <p class="answer">Save the places that matter to you and check each location's active NWS alerts, decision level, and current NHC storm context in one view.</p>
+      </div>
+      <div class="privacy-note">
+        <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+        <span>Locations stay in this browser.</span>
+      </div>
     </div>
   </section>
 
-  <section class="band" aria-labelledby="dashboard-form-heading">
+  <section class="band dashboard-workspace" aria-labelledby="add-location-heading">
     <div class="inner">
-      <form class="dashboard-form panel" id="dashboard-form">
-        <h2 id="dashboard-form-heading">Build Dashboard</h2>
-        <label for="dashboard-zip">US ZIP code</label>
-        <input id="dashboard-zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="\d{5}" placeholder="e.g. 33139" required />
-        <button type="submit">Load my dashboard</button>
-        <span id="dashboard-status" class="small" role="status">Loads official NWS and NHC proxy data after submit.</span>
+      <form class="location-form" id="location-form">
+        <div class="form-title">
+          <h2 id="add-location-heading">Add a Location</h2>
+          <span id="location-limit" class="small">0 of 5 saved</span>
+        </div>
+        <div class="form-fields">
+          <label>
+            <span>Location name</span>
+            <input id="location-name" maxlength="28" placeholder="Home, Work, Parents" autocomplete="off" />
+          </label>
+          <label>
+            <span>US ZIP code</span>
+            <input id="location-zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="\d{5}" placeholder="33139" required />
+          </label>
+          <button type="submit"><i class="fa-solid fa-plus" aria-hidden="true"></i> Add location</button>
+        </div>
+        <p id="dashboard-status" class="small" role="status">Add a ZIP code to start monitoring a location.</p>
       </form>
 
-      <div class="dashboard-result" id="dashboard-result" hidden aria-live="polite">
-        <section class="panel dashboard-summary">
-          <p class="eyebrow">Current decision snapshot</p>
-          <h2 id="dashboard-location">Your location</h2>
-          <div class="dashboard-metrics">
-            <div><strong id="dashboard-level">Monitor</strong><span>decision level</span></div>
-            <div><strong id="dashboard-alert-count">0</strong><span>state alerts</span></div>
-            <div><strong id="dashboard-storm-count">0</strong><span>NHC storms</span></div>
-          </div>
-          <p id="dashboard-note" class="source-note"></p>
-        </section>
-
-        <section class="panel">
-          <h2>Next Best Actions</h2>
-          <ol class="check-list" id="dashboard-actions"></ol>
-        </section>
-
-        <section class="panel">
-          <h2>Quick Links</h2>
-          <ul class="check-list" id="dashboard-links"></ul>
-        </section>
+      <div class="dashboard-toolbar">
+        <div>
+          <h2>Saved Locations</h2>
+          <p class="small">NWS alerts use the approximate center of each ZIP code.</p>
+        </div>
+        <button type="button" class="secondary icon-command" id="refresh-all" disabled>
+          <i class="fa-solid fa-rotate" aria-hidden="true"></i> Refresh all
+        </button>
       </div>
+
+      <div id="empty-dashboard" class="empty-dashboard">
+        <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+        <h3>No saved locations</h3>
+        <p>Add home, work, or a family member's ZIP code to build your alert center.</p>
+      </div>
+      <div id="location-list" class="location-list" aria-live="polite"></div>
     </div>
   </section>
 
@@ -78,128 +93,549 @@ const jsonLd = graph(
 </Layout>
 
 <script>
-  type LocationResult = { zip: string; city?: string; state: string; stateName: string };
-  type AlertFeed = { alerts?: Array<{ event?: string; headline?: string }>; decisionLevel?: string; updatedAt?: string; fetchedAt?: string };
-  type StormFeed = { storms?: Array<{ name?: string; id?: string; classification?: string; summary?: string }>; updatedAt?: string; fetchedAt?: string };
+  type AlertItem = { event?: string; headline?: string; severity?: string; urgency?: string; expires?: string };
+  type AlertFeed = { alerts?: AlertItem[]; decisionLevel?: string; updatedAt?: string; fetchedAt?: string };
+  type StormFeed = { storms?: Array<{ name?: string; id?: string; classification?: string }>; updatedAt?: string; fetchedAt?: string };
+  type LocationResult = {
+    zip: string;
+    city?: string;
+    state: string;
+    stateName: string;
+    latitude?: string | number | null;
+    longitude?: string | number | null;
+  };
+  type AlertMode = "all" | "warning-only" | "off";
+  type SavedLocation = LocationResult & {
+    id: string;
+    label: string;
+    alertMode: AlertMode;
+    addedAt: string;
+  };
 
-  const form = document.querySelector<HTMLFormElement>("#dashboard-form");
-  const zipInput = document.querySelector<HTMLInputElement>("#dashboard-zip");
+  const STORAGE_KEY = "hh-dashboard-locations-v1";
+  const MAX_LOCATIONS = 5;
+  const form = document.querySelector<HTMLFormElement>("#location-form");
+  const nameInput = document.querySelector<HTMLInputElement>("#location-name");
+  const zipInput = document.querySelector<HTMLInputElement>("#location-zip");
   const statusEl = document.querySelector<HTMLElement>("#dashboard-status");
-  const resultEl = document.querySelector<HTMLElement>("#dashboard-result");
-  const locationEl = document.querySelector<HTMLElement>("#dashboard-location");
-  const levelEl = document.querySelector<HTMLElement>("#dashboard-level");
-  const alertCountEl = document.querySelector<HTMLElement>("#dashboard-alert-count");
-  const stormCountEl = document.querySelector<HTMLElement>("#dashboard-storm-count");
-  const noteEl = document.querySelector<HTMLElement>("#dashboard-note");
-  const actionsEl = document.querySelector<HTMLElement>("#dashboard-actions");
-  const linksEl = document.querySelector<HTMLElement>("#dashboard-links");
+  const limitEl = document.querySelector<HTMLElement>("#location-limit");
+  const listEl = document.querySelector<HTMLElement>("#location-list");
+  const emptyEl = document.querySelector<HTMLElement>("#empty-dashboard");
+  const refreshAllButton = document.querySelector<HTMLButtonElement>("#refresh-all");
+  let locations: SavedLocation[] = [];
 
   function escapeHtml(value: unknown) {
     const replacements: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
     return String(value ?? "").replace(/[&<>"']/g, (char) => replacements[char] ?? char);
   }
 
+  function parseCoordinate(value: string | number | null | undefined) {
+    const number = typeof value === "number" ? value : Number.parseFloat(value ?? "");
+    return Number.isFinite(number) ? number : null;
+  }
+
+  function loadLocations() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
+      if (Array.isArray(saved)) locations = saved.slice(0, MAX_LOCATIONS);
+    } catch {
+      locations = [];
+    }
+  }
+
+  function saveLocations() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(locations));
+  }
+
+  function displayName(location: SavedLocation) {
+    return location.city ? `${location.city}, ${location.state}` : location.stateName;
+  }
+
+  function formatTime(value?: string) {
+    if (!value) return "Not available";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "Not available";
+    return new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }).format(date);
+  }
+
   function actionsFor(level: string) {
-    if (level === "Leave") return ["Follow local evacuation instructions immediately if you can do so safely.", "Take medicine, IDs, documents, chargers, pets, water, and cash.", "Use official routes and avoid flooded roads."];
-    if (level === "Act") return ["Read every active warning and local instruction.", "Move vulnerable people early and finish protective actions.", "Use the evacuation helper if your home, pets, or medical needs add risk."];
-    if (level === "Prepare") return ["Finish supplies, fuel, documents, and route planning.", "Generate a hurricane brief and family communication plan.", "Open radar and official advisories twice daily."];
-    return ["Confirm your evacuation zone and household contacts.", "Check the emergency kit and power outage plan.", "Monitor official alerts during hurricane season."];
+    if (level === "Leave") return "Follow local evacuation instructions now and use official routes.";
+    if (level === "Act") return "Read active warnings and complete immediate protective actions.";
+    if (level === "Prepare") return "Finish supplies, documents, power, and route planning.";
+    return "Confirm your evacuation zone and continue monitoring official alerts.";
+  }
+
+  function renderLocations() {
+    if (!listEl || !emptyEl || !limitEl || !refreshAllButton) return;
+    limitEl.textContent = `${locations.length} of ${MAX_LOCATIONS} saved`;
+    emptyEl.hidden = locations.length > 0;
+    refreshAllButton.disabled = locations.length === 0;
+    listEl.innerHTML = locations.map((location) => `
+      <article class="location-card" data-location-id="${escapeHtml(location.id)}">
+        <header class="location-card-header">
+          <div>
+            <p class="eyebrow">${escapeHtml(location.label)}</p>
+            <h3>${escapeHtml(displayName(location))}</h3>
+            <p class="location-meta">ZIP ${escapeHtml(location.zip)} · ${escapeHtml(location.stateName)}</p>
+          </div>
+          <div class="location-actions">
+            <button type="button" class="icon-button" data-action="refresh" title="Refresh location" aria-label="Refresh ${escapeHtml(location.label)}">
+              <i class="fa-solid fa-rotate" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="icon-button danger" data-action="delete" title="Remove location" aria-label="Remove ${escapeHtml(location.label)}">
+              <i class="fa-solid fa-trash" aria-hidden="true"></i>
+            </button>
+          </div>
+        </header>
+        <div class="location-state" data-state="loading">
+          <i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i> Loading current conditions...
+        </div>
+        <div class="location-data" hidden>
+          <div class="location-metrics">
+            <div><strong data-field="level">--</strong><span>decision level</span></div>
+            <div><strong data-field="alerts">--</strong><span>local alerts</span></div>
+            <div><strong data-field="storms">--</strong><span>NHC storms</span></div>
+          </div>
+          <p class="location-guidance" data-field="guidance"></p>
+          <div class="alert-preview" data-field="preview"></div>
+          <div class="location-footer">
+            <label class="alert-setting">
+              <span>Alert preference</span>
+              <select data-action="mode" aria-label="Alert preference for ${escapeHtml(location.label)}">
+                <option value="all" ${location.alertMode === "all" ? "selected" : ""}>Watches and warnings</option>
+                <option value="warning-only" ${location.alertMode === "warning-only" ? "selected" : ""}>Warnings only</option>
+                <option value="off" ${location.alertMode === "off" ? "selected" : ""}>Off</option>
+              </select>
+            </label>
+            <p class="updated" data-field="updated">Updated --</p>
+          </div>
+          <nav class="location-links" aria-label="Tools for ${escapeHtml(location.label)}">
+            <a href="/alerts/?state=${encodeURIComponent(location.state)}">Alerts</a>
+            <a href="/radar/">Radar</a>
+            <a href="/tools/local-risk-plan/?state=${encodeURIComponent(location.state)}">Action plan</a>
+          </nav>
+        </div>
+      </article>
+    `).join("");
+  }
+
+  async function loadLocation(location: SavedLocation) {
+    const card = listEl?.querySelector<HTMLElement>(`[data-location-id="${CSS.escape(location.id)}"]`);
+    if (!card) return;
+    const stateEl = card.querySelector<HTMLElement>(".location-state");
+    const dataEl = card.querySelector<HTMLElement>(".location-data");
+    if (stateEl) {
+      stateEl.dataset.state = "loading";
+      stateEl.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i> Loading current conditions...';
+      stateEl.hidden = false;
+    }
+    if (dataEl) dataEl.hidden = true;
+
+    const lat = parseCoordinate(location.latitude);
+    const lon = parseCoordinate(location.longitude);
+    const alertQuery = lat !== null && lon !== null
+      ? `point=${encodeURIComponent(`${lat},${lon}`)}`
+      : `area=${encodeURIComponent(location.state)}`;
+
+    try {
+      const [alertsResponse, stormsResponse] = await Promise.all([
+        fetch(`/api/nws/alerts.json?${alertQuery}`),
+        fetch("/api/nhc/current.json")
+      ]);
+      if (!alertsResponse.ok || !stormsResponse.ok) throw new Error("Live feed unavailable");
+      const alerts = await alertsResponse.json() as AlertFeed;
+      const storms = await stormsResponse.json() as StormFeed;
+      const alertItems = alerts.alerts ?? [];
+      const stormItems = storms.storms ?? [];
+      const level = alerts.decisionLevel ?? (stormItems.length ? "Prepare" : "Monitor");
+      const preview = alertItems.slice(0, 2);
+
+      const levelEl = card.querySelector<HTMLElement>('[data-field="level"]');
+      const alertsEl = card.querySelector<HTMLElement>('[data-field="alerts"]');
+      const stormsEl = card.querySelector<HTMLElement>('[data-field="storms"]');
+      const guidanceEl = card.querySelector<HTMLElement>('[data-field="guidance"]');
+      const previewEl = card.querySelector<HTMLElement>('[data-field="preview"]');
+      const updatedEl = card.querySelector<HTMLElement>('[data-field="updated"]');
+      if (levelEl) {
+        levelEl.textContent = level;
+        levelEl.dataset.level = level.toLowerCase();
+      }
+      if (alertsEl) alertsEl.textContent = String(alertItems.length);
+      if (stormsEl) stormsEl.textContent = String(stormItems.length);
+      if (guidanceEl) guidanceEl.textContent = actionsFor(level);
+      if (previewEl) {
+        previewEl.innerHTML = preview.length
+          ? preview.map((alert) => `<div><strong>${escapeHtml(alert.event ?? "Weather alert")}</strong><span>${escapeHtml(alert.headline || alert.severity || "Official NWS alert")}</span></div>`).join("")
+          : '<p>No active NWS alerts returned for this location. This is not an all-clear for your evacuation zone.</p>';
+      }
+      if (updatedEl) updatedEl.textContent = `Updated ${formatTime(alerts.updatedAt ?? alerts.fetchedAt)}`;
+      if (stateEl) stateEl.hidden = true;
+      if (dataEl) dataEl.hidden = false;
+    } catch (error) {
+      console.error("HurricaneHub saved location failed", { location: location.zip, error });
+      if (stateEl) {
+        stateEl.dataset.state = "error";
+        stateEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Live data is temporarily unavailable. This does not mean there are no alerts.';
+      }
+    }
+  }
+
+  async function refreshAll() {
+    if (refreshAllButton) refreshAllButton.disabled = true;
+    await Promise.all(locations.map(loadLocation));
+    if (refreshAllButton) refreshAllButton.disabled = locations.length === 0;
   }
 
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const zip = zipInput?.value.trim() ?? "";
+    const requestedLabel = nameInput?.value.trim() ?? "";
     if (!/^\d{5}$/.test(zip)) {
       if (statusEl) statusEl.textContent = "Enter a valid five-digit ZIP code.";
       return;
     }
+    if (locations.length >= MAX_LOCATIONS) {
+      if (statusEl) statusEl.textContent = `You can save up to ${MAX_LOCATIONS} locations.`;
+      return;
+    }
+    if (locations.some((location) => location.zip === zip)) {
+      if (statusEl) statusEl.textContent = "That ZIP code is already saved.";
+      return;
+    }
     try {
-      if (statusEl) statusEl.textContent = "Loading your dashboard...";
-      const locationResponse = await fetch(`/api/location/zip?zip=${encodeURIComponent(zip)}`);
-      if (!locationResponse.ok) throw new Error("ZIP lookup failed");
-      const location = await locationResponse.json() as LocationResult;
-      const [alertsResponse, stormsResponse] = await Promise.all([
-        fetch(`/api/nws/alerts.json?area=${encodeURIComponent(location.state)}`),
-        fetch("/api/nhc/current.json")
-      ]);
-      if (!alertsResponse.ok || !stormsResponse.ok) throw new Error("Official feed unavailable");
-      const alerts = await alertsResponse.json() as AlertFeed;
-      const storms = await stormsResponse.json() as StormFeed;
-      const alertCount = alerts.alerts?.length ?? 0;
-      const stormCount = storms.storms?.length ?? 0;
-      const level = alerts.decisionLevel ?? (stormCount ? "Prepare" : "Monitor");
-      if (locationEl) locationEl.textContent = location.city ? `${location.city}, ${location.stateName}` : location.stateName;
-      if (levelEl) levelEl.textContent = level;
-      if (alertCountEl) alertCountEl.textContent = String(alertCount);
-      if (stormCountEl) stormCountEl.textContent = String(stormCount);
-      if (noteEl) noteEl.textContent = `ZIP ${zip} · State-level alert screen for ${location.stateName}. Verify county evacuation zones and local orders.`;
-      if (actionsEl) actionsEl.innerHTML = actionsFor(level).map((action) => `<li>${escapeHtml(action)}</li>`).join("");
-      if (linksEl) {
-        linksEl.innerHTML = [
-          [`/tools/local-risk-plan/?state=${encodeURIComponent(location.state)}`, "Local risk and 72-hour plan"],
-          ["/radar/", "Live radar and satellite"],
-          ["/tools/hurricane-brief/", "Printable hurricane brief"],
-          ["/tools/evacuation-decision-helper/", "Evacuation decision helper"],
-          ["/tools/power-outage-planner/", "Power outage planner"]
-        ].map(([href, label]) => `<li><a href="${href}">${escapeHtml(label)}</a></li>`).join("");
-      }
-      if (resultEl) resultEl.hidden = false;
-      if (statusEl) statusEl.textContent = "Dashboard updated from HurricaneHub data proxies.";
+      if (statusEl) statusEl.textContent = "Looking up location...";
+      const response = await fetch(`/api/location/zip?zip=${encodeURIComponent(zip)}`);
+      if (!response.ok) throw new Error("ZIP lookup failed");
+      const result = await response.json() as LocationResult;
+      const location: SavedLocation = {
+        ...result,
+        id: crypto.randomUUID(),
+        label: requestedLabel || result.city || "Saved location",
+        alertMode: "all",
+        addedAt: new Date().toISOString()
+      };
+      locations.push(location);
+      saveLocations();
+      renderLocations();
+      await loadLocation(location);
+      form.reset();
+      if (statusEl) statusEl.textContent = `${location.label} was saved on this device.`;
     } catch (error) {
-      console.error("HurricaneHub dashboard failed", error);
-      if (statusEl) statusEl.textContent = "Dashboard could not load right now. Try a state tracker or retry shortly.";
+      console.error("HurricaneHub location save failed", error);
+      if (statusEl) statusEl.textContent = "That location could not be added right now. Check the ZIP code and retry.";
     }
   });
+
+  listEl?.addEventListener("click", async (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>("button[data-action]");
+    if (!button) return;
+    const card = button.closest<HTMLElement>("[data-location-id]");
+    const location = locations.find((item) => item.id === card?.dataset.locationId);
+    if (!location) return;
+    if (button.dataset.action === "refresh") await loadLocation(location);
+    if (button.dataset.action === "delete") {
+      locations = locations.filter((item) => item.id !== location.id);
+      saveLocations();
+      renderLocations();
+      await refreshAll();
+      if (statusEl) statusEl.textContent = `${location.label} was removed from this device.`;
+    }
+  });
+
+  listEl?.addEventListener("change", (event) => {
+    if (!(event.target instanceof HTMLSelectElement) || event.target.dataset.action !== "mode") return;
+    const select = event.target;
+    const card = select.closest<HTMLElement>("[data-location-id]");
+    const location = locations.find((item) => item.id === card?.dataset.locationId);
+    if (!location) return;
+    location.alertMode = select.value as AlertMode;
+    saveLocations();
+    if (statusEl) statusEl.textContent = `Alert preference saved for ${location.label}.`;
+  });
+
+  refreshAllButton?.addEventListener("click", refreshAll);
+  loadLocations();
+  renderLocations();
+  refreshAll();
 </script>
 
 <style>
-  .dashboard-form {
+  .dashboard-heading {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 28px;
+    align-items: end;
+  }
+
+  .dashboard-heading > div:first-child {
+    max-width: 850px;
+  }
+
+  .privacy-note {
+    display: flex;
+    gap: 9px;
+    align-items: center;
+    color: var(--muted);
+    font-size: 0.86rem;
+    white-space: nowrap;
+  }
+
+  .dashboard-workspace {
+    background: #f5f8f8;
+  }
+
+  .location-form {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 24px;
+  }
+
+  .form-title,
+  .dashboard-toolbar,
+  .location-card-header,
+  .location-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
     align-items: center;
   }
 
-  .dashboard-form h2,
-  .dashboard-form .small {
-    flex: 1 1 100%;
+  .form-title h2,
+  .dashboard-toolbar h2,
+  .location-card h3 {
+    margin: 0;
   }
 
-  .dashboard-form label {
-    font-weight: 800;
-  }
-
-  .dashboard-result {
+  .form-fields {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) repeat(2, minmax(250px, 0.95fr));
-    gap: 18px;
-    margin-top: 22px;
+    grid-template-columns: minmax(180px, 1fr) minmax(150px, 0.7fr) auto;
+    gap: 12px;
+    align-items: end;
+    margin-top: 14px;
   }
 
-  .dashboard-metrics {
+  .form-fields label,
+  .alert-setting {
+    display: grid;
+    gap: 6px;
+    font-weight: 800;
+    font-size: 0.84rem;
+  }
+
+  .form-fields button,
+  .icon-command {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .dashboard-toolbar {
+    margin: 26px 0 14px;
+  }
+
+  .dashboard-toolbar p {
+    margin: 4px 0 0;
+  }
+
+  .secondary {
+    background: transparent;
+    color: var(--ocean);
+    border: 1px solid var(--ocean);
+  }
+
+  .secondary:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .empty-dashboard {
+    padding: 48px 20px;
+    text-align: center;
+    border: 1px dashed var(--line);
+    background: #fff;
+  }
+
+  .empty-dashboard[hidden] {
+    display: none;
+  }
+
+  .empty-dashboard i {
+    color: var(--ocean);
+    font-size: 1.6rem;
+  }
+
+  .empty-dashboard h3 {
+    margin: 12px 0 4px;
+  }
+
+  .empty-dashboard p {
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .location-list {
+    display: grid;
+    gap: 14px;
+  }
+
+  .location-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--ocean);
+    border-radius: 8px;
+    padding: 18px;
+  }
+
+  .location-card .eyebrow,
+  .location-meta {
+    margin: 0 0 5px;
+  }
+
+  .location-meta,
+  .updated {
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
+  .location-actions {
+    display: flex;
+    gap: 6px;
+  }
+
+  .icon-button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--ocean);
+    border: 1px solid var(--line);
+  }
+
+  .icon-button.danger {
+    color: #a52a2a;
+  }
+
+  .location-state {
+    margin-top: 14px;
+    padding: 12px;
+    background: #eef5f6;
+    color: var(--muted);
+  }
+
+  .location-state[data-state="error"] {
+    background: #fff1ee;
+    color: #8d2f22;
+  }
+
+  .location-metrics {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
-    margin-top: 18px;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 16px;
   }
 
-  .dashboard-metrics div {
-    padding: 12px;
-    border-radius: 8px;
-    background: #e8f3f5;
+  .location-metrics div {
+    padding: 12px 14px;
+    background: #f8faf9;
   }
 
-  .dashboard-metrics strong,
-  .dashboard-metrics span {
+  .location-metrics strong,
+  .location-metrics span {
     display: block;
   }
 
-  .dashboard-metrics strong {
-    font-size: 1.8rem;
+  .location-metrics strong {
+    font-size: 1.35rem;
   }
 
-  @media (max-width: 920px) {
-    .dashboard-result {
+  .location-metrics span {
+    color: var(--muted);
+    font-size: 0.78rem;
+  }
+
+  .location-guidance {
+    font-weight: 750;
+    margin: 14px 0;
+  }
+
+  .alert-preview {
+    display: grid;
+    gap: 8px;
+  }
+
+  .alert-preview div,
+  .alert-preview > p {
+    margin: 0;
+    padding: 10px 12px;
+    border-left: 3px solid #d49124;
+    background: #fff8e9;
+  }
+
+  .alert-preview strong,
+  .alert-preview span {
+    display: block;
+  }
+
+  .alert-preview span {
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin-top: 2px;
+  }
+
+  .location-footer {
+    margin-top: 16px;
+  }
+
+  .alert-setting {
+    grid-template-columns: auto minmax(170px, auto);
+    align-items: center;
+  }
+
+  .alert-setting select {
+    min-height: 38px;
+  }
+
+  .location-links {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--line);
+    padding-top: 13px;
+    margin-top: 13px;
+    font-weight: 750;
+    font-size: 0.86rem;
+  }
+
+  @media (max-width: 720px) {
+    .dashboard-heading,
+    .form-title,
+    .dashboard-toolbar,
+    .location-footer {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .privacy-note {
+      white-space: normal;
+    }
+
+    .form-fields {
+      grid-template-columns: 1fr;
+    }
+
+    .location-card-header {
+      align-items: start;
+    }
+
+    .location-metrics {
+      grid-template-columns: 1fr;
+    }
+
+    .alert-setting {
       grid-template-columns: 1fr;
     }
   }

@@ -2,7 +2,7 @@
 // Social platforms (Facebook, X/Twitter, LinkedIn, Slack, iMessage) do NOT render
 // SVG in og:image, so we rasterize each flat-vector SVG into a branded PNG card.
 import { Resvg } from "@resvg/resvg-js";
-import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, readdirSync, mkdirSync } from "node:fs";
 import { join, basename } from "node:path";
 
 const SRC_DIR = "public/images/blog";

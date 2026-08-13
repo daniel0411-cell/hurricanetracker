@@ -4,6 +4,7 @@ import { env } from "cloudflare:workers";
 const RAINVIEWER_URL = "https://api.rainviewer.com/public/weather-maps.json";
 const CACHE_KEY = "radar:rainviewer:weather-maps";
 const CACHE_TTL_SECONDS = 60 * 5;
+const UPSTREAM_TIMEOUT_MS = 8_000;
 const CORS_HEADERS = {
   "access-control-allow-origin": "*",
   "access-control-allow-methods": "GET, OPTIONS",
@@ -37,6 +38,7 @@ export const GET: APIRoute = async () => {
     }
 
     const response = await fetch(RAINVIEWER_URL, {
+      signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
       headers: {
         accept: "application/json",
         "user-agent": "HurricaneHub/1.0 (https://www.hurricanetracker.cc; weather data cache)"

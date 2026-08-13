@@ -4,6 +4,7 @@ import { decisionLevel, type NwsAlert } from "../../../lib/weather";
 
 const VALID_AREA = /^[A-Z]{2}$/;
 const CACHE_TTL_SECONDS = 300;
+const UPSTREAM_TIMEOUT_MS = 8_000;
 const CORS_HEADERS = {
   "access-control-allow-origin": "*",
   "access-control-allow-methods": "GET, OPTIONS",
@@ -98,6 +99,7 @@ export const GET: APIRoute = async ({ url }) => {
 
   try {
     const response = await fetch(source, {
+      signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
       headers: {
         accept: "application/geo+json",
         "user-agent": "HurricaneHub/0.1 (https://www.hurricanetracker.cc; weather-data@hurricanetracker.cc)"

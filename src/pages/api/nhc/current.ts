@@ -5,6 +5,7 @@ import { summarizeStorm, type NhcStorm } from "../../../lib/weather";
 const NHC_CURRENT_STORMS = "https://www.nhc.noaa.gov/CurrentStorms.json";
 const CACHE_KEY = "nhc:current-storms";
 const CACHE_TTL_SECONDS = 600;
+const UPSTREAM_TIMEOUT_MS = 8_000;
 const CORS_HEADERS = {
   "access-control-allow-origin": "*",
   "access-control-allow-methods": "GET, OPTIONS",
@@ -53,6 +54,7 @@ export const GET: APIRoute = async () => {
 
   try {
     const response = await fetch(NHC_CURRENT_STORMS, {
+      signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
       headers: {
         accept: "application/json",
         "user-agent": "HurricaneHub/0.1 (https://www.hurricanetracker.cc; weather-data@hurricanetracker.cc)"

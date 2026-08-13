@@ -50,7 +50,7 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url, d
       <h2 id="state-coverage">Tracked Coastal States</h2>
       <p class="answer">Open any state tracker for live NWS alerts, NHC storm context, county planning notes, and a household decision level.</p>
       <div class="grid-3" style="margin-top: 18px;">
-        {states.map(([code, name]) => {
+        {states.map(([, name]) => {
           const slug = name.toLowerCase().replace(/[^a-z]+/g, "-").replace(/^-|-$/g, "");
           return (
             <article class="panel">
