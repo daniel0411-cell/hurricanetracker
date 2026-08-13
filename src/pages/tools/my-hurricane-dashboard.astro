@@ -105,7 +105,17 @@ const jsonLd = graph(
     instruction?: string;
   };
   type AlertFeed = { alerts?: AlertItem[]; decisionLevel?: string; updatedAt?: string; fetchedAt?: string };
-  type StormFeed = { storms?: Array<{ name?: string; id?: string; classification?: string }>; updatedAt?: string; fetchedAt?: string };
+  type StormItem = {
+    name?: string;
+    id?: string;
+    classification?: string;
+    latitude?: string;
+    longitude?: string;
+    summary?: string;
+    publicAdvisory?: { url?: string } | string;
+    lastUpdate?: string;
+  };
+  type StormFeed = { storms?: StormItem[]; updatedAt?: string; fetchedAt?: string };
   type LocationResult = {
     zip: string;
     city?: string;
@@ -142,6 +152,23 @@ const jsonLd = graph(
   function parseCoordinate(value: string | number | null | undefined) {
     const number = typeof value === "number" ? value : Number.parseFloat(value ?? "");
     return Number.isFinite(number) ? number : null;
+  }
+
+  function stormCoordinate(value: unknown) {
+    const text = String(value ?? "").trim().toUpperCase();
+    const number = Number.parseFloat(text);
+    if (!Number.isFinite(number)) return null;
+    if (text.endsWith("S") || text.endsWith("W")) return -Math.abs(number);
+    return number;
+  }
+
+  function distanceMiles(lat1: number, lon1: number, lat2: number, lon2: number) {
+    const toRadians = (value: number) => value * Math.PI / 180;
+    const earthMiles = 3958.8;
+    const deltaLat = toRadians(lat2 - lat1);
+    const deltaLon = toRadians(lon2 - lon1);
+    const a = Math.sin(deltaLat / 2) ** 2 + Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(deltaLon / 2) ** 2;
+    return earthMiles * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   }
 
   function loadLocations() {
@@ -258,6 +285,61 @@ const jsonLd = graph(
     `;
   }
 
+  function advisoryUrl(storm: StormItem) {
+    if (typeof storm.publicAdvisory === "string") return storm.publicAdvisory;
+    return storm.publicAdvisory?.url ?? "";
+  }
+
+  function renderStormContext(location: SavedLocation, storms: StormItem[]) {
+    const lat = parseCoordinate(location.latitude);
+    const lon = parseCoordinate(location.longitude);
+    if (!storms.length) {
+      return `
+        <div class="storm-context-empty">
+          <h4>No active NHC tropical cyclone listed</h4>
+          <p>Keep checking NHC outlooks during hurricane season, especially if your local alerts or officials mention tropical weather.</p>
+        </div>
+      `;
+    }
+    if (lat === null || lon === null) {
+      return `
+        <div class="storm-context-empty">
+          <h4>Storms active, distance unavailable</h4>
+          <p>This saved ZIP did not return usable coordinates. Open the storm distance tool for manual context.</p>
+        </div>
+      `;
+    }
+    const rows = storms
+      .map((storm) => {
+        const stormLat = stormCoordinate(storm.latitude);
+        const stormLon = stormCoordinate(storm.longitude);
+        if (stormLat === null || stormLon === null) return null;
+        return { storm, miles: Math.round(distanceMiles(lat, lon, stormLat, stormLon)) };
+      })
+      .filter((item): item is { storm: StormItem; miles: number } => Boolean(item))
+      .sort((a, b) => a.miles - b.miles);
+    if (!rows.length) {
+      return `
+        <div class="storm-context-empty">
+          <h4>Storm distance unavailable</h4>
+          <p>Current NHC storms did not include usable coordinates in this feed. Use official advisories for track and timing.</p>
+        </div>
+      `;
+    }
+    return rows.slice(0, 3).map(({ storm, miles }, index) => {
+      const url = advisoryUrl(storm);
+      return `
+        <article class="storm-context-card">
+          <span>${index === 0 ? "Nearest storm" : "Active storm"}</span>
+          <h4>${escapeHtml(storm.name || storm.id || "Active storm")} · ${miles.toLocaleString("en-US")} mi</h4>
+          <p>${escapeHtml(storm.summary || storm.classification || "NHC storm data loaded.")}</p>
+          <p class="small">Position ${escapeHtml(storm.latitude || "?")}, ${escapeHtml(storm.longitude || "?")} · Updated ${escapeHtml(formatTime(storm.lastUpdate))}</p>
+          ${url ? `<a href="${escapeHtml(url)}" rel="nofollow">Official NHC advisory</a>` : ""}
+        </article>
+      `;
+    }).join("");
+  }
+
   function renderLocations() {
     if (!listEl || !emptyEl || !limitEl || !refreshAllButton) return;
     limitEl.textContent = `${locations.length} of ${MAX_LOCATIONS} saved`;
@@ -302,6 +384,7 @@ const jsonLd = graph(
               </div>
               <span data-field="detail-status">Waiting for live alerts</span>
             </div>
+            <div class="storm-context" data-field="storm-context"></div>
             <div data-field="detail-body"></div>
           </section>
           <div class="location-footer">
@@ -362,6 +445,7 @@ const jsonLd = graph(
       const guidanceEl = card.querySelector<HTMLElement>('[data-field="guidance"]');
       const previewEl = card.querySelector<HTMLElement>('[data-field="preview"]');
       const detailStatusEl = card.querySelector<HTMLElement>('[data-field="detail-status"]');
+      const stormContextEl = card.querySelector<HTMLElement>('[data-field="storm-context"]');
       const detailBodyEl = card.querySelector<HTMLElement>('[data-field="detail-body"]');
       const updatedEl = card.querySelector<HTMLElement>('[data-field="updated"]');
       if (levelEl) {
@@ -377,6 +461,7 @@ const jsonLd = graph(
           : '<p>No active NWS alerts returned for this location. This is not an all-clear for your evacuation zone.</p>';
       }
       if (detailStatusEl) detailStatusEl.textContent = alertItems.length ? `${alertItems.length} active alert${alertItems.length === 1 ? "" : "s"}` : "No active NWS alerts";
+      if (stormContextEl) stormContextEl.innerHTML = renderStormContext(location, stormItems);
       if (detailBodyEl) {
         detailBodyEl.innerHTML = alertItems.length
           ? alertItems.map(renderAlertDetail).join("")
@@ -748,7 +833,9 @@ const jsonLd = graph(
   }
 
   .alert-detail-card,
-  .no-alert-detail {
+  .no-alert-detail,
+  .storm-context-card,
+  .storm-context-empty {
     border: 1px solid var(--line);
     background: #fbfdfc;
     padding: 14px;
@@ -756,6 +843,40 @@ const jsonLd = graph(
 
   .alert-detail-card + .alert-detail-card {
     margin-top: 10px;
+  }
+
+  .storm-context {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .storm-context-card span {
+    color: var(--ocean);
+    display: block;
+    font-size: 0.74rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .storm-context-card h4,
+  .storm-context-empty h4 {
+    margin: 4px 0 6px;
+    font-size: 0.94rem;
+  }
+
+  .storm-context-card p,
+  .storm-context-empty p {
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .storm-context-card a {
+    display: inline-flex;
+    font-size: 0.82rem;
+    font-weight: 750;
+    margin-top: 8px;
   }
 
   .alert-detail-card header {
@@ -893,6 +1014,7 @@ const jsonLd = graph(
     }
 
     .detail-heading,
+    .storm-context,
     .alert-explainer-grid,
     .alert-facts {
       grid-template-columns: 1fr;
