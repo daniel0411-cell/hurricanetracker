@@ -93,7 +93,17 @@ const jsonLd = graph(
 </Layout>
 
 <script>
-  type AlertItem = { event?: string; headline?: string; severity?: string; urgency?: string; expires?: string };
+  type AlertItem = {
+    event?: string;
+    headline?: string;
+    severity?: string;
+    urgency?: string;
+    certainty?: string;
+    areaDesc?: string;
+    effective?: string;
+    expires?: string;
+    instruction?: string;
+  };
   type AlertFeed = { alerts?: AlertItem[]; decisionLevel?: string; updatedAt?: string; fetchedAt?: string };
   type StormFeed = { storms?: Array<{ name?: string; id?: string; classification?: string }>; updatedAt?: string; fetchedAt?: string };
   type LocationResult = {
@@ -165,6 +175,89 @@ const jsonLd = graph(
     return "Confirm your evacuation zone and continue monitoring official alerts.";
   }
 
+  function alertType(alert: AlertItem) {
+    const text = `${alert.event ?? ""} ${alert.headline ?? ""}`;
+    if (/Evacuation|Mandatory evacuation/i.test(text)) return "Evacuation order";
+    if (/Storm Surge/i.test(text)) return "Storm surge threat";
+    if (/Hurricane|Extreme Wind/i.test(text)) return "Hurricane wind threat";
+    if (/Flash Flood/i.test(text)) return "Flash flood threat";
+    if (/Flood|Coastal Flood/i.test(text)) return "Flooding threat";
+    if (/Tornado/i.test(text)) return "Tornado threat";
+    if (/Tropical Storm/i.test(text)) return "Tropical storm threat";
+    if (/Heat/i.test(text)) return "Heat hazard";
+    if (/Rip Current|High Surf/i.test(text)) return "Coastal water hazard";
+    return "Weather hazard";
+  }
+
+  function plainMeaning(alert: AlertItem) {
+    const type = alertType(alert);
+    if (type === "Evacuation order") return "Local officials are telling people in a defined area to leave or prepare to leave. Follow county instructions and official routes.";
+    if (type === "Storm surge threat") return "Water may rise into normally dry coastal areas. Roads can become unsafe before the strongest wind arrives.";
+    if (type === "Hurricane wind threat") return "Damaging hurricane-force wind is possible or expected. Finish protective actions before conditions deteriorate.";
+    if (type === "Flash flood threat") return "Water can rise quickly in low spots, streets, and drainage areas. Flooded roads are the main immediate danger.";
+    if (type === "Flooding threat") return "Water may cover roads or low-lying areas. Local conditions can change faster than a broad state alert suggests.";
+    if (type === "Tornado threat") return "A tornado is possible or indicated nearby. Shelter decisions may need to happen immediately.";
+    if (type === "Tropical storm threat") return "Tropical-storm-force wind, heavy rain, and coastal impacts are possible or expected.";
+    if (type === "Heat hazard") return "Heat can become dangerous, especially for older adults, outdoor workers, children, pets, and people without cooling.";
+    if (type === "Coastal water hazard") return "Surf and currents can be dangerous even when skies look calm. Avoid entering hazardous water.";
+    return "An official NWS alert is active for this point or nearby area. Read the full alert and local emergency instructions.";
+  }
+
+  function actionSteps(alert: AlertItem) {
+    const type = alertType(alert);
+    if (type === "Evacuation order") return ["Leave if your zone or household is included.", "Take IDs, medication, documents, pets, chargers, water, and cash.", "Use official evacuation routes and tell a contact where you are going."];
+    if (type === "Storm surge threat") return ["Check your evacuation zone, not just your ZIP code.", "Move vehicles, medicine, documents, and valuables away from flood-prone areas.", "Leave early if officials order your zone to evacuate or your route floods easily."];
+    if (type === "Hurricane wind threat") return ["Secure outdoor items and finish window or shutter actions while it is safe.", "Move vulnerable people, pets, and medical equipment earlier than the public deadline.", "Stop nonessential travel before winds make roads unsafe."];
+    if (type === "Flash flood threat" || type === "Flooding threat") return ["Do not drive through flooded roads.", "Move to higher ground if water rises or officials instruct it.", "Keep phones charged and monitor local road and emergency updates."];
+    if (type === "Tornado threat") return ["Go to an interior room on the lowest safe level.", "Stay away from windows.", "Keep shoes, flashlight, and phone nearby until the warning expires."];
+    if (type === "Tropical storm threat") return ["Bring loose outdoor items inside.", "Prepare for power outages and blocked roads.", "Check official updates at least twice daily while the alert is active."];
+    if (type === "Heat hazard") return ["Limit outdoor work during peak heat.", "Use air conditioning or cooling centers where available.", "Check on older adults, children, pets, and people without reliable cooling."];
+    if (type === "Coastal water hazard") return ["Stay out of hazardous surf.", "Follow beach flag and lifeguard instructions.", "Keep children and pets away from jetties, piers, and rough water."];
+    return ["Read the full official alert.", "Check county emergency management instructions.", "Refresh this location if conditions change."];
+  }
+
+  function urgencyText(alert: AlertItem) {
+    const parts = [alert.severity, alert.urgency, alert.certainty].filter(Boolean);
+    return parts.length ? parts.join(" · ") : "Official NWS alert";
+  }
+
+  function sentenceFromInstruction(value?: string) {
+    const normalized = String(value ?? "").replace(/\s+/g, " ").trim();
+    if (!normalized) return "";
+    const [first] = normalized.split(/(?<=[.!?])\s+/);
+    return first?.slice(0, 220) ?? "";
+  }
+
+  function renderAlertDetail(alert: AlertItem, index: number) {
+    const steps = actionSteps(alert);
+    const instruction = sentenceFromInstruction(alert.instruction);
+    return `
+      <article class="alert-detail-card">
+        <header>
+          <span class="alert-number">Alert ${index + 1}</span>
+          <strong>${escapeHtml(alert.event ?? "Weather alert")}</strong>
+          <span>${escapeHtml(urgencyText(alert))}</span>
+        </header>
+        <div class="alert-explainer-grid">
+          <section>
+            <h4>What it means</h4>
+            <p>${escapeHtml(plainMeaning(alert))}</p>
+          </section>
+          <section>
+            <h4>What to do now</h4>
+            <ul>${steps.map((step) => `<li>${escapeHtml(step)}</li>`).join("")}</ul>
+          </section>
+        </div>
+        <dl class="alert-facts">
+          <div><dt>Area</dt><dd>${escapeHtml(alert.areaDesc || "Area details unavailable")}</dd></div>
+          <div><dt>Effective</dt><dd>${escapeHtml(formatTime(alert.effective))}</dd></div>
+          <div><dt>Expires</dt><dd>${escapeHtml(formatTime(alert.expires))}</dd></div>
+        </dl>
+        ${instruction ? `<p class="official-note"><strong>NWS instruction:</strong> ${escapeHtml(instruction)}</p>` : ""}
+      </article>
+    `;
+  }
+
   function renderLocations() {
     if (!listEl || !emptyEl || !limitEl || !refreshAllButton) return;
     limitEl.textContent = `${locations.length} of ${MAX_LOCATIONS} saved`;
@@ -179,6 +272,9 @@ const jsonLd = graph(
             <p class="location-meta">ZIP ${escapeHtml(location.zip)} · ${escapeHtml(location.stateName)}</p>
           </div>
           <div class="location-actions">
+            <button type="button" class="icon-button" data-action="details" title="Show location details" aria-label="Show details for ${escapeHtml(location.label)}" aria-expanded="false">
+              <i class="fa-solid fa-list-check" aria-hidden="true"></i>
+            </button>
             <button type="button" class="icon-button" data-action="refresh" title="Refresh location" aria-label="Refresh ${escapeHtml(location.label)}">
               <i class="fa-solid fa-rotate" aria-hidden="true"></i>
             </button>
@@ -198,6 +294,16 @@ const jsonLd = graph(
           </div>
           <p class="location-guidance" data-field="guidance"></p>
           <div class="alert-preview" data-field="preview"></div>
+          <section class="location-detail" data-field="detail" hidden>
+            <div class="detail-heading">
+              <div>
+                <p class="eyebrow">Location detail</p>
+                <h3>Alert Explanation</h3>
+              </div>
+              <span data-field="detail-status">Waiting for live alerts</span>
+            </div>
+            <div data-field="detail-body"></div>
+          </section>
           <div class="location-footer">
             <label class="alert-setting">
               <span>Alert preference</span>
@@ -255,6 +361,8 @@ const jsonLd = graph(
       const stormsEl = card.querySelector<HTMLElement>('[data-field="storms"]');
       const guidanceEl = card.querySelector<HTMLElement>('[data-field="guidance"]');
       const previewEl = card.querySelector<HTMLElement>('[data-field="preview"]');
+      const detailStatusEl = card.querySelector<HTMLElement>('[data-field="detail-status"]');
+      const detailBodyEl = card.querySelector<HTMLElement>('[data-field="detail-body"]');
       const updatedEl = card.querySelector<HTMLElement>('[data-field="updated"]');
       if (levelEl) {
         levelEl.textContent = level;
@@ -267,6 +375,22 @@ const jsonLd = graph(
         previewEl.innerHTML = preview.length
           ? preview.map((alert) => `<div><strong>${escapeHtml(alert.event ?? "Weather alert")}</strong><span>${escapeHtml(alert.headline || alert.severity || "Official NWS alert")}</span></div>`).join("")
           : '<p>No active NWS alerts returned for this location. This is not an all-clear for your evacuation zone.</p>';
+      }
+      if (detailStatusEl) detailStatusEl.textContent = alertItems.length ? `${alertItems.length} active alert${alertItems.length === 1 ? "" : "s"}` : "No active NWS alerts";
+      if (detailBodyEl) {
+        detailBodyEl.innerHTML = alertItems.length
+          ? alertItems.map(renderAlertDetail).join("")
+          : `
+            <div class="no-alert-detail">
+              <h4>No active NWS alerts returned</h4>
+              <p>This means the point query did not return an active NWS alert right now. It does not replace evacuation-zone checks, county instructions, or forecast updates.</p>
+              <ul>
+                <li>Confirm your evacuation zone and shelter rules.</li>
+                <li>Keep supplies, documents, and charging plans ready during hurricane season.</li>
+                <li>Refresh this location when a storm, watch, or warning is nearby.</li>
+              </ul>
+            </div>
+          `;
       }
       if (updatedEl) updatedEl.textContent = `Updated ${formatTime(alerts.updatedAt ?? alerts.fetchedAt)}`;
       if (stateEl) stateEl.hidden = true;
@@ -332,6 +456,12 @@ const jsonLd = graph(
     const card = button.closest<HTMLElement>("[data-location-id]");
     const location = locations.find((item) => item.id === card?.dataset.locationId);
     if (!location) return;
+    if (button.dataset.action === "details") {
+      const detailEl = card?.querySelector<HTMLElement>('[data-field="detail"]');
+      const expanded = button.getAttribute("aria-expanded") === "true";
+      button.setAttribute("aria-expanded", String(!expanded));
+      if (detailEl) detailEl.hidden = expanded;
+    }
     if (button.dataset.action === "refresh") await loadLocation(location);
     if (button.dataset.action === "delete") {
       locations = locations.filter((item) => item.id !== location.id);
@@ -501,6 +631,8 @@ const jsonLd = graph(
   .location-actions {
     display: flex;
     gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
 
   .icon-button {
@@ -586,6 +718,127 @@ const jsonLd = graph(
     margin-top: 2px;
   }
 
+  .location-detail {
+    border-top: 1px solid var(--line);
+    margin-top: 16px;
+    padding-top: 16px;
+  }
+
+  .location-detail[hidden] {
+    display: none;
+  }
+
+  .detail-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: start;
+    margin-bottom: 12px;
+  }
+
+  .detail-heading h3,
+  .detail-heading .eyebrow {
+    margin: 0;
+  }
+
+  .detail-heading span {
+    color: var(--muted);
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
+  .alert-detail-card,
+  .no-alert-detail {
+    border: 1px solid var(--line);
+    background: #fbfdfc;
+    padding: 14px;
+  }
+
+  .alert-detail-card + .alert-detail-card {
+    margin-top: 10px;
+  }
+
+  .alert-detail-card header {
+    display: grid;
+    gap: 3px;
+  }
+
+  .alert-detail-card header strong {
+    font-size: 1.02rem;
+  }
+
+  .alert-detail-card header span:not(.alert-number) {
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
+  .alert-number {
+    color: var(--ocean);
+    font-size: 0.74rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .alert-explainer-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 14px;
+    margin-top: 12px;
+  }
+
+  .alert-explainer-grid h4,
+  .no-alert-detail h4 {
+    margin: 0 0 6px;
+    font-size: 0.92rem;
+  }
+
+  .alert-explainer-grid p,
+  .official-note,
+  .no-alert-detail p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .alert-explainer-grid ul,
+  .no-alert-detail ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  .alert-facts {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) repeat(2, minmax(120px, 0.6fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin: 14px 0 0;
+  }
+
+  .alert-facts div {
+    background: #fff;
+    padding: 10px;
+  }
+
+  .alert-facts dt {
+    color: var(--muted);
+    font-size: 0.74rem;
+    font-weight: 800;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+  }
+
+  .alert-facts dd {
+    margin: 0;
+    font-size: 0.84rem;
+  }
+
+  .official-note {
+    border-left: 3px solid var(--ocean);
+    margin-top: 12px;
+    padding: 9px 10px;
+    background: #eef5f6;
+  }
+
   .location-footer {
     margin-top: 16px;
   }
@@ -631,8 +884,26 @@ const jsonLd = graph(
       align-items: start;
     }
 
+    .location-actions {
+      flex-wrap: nowrap;
+    }
+
     .location-metrics {
       grid-template-columns: 1fr;
+    }
+
+    .detail-heading,
+    .alert-explainer-grid,
+    .alert-facts {
+      grid-template-columns: 1fr;
+    }
+
+    .detail-heading {
+      display: grid;
+    }
+
+    .detail-heading span {
+      white-space: normal;
     }
 
     .alert-setting {
