@@ -96,10 +96,11 @@ const jsonLd = graph(
   <script>
     const bar = document.querySelector(".filter-bar");
     if (bar) {
-      const chips = bar.querySelectorAll(".filter-chip");
-      const cards = document.querySelectorAll(".post-card");
+      const chips = bar.querySelectorAll<HTMLElement>(".filter-chip");
+      const cards = document.querySelectorAll<HTMLElement>(".post-card");
       bar.addEventListener("click", (e) => {
-        const btn = e.target.closest(".filter-chip");
+        if (!(e.target instanceof Element)) return;
+        const btn = e.target.closest<HTMLElement>(".filter-chip");
         if (!btn) return;
         const filter = btn.dataset.filter;
         chips.forEach((c) => c.setAttribute("aria-pressed", c === btn ? "true" : "false"));

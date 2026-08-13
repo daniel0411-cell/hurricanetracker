@@ -1362,6 +1362,363 @@ export const blogPosts: BlogPost[] = [
         answer: "No. Pets left behind during a mandatory evacuation are rarely rescued and face flooding, heat, starvation, and loose debris. Plan to take them with you or place them with a caregiver outside the danger zone before roads close."
       }
     ]
+  },
+  {
+    slug: "hurricane-home-preparedness-room-by-room-checklist",
+    title: "Hurricane Home Preparedness: Room-by-Room Checklist",
+    description: "Walk through your home room by room with this hurricane preparedness checklist: kitchen, bathroom, bedroom, garage, attic, and yard—and know exactly what to secure before the storm arrives.",
+    datePublished: "2026-08-13",
+    dateModified: "2026-08-13",
+    image: "/images/blog/hurricane-home-preparedness-room-by-room-checklist.png",
+    imageAlt: "A homeowner walks through a bright living room with a clipboard, checking hurricane preparedness items while an emergency kit stands ready by the door.",
+    sections: [
+      {
+        heading: "Direct Answer: Get Every Room Ready Before the Wind Arrives",
+        body: "A full hurricane home preparation is really a sequence of small tasks repeated in every room. The fastest way to make sure you have not missed anything is to walk the house room by room with a checklist, starting the week before landfall and finishing before watches become warnings. Focus on four things in every space: what can fly, what can flood, what you will need in the dark, and what you must protect. Work from the outside in, and stop outdoor work the moment winds pick up or a warning is issued."
+      },
+      {
+        heading: "Why a Room-by-Room Walkthrough Works",
+        body: "Most homeowners prepare the obvious things—windows, roof, food—and forget the rest of the house until it is too late. A structured walkthrough turns a vague task like 'prepare the home' into a concrete list you can finish. It also reveals problems you would otherwise discover mid-storm: a ceiling leak over the bed, a garage door that will not latch, a window AC unit that was never removed. Set aside two hours with your family, go through each room below, and mark every task off as you complete it. Keep the list where you can see it on the day the forecast starts to turn."
+      },
+      {
+        heading: "Entryways, Living Room, and Common Spaces",
+        body: "Start where you spend your time. Common rooms collect loose objects, breakables, and electronics that are easy to forget when the forecast changes.",
+        bullets: [
+          "Move potted plants, lamps, and décor away from windows; store breakables in lower cabinets.",
+          "Anchor TVs and heavy furniture to studs so they cannot topple in shaking wind.",
+          "Charge phones, tablets, and power banks; keep them and a weather radio in one grab-and-go spot.",
+          "Roll up loose rugs that could become a slipping hazard on wet floors.",
+          "Take photos or video of every room and its contents for your insurance record."
+        ]
+      },
+      {
+        heading: "Kitchen and Pantry",
+        body: "The kitchen holds your food supply, your water supply, and a surprising amount of glass. If you store emergency food here, make sure it is reachable without power or light.",
+        bullets: [
+          "Freeze bottles of water ahead of the storm to keep the fridge cold longer during outages.",
+          "Turn refrigerators and freezers to their coldest settings before landfall.",
+          "Stock five to seven days of non-perishable food that needs no cooking or refrigeration.",
+          "Store one gallon of water per person per day for at least three days.",
+          "Check that your manual can opener, not an electric one, is the tool you reach for.",
+          "Tape or move glassware and breakables out of cabinets above counters where shaking can dislodge them."
+        ]
+      },
+      {
+        heading: "Bathrooms and Plumbing",
+        body: "Bathrooms are easy to skip, but they are where you will wash, treat small injuries, and manage water needs during an outage.",
+        bullets: [
+          "Fill the bathtub and large containers with water for flushing and cleaning before the storm.",
+          "Store a first-aid kit and any prescription medications in a waterproof bag.",
+          "Keep flashlights in each bathroom; a headlamp frees both hands.",
+          "Confirm you know where the main water shutoff valve is and that the wrench is accessible.",
+          "Remove or secure any glass bottles, mirrors, and décor that could shatter."
+        ]
+      },
+      {
+        heading: "Bedrooms and Valuables",
+        body: "Bedrooms protect sleep, documents, and the things hardest to replace. This is where you sleep through the worst of the storm, so make it safe and comfortable.",
+        bullets: [
+          "Move beds and cribs away from windows; secure headboards to walls.",
+          "Keep shoes, a flashlight, and a whistle beside each bed for dark escapes.",
+          "Move irreplaceable documents and heirlooms to interior closets or upper floors.",
+          "Store photo albums and hard drives in waterproof bins or bags.",
+          "Rechargeable lanterns and spare batteries belong here, not just in the kitchen."
+        ]
+      },
+      {
+        heading: "Garage, Laundry, and Utility Rooms",
+        body: "Garages hide two of the biggest hurricane risks: unsecured doors and flammable or toxic liquids. Utility rooms hide the shutoffs you will need when the power goes out.",
+        bullets: [
+          "Reinforce garage door tracks and braces—a blown-out garage door can unload the entire roof.",
+          "Move gasoline, propane, and cleaning chemicals to high ground, away from ignition sources.",
+          "Lift freezers and appliances off the floor if flooding is possible in your area.",
+          "Mark and practice shutting off gas, water, and electricity from their main valves.",
+          "Clear space so the water heater and furnace air intakes stay above any flood line."
+        ]
+      },
+      {
+        heading: "Attic, Basement, and Crawl Space",
+        body: "Unused spaces are where leaks, pests, and stored hazards get discovered too late. A quick inspection now prevents surprises during a week of heavy rain and wind.",
+        bullets: [
+          "Inspect the roof and attic for existing leaks or weak shingles while it is still safe to work.",
+          "Remove anything from the basement floor that floodwater would destroy; raise shelves.",
+          "Verify sump pumps work and that the backup battery or generator hookup is ready.",
+          "Store valuables on the highest floor; move them now, not when water is rising.",
+          "Clear debris from vents and drains so heavy rain flows away instead of pooling."
+        ]
+      },
+      {
+        heading: "Yard, Porch, and Outdoor Items",
+        body: "Anything outside becomes a projectile at hurricane wind speeds. Outdoor preparation is the first thing to do and the first thing to stop once winds rise.",
+        bullets: [
+          "Bring in or tie down patio furniture, grills, trash cans, and garden tools.",
+          "Trim weak or dead branches while conditions are calm—never during wind.",
+          "Clear gutters and downspouts so stormwater has a path away from the foundation.",
+          "Secure loose shingles, siding, and outdoor lighting fixtures.",
+          "Move vehicles away from trees, power lines, and low-lying flood areas."
+        ]
+      },
+      {
+        heading: "The 48-Hour Window: When to Do What",
+        body: "Timing is as important as the tasks themselves. A room-by-room plan works best when you stage it over the week before a storm, then finish the last steps inside the final 48 hours.",
+        bullets: [
+          "Seven to three days out: shop, stock, trim trees, and fix known repairs while stores and contractors are still available.",
+          "48 hours out: finish outdoor work, fill water containers, freeze water bottles, and charge devices.",
+          "24 hours out: move vehicles, set the fridge to max cold, take final photos, and confirm your alert settings.",
+          "At the warning: stop outdoor work, shelter in the strongest room, and stay off the roads."
+        ]
+      },
+      {
+        heading: "Stay Informed With HurricaneHub",
+        body: "Preparation ends where information begins. HurricaneHub puts the NHC forecast cone, GOES-East satellite, RainViewer Doppler radar, NWS active alerts, storm surge zones, and evacuation overlays on one interactive map. When a storm forms, track its path hour by hour, check live warnings for your neighborhood, and see exactly what is heading toward your home at hurricanetracker.cc."
+      }
+    ],
+    faqs: [
+      {
+        question: "How long before a hurricane should I start preparing my home?",
+        answer: "Start the big tasks—shopping, trimming, repairs, and yard work—a week before a storm is forecast to approach. Finish outdoor work and final inside tasks within the last 48 hours. Once a hurricane warning is issued, stop outdoor work and shelter in place."
+      },
+      {
+        question: "What is the most commonly forgotten room when preparing for a hurricane?",
+        answer: "The garage and utility room are the most commonly skipped. Garage doors that fail can let wind under the roof, and gasoline or propane stored at floor level can be knocked over by floodwater. Both are easy to secure once you remember them."
+      },
+      {
+        question: "Do I need to prepare every room if I plan to evacuate?",
+        answer: "Yes, partially. Even if you evacuate, unsecured items can cause damage that raises your insurance claim and leaves hazards for first responders. Secure or remove anything that could fly or flood, take photos for your claim, and skip only the tasks meant for sheltering in place."
+      }
+    ]
+  },
+  {
+    slug: "hurricane-safety-seniors-children-disability",
+    title: "Hurricane Safety for Seniors, Children, and People With Disabilities",
+    description: "Practical hurricane planning for vulnerable household members: medication and medical-equipment plans, accessible evacuation, and how to prepare children and older adults before a storm.",
+    datePublished: "2026-08-13",
+    dateModified: "2026-08-13",
+    image: "/images/blog/hurricane-safety-seniors-children-disability.png",
+    imageAlt: "A family with an older adult in a wheelchair and a young child packs an emergency go-bag together in a bright living room before a hurricane.",
+    sections: [
+      {
+        heading: "Direct Answer: Plan Around the Person, Not Just the Storm",
+        body: "Hurricane plans fail for vulnerable household members when they are written for the average adult. Seniors, children, and people with disabilities need their own go-bags, their own transportation and medication plans, and extra time to evacuate. Start by writing down each person's daily needs—medications, medical equipment, mobility aids, food textures, communication methods—then build the kit and the plan around that list. If a member of your household has special needs, begin preparing several days earlier and plan to leave earlier, because shelters and evacuation routes do not wait."
+      },
+      {
+        heading: "Build a Personal Emergency Kit for Each Person",
+        body: "Beyond the household go-bag, each person who relies on daily support needs a personal kit with the specific items they cannot be without. Pack it in a labeled bag that the person themselves can carry or wheel.",
+        bullets: [
+          "A 7-day supply of every medication, plus a written list with dosages and the pharmacy phone number.",
+          "Spare batteries, chargers, and a portable backup battery for hearing aids, CPAP, and other devices.",
+          "Copies of insurance cards, medical records, and a doctor's name and phone number.",
+          "Comfort items for children: a favorite toy, blanket, books, and quiet activities.",
+          "A written note describing mobility, communication, and any behavioral needs for first responders."
+        ]
+      },
+      {
+        heading: "Plan for Medications and Medical Equipment",
+        body: "Power loss and pharmacy closures are the two biggest threats to people who depend on regular medical care. Plan for both before the storm reaches your area.",
+        bullets: [
+          "Fill every prescription at least a week early; ask for a 30-day supply when possible.",
+          "Store medications in a waterproof, labeled container you can grab quickly.",
+          "For insulin and other temperature-sensitive drugs, pack a cooler with a thermometer.",
+          "Get a backup power source for CPAP, ventilators, or oxygen concentrators and test it.",
+          "Call the power company and register as a medical-needs household for priority restoration.",
+          "Ask about oxygen delivery, dialysis, or home-care services in your county's emergency plan."
+        ]
+      },
+      {
+        heading: "Evacuation With Seniors and People With Mobility Needs",
+        body: "Evacuation takes longer for households with mobility limitations, and standard plans assume everyone can walk to a bus or car quickly. Design the route and the schedule around the slowest member.",
+        bullets: [
+          "Leave one to two days earlier than the general evacuation order if possible.",
+          "Pre-arrange a ride from a neighbor, family member, or local disability or aging organization.",
+          "Bring mobility aids, spare batteries for power wheelchairs, and a charger for the car.",
+          "If you cannot drive, register in advance with your county's emergency management office.",
+          "Identify which shelters are accessible; check before the storm, not during it."
+        ]
+      },
+      {
+        heading: "Special Plans for Children",
+        body: "Children process warnings differently from adults, and their needs change the plan—car seats, strollers, food, and emotional support all have to fit in the car.",
+        bullets: [
+          "Install and double-check car seats well before the evacuation order.",
+          "Pack diapers, wipes, formula or preferred foods, and a change of clothes for each child.",
+          "Include age-appropriate activities and one comfort item to reduce stress.",
+          "Explain the plan in simple, calm words; practice the go-bag and the evacuation drill.",
+          "Know where schools and childcare providers send children if the storm hits during the day."
+        ]
+      },
+      {
+        heading: "Communication and Cognitive Needs",
+        body: "People who are deaf, hard of hearing, blind, or living with dementia or autism need information in a form they can actually receive. Adapt alerts and instructions to each person.",
+        bullets: [
+          "Use a NOAA Weather Radio with a visual alert or a smartphone with vibration alerts for deaf and hard-of-hearing members.",
+          "Provide written, large-print instructions for people with cognitive or vision needs.",
+          "Practice the plan in a low-stress setting; repeat steps calmly and often for people with dementia.",
+          "For a person who wanders, pack identification and contact information inside their clothing.",
+          "Keep a contact list of neighbors who know the person's needs and can help in an emergency."
+        ]
+      },
+      {
+        heading: "Sheltering and the Shelter Experience",
+        body: "General population shelters are loud, crowded, and often short on medical support. Know what your household needs before you choose to go to one.",
+        bullets: [
+          "Ask about medical shelters or shelter-at-home programs before the storm arrives.",
+          "Bring bedding, food for special diets, and all medical equipment and supplies.",
+          "Request a quiet or accessible area if available; shelter managers can usually help.",
+          "Pack cash, because card readers and ATMs often fail after a storm.",
+          "For service animals, carry documentation and the animal's own kit and water."
+        ]
+      },
+      {
+        heading: "After the Storm: Follow-Up Needs",
+        body: "Vulnerability continues after the storm passes. Medication refills, medical appointments, and mobility barriers all persist into the recovery period.",
+        bullets: [
+          "Refill prescriptions as soon as pharmacies reopen; do not wait until supplies run out.",
+          "Keep medical devices charged from your car or generator if the home is still without power.",
+          "Ask for help clearing a path for wheelchairs and walkers around damaged homes.",
+          "Check on neighbors who are older or have disabilities—storms isolate people fast.",
+          "Reach out to your local aging or disability agency if home care or transportation was disrupted."
+        ]
+      },
+      {
+        heading: "Stay Informed With HurricaneHub",
+        body: "The best hurricane plan starts with reliable information. HurricaneHub brings together the NHC forecast cone, GOES-East satellite, RainViewer Doppler radar, NWS active alerts, storm surge zones, and evacuation overlays on a single interactive map. Check current warnings for your neighborhood, see which areas are under evacuation orders, and plan your family's move with confidence at hurricanetracker.cc."
+      }
+    ],
+    faqs: [
+      {
+        question: "Should people with disabilities evacuate earlier than everyone else?",
+        answer: "In most cases, yes. People who need extra time to move, pack medical equipment, or arrange accessible transportation should plan to leave one to two days earlier than a general evacuation order. Check with your county emergency management office about accessible transportation and shelters in advance."
+      },
+      {
+        question: "What should go in a special-needs emergency kit?",
+        answer: "A 7-day supply of medications and medical supplies, backup power for essential devices, copies of medical records and insurance cards, a list of diagnoses and providers, mobility aids and their spare batteries, and a written description of the person's needs for first responders. Include comfort and communication items for children."
+      },
+      {
+        question: "Can general shelters meet medical and accessibility needs?",
+        answer: "General population shelters provide basic shelter but usually cannot supply medical care, refrigeration for medication, or specialized equipment. Ask about medical shelters and shelter-at-home options before the storm. If you use a general shelter, bring all medications, medical equipment, special food, and bedding with you."
+      }
+    ]
+  },
+  {
+    slug: "hurricane-insurance-claim-guide-documentation",
+    title: "Hurricane Insurance Claims: Documentation and Step-by-Step Process",
+    description: "How to file a hurricane insurance claim that pays: document damage correctly, avoid the mistakes that delay payouts, and navigate the adjuster, estimate, and appeal process.",
+    datePublished: "2026-08-13",
+    dateModified: "2026-08-13",
+    image: "/images/blog/hurricane-insurance-claim-guide-documentation.png",
+    imageAlt: "A homeowner documents storm damage with a smartphone in a living room where rain water has soaked the floor and furniture is pushed aside.",
+    sections: [
+      {
+        heading: "Direct Answer: Your Claim Is Won With Paperwork, Not Phone Calls",
+        body: "A hurricane insurance claim is a documentation exercise. The policyholder who photographs everything, keeps every receipt, and files a detailed inventory gets paid faster and more completely than the one who calls, waits, and cleans up first. Report your claim as soon as it is safe—insurers pay in the order claims arrive—then document every piece of damage before touching anything. Keep a claim log with dates, names, and what was said. If the settlement feels low, you have the right to appeal it, but only if you have the evidence to back you up."
+      },
+      {
+        heading: "Before the Storm: Build Your Pre-Storm Proof",
+        body: "The most powerful evidence in any claim is what you can show existed before the storm. A pre-storm record makes the adjuster's job easier and removes most arguments about what was lost.",
+        bullets: [
+          "Walk every room and record video with a steady voice-over naming each item and its approximate value.",
+          "Photograph serial numbers of major appliances and electronics.",
+          "Keep receipts for high-value purchases; store copies digitally and in a waterproof bag.",
+          "Save a copy of your policy, declarations page, and home inventory somewhere off-site.",
+          "Review your coverage now: what is your deductible, what does wind damage cover, and do you have flood insurance?"
+        ]
+      },
+      {
+        heading: "Immediately After the Storm: Report Early and Report Right",
+        body: "Insurers triage claims after a disaster, and the order you file often determines how fast an adjuster is assigned. Report as soon as it is safe, but be ready with your policy number and a rough list of damage.",
+        bullets: [
+          "Call your insurer or use their app within the first 24-48 hours after it is safe.",
+          "Write down the claim number, the adjuster's name, and every phone number you are given.",
+          "Ask specifically whether wind and flood damage are being handled in one claim or two.",
+          "If you have flood coverage, file the flood claim separately with the NFIP or your flood insurer.",
+          "Keep a claim log: date, time, who you spoke to, and what was said each call."
+        ]
+      },
+      {
+        heading: "Document the Damage Before You Clean Anything",
+        body: "Cleanup destroys evidence. The single most common reason claims are underpaid is that homeowners threw away damaged items before the adjuster saw them. Document first, clean second.",
+        bullets: [
+          "Photograph and video every room from multiple angles before moving a single item.",
+          "Capture the roof and exterior from the ground—do not climb onto a damaged roof.",
+          "Leave damaged items in place; if you must remove them for safety, photograph them first.",
+          "Take close-up shots of water lines on walls, broken windows, and lifted flooring.",
+          "Save a sample of damaged carpet, insulation, or drywall in a labeled bag if the claim is large."
+        ]
+      },
+      {
+        heading: "Create a Room-by-Room Inventory",
+        body: "Adjusters pay from your inventory. A detailed, honest list of every item lost or damaged gives them what they need and prevents the 'we had to take your word for it' conversation.",
+        bullets: [
+          "List each room and every damaged item with its age, brand, model, and approximate purchase price.",
+          "Note whether items were destroyed, damaged, or only wet and salvageable.",
+          "Use the insurer's own inventory worksheet if they provide one.",
+          "Separate 'replacement cost' items from 'actual cash value' items so the math is clear.",
+          "Include out-of-pocket costs: tree removal, tarps, hotel receipts, and emergency repairs."
+        ]
+      },
+      {
+        heading: "Make Emergency Repairs—But Save Every Receipt",
+        body: "You are required to prevent further damage, and most policies reimburse reasonable emergency repairs. Just document everything you spend and take photos before and after.",
+        bullets: [
+          "Tarp a damaged roof and board broken windows to keep rain out.",
+          "Turn off water at the main valve if pipes are broken.",
+          "Keep every receipt for materials, labor, tarps, generators, and lodging.",
+          "Photograph the damage before and after each repair.",
+          "Do not make permanent repairs before the adjuster visits unless an emergency demands it."
+        ]
+      },
+      {
+        heading: "The Adjuster Visit: What to Expect and How to Prepare",
+        body: "The adjuster's inspection sets the baseline for your settlement. Be present, be organized, and hand them your documentation instead of letting them start from scratch.",
+        bullets: [
+          "Meet the adjuster with your inventory, photos, receipts, and policy in hand.",
+          "Walk them through each damaged area rather than waiting in the driveway.",
+          "Show water lines, structural issues, and every item on your list.",
+          "Take your own notes and photos during the inspection.",
+          "Ask when you can expect the written estimate and what the next steps are."
+        ]
+      },
+      {
+        heading: "If the Settlement Seems Low: Understand and Appeal",
+        body: "A first offer is rarely a final offer. You can push back, but you need evidence and a clear understanding of how the number was calculated.",
+        bullets: [
+          "Compare the adjuster's estimate line by line with your own inventory and contractor quotes.",
+          "Ask the insurer to explain anything you do not understand in writing.",
+          "Get written bids from licensed contractors to support repair costs.",
+          "You may request a reinspection or a second opinion from an independent adjuster.",
+          "Check your state insurance department for appeal deadlines and consumer protections."
+        ]
+      },
+      {
+        heading: "Avoid Claim Mistakes That Delay or Reduce Payouts",
+        body: "Some errors cost real money. Knowing the common ones lets you steer around them before they happen.",
+        bullets: [
+          "Never throw away damaged property before the adjuster sees it or approves disposal.",
+          "Do not agree to a lowball offer without reviewing the estimate and asking questions.",
+          "Do not sign anything that releases the insurer from liability without reading it.",
+          "Do not forget to file for FEMA assistance even with insurance—it covers gaps like deductibles.",
+          "Do not delay. Most policies and state rules have strict deadlines for filing claims."
+        ]
+      },
+      {
+        heading: "Stay Informed With HurricaneHub",
+        body: "A good claim starts with knowing exactly what hit your property. HurricaneHub layers the NHC forecast cone, GOES-East satellite, RainViewer Doppler radar, NWS active alerts, storm surge zones, and evacuation overlays on one map. When the next storm forms, see the forecast path, monitor the warnings for your exact location, and get to the recovery phase with everything you need at hurricanetracker.cc."
+      }
+    ],
+    faqs: [
+      {
+        question: "How long do I have to file a hurricane insurance claim?",
+        answer: "Most policies require you to report damage within days to a few weeks, and state deadlines vary—many are one year, but some are much shorter. Report your claim as soon as it is safe to do so, and confirm the deadline in writing with your insurer. FEMA assistance windows also close, so apply early."
+      },
+      {
+        question: "Does my homeowners policy cover hurricane damage and flooding?",
+        answer: "Standard homeowners policies cover wind damage from hurricanes but exclude flood damage. Flood coverage comes from the National Flood Insurance Program (NFIP) or a private flood policy. If your home flooded, file both your wind claim and your flood claim as soon as possible—they are handled separately."
+      },
+      {
+        question: "What if I disagree with the insurance settlement?",
+        answer: "You can dispute it. Review the adjuster's estimate line by line, submit contractor bids and your own documentation, and request a reinspection. If you still disagree, hire a public adjuster or contact your state insurance department. Keep every document and note every call to back up your appeal."
+      }
+    ]
   }
 ];
 
@@ -1393,7 +1750,10 @@ export const BLOG_CATEGORIES: Record<string, string> = {
   "hurricane-storm-surge-forecasting": "Tracking & Forecasting",
   "below-normal-hurricane-season-2026-real-time-tracker": "Tracking & Forecasting",
   "what-to-do-after-a-hurricane": "Insurance & Recovery",
-  "hurricane-pet-safety": "Preparedness"
+  "hurricane-pet-safety": "Preparedness",
+  "hurricane-home-preparedness-room-by-room-checklist": "Preparedness",
+  "hurricane-safety-seniors-children-disability": "Safety & Warnings",
+  "hurricane-insurance-claim-guide-documentation": "Insurance & Recovery"
 };
 
 export const BLOG_CATEGORY_LIST = [
