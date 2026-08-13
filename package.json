@@ -13,7 +13,8 @@
     "indexnow": "node scripts/indexnow-submit.mjs",
     "gindex": "node scripts/gindex-submit.mjs",
     "indexall": "node scripts/indexnow-submit.mjs && node scripts/gindex-submit.mjs",
-    "deploy": "wrangler deploy --config wrangler.deploy.toml && (node scripts/indexnow-submit.mjs || true) && (node scripts/gindex-submit.mjs || true)",
+    "verify:seo": "node scripts/verify-seo-endpoints.mjs",
+    "deploy": "wrangler deploy --config wrangler.deploy.toml && node scripts/verify-seo-endpoints.mjs && (node scripts/indexnow-submit.mjs || true) && (node scripts/gindex-submit.mjs || true)",
     "ship": "npm run build && npm run deploy"
   },
   "dependencies": {
