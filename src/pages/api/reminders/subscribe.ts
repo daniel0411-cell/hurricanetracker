@@ -37,11 +37,13 @@ export const POST: APIRoute = async ({ request }) => {
       zip?: string;
       state?: string;
       source?: string;
+      mode?: string;
       subscription?: { endpoint: string; keys?: { p256dh?: string; auth?: string } };
     };
     const email = (payload.email ?? "").trim().toLowerCase();
     const zip = (payload.zip ?? "").trim();
     const state = (payload.state ?? "").trim().toUpperCase();
+    const mode = payload.mode === "warning-only" ? "warning-only" : "watch";
     const sub = payload.subscription;
 
     if (sub) {
@@ -70,7 +72,7 @@ export const POST: APIRoute = async ({ request }) => {
       const id = await hashKey(sub.endpoint);
       await cache?.put(
         `pushsub:${id}`,
-        JSON.stringify({ endpoint: sub.endpoint, keys: sub.keys, zip, email, createdAt: now }),
+        JSON.stringify({ endpoint: sub.endpoint, keys: sub.keys, zip, email, mode, createdAt: now }),
         { expirationTtl: 60 * 60 * 24 * 365 }
       );
     }

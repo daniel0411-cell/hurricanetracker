@@ -1,0 +1,235 @@
+---
+// Educational comparison: the forecast cone of uncertainty vs the actual
+// impact area. Renders a stylized SVG map plus three decision points.
+const blogUrl = "/blog/how-to-read-the-hurricane-cone-of-uncertainty/";
+const toolUrl = "/tools/impact-window-estimator/";
+const surgeUrl = "/tools/storm-surge-checker/";
+---
+
+<section class="band cone-education" aria-labelledby="cone-ed-title">
+  <div class="inner">
+    <p class="eyebrow">Forecast literacy</p>
+    <h2 id="cone-ed-title">Cone vs Impact: Read the Map Correctly</h2>
+    <p class="answer">
+      The forecast cone shows where the storm <strong>center</strong> may go. Wind, storm
+      surge, and rain can reach well beyond it. Use the cone for awareness, then follow your
+      official watch and warning — not the cone edge.
+    </p>
+
+    <div class="cone-layout">
+      <figure class="cone-figure">
+        <svg viewBox="0 0 680 460" role="img" aria-labelledby="cone-svg-title cone-svg-desc">
+          <title id="cone-svg-title">Hurricane forecast cone compared with the actual impact area</title>
+          <desc id="cone-svg-desc">
+            A cone of uncertainty extends from a hurricane at sea toward the coast. The
+            impact area for wind, surge, and rain is wider than the cone and reaches a city
+            outside it.
+          </desc>
+
+          <!-- ocean -->
+          <rect x="0" y="0" width="680" height="460" fill="#dcecef" />
+
+          <!-- land -->
+          <path
+            d="M 0 0 L 262 0 L 306 118 L 258 232 L 292 344 L 244 460 L 0 460 Z"
+            fill="#e9dfc2"
+            stroke="#cdbf93"
+            stroke-width="2"
+          />
+
+          <!-- impact layer: wider than the cone -->
+          <path
+            id="impact-layer"
+            class="impact-layer"
+            d="M 555 95 C 400 158, 280 208, 130 258 L 104 342 C 282 382, 432 320, 555 95 Z"
+            fill="#e8a33d"
+            opacity="0.30"
+          />
+
+          <!-- forecast cone -->
+          <path
+            class="cone-layer"
+            d="M 545 110 C 450 180, 340 225, 212 275 L 242 355 C 382 300, 472 240, 545 110 Z"
+            fill="#3f8db0"
+            opacity="0.45"
+          />
+
+          <!-- best-track center line -->
+          <path
+            class="track-line"
+            d="M 545 110 C 445 195, 330 250, 205 335"
+            fill="none"
+            stroke="#20384d"
+            stroke-width="3"
+            stroke-dasharray="8 6"
+            stroke-linecap="round"
+          />
+
+          <!-- hurricane label -->
+          <g class="svg-label" transform="translate(498, 88)">
+            <text x="0" y="0">Hurricane</text>
+            <text x="0" y="14" class="sub">(center path)</text>
+          </g>
+
+          <!-- city A: inside cone -->
+          <g class="city-marker" transform="translate(215, 310)">
+            <circle r="8" fill="#c1442e" stroke="#fff" stroke-width="2" />
+            <text x="12" y="4">City A</text>
+            <text x="12" y="18" class="sub">inside the cone</text>
+          </g>
+
+          <!-- city B: outside cone, still inside impact area -->
+          <g class="city-marker" transform="translate(300, 188)">
+            <circle r="8" fill="#b34a1f" stroke="#fff" stroke-width="2" />
+            <text x="12" y="4">City B</text>
+            <text x="12" y="18" class="sub">outside cone, still at risk</text>
+          </g>
+
+          <!-- city C: far away -->
+          <g class="city-marker" transform="translate(118, 128)">
+            <circle r="8" fill="#0e6f8f" stroke="#fff" stroke-width="2" />
+            <text x="12" y="4">City C</text>
+            <text x="12" y="18" class="sub">lower risk</text>
+          </g>
+
+          <!-- legend -->
+          <g transform="translate(24, 428)">
+            <rect x="0" y="0" width="22" height="12" fill="#3f8db0" opacity="0.6" />
+            <text x="30" y="11">Forecast cone (~2/3 of centers)</text>
+            <rect x="250" y="0" width="22" height="12" fill="#e8a33d" opacity="0.55" />
+            <text x="280" y="11">Wind / surge / rain impact</text>
+          </g>
+        </svg>
+        <figcaption>
+          Stylized example: City B is outside the cone yet inside the impact area.
+          Watches and warnings are based on expected impacts, not the cone edge.
+        </figcaption>
+      </figure>
+
+      <div class="cone-points">
+        <article class="panel cone-point">
+          <h3>1 · The cone is only about the center</h3>
+          <p>
+            About two-thirds of forecast track centers stay inside the cone. The other third
+            land outside it. A storm's size, wind field, surge, and rain are not drawn inside
+            the cone at all.
+          </p>
+        </article>
+        <article class="panel cone-point">
+          <h3>2 · Impacts reach beyond the cone</h3>
+          <p>
+            Tropical-storm-force winds, storm surge, and heavy rain routinely affect areas
+            far outside the cone. Being outside the cone is not the same as being safe.
+          </p>
+        </article>
+        <article class="panel cone-point">
+          <h3>3 · Follow watches and warnings</h3>
+          <p>
+            The NHC impact map and NWS watches/warnings are based on expected impacts. Check
+            your local warning, not just where the center line points.
+          </p>
+        </article>
+      </div>
+    </div>
+
+    <p class="section-actions">
+      <a class="action-link" href={blogUrl}>Read the full cone guide</a>
+      <a class="action-link cone-secondary" href={toolUrl}>Estimate your impact window</a>
+      <a class="action-link cone-secondary" href={surgeUrl}>Check storm surge for my ZIP</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .cone-education {
+    background: var(--navy);
+    color: #fff;
+  }
+
+  .cone-education .eyebrow {
+    color: #a6dae8;
+  }
+
+  .cone-education .answer {
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .cone-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+    gap: clamp(20px, 3vw, 32px);
+    align-items: start;
+    margin-top: 26px;
+  }
+
+  .cone-figure {
+    margin: 0;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 8px;
+    background: #ffffff;
+  }
+
+  .cone-figure svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+  }
+
+  .cone-figure figcaption {
+    margin: 10px 2px 2px;
+    color: var(--muted);
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+
+  .svg-label text,
+  .city-marker text {
+    fill: #20384d;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .svg-label .sub,
+  .city-marker .sub {
+    fill: #5b6670;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .cone-points {
+    display: grid;
+    gap: 14px;
+  }
+
+  .cone-point {
+    /* Fixed light card on the dark band — independent of theme variables. */
+    background: #ffffff;
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow: var(--soft-shadow);
+  }
+
+  .cone-point h3 {
+    color: #17212b;
+    font-size: 1.02rem;
+    margin-bottom: 8px;
+  }
+
+  .cone-point p {
+    margin: 0;
+    color: #17212b;
+    font-size: 0.95rem;
+  }
+
+  .cone-secondary {
+    background: var(--navy);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+
+  @media (max-width: 980px) {
+    .cone-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

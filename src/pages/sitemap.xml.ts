@@ -28,6 +28,7 @@ const routes = [
   { path: "tools/power-outage-planner/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
   { path: "tools/storm-distance-calculator/", lastmod: updated, priority: "0.8", changefreq: "daily" },
   { path: "tools/alert-action-decoder/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
+  { path: "tools/storm-surge-checker/", lastmod: updated, priority: "0.9", changefreq: "daily" },
   { path: "tools/family-communication-plan/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
   { path: "compare/", lastmod: updated, priority: "0.7", changefreq: "weekly" },
   { path: "newsletter/", lastmod: updated, priority: "0.5", changefreq: "monthly" },

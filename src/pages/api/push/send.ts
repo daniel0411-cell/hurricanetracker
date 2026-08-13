@@ -5,11 +5,37 @@ import { sendWebPush, type PushSubscriptionLike } from "../../../lib/webpush";
 const RELEVANT = /hurricane|tropical storm|storm surge|potential tropical/i;
 const ZIP_PATTERN = /^\d{5}$/;
 
+// Severity ladder. Push is sent on ESCALATION (a higher rank than last time)
+// or when the previous push is older than 24h (new storm / re-issued alerts).
+// Same-level repeats within 24h are skipped so we never flood a subscriber.
+const SEVERITY_RANK: Record<string, number> = {
+  "Potential Tropical Cyclone": 1,
+  "Tropical Storm Watch": 2,
+  "Hurricane Watch": 3,
+  "Tropical Storm Warning": 4,
+  "Hurricane Warning": 5,
+  "Storm Surge Watch": 5,
+  "Storm Surge Warning": 6,
+  "Extreme Wind Warning": 6
+};
+
+// For "warning-only" subscribers, drop watches (reduces noise for users who
+// only want to hear about imminent life-threatening conditions).
+const WARNING_ONLY_EVENTS = new Set([
+  "Tropical Storm Warning",
+  "Hurricane Warning",
+  "Storm Surge Warning",
+  "Extreme Wind Warning"
+]);
+
+const STALE_AFTER_MS = 24 * 60 * 60 * 1000;
+
 interface StoredSub {
   endpoint: string;
   keys: { p256dh: string; auth: string };
   zip?: string;
   email?: string;
+  mode?: "watch" | "warning-only";
 }
 
 async function geocodeZip(zip: string): Promise<{ lat: number; lon: number; city: string; state: string } | null> {
@@ -78,26 +104,44 @@ export const GET: APIRoute = async ({ url }) => {
       errors++;
       continue;
     }
-    const events = await relevantEventsForPoint(geo.lat, geo.lon);
+    let events = await relevantEventsForPoint(geo.lat, geo.lon);
+    if (sub.mode === "warning-only") {
+      events = events.filter((ev) => WARNING_ONLY_EVENTS.has(ev));
+    }
     if (events.length === 0) continue;
 
-    const sig = events.slice().sort().join("|");
+    const currentRank = Math.max(...events.map((ev) => SEVERITY_RANK[ev] ?? 0), 0);
+    if (currentRank <= 0) continue; // events matched but no known severity
+
     const lastKey = `pushlast:${item.name.replace("pushsub:", "")}`;
     const last = (await cache.get(lastKey)) ?? "";
-    if (last === sig) continue; // already notified about this exact set
+    // New format "rank:ISO"; legacy rows are event-signature strings → rank 0.
+    const [lastRankStr = "0", lastAtStr = ""] = last.split(":");
+    const lastRank = Number(lastRankStr) || 0;
+    const lastAt = lastAtStr ? Date.parse(lastAtStr) : 0;
+    const now = Date.now();
+    const stale = lastRank > 0 && (!lastAt || now - lastAt >= STALE_AFTER_MS);
+
+    const escalated = currentRank > lastRank;
+    if (!escalated && !stale) continue; // same level, fresh — do not re-notify
+
+    const triggering = events.filter((ev) => (SEVERITY_RANK[ev] ?? 0) === currentRank);
+    const body = escalated
+      ? `Escalation: ${triggering.join(", ")} for ${geo.city || sub.zip}. Track on /tracker/.`
+      : `${triggering.join(", ")} active for ${geo.city || sub.zip}. Track on /tracker/.`;
 
     const subscription: PushSubscriptionLike = { endpoint: sub.endpoint, keys: sub.keys };
     const payload = {
       title: `Hurricane alert — ${geo.city || sub.zip}, ${geo.state}`,
-      body: events.join("; "),
+      body,
       url: "/alerts/"
     };
     try {
       const status = await sendWebPush(subscription, payload, env as any);
       if (status >= 200 && status < 300) {
         sent++;
-        await cache.put(lastKey, sig, { expirationTtl: 60 * 60 * 24 * 30 });
-        summaries.push(`sent to ${sub.zip}: ${payload.body}`);
+        await cache.put(lastKey, `${currentRank}:${new Date(now).toISOString()}`, { expirationTtl: 60 * 60 * 24 * 30 });
+        summaries.push(`sent to ${sub.zip}: ${body}`);
       } else if (status === 404 || status === 410) {
         // subscription gone — clean up
         await cache.delete(item.name);

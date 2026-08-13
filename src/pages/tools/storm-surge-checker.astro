@@ -1,0 +1,216 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import Layout from "../../layouts/Layout.astro";
+import { faqs, site } from "../../data/site";
+import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
+
+const title = "Storm Surge ZIP Checker";
+const description = "Check whether your ZIP code is inside an active NWS storm surge watch or warning, plus nearby hurricane alerts from official National Weather Service data.";
+const url = `${site.url}/tools/storm-surge-checker/`;
+const pageFaqs = [
+  {
+    question: "What does a storm surge watch mean for my ZIP code?",
+    answer: "A storm surge watch means life-threatening inundation is possible in the listed areas, generally within 48 hours. It does not mean surge is certain — it means you should be ready to act quickly if the watch becomes a warning."
+  },
+  {
+    question: "What does a storm surge warning mean?",
+    answer: "A storm surge warning means life-threatening inundation is expected in the listed areas, generally within 36 hours. Follow local evacuation orders immediately if you are in a warned zone."
+  },
+  {
+    question: "My ZIP is outside any surge alert. Am I safe from flooding?",
+    answer: "No. Storm surge alerts cover coastal inundation, but heavy rain, river flooding, and tornadoes from a tropical system can affect inland areas with no surge alert. Continue to check all official warnings for your area."
+  },
+  ...faqs
+];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: site.contentLastModified }),
+  webApplicationSchema({
+    name: title,
+    description,
+    url,
+    featureList: ["ZIP-based storm surge watch and warning check", "Nearby hurricane and tropical storm alerts", "Official NWS alert language and expiration times"]
+  }),
+  faqSchema(pageFaqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified} showBottomAd={true}>
+  <section class="band" aria-labelledby="surge-title">
+    <div class="inner">
+      <p class="eyebrow">Official NWS alert check</p>
+      <h1 id="surge-title">Storm Surge ZIP Checker</h1>
+      <p class="answer">
+        Enter a five-digit ZIP code to check whether your area is inside an active storm surge
+        watch or warning, and see nearby hurricane alerts from the National Weather Service.
+      </p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="surge-form-heading">
+    <div class="inner grid-2">
+      <form class="panel surge-form" id="surge-form" autocomplete="off">
+        <h2 id="surge-form-heading">Check My ZIP</h2>
+        <label for="surge-zip">ZIP code</label>
+        <input
+          id="surge-zip"
+          name="zip"
+          type="text"
+          inputmode="numeric"
+          pattern="\d{5}"
+          maxlength="5"
+          placeholder="e.g. 33139"
+          required
+        />
+        <button type="submit">Check storm surge</button>
+        <p id="surge-status" class="small" role="status">
+          Results come from the National Weather Service active alerts feed.
+        </p>
+      </form>
+
+      <article class="panel" aria-live="polite">
+        <p class="eyebrow">Result</p>
+        <h2 id="surge-level">Waiting for ZIP</h2>
+        <p id="surge-summary">Enter your ZIP code to check active storm surge alerts.</p>
+        <ul id="surge-alerts" class="check-list"></ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="surge-understand-heading">
+    <div class="inner">
+      <p class="eyebrow">Know the alert levels</p>
+      <h2 id="surge-understand-heading">Storm Surge Watch vs Warning</h2>
+      <div class="grid-3 section-grid">
+        <article class="panel">
+          <span class="badge warn">Watch</span>
+          <h3>Possible — act within 48 hours</h3>
+          <p>Life-threatening inundation is possible. Review evacuation zone, fuel up, and prepare to move.</p>
+        </article>
+        <article class="panel">
+          <span class="badge danger">Warning</span>
+          <h3>Expected — act within 36 hours</h3>
+          <p>Life-threatening inundation is expected. Follow local evacuation orders immediately.</p>
+        </article>
+        <article class="panel">
+          <span class="badge">Beyond surge</span>
+          <h3>Rain and tornado risk continue</h3>
+          <p>Inland flooding and tornadoes can happen far from the coast even when no surge alert exists for your ZIP.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <FaqBlock faqs={pageFaqs} />
+</Layout>
+
+<script>
+  // @ts-nocheck
+  type SurgeAlert = { event?: string; headline?: string; severity?: string; urgency?: string; expires?: string; isSurge?: boolean };
+  type SurgeResult = {
+    zip?: string;
+    city?: string;
+    state?: string;
+    surgeLevel?: "warning" | "watch" | "none";
+    inSurgeWarning?: boolean;
+    inSurgeWatch?: boolean;
+    relevantAlerts?: SurgeAlert[];
+    error?: string;
+  };
+
+  const form = document.querySelector<HTMLFormElement>("#surge-form");
+  const zipInput = document.querySelector<HTMLInputElement>("#surge-zip");
+  const statusEl = document.querySelector<HTMLElement>("#surge-status");
+  const levelEl = document.querySelector<HTMLElement>("#surge-level");
+  const summaryEl = document.querySelector<HTMLElement>("#surge-summary");
+  const alertsEl = document.querySelector<HTMLElement>("#surge-alerts");
+
+  function escapeHtml(value: unknown) {
+    const replacements: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
+    return String(value ?? "").replace(/[&<>"']/g, (char) => replacements[char] ?? char);
+  }
+
+  function renderAlerts(alerts: SurgeAlert[]) {
+    if (!alertsEl) return;
+    if (!alerts.length) {
+      alertsEl.innerHTML = "<li>No active storm surge or hurricane alert was returned for this area.</li>";
+      return;
+    }
+    alertsEl.innerHTML = alerts
+      .map((alert) => {
+        const badge = alert.isSurge ? '<span class="badge danger">Surge</span>' : '<span class="badge warn">Tropical</span>';
+        const expires = alert.expires ? ` expires ${new Date(alert.expires).toLocaleString([], { dateStyle: "medium", timeStyle: "short" })}` : "";
+        return `<li>${badge} <strong>${escapeHtml(alert.event)}</strong> — ${escapeHtml(alert.headline)}${expires}</li>`;
+      })
+      .join("");
+  }
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const zip = (zipInput?.value ?? "").trim();
+    if (!/^\d{5}$/.test(zip)) {
+      if (statusEl) statusEl.textContent = "Enter a valid five-digit US ZIP code.";
+      return;
+    }
+    try {
+      if (statusEl) statusEl.textContent = "Checking official NWS alerts...";
+      if (levelEl) levelEl.textContent = "Checking...";
+      const response = await fetch(`/api/nws/surge?zip=${encodeURIComponent(zip)}`);
+      const data = await response.json() as SurgeResult;
+      if (!response.ok || data.error) {
+        throw new Error(data.error ?? "Surge check unavailable");
+      }
+
+      const place = `${data.city || data.zip}, ${data.state}`;
+      let headline: string;
+      if (data.surgeLevel === "warning") {
+        headline = "Storm Surge Warning";
+        if (levelEl) levelEl.className = "badge danger";
+      } else if (data.surgeLevel === "watch") {
+        headline = "Storm Surge Watch";
+        if (levelEl) levelEl.className = "badge warn";
+      } else {
+        headline = "No active surge alert";
+        if (levelEl) levelEl.className = "badge";
+      }
+      if (levelEl) {
+        levelEl.textContent = headline;
+        levelEl.classList.add("badge");
+      }
+      if (summaryEl) {
+        summaryEl.textContent = `${place}: the National Weather Service returned ${data.relevantAlerts?.length ?? 0} active tropical alert${(data.relevantAlerts?.length ?? 0) === 1 ? "" : "s"} for this point. Verify official local instructions before acting.`;
+      }
+      renderAlerts(data.relevantAlerts ?? []);
+      if (statusEl) statusEl.textContent = "Surge check updated. Follow local emergency management instructions.";
+    } catch (error) {
+      console.error("HurricaneHub surge checker failed", error);
+      if (statusEl) statusEl.textContent = "Surge check unavailable. Check weather.gov and retry shortly.";
+    }
+  });
+</script>
+
+<style>
+  .surge-form {
+    display: grid;
+    gap: 14px;
+    align-content: start;
+  }
+  .surge-form label {
+    font-weight: 800;
+  }
+  .surge-form input {
+    min-height: 46px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font-size: 1.05rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  #surge-alerts li {
+    display: grid;
+    gap: 4px;
+  }
+  #surge-alerts .badge {
+    width: fit-content;
+  }
+</style>

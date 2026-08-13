@@ -622,9 +622,9 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-read-the-hurricane-cone-of-uncertainty",
     title: "How to Read the Hurricane Cone of Uncertainty",
-    description: "Learn what the National Hurricane Center cone really represents, common misreadings, and how to use it with watches, warnings, and storm surge maps.",
+    description: "Learn what the National Hurricane Center cone really represents, how the new NHC impact map changes the picture, and how to use both with watches, warnings, and storm surge maps.",
     datePublished: "2026-08-07",
-    dateModified: "2026-08-07",
+    dateModified: "2026-08-13",
     image: "/images/blog/how-to-read-the-hurricane-cone-of-uncertainty.png",
     imageAlt: "A resident holds a tablet showing a hurricane forecast cone map, standing by a window with a coastal view behind.",
     sections: [
@@ -649,6 +649,11 @@ export const blogPosts: BlogPost[] = [
           "Use the cone as one input among several. If your location is inside or near the cone, begin monitoring NHC advisories and local NWS alerts closely. If the cone shifts toward your area, move from preparation to action. If the cone shifts away, continue watching until the storm has passed, because cones can move back."
       },
       {
+        heading: "The NHC Impact Map (2026)",
+        body:
+          "Starting May 15, 2026, the National Hurricane Center pairs the cone with an experimental-to-official impact map (also called the cone of concern). The impact map keeps the track cone but overlays color-coded watches and warnings for inland wind, storm surge, and flooding. It answers a different question than the cone: not just where the center may go, but where dangerous conditions are expected. Read the impact map first for safety decisions, then use the cone to understand how much the track can still shift."
+      },
+      {
         heading: "Pair the Cone With Other NHC Products",
         body:
           "The cone of uncertainty should be read alongside the storm surge watch/warning graphic, the rainfall forecast, the wind-field map, and the official discussion. Each product answers a different question: where, how high the water, how much rain, and how strong the wind."
@@ -662,6 +667,10 @@ export const blogPosts: BlogPost[] = [
       {
         question: "Why does the cone get wider over time?",
         answer: "Forecast uncertainty increases with time. The National Hurricane Center bases the cone width on the average track error of past forecasts at 12, 24, 36, 48, 72, 96, and 120 hours. Later forecast periods have larger possible errors, so the cone widens."
+      },
+      {
+        question: "What is the difference between the cone and the NHC impact map?",
+        answer: "The cone shows where the storm center is likely to track. The NHC impact map (official since May 15, 2026) overlays watches and warnings for wind, storm surge, and flooding, so it shows where dangerous conditions are expected rather than just where the center might go. Use the impact map to make safety decisions and the cone to understand track uncertainty."
       },
       {
         question: "Is the center line the most likely path?",

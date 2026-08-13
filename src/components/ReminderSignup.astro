@@ -17,6 +17,17 @@ const { source = "HurricaneHub reminder form" } = Astro.props;
       <input id="reminder-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
       <label for="reminder-zip">ZIP code</label>
       <input id="reminder-zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="\d{5}" placeholder="e.g. 33139" />
+      <fieldset class="reminder-mode">
+        <legend>Device alert level</legend>
+        <label>
+          <input type="radio" name="mode" value="watch" checked />
+          All hurricane alerts — watches and warnings (recommended)
+        </label>
+        <label>
+          <input type="radio" name="mode" value="warning-only" />
+          Warnings only — less noise
+        </label>
+      </fieldset>
       <button type="submit">Save reminder request</button>
       <button type="button" id="enable-push" class="secondary">Enable device alerts</button>
       <p id="reminder-status" class="small" role="status">Save your details, then enable device alerts for instant push notifications.</p>
@@ -49,7 +60,8 @@ const { source = "HurricaneHub reminder form" } = Astro.props;
         body: JSON.stringify({
           email: data.get("email"),
           zip: data.get("zip"),
-          source: form.dataset.source
+          source: form.dataset.source,
+          mode: data.get("mode") === "warning-only" ? "warning-only" : "watch"
         })
       });
       const body = await response.json() as { message?: string; error?: string };
@@ -90,6 +102,7 @@ const { source = "HurricaneHub reminder form" } = Astro.props;
         }));
       const zipEl = document.querySelector<HTMLInputElement>("#reminder-zip");
       const emailEl = document.querySelector<HTMLInputElement>("#reminder-email");
+      const modeInput = document.querySelector<HTMLInputElement>('input[name="mode"]:checked');
       const response = await fetch("/api/reminders/subscribe", {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -97,7 +110,8 @@ const { source = "HurricaneHub reminder form" } = Astro.props;
           subscription,
           zip: zipEl?.value ?? "",
           email: emailEl?.value ?? "",
-          source: form?.dataset.source ?? "device"
+          source: form?.dataset.source ?? "device",
+          mode: modeInput?.value === "warning-only" ? "warning-only" : "watch"
         })
       });
       const body = await response.json() as { message?: string; error?: string };
@@ -169,5 +183,24 @@ const { source = "HurricaneHub reminder form" } = Astro.props;
     background: transparent;
     border: 1px solid var(--accent, #0e6f8f);
     color: var(--accent, #0e6f8f);
+  }
+  .reminder-mode {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin: 0;
+    display: grid;
+    gap: 8px;
+  }
+  .reminder-mode legend {
+    font-weight: 800;
+    font-size: 0.85rem;
+  }
+  .reminder-mode label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 </style>

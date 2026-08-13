@@ -1,5 +1,6 @@
 ---
 import FaqBlock from "../../components/FaqBlock.astro";
+import ConeVsImpact from "../../components/ConeVsImpact.astro";
 import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
 import { coastalStates } from "../../data/states";
@@ -152,6 +153,8 @@ const jsonLd = graph(
       </div>
     </div>
   </section>
+
+  <ConeVsImpact />
 
   <section class="band" aria-labelledby="alerts-heading">
     <div class="inner">
