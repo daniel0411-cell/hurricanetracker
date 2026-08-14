@@ -45,6 +45,7 @@ function extractSitemapUrls(xml) {
 }
 
 function countBySection(paths) {
+  const hubPaths = ["/tracker/", "/hurricane-tracker/live/", "/hurricane-tracker/city/", "/hurricane-tracker/storm/", "/learn/"];
   return {
     home: paths.filter((item) => item === "/").length,
     stateTrackers: paths.filter((item) => /^\/tracker\/[^/]+\/$/.test(item)).length,
@@ -52,7 +53,7 @@ function countBySection(paths) {
     stormTrackers: paths.filter((item) => /^\/hurricane-tracker\/storm\/[^/]+\/$/.test(item)).length,
     tools: paths.filter((item) => /^\/tools\/.+\/$/.test(item)).length,
     blog: paths.filter((item) => /^\/blog\/.+\/$/.test(item)).length,
-    hubs: paths.filter((item) => ["/tracker/", "/hurricane-tracker/live/", "/hurricane-tracker/city/", "/hurricane-tracker/storm/"].includes(item)).length,
+    hubs: paths.filter((item) => hubPaths.includes(item)).length,
     other: paths.filter((item) => {
       return ![
         item === "/",
@@ -61,7 +62,7 @@ function countBySection(paths) {
         /^\/hurricane-tracker\/storm\/[^/]+\/$/.test(item),
         /^\/tools\/.+\/$/.test(item),
         /^\/blog\/.+\/$/.test(item),
-        ["/tracker/", "/hurricane-tracker/live/", "/hurricane-tracker/city/", "/hurricane-tracker/storm/"].includes(item)
+        hubPaths.includes(item)
       ].some(Boolean);
     }).length
   };
