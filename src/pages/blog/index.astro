@@ -6,6 +6,79 @@ import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "
 
 // Newest-first so the latest articles appear at the top of the listing.
 const sortedPosts = [...blogPosts].sort((a, b) => b.datePublished.localeCompare(a.datePublished));
+const clusterDefinitions = [
+  {
+    title: "Prepare Before a Storm Forms",
+    intent: "preparedness checklist, hurricane kit, home preparation",
+    description: "Use these guides when you are building supplies, protecting the home, organizing documents, and preparing pets or vulnerable household members.",
+    slugs: [
+      "hurricane-emergency-kit-checklist",
+      "hurricane-preparation-timeline-72-48-24-hours",
+      "hurricane-home-preparedness-room-by-room-checklist",
+      "hurricane-home-hardening-checklist"
+    ],
+    actionHref: "/tools/preparedness-checklist/",
+    actionLabel: "Generate a checklist"
+  },
+  {
+    title: "Understand Watches, Warnings, and Evacuation",
+    intent: "hurricane warning meaning, evacuation checklist, storm surge warning",
+    description: "Start here when an alert appears and you need to translate official wording into household action without guessing.",
+    slugs: [
+      "what-hurricane-watch-warning-means",
+      "nws-hurricane-alert-meanings",
+      "storm-surge-warning-vs-hurricane-warning",
+      "hurricane-evacuation-checklist"
+    ],
+    actionHref: "/tools/alert-action-decoder/",
+    actionLabel: "Decode an alert"
+  },
+  {
+    title: "Read Tracker Maps and Forecast Products",
+    intent: "live hurricane tracker, cone of uncertainty, spaghetti models",
+    description: "Learn how to interpret the cone, models, radar, satellite, category, and distance before relying on a single map signal.",
+    slugs: [
+      "real-time-hurricane-tracking-2026",
+      "how-to-read-the-hurricane-cone-of-uncertainty",
+      "how-to-read-hurricane-spaghetti-models",
+      "hurricane-radar-vs-satellite"
+    ],
+    actionHref: "/hurricane-tracker/live/",
+    actionLabel: "Open live tracker"
+  },
+  {
+    title: "Plan for Flooding, Outages, and Recovery",
+    intent: "flood insurance, hurricane claims, power outage planning",
+    description: "Use these articles for the problems that continue after landfall: flooding, food safety, medicine, insurance records, and recovery documentation.",
+    slugs: [
+      "hurricane-power-outage-food-medicine-plan",
+      "hurricane-flood-insurance-guide-nfip",
+      "hurricane-insurance-claim-guide-documentation",
+      "what-to-do-after-a-hurricane"
+    ],
+    actionHref: "/tools/power-outage-planner/",
+    actionLabel: "Build outage plan"
+  },
+  {
+    title: "Learn Hurricane Basics",
+    intent: "hurricane category, typhoon vs cyclone, storm surge forecast",
+    description: "Use these explainers when you want the science and vocabulary behind hurricane products before a storm is threatening your area.",
+    slugs: [
+      "saffir-simpson-hurricane-wind-scale-explained",
+      "hurricane-vs-typhoon-vs-cyclone",
+      "hurricane-storm-surge-forecasting",
+      "hurricane-rapid-intensification"
+    ],
+    actionHref: "/learn/",
+    actionLabel: "Open learning center"
+  }
+];
+const clusters = clusterDefinitions.map((cluster) => ({
+  ...cluster,
+  posts: cluster.slugs
+    .map((slug) => blogPosts.find((post) => post.slug === slug))
+    .filter((post): post is NonNullable<typeof post> => Boolean(post))
+}));
 
 const title = "Hurricane Preparedness Blog";
 const description = "Read HurricaneHub articles about hurricane season outlooks, home preparedness, alerts, and emergency decision-making using NOAA/NHC source context.";
@@ -29,6 +102,50 @@ const jsonLd = graph(
       <h1 id="blog-title">Hurricane Preparedness Blog</h1>
       <p class="answer">This blog explains hurricane outlooks, home preparation, official warning language, and emergency decisions using NOAA/NHC source context.</p>
       <p class="section-actions"><a class="action-link" href="/learn/">Open hurricane learning center</a></p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="cluster-heading">
+    <div class="inner">
+      <p class="eyebrow">Topic clusters</p>
+      <h2 id="cluster-heading">Browse Hurricane Guides by Search Intent</h2>
+      <div class="grid-2 section-grid">
+        {clusters.map((cluster) => (
+          <article class="panel">
+            <p class="eyebrow">{cluster.intent}</p>
+            <h3>{cluster.title}</h3>
+            <p>{cluster.description}</p>
+            <ul class="cluster-list">
+              {cluster.posts.map((post) => (
+                <li>
+                  <a href={`/blog/${post.slug}/`}>{post.title}</a>
+                  <span>{getCategory(post.slug)}</span>
+                </li>
+              ))}
+            </ul>
+            <p><a class="action-link secondary-action" href={cluster.actionHref}>{cluster.actionLabel}</a></p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="blog-path-heading">
+    <div class="inner grid-2">
+      <article>
+        <p class="eyebrow">From reading to action</p>
+        <h2 id="blog-path-heading">Use Articles With Live Hurricane Tools</h2>
+        <p class="answer">The articles explain how to interpret warnings, tracker maps, storm surge, evacuation zones, and preparedness choices. After reading, move to the live tracker, city trackers, or tools page for the current storm context.</p>
+      </article>
+      <article class="panel">
+        <h3>Useful next pages</h3>
+        <ul class="check-list">
+          <li><a href="/hurricane-tracker/live/">Live hurricane tracker map</a></li>
+          <li><a href="/hurricane-tracker/city/">City hurricane trackers</a></li>
+          <li><a href="/tools/">Hurricane tools by situation</a></li>
+          <li><a href="/alerts/">Active NWS alerts by state</a></li>
+        </ul>
+      </article>
     </div>
   </section>
 
@@ -90,6 +207,29 @@ const jsonLd = graph(
       color: #5b9bd5;
       margin: 0.6rem 0 0.2rem;
       font-weight: 600;
+    }
+    .cluster-list {
+      display: grid;
+      gap: 0.75rem;
+      list-style: none;
+      margin: 1rem 0 1.2rem;
+      padding: 0;
+    }
+    .cluster-list li {
+      display: grid;
+      gap: 0.18rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--line, rgba(148, 163, 184, 0.28));
+    }
+    .cluster-list a {
+      font-weight: 800;
+      line-height: 1.35;
+      text-decoration: none;
+    }
+    .cluster-list a:hover { text-decoration: underline; }
+    .cluster-list span {
+      color: var(--muted, #6b7280);
+      font-size: 0.84rem;
     }
     .is-hidden { display: none !important; }
   </style>
