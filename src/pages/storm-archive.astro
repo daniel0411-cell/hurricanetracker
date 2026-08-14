@@ -12,7 +12,7 @@ type StormFeed = {
 };
 
 const title = "Storm Archive and Current Advisory History";
-const description = "View current NHC storms, advisory links, and HurricaneHub archive placeholders for future storm history pages.";
+const description = "View current NHC storm records, advisory links, named-storm tracker shortcuts, and HurricaneHub storm history context.";
 const url = `${site.url}/storm-archive/`;
 
 let feed: StormFeed | null = null;
@@ -30,7 +30,7 @@ const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModif
 const pageFaqs = [
   {
     question: "Does HurricaneHub store historical NHC advisories?",
-    answer: "The current MVP shows active NHC storms and advisory links. A deeper named-storm archive can be added as future NHC data normalization expands."
+    answer: "HurricaneHub currently focuses on active NHC storm records, advisory links, named-storm tracker pages, and current storm context. Deeper advisory timelines can be added as the archive expands."
   },
   ...faqs
 ];
@@ -45,7 +45,7 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">Storm history foundation</p>
       <h1 id="archive-title">Storm Archive and Current Advisory History</h1>
-      <p class="answer">This page lists current NHC storm records and advisory links today, while reserving a clean archive structure for future named-storm history and advisory timelines.</p>
+      <p class="answer">This page lists current NHC storm records and advisory links, then connects users to named-storm tracker pages, live radar, state trackers, and learning resources for storm-history context.</p>
     </div>
   </section>
 
@@ -69,7 +69,7 @@ const jsonLd = graph(
         )) : (
           <article class="panel">
             <h3>No Active NHC Storms</h3>
-            <p>No active NHC tropical cyclone is listed in the current feed. Future archive entries will appear here as HurricaneHub expands advisory history tracking.</p>
+            <p>No active NHC tropical cyclone is listed in the current feed. Use named-storm trackers, the learning center, and the live tracker for current storm context.</p>
           </article>
         )}
       </div>
@@ -79,8 +79,9 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="archive-plan">
     <div class="inner grid-2">
       <article>
-        <h2 id="archive-plan">Archive Roadmap</h2>
-        <p>Next archive iterations can normalize advisory timestamps, storm names, storm IDs, intensity, location, and advisory URLs into stable pages for each named storm.</p>
+        <h2 id="archive-plan">Storm History Context</h2>
+        <p>Use the archive alongside named-storm tracker pages, the live tracker, radar, and learning guides to understand active systems, past storm names, advisory language, and forecast products.</p>
+        <p><a class="action-link secondary-action" href="/hurricane-tracker/storm/">Browse named storm trackers</a></p>
       </article>
       <article class="panel">
         <h2>Use Today</h2>

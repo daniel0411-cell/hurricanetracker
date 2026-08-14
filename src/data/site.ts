@@ -56,8 +56,8 @@ export const faqs = [
 export const differentiators = [
   "Decision-first risk bands for households, routes, and care needs instead of map layers alone.",
   "Per-state alert summaries joined with hurricane context for coastal North America.",
-  "SEO and generative-answer pages with direct answers, source notes, and reusable JSON-LD.",
-  "Cloudflare KV caching and Worker-side proxying so NOAA/NWS APIs are not exposed as brittle browser-only dependencies."
+  "Plain-language learning pages that explain cones, radar, satellite, storm surge, and hurricane categories.",
+  "Fast browser-based tools that work without an app download when a storm threat is moving quickly."
 ];
 
 export const stats = {
