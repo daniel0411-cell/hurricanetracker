@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1200" y2="630">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="100%" stop-color="#1a2a4a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <rect x="0" y="300" width="1200" height="330" fill="#16324f" opacity="0.4"/>
+  <text x="600" y="290" text-anchor="middle" fill="#ffffff" font-size="40" font-family="sans-serif" font-weight="bold" letter-spacing="-0.5">Hurricane Preparedness for Medical Needs</text>
+  <text x="600" y="340" text-anchor="middle" fill="#4a7aaa" font-size="22" font-family="sans-serif" letter-spacing="0.5">Registry · Equipment · Medicine</text>
+  <text x="600" y="395" text-anchor="middle" fill="#8a9bb5" font-size="16" font-family="sans-serif">Functional-needs plan · Power backup · Support network</text>
+</svg>
