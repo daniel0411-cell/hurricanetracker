@@ -1836,6 +1836,164 @@ export const hurricaneCities: HurricaneCity[] = [
     ],
     lat: 30.4515,
     lon: -91.1871
+  },
+  {
+    slug: "clearwater",
+    name: "Clearwater",
+    stateCode: "FL",
+    stateName: "Florida",
+    region: "Pinellas County and Tampa Bay beaches",
+    risks: ["Tampa Bay surge", "barrier-island evacuation", "bridge access", "visitor displacement"],
+    nearbyCounties: ["Pinellas", "Hillsborough", "Pasco", "Manatee"],
+    planningNote:
+      "Clearwater residents and visitors should track Pinellas County emergency information, beach and bay surge, bridge access, and hotel or rental instructions before Tampa Bay threats become urgent.",
+    overview:
+      "Clearwater hurricane risk combines Gulf beach exposure, Tampa Bay surge, barrier-island evacuation timing, bridge routes, high-rise condo planning, and visitor travel pressure. A storm passing near the west coast of Florida can push water into both beach communities and bay-facing neighborhoods, making official zone guidance more useful than distance from the forecast cone.",
+    localHazards: [
+      {
+        heading: "Beach and Bay Surge",
+        body:
+          "Clearwater Beach, Sand Key, low coastal roads, and bay-side neighborhoods can face surge and flooding from different wind directions during the same storm."
+      },
+      {
+        heading: "Bridge and Causeway Timing",
+        body:
+          "Access to beach communities depends on bridges and causeways that can be affected by wind, flooding, traffic, and official restrictions before peak conditions."
+      },
+      {
+        heading: "Visitors, Condos, and Garages",
+        body:
+          "Hotels, rentals, high-rise condos, elevators, parking garages, and unfamiliar routes can complicate evacuation, shelter, and reentry decisions."
+      }
+    ],
+    evacuationFocus: [
+      "Check Pinellas County emergency information and evacuation zones for your address.",
+      "Visitors should confirm hotel, rental, airline, and route plans early.",
+      "Plan bridge timing before coastal roads, wind, or traffic reduce options.",
+      "Prepare for outages with chargers, medicine, documents, pet supplies, and safe generator rules."
+    ],
+    localSearches: [
+      "Clearwater hurricane tracker",
+      "Clearwater Beach evacuation",
+      "Pinellas County hurricane zone",
+      "Clearwater storm surge",
+      "Tampa Bay hurricane alerts"
+    ],
+    faqs: [
+      {
+        question: "Does Clearwater have both Gulf and Tampa Bay hurricane risk?",
+        answer:
+          "Yes. Clearwater can face Gulf beach surge, bay flooding, bridge constraints, wind, rain, and outages depending on storm track and wind direction."
+      },
+      {
+        question: "Should Clearwater Beach visitors leave early?",
+        answer:
+          "Visitors should follow Pinellas County and local guidance and leave early when advised because beach routes, hotels, fuel, and flights can become constrained."
+      },
+      {
+        question: "Is a high-rise condo always safe during a Clearwater hurricane?",
+        answer:
+          "Not always. Wind, glass, elevator outages, garage flooding, water pressure, and building-specific rules should be part of the decision."
+      }
+    ],
+    officialResources: [
+      {
+        name: "Pinellas County Emergency Information",
+        description: "Official Pinellas County evacuation zones, shelters, alerts, and Tampa Bay hurricane preparedness resources.",
+        url: "https://pinellas.gov/emergency-information/"
+      },
+      {
+        name: "NWS Tampa Bay",
+        description: "Official National Weather Service alerts and forecasts for Clearwater and Tampa Bay.",
+        url: "https://www.weather.gov/tbw/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
+      }
+    ],
+    lat: 27.9659,
+    lon: -82.8001
+  },
+  {
+    slug: "morehead-city",
+    name: "Morehead City",
+    stateCode: "NC",
+    stateName: "North Carolina",
+    region: "Crystal Coast and Carteret County",
+    risks: ["sound-side flooding", "barrier-island access", "coastal surge", "marine hazards"],
+    nearbyCounties: ["Carteret", "Craven", "Pamlico", "Onslow"],
+    planningNote:
+      "Morehead City residents should watch Crystal Coast water levels, sound-side flooding, barrier-island access, marine conditions, and NWS Newport/Morehead City alerts together.",
+    overview:
+      "Morehead City hurricane risk is shaped by Bogue Sound, nearby barrier islands, marina and port exposure, coastal surge, river and sound-side flooding, and road access across Carteret County. Tropical systems affecting eastern North Carolina can bring water impacts before and after closest approach, so residents should combine local emergency resources with NWS Newport/Morehead City alerts.",
+    localHazards: [
+      {
+        heading: "Sound-Side and Coastal Flooding",
+        body:
+          "Wind direction can push water into Bogue Sound, low roads, marinas, and waterfront neighborhoods even when the strongest ocean surf is elsewhere."
+      },
+      {
+        heading: "Barrier-Island and Bridge Access",
+        body:
+          "Atlantic Beach, Emerald Isle, and nearby coastal routes can be affected by overwash, bridge restrictions, evacuation timing, and delayed reentry."
+      },
+      {
+        heading: "Marine and Port Hazards",
+        body:
+          "Boat owners, waterfront businesses, and port users should prepare for surge, debris, dock damage, dangerous seas, and access limits before conditions worsen."
+      }
+    ],
+    evacuationFocus: [
+      "Check Morehead City and Carteret County emergency resources before a watch becomes urgent.",
+      "Plan around bridges, barrier-island routes, low roads, boats, pets, and medicine.",
+      "Move vehicles and marine equipment away from flood-prone waterfront areas when advised.",
+      "Prepare for outages, road closures, delayed reentry, and changing sound-side water levels."
+    ],
+    localSearches: [
+      "Morehead City hurricane tracker",
+      "Carteret County hurricane alerts",
+      "Morehead City storm surge",
+      "Crystal Coast hurricane evacuation",
+      "NWS Newport Morehead City hurricane"
+    ],
+    faqs: [
+      {
+        question: "Why does sound-side flooding matter in Morehead City?",
+        answer:
+          "Wind direction can push water into sounds, canals, marinas, and low roads, so water impacts may differ from the ocean-side surf forecast."
+      },
+      {
+        question: "Do Morehead City residents need to watch barrier-island access?",
+        answer:
+          "Yes. Nearby beaches and islands depend on bridges and low roads that can be affected by overwash, flooding, evacuation orders, and reentry controls."
+      },
+      {
+        question: "Which weather office covers Morehead City hurricane alerts?",
+        answer:
+          "Morehead City is covered by NWS Newport/Morehead City, which issues local tropical, coastal flood, wind, and marine hazard information."
+      }
+    ],
+    officialResources: [
+      {
+        name: "Morehead City Emergency Resources",
+        description: "Official Morehead City emergency resource information for residents, visitors, businesses, and storm planning.",
+        url: "https://www.moreheadcitync.gov/275/Resources"
+      },
+      {
+        name: "NWS Newport/Morehead City",
+        description: "Official National Weather Service alerts and forecasts for Morehead City and eastern North Carolina.",
+        url: "https://www.weather.gov/mhx/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
+      }
+    ],
+    lat: 34.7229,
+    lon: -76.726
   }
 ];
 
