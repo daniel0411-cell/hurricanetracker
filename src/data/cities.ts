@@ -168,9 +168,9 @@ export const hurricaneCities: HurricaneCity[] = [
     ],
     officialResources: [
       {
-        name: "Hillsborough County Disaster Planning",
-        description: "Official Hillsborough County evacuation, shelter, alert, and disaster preparedness information.",
-        url: "https://hcfl.gov/residents/stay-safe"
+        name: "Pinellas County Emergency Information",
+        description: "Official Pinellas County evacuation zones, shelters, alerts, and Tampa Bay hurricane preparedness resources.",
+        url: "https://pinellas.gov/emergency-information/"
       },
       {
         name: "NWS Tampa Bay",
@@ -1464,7 +1464,7 @@ export const hurricaneCities: HurricaneCity[] = [
       { question: "Can Brunswick have impacts without a direct landfall?", answer: "Yes. Nearby tracks can still bring surge, rain, tornado warnings, tree damage, and outages." }
     ],
     officialResources: [
-      { name: "Glynn County Emergency Management", description: "Official Glynn County emergency alerts, evacuation, and preparedness information.", url: "https://glynncounty.org/557/Emergency-Management" },
+      { name: "Glynn County Emergency Management", description: "Official Glynn County emergency alerts, evacuation, and preparedness information.", url: "https://www.glynncounty.org/government/departments/emergency-management-agency-ema" },
       { name: "NWS Jacksonville", description: "Official National Weather Service alerts and forecasts for coastal Georgia.", url: "https://www.weather.gov/jax/" },
       { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
     ],
@@ -1593,7 +1593,7 @@ export const hurricaneCities: HurricaneCity[] = [
       { question: "Can a tropical storm still affect Norfolk?", answer: "Yes. Tropical storms can bring tidal flooding, tornado warnings, heavy rain, tree damage, and outages." }
     ],
     officialResources: [
-      { name: "Norfolk Emergency Preparedness", description: "Official Norfolk emergency preparedness, alerts, evacuation, and storm information.", url: "https://www.norfolk.gov/3588/Emergency-Preparedness" },
+      { name: "Norfolk Emergency Preparedness", description: "Official Norfolk emergency preparedness, alerts, evacuation, and storm information.", url: "https://www.norfolk.gov/1463/Hurricanes-Noreasters" },
       { name: "NWS Wakefield", description: "Official National Weather Service alerts and forecasts for Hampton Roads.", url: "https://www.weather.gov/akq/" },
       { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
     ],
