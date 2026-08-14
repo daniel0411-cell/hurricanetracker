@@ -2,6 +2,7 @@
 import FaqBlock from "../../components/FaqBlock.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
 import Layout from "../../layouts/Layout.astro";
+import { hurricaneCities } from "../../data/cities";
 import { site } from "../../data/site";
 import { getStateBySlug } from "../../data/states";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
@@ -51,6 +52,7 @@ const lastModified = alertFeed?.updatedAt ?? stormFeed?.updatedAt ?? site.conten
 const title = `${state.name} Hurricane Tracker – Live NHC Data & Alerts`;
 const description = `Get ${state.name} real-time hurricane tracking with NOAA data, NWS alerts, evacuation info, and live updates for ${state.region}.`;
 const url = `${site.url}/tracker/${state.slug}/`;
+const stateCities = hurricaneCities.filter((city) => city.stateCode === state.code);
 const localActionNotes: Record<string, { headline: string; points: string[]; aside: string }> = {
   florida: {
     headline: "Florida priority actions",
@@ -272,6 +274,28 @@ const jsonLd = graph(
       </article>
     </div>
   </section>
+
+  {stateCities.length > 0 && (
+    <section class="band" aria-labelledby="city-trackers">
+      <div class="inner">
+        <p class="eyebrow">Local city guides</p>
+        <h2 id="city-trackers">{state.name} City Hurricane Trackers</h2>
+        <p class="answer">Use these local pages for city-specific surge, flooding, route, outage, and evacuation-planning notes tied back to the {state.name} tracker.</p>
+        <div class="grid-3 section-grid">
+          {stateCities.map((city) => (
+            <article class="panel">
+              <h3>{city.name} Hurricane Tracker</h3>
+              <p>{city.planningNote}</p>
+              <div class="risk-tags">
+                {city.risks.slice(0, 3).map((risk) => <span class="risk-tag">{risk}</span>)}
+              </div>
+              <a href={`/hurricane-tracker/city/${city.slug}/`}>Open {city.name}</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <section class="band" aria-labelledby="decision-table">
     <div class="inner">

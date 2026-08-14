@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
+import { hurricaneCities } from "../../data/cities";
 import { getStateBySlug } from "../../data/states";
 import { faqSchema, graph, websiteSchema } from "../../lib/schema";
 import { site } from "../../data/site";
@@ -16,6 +17,7 @@ const lastModified = "2026-08-07";
 
 const intro = `North Carolina's coastline runs about 300 miles from the Virginia line to the South Carolina border, but its hurricane identity is defined by Cape Hatteras and the Outer Banks—a string of narrow barrier islands in the Atlantic's busy recurvature lane. Storms riding the Gulf Stream often curve ashore here, slamming the islands before pushing into the sounds and inland rivers, producing both wind damage on the coast and catastrophic river flooding hundreds of miles inland. In 2018, Hurricane Florence stalled near the coast and unleashed historic rainfall that flooded communities from Wilmington to the Piedmont. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is within the active period, so Outer Banks and coastal residents should watch tropical outlooks and plan ferry and bridge timing, because island access closes well before the worst conditions arrive.`;
 
+const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const adjacent = ["south-carolina", "virginia"];
 
 const faqs = [
@@ -45,6 +47,18 @@ const jsonLd = graph(websiteSchema(), faqSchema(faqs));
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
       <StateAlerts state={code} />
+
+      <h2 id="city-trackers">{name} City Hurricane Trackers</h2>
+      <p class="source-note">Open city guides for local surge, flooding, evacuation-route, and outage planning notes within {name}.</p>
+      <div class="grid-3" style="margin-top: 18px;">
+        {stateCities.map((city) => (
+          <article class="panel">
+            <h3>{city.name} Hurricane Tracker</h3>
+            <p>{city.planningNote}</p>
+            <a href={`/hurricane-tracker/city/${city.slug}/`}>Open {city.name}</a>
+          </article>
+        ))}
+      </div>
 
       <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
       <ul class="check-list">

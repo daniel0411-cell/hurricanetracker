@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
+import { hurricaneCities } from "../../data/cities";
 import { getStateBySlug } from "../../data/states";
 import { faqSchema, graph, websiteSchema } from "../../lib/schema";
 import { site } from "../../data/site";
@@ -16,6 +17,7 @@ const lastModified = "2026-08-07";
 
 const intro = `South Carolina's Atlantic coast spans roughly 185 miles, anchored by the Lowcountry around Charleston and the Grand Strand near Myrtle Beach. Hurricanes typically approach from the southeast or track up the Southeast seaboard, then curve into the coast where wide tidal estuaries and salt marshes magnify storm surge. The Lowcountry's bridges and causeways become vulnerable as winds rise, and heavy rain compounds coastal flooding. In 1989, Hurricane Hugo made a devastating Category 4 landfall near Charleston, leveling timber and producing a memorable surge that remains the state benchmark. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is inside the active window, so coastal households should confirm their evacuation zone and plan to leave before the reversal of I-26 and other routes jams with traffic.`;
 
+const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const adjacent = ["north-carolina", "georgia"];
 
 const faqs = [
@@ -45,6 +47,18 @@ const jsonLd = graph(websiteSchema(), faqSchema(faqs));
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
       <StateAlerts state={code} />
+
+      <h2 id="city-trackers">{name} City Hurricane Trackers</h2>
+      <p class="source-note">Open city guides for local surge, flooding, evacuation-route, and outage planning notes within {name}.</p>
+      <div class="grid-3" style="margin-top: 18px;">
+        {stateCities.map((city) => (
+          <article class="panel">
+            <h3>{city.name} Hurricane Tracker</h3>
+            <p>{city.planningNote}</p>
+            <a href={`/hurricane-tracker/city/${city.slug}/`}>Open {city.name}</a>
+          </article>
+        ))}
+      </div>
 
       <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
       <ul class="check-list">

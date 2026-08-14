@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
+import { hurricaneCities } from "../../data/cities";
 import { getStateBySlug } from "../../data/states";
 import { faqSchema, graph, websiteSchema } from "../../lib/schema";
 import { site } from "../../data/site";
@@ -16,6 +17,7 @@ const lastModified = "2026-08-07";
 
 const intro = `Mississippi's Gulf coast is the shortest of the hurricane-prone states at roughly 44 miles, yet it has absorbed some of the most violent landfalls in U.S. history. Storms typically approach from the southeast across warm Gulf water that fuels rapid intensification, then drive into Hancock, Harrison, and Jackson counties. The low, flat coast and the Bay of St. Louis make surge the dominant threat. In 1969, Hurricane Camille came ashore as a catastrophic Category 5, among the strongest storms ever recorded, and Hurricane Katrina (2005) then devastated the coast and flooded coastal communities. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is already within the active period, when Gulf warmth peaks. Because much of the coast is low-lying, officials urge early evacuation for mobile-home residents and medically dependent households before routes close.`;
 
+const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const adjacent = ["louisiana", "alabama"];
 
 const faqs = [
@@ -45,6 +47,18 @@ const jsonLd = graph(websiteSchema(), faqSchema(faqs));
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
       <StateAlerts state={code} />
+
+      <h2 id="city-trackers">{name} City Hurricane Trackers</h2>
+      <p class="source-note">Open city guides for local surge, flooding, evacuation-route, and outage planning notes within {name}.</p>
+      <div class="grid-3" style="margin-top: 18px;">
+        {stateCities.map((city) => (
+          <article class="panel">
+            <h3>{city.name} Hurricane Tracker</h3>
+            <p>{city.planningNote}</p>
+            <a href={`/hurricane-tracker/city/${city.slug}/`}>Open {city.name}</a>
+          </article>
+        ))}
+      </div>
 
       <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
       <ul class="check-list">

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
+import { hurricaneCities } from "../../data/cities";
 import { getStateBySlug } from "../../data/states";
 import { faqSchema, graph, websiteSchema } from "../../lib/schema";
 import { site } from "../../data/site";
@@ -16,6 +17,7 @@ const lastModified = "2026-08-07";
 
 const intro = `Florida faces the Atlantic and Gulf of Mexico at once, giving it more than 1,300 miles of tidal coastline—the longest of any hurricane-prone state. Storms typically organize near the Bahamas or in the Caribbean and track west across South Florida, or curve north into the Panhandle and Big Bend, while others develop in the Gulf and threaten Tampa Bay or the central coast. Because the peninsula is low and surrounded by warm water, rapid intensification just before landfall is common. In recent memory, Hurricane Michael (2018) struck the Panhandle as a catastrophic Category 5, and Hurricane Ian (2022) produced deadly storm surge and flooding across southwest Florida. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August sits in the climatological ramp toward the September peak, when sea-surface temperatures are warmest. Residents should confirm evacuation zones and keep a ready-to-go plan before any system forms, because bridge and causeway closures often arrive well ahead of landfall.`;
 
+const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const adjacent = ["georgia", "alabama"];
 
 const faqs = [
@@ -45,6 +47,18 @@ const jsonLd = graph(websiteSchema(), faqSchema(faqs));
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
       <StateAlerts state={code} />
+
+      <h2 id="city-trackers">{name} City Hurricane Trackers</h2>
+      <p class="source-note">Open city guides for local surge, flooding, evacuation-route, and outage planning notes within {name}.</p>
+      <div class="grid-3" style="margin-top: 18px;">
+        {stateCities.map((city) => (
+          <article class="panel">
+            <h3>{city.name} Hurricane Tracker</h3>
+            <p>{city.planningNote}</p>
+            <a href={`/hurricane-tracker/city/${city.slug}/`}>Open {city.name}</a>
+          </article>
+        ))}
+      </div>
 
       <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
       <ul class="check-list">

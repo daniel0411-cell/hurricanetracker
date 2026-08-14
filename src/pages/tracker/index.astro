@@ -3,6 +3,7 @@ import FaqBlock from "../../components/FaqBlock.astro";
 import ConeVsImpact from "../../components/ConeVsImpact.astro";
 import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
+import { hurricaneCities } from "../../data/cities";
 import { coastalStates } from "../../data/states";
 import { articleSchema, faqSchema, governmentServiceSchema, graph, websiteSchema } from "../../lib/schema";
 import type { NhcStorm, NwsAlert } from "../../lib/weather";
@@ -49,6 +50,7 @@ const storms = stormFeed?.storms ?? [];
 const alerts = alertFeed?.alerts ?? [];
 const decisionLevel = alertFeed?.decisionLevel ?? (storms.length ? "Prepare" : "Monitor");
 const lastModified = stormFeed?.updatedAt ?? alertFeed?.updatedAt ?? site.contentLastModified;
+const featuredCities = hurricaneCities.slice(0, 12);
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
@@ -92,6 +94,23 @@ const jsonLd = graph(
             <h3>{state.name}</h3>
             <p>{state.region}. Watch for {state.risks.slice(0, 2).join(" and ")}.</p>
             <a href={`/tracker/${state.slug}/`}>View {state.name} tracker</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="city-trackers-heading">
+    <div class="inner">
+      <p class="eyebrow">City risk desks</p>
+      <h2 id="city-trackers-heading">Local City Hurricane Trackers</h2>
+      <p class="answer">Open a city page for local storm surge, flooding, route, bridge, outage, and evacuation notes tied to state alerts and NHC context.</p>
+      <div class="grid-3 section-grid">
+        {featuredCities.map((city) => (
+          <article class="panel">
+            <h3>{city.name}</h3>
+            <p>{city.region}. Watch for {city.risks.slice(0, 2).join(" and ")}.</p>
+            <a href={`/hurricane-tracker/city/${city.slug}/`}>View {city.name} tracker</a>
           </article>
         ))}
       </div>
