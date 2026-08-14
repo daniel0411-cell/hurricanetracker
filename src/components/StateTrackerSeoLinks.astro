@@ -1,0 +1,57 @@
+---
+import type { CoastalState } from "../data/states";
+import type { HurricaneCity } from "../data/cities";
+
+type Props = {
+  state: CoastalState;
+  cities: HurricaneCity[];
+};
+
+const { state, cities } = Astro.props;
+const featuredCities = cities.slice(0, 4);
+const primaryRisks = state.risks.slice(0, 4);
+---
+<section class="state-seo-block" aria-labelledby="state-seo-heading">
+  <div class="grid-2 section-grid">
+    <article class="panel">
+      <p class="eyebrow">Local search path</p>
+      <h2 id="state-seo-heading">Use This {state.name} Tracker With Local Pages</h2>
+      <p>{state.preparednessNote}</p>
+      <ul class="check-list">
+        <li><a href="/hurricane-tracker/live/">Check the live hurricane tracker map</a></li>
+        <li><a href="/alerts/">Review active NWS alerts by state</a></li>
+        <li><a href="/tools/local-risk-plan/">Build a local 72-hour action plan</a></li>
+        <li><a href="/learn/">Learn how to read hurricane tracker products</a></li>
+      </ul>
+    </article>
+    <article class="panel">
+      <p class="eyebrow">Risk context</p>
+      <h2>{state.name} Hurricane Planning Signals</h2>
+      <p>State trackers are broad screens. Pair this page with city trackers, county emergency management, and official weather.gov alerts before making evacuation or shelter decisions.</p>
+      <div class="risk-tags">
+        {primaryRisks.map((risk) => <span class="risk-tag">{risk}</span>)}
+      </div>
+    </article>
+  </div>
+
+  {featuredCities.length ? (
+    <div class="state-seo-cities" aria-labelledby="state-city-shortcuts-heading">
+      <h2 id="state-city-shortcuts-heading">High-Intent {state.name} City Shortcuts</h2>
+      <div class="grid-2 section-grid">
+        {featuredCities.map((city) => (
+          <article class="panel compact-panel">
+            <h3><a href={`/hurricane-tracker/city/${city.slug}/`}>{city.name} Hurricane Tracker</a></h3>
+            <p>{city.planningNote}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  ) : null}
+</section>
+
+<style>
+  .state-seo-block { margin-top: 34px; }
+  .state-seo-cities { margin-top: 28px; }
+  .compact-panel h3 { margin-top: 0; }
+  .compact-panel p { margin-bottom: 0; }
+</style>

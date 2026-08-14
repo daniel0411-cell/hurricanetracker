@@ -1,9 +1,10 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
+import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateBySlug } from "../../data/states";
-import { faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 import { site } from "../../data/site";
 
 const state = getStateBySlug("north-carolina")!;
@@ -35,7 +36,16 @@ const faqs = [
   }
 ];
 
-const jsonLd = graph(websiteSchema(), faqSchema(faqs));
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url: canonical, dateModified: lastModified }),
+  itemListSchema(stateCities.map((city) => ({
+    name: `${city.name} Hurricane Tracker`,
+    description: city.planningNote,
+    url: `${site.url}/hurricane-tracker/city/${city.slug}/`
+  }))),
+  faqSchema(faqs)
+);
 ---
 <BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={lastModified}>
   <article class="band" aria-labelledby="tracker-state-title">
@@ -59,6 +69,8 @@ const jsonLd = graph(websiteSchema(), faqSchema(faqs));
           </article>
         ))}
       </div>
+
+      <StateTrackerSeoLinks state={state} cities={stateCities} />
 
       <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
       <ul class="check-list">
