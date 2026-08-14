@@ -7,6 +7,7 @@ import Layout from "../layouts/Layout.astro";
 import { differentiators, faqs, site, stats } from "../data/site";
 import { coastalStates } from "../data/states";
 import { blogPosts } from "../data/blog";
+import { hurricaneCities } from "../data/cities";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
 import type { NhcStorm, NwsAlert } from "../lib/weather";
 
@@ -72,6 +73,7 @@ const tools = [
   { href: "/tools/impact-window-estimator/", icon: "fa-clock", title: "Impact Window Estimator", body: "Use current alert timing and storm context to decide whether to monitor, prepare, act, or leave." },
   { href: "/tools/storm-distance-calculator/", icon: "fa-location-crosshairs", title: "Storm Distance Calculator", body: "Compare a ZIP code with the current NHC storm position, then verify the forecast and local alerts." }
 ];
+const featuredCities = hurricaneCities.slice(0, 9);
 ---
 
 <Layout title={title} description={description} canonical={site.url} jsonLd={jsonLd} lastModified={lastModified} showTopAd={true}>
@@ -267,9 +269,15 @@ const tools = [
       <h2 id="city-heading">City Hurricane Trackers</h2>
       <p class="answer">Start with a city page for local planning notes, nearby counties, state alert links, and decision tools.</p>
       <div class="grid-3 section-grid">
-        <article class="state-card"><h3>Miami Hurricane Tracker</h3><div class="risk-tags"><span class="risk-tag">Surge</span><span class="risk-tag">Flood</span><span class="risk-tag">Tornado</span></div><a href="/hurricane-tracker/city/miami/">Open Miami</a></article>
-        <article class="state-card"><h3>Tampa Hurricane Tracker</h3><div class="risk-tags"><span class="risk-tag">Surge</span><span class="risk-tag">Bridge</span><span class="risk-tag">Outage</span></div><a href="/hurricane-tracker/city/tampa/">Open Tampa</a></article>
-        <article class="state-card"><h3>Houston Hurricane Tracker</h3><div class="risk-tags"><span class="risk-tag">Bayou</span><span class="risk-tag">Surge</span><span class="risk-tag">Rain</span></div><a href="/hurricane-tracker/city/houston/">Open Houston</a></article>
+        {featuredCities.map((city) => (
+          <article class="state-card">
+            <h3>{city.name} Hurricane Tracker</h3>
+            <div class="risk-tags">
+              {city.risks.slice(0, 3).map((risk) => <span class="risk-tag">{risk}</span>)}
+            </div>
+            <a href={`/hurricane-tracker/city/${city.slug}/`}>Open {city.name}</a>
+          </article>
+        ))}
       </div>
     </div>
   </section>

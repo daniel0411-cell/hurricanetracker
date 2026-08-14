@@ -332,6 +332,626 @@ export const hurricaneCities: HurricaneCity[] = [
     ],
     lat: 36.8529,
     lon: -75.9779
+  },
+  {
+    slug: "fort-myers",
+    name: "Fort Myers",
+    stateCode: "FL",
+    stateName: "Florida",
+    region: "Southwest Florida Gulf Coast",
+    risks: ["Caloosahatchee flooding", "storm surge", "barrier-island access", "extended outages"],
+    nearbyCounties: ["Lee", "Charlotte", "Collier"],
+    planningNote:
+      "Fort Myers households should treat storm surge, river flooding, and barrier-island access as early decisions because routes can become limited before peak wind.",
+    overview:
+      "Fort Myers hurricane risk centers on the shallow Gulf shelf, the Caloosahatchee River, low-lying neighborhoods, and nearby barrier islands such as Sanibel, Captiva, and Fort Myers Beach. Hurricane Ian showed how a major Gulf hurricane can combine destructive surge, wind, debris, bridge impacts, and long recovery timelines across Lee County. Residents should use official evacuation zones and local orders instead of judging risk by inland distance alone.",
+    localHazards: [
+      {
+        heading: "Gulf Surge and Barrier Islands",
+        body:
+          "Fort Myers Beach, Sanibel, Captiva, Pine Island, and coastal Lee County can face severe surge and access problems when Gulf water is pushed toward shore. Bridge timing and island evacuation orders can matter before wind peaks."
+      },
+      {
+        heading: "River and Urban Flooding",
+        body:
+          "The Caloosahatchee and local drainage systems can worsen flooding during heavy tropical rain, especially when surge or high tide slows water movement. Vehicles should be moved from low streets when officials advise."
+      },
+      {
+        heading: "Long Recovery Needs",
+        body:
+          "Southwest Florida hurricanes can disrupt power, cell service, bridges, fuel, and medical access. Households should prepare documents, medicine, cooling plans, and backup destinations before a warning becomes urgent."
+      }
+    ],
+    evacuationFocus: [
+      "Check the Lee County evacuation zone for your exact address.",
+      "Leave early if you are on a barrier island, in a mobile home, or near surge-prone water.",
+      "Plan for bridge access and post-storm reentry restrictions.",
+      "Pack insurance records, photos, prescriptions, chargers, cash, and pet supplies."
+    ],
+    localSearches: [
+      "Fort Myers hurricane tracker",
+      "Fort Myers storm surge",
+      "Lee County evacuation zone",
+      "Fort Myers Beach hurricane alerts",
+      "Fort Myers hurricane recovery"
+    ],
+    faqs: [
+      {
+        question: "Why is Fort Myers storm surge risk so high?",
+        answer:
+          "The shallow Gulf shelf, low-lying coastline, barrier islands, and river connections can allow hurricane-driven water to move far inland. Official surge forecasts and evacuation zones should guide decisions."
+      },
+      {
+        question: "Should Fort Myers residents evacuate from barrier islands early?",
+        answer:
+          "Yes, residents on barrier islands or in surge zones should follow Lee County orders and leave early enough to avoid bridge, traffic, and shelter constraints."
+      },
+      {
+        question: "What should Fort Myers households prepare first?",
+        answer:
+          "Start with evacuation zone, documents, medication, fuel, pet supplies, chargers, and a destination outside the surge area."
+      }
+    ],
+    lat: 26.6406,
+    lon: -81.8723
+  },
+  {
+    slug: "key-west",
+    name: "Key West",
+    stateCode: "FL",
+    stateName: "Florida",
+    region: "Florida Keys and Lower Keys",
+    risks: ["island evacuation timing", "storm surge", "limited routes", "marine hazards"],
+    nearbyCounties: ["Monroe", "Miami-Dade"],
+    planningNote:
+      "Key West residents should decide early because the Overseas Highway, bridges, shelters, fuel, and medical access can become constrained before severe weather arrives.",
+    overview:
+      "Key West hurricane risk is different from mainland Florida because the city sits at the end of a long island chain with one primary road connection to the mainland. Tropical systems moving through the Florida Straits, western Caribbean, or Gulf can bring surge, wind, marine hazards, and supply interruptions. The most important decision is often when to leave, not whether the storm center is aimed exactly at Key West.",
+    localHazards: [
+      {
+        heading: "Overseas Highway Timing",
+        body:
+          "U.S. 1 and the bridges through the Keys are critical evacuation and supply routes. Traffic, fuel limits, bridge restrictions, and emergency orders can reduce options well before peak wind."
+      },
+      {
+        heading: "Storm Surge and Marine Exposure",
+        body:
+          "Low elevation and surrounding water make surge, wave action, and marina damage central hazards. Boat owners and waterfront residents should complete preparations before conditions make docks unsafe."
+      },
+      {
+        heading: "Medical and Supply Constraints",
+        body:
+          "Island residents should plan for prescriptions, oxygen, mobility needs, pet evacuation, fuel, and backup lodging earlier than mainland households because local resources can tighten quickly."
+      }
+    ],
+    evacuationFocus: [
+      "Follow Monroe County evacuation orders and timing for residents and visitors.",
+      "Do not wait until the last safe travel window on U.S. 1.",
+      "Secure boats and waterfront property while conditions are still calm.",
+      "Pack IDs, prescriptions, pet records, cash, chargers, water, and lodging details."
+    ],
+    localSearches: [
+      "Key West hurricane tracker",
+      "Florida Keys evacuation hurricane",
+      "Key West storm surge",
+      "Monroe County hurricane alerts",
+      "Overseas Highway hurricane evacuation"
+    ],
+    faqs: [
+      {
+        question: "Why should Key West residents decide earlier than mainland residents?",
+        answer:
+          "Key West depends on limited island routes, bridge access, fuel, shelters, and long travel time to safer inland areas. Waiting can reduce options quickly."
+      },
+      {
+        question: "Is Key West vulnerable to storm surge?",
+        answer:
+          "Yes. Low elevation and water on all sides make storm surge and marine hazards serious even when wind category is not the only concern."
+      },
+      {
+        question: "Should visitors leave Key West before residents?",
+        answer:
+          "Visitors should follow Monroe County guidance. Tourist evacuations may be ordered earlier to reduce traffic and preserve resources for residents."
+      }
+    ],
+    lat: 24.5551,
+    lon: -81.78
+  },
+  {
+    slug: "jacksonville",
+    name: "Jacksonville",
+    stateCode: "FL",
+    stateName: "Florida",
+    region: "Northeast Florida and St. Johns River",
+    risks: ["St. Johns River flooding", "coastal surge", "bridge impacts", "tree damage"],
+    nearbyCounties: ["Duval", "St. Johns", "Nassau", "Clay"],
+    planningNote:
+      "Jacksonville households should watch both Atlantic coastal alerts and St. Johns River flooding because water impacts can arrive from multiple directions.",
+    overview:
+      "Jacksonville hurricane risk includes Atlantic beach surge, St. Johns River flooding, heavy rainfall, tornado warnings, bridge restrictions, and widespread tree-related outages. A storm does not need to make direct landfall in Duval County to push water up the river or create hazardous travel across the metro area.",
+    localHazards: [
+      {
+        heading: "St. Johns River Flooding",
+        body:
+          "Wind, tide, rain, and river flow can combine to raise water levels along the St. Johns. Riverfront neighborhoods should monitor flood statements and local emergency guidance even after the storm center passes."
+      },
+      {
+        heading: "Beaches and Coastal Surge",
+        body:
+          "Jacksonville Beach, Atlantic Beach, Neptune Beach, and Mayport can face ocean surge, erosion, and road closures during coastal tropical systems."
+      },
+      {
+        heading: "Bridge and Power Disruption",
+        body:
+          "Jacksonville's bridges and tree canopy can turn wind and flooding into transportation and outage problems. Households should prepare for route changes and multi-day power interruptions."
+      }
+    ],
+    evacuationFocus: [
+      "Check Duval County evacuation zones and beach community instructions.",
+      "Watch river flood alerts in addition to coastal warnings.",
+      "Choose routes that do not rely on low bridges or flood-prone roads.",
+      "Prepare for tree damage, outages, charging, medicine, and safe generator use."
+    ],
+    localSearches: [
+      "Jacksonville hurricane tracker",
+      "Jacksonville St Johns River flooding",
+      "Duval County evacuation zone",
+      "Jacksonville Beach storm surge",
+      "Jacksonville hurricane alerts"
+    ],
+    faqs: [
+      {
+        question: "Can Jacksonville flood from the St. Johns River during a hurricane?",
+        answer:
+          "Yes. Wind, tide, rainfall, and river flow can combine to create flooding along the St. Johns even when the storm center is not directly over Jacksonville."
+      },
+      {
+        question: "Do Jacksonville beach communities have different hurricane risk?",
+        answer:
+          "Yes. The beaches and Mayport have greater ocean surge and erosion exposure, while inland Jacksonville may face river flooding, wind, and outages."
+      },
+      {
+        question: "What should Jacksonville residents check first?",
+        answer:
+          "Check Duval County evacuation zones, NWS coastal and river flood alerts, bridge guidance, and your household's power and medical needs."
+      }
+    ],
+    lat: 30.3322,
+    lon: -81.6557
+  },
+  {
+    slug: "galveston",
+    name: "Galveston",
+    stateCode: "TX",
+    stateName: "Texas",
+    region: "Upper Texas Coast and Galveston Island",
+    risks: ["island surge", "causeway access", "coastal evacuation", "bay flooding"],
+    nearbyCounties: ["Galveston", "Harris", "Brazoria", "Chambers"],
+    planningNote:
+      "Galveston residents should treat island evacuation, storm surge, and causeway access as early decisions because road options can narrow well before landfall.",
+    overview:
+      "Galveston hurricane risk is defined by island exposure, Galveston Bay, the Gulf shoreline, and evacuation timing over limited routes. A Gulf hurricane can push dangerous surge across the island and bay communities while also creating traffic and shelter pressure toward Houston and inland Texas.",
+    localHazards: [
+      {
+        heading: "Island Storm Surge",
+        body:
+          "Galveston Island can face life-threatening surge, wave action, and overwash. Residents should use official evacuation orders and surge forecasts rather than storm category alone."
+      },
+      {
+        heading: "Causeway and Route Timing",
+        body:
+          "The causeway and mainland routes are critical for evacuation. Traffic, flooding, wind restrictions, and local orders can make late departures dangerous."
+      },
+      {
+        heading: "Bay and Mainland Impacts",
+        body:
+          "Nearby bay communities can experience surge and flooding even when island conditions differ. Galveston residents should track county alerts and Houston-area route conditions together."
+      }
+    ],
+    evacuationFocus: [
+      "Know whether your address is under Galveston County evacuation guidance.",
+      "Leave early when island or coastal zones are ordered out.",
+      "Plan fuel, lodging, pets, medical equipment, and mainland destination before traffic builds.",
+      "Do not drive through water on island, bay, or mainland roads."
+    ],
+    localSearches: [
+      "Galveston hurricane tracker",
+      "Galveston storm surge",
+      "Galveston evacuation route",
+      "Galveston County hurricane alerts",
+      "Galveston Island hurricane"
+    ],
+    faqs: [
+      {
+        question: "Why is Galveston evacuation timing so important?",
+        answer:
+          "Galveston is an island with limited route options. Surge, traffic, bridge restrictions, and official orders can reduce safe travel time before landfall."
+      },
+      {
+        question: "Is Galveston storm surge risk different from Houston risk?",
+        answer:
+          "Yes. Galveston has direct Gulf and island surge exposure, while Houston often faces more inland rainfall, bayou flooding, and outages."
+      },
+      {
+        question: "Should Galveston residents wait for a major hurricane forecast?",
+        answer:
+          "No. Evacuation decisions should follow official local orders and surge risk, not only category. Water can be dangerous in lower-category storms."
+      }
+    ],
+    lat: 29.3013,
+    lon: -94.7977
+  },
+  {
+    slug: "corpus-christi",
+    name: "Corpus Christi",
+    stateCode: "TX",
+    stateName: "Texas",
+    region: "Middle Texas Coast and Coastal Bend",
+    risks: ["coastal surge", "barrier-island access", "wind damage", "long outages"],
+    nearbyCounties: ["Nueces", "San Patricio", "Kleberg", "Aransas"],
+    planningNote:
+      "Corpus Christi residents should plan around Coastal Bend surge, barrier-island access, wind exposure, and long travel distances to safer inland shelter.",
+    overview:
+      "Corpus Christi hurricane risk is shaped by the Coastal Bend, Corpus Christi Bay, Padre Island, low-lying coastal roads, and long evacuation distances. Storms approaching the middle Texas coast can intensify over very warm Gulf water and create surge, damaging wind, and extended outages across Nueces County and nearby communities.",
+    localHazards: [
+      {
+        heading: "Bay and Gulf Surge",
+        body:
+          "Corpus Christi Bay, Padre Island, Mustang Island, and coastal neighborhoods can face surge and wave impacts that differ from inland wind risk. Evacuation-zone guidance should drive decisions."
+      },
+      {
+        heading: "Barrier-Island and Road Access",
+        body:
+          "Island roads, bridges, and low coastal routes can become unsafe before peak wind. Residents should choose a destination and departure time before traffic and weather deteriorate."
+      },
+      {
+        heading: "Wind and Utility Recovery",
+        body:
+          "The Coastal Bend can experience damaging wind and long utility restoration timelines. Households should prepare water, food, cooling, medicine, communication, and generator safety plans."
+      }
+    ],
+    evacuationFocus: [
+      "Check Nueces County and city evacuation instructions for your exact location.",
+      "Leave early if you are on Padre Island, Mustang Island, or in a surge zone.",
+      "Plan fuel and inland lodging before Gulf threats become urgent.",
+      "Secure outdoor items and prepare for multi-day power and water disruption."
+    ],
+    localSearches: [
+      "Corpus Christi hurricane tracker",
+      "Corpus Christi storm surge",
+      "Nueces County evacuation hurricane",
+      "Coastal Bend hurricane alerts",
+      "Padre Island hurricane evacuation"
+    ],
+    faqs: [
+      {
+        question: "What makes Corpus Christi hurricane risk different?",
+        answer:
+          "Corpus Christi combines bay surge, Gulf exposure, barrier-island access, wind, and long inland travel distances. Those factors make early planning important."
+      },
+      {
+        question: "Should Padre Island residents leave early?",
+        answer:
+          "Residents on Padre Island, Mustang Island, or other surge-prone areas should follow local evacuation orders and leave early enough to avoid route constraints."
+      },
+      {
+        question: "What should Corpus Christi households prepare for after landfall?",
+        answer:
+          "Prepare for outages, limited fuel, water disruption, debris, heat, and communication problems, especially if power restoration takes several days."
+      }
+    ],
+    lat: 27.8006,
+    lon: -97.3964
+  },
+  {
+    slug: "charleston",
+    name: "Charleston",
+    stateCode: "SC",
+    stateName: "South Carolina",
+    region: "South Carolina Lowcountry",
+    risks: ["Lowcountry surge", "tidal flooding", "evacuation traffic", "freshwater flooding"],
+    nearbyCounties: ["Charleston", "Berkeley", "Dorchester", "Georgetown"],
+    planningNote:
+      "Charleston residents should plan around surge, tidal flooding, bridge access, and evacuation-route timing before Lowcountry roads become crowded or flooded.",
+    overview:
+      "Charleston hurricane risk is driven by the Lowcountry's tidal creeks, marshes, barrier islands, historic flood-prone streets, and evacuation routes toward inland South Carolina. A coastal hurricane or strong tropical storm can combine surge, rain, tide, and river flooding, making water the main decision driver for many neighborhoods.",
+    localHazards: [
+      {
+        heading: "Lowcountry Surge and Tide",
+        body:
+          "Charleston can flood when storm surge, astronomical tide, and heavy rainfall overlap. Downtown, barrier islands, marsh-edge communities, and low roads should watch coastal flood alerts closely."
+      },
+      {
+        heading: "Barrier Islands and Bridges",
+        body:
+          "Folly Beach, Isle of Palms, Sullivan's Island, and other coastal communities depend on routes that can become limited by wind, flooding, and official evacuation orders."
+      },
+      {
+        heading: "Evacuation Traffic",
+        body:
+          "Charleston evacuations can place pressure on I-26 and inland routes. Households with pets, medical needs, or limited transportation should decide before traffic peaks."
+      }
+    ],
+    evacuationFocus: [
+      "Check Charleston County evacuation zones and local emergency management updates.",
+      "Leave early from barrier islands, mobile homes, or surge-prone neighborhoods.",
+      "Plan around I-26 traffic, lodging, fuel, pets, and medication needs.",
+      "Move vehicles from low streets and avoid flooded roads after rainfall or tide peaks."
+    ],
+    localSearches: [
+      "Charleston hurricane tracker",
+      "Charleston storm surge",
+      "Charleston evacuation zone",
+      "Lowcountry hurricane alerts",
+      "Charleston tidal flooding"
+    ],
+    faqs: [
+      {
+        question: "Why does Charleston flood during tropical systems?",
+        answer:
+          "Charleston can flood from surge, tide, rainfall, rivers, and drainage limits. These water hazards can overlap even when wind is not the only threat."
+      },
+      {
+        question: "When should Charleston barrier-island residents evacuate?",
+        answer:
+          "Barrier-island residents should follow official county orders and leave early because bridges and coastal routes can become unsafe before peak storm conditions."
+      },
+      {
+        question: "Is downtown Charleston hurricane risk mostly wind or water?",
+        answer:
+          "Water is often the primary concern downtown because tidal flooding, surge, and heavy rain can combine. Wind and outages still matter."
+      }
+    ],
+    lat: 32.7765,
+    lon: -79.9311
+  },
+  {
+    slug: "wilmington",
+    name: "Wilmington",
+    stateCode: "NC",
+    stateName: "North Carolina",
+    region: "Southeast North Carolina coast",
+    risks: ["Cape Fear flooding", "coastal surge", "island access", "inland rainfall"],
+    nearbyCounties: ["New Hanover", "Brunswick", "Pender"],
+    planningNote:
+      "Wilmington residents should monitor Cape Fear River flooding, coastal surge, island access, and inland rainfall because hazards can continue after landfall.",
+    overview:
+      "Wilmington hurricane risk includes Atlantic surge near beaches, Cape Fear River flooding, heavy inland rainfall, tree damage, and access issues for barrier communities. Storms like Florence showed that southeast North Carolina can face days of flooding after landfall, so preparedness must extend beyond the first wind forecast.",
+    localHazards: [
+      {
+        heading: "Cape Fear River and Rainfall",
+        body:
+          "Heavy rain upstream can keep flooding risk high after the storm center moves away. Wilmington residents should monitor river forecasts and road closures during and after tropical systems."
+      },
+      {
+        heading: "Beaches and Barrier Access",
+        body:
+          "Wrightsville Beach, Carolina Beach, Kure Beach, and nearby coastal areas can face surge, overwash, and bridge or road constraints. Evacuation timing should follow local orders."
+      },
+      {
+        heading: "Tree Damage and Outages",
+        body:
+          "Saturated soil and tropical wind can bring down trees across New Hanover and surrounding counties. Prepare for blocked roads, outages, and communication disruption."
+      }
+    ],
+    evacuationFocus: [
+      "Check New Hanover County evacuation guidance and beach community orders.",
+      "Plan for flooding that may continue after landfall.",
+      "Choose routes that avoid flood-prone roads and low bridges.",
+      "Prepare for outages, trees, medication, pets, and delayed return."
+    ],
+    localSearches: [
+      "Wilmington NC hurricane tracker",
+      "Wilmington hurricane flooding",
+      "New Hanover evacuation zone",
+      "Wrightsville Beach hurricane alerts",
+      "Cape Fear River hurricane flooding"
+    ],
+    faqs: [
+      {
+        question: "Why can Wilmington flood after a hurricane has passed?",
+        answer:
+          "Rainfall upstream can drain into rivers and low areas after landfall, keeping road and river flooding dangerous even when wind is decreasing."
+      },
+      {
+        question: "Do Wilmington beach areas have different evacuation needs?",
+        answer:
+          "Yes. Beach and barrier communities can face surge, overwash, bridge constraints, and earlier evacuation orders than some inland neighborhoods."
+      },
+      {
+        question: "What should Wilmington residents monitor besides the cone?",
+        answer:
+          "Monitor NWS flood alerts, river forecasts, local evacuation orders, road closures, and county emergency management updates."
+      }
+    ],
+    lat: 34.2104,
+    lon: -77.8868
+  },
+  {
+    slug: "savannah",
+    name: "Savannah",
+    stateCode: "GA",
+    stateName: "Georgia",
+    region: "Georgia coast and Savannah River",
+    risks: ["coastal surge", "river flooding", "barrier-island access", "tree damage"],
+    nearbyCounties: ["Chatham", "Bryan", "Effingham", "Glynn"],
+    planningNote:
+      "Savannah residents should connect Chatham County evacuation zones, Savannah River flooding, barrier-island access, and tree-related outages before a storm approaches.",
+    overview:
+      "Savannah hurricane risk comes from Atlantic surge, the Savannah River, tidal marshes, barrier islands, low-lying roads, and a tree canopy that can amplify outage problems. Storms tracking up the Southeast coast can bring water, wind, tornado warnings, and inland flooding even if landfall occurs in Florida or the Carolinas.",
+    localHazards: [
+      {
+        heading: "Coastal Surge and Marsh Flooding",
+        body:
+          "Chatham County's marshes, creeks, and low-lying roads can flood from surge and tide. Tybee Island and coastal communities should follow official evacuation guidance early."
+      },
+      {
+        heading: "Savannah River and Rain",
+        body:
+          "Heavy tropical rainfall can create river and drainage flooding around Savannah and nearby counties. Flood impacts may continue after the storm center passes."
+      },
+      {
+        heading: "Trees and Outages",
+        body:
+          "Wind and saturated soil can bring down trees and power lines. Households should prepare for blocked roads, outages, communication issues, and generator safety."
+      }
+    ],
+    evacuationFocus: [
+      "Check Chatham County evacuation zone information for your exact address.",
+      "Leave early from Tybee Island, coastal zones, mobile homes, or flood-prone areas.",
+      "Plan around I-16 evacuation traffic, pets, fuel, and lodging.",
+      "Move vehicles away from trees and low streets when local officials advise."
+    ],
+    localSearches: [
+      "Savannah hurricane tracker",
+      "Savannah evacuation zone",
+      "Chatham County hurricane alerts",
+      "Tybee Island hurricane evacuation",
+      "Savannah storm surge"
+    ],
+    faqs: [
+      {
+        question: "Is Savannah vulnerable to storm surge?",
+        answer:
+          "Yes. Savannah, Tybee Island, and nearby marsh communities can face surge and tidal flooding during coastal tropical systems."
+      },
+      {
+        question: "Why does I-16 matter for Savannah hurricane evacuation?",
+        answer:
+          "I-16 is a major inland evacuation route from the Georgia coast. Traffic and lane-control decisions can affect when residents should leave."
+      },
+      {
+        question: "Can Savannah have hurricane impacts without a direct hit?",
+        answer:
+          "Yes. Storms passing near Florida or the Carolinas can still bring surge, rain, tornado warnings, tree damage, and outages to the Savannah area."
+      }
+    ],
+    lat: 32.0809,
+    lon: -81.0912
+  },
+  {
+    slug: "mobile",
+    name: "Mobile",
+    stateCode: "AL",
+    stateName: "Alabama",
+    region: "Mobile Bay and Alabama Gulf Coast",
+    risks: ["Mobile Bay surge", "flash flooding", "tornadoes", "power outages"],
+    nearbyCounties: ["Mobile", "Baldwin", "Washington"],
+    planningNote:
+      "Mobile residents should watch Mobile Bay surge, rainfall flooding, tornado warnings, and extended outages together because hazards can peak at different times.",
+    overview:
+      "Mobile hurricane risk is shaped by Mobile Bay, nearby barrier communities, heavy Gulf rainfall, tornado-producing rain bands, and a tree canopy that can drive outages. Storms approaching from the central Gulf can push water into the bay while bringing flooding and wind impacts inland across Mobile and Baldwin counties.",
+    localHazards: [
+      {
+        heading: "Mobile Bay Surge",
+        body:
+          "The shape of Mobile Bay can concentrate water when Gulf winds push surge northward. Coastal and bayfront neighborhoods should follow evacuation-zone guidance and coastal flood alerts."
+      },
+      {
+        heading: "Rainfall and Tornado Bands",
+        body:
+          "Hurricanes and tropical storms can produce flash flooding and tornado warnings in outer bands. Residents should have wireless alerts enabled and know where to shelter away from windows."
+      },
+      {
+        heading: "Outages and Heat",
+        body:
+          "Power outages after Gulf storms can last beyond the wind event. Mobile households should prepare for charging, cooling, food safety, medical equipment, and generator safety."
+      }
+    ],
+    evacuationFocus: [
+      "Check Mobile County and Baldwin County evacuation guidance for your address.",
+      "Leave early from surge zones, mobile homes, and low-lying roads.",
+      "Prepare a tornado shelter spot inside your home or destination.",
+      "Plan for power outages, heat, medicine, pets, and safe generator placement."
+    ],
+    localSearches: [
+      "Mobile Alabama hurricane tracker",
+      "Mobile Bay storm surge",
+      "Mobile County hurricane alerts",
+      "Alabama Gulf Coast evacuation",
+      "Mobile hurricane power outage"
+    ],
+    faqs: [
+      {
+        question: "Why is Mobile Bay storm surge important?",
+        answer:
+          "Mobile Bay can funnel water northward during Gulf hurricanes, raising surge risk for bayfront and low-lying communities."
+      },
+      {
+        question: "Can Mobile get tornado warnings during hurricanes?",
+        answer:
+          "Yes. Tropical rain bands can produce quick tornado warnings, especially to the right side of a storm track. Have alerts enabled and a shelter spot ready."
+      },
+      {
+        question: "Should Mobile residents prepare for outages?",
+        answer:
+          "Yes. Wind, trees, flooding, and utility damage can create multi-day outages, so plan for heat, charging, food, water, medicine, and generator safety."
+      }
+    ],
+    lat: 30.6954,
+    lon: -88.0399
+  },
+  {
+    slug: "biloxi",
+    name: "Biloxi",
+    stateCode: "MS",
+    stateName: "Mississippi",
+    region: "Mississippi Gulf Coast",
+    risks: ["Gulf surge", "low-lying roads", "casino and waterfront exposure", "extended outages"],
+    nearbyCounties: ["Harrison", "Jackson", "Hancock"],
+    planningNote:
+      "Biloxi residents should prepare for Gulf surge, low-lying coastal roads, mobile-home vulnerability, and extended outages before central Gulf storms intensify.",
+    overview:
+      "Biloxi hurricane risk is defined by the Mississippi Gulf Coast's low elevation, open Gulf exposure, bays, casinos and waterfront infrastructure, and limited high-ground options near the shoreline. Historic storms such as Camille and Katrina show that storm surge can be the dominant hazard even when wind receives more attention.",
+    localHazards: [
+      {
+        heading: "Gulf Surge and Low Elevation",
+        body:
+          "Biloxi and nearby coastal communities can face severe surge and coastal flooding. Residents should follow Harrison County evacuation guidance and avoid judging safety by wind category alone."
+      },
+      {
+        heading: "Waterfront and Road Exposure",
+        body:
+          "Beach Boulevard, low roads, marinas, casino areas, and bayfront neighborhoods can become dangerous before peak wind. Vehicle movement and evacuation timing should happen early."
+      },
+      {
+        heading: "Outages and Reentry",
+        body:
+          "Storms on the Mississippi coast can disrupt power, water, debris removal, fuel, and reentry. Households should prepare for several days of self-sufficiency."
+      }
+    ],
+    evacuationFocus: [
+      "Check Harrison County evacuation instructions and local shelter information.",
+      "Leave early from surge zones, mobile homes, and low-lying coastal roads.",
+      "Move vehicles away from waterfront and flood-prone areas when officials advise.",
+      "Pack documents, prescriptions, chargers, cash, pet supplies, and recovery records."
+    ],
+    localSearches: [
+      "Biloxi hurricane tracker",
+      "Biloxi storm surge",
+      "Harrison County hurricane evacuation",
+      "Mississippi Gulf Coast hurricane alerts",
+      "Biloxi hurricane recovery"
+    ],
+    faqs: [
+      {
+        question: "Why is storm surge the main Biloxi hurricane concern?",
+        answer:
+          "Biloxi sits on a low Gulf-facing coast where hurricane-driven water can move across roads and waterfront areas. Surge can become life-threatening before or during landfall."
+      },
+      {
+        question: "Should Biloxi mobile-home residents evacuate early?",
+        answer:
+          "Yes. Mobile homes are vulnerable to wind and flooding. Residents should follow local evacuation guidance and leave early when advised."
+      },
+      {
+        question: "What should Biloxi residents prepare for after a hurricane?",
+        answer:
+          "Prepare for power and water disruption, debris, limited fuel, reentry delays, insurance documentation, and cleanup safety."
+      }
+    ],
+    lat: 30.396,
+    lon: -88.8853
   }
 ];
 
