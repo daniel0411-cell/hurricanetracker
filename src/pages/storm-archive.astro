@@ -1,8 +1,9 @@
 ---
 import FaqBlock from "../components/FaqBlock.astro";
 import Layout from "../layouts/Layout.astro";
+import { stormTrackerPages } from "../data/stormPages";
 import { faqs, site } from "../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
+import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
 import type { NhcStorm } from "../lib/weather";
 
 type StormFeed = {
@@ -37,6 +38,11 @@ const pageFaqs = [
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
+  itemListSchema(stormTrackerPages.map((storm) => ({
+    name: `Hurricane ${storm.name} Tracker`,
+    description: storm.searchDemandNote,
+    url: `${site.url}/hurricane-tracker/storm/${storm.slug}/`
+  }))),
   faqSchema(pageFaqs)
 );
 ---
@@ -88,6 +94,46 @@ const jsonLd = graph(
         <p>For current decisions, pair the tracker with state NWS alerts, radar, and local emergency instructions.</p>
         <p><a class="action-link" href="/tracker/">Open live tracker</a></p>
       </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="archive-workflow">
+    <div class="inner">
+      <p class="eyebrow">Archive to action</p>
+      <h2 id="archive-workflow">How to Use Storm History During an Active Season</h2>
+      <div class="grid-3 section-grid">
+        <article class="panel">
+          <h3>Start With the Current Feed</h3>
+          <p>Check whether NHC is listing an active tropical cyclone now, then open the public advisory for the official position, intensity, and warning context.</p>
+          <a href="/hurricane-tracker/live/">Open live tracker map</a>
+        </article>
+        <article class="panel">
+          <h3>Use Named Storm Pages</h3>
+          <p>Storm-name pages help searchers confirm whether Erin, Melissa, or another named storm is active and where to find current advisory links.</p>
+          <a href="/hurricane-tracker/storm/">Browse named storm trackers</a>
+        </article>
+        <article class="panel">
+          <h3>Move From History to Local Risk</h3>
+          <p>Historical comparisons can explain context, but local NWS alerts, city trackers, and evacuation-zone instructions control real household decisions.</p>
+          <a href="/hurricane-tracker/city/">Browse city hurricane trackers</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="archive-names">
+    <div class="inner">
+      <p class="eyebrow">Storm-name shortcuts</p>
+      <h2 id="archive-names">Named Hurricane Tracker Pages</h2>
+      <div class="grid-2 section-grid">
+        {stormTrackerPages.map((storm) => (
+          <article class="panel">
+            <p class="eyebrow">{storm.basin}</p>
+            <h3><a href={`/hurricane-tracker/storm/${storm.slug}/`}>Hurricane {storm.name} Tracker</a></h3>
+            <p>{storm.searchDemandNote}</p>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 

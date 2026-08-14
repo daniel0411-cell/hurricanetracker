@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import FaqBlock from "../components/FaqBlock.astro";
 import { site } from "../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
+import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../lib/schema";
 import {
   BENCHMARK_STORMS,
   categoryLabel,
@@ -45,6 +45,17 @@ const jsonLd = graph(
     description,
     url: canonical,
     dateModified: site.contentLastModified
+  }),
+  webApplicationSchema({
+    name: "Hurricane Comparison Tool",
+    description,
+    url: canonical,
+    featureList: [
+      "Historical hurricane track comparison",
+      "Active NHC storm marker",
+      "Latitude-based intensity comparison",
+      "Saffir-Simpson category reference"
+    ]
   }),
   faqSchema(pageFaqs)
 );
@@ -107,6 +118,31 @@ const jsonLd = graph(
     <section class="compare-insight" aria-label="Latitude insight" id="insight-panel" hidden>
       <h2>Intensity at the same latitude</h2>
       <div id="insight-body" class="insight-body"></div>
+    </section>
+
+    <section class="compare-seo-path" aria-labelledby="compare-path-heading">
+      <div>
+        <p class="eyebrow">Comparison workflow</p>
+        <h2 id="compare-path-heading">Use Historical Storms as Context, Then Check Live Risk</h2>
+        <p>Historical hurricanes help explain track shape, intensity, pressure, and landfall impact, but today's risk still depends on the current NHC forecast, NWS warnings, storm surge zones, rainfall, and local emergency instructions.</p>
+      </div>
+      <div class="compare-path-grid">
+        <article>
+          <h3>Read the Live Storm First</h3>
+          <p>Open the live tracker for current NHC storm status, advisory timing, and map context before comparing with a past storm.</p>
+          <a href="/hurricane-tracker/live/">Open live hurricane tracker</a>
+        </article>
+        <article>
+          <h3>Compare Hazards, Not Only Category</h3>
+          <p>Use the learning center for cone, category, surge, radar, and satellite explainers that make comparisons more useful.</p>
+          <a href="/learn/">Open hurricane learning center</a>
+        </article>
+        <article>
+          <h3>Move to Local Action</h3>
+          <p>After comparing storms, check city trackers and household tools for alert language, surge exposure, outage planning, and evacuation decisions.</p>
+          <a href="/tools/">Browse hurricane tools</a>
+        </article>
+      </div>
     </section>
 
     <section class="compare-scale" aria-label="Saffir-Simpson scale">
@@ -528,6 +564,29 @@ document.addEventListener("DOMContentLoaded", () => {
     line-height: 1.6;
     margin-bottom: 30px;
   }
+  .compare-seo-path {
+    margin: 30px 0;
+    padding: 24px;
+    border: 1px solid var(--border, #d1d5db);
+    border-radius: 12px;
+    background: var(--surface, #fff);
+  }
+  .compare-seo-path h2 {
+    margin: 0 0 12px;
+  }
+  .compare-path-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 18px;
+  }
+  .compare-path-grid article {
+    padding-top: 16px;
+    border-top: 1px solid var(--border, #d1d5db);
+  }
+  .compare-path-grid h3 {
+    margin: 0 0 8px;
+  }
   .scale-list {
     display: flex;
     flex-wrap: wrap;
@@ -553,6 +612,7 @@ document.addEventListener("DOMContentLoaded", () => {
     #compare-map { height: 380px; }
     .metric-row, .metric-landfall { grid-template-columns: 1fr; gap: 2px; }
     .metric-label { font-weight: 600; }
+    .compare-path-grid { grid-template-columns: 1fr; }
   }
 </style>
 </Layout>
