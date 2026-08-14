@@ -20,7 +20,7 @@ if (!city) {
 }
 
 const title = `${city.name} Hurricane Tracker and Local Risk Guide`;
-const description = `Track ${city.name} hurricane risk with state NWS alerts, NHC storm context, evacuation planning notes, and emergency decision tools.`;
+const description = `Track ${city.name} hurricane risk with local NWS alerts, NHC storm context, storm surge, flooding, evacuation planning, and household decision tools.`;
 const url = `${site.url}/hurricane-tracker/city/${city.slug}/`;
 const lastModified = site.contentLastModified;
 const pageFaqs = [
@@ -32,6 +32,7 @@ const pageFaqs = [
     question: `What should ${city.name} residents check first during a hurricane threat?`,
     answer: `Check your exact evacuation zone, active NWS alerts for ${city.stateName}, current NHC advisory context, and whether your household needs extra time for medical, mobility, pet, or transportation needs.`
   },
+  ...city.faqs,
   ...faqs
 ];
 const jsonLd = graph(
@@ -46,6 +47,7 @@ const jsonLd = graph(
       <p class="eyebrow">{city.region}</p>
       <h1 id="city-title">{city.name} Hurricane Tracker and Local Risk Guide</h1>
       <p class="answer">This page helps {city.name} residents connect state NWS alerts, NHC storm context, evacuation-zone checks, and household planning tools before wind, surge, flooding, or road constraints reduce options.</p>
+      <p class="answer">{city.overview}</p>
     </div>
   </section>
 
@@ -70,6 +72,21 @@ const jsonLd = graph(
     </div>
   </section>
 
+  <section class="band" aria-labelledby="city-hazards">
+    <div class="inner">
+      <p class="eyebrow">Local hurricane risk</p>
+      <h2 id="city-hazards">{city.name} Hurricane Hazards to Watch</h2>
+      <div class="grid-3 section-grid">
+        {city.localHazards.map((hazard) => (
+          <article class="panel">
+            <h3>{hazard.heading}</h3>
+            <p>{hazard.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="band" aria-labelledby="city-counties">
     <div class="inner grid-2">
       <article>
@@ -83,6 +100,24 @@ const jsonLd = graph(
         <h2>Decision Reminder</h2>
         <p>HurricaneHub can screen state-level alerts and storm context. It cannot determine your exact evacuation zone, shelter eligibility, bridge closure, or road safety.</p>
         <p><a class="action-link" href="/tools/alert-action-decoder/">Decode an official alert</a></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="city-evacuation">
+    <div class="inner grid-2">
+      <article class="panel">
+        <h2 id="city-evacuation">{city.name} Evacuation and Action Checklist</h2>
+        <ul class="check-list">
+          {city.evacuationFocus.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+      <article>
+        <h2>Common Local Searches</h2>
+        <p>These are the practical questions this page is built to answer during hurricane season.</p>
+        <ul class="check-list">
+          {city.localSearches.map((query) => <li>{query}</li>)}
+        </ul>
       </article>
     </div>
   </section>
