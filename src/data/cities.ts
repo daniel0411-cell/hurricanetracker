@@ -1212,6 +1212,393 @@ export const hurricaneCities: HurricaneCity[] = [
     ],
     lat: 30.396,
     lon: -88.8853
+  },
+  {
+    slug: "fort-lauderdale",
+    name: "Fort Lauderdale",
+    stateCode: "FL",
+    stateName: "Florida",
+    region: "Broward County Atlantic coast",
+    risks: ["storm surge", "canal flooding", "high-rise wind", "evacuation traffic"],
+    nearbyCounties: ["Broward", "Miami-Dade", "Palm Beach"],
+    planningNote:
+      "Fort Lauderdale residents should match Broward evacuation zones with canal, beach, high-rise, and mobile-home risk before Atlantic storms approach.",
+    overview:
+      "Fort Lauderdale hurricane risk combines Atlantic beach exposure, Intracoastal and canal flooding, high-rise wind, dense evacuation traffic, and power outages across Broward County. A storm tracking near South Florida can create dangerous water and wind conditions even when the center passes north or south of the city.",
+    localHazards: [
+      { heading: "Beach and Canal Flooding", body: "Storm surge, heavy rain, high tide, and canal drainage can combine around Fort Lauderdale beach, Las Olas Isles, and low-lying neighborhoods." },
+      { heading: "High-Rise Wind", body: "Condo and apartment residents should prepare for elevator outages, glass risk, garage flooding, and building-specific instructions." },
+      { heading: "Traffic and Shelter Timing", body: "Broward evacuation decisions should be made early for surge zones, mobile homes, pets, medical needs, and households without reliable transportation." }
+    ],
+    evacuationFocus: [
+      "Check Broward County evacuation zone guidance for your address.",
+      "Move vehicles away from flood-prone garages and low streets when advised.",
+      "Prepare for elevator outages, stair access, documents, medicine, and chargers.",
+      "Use local orders and NWS alerts rather than storm category alone."
+    ],
+    localSearches: [
+      "Fort Lauderdale hurricane tracker",
+      "Broward County evacuation zone",
+      "Fort Lauderdale storm surge",
+      "Fort Lauderdale hurricane alerts",
+      "Fort Lauderdale canal flooding hurricane"
+    ],
+    faqs: [
+      { question: "Is Fort Lauderdale vulnerable to storm surge?", answer: "Yes. Beach, Intracoastal, canal, and low-lying neighborhoods can face surge and flooding depending on track, tide, and rainfall." },
+      { question: "Should Fort Lauderdale condo residents prepare differently?", answer: "Yes. High-rise residents should plan for elevators, garages, windows, stair access, water pressure, and power outages." },
+      { question: "What should Broward residents check first?", answer: "Check Broward evacuation zone guidance, NWS alerts, local emergency management updates, and whether your household needs extra travel time." }
+    ],
+    officialResources: [
+      { name: "Broward Emergency Management", description: "Official Broward County emergency alerts, evacuation, shelter, and hurricane preparedness information.", url: "https://www.broward.org/Hurricane/" },
+      { name: "NWS Miami-South Florida", description: "Official National Weather Service alerts and forecasts for Fort Lauderdale and South Florida.", url: "https://www.weather.gov/mfl/" },
+      { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
+    ],
+    lat: 26.1224,
+    lon: -80.1373
+  },
+  {
+    slug: "west-palm-beach",
+    name: "West Palm Beach",
+    stateCode: "FL",
+    stateName: "Florida",
+    region: "Palm Beach County Atlantic coast",
+    risks: ["coastal surge", "Lake Okeechobee rainfall context", "tornado bands", "outages"],
+    nearbyCounties: ["Palm Beach", "Martin", "Broward"],
+    planningNote:
+      "West Palm Beach residents should monitor Atlantic surge, Palm Beach County evacuation zones, tornado bands, rainfall, and outage risk before a storm nears the coast.",
+    overview:
+      "West Palm Beach hurricane risk includes Atlantic surge along barrier communities, heavy rainfall, tornado-producing rain bands, and long power outages across Palm Beach County. Storms approaching from the Bahamas or recurving along Florida's east coast can shift risk quickly across coastal and inland neighborhoods.",
+    localHazards: [
+      { heading: "Atlantic Surge and Barrier Communities", body: "Palm Beach, Singer Island, and low coastal areas should watch evacuation zones and surge alerts separately from wind category." },
+      { heading: "Rain Bands and Tornadoes", body: "Outer bands can produce short-fuse tornado warnings and heavy rain before or after the closest approach." },
+      { heading: "Outages and Medical Needs", body: "Palm Beach County households with refrigerated medicine, oxygen, or mobility needs should plan power and transportation early." }
+    ],
+    evacuationFocus: [
+      "Check Palm Beach County evacuation zone and shelter guidance.",
+      "Prepare for tornado warnings with an interior shelter location.",
+      "Pack documents, prescriptions, chargers, pet supplies, and cash.",
+      "Move vehicles away from low streets and trees when local guidance supports it."
+    ],
+    localSearches: [
+      "West Palm Beach hurricane tracker",
+      "Palm Beach County evacuation zone",
+      "West Palm Beach storm surge",
+      "Palm Beach hurricane alerts",
+      "West Palm Beach hurricane outage"
+    ],
+    faqs: [
+      { question: "Does West Palm Beach face storm surge?", answer: "Yes. Coastal and barrier-island areas can face surge, while inland neighborhoods may face flooding, tornadoes, and outages." },
+      { question: "Are tornado warnings common during Palm Beach hurricane threats?", answer: "They can occur in tropical rain bands, so residents should keep alerts enabled and know an interior shelter spot." },
+      { question: "What should West Palm Beach residents check first?", answer: "Check Palm Beach County evacuation zones, NWS alerts, NHC advisories, and household power or medical needs." }
+    ],
+    officialResources: [
+      { name: "Palm Beach County Emergency Management", description: "Official Palm Beach County evacuation, alerts, shelter, and hurricane preparedness information.", url: "https://discover.pbcgov.org/publicsafety/dem/Pages/default.aspx" },
+      { name: "NWS Miami-South Florida", description: "Official National Weather Service alerts and forecasts for Palm Beach County.", url: "https://www.weather.gov/mfl/" },
+      { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
+    ],
+    lat: 26.7153,
+    lon: -80.0534
+  },
+  {
+    slug: "lake-charles",
+    name: "Lake Charles",
+    stateCode: "LA",
+    stateName: "Louisiana",
+    region: "Southwest Louisiana Gulf Coast",
+    risks: ["Calcasieu surge", "industrial corridor outages", "rapid intensification", "inland flooding"],
+    nearbyCounties: ["Calcasieu", "Cameron", "Beauregard"],
+    planningNote:
+      "Lake Charles households should plan early for Gulf surge, Calcasieu water impacts, industrial corridor outages, and rapid intensification near the Louisiana coast.",
+    overview:
+      "Lake Charles hurricane risk is shaped by the southwest Louisiana coast, Calcasieu Lake, nearby Cameron Parish, industrial infrastructure, and a history of intense Gulf landfalls. Storms can intensify late and bring surge, wind, flooding, and long recovery challenges.",
+    localHazards: [
+      { heading: "Calcasieu and Cameron Surge", body: "Surge can move through coastal waterways and low-lying routes before the strongest winds arrive." },
+      { heading: "Wind and Industrial Outages", body: "Strong winds can damage homes, utilities, refineries, and industrial facilities, extending recovery timelines." },
+      { heading: "Late Strengthening", body: "Warm Gulf water can allow storms to intensify close to landfall, so households should not wait for perfect forecast certainty." }
+    ],
+    evacuationFocus: [
+      "Follow Calcasieu and Cameron parish evacuation guidance.",
+      "Leave early from surge zones, mobile homes, and low-lying communities.",
+      "Plan fuel, lodging, pets, medicine, and documents before traffic builds.",
+      "Prepare for long outages and delayed return after major landfalls."
+    ],
+    localSearches: [
+      "Lake Charles hurricane tracker",
+      "Lake Charles storm surge",
+      "Calcasieu Parish hurricane evacuation",
+      "Lake Charles hurricane alerts",
+      "Southwest Louisiana hurricane tracker"
+    ],
+    faqs: [
+      { question: "Why is Lake Charles vulnerable to rapid hurricane changes?", answer: "Storms approaching southwest Louisiana can intensify over warm Gulf water, reducing decision time before landfall." },
+      { question: "Should Lake Charles residents evacuate for surge risk?", answer: "Residents in official surge zones, mobile homes, or low-lying areas should follow parish orders and leave early when advised." },
+      { question: "What should Lake Charles households prepare for after landfall?", answer: "Prepare for outages, fuel limits, debris, industrial disruptions, road closures, and delayed reentry." }
+    ],
+    officialResources: [
+      { name: "Calcasieu Parish Emergency Preparedness", description: "Official Calcasieu Parish emergency alerts, evacuation, and preparedness information.", url: "https://www.calcasieu.gov/services/emergency-preparedness" },
+      { name: "NWS Lake Charles", description: "Official National Weather Service alerts and forecasts for southwest Louisiana.", url: "https://www.weather.gov/lch/" },
+      { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
+    ],
+    lat: 30.2266,
+    lon: -93.2174
+  },
+  {
+    slug: "outer-banks",
+    name: "Outer Banks",
+    stateCode: "NC",
+    stateName: "North Carolina",
+    region: "North Carolina barrier islands",
+    risks: ["island access", "sound-side flooding", "ocean overwash", "evacuation timing"],
+    nearbyCounties: ["Dare", "Hyde", "Currituck"],
+    planningNote:
+      "Outer Banks residents and visitors should decide early because ferry, bridge, NC-12, overwash, and sound-side flooding can limit safe travel before peak conditions.",
+    overview:
+      "The Outer Banks face a distinct hurricane risk because narrow barrier islands can be cut by ocean overwash, sound-side flooding, bridge restrictions, and ferry disruptions. Visitors and residents often receive different evacuation timing, so official Dare, Hyde, and Currituck guidance matters.",
+    localHazards: [
+      { heading: "NC-12 and Bridge Access", body: "Overwash, sand, standing water, and wind can close key routes before and after a storm." },
+      { heading: "Sound-Side Flooding", body: "Wind direction can push water across the sounds even after ocean conditions change." },
+      { heading: "Visitor Evacuation Timing", body: "Visitors may be told to leave earlier to reduce road pressure and preserve local resources." }
+    ],
+    evacuationFocus: [
+      "Follow Dare, Hyde, or Currituck evacuation instructions for residents and visitors.",
+      "Do not wait for visible severe weather before leaving barrier islands.",
+      "Plan fuel, lodging, pets, medication, ferry or bridge access, and reentry delays.",
+      "Monitor both ocean overwash and sound-side flooding alerts."
+    ],
+    localSearches: [
+      "Outer Banks hurricane tracker",
+      "Outer Banks evacuation",
+      "Dare County hurricane alerts",
+      "NC 12 hurricane overwash",
+      "Outer Banks sound-side flooding"
+    ],
+    faqs: [
+      { question: "Why do Outer Banks evacuations start early?", answer: "Barrier-island routes, bridges, ferries, and NC-12 can become limited by overwash, flooding, wind, and traffic before peak conditions." },
+      { question: "Is sound-side flooding dangerous on the Outer Banks?", answer: "Yes. Wind can push water into the sounds and flood areas that may not face the highest ocean surge." },
+      { question: "Should visitors watch different instructions?", answer: "Yes. Visitor evacuation orders may come earlier than resident orders, so check county guidance directly." }
+    ],
+    officialResources: [
+      { name: "Dare County Emergency Management", description: "Official Outer Banks evacuation, alerts, and emergency management information for Dare County.", url: "https://www.darenc.gov/departments/emergency-management" },
+      { name: "NWS Newport/Morehead City", description: "Official National Weather Service alerts and forecasts for the Outer Banks.", url: "https://www.weather.gov/mhx/" },
+      { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
+    ],
+    lat: 35.5585,
+    lon: -75.4665
+  },
+  {
+    slug: "myrtle-beach",
+    name: "Myrtle Beach",
+    stateCode: "SC",
+    stateName: "South Carolina",
+    region: "Grand Strand and Horry County coast",
+    risks: ["coastal surge", "tourist evacuation", "river flooding", "power outages"],
+    nearbyCounties: ["Horry", "Georgetown", "Brunswick"],
+    planningNote:
+      "Myrtle Beach households and visitors should watch Horry County evacuation zones, coastal surge, river flooding, and hotel or rental travel timing together.",
+    overview:
+      "Myrtle Beach hurricane risk includes Grand Strand surge, beach erosion, tourist evacuation pressure, inland river flooding, and power outages across Horry County. Visitors may not know local zones, so clear official guidance matters during every tropical threat.",
+    localHazards: [
+      { heading: "Grand Strand Surge", body: "Oceanfront, low-lying, and marsh-adjacent areas can face surge, erosion, and road flooding." },
+      { heading: "Tourist Evacuation Pressure", body: "Hotels, rentals, traffic, fuel, and unfamiliar routes can complicate evacuation decisions for visitors." },
+      { heading: "River Flooding After Landfall", body: "Flooding can continue after a storm moves inland as rainfall drains through regional rivers." }
+    ],
+    evacuationFocus: [
+      "Check Horry County evacuation zones and South Carolina emergency guidance.",
+      "Visitors should confirm hotel, rental, and route instructions early.",
+      "Plan around coastal routes, fuel, pets, medicine, and lodging.",
+      "Do not return until local officials say roads and utilities are safe."
+    ],
+    localSearches: [
+      "Myrtle Beach hurricane tracker",
+      "Myrtle Beach evacuation zone",
+      "Horry County hurricane alerts",
+      "Grand Strand storm surge",
+      "Myrtle Beach hurricane evacuation"
+    ],
+    faqs: [
+      { question: "Do Myrtle Beach visitors need to follow evacuation orders?", answer: "Yes. Visitors should follow official Horry County and South Carolina guidance and leave early when visitor evacuation is ordered." },
+      { question: "Can Myrtle Beach flood after a hurricane passes?", answer: "Yes. River and rainfall flooding can continue after landfall, especially when water drains through the region." },
+      { question: "What should Myrtle Beach residents check first?", answer: "Check evacuation zones, NWS alerts, hotel or rental guidance if applicable, and county emergency management updates." }
+    ],
+    officialResources: [
+      { name: "Horry County Emergency Management", description: "Official Horry County emergency alerts, evacuation, and hurricane preparedness information.", url: "https://www.horrycountysc.gov/departments/emergency-management/" },
+      { name: "NWS Wilmington NC", description: "Official National Weather Service alerts and forecasts for the Grand Strand.", url: "https://www.weather.gov/ilm/" },
+      { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
+    ],
+    lat: 33.6891,
+    lon: -78.8867
+  },
+  {
+    slug: "brunswick",
+    name: "Brunswick",
+    stateCode: "GA",
+    stateName: "Georgia",
+    region: "Georgia Golden Isles",
+    risks: ["coastal surge", "marsh flooding", "island access", "tree damage"],
+    nearbyCounties: ["Glynn", "Camden", "McIntosh"],
+    planningNote:
+      "Brunswick and Golden Isles residents should monitor Glynn County evacuation zones, marsh flooding, island access, and tree-related outage risk before coastal storms arrive.",
+    overview:
+      "Brunswick hurricane risk is shaped by the Golden Isles, tidal marshes, low-lying roads, causeways, and tree damage across Glynn County. Storms tracking near Florida or the Southeast coast can bring surge, rain, tornado warnings, and long outages.",
+    localHazards: [
+      { heading: "Golden Isles Access", body: "St. Simons, Sea Island, Jekyll Island, and nearby communities rely on routes that can be limited by flooding, wind, and official orders." },
+      { heading: "Marsh and Tidal Flooding", body: "Tidal creeks and marshes can flood roads and neighborhoods when surge, tide, and rainfall overlap." },
+      { heading: "Trees and Utility Damage", body: "Wind and saturated soil can bring down trees and lines across coastal Georgia." }
+    ],
+    evacuationFocus: [
+      "Check Glynn County evacuation and reentry guidance.",
+      "Leave early from barrier islands, mobile homes, and surge-prone areas.",
+      "Plan around causeways, fuel, lodging, pets, medicine, and documents.",
+      "Prepare for outages, debris, road closures, and delayed return."
+    ],
+    localSearches: [
+      "Brunswick GA hurricane tracker",
+      "Glynn County hurricane evacuation",
+      "Golden Isles storm surge",
+      "Brunswick hurricane alerts",
+      "St Simons hurricane evacuation"
+    ],
+    faqs: [
+      { question: "Is Brunswick vulnerable to storm surge?", answer: "Yes. Brunswick, marsh communities, and the Golden Isles can face surge and tidal flooding during coastal tropical systems." },
+      { question: "Why do causeways matter for Brunswick evacuations?", answer: "Barrier-island and coastal routes can be affected by flooding, wind, traffic, and official restrictions." },
+      { question: "Can Brunswick have impacts without a direct landfall?", answer: "Yes. Nearby tracks can still bring surge, rain, tornado warnings, tree damage, and outages." }
+    ],
+    officialResources: [
+      { name: "Glynn County Emergency Management", description: "Official Glynn County emergency alerts, evacuation, and preparedness information.", url: "https://glynncounty.org/557/Emergency-Management" },
+      { name: "NWS Jacksonville", description: "Official National Weather Service alerts and forecasts for coastal Georgia.", url: "https://www.weather.gov/jax/" },
+      { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
+    ],
+    lat: 31.1499,
+    lon: -81.4915
+  },
+  {
+    slug: "gulf-shores",
+    name: "Gulf Shores",
+    stateCode: "AL",
+    stateName: "Alabama",
+    region: "Alabama beach communities",
+    risks: ["beach surge", "tourist evacuation", "bridge access", "tornado bands"],
+    nearbyCounties: ["Baldwin", "Mobile", "Escambia"],
+    planningNote:
+      "Gulf Shores residents and visitors should watch Baldwin County evacuation guidance, beach surge, bridge access, tornado bands, and post-storm reentry rules.",
+    overview:
+      "Gulf Shores hurricane risk includes direct Gulf surge, beach erosion, tourist evacuation pressure, bridge and causeway access, tornado warnings, and outages across coastal Baldwin County. Visitors should treat official evacuation guidance as a travel deadline, not a suggestion.",
+    localHazards: [
+      { heading: "Beach Surge and Erosion", body: "Gulf-front properties and low roads can face surge, wave action, and overwash before peak wind." },
+      { heading: "Visitor and Rental Evacuation", body: "Hotels, rentals, pets, fuel, and long drives inland can make late departures difficult." },
+      { heading: "Bridge and Reentry Constraints", body: "Access and reentry may be controlled after a storm because of flooding, debris, utilities, and rescue operations." }
+    ],
+    evacuationFocus: [
+      "Check Baldwin County evacuation and shelter guidance.",
+      "Visitors should leave early when tourist evacuation is advised.",
+      "Plan fuel, lodging, pets, medication, documents, and route timing.",
+      "Wait for official reentry clearance before returning to beach areas."
+    ],
+    localSearches: [
+      "Gulf Shores hurricane tracker",
+      "Baldwin County hurricane evacuation",
+      "Gulf Shores storm surge",
+      "Alabama beach hurricane alerts",
+      "Gulf Shores hurricane evacuation"
+    ],
+    faqs: [
+      { question: "Should Gulf Shores visitors evacuate early?", answer: "Yes. Visitors should follow Baldwin County guidance and leave early when advised because beach routes and lodging can become constrained." },
+      { question: "Is Gulf Shores storm surge risk high?", answer: "Yes. Gulf-front and low-lying beach areas can face dangerous surge and wave action." },
+      { question: "Can Gulf Shores get tornado warnings during hurricanes?", answer: "Yes. Tropical rain bands can produce quick tornado warnings along the Alabama coast." }
+    ],
+    officialResources: [
+      { name: "Baldwin County Emergency Management Agency", description: "Official Baldwin County alerts, evacuation, shelter, and hurricane preparedness information.", url: "https://baldwincountyal.gov/departments/EMA" },
+      { name: "NWS Mobile/Pensacola", description: "Official National Weather Service alerts and forecasts for the Alabama Gulf Coast.", url: "https://www.weather.gov/mob/" },
+      { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
+    ],
+    lat: 30.246,
+    lon: -87.7008
+  },
+  {
+    slug: "gulfport",
+    name: "Gulfport",
+    stateCode: "MS",
+    stateName: "Mississippi",
+    region: "Mississippi Gulf Coast",
+    risks: ["Gulf surge", "low coastal roads", "port disruption", "outages"],
+    nearbyCounties: ["Harrison", "Hancock", "Jackson"],
+    planningNote:
+      "Gulfport residents should prepare for Gulf surge, port and waterfront exposure, low coastal roads, and outages before central Gulf storms approach.",
+    overview:
+      "Gulfport hurricane risk is defined by open Gulf exposure, low elevation, port and waterfront infrastructure, and storm histories that show how surge can dominate coastal impacts. Residents should follow Harrison County guidance and prepare for disruption beyond landfall day.",
+    localHazards: [
+      { heading: "Open Gulf Surge", body: "Gulfport's shoreline and low roads can flood from surge and wave action when central Gulf storms push water inland." },
+      { heading: "Port and Waterfront Disruption", body: "Industrial, port, marina, and waterfront areas can face debris, access limits, and recovery delays." },
+      { heading: "Outages and Heat", body: "Power, water, fuel, and communication problems may continue for days after a severe storm." }
+    ],
+    evacuationFocus: [
+      "Check Harrison County evacuation instructions and shelters.",
+      "Leave early from surge zones, mobile homes, and low coastal roads.",
+      "Move vehicles away from waterfront and flood-prone areas when advised.",
+      "Prepare documents, prescriptions, chargers, cash, pets, and cleanup records."
+    ],
+    localSearches: [
+      "Gulfport hurricane tracker",
+      "Gulfport storm surge",
+      "Harrison County hurricane evacuation",
+      "Mississippi Gulf Coast hurricane alerts",
+      "Gulfport hurricane recovery"
+    ],
+    faqs: [
+      { question: "Is Gulfport vulnerable to storm surge?", answer: "Yes. Gulfport sits on a low Gulf-facing coast where surge can move across roads and waterfront areas." },
+      { question: "Should Gulfport mobile-home residents leave early?", answer: "Yes. Mobile homes are vulnerable to wind and flooding, so residents should follow evacuation guidance early." },
+      { question: "What should Gulfport residents prepare for after landfall?", answer: "Prepare for outages, debris, limited fuel, reentry delays, insurance documentation, and cleanup hazards." }
+    ],
+    officialResources: [
+      { name: "Harrison County Emergency Management", description: "Official Harrison County emergency alerts, evacuation, shelter, and hurricane preparedness information.", url: "https://harrisoncountyms.gov/departments/emergency-management-agency/" },
+      { name: "NWS New Orleans/Baton Rouge", description: "Official National Weather Service alerts and forecasts for coastal Mississippi.", url: "https://www.weather.gov/lix/" },
+      { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
+    ],
+    lat: 30.3674,
+    lon: -89.0928
+  },
+  {
+    slug: "norfolk",
+    name: "Norfolk",
+    stateCode: "VA",
+    stateName: "Virginia",
+    region: "Hampton Roads and Chesapeake Bay",
+    risks: ["tidal flooding", "naval base disruption", "bridge-tunnel access", "power outages"],
+    nearbyCounties: ["Norfolk", "Virginia Beach", "Chesapeake", "Hampton"],
+    planningNote:
+      "Norfolk residents should track tidal flooding, Chesapeake Bay water levels, bridge-tunnel access, and power outages during Mid-Atlantic tropical threats.",
+    overview:
+      "Norfolk hurricane risk comes from tidal flooding, Chesapeake Bay and Elizabeth River water levels, dense waterfront development, bridge-tunnel constraints, and power outages across Hampton Roads. Tropical storms can be disruptive even after weakening below hurricane strength.",
+    localHazards: [
+      { heading: "Tidal and River Flooding", body: "Norfolk can flood when wind, tide, surge, and rainfall raise water around the bay, rivers, and low streets." },
+      { heading: "Bridge-Tunnel Constraints", body: "Travel around Hampton Roads depends on crossings that can be affected by wind, flooding, traffic, and official restrictions." },
+      { heading: "Outages and Essential Services", body: "Tree damage, flooded roads, and utility impacts can disrupt commuting, medical access, and communication." }
+    ],
+    evacuationFocus: [
+      "Check Norfolk and Virginia evacuation zone guidance.",
+      "Plan around bridge-tunnel restrictions and alternate routes.",
+      "Move vehicles from flood-prone streets when local guidance supports it.",
+      "Prepare chargers, medicine, documents, pets, radio, and safe generator rules."
+    ],
+    localSearches: [
+      "Norfolk hurricane tracker",
+      "Norfolk tidal flooding",
+      "Hampton Roads hurricane alerts",
+      "Norfolk evacuation zone",
+      "Chesapeake Bay storm surge Norfolk"
+    ],
+    faqs: [
+      { question: "Why does Norfolk flood during tropical systems?", answer: "Norfolk can flood from tide, surge, rainfall, river levels, and wind direction, especially in low-lying waterfront areas." },
+      { question: "Do bridge-tunnels affect Norfolk hurricane planning?", answer: "Yes. Crossings can be restricted by wind, flooding, traffic, and emergency operations, so route planning should happen early." },
+      { question: "Can a tropical storm still affect Norfolk?", answer: "Yes. Tropical storms can bring tidal flooding, tornado warnings, heavy rain, tree damage, and outages." }
+    ],
+    officialResources: [
+      { name: "Norfolk Emergency Preparedness", description: "Official Norfolk emergency preparedness, alerts, evacuation, and storm information.", url: "https://www.norfolk.gov/3588/Emergency-Preparedness" },
+      { name: "NWS Wakefield", description: "Official National Weather Service alerts and forecasts for Hampton Roads.", url: "https://www.weather.gov/akq/" },
+      { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
+    ],
+    lat: 36.8508,
+    lon: -76.2859
   }
 ];
 
