@@ -109,8 +109,26 @@ const expectedPaths = unique([
   "/learn/",
   "/preparedness/",
   "/tools/",
+  "/tools/my-hurricane-dashboard/",
+  "/tools/impact-window-estimator/",
+  "/tools/local-risk-plan/",
+  "/tools/preparedness-checklist/",
+  "/tools/evacuation-decision-helper/",
+  "/tools/hurricane-brief/",
+  "/tools/power-outage-planner/",
+  "/tools/storm-distance-calculator/",
+  "/tools/alert-action-decoder/",
+  "/tools/storm-surge-checker/",
+  "/tools/family-communication-plan/",
+  "/compare/",
+  "/newsletter/",
   "/storm-archive/",
   "/blog/",
+  "/blog/hurricane-watch-vs-warning/",
+  "/blog/flood-advisory-vs-watch-vs-warning/",
+  "/blog/rip-current-statement-gulf-coast/",
+  "/decision-guide/",
+  "/about/",
   ...coastalStates.map((state) => `/tracker/${state.slug}/`),
   ...hurricaneCities.map((city) => `/hurricane-tracker/city/${city.slug}/`),
   ...stormTrackerPages.map((storm) => `/hurricane-tracker/storm/${storm.slug}/`),
@@ -148,6 +166,6 @@ const report = {
 
 console.log(JSON.stringify(report, null, 2));
 
-if (missingFromSitemap.length || duplicateSitemapUrls.length) {
+if (missingFromSitemap.length || duplicateSitemapUrls.length || missingFromSearchIndex.length || orphanSearchEntries.length) {
   process.exit(1);
 }
