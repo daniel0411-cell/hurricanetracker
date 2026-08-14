@@ -16,8 +16,14 @@
 // Pure Node built-ins only (hand-rolled RS256 JWT) — no npm install required.
 //
 // Usage:
-//   node scripts/gindex-submit.mjs            # submit (skips if no credential)
-//   node scripts/gindex-submit.mjs --dry-run  # parse sitemap, print URLs, no auth
+//   node scripts/gindex-submit.mjs                       # submit ALL sitemap URLs
+//   node scripts/gindex-submit.mjs --dry-run             # parse sitemap, print URLs, no auth
+//   node scripts/gindex-submit.mjs --only slug1,slug2    # submit ONLY the matching blog URLs
+//   node scripts/gindex-submit.mjs --only slug1 --only slug2
+//
+// Note: Node's global fetch (undici) ignores HTTP_PROXY/HTTPS_PROXY. If a proxy
+// env var is set, this script auto-routes fetch through it via an optional undici
+// ProxyAgent (skips gracefully if undici is not installed).
 
 import crypto from "node:crypto";
 import fs from "node:fs";
@@ -32,6 +38,22 @@ const INDEX_URL = "https://indexing.googleapis.com/v3/urlNotifications:publish";
 
 const DRY_RUN = process.argv.includes("--dry-run");
 const isQuiet = process.argv.includes("--quiet");
+
+// Collect --only <slug> (repeatable, comma-separated also supported)
+const onlySlugs = [];
+for (let i = 0; i < process.argv.length; i++) {
+  const a = process.argv[i];
+  if (a === "--only") {
+    const next = process.argv[i + 1];
+    if (next && !next.startsWith("--")) {
+      next.split(",").map((s) => s.trim()).filter(Boolean).forEach((s) => onlySlugs.push(s));
+      i++;
+    }
+  } else if (a.startsWith("--only=")) {
+    a.slice("--only=".length).split(",").map((s) => s.trim()).filter(Boolean).forEach((s) => onlySlugs.push(s));
+  }
+}
+
 function log(...a) { if (!isQuiet) console.log(...a); }
 
 function loadCredential() {
@@ -108,6 +130,13 @@ async function loadUrls() {
     xml = await r.text();
   }
   const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim()).filter(Boolean);
+  if (onlySlugs.length) {
+    const filtered = locs.filter((u) =>
+      onlySlugs.some((s) => u.includes(`/blog/${s}`) || u.endsWith(`/${s}`) || u === `${SITE}/${s}`)
+    );
+    log(`Filtered to ${filtered.length} URL(s) matching slug(s): ${onlySlugs.join(", ")}`);
+    return filtered;
+  }
   return locs;
 }
 
@@ -135,6 +164,19 @@ async function main() {
     urls.slice(0, 10).forEach((u) => log("  • " + u));
     if (urls.length > 10) log(`  … and ${urls.length - 10} more`);
     return;
+  }
+
+  // Node global fetch (undici) ignores HTTP_PROXY/HTTPS_PROXY. If a proxy is
+  // configured, route fetch through it via an optional undici ProxyAgent so the
+  // OAuth token request and Indexing API calls can reach Google from sandboxes.
+  if (process.env.HTTPS_PROXY || process.env.HTTP_PROXY) {
+    try {
+      const { ProxyAgent, setGlobalDispatcher } = await import("undici");
+      setGlobalDispatcher(new ProxyAgent(process.env.HTTPS_PROXY || process.env.HTTP_PROXY));
+      log("Routing fetch through proxy (Node fetch ignores HTTP_PROXY by default).");
+    } catch {
+      log("Note: proxy env set but undici not available; attempting direct connection.");
+    }
   }
 
   const sa = loadCredential();
