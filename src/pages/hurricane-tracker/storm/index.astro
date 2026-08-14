@@ -1,17 +1,46 @@
 ---
+import FaqBlock from "../../../components/FaqBlock.astro";
 import Layout from "../../../layouts/Layout.astro";
 import { stormTrackerPages } from "../../../data/stormPages";
 import { site } from "../../../data/site";
-import { articleSchema, graph, itemListSchema, websiteSchema } from "../../../lib/schema";
+import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../../lib/schema";
 
 const title = "Named Hurricane Trackers";
 const description =
   "Browse named hurricane tracker pages for live NHC status checks, official advisory links, radar shortcuts, and storm-name search context.";
 const url = `${site.url}/hurricane-tracker/storm/`;
 const lastModified = site.contentLastModified;
+const faqs = [
+  {
+    question: "What is a named hurricane tracker page?",
+    answer:
+      "A named hurricane tracker page is a standing page for a specific storm name. It helps users find current-feed status, official advisory links, radar shortcuts, and related decision tools without assuming the storm is active."
+  },
+  {
+    question: "Does a storm-name page mean that hurricane is active right now?",
+    answer:
+      "No. HurricaneHub checks the current NHC feed on each storm-name page and clearly separates active storm status from historical or preparedness search context."
+  },
+  {
+    question: "Why create pages for storm names before or after a storm?",
+    answer:
+      "Storm-name searches often spike quickly during advisory cycles and continue after landfall. A stable page gives searchers a consistent place to find current status, official links, and related local trackers."
+  },
+  {
+    question: "Where should I go for official named-storm advisories?",
+    answer:
+      "Use National Hurricane Center advisories for official tropical cyclone forecasts, watches, warnings, and discussion. HurricaneHub organizes those links but is not an official advisory source."
+  },
+  {
+    question: "How do named storm pages connect with local hurricane risk?",
+    answer:
+      "After checking the named storm, use city and state tracker pages to compare local NWS alerts, surge exposure, flooding risk, and household decision tools for your area."
+  }
+];
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
+  faqSchema(faqs),
   itemListSchema(stormTrackerPages.map((storm) => ({
     name: `Hurricane ${storm.name} Tracker`,
     description: storm.searchDemandNote,
@@ -70,4 +99,6 @@ const jsonLd = graph(
       </article>
     </div>
   </section>
+
+  <FaqBlock faqs={faqs} />
 </Layout>

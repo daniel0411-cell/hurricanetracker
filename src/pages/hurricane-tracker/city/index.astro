@@ -1,16 +1,45 @@
 ---
+import FaqBlock from "../../../components/FaqBlock.astro";
 import Layout from "../../../layouts/Layout.astro";
 import { hurricaneCities } from "../../../data/cities";
 import { site } from "../../../data/site";
-import { articleSchema, graph, itemListSchema, websiteSchema } from "../../../lib/schema";
+import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../../lib/schema";
 
 const title = "City Hurricane Trackers";
 const description = "Browse local hurricane tracker pages for coastal U.S. cities with storm surge, flooding, evacuation-route, outage, NWS alert, and NHC storm context.";
 const url = `${site.url}/hurricane-tracker/city/`;
 const lastModified = site.contentLastModified;
+const faqs = [
+  {
+    question: "What is a city hurricane tracker?",
+    answer:
+      "A city hurricane tracker connects broad storm information with local planning context such as nearby counties, storm surge exposure, flooding concerns, evacuation-route issues, outages, and NWS alerts."
+  },
+  {
+    question: "Should I use a city page instead of official evacuation information?",
+    answer:
+      "No. City pages are planning guides and tracker shortcuts. Exact evacuation zones, shelters, road closures, and orders must come from local emergency management and official weather alerts."
+  },
+  {
+    question: "Why do city hurricane risks differ within the same state?",
+    answer:
+      "Cities can face different hazards because of coastline shape, bays, rivers, elevation, bridges, drainage, building types, tree cover, and how a storm approaches the area."
+  },
+  {
+    question: "Do inland cities need hurricane tracker pages?",
+    answer:
+      "Yes. Inland areas may avoid storm surge but still face damaging wind, flash flooding, tornado warnings, falling trees, transportation disruption, and long power outages."
+  },
+  {
+    question: "How should I pick the right local hurricane page?",
+    answer:
+      "Start with the nearest city page, then also check your state tracker and official county or local emergency management resources for address-specific instructions."
+  }
+];
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
+  faqSchema(faqs),
   itemListSchema(hurricaneCities.map((city) => ({
     name: `${city.name} Hurricane Tracker`,
     description: city.planningNote,
@@ -45,4 +74,6 @@ const jsonLd = graph(
       </div>
     </div>
   </section>
+
+  <FaqBlock faqs={faqs} />
 </Layout>

@@ -7,6 +7,7 @@
     "verify:city-data": "node scripts/verify-city-data.mjs",
     "verify:official-resources": "node scripts/verify-official-resources.mjs",
     "seo:audit": "node scripts/seo-audit.mjs",
+    "faq:audit": "node scripts/faq-audit.mjs",
     "prebuild": "npm run verify:city-data && node scripts/gen-og.mjs",
     "dev": "ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG_PATH=.wrangler/logs astro dev --host 127.0.0.1",
     "build": "ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG_PATH=.wrangler/logs astro build",
