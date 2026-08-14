@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "prebuild": "node scripts/gen-og.mjs",
+    "verify:city-data": "node scripts/verify-city-data.mjs",
+    "prebuild": "npm run verify:city-data && node scripts/gen-og.mjs",
     "dev": "ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG_PATH=.wrangler/logs astro dev --host 127.0.0.1",
     "build": "ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG_PATH=.wrangler/logs astro build",
     "check": "ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG_PATH=.wrangler/logs astro check",

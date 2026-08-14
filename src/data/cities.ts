@@ -112,7 +112,7 @@ export const hurricaneCities: HurricaneCity[] = [
     name: "Tampa",
     stateCode: "FL",
     stateName: "Florida",
-    region: "Florida Gulf Coast",
+    region: "Tampa Bay and Florida Gulf Coast",
     risks: ["Tampa Bay storm surge", "evacuation route congestion", "freshwater flooding", "power outages"],
     nearbyCounties: ["Hillsborough", "Pinellas", "Pasco", "Manatee"],
     planningNote:
@@ -270,7 +270,7 @@ export const hurricaneCities: HurricaneCity[] = [
     name: "New Orleans",
     stateCode: "LA",
     stateName: "Louisiana",
-    region: "Southeast Louisiana",
+    region: "Southeast Louisiana and Mississippi River delta",
     risks: ["levee and drainage stress", "storm surge", "low-lying roads", "extended outages"],
     nearbyCounties: ["Orleans", "Jefferson", "St. Bernard", "Plaquemines"],
     planningNote:
