@@ -19,6 +19,7 @@ const routes = [
   { path: "hurricane-tracker/live/", lastmod: updated, priority: "0.9", changefreq: "daily" },
   { path: "radar/", lastmod: updated, priority: "0.8", changefreq: "daily" },
   { path: "alerts/", lastmod: updated, priority: "0.8", changefreq: "daily" },
+  { path: "learn/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
   { path: "preparedness/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
   { path: "tools/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
   { path: "tools/my-hurricane-dashboard/", lastmod: updated, priority: "0.9", changefreq: "daily" },

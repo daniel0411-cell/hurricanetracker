@@ -1,0 +1,136 @@
+---
+import FaqBlock from "../components/FaqBlock.astro";
+import Layout from "../layouts/Layout.astro";
+import { blogPosts, getCategory } from "../data/blog";
+import { site } from "../data/site";
+import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
+
+export const prerender = true;
+
+const title = "Hurricane Learning Center";
+const description =
+  "Learn how to read hurricane tracker maps, NHC cones, spaghetti models, storm surge forecasts, radar, satellite, and category charts before a storm threatens.";
+const url = `${site.url}/learn/`;
+const lastModified = site.contentLastModified;
+
+const featuredSlugs = [
+  "real-time-hurricane-tracking-2026",
+  "how-to-read-the-hurricane-cone-of-uncertainty",
+  "how-to-read-hurricane-spaghetti-models",
+  "saffir-simpson-hurricane-wind-scale-explained",
+  "hurricane-storm-surge-forecasting",
+  "hurricane-radar-vs-satellite"
+];
+const featuredPosts = featuredSlugs
+  .map((slug) => blogPosts.find((post) => post.slug === slug))
+  .filter((post): post is NonNullable<typeof post> => Boolean(post));
+const categoryGroups = ["Tracking & Forecasting", "Science & Basics", "Safety & Warnings", "Preparedness", "Insurance & Recovery"]
+  .map((category) => ({
+    category,
+    posts: blogPosts.filter((post) => getCategory(post.slug) === category).slice(0, 6)
+  }))
+  .filter((group) => group.posts.length);
+const faqs = [
+  {
+    question: "What should I learn first about hurricane tracking?",
+    answer:
+      "Start with the live tracker map, then learn the NHC cone, local watches and warnings, storm surge risk, radar, and satellite imagery. The storm center is only one part of local hurricane risk."
+  },
+  {
+    question: "Are spaghetti models better than the official forecast cone?",
+    answer:
+      "No. Spaghetti models show a range of model tracks, while the official NHC forecast cone summarizes forecast uncertainty. Use spaghetti models for context and the official forecast for decisions."
+  },
+  {
+    question: "Does hurricane category explain storm surge and flooding?",
+    answer:
+      "No. Hurricane category is based on wind speed. Storm surge, rainfall flooding, tornadoes, and outages require separate local alerts and preparedness decisions."
+  },
+  {
+    question: "Why does HurricaneHub separate learning pages from live tracker pages?",
+    answer:
+      "Live tracker pages answer what is happening now. Learning pages explain how to interpret the map, cone, models, warnings, and hazards so users make better decisions during an active threat."
+  }
+];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  itemListSchema(featuredPosts.map((post) => ({
+    name: post.title,
+    description: post.description,
+    url: `${site.url}/blog/${post.slug}/`
+  }))),
+  faqSchema(faqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="learn-title">
+    <div class="inner">
+      <p class="eyebrow">Hurricane basics and map reading</p>
+      <h1 id="learn-title">Hurricane Learning Center</h1>
+      <p class="answer">Use these guides to understand live hurricane tracker maps, forecast cones, spaghetti models, radar, satellite imagery, storm surge, categories, watches, and warnings before a storm is close.</p>
+      <p class="section-actions">
+        <a class="action-link" href="/hurricane-tracker/live/">Open live tracker map</a>
+        <a class="action-link secondary-action" href="/blog/">Browse all articles</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="featured-learn">
+    <div class="inner">
+      <p class="eyebrow">High-intent explainers</p>
+      <h2 id="featured-learn">Start With These Hurricane Tracker Guides</h2>
+      <div class="grid-3 section-grid">
+        {featuredPosts.map((post) => (
+          <article class="panel">
+            <p class="eyebrow">{getCategory(post.slug)}</p>
+            <h3><a href={`/blog/${post.slug}/`}>{post.title}</a></h3>
+            <p>{post.description}</p>
+            <p><a class="action-link" href={`/blog/${post.slug}/`}>Read guide</a></p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="learn-by-topic">
+    <div class="inner">
+      <p class="eyebrow">Topic clusters</p>
+      <h2 id="learn-by-topic">Learn by Search Intent</h2>
+      <div class="grid-2 section-grid">
+        {categoryGroups.map((group) => (
+          <article class="panel">
+            <h3>{group.category}</h3>
+            <ul>
+              {group.posts.map((post) => (
+                <li><a href={`/blog/${post.slug}/`}>{post.title}</a></li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="learn-workflow">
+    <div class="inner grid-2">
+      <article class="panel">
+        <p class="eyebrow">During an active storm</p>
+        <h2 id="learn-workflow">Use Learning Pages With Live Tools</h2>
+        <p>When a storm is active, read the explainer only long enough to understand the product, then move back to live NHC advisories, NWS alerts, city trackers, and decision tools.</p>
+      </article>
+      <article class="panel">
+        <p class="eyebrow">Useful shortcuts</p>
+        <h2>Connect Knowledge to Action</h2>
+        <ul>
+          <li><a href="/tracker/">Live hurricane tracker</a></li>
+          <li><a href="/radar/">Radar and satellite map</a></li>
+          <li><a href="/hurricane-tracker/city/">City hurricane trackers</a></li>
+          <li><a href="/tools/evacuation-decision-helper/">Evacuation decision helper</a></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <FaqBlock faqs={faqs} />
+</Layout>

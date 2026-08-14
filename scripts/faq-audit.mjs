@@ -9,6 +9,7 @@ const pages = [
   "src/pages/hurricane-tracker/live.astro",
   "src/pages/hurricane-tracker/city/index.astro",
   "src/pages/hurricane-tracker/storm/index.astro",
+  "src/pages/learn.astro",
   "src/pages/alerts.astro",
   "src/pages/radar.astro",
   "src/pages/preparedness.astro",
