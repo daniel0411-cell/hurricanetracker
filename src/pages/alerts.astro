@@ -5,7 +5,7 @@ import LiveDashboard from "../components/LiveDashboard.astro";
 import LocalRiskWidget from "../components/LocalRiskWidget.astro";
 import Layout from "../layouts/Layout.astro";
 import { faqs, site, states } from "../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
+import { articleSchema, faqSchema, governmentServiceSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
 
 const title = "NWS Hurricane and Severe Weather Alerts by State";
 const description = "View active National Weather Service alerts by coastal state with hurricane-focused severity and urgency context.";
@@ -26,7 +26,20 @@ try {
   console.error("HurricaneHub alerts page feed failed", { error });
 }
 
-const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url, dateModified: lastModified }), faqSchema(faqs));
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  governmentServiceSchema({ areaServed: "United States Atlantic and Gulf Coast states" }),
+  itemListSchema(states.map(([, name]) => {
+    const slug = name.toLowerCase().replace(/[^a-z]+/g, "-").replace(/^-|-$/g, "");
+    return {
+      name: `${name} Hurricane Alerts and Tracker`,
+      description: `Active NWS alerts, storm context, and household decision guidance for ${name}.`,
+      url: `${site.url}/tracker/${slug}/`
+    };
+  })),
+  faqSchema(faqs)
+);
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
   <section class="band" aria-labelledby="alerts-title">
@@ -43,6 +56,29 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url, d
       <h2 id="timeline-heading">Example Alert Timeline</h2>
       <p class="answer">The timeline sorts a current example feed by alert status and effective time so you can see what is active now, what may start next, and when an alert expires.</p>
       <AlertTimeline alerts={initialAlerts} stateName="Alabama" />
+    </div>
+  </section>
+  <section class="band" aria-labelledby="alert-workflow">
+    <div class="inner">
+      <p class="eyebrow">Alert workflow</p>
+      <h2 id="alert-workflow">How to Use NWS Alerts During Hurricane Season</h2>
+      <div class="grid-3 section-grid">
+        <article class="panel">
+          <h3>Read the Official Alert First</h3>
+          <p>Use the alert headline, affected area, urgency, severity, and expiration time as the starting point before checking any map or checklist.</p>
+          <a href="/blog/nws-hurricane-alert-meanings/">Learn NWS alert meanings</a>
+        </article>
+        <article class="panel">
+          <h3>Translate Alert Language Into Action</h3>
+          <p>Watches, warnings, surge, flood, tornado, and evacuation language can imply different household timing for different risk profiles.</p>
+          <a href="/tools/alert-action-decoder/">Open alert action decoder</a>
+        </article>
+        <article class="panel">
+          <h3>Pair State Alerts With Local Risk</h3>
+          <p>State alerts are broad. Use city trackers and local risk planning to connect NWS language with evacuation zones, roads, flooding, and outages.</p>
+          <a href="/hurricane-tracker/city/">Browse city hurricane trackers</a>
+        </article>
+      </div>
     </div>
   </section>
   <section class="band" aria-labelledby="state-coverage">
