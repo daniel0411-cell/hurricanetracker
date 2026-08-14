@@ -2,6 +2,7 @@ export const prerender = true;
 
 import type { APIRoute } from "astro";
 import { blogPosts } from "../data/blog";
+import { hurricaneCities } from "../data/cities";
 import { stormTrackerPages } from "../data/stormPages";
 
 type Entry = {
@@ -32,6 +33,7 @@ const pages: Entry[] = [
   { title: "Hurricane Preparedness Guide", url: "/preparedness/", description: "A complete hurricane preparedness guide: kits, plans, evacuation, and family communication.", category: "Preparedness", body: "preparedness guide kit plan evacuation family communication" },
   { title: "Compare Storms & Locations", url: "/compare/", description: "Compare hurricane positions, wind, and risk windows across multiple storms or locations.", category: "Tools", body: "compare storms locations wind risk" },
   { title: "Storm Archive", url: "/storm-archive/", description: "Past hurricane seasons and notable storms reference archive.", category: "Reference", body: "storm archive history past seasons" },
+  { title: "City Hurricane Trackers", url: "/hurricane-tracker/city/", description: "Browse city-level hurricane tracker pages for local storm surge, flooding, evacuation-route, outage, NWS alert, and NHC storm context.", category: "City Tracker", body: "city hurricane tracker local storm surge flooding evacuation route outage nws nhc" },
   { title: "Named Hurricane Trackers", url: "/hurricane-tracker/storm/", description: "Browse named hurricane tracker pages with live NHC status checks and official advisory links.", category: "Storm Tracker", body: "named hurricane tracker storm name live nhc advisory erin melissa" },
   { title: "Evacuation Decision Guide", url: "/decision-guide/", description: "A step-by-step evacuation decision guide for people in the risk zone.", category: "Preparedness", body: "evacuation decision guide when to leave" },
   { title: "About HurricaneHub", url: "/about/", description: "About HurricaneHub, data sources, and methodology.", category: "About", body: "about data sources noaa nhc methodology" },
@@ -68,7 +70,23 @@ const stormEntries: Entry[] = stormTrackerPages.map((storm) => ({
   body: [storm.name, storm.basin, storm.primaryKeywords.join(" "), storm.trackerFocus.join(" ")].join(" ")
 }));
 
-const entries: Entry[] = [...pages, ...stormEntries, ...blogEntries];
+const cityEntries: Entry[] = hurricaneCities.map((city) => ({
+  title: `${city.name} Hurricane Tracker`,
+  url: `/hurricane-tracker/city/${city.slug}/`,
+  description: city.planningNote,
+  category: "City Tracker",
+  body: [
+    city.name,
+    city.stateName,
+    city.region,
+    city.risks.join(" "),
+    city.nearbyCounties.join(" "),
+    city.localSearches.join(" "),
+    city.overview
+  ].join(" ")
+}));
+
+const entries: Entry[] = [...pages, ...cityEntries, ...stormEntries, ...blogEntries];
 
 export const GET: APIRoute = () =>
   new Response(JSON.stringify({ entries }), {
