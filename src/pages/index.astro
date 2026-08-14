@@ -73,7 +73,20 @@ const tools = [
   { href: "/tools/impact-window-estimator/", icon: "fa-clock", title: "Impact Window Estimator", body: "Use current alert timing and storm context to decide whether to monitor, prepare, act, or leave." },
   { href: "/tools/storm-distance-calculator/", icon: "fa-location-crosshairs", title: "Storm Distance Calculator", body: "Compare a ZIP code with the current NHC storm position, then verify the forecast and local alerts." }
 ];
-const featuredCities = hurricaneCities.slice(0, 9);
+const featuredCitySlugs = [
+  "clearwater",
+  "morehead-city",
+  "pensacola",
+  "brownsville",
+  "baton-rouge",
+  "miami",
+  "tampa",
+  "houston",
+  "new-orleans"
+];
+const featuredCities = featuredCitySlugs
+  .map((slug) => hurricaneCities.find((city) => city.slug === slug))
+  .filter((city): city is NonNullable<typeof city> => Boolean(city));
 ---
 
 <Layout title={title} description={description} canonical={site.url} jsonLd={jsonLd} lastModified={lastModified} showTopAd={true}>
@@ -88,7 +101,7 @@ const featuredCities = hurricaneCities.slice(0, 9);
         <p class="answer">HurricaneHub shows live hurricanes approaching North America, official NHC storm context, state NWS warnings, and emergency decision tools so coastal households can monitor, prepare, act, or leave with fewer tabs open.</p>
         <p class="section-actions">
           <a class="action-link" href="/tools/my-hurricane-dashboard/">Build my hurricane dashboard</a>
-          <a class="action-link secondary-action" href="/tools/local-risk-plan/">Check local risk</a>
+          <a class="action-link secondary-action" href="/hurricane-tracker/city/">Browse city trackers</a>
         </p>
       </div>
       <div class="decision-card" aria-label="Current emergency decision snapshot">
@@ -218,6 +231,26 @@ const featuredCities = hurricaneCities.slice(0, 9);
     </div>
   </section>
 
+  <section class="band" aria-labelledby="city-heading">
+    <div class="inner">
+      <p class="eyebrow">Local landing pages</p>
+      <h2 id="city-heading">City Hurricane Trackers</h2>
+      <p class="answer">Start with a city page for local planning notes, nearby counties, state alert links, and decision tools.</p>
+      <p class="section-actions"><a class="action-link secondary-action" href="/hurricane-tracker/city/">Browse all city trackers</a></p>
+      <div class="grid-3 section-grid">
+        {featuredCities.map((city) => (
+          <article class="state-card">
+            <h3>{city.name} Hurricane Tracker</h3>
+            <div class="risk-tags">
+              {city.risks.slice(0, 3).map((risk) => <span class="risk-tag">{risk}</span>)}
+            </div>
+            <a href={`/hurricane-tracker/city/${city.slug}/`}>Open {city.name}</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="band" aria-labelledby="tools-heading">
     <div class="inner">
       <article class="section-intro">
@@ -257,26 +290,6 @@ const featuredCities = hurricaneCities.slice(0, 9);
           <article class="state-card">
             <h3>{item.split(" ")[0]} Advantage</h3>
             <p>{item}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="band" aria-labelledby="city-heading">
-    <div class="inner">
-      <p class="eyebrow">Local landing pages</p>
-      <h2 id="city-heading">City Hurricane Trackers</h2>
-      <p class="answer">Start with a city page for local planning notes, nearby counties, state alert links, and decision tools.</p>
-      <p class="section-actions"><a class="action-link secondary-action" href="/hurricane-tracker/city/">Browse all city trackers</a></p>
-      <div class="grid-3 section-grid">
-        {featuredCities.map((city) => (
-          <article class="state-card">
-            <h3>{city.name} Hurricane Tracker</h3>
-            <div class="risk-tags">
-              {city.risks.slice(0, 3).map((risk) => <span class="risk-tag">{risk}</span>)}
-            </div>
-            <a href={`/hurricane-tracker/city/${city.slug}/`}>Open {city.name}</a>
           </article>
         ))}
       </div>

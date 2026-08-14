@@ -11,6 +11,7 @@ const ui = {
   en: {
     "nav.home": "Home",
     "nav.tracker": "Tracker",
+    "nav.cities": "Cities",
     "nav.alerts": "Alerts",
     "nav.radar": "Radar",
     "nav.standalone": "Standalone",
@@ -33,6 +34,7 @@ const ui = {
   es: {
     "nav.home": "Inicio",
     "nav.tracker": "Seguimiento",
+    "nav.cities": "Ciudades",
     "nav.alerts": "Alertas",
     "nav.radar": "Radar",
     "nav.standalone": "Radar independiente",
