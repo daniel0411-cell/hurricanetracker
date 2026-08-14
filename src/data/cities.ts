@@ -1599,6 +1599,243 @@ export const hurricaneCities: HurricaneCity[] = [
     ],
     lat: 36.8508,
     lon: -76.2859
+  },
+  {
+    slug: "pensacola",
+    name: "Pensacola",
+    stateCode: "FL",
+    stateName: "Florida",
+    region: "Western Florida Panhandle and Escambia Bay",
+    risks: ["Gulf surge", "bay flooding", "bridge closures", "tornado bands"],
+    nearbyCounties: ["Escambia", "Santa Rosa", "Baldwin"],
+    planningNote:
+      "Pensacola residents should watch Escambia County hurricane preparedness, Gulf and bay flooding, bridge access, tornado bands, and power outage planning together.",
+    overview:
+      "Pensacola hurricane risk comes from Gulf surge, Escambia Bay and Pensacola Bay water levels, barrier-island exposure, bridge constraints, tornado-producing bands, and outages across the western Panhandle. Storms moving toward the central Gulf can shift local impacts quickly, so households should rely on official county, state, and NWS guidance instead of waiting for the forecast cone to feel certain.",
+    localHazards: [
+      {
+        heading: "Gulf and Bay Flooding",
+        body:
+          "Pensacola Beach, Perdido Key, bayfront neighborhoods, and low roads can flood when storm surge, tide, rainfall, and drainage limits overlap."
+      },
+      {
+        heading: "Bridge and Island Access",
+        body:
+          "Beach bridges and coastal routes can become restricted by wind, water, traffic, debris, or official emergency operations before the strongest weather arrives."
+      },
+      {
+        heading: "Tornado Bands and Outages",
+        body:
+          "Outer rain bands can produce quick tornado warnings, tree damage, and outages across Escambia and Santa Rosa counties before or after closest approach."
+      }
+    ],
+    evacuationFocus: [
+      "Review Escambia hurricane preparedness guidance and local shelter updates.",
+      "Leave early from barrier islands, mobile homes, surge zones, or medically dependent households.",
+      "Plan alternate routes in case bridges or coastal roads are restricted.",
+      "Prepare chargers, prescriptions, documents, pet supplies, radio, and safe generator placement."
+    ],
+    localSearches: [
+      "Pensacola hurricane tracker",
+      "Pensacola Beach evacuation",
+      "Escambia County hurricane alerts",
+      "Pensacola storm surge",
+      "Pensacola Bay hurricane flooding"
+    ],
+    faqs: [
+      {
+        question: "Is Pensacola vulnerable to both Gulf and bay flooding?",
+        answer:
+          "Yes. Pensacola can flood from Gulf surge, bay water levels, tide, rainfall, and drainage limits depending on storm track and wind direction."
+      },
+      {
+        question: "Why do bridges matter during a Pensacola hurricane?",
+        answer:
+          "Beach and bay routes can be affected by wind, flooding, traffic, debris, and emergency restrictions, so route timing should be part of the plan."
+      },
+      {
+        question: "Can Pensacola get tornado warnings during tropical storms?",
+        answer:
+          "Yes. Tropical rain bands can produce fast-moving tornado warnings across the western Florida Panhandle even when the storm center is offshore."
+      }
+    ],
+    officialResources: [
+      {
+        name: "Florida Health Escambia Hurricane Preparedness",
+        description: "Official Escambia County public health hurricane preparedness information and emergency planning resources.",
+        url: "https://escambia.floridahealth.gov/programs-and-services/public-health-preparedness/hurricane-preparedness/"
+      },
+      {
+        name: "NWS Mobile/Pensacola",
+        description: "Official National Weather Service alerts and forecasts for Pensacola and the western Panhandle.",
+        url: "https://www.weather.gov/mob/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
+      }
+    ],
+    lat: 30.4213,
+    lon: -87.2169
+  },
+  {
+    slug: "brownsville",
+    name: "Brownsville",
+    stateCode: "TX",
+    stateName: "Texas",
+    region: "Lower Texas Coast and Rio Grande Valley",
+    risks: ["Gulf surge", "Rio Grande Valley flooding", "fast intensification", "long travel distances"],
+    nearbyCounties: ["Cameron", "Willacy", "Hidalgo"],
+    planningNote:
+      "Brownsville households should plan around Cameron County emergency resources, Gulf surge, Rio Grande Valley flooding, fast Gulf intensification, and long travel times to safer shelter.",
+    overview:
+      "Brownsville hurricane risk is shaped by the lower Texas coast, Boca Chica and South Padre Island exposure, Rio Grande Valley rainfall, and the possibility of fast intensification in the western Gulf. Residents may need to make decisions with limited lead time, especially for mobile homes, coastal communities, and households needing transportation, medical support, cooling, or power-dependent care.",
+    localHazards: [
+      {
+        heading: "Lower Coast Surge",
+        body:
+          "Boca Chica, South Padre Island, low coastal roads, and nearby bay areas can face surge and overwash when western Gulf storms push water inland."
+      },
+      {
+        heading: "Valley Rainfall Flooding",
+        body:
+          "Slow or wet tropical systems can flood roads and neighborhoods across Cameron, Willacy, and Hidalgo counties even away from the immediate shoreline."
+      },
+      {
+        heading: "Distance and Heat After Landfall",
+        body:
+          "Evacuation destinations, fuel, cooling, power restoration, and medical access can be challenging across the Rio Grande Valley after a tropical cyclone."
+      }
+    ],
+    evacuationFocus: [
+      "Check Cameron County emergency resources and local city updates for your location.",
+      "Leave early from mobile homes, coastal areas, flood-prone neighborhoods, or medically vulnerable households.",
+      "Plan fuel, inland lodging, pets, prescriptions, documents, and route timing.",
+      "Prepare for heat, outages, limited services, and communication disruption after landfall."
+    ],
+    localSearches: [
+      "Brownsville hurricane tracker",
+      "Cameron County hurricane evacuation",
+      "Brownsville storm surge",
+      "Rio Grande Valley hurricane alerts",
+      "South Padre Island hurricane evacuation"
+    ],
+    faqs: [
+      {
+        question: "Can Brownsville hurricanes intensify quickly?",
+        answer:
+          "Yes. Western Gulf storms can strengthen quickly, so Brownsville residents should follow official guidance and prepare before forecasts become urgent."
+      },
+      {
+        question: "Does Brownsville face storm surge risk?",
+        answer:
+          "Yes. Coastal Cameron County, Boca Chica, South Padre Island, and bay areas can face surge and overwash during Gulf tropical systems."
+      },
+      {
+        question: "What should Brownsville residents prepare for after landfall?",
+        answer:
+          "Prepare for heat, outages, flooded roads, limited fuel, medical access issues, communication disruption, and delayed services after landfall."
+      }
+    ],
+    officialResources: [
+      {
+        name: "Cameron County Emergency Resources",
+        description: "Official Cameron County emergency preparedness, evacuation route, shelter, and disaster resource information.",
+        url: "https://www.cameroncounty911.com/emergency-resources/"
+      },
+      {
+        name: "NWS Brownsville/Rio Grande Valley",
+        description: "Official National Weather Service alerts and forecasts for Brownsville and the Rio Grande Valley.",
+        url: "https://www.weather.gov/bro/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
+      }
+    ],
+    lat: 25.9017,
+    lon: -97.4975
+  },
+  {
+    slug: "baton-rouge",
+    name: "Baton Rouge",
+    stateCode: "LA",
+    stateName: "Louisiana",
+    region: "Capital Area and lower Mississippi River",
+    risks: ["inland wind", "river and bayou flooding", "evacuation traffic", "extended outages"],
+    nearbyCounties: ["East Baton Rouge", "Ascension", "Livingston", "Iberville"],
+    planningNote:
+      "Baton Rouge residents should prepare for inland wind, river and bayou flooding, evacuee traffic, power outages, and medical or cooling needs as Gulf storms move into Louisiana.",
+    overview:
+      "Baton Rouge hurricane risk is more inland than New Orleans, but it can still be serious. Gulf storms moving through Louisiana can bring damaging wind, heavy rainfall, river and bayou flooding, tornado warnings, long outages, and major traffic from coastal evacuations. Household planning should include sheltering safely, avoiding flooded roads, and preparing for heat, medicine, communication, and power loss after the storm.",
+    localHazards: [
+      {
+        heading: "Inland Wind and Trees",
+        body:
+          "Baton Rouge can see damaging wind after landfall, especially when saturated soil and tree cover increase outage, blocked-road, and debris risk."
+      },
+      {
+        heading: "River, Bayou, and Street Flooding",
+        body:
+          "Heavy rain can raise bayous, drainage channels, and low roads across the Capital Area even when coastal storm surge is not the main local hazard."
+      },
+      {
+        heading: "Evacuation Traffic and Shelters",
+        body:
+          "Traffic from southeast Louisiana and the coast can affect fuel, lodging, shelter capacity, work schedules, and route timing before landfall."
+      }
+    ],
+    evacuationFocus: [
+      "Check East Baton Rouge emergency updates and NWS flood alerts.",
+      "Avoid unnecessary evacuation unless officials advise it or household risk requires it.",
+      "Prepare for outages with cooling, medicine, chargers, food safety, and safe generator placement.",
+      "Do not drive through flooded streets, bayou crossings, or blocked roads."
+    ],
+    localSearches: [
+      "Baton Rouge hurricane tracker",
+      "Baton Rouge hurricane power outage",
+      "East Baton Rouge hurricane alerts",
+      "Baton Rouge flood warning",
+      "Louisiana hurricane evacuation traffic"
+    ],
+    faqs: [
+      {
+        question: "Does Baton Rouge need to worry about hurricanes inland?",
+        answer:
+          "Yes. Baton Rouge can face damaging wind, flooding rain, tornado warnings, traffic disruption, and long outages from Louisiana hurricane landfalls."
+      },
+      {
+        question: "Should Baton Rouge residents evacuate for coastal surge?",
+        answer:
+          "Most Baton Rouge residents are not evacuating for coastal surge, but they should follow official guidance if flooding, mobile-home risk, medical needs, or local orders apply."
+      },
+      {
+        question: "What is the biggest Baton Rouge hurricane preparation issue?",
+        answer:
+          "Power outages, tree damage, flooded roads, heat, medicine, communication, and safe generator use are often the most practical household concerns."
+      }
+    ],
+    officialResources: [
+      {
+        name: "East Baton Rouge Homeland Security and Emergency Preparedness",
+        description: "Official East Baton Rouge emergency preparedness, response, warning, and disaster planning information.",
+        url: "https://city.brla.gov/dept/oep/default.asp"
+      },
+      {
+        name: "NWS New Orleans/Baton Rouge",
+        description: "Official National Weather Service alerts and forecasts for Baton Rouge and southeast Louisiana.",
+        url: "https://www.weather.gov/lix/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
+      }
+    ],
+    lat: 30.4515,
+    lon: -91.1871
   }
 ];
 
