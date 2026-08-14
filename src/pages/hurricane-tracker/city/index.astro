@@ -1,0 +1,48 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { hurricaneCities } from "../../../data/cities";
+import { site } from "../../../data/site";
+import { articleSchema, graph, itemListSchema, websiteSchema } from "../../../lib/schema";
+
+const title = "City Hurricane Trackers";
+const description = "Browse local hurricane tracker pages for coastal U.S. cities with storm surge, flooding, evacuation-route, outage, NWS alert, and NHC storm context.";
+const url = `${site.url}/hurricane-tracker/city/`;
+const lastModified = site.contentLastModified;
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  itemListSchema(hurricaneCities.map((city) => ({
+    name: `${city.name} Hurricane Tracker`,
+    description: city.planningNote,
+    url: `${site.url}/hurricane-tracker/city/${city.slug}/`
+  })))
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="city-index-title">
+    <div class="inner">
+      <p class="eyebrow">Local hurricane planning</p>
+      <h1 id="city-index-title">City Hurricane Trackers</h1>
+      <p class="answer">Browse city-level hurricane tracker pages for local storm surge, flooding, evacuation-route, bridge, outage, NWS alert, and NHC storm context.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="city-list">
+    <div class="inner">
+      <h2 id="city-list">Choose a City</h2>
+      <div class="grid-3 section-grid">
+        {hurricaneCities.map((city) => (
+          <article class="panel">
+            <p class="eyebrow">{city.stateName}</p>
+            <h3>{city.name} Hurricane Tracker</h3>
+            <p>{city.planningNote}</p>
+            <div class="risk-tags">
+              {city.risks.slice(0, 3).map((risk) => <span class="risk-tag">{risk}</span>)}
+            </div>
+            <p><a class="action-link" href={`/hurricane-tracker/city/${city.slug}/`}>Open {city.name}</a></p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

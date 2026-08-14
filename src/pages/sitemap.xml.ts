@@ -33,6 +33,7 @@ const routes = [
   { path: "compare/", lastmod: updated, priority: "0.7", changefreq: "weekly" },
   { path: "newsletter/", lastmod: updated, priority: "0.5", changefreq: "monthly" },
   ...coastalStates.map((state) => ({ path: `tracker/${state.slug}/`, lastmod: updated, priority: "0.9", changefreq: "hourly" })),
+  { path: "hurricane-tracker/city/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
   ...hurricaneCities.map((city) => ({ path: `hurricane-tracker/city/${city.slug}/`, lastmod: updated, priority: "0.8", changefreq: "daily" })),
   { path: "storm-archive/", lastmod: updated, priority: "0.7", changefreq: "daily" },
   { path: "blog/", lastmod: blogLastMod, priority: "0.8", changefreq: "weekly" },

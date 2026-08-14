@@ -5,6 +5,7 @@ dist/
 .wrangler/
 .workbuddy/
 .DS_Store
+.obsidian/
 *.log
 
 # Google service account key — NEVER commit (contains private key)
