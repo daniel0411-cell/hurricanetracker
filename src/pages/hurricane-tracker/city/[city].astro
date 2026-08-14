@@ -122,6 +122,25 @@ const jsonLd = graph(
     </div>
   </section>
 
+  {city.officialResources?.length ? (
+    <section class="band" aria-labelledby="official-resources">
+      <div class="inner">
+        <p class="eyebrow">Official source links</p>
+        <h2 id="official-resources">{city.name} Official Hurricane Resources</h2>
+        <p class="answer">Use these official sources for evacuation orders, shelters, road closures, local alerts, and current NHC advisories before making a life-safety decision.</p>
+        <div class="grid-3 section-grid">
+          {city.officialResources.map((resource) => (
+            <article class="panel">
+              <h3>{resource.name}</h3>
+              <p>{resource.description}</p>
+              <a href={resource.url} target="_blank" rel="noopener nofollow">Open official source</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  ) : null}
+
   <section class="band" aria-labelledby="city-live">
     <div class="inner">
       <p class="eyebrow">Live from NWS</p>

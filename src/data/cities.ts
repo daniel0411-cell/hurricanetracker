@@ -18,6 +18,11 @@ export type HurricaneCity = {
     question: string;
     answer: string;
   }>;
+  officialResources?: Array<{
+    name: string;
+    description: string;
+    url: string;
+  }>;
   lat: number;
   lon: number;
 };
@@ -82,6 +87,23 @@ export const hurricaneCities: HurricaneCity[] = [
           "Use the NHC cone for storm-track context, but make decisions from local NWS alerts, Miami-Dade emergency management instructions, and evacuation-zone guidance. The cone does not show every surge, flood, or tornado hazard."
       }
     ],
+    officialResources: [
+      {
+        name: "Miami-Dade Hurricane Readiness",
+        description: "Official Miami-Dade evacuation, alert, shelter, and hurricane preparedness information.",
+        url: "https://www.miamidade.gov/global/emergency/hurricane/home.page"
+      },
+      {
+        name: "NWS Miami-South Florida",
+        description: "Official National Weather Service alerts and forecasts for Miami and South Florida.",
+        url: "https://www.weather.gov/mfl/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
+      }
+    ],
     lat: 25.7617,
     lon: -80.1918
   },
@@ -142,6 +164,23 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "Is being inland from Tampa Bay enough protection?",
         answer:
           "Not always. Inland areas may avoid surge but still face flooding rain, tornado warnings, tree damage, and extended power outages. Match your plan to both coastal water risk and inland weather alerts."
+      }
+    ],
+    officialResources: [
+      {
+        name: "Hillsborough County Disaster Planning",
+        description: "Official Hillsborough County evacuation, shelter, alert, and disaster preparedness information.",
+        url: "https://hcfl.gov/residents/stay-safe"
+      },
+      {
+        name: "NWS Tampa Bay",
+        description: "Official National Weather Service alerts and forecasts for the Tampa Bay area.",
+        url: "https://www.weather.gov/tbw/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
       }
     ],
     lat: 27.9506,
@@ -206,6 +245,23 @@ export const hurricaneCities: HurricaneCity[] = [
           "Tropical systems can slow down, pull moisture from the Gulf, and repeatedly send rain bands over the same area. Flooding can worsen after landfall even when the storm is weakening."
       }
     ],
+    officialResources: [
+      {
+        name: "ReadyHarris",
+        description: "Official Harris County emergency alerts, preparedness, evacuation, and recovery information.",
+        url: "https://www.readyharris.org/"
+      },
+      {
+        name: "NWS Houston/Galveston",
+        description: "Official National Weather Service alerts and forecasts for Houston, Galveston, and southeast Texas.",
+        url: "https://www.weather.gov/hgx/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
+      }
+    ],
     lat: 29.7604,
     lon: -95.3698
   },
@@ -266,6 +322,23 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "What should New Orleans households prepare first?",
         answer:
           "Start with people and documents: prescriptions, medical equipment plans, IDs, insurance records, pet supplies, fuel, chargers, cash, and a destination or shelter option."
+      }
+    ],
+    officialResources: [
+      {
+        name: "NOLA Ready",
+        description: "Official New Orleans emergency alerts, evacuation, shelter, and hurricane preparedness information.",
+        url: "https://ready.nola.gov/"
+      },
+      {
+        name: "NWS New Orleans/Baton Rouge",
+        description: "Official National Weather Service alerts and forecasts for southeast Louisiana.",
+        url: "https://www.weather.gov/lix/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
       }
     ],
     lat: 29.9511,
@@ -330,6 +403,23 @@ export const hurricaneCities: HurricaneCity[] = [
           "Yes. Tropical storms can produce coastal flooding, tornado warnings, heavy rain, tree damage, and outages even without major-hurricane wind at landfall."
       }
     ],
+    officialResources: [
+      {
+        name: "Virginia Beach Emergency Management",
+        description: "Official Virginia Beach emergency alerts, evacuation zone, shelter, and preparedness information.",
+        url: "https://emergency.vbgov.com/"
+      },
+      {
+        name: "NWS Wakefield",
+        description: "Official National Weather Service alerts and forecasts for Virginia Beach and Hampton Roads.",
+        url: "https://www.weather.gov/akq/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
+      }
+    ],
     lat: 36.8529,
     lon: -75.9779
   },
@@ -390,6 +480,23 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "What should Fort Myers households prepare first?",
         answer:
           "Start with evacuation zone, documents, medication, fuel, pet supplies, chargers, and a destination outside the surge area."
+      }
+    ],
+    officialResources: [
+      {
+        name: "Lee County Emergency Management",
+        description: "Official Lee County evacuation zones, alerts, shelters, and hurricane preparedness information.",
+        url: "https://www.leegov.com/publicsafety/emergencymanagement"
+      },
+      {
+        name: "NWS Tampa Bay",
+        description: "Official National Weather Service alerts and forecasts for much of southwest Florida.",
+        url: "https://www.weather.gov/tbw/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
       }
     ],
     lat: 26.6406,
@@ -454,6 +561,23 @@ export const hurricaneCities: HurricaneCity[] = [
           "Visitors should follow Monroe County guidance. Tourist evacuations may be ordered earlier to reduce traffic and preserve resources for residents."
       }
     ],
+    officialResources: [
+      {
+        name: "Monroe County Emergency Management",
+        description: "Official Florida Keys evacuation, alerts, shelter, and hurricane preparedness information.",
+        url: "https://www.monroecounty-fl.gov/897/Emergency-Management"
+      },
+      {
+        name: "NWS Key West",
+        description: "Official National Weather Service alerts and forecasts for the Florida Keys.",
+        url: "https://www.weather.gov/key/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
+      }
+    ],
     lat: 24.5551,
     lon: -81.78
   },
@@ -514,6 +638,23 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "What should Jacksonville residents check first?",
         answer:
           "Check Duval County evacuation zones, NWS coastal and river flood alerts, bridge guidance, and your household's power and medical needs."
+      }
+    ],
+    officialResources: [
+      {
+        name: "JaxReady",
+        description: "Official Jacksonville and Duval County emergency preparedness, evacuation, shelter, and alert information.",
+        url: "https://www.jaxready.com/"
+      },
+      {
+        name: "NWS Jacksonville",
+        description: "Official National Weather Service alerts and forecasts for northeast Florida.",
+        url: "https://www.weather.gov/jax/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
       }
     ],
     lat: 30.3322,
@@ -578,6 +719,23 @@ export const hurricaneCities: HurricaneCity[] = [
           "No. Evacuation decisions should follow official local orders and surge risk, not only category. Water can be dangerous in lower-category storms."
       }
     ],
+    officialResources: [
+      {
+        name: "Galveston County Emergency Management",
+        description: "Official Galveston County emergency alerts, evacuation, preparedness, and recovery information.",
+        url: "https://www.gcoem.org/"
+      },
+      {
+        name: "NWS Houston/Galveston",
+        description: "Official National Weather Service alerts and forecasts for Galveston and southeast Texas.",
+        url: "https://www.weather.gov/hgx/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
+      }
+    ],
     lat: 29.3013,
     lon: -94.7977
   },
@@ -638,6 +796,23 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "What should Corpus Christi households prepare for after landfall?",
         answer:
           "Prepare for outages, limited fuel, water disruption, debris, heat, and communication problems, especially if power restoration takes several days."
+      }
+    ],
+    officialResources: [
+      {
+        name: "Corpus Christi Emergency Management",
+        description: "Official Corpus Christi emergency alerts, evacuation, preparedness, and hurricane information.",
+        url: "https://www.cctexas.com/services/public-safety/emergency-management"
+      },
+      {
+        name: "NWS Corpus Christi",
+        description: "Official National Weather Service alerts and forecasts for the Coastal Bend.",
+        url: "https://www.weather.gov/crp/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
       }
     ],
     lat: 27.8006,
@@ -702,6 +877,23 @@ export const hurricaneCities: HurricaneCity[] = [
           "Water is often the primary concern downtown because tidal flooding, surge, and heavy rain can combine. Wind and outages still matter."
       }
     ],
+    officialResources: [
+      {
+        name: "Charleston County Emergency Management",
+        description: "Official Charleston County evacuation, shelter, alerts, and hurricane preparedness information.",
+        url: "https://www.charlestoncounty.org/departments/emergency-management/"
+      },
+      {
+        name: "NWS Charleston",
+        description: "Official National Weather Service alerts and forecasts for Charleston and the Lowcountry.",
+        url: "https://www.weather.gov/chs/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
+      }
+    ],
     lat: 32.7765,
     lon: -79.9311
   },
@@ -762,6 +954,23 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "What should Wilmington residents monitor besides the cone?",
         answer:
           "Monitor NWS flood alerts, river forecasts, local evacuation orders, road closures, and county emergency management updates."
+      }
+    ],
+    officialResources: [
+      {
+        name: "New Hanover County Emergency Management",
+        description: "Official New Hanover County emergency alerts, evacuation, shelter, and preparedness information.",
+        url: "https://em.nhcgov.com/"
+      },
+      {
+        name: "NWS Wilmington NC",
+        description: "Official National Weather Service alerts and forecasts for southeast North Carolina.",
+        url: "https://www.weather.gov/ilm/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
       }
     ],
     lat: 34.2104,
@@ -826,6 +1035,23 @@ export const hurricaneCities: HurricaneCity[] = [
           "Yes. Storms passing near Florida or the Carolinas can still bring surge, rain, tornado warnings, tree damage, and outages to the Savannah area."
       }
     ],
+    officialResources: [
+      {
+        name: "Chatham Emergency Management Agency",
+        description: "Official Chatham County and Savannah area emergency alerts, evacuation, and preparedness information.",
+        url: "https://www.chathamemergency.org/"
+      },
+      {
+        name: "NWS Charleston",
+        description: "Official National Weather Service alerts and forecasts for coastal Georgia and the Lowcountry.",
+        url: "https://www.weather.gov/chs/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
+      }
+    ],
     lat: 32.0809,
     lon: -81.0912
   },
@@ -888,6 +1114,23 @@ export const hurricaneCities: HurricaneCity[] = [
           "Yes. Wind, trees, flooding, and utility damage can create multi-day outages, so plan for heat, charging, food, water, medicine, and generator safety."
       }
     ],
+    officialResources: [
+      {
+        name: "Mobile County Emergency Management Agency",
+        description: "Official Mobile County emergency alerts, hurricane preparedness, shelter, and response information.",
+        url: "https://www.mcema.net/"
+      },
+      {
+        name: "NWS Mobile/Pensacola",
+        description: "Official National Weather Service alerts and forecasts for the Alabama Gulf Coast.",
+        url: "https://www.weather.gov/mob/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
+      }
+    ],
     lat: 30.6954,
     lon: -88.0399
   },
@@ -948,6 +1191,23 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "What should Biloxi residents prepare for after a hurricane?",
         answer:
           "Prepare for power and water disruption, debris, limited fuel, reentry delays, insurance documentation, and cleanup safety."
+      }
+    ],
+    officialResources: [
+      {
+        name: "Harrison County Emergency Management",
+        description: "Official Harrison County emergency alerts, evacuation, shelter, and hurricane preparedness information.",
+        url: "https://harrisoncountyms.gov/departments/emergency-management-agency/"
+      },
+      {
+        name: "NWS New Orleans/Baton Rouge",
+        description: "Official National Weather Service alerts and forecasts for coastal Mississippi.",
+        url: "https://www.weather.gov/lix/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
       }
     ],
     lat: 30.396,
