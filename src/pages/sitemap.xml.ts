@@ -3,6 +3,7 @@ import { blogPosts } from "../data/blog";
 import { hurricaneCities } from "../data/cities";
 import { site } from "../data/site";
 import { coastalStates } from "../data/states";
+import { stormTrackerPages } from "../data/stormPages";
 
 export const prerender = true;
 
@@ -35,6 +36,7 @@ const routes = [
   ...coastalStates.map((state) => ({ path: `tracker/${state.slug}/`, lastmod: updated, priority: "0.9", changefreq: "hourly" })),
   { path: "hurricane-tracker/city/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
   ...hurricaneCities.map((city) => ({ path: `hurricane-tracker/city/${city.slug}/`, lastmod: updated, priority: "0.8", changefreq: "daily" })),
+  ...stormTrackerPages.map((storm) => ({ path: `hurricane-tracker/storm/${storm.slug}/`, lastmod: updated, priority: "0.8", changefreq: "daily" })),
   { path: "storm-archive/", lastmod: updated, priority: "0.7", changefreq: "daily" },
   { path: "blog/", lastmod: blogLastMod, priority: "0.8", changefreq: "weekly" },
   ...blogPosts.map((post) => ({ path: `blog/${post.slug}/`, lastmod: new Date(post.dateModified).toISOString(), priority: "0.7", changefreq: "weekly" })),

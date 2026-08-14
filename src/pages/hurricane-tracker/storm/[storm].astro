@@ -1,0 +1,176 @@
+---
+import FaqBlock from "../../../components/FaqBlock.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { getStormPageBySlug, stormTrackerPages } from "../../../data/stormPages";
+import { site } from "../../../data/site";
+import { articleSchema, breadcrumbSchema, faqSchema, graph, websiteSchema } from "../../../lib/schema";
+import type { NhcStorm } from "../../../lib/weather";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  return stormTrackerPages.map((storm) => ({
+    params: { storm: storm.slug },
+    props: { stormPage: storm }
+  }));
+}
+
+type StormFeed = {
+  storms?: Array<NhcStorm & { summary?: string }>;
+  updatedAt?: string;
+  fetchedAt?: string;
+};
+
+const stormPage = Astro.props.stormPage ?? getStormPageBySlug(Astro.params.storm);
+if (!stormPage) {
+  return Astro.redirect("/storm-archive/");
+}
+
+let feed: StormFeed | null = null;
+try {
+  const response = await fetch(new URL("/api/nhc/current.json", Astro.url));
+  if (response.ok) {
+    feed = await response.json() as StormFeed;
+  }
+} catch (error) {
+  console.error("HurricaneHub storm-name feed failed", { storm: stormPage.slug, error });
+}
+
+const activeStorm = (feed?.storms ?? []).find((item) => {
+  const values = [item.name, item.id, item.binNumber].filter(Boolean).map((value) => String(value).toLowerCase());
+  return values.some((value) => value.includes(stormPage.slug));
+});
+const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
+const title = `Hurricane ${stormPage.name} Tracker Live Map and NHC Updates`;
+const description = `Track Hurricane ${stormPage.name} with NHC status checks, advisory links, radar and satellite context, forecast-path notes, and local decision tools.`;
+const url = `${site.url}/hurricane-tracker/storm/${stormPage.slug}/`;
+const pageFaqs = [
+  ...stormPage.faqs,
+  {
+    question: `Is HurricaneHub an official Hurricane ${stormPage.name} advisory source?`,
+    answer:
+      "No. HurricaneHub organizes official-source links and decision tools, but NHC, NWS, and local emergency management remain the official sources for forecasts, watches, warnings, and evacuation orders."
+  }
+];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  faqSchema(pageFaqs),
+  breadcrumbSchema([
+    { name: "Home", url: site.canonicalUrl },
+    { name: "Storm Archive", url: `${site.url}/storm-archive/` },
+    { name: `Hurricane ${stormPage.name} Tracker`, url }
+  ])
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="storm-title">
+    <div class="inner">
+      <p class="eyebrow">{stormPage.basin} storm-name tracker</p>
+      <h1 id="storm-title">Hurricane {stormPage.name} Tracker Live Map and NHC Updates</h1>
+      <p class="answer">{stormPage.overview}</p>
+      <p class="answer">{stormPage.searchDemandNote}</p>
+      <p class="section-actions">
+        <a class="action-link" href="/tracker/">Open live hurricane tracker</a>
+        <a class="action-link secondary-action" href="/radar/">Open radar and satellite map</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="live-status">
+    <div class="inner grid-2">
+      <article class="panel">
+        <p class="eyebrow">Current NHC status</p>
+        <h2 id="live-status">{activeStorm ? `${stormPage.name} is listed in the current feed` : `No active ${stormPage.name} record in the current feed`}</h2>
+        {activeStorm ? (
+          <>
+            <p>{activeStorm.summary ?? "Current NHC storm data loaded for this named system."}</p>
+            <table>
+              <tbody>
+                <tr><th>Classification</th><td>{activeStorm.classification ?? "pending"}</td></tr>
+                <tr><th>Intensity</th><td>{activeStorm.intensity ?? activeStorm.windSpeed ?? "pending"}</td></tr>
+                <tr><th>Position</th><td>{activeStorm.latitude ?? "pending"}, {activeStorm.longitude ?? "pending"}</td></tr>
+                <tr><th>Movement</th><td>{activeStorm.movementDir ?? "pending"} at {activeStorm.movementSpeed ?? "pending"}</td></tr>
+                <tr><th>NHC update</th><td>{activeStorm.lastUpdate ?? lastModified}</td></tr>
+              </tbody>
+            </table>
+            <p class="storm-links">
+              {activeStorm.publicAdvisory && <a href={activeStorm.publicAdvisory} rel="noopener nofollow">NHC public advisory</a>}
+              {activeStorm.forecastAdvisory && <a href={activeStorm.forecastAdvisory} rel="noopener nofollow">NHC forecast advisory</a>}
+            </p>
+          </>
+        ) : (
+          <p>No active NHC tropical cyclone named {stormPage.name} appears in HurricaneHub's current feed. Keep using this page for storm-name search context, official links, and readiness steps when the name appears in forecasts or past-storm searches.</p>
+        )}
+      </article>
+      <article class="panel">
+        <p class="eyebrow">Keyword cluster</p>
+        <h2>Common {stormPage.name} Searches</h2>
+        <ul>
+          {stormPage.primaryKeywords.map((keyword) => <li>{keyword}</li>)}
+        </ul>
+        <p>These searches usually mean the user wants live position, forecast path, map context, and official advisory links in one place.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="tracking-plan">
+    <div class="inner">
+      <p class="eyebrow">How to use this tracker</p>
+      <h2 id="tracking-plan">Track Hurricane {stormPage.name} Without Missing Local Risk</h2>
+      <div class="grid-2 section-grid">
+        <article class="panel">
+          <h3>Tracker Checklist</h3>
+          <ul>
+            {stormPage.trackerFocus.map((item) => <li>{item}</li>)}
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Official Sources</h3>
+          <ul>
+            <li><a href="https://www.nhc.noaa.gov/" rel="noopener nofollow">National Hurricane Center advisories</a></li>
+            <li><a href="https://www.weather.gov/" rel="noopener nofollow">National Weather Service local alerts</a></li>
+            <li><a href="/tools/storm-distance-calculator/">Storm distance calculator</a></li>
+            <li><a href="/tools/storm-surge-checker/">Storm surge checker</a></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="related-trackers">
+    <div class="inner">
+      <p class="eyebrow">Related trackers</p>
+      <h2 id="related-trackers">Keep Context Around {stormPage.name}</h2>
+      <div class="grid-3 section-grid">
+        <article class="state-card">
+          <h3>Live Hurricane Tracker</h3>
+          <p>See all active NHC systems and current advisory links.</p>
+          <a href="/tracker/">Open tracker</a>
+        </article>
+        <article class="state-card">
+          <h3>Florida Hurricane Tracker</h3>
+          <p>High-demand local page for Florida storm watches, warnings, and risk context.</p>
+          <a href="/tracker/florida/">Open Florida</a>
+        </article>
+        <article class="state-card">
+          <h3>Storm Archive</h3>
+          <p>Use the archive as HurricaneHub expands named-storm history and advisory records.</p>
+          <a href="/storm-archive/">Open archive</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <FaqBlock faqs={pageFaqs} />
+</Layout>
+
+<style>
+  .storm-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 18px 0 0;
+    font-weight: 800;
+  }
+</style>

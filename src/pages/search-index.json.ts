@@ -2,6 +2,7 @@ export const prerender = true;
 
 import type { APIRoute } from "astro";
 import { blogPosts } from "../data/blog";
+import { stormTrackerPages } from "../data/stormPages";
 
 type Entry = {
   title: string;
@@ -57,7 +58,15 @@ const blogEntries: Entry[] = blogPosts.map((p) => ({
   ].join(" ")
 }));
 
-const entries: Entry[] = [...pages, ...blogEntries];
+const stormEntries: Entry[] = stormTrackerPages.map((storm) => ({
+  title: `Hurricane ${storm.name} Tracker`,
+  url: `/hurricane-tracker/storm/${storm.slug}/`,
+  description: storm.searchDemandNote,
+  category: "Storm Tracker",
+  body: [storm.name, storm.basin, storm.primaryKeywords.join(" "), storm.trackerFocus.join(" ")].join(" ")
+}));
+
+const entries: Entry[] = [...pages, ...stormEntries, ...blogEntries];
 
 export const GET: APIRoute = () =>
   new Response(JSON.stringify({ entries }), {
