@@ -1,0 +1,102 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import Layout from "../../layouts/Layout.astro";
+import { site } from "../../data/site";
+import { articleSchema, breadcrumbSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+
+const title = "Live Hurricane Tracker Map";
+const description =
+  "Use HurricaneHub's live hurricane tracker map with NHC storm checks, radar and satellite shortcuts, active alerts, city trackers, and decision tools.";
+const url = `${site.url}/hurricane-tracker/live/`;
+const lastModified = site.contentLastModified;
+const faqs = [
+  {
+    question: "What is the best way to use a live hurricane tracker?",
+    answer:
+      "Use the tracker for storm position and advisory context, then compare it with radar, local NWS alerts, and local emergency guidance before making travel, shelter, or evacuation decisions."
+  },
+  {
+    question: "Does a live tracker show every local hurricane impact?",
+    answer:
+      "No. A tracker map helps with storm context, but local impacts such as storm surge, flooding rain, tornado warnings, bridge closures, and evacuation orders require local official sources."
+  },
+  {
+    question: "How often should I check hurricane updates?",
+    answer:
+      "During an active threat, check official NHC advisories, local NWS alerts, and local emergency management updates regularly, especially when watches or warnings are issued."
+  }
+];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  faqSchema(faqs),
+  breadcrumbSchema([
+    { name: "Home", url: site.canonicalUrl },
+    { name: "Live Hurricane Tracker", url }
+  ])
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="live-title">
+    <div class="inner">
+      <p class="eyebrow">Live map hub</p>
+      <h1 id="live-title">Live Hurricane Tracker Map</h1>
+      <p class="answer">Use this live hurricane tracker hub to move quickly between active storm tracking, radar and satellite views, city-level risk pages, named-storm trackers, and practical decision tools.</p>
+      <p class="section-actions">
+        <a class="action-link" href="/tracker/">Open live tracker</a>
+        <a class="action-link secondary-action" href="/radar/">Open radar map</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="live-workflow">
+    <div class="inner">
+      <p class="eyebrow">Fast workflow</p>
+      <h2 id="live-workflow">Track the Storm, Then Check Local Risk</h2>
+      <div class="grid-3 section-grid">
+        <article class="panel">
+          <h3>1. Start With Active Storms</h3>
+          <p>Open the live tracker to see current NHC systems, advisory links, and map context for the basin.</p>
+          <p><a class="action-link" href="/tracker/">Live tracker</a></p>
+        </article>
+        <article class="panel">
+          <h3>2. Compare Radar and Alerts</h3>
+          <p>Use radar and active alerts to understand rain bands, local warnings, and changing weather near your area.</p>
+          <p><a class="action-link" href="/alerts/">Active alerts</a></p>
+        </article>
+        <article class="panel">
+          <h3>3. Use Local Pages</h3>
+          <p>City and state pages help connect the storm map with evacuation zones, surge exposure, flooding, and outages.</p>
+          <p><a class="action-link" href="/hurricane-tracker/city/">City trackers</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="live-links">
+    <div class="inner grid-2">
+      <article class="panel">
+        <p class="eyebrow">High-intent searches</p>
+        <h2 id="live-links">Useful Hurricane Tracker Shortcuts</h2>
+        <ul>
+          <li><a href="/hurricane-tracker/storm/">Named hurricane trackers</a></li>
+          <li><a href="/tracker/florida/">Florida hurricane tracker</a></li>
+          <li><a href="/tracker/texas/">Texas hurricane tracker</a></li>
+          <li><a href="/tools/impact-window-estimator/">Impact window estimator</a></li>
+          <li><a href="/tools/storm-distance-calculator/">Storm distance calculator</a></li>
+        </ul>
+      </article>
+      <article class="panel">
+        <p class="eyebrow">Official-source mindset</p>
+        <h2>Maps Are Context, Alerts Drive Decisions</h2>
+        <p>Live maps are useful for orientation, but local watches, warnings, evacuation orders, shelter instructions, and road restrictions should come from NHC, NWS, and local emergency management.</p>
+        <ul>
+          <li><a href="https://www.nhc.noaa.gov/" rel="noopener nofollow">National Hurricane Center</a></li>
+          <li><a href="https://www.weather.gov/" rel="noopener nofollow">National Weather Service</a></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <FaqBlock faqs={faqs} />
+</Layout>

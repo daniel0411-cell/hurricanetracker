@@ -67,7 +67,7 @@ const jsonLd = graph(
         <p class="answer">This page shows live hurricanes approaching North America, current NHC storm summaries, state NWS alerts, and decision-focused links for coastal households preparing for severe tropical weather.</p>
         <p class="section-actions">
           <a class="action-link" href="/tools/my-hurricane-dashboard/">Build my dashboard</a>
-          <a class="action-link tracker-secondary" href="/storm-archive/">Open storm archive</a>
+          <a class="action-link tracker-secondary" href="/hurricane-tracker/storm/">Browse named storms</a>
         </p>
       </article>
 
@@ -80,6 +80,29 @@ const jsonLd = graph(
         </div>
         <p class="source-note">Updated {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC.</p>
       </aside>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="tracker-shortcuts-heading">
+    <div class="inner grid-3 section-grid">
+      <article class="panel">
+        <p class="eyebrow">Live map hub</p>
+        <h2 id="tracker-shortcuts-heading">Live Hurricane Tracker Map</h2>
+        <p>Use the keyword-focused live tracker hub for active storm checks, radar shortcuts, alerts, and local page links.</p>
+        <a href="/hurricane-tracker/live/">Open live map hub</a>
+      </article>
+      <article class="panel">
+        <p class="eyebrow">Storm names</p>
+        <h2>Named Hurricane Trackers</h2>
+        <p>Open standing storm-name pages that check the current NHC feed and link to official advisory context.</p>
+        <a href="/hurricane-tracker/storm/">Browse named storms</a>
+      </article>
+      <article class="panel">
+        <p class="eyebrow">Local pages</p>
+        <h2>City Hurricane Trackers</h2>
+        <p>Move from storm position to local surge, flood, route, outage, and alert context by city.</p>
+        <a href="/hurricane-tracker/city/">Browse city trackers</a>
+      </article>
     </div>
   </section>
 

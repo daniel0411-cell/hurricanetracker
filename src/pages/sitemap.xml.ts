@@ -16,6 +16,7 @@ const blogLastMod = "2026-08-10";
 const routes = [
   { path: "", lastmod: updated, priority: "1.0", changefreq: "daily" },
   { path: "tracker/", lastmod: updated, priority: "0.8", changefreq: "daily" },
+  { path: "hurricane-tracker/live/", lastmod: updated, priority: "0.9", changefreq: "daily" },
   { path: "radar/", lastmod: updated, priority: "0.8", changefreq: "daily" },
   { path: "alerts/", lastmod: updated, priority: "0.8", changefreq: "daily" },
   { path: "preparedness/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
@@ -36,6 +37,7 @@ const routes = [
   ...coastalStates.map((state) => ({ path: `tracker/${state.slug}/`, lastmod: updated, priority: "0.9", changefreq: "hourly" })),
   { path: "hurricane-tracker/city/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
   ...hurricaneCities.map((city) => ({ path: `hurricane-tracker/city/${city.slug}/`, lastmod: updated, priority: "0.8", changefreq: "daily" })),
+  { path: "hurricane-tracker/storm/", lastmod: updated, priority: "0.8", changefreq: "daily" },
   ...stormTrackerPages.map((storm) => ({ path: `hurricane-tracker/storm/${storm.slug}/`, lastmod: updated, priority: "0.8", changefreq: "daily" })),
   { path: "storm-archive/", lastmod: updated, priority: "0.7", changefreq: "daily" },
   { path: "blog/", lastmod: blogLastMod, priority: "0.8", changefreq: "weekly" },

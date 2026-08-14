@@ -1,0 +1,73 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { stormTrackerPages } from "../../../data/stormPages";
+import { site } from "../../../data/site";
+import { articleSchema, graph, itemListSchema, websiteSchema } from "../../../lib/schema";
+
+const title = "Named Hurricane Trackers";
+const description =
+  "Browse named hurricane tracker pages for live NHC status checks, official advisory links, radar shortcuts, and storm-name search context.";
+const url = `${site.url}/hurricane-tracker/storm/`;
+const lastModified = site.contentLastModified;
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  itemListSchema(stormTrackerPages.map((storm) => ({
+    name: `Hurricane ${storm.name} Tracker`,
+    description: storm.searchDemandNote,
+    url: `${site.url}/hurricane-tracker/storm/${storm.slug}/`
+  })))
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="storm-index-title">
+    <div class="inner">
+      <p class="eyebrow">Storm-name search hub</p>
+      <h1 id="storm-index-title">Named Hurricane Trackers</h1>
+      <p class="answer">Open standing pages for high-demand named storm searches. Each page connects live NHC feed checks, official advisory links, radar shortcuts, and local decision tools without claiming a storm is active unless the current feed shows it.</p>
+      <p class="section-actions">
+        <a class="action-link" href="/tracker/">Open live hurricane tracker</a>
+        <a class="action-link secondary-action" href="/storm-archive/">Open storm archive</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="storm-list">
+    <div class="inner">
+      <h2 id="storm-list">Choose a Storm Name</h2>
+      <div class="grid-3 section-grid">
+        {stormTrackerPages.map((storm) => (
+          <article class="panel">
+            <p class="eyebrow">{storm.basin}</p>
+            <h3>Hurricane {storm.name} Tracker</h3>
+            <p>{storm.searchDemandNote}</p>
+            <ul>
+              {storm.primaryKeywords.map((keyword) => <li>{keyword}</li>)}
+            </ul>
+            <p><a class="action-link" href={`/hurricane-tracker/storm/${storm.slug}/`}>Open {storm.name}</a></p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="storm-workflow">
+    <div class="inner grid-2">
+      <article class="panel">
+        <p class="eyebrow">Use with live data</p>
+        <h2 id="storm-workflow">Check Name, Map, Then Local Alerts</h2>
+        <p>Named storm searches move fast during advisory cycles. Start with the storm-name page, confirm whether the current NHC feed lists that name, then use the live tracker, radar, and local NWS alerts for the details that affect real decisions.</p>
+      </article>
+      <article class="panel">
+        <p class="eyebrow">Related tools</p>
+        <h2>Plan Around Impact, Not Only the Cone</h2>
+        <ul>
+          <li><a href="/tools/impact-window-estimator/">Impact window estimator</a></li>
+          <li><a href="/tools/storm-distance-calculator/">Storm distance calculator</a></li>
+          <li><a href="/tools/storm-surge-checker/">Storm surge checker</a></li>
+          <li><a href="/hurricane-tracker/city/">City hurricane trackers</a></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</Layout>
