@@ -2,13 +2,40 @@
 import FaqBlock from "../components/FaqBlock.astro";
 import Layout from "../layouts/Layout.astro";
 import { faqs, site } from "../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
+import { articleSchema, faqSchema, graph, howToSchema, websiteSchema } from "../lib/schema";
 
 const title = "Hurricane Preparedness Decision Matrix";
 const description = "Use a clear hurricane decision matrix for monitoring, preparing, acting, and leaving before tropical cyclone hazards arrive.";
 const url = `${site.url}/preparedness/`;
 const lastModified = site.contentLastModified;
-const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url, dateModified: lastModified }), faqSchema(faqs));
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  howToSchema({
+    name: "How to Use the Hurricane Preparedness Decision Matrix",
+    description,
+    url,
+    steps: [
+      {
+        name: "Monitor official storm and alert sources",
+        text: "When no local warning or nearby active system is present, review the forecast, confirm contacts, and keep basic supplies ready."
+      },
+      {
+        name: "Prepare when a tropical system, watch, or flood risk appears",
+        text: "Fuel vehicles, organize medication and documents, inspect supplies, and review evacuation options before conditions worsen."
+      },
+      {
+        name: "Act when warning-level hazards are issued",
+        text: "Follow official warnings, complete protective actions, move vulnerable people early, and stop nonessential travel as conditions deteriorate."
+      },
+      {
+        name: "Leave when evacuation or life-threatening hazard language applies",
+        text: "Follow local evacuation instructions, use official routes, and tell contacts your route and destination before deadlines pass."
+      }
+    ]
+  }),
+  faqSchema(faqs)
+);
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
   <section class="band" aria-labelledby="preparedness-title">

@@ -72,6 +72,35 @@ const tools = [
 ];
 
 const popularTools = [tools[0], tools[3], tools[4], tools[2]];
+const workflows = [
+  {
+    name: "I need to know what is happening near me",
+    summary: "Start with your saved locations, then compare active alerts with the local city tracker and live map.",
+    steps: [
+      { label: "Open My Hurricane Dashboard", href: "/tools/my-hurricane-dashboard/" },
+      { label: "Check City Hurricane Trackers", href: "/hurricane-tracker/city/" },
+      { label: "Review Live Alerts", href: "/alerts/" }
+    ]
+  },
+  {
+    name: "I need to decide whether to leave",
+    summary: "Use official alert language first, then layer in surge exposure, housing type, medical needs, pets, and transportation.",
+    steps: [
+      { label: "Use the Evacuation Helper", href: "/tools/evacuation-decision-helper/" },
+      { label: "Decode the Alert", href: "/tools/alert-action-decoder/" },
+      { label: "Build a Local Risk Plan", href: "/tools/local-risk-plan/" }
+    ]
+  },
+  {
+    name: "I need to prepare the house and family",
+    summary: "Turn the forecast into supplies, contacts, outage planning, and a printable household brief.",
+    steps: [
+      { label: "Generate a Checklist", href: "/tools/preparedness-checklist/" },
+      { label: "Plan for Power Outages", href: "/tools/power-outage-planner/" },
+      { label: "Create a Family Plan", href: "/tools/family-communication-plan/" }
+    ]
+  }
+];
 
 const jsonLd = graph(
   websiteSchema(),
@@ -86,6 +115,26 @@ const jsonLd = graph(
       <p class="eyebrow">Emergency decision tools</p>
       <h1 id="tools-title">Hurricane Tools</h1>
       <p class="answer">HurricaneHub tools help households turn official NOAA/NHC storm information into preparedness actions, starting with a personalized emergency kit checklist.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="workflow-heading">
+    <div class="inner">
+      <p class="eyebrow">Choose by situation</p>
+      <h2 id="workflow-heading">Which Hurricane Tool Should I Use First?</h2>
+      <div class="grid-3">
+        {workflows.map((workflow) => (
+          <article class="post-card">
+            <h3>{workflow.name}</h3>
+            <p>{workflow.summary}</p>
+            <ol class="workflow-list">
+              {workflow.steps.map((step) => (
+                <li><a href={step.href}>{step.label}</a></li>
+              ))}
+            </ol>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -116,5 +165,34 @@ const jsonLd = graph(
       ))}
     </div>
   </section>
+
+  <section class="band" aria-labelledby="tool-context-heading">
+    <div class="inner grid-2">
+      <article>
+        <p class="eyebrow">How tools fit together</p>
+        <h2 id="tool-context-heading">From Storm Tracking to Household Action</h2>
+        <p class="answer">A hurricane tool works best when it answers one decision at a time: where the storm is, what alerts are active, what hazards affect your location, and what your household should finish before conditions worsen.</p>
+        <p>Use the <a href="/hurricane-tracker/live/">live hurricane tracker</a> for current storm context, the <a href="/hurricane-tracker/storm/">named storm pages</a> for storm-specific updates, and the <a href="/learn/">Hurricane Learning Center</a> when you need plain-language explanations before using a checklist or decision helper.</p>
+      </article>
+      <article class="panel">
+        <h3>High-intent hurricane searches covered here</h3>
+        <ul class="check-list">
+          <li>Hurricane preparedness checklist and emergency kit planning</li>
+          <li>Evacuation decision support for surge zones and vulnerable households</li>
+          <li>Storm distance, live tracker, and local alert interpretation</li>
+          <li>Power outage, family communication, and printable household plans</li>
+        </ul>
+      </article>
+    </div>
+  </section>
   <FaqBlock faqs={faqs} />
 </Layout>
+
+<style>
+  .workflow-list {
+    display: grid;
+    gap: 8px;
+    margin: 16px 0 0;
+    padding-left: 1.3rem;
+  }
+</style>
