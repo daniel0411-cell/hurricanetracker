@@ -1,0 +1,170 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { blogPosts } from "../data/blog";
+import { hurricaneCities } from "../data/cities";
+import { site } from "../data/site";
+import { coastalStates } from "../data/states";
+import { stormTrackerPages } from "../data/stormPages";
+import { articleSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
+
+const title = "HurricaneHub Site Map";
+const description =
+  "Browse every major HurricaneHub page: live hurricane trackers, state and city trackers, storm pages, tools, learning guides, and blog resources.";
+const url = `${site.url}/site-map/`;
+const lastModified = site.contentLastModified;
+
+const corePages = [
+  {
+    title: "Live Hurricane Tracker Map",
+    href: "/hurricane-tracker/live/",
+    description: "Live storm checks, radar shortcuts, active alerts, and decision tools."
+  },
+  {
+    title: "State Hurricane Trackers",
+    href: "/tracker/",
+    description: "Hurricane tracking and alert context organized by coastal state."
+  },
+  {
+    title: "City Hurricane Trackers",
+    href: "/hurricane-tracker/city/",
+    description: "Local surge, flooding, outage, evacuation, and alert planning pages."
+  },
+  {
+    title: "Named Hurricane Trackers",
+    href: "/hurricane-tracker/storm/",
+    description: "Standing tracker pages for named storms with NHC source checks."
+  },
+  {
+    title: "Hurricane Tools",
+    href: "/tools/",
+    description: "Decision-support tools for alerts, evacuation, outages, distance, and household planning."
+  },
+  {
+    title: "Hurricane Blog",
+    href: "/blog/",
+    description: "Preparedness guides, warning explainers, and hurricane-season planning articles."
+  },
+  {
+    title: "Hurricane Learning Center",
+    href: "/learn/",
+    description: "Plain-language explanations of cones, radar, satellite, storm surge, and categories."
+  },
+  {
+    title: "Active NWS Alerts",
+    href: "/alerts/",
+    description: "Browse active National Weather Service alerts by state."
+  },
+  {
+    title: "Interactive Hurricane Radar",
+    href: "/radar/",
+    description: "Radar, satellite, and alert map layers for tropical weather monitoring."
+  },
+  {
+    title: "Hurricane Preparedness Guide",
+    href: "/preparedness/",
+    description: "Emergency kits, evacuation planning, family communication, and readiness timing."
+  },
+  {
+    title: "Evacuation Decision Guide",
+    href: "/decision-guide/",
+    description: "Step-by-step decision support for people in the risk zone."
+  },
+  {
+    title: "Storm Archive",
+    href: "/storm-archive/",
+    description: "Reference paths for notable storms and hurricane-season research."
+  }
+];
+
+const toolPages = [
+  ["My Hurricane Dashboard", "/tools/my-hurricane-dashboard/", "Track saved locations and active threats."],
+  ["Impact Window Estimator", "/tools/impact-window-estimator/", "Estimate when hurricane impacts may reach an area."],
+  ["Local Risk Plan", "/tools/local-risk-plan/", "Build a localized hurricane plan from a ZIP code or address."],
+  ["Preparedness Checklist Generator", "/tools/preparedness-checklist/", "Generate a personalized hurricane preparedness checklist."],
+  ["Evacuation Decision Helper", "/tools/evacuation-decision-helper/", "Clarify whether your household should leave earlier."],
+  ["Hurricane Brief", "/tools/hurricane-brief/", "Create a plain-language local hurricane brief."],
+  ["Power Outage Planner", "/tools/power-outage-planner/", "Plan for generators, medicine, food safety, and outages."],
+  ["Storm Distance Calculator", "/tools/storm-distance-calculator/", "Estimate distance from a storm to your location."],
+  ["Alert Action Decoder", "/tools/alert-action-decoder/", "Translate watches, warnings, and advisories into planning prompts."],
+  ["Storm Surge ZIP Checker", "/tools/storm-surge-checker/", "Check nearby surge-related NWS alerts by ZIP code."],
+  ["Family Communication Plan", "/tools/family-communication-plan/", "Build a family contact and meeting plan."]
+].map(([title, href, description]) => ({ title, href, description }));
+
+const statePages = coastalStates.map((state) => ({
+  title: `${state.name} Hurricane Tracker`,
+  href: `/tracker/${state.slug}/`,
+  description: `${state.region}: ${state.preparednessNote}`
+}));
+
+const cityPages = hurricaneCities.map((city) => ({
+  title: `${city.name} Hurricane Tracker`,
+  href: `/hurricane-tracker/city/${city.slug}/`,
+  description: `${city.stateName} local risks: ${city.risks.join(", ")}.`
+}));
+
+const stormPages = stormTrackerPages.map((storm) => ({
+  title: `Hurricane ${storm.name} Tracker`,
+  href: `/hurricane-tracker/storm/${storm.slug}/`,
+  description: storm.searchDemandNote
+}));
+
+const blogPages = blogPosts.map((post) => ({
+  title: post.title,
+  href: `/blog/${post.slug}/`,
+  description: post.description
+}));
+
+const sections = [
+  { id: "core", title: "Core Hurricane Pages", items: corePages },
+  { id: "tools", title: "Hurricane Tools", items: toolPages },
+  { id: "states", title: "State Trackers", items: statePages },
+  { id: "cities", title: "City Trackers", items: cityPages },
+  { id: "storms", title: "Named Storm Trackers", items: stormPages },
+  { id: "blog", title: "Blog and Preparedness Articles", items: blogPages }
+];
+
+const allItems = sections.flatMap((section) => section.items);
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  itemListSchema(allItems.map((item) => ({
+    name: item.title,
+    url: new URL(item.href, site.url).href,
+    description: item.description
+  })))
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="site-map-title">
+    <div class="inner">
+      <p class="eyebrow">Page directory</p>
+      <h1 id="site-map-title">HurricaneHub Site Map</h1>
+      <p class="answer">Use this directory to jump into live hurricane tracking, local state and city pages, named storm trackers, tools, learning resources, and preparedness articles.</p>
+      <div class="quick-links" aria-label="Site map sections">
+        {sections.map((section) => (
+          <a href={`#${section.id}`}>{section.title}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {sections.map((section) => (
+    <section class="band" id={section.id} aria-labelledby={`${section.id}-heading`}>
+      <div class="inner">
+        <div class="section-heading">
+          <p class="eyebrow">{section.items.length} pages</p>
+          <h2 id={`${section.id}-heading`}>{section.title}</h2>
+        </div>
+        <div class="link-list">
+          {section.items.map((item) => (
+            <article class="link-row">
+              <h3><a href={item.href}>{item.title}</a></h3>
+              <p>{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+</Layout>
+

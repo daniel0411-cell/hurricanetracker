@@ -122,6 +122,7 @@ const expectedPaths = unique([
   "/tools/family-communication-plan/",
   "/compare/",
   "/newsletter/",
+  "/site-map/",
   "/storm-archive/",
   "/blog/",
   "/blog/hurricane-watch-vs-warning/",

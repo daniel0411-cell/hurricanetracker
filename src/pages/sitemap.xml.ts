@@ -35,6 +35,7 @@ const routes = [
   { path: "tools/family-communication-plan/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
   { path: "compare/", lastmod: updated, priority: "0.7", changefreq: "weekly" },
   { path: "newsletter/", lastmod: updated, priority: "0.5", changefreq: "monthly" },
+  { path: "site-map/", lastmod: updated, priority: "0.6", changefreq: "weekly" },
   ...coastalStates.map((state) => ({ path: `tracker/${state.slug}/`, lastmod: updated, priority: "0.9", changefreq: "hourly" })),
   { path: "hurricane-tracker/city/", lastmod: updated, priority: "0.8", changefreq: "weekly" },
   ...hurricaneCities.map((city) => ({ path: `hurricane-tracker/city/${city.slug}/`, lastmod: updated, priority: "0.8", changefreq: "daily" })),

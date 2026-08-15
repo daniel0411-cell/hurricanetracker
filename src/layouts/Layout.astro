@@ -531,6 +531,71 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
     margin-top: 22px;
   }
 
+  .section-heading {
+    display: grid;
+    gap: 8px;
+    margin-bottom: clamp(18px, 3vw, 28px);
+  }
+
+  .quick-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .quick-links a {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0 12px;
+    background: var(--panel);
+    color: var(--ink);
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .quick-links a:hover,
+  .quick-links a:focus-visible {
+    border-color: var(--ocean);
+    color: var(--ocean);
+  }
+
+  .link-list {
+    display: grid;
+    border-top: 1px solid var(--line);
+  }
+
+  .link-row {
+    display: grid;
+    gap: 8px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .link-row h3 {
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+  }
+
+  .link-row p {
+    max-width: 900px;
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .link-row a {
+    color: var(--ink);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+
+  .link-row a:hover,
+  .link-row a:focus-visible {
+    color: var(--ocean);
+  }
+
   .action-link {
     min-height: 42px;
     color: #fff;
