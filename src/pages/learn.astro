@@ -30,6 +30,56 @@ const categoryGroups = ["Tracking & Forecasting", "Science & Basics", "Safety & 
     posts: blogPosts.filter((post) => getCategory(post.slug) === category).slice(0, 6)
   }))
   .filter((group) => group.posts.length);
+const learningPaths = [
+  {
+    title: "Track the storm path",
+    intent: "live hurricane tracker, cone, radar, satellite",
+    summary:
+      "Use this path when you want to understand where a storm is now, how the forecast cone works, and which map layer answers which question.",
+    links: [
+      { label: "Open live tracker map", href: "/hurricane-tracker/live/" },
+      { label: "Real-time hurricane tracking guide", href: "/blog/real-time-hurricane-tracking-2026/" },
+      { label: "Cone of uncertainty explainer", href: "/blog/how-to-read-the-hurricane-cone-of-uncertainty/" },
+      { label: "Radar vs satellite guide", href: "/blog/hurricane-radar-vs-satellite/" }
+    ]
+  },
+  {
+    title: "Decode alerts and warnings",
+    intent: "hurricane watch warning, NWS alert meaning, storm surge warning",
+    summary:
+      "Use this path when an official alert appears and you need to translate watch, warning, surge, flood, or tornado language into a next action.",
+    links: [
+      { label: "Active NWS alerts", href: "/alerts/" },
+      { label: "Alert action decoder", href: "/tools/alert-action-decoder/" },
+      { label: "Watch vs warning guide", href: "/blog/what-hurricane-watch-warning-means/" },
+      { label: "Storm surge vs hurricane warning", href: "/blog/storm-surge-warning-vs-hurricane-warning/" }
+    ]
+  },
+  {
+    title: "Decide whether to leave",
+    intent: "evacuation zone, evacuation checklist, local hurricane risk",
+    summary:
+      "Use this path when your location, household needs, storm surge exposure, or local order may require an evacuation decision.",
+    links: [
+      { label: "Evacuation decision helper", href: "/tools/evacuation-decision-helper/" },
+      { label: "Check city hurricane trackers", href: "/hurricane-tracker/city/" },
+      { label: "Evacuation checklist", href: "/blog/hurricane-evacuation-checklist/" },
+      { label: "How to check your evacuation zone", href: "/blog/how-to-check-your-hurricane-evacuation-zone/" }
+    ]
+  },
+  {
+    title: "Prepare the household",
+    intent: "hurricane preparedness checklist, emergency kit, power outage plan",
+    summary:
+      "Use this path before peak season or during a watch to finish supplies, documents, communication, home protection, and outage planning.",
+    links: [
+      { label: "Preparedness checklist generator", href: "/tools/preparedness-checklist/" },
+      { label: "Hurricane emergency kit checklist", href: "/blog/hurricane-emergency-kit-checklist/" },
+      { label: "Family communication plan", href: "/tools/family-communication-plan/" },
+      { label: "Power outage planner", href: "/tools/power-outage-planner/" }
+    ]
+  }
+];
 const faqs = [
   {
     question: "What should I learn first about hurricane tracking?",
@@ -112,6 +162,28 @@ const jsonLd = graph(
     </div>
   </section>
 
+  <section class="band" aria-labelledby="learning-paths">
+    <div class="inner">
+      <p class="eyebrow">Learning paths</p>
+      <h2 id="learning-paths">Follow the Right Hurricane Learning Path</h2>
+      <p class="answer">Each path links an explainer to the live tracker, local pages, or decision tool that turns the lesson into a concrete action.</p>
+      <div class="grid-2 section-grid">
+        {learningPaths.map((path) => (
+          <article class="panel">
+            <p class="eyebrow">{path.intent}</p>
+            <h3>{path.title}</h3>
+            <p>{path.summary}</p>
+            <ol class="path-list">
+              {path.links.map((link) => (
+                <li><a href={link.href}>{link.label}</a></li>
+              ))}
+            </ol>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="band" aria-labelledby="learn-workflow">
     <div class="inner grid-2">
       <article class="panel">
@@ -134,3 +206,16 @@ const jsonLd = graph(
 
   <FaqBlock faqs={faqs} />
 </Layout>
+
+<style>
+  .path-list {
+    display: grid;
+    gap: 9px;
+    margin: 16px 0 0;
+    padding-left: 1.35rem;
+  }
+
+  .path-list a {
+    font-weight: 800;
+  }
+</style>
