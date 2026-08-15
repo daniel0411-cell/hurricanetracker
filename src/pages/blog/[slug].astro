@@ -1,9 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import FaqBlock from "../../components/FaqBlock.astro";
-import { blogPosts, getRelatedPosts } from "../../data/blog";
+import { blogPosts, getCategory, getRelatedPosts } from "../../data/blog";
 import { faqs, site } from "../../data/site";
-import { blogPostingSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { blogPostingSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 
 const slug = Astro.params.slug ?? "";
 const post = blogPosts.find((item) => item.slug === slug);
@@ -15,7 +15,69 @@ const description = post.description;
 const url = `${site.url}/blog/${post.slug}/`;
 const lastModified = new Date(post.dateModified).toISOString();
 const relatedPosts = getRelatedPosts(post.slug, 3);
+const category = getCategory(post.slug);
 const postFaqs = post.faqs?.length ? post.faqs : faqs;
+const textSignal = [
+  post.slug,
+  post.title,
+  post.description,
+  category,
+  ...post.sections.flatMap((section) => [section.heading, section.body, ...(section.bullets ?? [])])
+].join(" ").toLowerCase();
+const actionLibrary = [
+  {
+    name: "Build a preparedness checklist",
+    href: "/tools/preparedness-checklist/",
+    description: "Turn the article into a supplies, documents, pets, and household readiness checklist.",
+    match: /prepared|checklist|kit|home|pet|family|document|medicine|medical|senior|children|disability/
+  },
+  {
+    name: "Decode current alert language",
+    href: "/tools/alert-action-decoder/",
+    description: "Translate watch, warning, surge, flood, tornado, and evacuation wording into household actions.",
+    match: /watch|warning|alert|evacuation|surge|flood|tornado|zone|leave|nws/
+  },
+  {
+    name: "Open the live hurricane tracker",
+    href: "/hurricane-tracker/live/",
+    description: "Check current NHC storm context, live map shortcuts, radar, and active alert pathways.",
+    match: /tracker|tracking|forecast|cone|spaghetti|rapid|intensification|radar|satellite|category|scale|cyclone|typhoon/
+  },
+  {
+    name: "Check city hurricane trackers",
+    href: "/hurricane-tracker/city/",
+    description: "Move from general guidance to local storm surge, flooding, route, outage, and alert context.",
+    match: /local|city|county|coast|inland|landfall|route|bridge|state/
+  },
+  {
+    name: "Plan for power outages",
+    href: "/tools/power-outage-planner/",
+    description: "Prepare for charging, food safety, refrigerated medicine, generators, pets, and communication.",
+    match: /power|outage|generator|food|refrigerated|charging|device|devices/
+  },
+  {
+    name: "Estimate storm distance",
+    href: "/tools/storm-distance-calculator/",
+    description: "Compare a ZIP code with current NHC storm positions and understand distance limits.",
+    match: /distance|far|position|latitude|location/
+  },
+  {
+    name: "Review insurance and recovery steps",
+    href: "/storm-archive/",
+    description: "Use archive, comparison, documentation, and recovery paths after reading insurance or damage guidance.",
+    match: /insurance|claim|deductible|nfip|damage|recovery|after|document/
+  }
+];
+const matchedActions = actionLibrary.filter((action) => action.match.test(textSignal));
+const defaultActions = [
+  actionLibrary[0],
+  actionLibrary[1],
+  actionLibrary[2],
+  actionLibrary[3]
+];
+const nextActions = [...matchedActions, ...defaultActions]
+  .filter((action, index, arr) => arr.findIndex((item) => item.href === action.href) === index)
+  .slice(0, 4);
 // Blog posts are SSR, so we cannot statically assert asset existence at request time.
 // The gen-og prebuild step guarantees an OG PNG exists for every cover SVG referenced
 // by blog.ts, so the specific card is always safe to reference.
@@ -23,6 +85,11 @@ const ogImage = post.image.replace(/\.svg$/i, ".png").replace("/images/blog/", "
 const jsonLd = graph(
   websiteSchema(),
   blogPostingSchema({ title, description, url, datePublished: new Date(post.datePublished).toISOString(), dateModified: lastModified, image: new URL(ogImage, site.url).href }),
+  itemListSchema(nextActions.map((action) => ({
+    name: action.name,
+    description: action.description,
+    url: `${site.url}${action.href}`
+  }))),
   faqSchema(postFaqs)
 );
 ---
@@ -55,6 +122,18 @@ const jsonLd = graph(
         <div class="ad-slot ad-slot-incontent ad-slot-compact"><!-- AD SLOT 3: In-Content Native --></div>
         <h3>Official Source Check</h3>
         <p>Before making a life-safety decision, check weather.gov, your local emergency management agency, and current NHC advisories.</p>
+        <section aria-labelledby="next-actions-heading">
+          <h2 id="next-actions-heading">Next Actions After Reading</h2>
+          <p>Use the article for background, then move to the tracker, alert, city, or planning page that matches your current situation.</p>
+          <div class="article-action-grid">
+            {nextActions.map((action) => (
+              <article class="article-action">
+                <h3><a href={action.href}>{action.name}</a></h3>
+                <p>{action.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
       </div>
       <aside class="stack">
         <section class="panel">
@@ -64,10 +143,13 @@ const jsonLd = graph(
         <section class="panel">
           <h2>Decision Tools</h2>
           <ul class="check-list">
-            <li><a href="/tools/preparedness-checklist/">Preparedness checklist generator</a></li>
-            <li><a href="/tools/evacuation-decision-helper/">Evacuation decision helper</a></li>
-            <li><a href="/tracker/">Live hurricane tracker</a></li>
+            {nextActions.map((action) => <li><a href={action.href}>{action.name}</a></li>)}
           </ul>
+        </section>
+        <section class="panel">
+          <h2>Topic Cluster</h2>
+          <p>This article is part of the {category} cluster. Use the blog index to compare related hurricane preparedness, warning, tracking, and recovery guides.</p>
+          <a href="/blog/">Browse blog clusters</a>
         </section>
         <section class="panel">
           <h2>Related Articles</h2>
@@ -109,5 +191,20 @@ const jsonLd = graph(
     font-size: 0.85rem;
     line-height: 1.5;
     color: var(--muted, #6b7280);
+  }
+  .article-action-grid {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    margin-top: 16px;
+  }
+  .article-action {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px;
+    background: rgba(127, 127, 127, 0.04);
+  }
+  .article-action h3 {
+    margin-top: 0;
   }
 </style>
