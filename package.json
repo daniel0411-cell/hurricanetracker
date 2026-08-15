@@ -11,6 +11,7 @@
     "links:audit": "node scripts/internal-link-audit.mjs",
     "rss:audit": "node scripts/rss-audit.mjs",
     "coverage:audit": "node scripts/coverage-audit.mjs",
+    "schema:audit": "node scripts/schema-audit.mjs",
     "faq:audit": "node scripts/faq-audit.mjs",
     "content:audit": "node scripts/content-audit.mjs",
     "prebuild": "npm run verify:city-data && node scripts/gen-og.mjs",
