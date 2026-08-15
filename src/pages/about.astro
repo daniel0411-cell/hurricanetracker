@@ -1,16 +1,38 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { faqs, site } from "../data/site";
+import { site } from "../data/site";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
 
 const title = "About HurricaneHub";
 const description = "Learn about HurricaneHub's mission to provide accurate hurricane tracking, emergency preparedness guidance, and NOAA/NHC source transparency.";
 const url = `${site.url}/about/`;
 const lastModified = site.contentLastModified;
+const pageFaqs = [
+  {
+    question: "Where does HurricaneHub get hurricane information?",
+    answer:
+      "HurricaneHub organizes public information from NOAA, the National Hurricane Center, the National Weather Service, RainViewer, NOAA-linked satellite services, and related public weather data providers. Official NHC, NWS, and local emergency management sources should be treated as authoritative."
+  },
+  {
+    question: "How quickly can live storm and alert information change?",
+    answer:
+      "NHC advisories follow the schedule set by the storm situation, while NWS alerts can update at any time. HurricaneHub caches public feeds briefly for performance, so users should refresh during active threats and verify urgent decisions with official sources."
+  },
+  {
+    question: "Does HurricaneHub issue forecasts or evacuation orders?",
+    answer:
+      "No. HurricaneHub does not issue forecasts, warnings, evacuation orders, shelter rules, rescue instructions, or road-closure guidance. It turns public data and preparedness information into easier navigation and planning prompts."
+  },
+  {
+    question: "What should I check before making a life-safety decision?",
+    answer:
+      "Check the latest NHC advisory for storm position and hazards, the NWS alert for your county or zone, and your local emergency management instructions for evacuation zones, shelters, bridges, and road conditions."
+  }
+];
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
-  faqSchema(faqs)
+  faqSchema(pageFaqs)
 );
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
@@ -81,6 +103,62 @@ const jsonLd = graph(
         <h2>What HurricaneHub Does Not Do</h2>
         <p>HurricaneHub does not issue forecasts, evacuation orders, shelter rules, road-closure instructions, rescue guidance, or official emergency alerts. It organizes public data and planning resources so users can reach official sources faster.</p>
       </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="source-check-heading">
+    <div class="inner">
+      <p class="eyebrow">Source checking</p>
+      <h2 id="source-check-heading">How To Verify HurricaneHub Information</h2>
+      <div class="grid-3 section-grid">
+        <article class="panel">
+          <h3>Storm Track and Intensity</h3>
+          <p>Use HurricaneHub to find the current storm page, then verify the latest advisory, cone, wind field, and discussion with the National Hurricane Center before relying on storm position or intensity.</p>
+          <a href="/hurricane-tracker/storm/">Open storm trackers</a>
+        </article>
+        <article class="panel">
+          <h3>Local Watches and Warnings</h3>
+          <p>Use state, city, and alert pages to see active hazards, then confirm your county or zone wording directly with National Weather Service alerts and local emergency management.</p>
+          <a href="/alerts/">Check active alerts</a>
+        </article>
+        <article class="panel">
+          <h3>Household Decisions</h3>
+          <p>Use tools for planning prompts, not official orders. Evacuation zones, shelters, bridges, school closures, and rescue guidance come from county and city authorities.</p>
+          <a href="/tools/evacuation-decision-helper/">Open evacuation helper</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="freshness-heading">
+    <div class="inner grid-2">
+      <article>
+        <p class="eyebrow">Freshness and limits</p>
+        <h2 id="freshness-heading">Data Freshness, Caching, and Safety Limits</h2>
+        <p class="answer">Weather information can change faster than any website can summarize it. HurricaneHub uses short-lived public feed caching so pages load quickly during high-interest periods, but a cached page can still be behind the newest official advisory or alert.</p>
+        <p>During an active threat, refresh the page, check the timestamp shown by the source when available, and compare the page with official NHC advisories, NWS alerts, and local emergency management instructions before acting.</p>
+      </article>
+      <article class="panel">
+        <h3>Editorial Principles</h3>
+        <ul class="check-list">
+          <li>Official source language is prioritized over social posts or model speculation.</li>
+          <li>Preparedness guidance avoids promising safety or predicting exact local impacts.</li>
+          <li>Decision tools show planning prompts, not official evacuation instructions.</li>
+          <li>Pages link onward to live trackers, city context, alerts, and preparedness tools.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="about-faq-heading">
+    <div class="inner stack">
+      <h2 id="about-faq-heading">About HurricaneHub FAQ</h2>
+      {pageFaqs.map((faq) => (
+        <article class="faq-item">
+          <h3>{faq.question}</h3>
+          <p>{faq.answer}</p>
+        </article>
+      ))}
     </div>
   </section>
 </Layout>
