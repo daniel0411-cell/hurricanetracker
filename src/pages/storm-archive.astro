@@ -28,10 +28,72 @@ try {
 
 const storms = feed?.storms ?? [];
 const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
+const archiveIntents = [
+  {
+    title: "Find whether a named storm is active",
+    body:
+      "Searchers often land here after hearing a storm name. Start with the current NHC records, then open the named-storm page for live status checks and advisory shortcuts.",
+    href: "/hurricane-tracker/storm/",
+    label: "Browse named storm trackers"
+  },
+  {
+    title: "Compare a current storm with past hurricanes",
+    body:
+      "Historical context is useful when you compare track shape, pressure, category, latitude, and landfall pattern against storms like Katrina, Ian, and Sandy.",
+    href: "/compare/",
+    label: "Open comparison tool"
+  },
+  {
+    title: "Learn why historical category is not enough",
+    body:
+      "Past storm searches can over-focus on category. Use surge, rainfall, cone, radar, and local alert explainers to understand what actually drove impacts.",
+    href: "/learn/",
+    label: "Open learning center"
+  },
+  {
+    title: "Move from history to local action",
+    body:
+      "A past storm can explain context, but today's decision still depends on local NWS alerts, city risk, evacuation zones, and household constraints.",
+    href: "/hurricane-tracker/city/",
+    label: "Browse city trackers"
+  }
+];
+const comparisonGuides = [
+  {
+    title: "Cone of uncertainty",
+    href: "/blog/how-to-read-the-hurricane-cone-of-uncertainty/",
+    body: "Use this guide when comparing historical tracks with a current forecast cone."
+  },
+  {
+    title: "Saffir-Simpson category",
+    href: "/blog/saffir-simpson-hurricane-wind-scale-explained/",
+    body: "Use this guide when a past storm's category is being used as the main comparison point."
+  },
+  {
+    title: "Storm surge forecasting",
+    href: "/blog/hurricane-storm-surge-forecasting/",
+    body: "Use this guide when comparing water impacts, evacuation timing, and coastal flood depth."
+  },
+  {
+    title: "Rapid intensification",
+    href: "/blog/hurricane-rapid-intensification/",
+    body: "Use this guide when a storm strengthens quickly near warm water or close to land."
+  }
+];
 const pageFaqs = [
   {
     question: "Does HurricaneHub store historical NHC advisories?",
     answer: "HurricaneHub currently focuses on active NHC storm records, advisory links, named-storm tracker pages, and current storm context. Deeper advisory timelines can be added as the archive expands."
+  },
+  {
+    question: "How should I use past hurricane names during an active storm?",
+    answer:
+      "Use past names as context only. Compare track, category, pressure, surge, and rainfall patterns, then return to the current NHC advisory, NWS alerts, and local emergency instructions for decisions."
+  },
+  {
+    question: "Why does a storm archive matter during hurricane season?",
+    answer:
+      "Storm-name searches spike before, during, and after advisory cycles. A stable archive helps people find current status, named-storm pages, historical comparison tools, and plain-language explainers from one place."
   },
   ...faqs
 ];
@@ -117,6 +179,39 @@ const jsonLd = graph(
           <p>Historical comparisons can explain context, but local NWS alerts, city trackers, and evacuation-zone instructions control real household decisions.</p>
           <a href="/hurricane-tracker/city/">Browse city hurricane trackers</a>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="archive-intents">
+    <div class="inner">
+      <p class="eyebrow">Search paths</p>
+      <h2 id="archive-intents">What People Usually Need From a Storm Archive</h2>
+      <p class="answer">Storm archive searches are rarely only historical. Most users are trying to confirm a current named storm, compare it with a remembered hurricane, or move from storm history to local risk.</p>
+      <div class="grid-2 section-grid">
+        {archiveIntents.map((intent) => (
+          <article class="panel">
+            <h3>{intent.title}</h3>
+            <p>{intent.body}</p>
+            <p><a class="action-link secondary-action" href={intent.href}>{intent.label}</a></p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="archive-comparison-guides">
+    <div class="inner">
+      <p class="eyebrow">Historical comparison guides</p>
+      <h2 id="archive-comparison-guides">Read These Before Comparing Hurricanes</h2>
+      <p class="answer">The safest historical comparison looks beyond one number. Pair archive records with explainers for track uncertainty, category limits, surge, and rapid intensification.</p>
+      <div class="grid-2 section-grid">
+        {comparisonGuides.map((guide) => (
+          <article class="panel">
+            <h3><a href={guide.href}>{guide.title}</a></h3>
+            <p>{guide.body}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
