@@ -80,6 +80,42 @@ const comparisonGuides = [
     body: "Use this guide when a storm strengthens quickly near warm water or close to land."
   }
 ];
+const archiveWorkflows = [
+  {
+    title: "I searched a storm name",
+    body:
+      "First confirm whether the name appears in the current NHC feed. If it does not, treat the search as historical context and move to named-storm tracker pages or NHC source links.",
+    links: [
+      { label: "Named storm trackers", href: "/hurricane-tracker/storm/" },
+      { label: "Live hurricane tracker", href: "/hurricane-tracker/live/" }
+    ]
+  },
+  {
+    title: "I want historical comparison",
+    body:
+      "Compare track shape, latitude, pressure, category, surge setup, rainfall risk, and landfall timing instead of relying on one remembered category.",
+    links: [
+      { label: "Hurricane comparison tool", href: "/compare/" },
+      { label: "Saffir-Simpson guide", href: "/blog/saffir-simpson-hurricane-wind-scale-explained/" }
+    ]
+  },
+  {
+    title: "I need local action now",
+    body:
+      "Leave the archive and move to live local signals: NWS alerts, city tracker context, evacuation-zone guidance, radar, and household decision tools.",
+    links: [
+      { label: "City hurricane trackers", href: "/hurricane-tracker/city/" },
+      { label: "Evacuation decision helper", href: "/tools/evacuation-decision-helper/" }
+    ]
+  }
+];
+const comparisonChecklist = [
+  "Was the historical storm intensifying, weakening, or transitioning when impacts began?",
+  "Did the main impact come from wind, surge, rainfall, tornadoes, or long-duration power loss?",
+  "Was the landfall angle similar, or did water pile into a different bay, sound, or river system?",
+  "Were local watches, warnings, and evacuation orders issued on a similar timeline?",
+  "Does the current storm have different forward speed, size, rainfall shield, or surge setup?"
+];
 const pageFaqs = [
   {
     question: "Does HurricaneHub store historical NHC advisories?",
@@ -100,11 +136,18 @@ const pageFaqs = [
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
-  itemListSchema(stormTrackerPages.map((storm) => ({
-    name: `Hurricane ${storm.name} Tracker`,
-    description: storm.searchDemandNote,
-    url: `${site.url}/hurricane-tracker/storm/${storm.slug}/`
-  }))),
+  itemListSchema([
+    ...stormTrackerPages.map((storm) => ({
+      name: `Hurricane ${storm.name} Tracker`,
+      description: storm.searchDemandNote,
+      url: `${site.url}/hurricane-tracker/storm/${storm.slug}/`
+    })),
+    ...archiveWorkflows.flatMap((workflow) => workflow.links.map((link) => ({
+      name: link.label,
+      description: workflow.body,
+      url: `${site.url}${link.href}`
+    })))
+  ]),
   faqSchema(pageFaqs)
 );
 ---
@@ -213,6 +256,42 @@ const jsonLd = graph(
           </article>
         ))}
       </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="archive-search-workflow">
+    <div class="inner">
+      <p class="eyebrow">Search workflow</p>
+      <h2 id="archive-search-workflow">Start Here Based on Why You Searched</h2>
+      <p class="answer">Storm archive visitors usually need one of three paths: confirm whether a named storm is active, compare a current storm with history, or move from history to local action.</p>
+      <div class="grid-3 section-grid">
+        {archiveWorkflows.map((workflow) => (
+          <article class="panel">
+            <h3>{workflow.title}</h3>
+            <p>{workflow.body}</p>
+            <ul class="check-list">
+              {workflow.links.map((link) => (
+                <li><a href={link.href}>{link.label}</a></li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="archive-checklist">
+    <div class="inner grid-2">
+      <article>
+        <p class="eyebrow">Comparison checklist</p>
+        <h2 id="archive-checklist">Questions to Ask Before Comparing Two Hurricanes</h2>
+        <p class="answer">Two storms with the same category can produce very different impacts. Use the archive as context, then verify today's official advisory and local alerts before making decisions.</p>
+      </article>
+      <article class="panel">
+        <ul class="check-list">
+          {comparisonChecklist.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
     </div>
   </section>
 
