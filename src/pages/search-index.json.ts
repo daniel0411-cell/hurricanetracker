@@ -13,6 +13,16 @@ type Entry = {
   body: string;
 };
 
+function cleanText(value: string, maxLength: number) {
+  const normalized = value.replace(/\s+/g, " ").trim();
+  if (normalized.length <= maxLength) return normalized;
+
+  const truncated = normalized.slice(0, maxLength - 1);
+  const lastSpace = truncated.lastIndexOf(" ");
+  const safeText = lastSpace > 40 ? truncated.slice(0, lastSpace) : truncated;
+  return `${safeText.trim()}…`;
+}
+
 // Static, hand-maintained pages (blog content is pulled from blogPosts below).
 const pages: Entry[] = [
   { title: "HurricaneHub — North America Hurricane Tracker", url: "/", description: "Track active North American hurricanes, official NWS alerts, evacuation decision levels, and preparedness actions from NOAA, NHC, and NWS data.", category: "Home", body: "hurricane tracker live radar alerts preparedness decision evacuation north america noaa nhc nws" },
@@ -58,9 +68,9 @@ const pages: Entry[] = [
 ];
 
 const blogEntries: Entry[] = blogPosts.map((p) => ({
-  title: p.title,
+  title: cleanText(p.title, 90),
   url: `/blog/${p.slug}/`,
-  description: p.description,
+  description: cleanText(p.description, 220),
   category: "Blog",
   body: [
     p.description,
