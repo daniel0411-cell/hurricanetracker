@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import NewsletterForm from "../components/NewsletterForm.astro";
 import FaqBlock from "../components/FaqBlock.astro";
 import { site } from "../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
+import { articleSchema, faqSchema, graph, howToSchema, websiteSchema } from "../lib/schema";
 
 const title = "Hurricane Readiness Newsletter";
 const description =
@@ -29,11 +29,45 @@ const pageFaqs = [
   {
     question: "How do I unsubscribe?",
     answer: "Every email includes an unsubscribe link. We store only your email address and the signup source."
+  },
+  {
+    question: "Can I use HurricaneHub without joining the newsletter?",
+    answer:
+      "Yes. The same preparedness guides, city trackers, alert pages, radar, and decision tools are available on the site without subscribing."
+  },
+  {
+    question: "When is the best time to subscribe?",
+    answer:
+      "Before hurricane season is best, because supplies, documents, evacuation zones, pet plans, and power-outage plans are easier to finish before a watch or warning is issued."
   }
 ];
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
+  howToSchema({
+    name: "How to use hurricane readiness emails with live tracker pages",
+    description:
+      "A practical sequence for using low-volume hurricane readiness emails together with HurricaneHub tracker, alert, and planning pages.",
+    url,
+    steps: [
+      {
+        name: "Prepare before season",
+        text: "Use early reminders to check supplies, documents, communication plans, evacuation zones, pets, and medical needs before a storm forms."
+      },
+      {
+        name: "Read alert explainers when watches appear",
+        text: "Use newsletter links to understand watch, warning, surge, flood, tornado, and evacuation language before decisions become urgent."
+      },
+      {
+        name: "Open live pages during active threats",
+        text: "Move from email to the live tracker, alerts page, city tracker, radar, or tools page for current storm and local context."
+      },
+      {
+        name: "Verify official instructions",
+        text: "Before acting, verify NHC advisories, NWS warnings, and local emergency management orders."
+      }
+    ]
+  }),
   faqSchema(pageFaqs)
 );
 ---
@@ -85,6 +119,71 @@ const jsonLd = graph(
           <li><a href="/blog/">Preparedness blog clusters</a></li>
           <li><a href="/tools/">Hurricane tools by situation</a></li>
           <li><a href="/alerts/">Active NWS alerts by state</a></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="newsletter-timing">
+    <div class="inner">
+      <p class="eyebrow">Readiness timing</p>
+      <h2 id="newsletter-timing">What Hurricane Emails Help You Remember</h2>
+      <p class="answer">A hurricane readiness newsletter is most useful before stress and traffic build. The goal is to move repeat decisions out of the warning window: supplies, evacuation zones, pets, medication, charging, documents, and official-source bookmarks.</p>
+      <div class="grid-3 section-grid">
+        <article class="panel">
+          <h3>Before Hurricane Season</h3>
+          <p>Review water, food, cash, documents, batteries, contact lists, insurance photos, evacuation zones, and household-specific needs while stores and roads are normal.</p>
+          <a href="/blog/hurricane-preparation-timeline-72-48-24-hours/">Read the 72/48/24-hour timeline</a>
+        </article>
+        <article class="panel">
+          <h3>When a Storm Is Being Watched</h3>
+          <p>Use alert explainers and tracker links to understand whether the concern is wind, surge, rainfall, tornadoes, bridge access, or power outages.</p>
+          <a href="/tools/alert-action-decoder/">Decode an alert</a>
+        </article>
+        <article class="panel">
+          <h3>When Local Decisions Matter</h3>
+          <p>Move from general reading to city trackers, state alerts, and household tools so the plan matches your location, housing, transportation, pets, and medical needs.</p>
+          <a href="/tools/local-risk-plan/">Build a local risk plan</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="newsletter-content-map">
+    <div class="inner grid-2">
+      <article>
+        <p class="eyebrow">Content map</p>
+        <h2 id="newsletter-content-map">Newsletter Topics Map Back to Site Pages</h2>
+        <p class="answer">Each email is meant to be short, then point back to a deeper page when you need more context. That keeps the inbox useful while the site remains the main source for current tracker, alert, and planning pages.</p>
+      </article>
+      <article class="panel">
+        <h3>Common newsletter paths</h3>
+        <ul class="check-list">
+          <li><a href="/hurricane-tracker/live/">Live hurricane tracker for active storm context</a></li>
+          <li><a href="/hurricane-tracker/city/">City hurricane trackers for local planning</a></li>
+          <li><a href="/radar/">Radar and satellite for map context</a></li>
+          <li><a href="/tools/power-outage-planner/">Power outage planner for medicine, food, charging, and generators</a></li>
+          <li><a href="/blog/">Preparedness blog clusters for deeper reading</a></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="newsletter-boundaries">
+    <div class="inner grid-2">
+      <article class="panel">
+        <h2 id="newsletter-boundaries">Privacy and Safety Boundaries</h2>
+        <p>HurricaneHub readiness emails are low volume and informational. They do not replace wireless emergency alerts, NOAA Weather Radio, NWS warnings, evacuation orders, or local emergency management instructions.</p>
+        <p>Use email as a planning reminder, then verify urgent decisions with official sources.</p>
+      </article>
+      <article>
+        <p class="eyebrow">Official-source habits</p>
+        <h2>What To Check During an Active Threat</h2>
+        <ul class="check-list">
+          <li><a href="/alerts/">Active NWS alerts by state</a></li>
+          <li><a href="/hurricane-tracker/storm/">Named storm tracker pages</a></li>
+          <li><a href="/about/">HurricaneHub source transparency</a></li>
+          <li><a href="/decision-guide/">Monitor, Prepare, Act, or Leave decision guide</a></li>
         </ul>
       </article>
     </div>
