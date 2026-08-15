@@ -6,7 +6,6 @@ import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } 
 import {
   BENCHMARK_STORMS,
   categoryLabel,
-  categoryFromWindKt,
   ktToMph,
   formatDamageUsd
 } from "../data/storms";
@@ -38,6 +37,15 @@ const pageFaqs = [
 ];
 
 const canonical = `${site.url}/compare/`;
+const benchmarkGuides = BENCHMARK_STORMS.map((storm) => ({
+  storm,
+  focus:
+    storm.id === "katrina-2005"
+      ? "Use Katrina as a surge, levee-failure, and Gulf Coast evacuation-timing benchmark rather than only a wind-category comparison."
+      : storm.id === "ian-2022"
+        ? "Use Ian as a rapid-intensification, southwest Florida surge, and late-track-shift benchmark for modern Gulf storms."
+        : "Use Sandy as a size, angle-of-approach, and Mid-Atlantic surge benchmark where category alone understated the impact."
+}));
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({
@@ -118,6 +126,26 @@ const jsonLd = graph(
     <section class="compare-insight" aria-label="Latitude insight" id="insight-panel" hidden>
       <h2>Intensity at the same latitude</h2>
       <div id="insight-body" class="insight-body"></div>
+    </section>
+
+    <section class="compare-benchmarks" aria-labelledby="benchmark-guide-heading">
+      <p class="eyebrow">Historical benchmarks</p>
+      <h2 id="benchmark-guide-heading">How to Compare Katrina, Ian, and Sandy With an Active Storm</h2>
+      <p class="compare-copy">Each benchmark answers a different question. Use the map for track shape, then use these notes to decide whether pressure, surge, size, rapid intensification, or local warning language deserves more attention than category alone.</p>
+      <div class="compare-path-grid">
+        {benchmarkGuides.map(({ storm, focus }) => (
+          <article>
+            <h3>{storm.name} {storm.year}</h3>
+            <p>{focus}</p>
+            <ul class="benchmark-facts">
+              <li>Peak: {categoryLabel(storm.peakCategory)} with {ktToMph(storm.maxWindKt)} mph winds</li>
+              <li>Minimum pressure: {storm.minPressureMb} hPa</li>
+              <li>U.S. damage estimate: {formatDamageUsd(storm.usDamageUsd)}</li>
+              <li>Landfall context: {storm.landfall}</li>
+            </ul>
+          </article>
+        ))}
+      </div>
     </section>
 
     <section class="compare-seo-path" aria-labelledby="compare-path-heading">
