@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { blogPosts, getCategory, BLOG_CATEGORY_LIST } from "../../data/blog";
+import { blogPosts, getCategory, BLOG_CATEGORY_LIST, BLOG_CATEGORY_PAGES } from "../../data/blog";
 import { faqs, site } from "../../data/site";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 
@@ -79,6 +79,10 @@ const clusters = clusterDefinitions.map((cluster) => ({
     .map((slug) => blogPosts.find((post) => post.slug === slug))
     .filter((post): post is NonNullable<typeof post> => Boolean(post))
 }));
+const categoryLinks = BLOG_CATEGORY_PAGES.map((category) => ({
+  ...category,
+  count: blogPosts.filter((post) => getCategory(post.slug) === category.name).length
+}));
 
 const title = "Hurricane Preparedness Blog";
 const description = "Read HurricaneHub articles about hurricane season outlooks, home preparedness, alerts, and emergency decision-making using NOAA/NHC source context.";
@@ -130,6 +134,21 @@ const jsonLd = graph(
     </div>
   </section>
 
+  <section class="band" aria-labelledby="category-hubs-heading">
+    <div class="inner">
+      <p class="eyebrow">Indexable category hubs</p>
+      <h2 id="category-hubs-heading">Browse Articles by Hurricane Topic</h2>
+      <div class="link-list">
+        {categoryLinks.map((category) => (
+          <article class="link-row">
+            <h3><a href={`/blog/category/${category.slug}/`}>{category.title}</a></h3>
+            <p>{category.description} ({category.count} articles)</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="band" aria-labelledby="blog-path-heading">
     <div class="inner grid-2">
       <article>
@@ -154,7 +173,11 @@ const jsonLd = graph(
       <h2 id="post-list-heading">Latest Articles</h2>
       <div class="filter-bar" role="group" aria-label="Filter articles by category">
         {BLOG_CATEGORY_LIST.map((cat) => (
-          <button type="button" class="filter-chip" data-filter={cat} aria-pressed={cat === "All" ? "true" : "false"}>{cat}</button>
+          cat === "All" ? (
+            <button type="button" class="filter-chip" data-filter={cat} aria-pressed="true">{cat}</button>
+          ) : (
+            <a class="filter-chip filter-link" href={`/blog/category/${BLOG_CATEGORY_PAGES.find((item) => item.name === cat)?.slug}/`}>{cat}</a>
+          )
         ))}
       </div>
       <div class="blog-grid">
@@ -192,6 +215,11 @@ const jsonLd = graph(
       font-size: 0.9rem;
       cursor: pointer;
       transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .filter-link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
     }
     .filter-chip:hover { border-color: #4a7aaa; }
     .filter-chip[aria-pressed="true"] {

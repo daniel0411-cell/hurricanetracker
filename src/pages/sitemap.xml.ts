@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { blogPosts } from "../data/blog";
+import { BLOG_CATEGORY_PAGES, blogPosts } from "../data/blog";
 import { hurricaneCities } from "../data/cities";
 import { site } from "../data/site";
 import { coastalStates } from "../data/states";
@@ -43,6 +43,7 @@ const routes = [
   ...stormTrackerPages.map((storm) => ({ path: `hurricane-tracker/storm/${storm.slug}/`, lastmod: updated, priority: "0.8", changefreq: "daily" })),
   { path: "storm-archive/", lastmod: updated, priority: "0.7", changefreq: "daily" },
   { path: "blog/", lastmod: blogLastMod, priority: "0.8", changefreq: "weekly" },
+  ...BLOG_CATEGORY_PAGES.map((category) => ({ path: `blog/category/${category.slug}/`, lastmod: updated, priority: "0.7", changefreq: "weekly" })),
   ...blogPosts.map((post) => ({ path: `blog/${post.slug}/`, lastmod: new Date(post.dateModified).toISOString(), priority: "0.7", changefreq: "weekly" })),
   { path: "blog/hurricane-watch-vs-warning/", lastmod: blogLastMod, priority: "0.7", changefreq: "weekly" },
   { path: "blog/flood-advisory-vs-watch-vs-warning/", lastmod: blogLastMod, priority: "0.7", changefreq: "weekly" },

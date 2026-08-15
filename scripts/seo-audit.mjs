@@ -69,7 +69,7 @@ function countBySection(paths) {
 }
 
 const [
-  { blogPosts },
+  { BLOG_CATEGORY_PAGES, blogPosts },
   { hurricaneCities },
   { coastalStates },
   { stormTrackerPages }
@@ -133,6 +133,7 @@ const expectedPaths = unique([
   ...coastalStates.map((state) => `/tracker/${state.slug}/`),
   ...hurricaneCities.map((city) => `/hurricane-tracker/city/${city.slug}/`),
   ...stormTrackerPages.map((storm) => `/hurricane-tracker/storm/${storm.slug}/`),
+  ...BLOG_CATEGORY_PAGES.map((category) => `/blog/category/${category.slug}/`),
   ...blogPosts.map((post) => `/blog/${post.slug}/`)
 ]);
 

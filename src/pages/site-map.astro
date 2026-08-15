@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { blogPosts } from "../data/blog";
+import { BLOG_CATEGORY_PAGES, blogPosts } from "../data/blog";
 import { hurricaneCities } from "../data/cities";
 import { site } from "../data/site";
 import { coastalStates } from "../data/states";
@@ -108,6 +108,12 @@ const stormPages = stormTrackerPages.map((storm) => ({
   description: storm.searchDemandNote
 }));
 
+const blogCategoryPages = BLOG_CATEGORY_PAGES.map((category) => ({
+  title: category.title,
+  href: `/blog/category/${category.slug}/`,
+  description: category.description
+}));
+
 const blogPages = blogPosts.map((post) => ({
   title: post.title,
   href: `/blog/${post.slug}/`,
@@ -120,6 +126,7 @@ const sections = [
   { id: "states", title: "State Trackers", items: statePages },
   { id: "cities", title: "City Trackers", items: cityPages },
   { id: "storms", title: "Named Storm Trackers", items: stormPages },
+  { id: "blog-categories", title: "Blog Category Hubs", items: blogCategoryPages },
   { id: "blog", title: "Blog and Preparedness Articles", items: blogPages }
 ];
 
@@ -167,4 +174,3 @@ const jsonLd = graph(
     </section>
   ))}
 </Layout>
-

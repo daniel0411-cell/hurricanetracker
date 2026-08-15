@@ -42,6 +42,9 @@ function sourceCandidatesFor(pathname) {
   if (segments[0] === "blog" && segments.length === 2) {
     candidates.push(path.join(pagesDir, "blog", "[slug].astro"));
   }
+  if (segments[0] === "blog" && segments[1] === "category" && segments.length === 3) {
+    candidates.push(path.join(pagesDir, "blog", "category", "[category].astro"));
+  }
   return [...new Set(candidates)].filter((file) => fs.existsSync(file));
 }
 
@@ -72,6 +75,7 @@ function parseJsonLd(html, pathname) {
 }
 
 function expectedPageTypes(pathname) {
+  if (pathname.startsWith("/blog/category/")) return ["Article", "ItemList"];
   if (pathname.startsWith("/blog/") && pathname !== "/blog/") return ["BlogPosting"];
   if (pathname.startsWith("/tools/") && pathname !== "/tools/") return ["WebApplication"];
   if (pathname === "/tools/" || pathname === "/hurricane-tracker/city/" || pathname === "/hurricane-tracker/storm/") {

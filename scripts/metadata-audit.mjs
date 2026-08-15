@@ -48,6 +48,10 @@ function sourceCandidatesFor(pathname) {
     candidates.push(path.join(pagesDir, "blog", "[slug].astro"));
   }
 
+  if (segments[0] === "blog" && segments[1] === "category" && segments.length === 3) {
+    candidates.push(path.join(pagesDir, "blog", "category", "[category].astro"));
+  }
+
   return [...new Set(candidates)].filter((file) => fs.existsSync(file));
 }
 

@@ -2132,6 +2132,68 @@ export const BLOG_CATEGORY_LIST = [
   "Science & Basics"
 ];
 
+export const BLOG_CATEGORY_PAGES = [
+  {
+    name: "Preparedness",
+    slug: "preparedness",
+    title: "Hurricane Preparedness Articles",
+    description:
+      "Hurricane preparedness articles for emergency kits, home protection, evacuation timing, family communication, pets, medical needs, and household readiness.",
+    intent:
+      "hurricane preparedness checklist, emergency kit, home preparation, family plan",
+    actionHref: "/tools/preparedness-checklist/",
+    actionLabel: "Generate a preparedness checklist"
+  },
+  {
+    name: "Safety & Warnings",
+    slug: "safety-warnings",
+    title: "Hurricane Safety and Warning Guides",
+    description:
+      "Plain-language guides for hurricane watches, warnings, storm surge alerts, evacuation zones, flood alerts, and household safety decisions.",
+    intent:
+      "hurricane watch warning meaning, storm surge warning, evacuation zone, NWS alerts",
+    actionHref: "/tools/alert-action-decoder/",
+    actionLabel: "Decode an alert"
+  },
+  {
+    name: "Insurance & Recovery",
+    slug: "insurance-recovery",
+    title: "Hurricane Insurance and Recovery Articles",
+    description:
+      "Hurricane recovery articles for flood insurance, deductibles, claim documentation, damage records, food safety, cleanup, and post-storm steps.",
+    intent:
+      "hurricane insurance claim, flood insurance, recovery checklist, damage documentation",
+    actionHref: "/tools/power-outage-planner/",
+    actionLabel: "Build an outage and recovery plan"
+  },
+  {
+    name: "Tracking & Forecasting",
+    slug: "tracking-forecasting",
+    title: "Hurricane Tracking and Forecasting Articles",
+    description:
+      "Hurricane tracking articles about live maps, forecast cones, radar, satellite, spaghetti models, rapid intensification, storm surge forecasts, and inland impacts.",
+    intent:
+      "live hurricane tracker, cone of uncertainty, spaghetti models, radar satellite",
+    actionHref: "/hurricane-tracker/live/",
+    actionLabel: "Open the live tracker"
+  },
+  {
+    name: "Science & Basics",
+    slug: "science-basics",
+    title: "Hurricane Science and Basics Articles",
+    description:
+      "Beginner-friendly hurricane explainers for categories, storm types, wind scales, tropical cyclone terms, surge basics, and risk vocabulary.",
+    intent:
+      "hurricane category explained, typhoon vs cyclone, Saffir Simpson scale",
+    actionHref: "/learn/",
+    actionLabel: "Open the learning center"
+  }
+] as const;
+
+export function getCategoryPageBySlug(slug: string | undefined) {
+  return BLOG_CATEGORY_PAGES.find((category) => category.slug === slug);
+}
+
 export function getCategory(slug: string): string {
   return BLOG_CATEGORIES[slug] ?? "Preparedness";
 }

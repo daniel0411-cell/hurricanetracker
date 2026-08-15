@@ -76,7 +76,7 @@ function extractRssLinks(xml) {
     .filter((link) => link !== `${siteUrl}/`);
 }
 
-const [{ blogPosts }, { hurricaneCities }, { coastalStates }, { stormTrackerPages }] = await Promise.all([
+const [{ BLOG_CATEGORY_PAGES, blogPosts }, { hurricaneCities }, { coastalStates }, { stormTrackerPages }] = await Promise.all([
   loadTsModule(path.join(root, "src/data/blog.ts")),
   loadTsModule(path.join(root, "src/data/cities.ts")),
   loadTsModule(path.join(root, "src/data/states.ts")),
@@ -97,6 +97,7 @@ const dataRoutes = unique([
   ...coastalStates.map((state) => `/tracker/${state.slug}/`),
   ...hurricaneCities.map((city) => `/hurricane-tracker/city/${city.slug}/`),
   ...stormTrackerPages.map((storm) => `/hurricane-tracker/storm/${storm.slug}/`),
+  ...BLOG_CATEGORY_PAGES.map((category) => `/blog/category/${category.slug}/`),
   ...blogPosts.map((post) => `/blog/${post.slug}/`)
 ]);
 const expectedIndexableRoutes = unique([...sourceRoutes, ...dataRoutes]);

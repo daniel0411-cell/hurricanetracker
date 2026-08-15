@@ -1,0 +1,93 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { BLOG_CATEGORY_PAGES, blogPosts, getCategory, getCategoryPageBySlug } from "../../../data/blog";
+import { site } from "../../../data/site";
+import { articleSchema, graph, itemListSchema, websiteSchema } from "../../../lib/schema";
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return BLOG_CATEGORY_PAGES.map((category) => ({
+    params: { category: category.slug }
+  }));
+}
+
+const category = getCategoryPageBySlug(Astro.params.category);
+if (!category) {
+  return Astro.redirect("/blog/");
+}
+
+const posts = blogPosts
+  .filter((post) => getCategory(post.slug) === category.name)
+  .sort((a, b) => b.dateModified.localeCompare(a.dateModified));
+const otherCategories = BLOG_CATEGORY_PAGES.filter((item) => item.slug !== category.slug);
+const title = category.title;
+const description = category.description;
+const url = `${site.url}/blog/category/${category.slug}/`;
+const lastModified = posts[0]?.dateModified
+  ? new Date(posts[0].dateModified).toISOString()
+  : site.contentLastModified;
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  itemListSchema(posts.map((post) => ({
+    name: post.title,
+    description: post.description,
+    url: `${site.url}/blog/${post.slug}/`
+  })))
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="category-title">
+    <div class="inner">
+      <p class="eyebrow">{category.intent}</p>
+      <h1 id="category-title">{category.title}</h1>
+      <p class="answer">{category.description}</p>
+      <p class="section-actions">
+        <a class="action-link" href={category.actionHref}>{category.actionLabel}</a>
+        <a class="action-link secondary-action" href="/blog/">All hurricane articles</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="category-posts-heading">
+    <div class="inner">
+      <div class="section-heading">
+        <p class="eyebrow">{posts.length} articles</p>
+        <h2 id="category-posts-heading">Articles in {category.name}</h2>
+      </div>
+      <div class="blog-grid">
+        {posts.map((post) => (
+          <article class="post-card">
+            <a href={`/blog/${post.slug}/`} class="post-card-media" aria-hidden="true" tabindex="-1">
+              <img class="post-image" src={post.image} alt={post.imageAlt} loading="lazy" width="1600" height="900" />
+            </a>
+            <span class="post-category">{getCategory(post.slug)}</span>
+            <h3><a href={`/blog/${post.slug}/`} class="post-card-title">{post.title}</a></h3>
+            <p>{post.description}</p>
+            <p class="small">Last modified {post.dateModified}</p>
+            <a href={`/blog/${post.slug}/`} class="post-card-link">Read article</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="category-next-heading">
+    <div class="inner grid-2">
+      <article>
+        <p class="eyebrow">Next paths</p>
+        <h2 id="category-next-heading">Move From Research to Action</h2>
+        <p class="answer">Use this category page as a topic hub, then open the live tracker, local pages, or planning tools when a current storm or alert affects your location.</p>
+      </article>
+      <article class="panel">
+        <h3>Related category hubs</h3>
+        <ul class="check-list">
+          {otherCategories.map((item) => (
+            <li><a href={`/blog/category/${item.slug}/`}>{item.title}</a></li>
+          ))}
+        </ul>
+      </article>
+    </div>
+  </section>
+</Layout>
