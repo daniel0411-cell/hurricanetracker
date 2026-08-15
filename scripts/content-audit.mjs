@@ -134,6 +134,16 @@ const htmlChecks = [
     requiredSnippets: ["What To Open After the Live Hurricane Tracker", "Search intent paths", "Decode warning language"]
   },
   {
+    file: "learn/index.html",
+    minTextLength: 4200,
+    requiredSnippets: ["Choose the Right Hurricane Page for Your Situation", "Question to next page", "Use alert action decoder"]
+  },
+  {
+    file: "blog/index.html",
+    minTextLength: 5200,
+    requiredSnippets: ["Where to Go After Reading a Hurricane Article", "Reading to action", "Browse city hurricane trackers"]
+  },
+  {
     file: "radar/index.html",
     minTextLength: 3600,
     requiredSnippets: ["Hurricane Radar vs Satellite: What To Check First", "Best next page by intent", "Decode a hurricane watch"]

@@ -83,6 +83,44 @@ const categoryLinks = BLOG_CATEGORY_PAGES.map((category) => ({
   ...category,
   count: blogPosts.filter((post) => getCategory(post.slug) === category.name).length
 }));
+const intentBridgeLinks = [
+  {
+    intent: "I am tracking an active storm.",
+    description: "Use articles for context, then move to the live map, radar, alerts, and storm pages for current information.",
+    links: [
+      { label: "Open live hurricane tracker", href: "/hurricane-tracker/live/" },
+      { label: "Use radar and satellite map", href: "/radar/" },
+      { label: "Browse active storm pages", href: "/hurricane-tracker/storm/" }
+    ]
+  },
+  {
+    intent: "I need local hurricane risk.",
+    description: "Start with local city and state trackers, then use tools to turn that local context into a household plan.",
+    links: [
+      { label: "Browse city hurricane trackers", href: "/hurricane-tracker/city/" },
+      { label: "Open state trackers", href: "/hurricane-tracker/" },
+      { label: "Build local risk plan", href: "/tools/local-risk-plan/" }
+    ]
+  },
+  {
+    intent: "I need to understand official alert language.",
+    description: "Pair watch, warning, flood, surge, and evacuation explainers with live NWS alert pages and the action decoder.",
+    links: [
+      { label: "Decode an alert", href: "/tools/alert-action-decoder/" },
+      { label: "Check active NWS alerts", href: "/alerts/" },
+      { label: "Read watch vs warning guide", href: "/blog/what-hurricane-watch-warning-means/" }
+    ]
+  },
+  {
+    intent: "I am preparing a household plan.",
+    description: "Move from reading into practical tools for supplies, evacuation, communication, power, and special household needs.",
+    links: [
+      { label: "Generate preparedness checklist", href: "/tools/preparedness-checklist/" },
+      { label: "Create family communication plan", href: "/tools/family-communication-plan/" },
+      { label: "Build power outage plan", href: "/tools/power-outage-planner/" }
+    ]
+  }
+];
 
 const title = "Hurricane Preparedness Blog";
 const description = "Read HurricaneHub articles about hurricane season outlooks, home preparedness, alerts, and emergency decision-making using NOAA/NHC source context.";
@@ -95,6 +133,11 @@ const jsonLd = graph(
     name: post.title,
     description: post.description,
     url: `${site.url}/blog/${post.slug}/`
+  }))),
+  itemListSchema(intentBridgeLinks.map((item) => ({
+    name: item.intent,
+    description: item.description,
+    url: `${site.url}${item.links[0].href}`
   }))),
   faqSchema(faqs)
 );
@@ -165,6 +208,27 @@ const jsonLd = graph(
           <li><a href="/alerts/">Active NWS alerts by state</a></li>
         </ul>
       </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="blog-intent-bridge">
+    <div class="inner">
+      <p class="eyebrow">Reading to action</p>
+      <h2 id="blog-intent-bridge">Where to Go After Reading a Hurricane Article</h2>
+      <p class="answer">Blog articles are strongest when they connect a search question to a live page, local tracker, or planning tool. Use these paths when the article answers the background but the situation still needs action.</p>
+      <div class="grid-2 section-grid">
+        {intentBridgeLinks.map((item) => (
+          <article class="panel">
+            <h3>{item.intent}</h3>
+            <p>{item.description}</p>
+            <ul class="intent-links">
+              {item.links.map((link) => (
+                <li><a href={link.href}>{link.label}</a></li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -258,6 +322,15 @@ const jsonLd = graph(
     .cluster-list span {
       color: var(--muted, #6b7280);
       font-size: 0.84rem;
+    }
+    .intent-links {
+      display: grid;
+      gap: 0.55rem;
+      margin: 1rem 0 0;
+      padding-left: 1.2rem;
+    }
+    .intent-links a {
+      font-weight: 800;
     }
     .is-hidden { display: none !important; }
   </style>

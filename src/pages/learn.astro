@@ -80,6 +80,48 @@ const learningPaths = [
     ]
   }
 ];
+const questionPaths = [
+  {
+    question: "I need to know where the storm is right now.",
+    answer: "Start with the live tracker, then read the cone and radar guides if the map product is unclear.",
+    href: "/hurricane-tracker/live/",
+    label: "Open live hurricane tracker",
+    supportHref: "/blog/real-time-hurricane-tracking-2026/",
+    supportLabel: "Read the real-time tracking guide"
+  },
+  {
+    question: "I received a watch, warning, or flood alert.",
+    answer: "Decode the alert language first, then compare the result with official NWS alerts and local evacuation guidance.",
+    href: "/tools/alert-action-decoder/",
+    label: "Use alert action decoder",
+    supportHref: "/alerts/",
+    supportLabel: "Check active NWS alerts"
+  },
+  {
+    question: "I need local risk for my city.",
+    answer: "Move from general learning pages into city trackers, nearby alerts, official resources, and household tools.",
+    href: "/hurricane-tracker/city/",
+    label: "Browse city hurricane trackers",
+    supportHref: "/tools/local-risk-plan/",
+    supportLabel: "Build a local risk plan"
+  },
+  {
+    question: "I am deciding whether to evacuate.",
+    answer: "Use official local orders as the source of truth, then use evacuation and impact tools to organize timing and supplies.",
+    href: "/tools/evacuation-decision-helper/",
+    label: "Use evacuation decision helper",
+    supportHref: "/blog/how-to-check-your-hurricane-evacuation-zone/",
+    supportLabel: "Learn how to check evacuation zones"
+  },
+  {
+    question: "I want to prepare before the season gets active.",
+    answer: "Start with a checklist, then fill gaps for power, documents, pets, medicine, and home hardening.",
+    href: "/tools/preparedness-checklist/",
+    label: "Generate preparedness checklist",
+    supportHref: "/blog/hurricane-preparation-timeline-72-48-24-hours/",
+    supportLabel: "Follow the 72/48/24 hour timeline"
+  }
+];
 const faqs = [
   {
     question: "What should I learn first about hurricane tracking?",
@@ -109,6 +151,11 @@ const jsonLd = graph(
     name: post.title,
     description: post.description,
     url: `${site.url}/blog/${post.slug}/`
+  }))),
+  itemListSchema(questionPaths.map((path) => ({
+    name: path.question,
+    description: path.answer,
+    url: `${site.url}${path.href}`
   }))),
   faqSchema(faqs)
 );
@@ -184,6 +231,26 @@ const jsonLd = graph(
     </div>
   </section>
 
+  <section class="band" aria-labelledby="question-paths">
+    <div class="inner">
+      <p class="eyebrow">Question to next page</p>
+      <h2 id="question-paths">Choose the Right Hurricane Page for Your Situation</h2>
+      <p class="answer">Searchers often arrive with one urgent question. Use this section to move from the learning center into the most useful tracker, local page, article, or decision tool.</p>
+      <div class="link-list question-list">
+        {questionPaths.map((path) => (
+          <article class="link-row">
+            <h3>{path.question}</h3>
+            <p>{path.answer}</p>
+            <p class="question-actions">
+              <a href={path.href}>{path.label}</a>
+              <a href={path.supportHref}>{path.supportLabel}</a>
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="band" aria-labelledby="learn-workflow">
     <div class="inner grid-2">
       <article class="panel">
@@ -216,6 +283,20 @@ const jsonLd = graph(
   }
 
   .path-list a {
+    font-weight: 800;
+  }
+
+  .question-list {
+    margin-top: 1.25rem;
+  }
+
+  .question-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+  }
+
+  .question-actions a {
     font-weight: 800;
   }
 </style>
