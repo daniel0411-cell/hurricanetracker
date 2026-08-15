@@ -16,6 +16,10 @@ const url = `${site.url}/blog/${post.slug}/`;
 const lastModified = new Date(post.dateModified).toISOString();
 const relatedPosts = getRelatedPosts(post.slug, 3);
 const category = getCategory(post.slug);
+const clusterPosts = blogPosts
+  .filter((item) => item.slug !== post.slug && getCategory(item.slug) === category)
+  .sort((a, b) => b.dateModified.localeCompare(a.dateModified))
+  .slice(0, 5);
 const postFaqs = post.faqs?.length ? post.faqs : faqs;
 const textSignal = [
   post.slug,
@@ -85,11 +89,23 @@ const ogImage = post.image.replace(/\.svg$/i, ".png").replace("/images/blog/", "
 const jsonLd = graph(
   websiteSchema(),
   blogPostingSchema({ title, description, url, datePublished: new Date(post.datePublished).toISOString(), dateModified: lastModified, image: new URL(ogImage, site.url).href }),
-  itemListSchema(nextActions.map((action) => ({
-    name: action.name,
-    description: action.description,
-    url: `${site.url}${action.href}`
-  }))),
+  itemListSchema([
+    ...nextActions.map((action) => ({
+      name: action.name,
+      description: action.description,
+      url: `${site.url}${action.href}`
+    })),
+    ...relatedPosts.map((item) => ({
+      name: item.title,
+      description: item.description,
+      url: `${site.url}/blog/${item.slug}/`
+    })),
+    ...clusterPosts.map((item) => ({
+      name: item.title,
+      description: item.description,
+      url: `${site.url}/blog/${item.slug}/`
+    }))
+  ]),
   faqSchema(postFaqs)
 );
 ---
@@ -151,6 +167,19 @@ const jsonLd = graph(
           <p>This article is part of the {category} cluster. Use the blog index to compare related hurricane preparedness, warning, tracking, and recovery guides.</p>
           <a href="/blog/">Browse blog clusters</a>
         </section>
+        {clusterPosts.length ? (
+          <section class="panel">
+            <h2>More in {category}</h2>
+            <ul class="related-list">
+              {clusterPosts.map((item) => (
+                <li>
+                  <a href={`/blog/${item.slug}/`} class="related-link">{item.title}</a>
+                  <p class="related-desc">{item.description}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
         <section class="panel">
           <h2>Related Articles</h2>
           <ul class="related-list">
