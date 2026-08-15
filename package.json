@@ -8,6 +8,7 @@
     "verify:official-resources": "node scripts/verify-official-resources.mjs",
     "seo:audit": "node scripts/seo-audit.mjs",
     "metadata:audit": "node scripts/metadata-audit.mjs",
+    "links:audit": "node scripts/internal-link-audit.mjs",
     "faq:audit": "node scripts/faq-audit.mjs",
     "content:audit": "node scripts/content-audit.mjs",
     "prebuild": "npm run verify:city-data && node scripts/gen-og.mjs",
