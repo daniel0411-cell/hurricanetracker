@@ -27,6 +27,7 @@ const blockedTerms = [
 const requiredStaticHtml = [
   "learn/index.html",
   "hurricane-tracker/city/miami/index.html",
+  "hurricane-tracker/city/houston/index.html",
   "hurricane-tracker/storm/erin/index.html",
   "hurricane-tracker/storm/melissa/index.html"
 ];

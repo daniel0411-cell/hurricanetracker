@@ -14,6 +14,7 @@
     "schema:audit": "node scripts/schema-audit.mjs",
     "faq:audit": "node scripts/faq-audit.mjs",
     "content:audit": "node scripts/content-audit.mjs",
+    "seo:full": "npm run build && npm run seo:audit && npm run metadata:audit && npm run schema:audit && npm run links:audit && npm run rss:audit && npm run coverage:audit && npm run faq:audit && npm run content:audit",
     "prebuild": "npm run verify:city-data && node scripts/gen-og.mjs",
     "dev": "ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG_PATH=.wrangler/logs astro dev --host 127.0.0.1",
     "build": "ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG_PATH=.wrangler/logs astro build",
