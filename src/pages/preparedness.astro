@@ -8,6 +8,68 @@ const title = "Hurricane Preparedness Decision Matrix";
 const description = "Use a clear hurricane decision matrix for monitoring, preparing, acting, and leaving before tropical cyclone hazards arrive.";
 const url = `${site.url}/preparedness/`;
 const lastModified = site.contentLastModified;
+const timelineWindows = [
+  {
+    window: "72 hours before possible impacts",
+    focus: "Supplies, documents, routes, and household roles",
+    body:
+      "Use this window to finish the low-regret work: water, food, batteries, prescriptions, cash, document photos, pet supplies, and a written destination if evacuation becomes likely.",
+    links: [
+      { label: "Generate a preparedness checklist", href: "/tools/preparedness-checklist/" },
+      { label: "Read the 72/48/24 hour timeline", href: "/blog/hurricane-preparation-timeline-72-48-24-hours/" }
+    ]
+  },
+  {
+    window: "48 hours before possible impacts",
+    focus: "Fuel, alerts, local risk, and evacuation readiness",
+    body:
+      "Compare the latest NWS alerts, NHC storm context, evacuation-zone instructions, and household constraints. People with medical, mobility, pet, or transportation needs may need to move earlier.",
+    links: [
+      { label: "Build a local risk plan", href: "/tools/local-risk-plan/" },
+      { label: "Check city hurricane trackers", href: "/hurricane-tracker/city/" }
+    ]
+  },
+  {
+    window: "24 hours before possible impacts",
+    focus: "Final safety actions and no-risk decisions",
+    body:
+      "Finish protective actions that can be done safely, move vehicles away from flood-prone spots, charge devices, pack medications and documents, and stop outdoor work when conditions deteriorate.",
+    links: [
+      { label: "Use the evacuation decision helper", href: "/tools/evacuation-decision-helper/" },
+      { label: "Review hurricane warning checklist", href: "/blog/what-to-do-during-a-hurricane-warning/" }
+    ]
+  }
+];
+const householdScenarios = [
+  {
+    title: "If you may evacuate",
+    body:
+      "Prioritize destination, route, fuel, documents, prescriptions, pet records, chargers, and a contact who knows where you are going.",
+    href: "/blog/hurricane-evacuation-checklist/",
+    label: "Open evacuation checklist"
+  },
+  {
+    title: "If you plan to shelter in place",
+    body:
+      "Confirm you are outside surge and evacuation zones, identify an interior safe room, and prepare for outages, water disruption, heat, and limited communication.",
+    href: "/tools/power-outage-planner/",
+    label: "Build outage plan"
+  },
+  {
+    title: "If someone has medical or mobility needs",
+    body:
+      "Plan earlier than the general timeline: registrations, equipment power, refrigerated medicine, accessible transportation, and caregiver communication should be ready before watches escalate.",
+    href: "/blog/hurricane-medical-needs-registry-preparedness/",
+    label: "Read medical needs guide"
+  },
+  {
+    title: "If pets are part of the plan",
+    body:
+      "Pack food, carriers, leashes, medications, vaccine records, waste bags, and pet-friendly lodging or shelter options before roads and hotels fill.",
+    href: "/blog/hurricane-pet-safety/",
+    label: "Read pet safety guide"
+  }
+];
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
@@ -80,5 +142,58 @@ const jsonLd = graph(
       </article>
     </div>
   </section>
+
+  <section class="band" aria-labelledby="preparedness-timeline">
+    <div class="inner">
+      <p class="eyebrow">Time-based planning</p>
+      <h2 id="preparedness-timeline">Hurricane Preparedness by Time Window</h2>
+      <p class="answer">The safest hurricane plan is staged before warnings compress your options. Use these windows with official alerts and local instructions.</p>
+      <div class="grid-3 section-grid">
+        {timelineWindows.map((item) => (
+          <article class="panel">
+            <p class="eyebrow">{item.window}</p>
+            <h3>{item.focus}</h3>
+            <p>{item.body}</p>
+            <ul class="prep-links">
+              {item.links.map((link) => (
+                <li><a href={link.href}>{link.label}</a></li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="preparedness-scenarios">
+    <div class="inner">
+      <p class="eyebrow">Household scenarios</p>
+      <h2 id="preparedness-scenarios">Match Preparedness to Your Household</h2>
+      <p class="answer">A hurricane checklist should change when your household has evacuation exposure, medical needs, pets, mobility limits, or outage risk.</p>
+      <div class="grid-2 section-grid">
+        {householdScenarios.map((scenario) => (
+          <article class="panel">
+            <h3>{scenario.title}</h3>
+            <p>{scenario.body}</p>
+            <p><a class="action-link secondary-action" href={scenario.href}>{scenario.label}</a></p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <FaqBlock faqs={faqs} />
 </Layout>
+
+<style>
+  .prep-links {
+    display: grid;
+    gap: 8px;
+    margin: 16px 0 0;
+    padding-left: 1.2rem;
+  }
+
+  .prep-links a {
+    font-weight: 800;
+  }
+</style>
