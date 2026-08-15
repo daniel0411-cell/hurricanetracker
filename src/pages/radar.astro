@@ -3,7 +3,7 @@ import FaqBlock from "../components/FaqBlock.astro";
 import StormCard from "../components/StormCard.astro";
 import Layout from "../layouts/Layout.astro";
 import { faqs, site, states } from "../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
+import { articleSchema, faqSchema, graph, howToSchema, websiteSchema } from "../lib/schema";
 
 const title = "Hurricane Radar | Live NOAA Data";
 const description = "Live hurricane radar feed, interactive GOES-East and VIIRS satellite layers, and real-time storm tracking for the North Atlantic using RainViewer, NASA GIBS, and NOAA-linked public data sources.";
@@ -20,11 +20,45 @@ const pageFaqs = [
     answer:
       "Radar frames and alerts can change quickly. Use the refresh button, then verify important decisions with official NHC advisories, weather.gov alerts, and local emergency management."
   },
+  {
+    question: "Should I use hurricane radar or satellite first?",
+    answer:
+      "Use satellite first when a tropical system is far offshore or organizing over open water, then use radar when rain bands move within range of coastal radar sites. For household decisions, pair both layers with NWS alerts and local evacuation guidance."
+  },
+  {
+    question: "What should I do after seeing hurricane rain bands on radar?",
+    answer:
+      "Check whether your state or county has active NWS alerts, review your nearest city tracker, then move from monitoring to preparation or evacuation planning if official warnings, surge risk, or local orders apply."
+  },
   ...faqs
 ];
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
+  howToSchema({
+    name: "How to use hurricane radar and satellite before making a local decision",
+    description:
+      "A practical sequence for comparing live radar, satellite, storm markers, and NWS alerts before choosing a household hurricane action.",
+    url,
+    steps: [
+      {
+        name: "Start with satellite for storm structure",
+        text: "Open the satellite layer when the storm is offshore to inspect cloud organization, eye structure, and broad tropical moisture."
+      },
+      {
+        name: "Switch to radar near land",
+        text: "Use the radar layer when rain bands approach coastal radar coverage to see precipitation timing and squall-line movement."
+      },
+      {
+        name: "Check active NWS alerts",
+        text: "Load your state alerts and treat watches, warnings, surge alerts, flood alerts, and evacuation language as the decision anchor."
+      },
+      {
+        name: "Move to a local plan",
+        text: "Open the city tracker or household planning tools to translate the map view into monitoring, preparation, action, or evacuation steps."
+      }
+    ]
+  }),
   faqSchema(pageFaqs)
 );
 ---
@@ -284,6 +318,46 @@ const jsonLd = graph(
         </article>
       </div>
     </section>
+
+    <section class="radar-notes" aria-labelledby="radar-decision-heading">
+      <p class="eyebrow">Radar search guide</p>
+      <h2 id="radar-decision-heading">Hurricane Radar vs Satellite: What To Check First</h2>
+      <div class="grid-2">
+        <article>
+          <p class="answer">Hurricane radar and hurricane satellite answer different questions. Satellite is better for storms over open water because it shows cloud organization, convective bursts, and whether the circulation is becoming better defined. Radar becomes more useful near land because it can show rain-band timing, embedded thunderstorms, and short-term changes closer to a specific city.</p>
+          <p>If you are using a live hurricane radar map during a developing threat, do not stop at the map. Use radar for near-term precipitation context, satellite for storm structure, the <a href="/hurricane-tracker/live/">live hurricane tracker</a> for NHC storm position, and <a href="/alerts/">NWS alerts</a> for official watch and warning language.</p>
+        </article>
+        <article class="panel">
+          <h3>Best next page by intent</h3>
+          <ul class="check-list">
+            <li><a href="/tools/alert-action-decoder/">Decode a hurricane watch, warning, flood alert, or surge alert</a></li>
+            <li><a href="/hurricane-tracker/city/">Find a city hurricane tracker for local context</a></li>
+            <li><a href="/tools/storm-distance-calculator/">Compare your ZIP code with active storm positions</a></li>
+            <li><a href="/blog/hurricane-radar-vs-satellite/">Read the radar vs satellite explainer</a></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="radar-notes" aria-labelledby="radar-action-heading">
+      <p class="eyebrow">From map to action</p>
+      <h2 id="radar-action-heading">What To Do After You See Bands Near Your Area</h2>
+      <div class="grid-3">
+        <article class="panel">
+          <h3>Monitor</h3>
+          <p>If bands are offshore and no local warning is active, save your area, refresh the map periodically, and read the <a href="/blog/how-to-read-the-hurricane-cone-of-uncertainty/">cone of uncertainty guide</a> before assuming the centerline is the only risk.</p>
+        </article>
+        <article class="panel">
+          <h3>Prepare</h3>
+          <p>If rain bands are approaching or watches are active, use the <a href="/tools/preparedness-checklist/">preparedness checklist</a>, review outage needs, and check whether household members need earlier transportation or medical planning.</p>
+        </article>
+        <article class="panel">
+          <h3>Act</h3>
+          <p>If warnings, surge alerts, evacuation orders, or dangerous flooding are in effect, follow local emergency management instructions and use the <a href="/tools/evacuation-decision-helper/">evacuation decision helper</a> only as a planning aid.</p>
+        </article>
+      </div>
+    </section>
+
     <FaqBlock faqs={pageFaqs} />
   </section>
 
