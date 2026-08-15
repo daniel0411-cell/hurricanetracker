@@ -5,11 +5,66 @@ import LiveDashboard from "../components/LiveDashboard.astro";
 import LocalRiskWidget from "../components/LocalRiskWidget.astro";
 import Layout from "../layouts/Layout.astro";
 import { faqs, site, states } from "../data/site";
-import { articleSchema, faqSchema, governmentServiceSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
+import { articleSchema, faqSchema, governmentServiceSchema, graph, howToSchema, itemListSchema, websiteSchema } from "../lib/schema";
 
 const title = "NWS Hurricane and Severe Weather Alerts by State";
 const description = "View active National Weather Service alerts by coastal state with hurricane-focused severity and urgency context.";
 const url = `${site.url}/alerts/`;
+const alertActions = [
+  {
+    alert: "Hurricane or tropical storm watch",
+    meaning: "Conditions are possible in or near the area, often before the most specific local timing is known.",
+    action: "Finish supplies, documents, fuel, route checks, and household communication before a warning compresses options.",
+    href: "/blog/what-hurricane-watch-warning-means/"
+  },
+  {
+    alert: "Hurricane or tropical storm warning",
+    meaning: "Conditions are expected, and protective actions should be completed before wind makes travel or outdoor work unsafe.",
+    action: "Follow local instructions, secure people and pets, stop outdoor work when conditions deteriorate, and leave if your zone is ordered.",
+    href: "/blog/what-to-do-during-a-hurricane-warning/"
+  },
+  {
+    alert: "Storm surge watch or warning",
+    meaning: "Life-threatening coastal water may move inland, sometimes before peak wind arrives.",
+    action: "Check your evacuation zone and local emergency management order. Prioritize water risk over wind category.",
+    href: "/blog/storm-surge-warning-vs-hurricane-warning/"
+  },
+  {
+    alert: "Flash flood or flood warning",
+    meaning: "Dangerous water is occurring or expected from heavy rain, rivers, drainage problems, or storm-related flooding.",
+    action: "Avoid flooded roads, move away from rising water when instructed, and keep monitoring after landfall.",
+    href: "/blog/flood-advisory-vs-watch-vs-warning/"
+  },
+  {
+    alert: "Tornado warning",
+    meaning: "A tornado is indicated by radar or observed, including short-lead tornadoes in hurricane rain bands.",
+    action: "Shelter immediately in an interior room on the lowest practical floor and keep alerts active.",
+    href: "/blog/nws-hurricane-alert-meanings/"
+  }
+];
+const alertFaqs = [
+  {
+    question: "What NWS hurricane alert should I check first?",
+    answer:
+      "Start with the alert that applies to your county or zone, then read the headline, affected area, urgency, severity, certainty, and expiration time before using any map or checklist."
+  },
+  {
+    question: "Is a storm surge warning different from a hurricane warning?",
+    answer:
+      "Yes. A hurricane warning focuses on expected hurricane conditions, while a storm surge warning focuses on life-threatening coastal water. Surge can require evacuation even if wind timing still seems distant."
+  },
+  {
+    question: "Can a tropical storm warning still be dangerous?",
+    answer:
+      "Yes. Tropical storm warnings can include damaging wind, flooding rain, tornadoes, coastal flooding, and outage risk. Do not wait for the word hurricane if local officials tell your area to act."
+  },
+  {
+    question: "Why does HurricaneHub show a decision level with alerts?",
+    answer:
+      "The decision level turns official alert context into a simple household planning state: Monitor, Prepare, Act, or Leave. It does not replace evacuation orders or local emergency management instructions."
+  }
+];
+const pageFaqs = [...alertFaqs, ...faqs];
 
 let lastModified = site.contentLastModified;
 let initialAlerts: import("../lib/weather").NwsAlert[] = [];
@@ -30,6 +85,17 @@ const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
   governmentServiceSchema({ areaServed: "United States Atlantic and Gulf Coast states" }),
+  howToSchema({
+    name: "How to respond to NWS hurricane-related alerts",
+    description: "Read official NWS alert language, identify the hazard type, then choose the household action that matches local instructions.",
+    url,
+    steps: [
+      { name: "Read the official alert", text: "Open the NWS alert for your county or zone and check the headline, affected area, severity, urgency, certainty, and expiration time." },
+      { name: "Identify the hazard", text: "Separate wind, storm surge, flood, tornado, and evacuation language because each hazard can require a different action." },
+      { name: "Connect alert to local risk", text: "Use your state tracker, city tracker, and evacuation-zone information to understand what the alert means for your household." },
+      { name: "Act on local instructions", text: "Follow local emergency management orders, leave when your zone is ordered, and avoid travel or outdoor work when conditions deteriorate." }
+    ]
+  }),
   itemListSchema(states.map(([, name]) => {
     const slug = name.toLowerCase().replace(/[^a-z]+/g, "-").replace(/^-|-$/g, "");
     return {
@@ -38,7 +104,7 @@ const jsonLd = graph(
       url: `${site.url}/tracker/${slug}/`
     };
   })),
-  faqSchema(faqs)
+  faqSchema(pageFaqs)
 );
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
@@ -81,6 +147,23 @@ const jsonLd = graph(
       </div>
     </div>
   </section>
+  <section class="band" aria-labelledby="alert-action-map">
+    <div class="inner">
+      <p class="eyebrow">Alert meanings</p>
+      <h2 id="alert-action-map">NWS Alert Type to Household Action</h2>
+      <p class="answer">Use this as a plain-language bridge between official alert text and the next HurricaneHub page to open. Exact orders still come from local emergency management.</p>
+      <div class="grid-2 section-grid">
+        {alertActions.map((item) => (
+          <article class="panel">
+            <h3>{item.alert}</h3>
+            <p><strong>Meaning:</strong> {item.meaning}</p>
+            <p><strong>Next action:</strong> {item.action}</p>
+            <p><a class="action-link secondary-action" href={item.href}>Read related guide</a></p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
   <section class="band" aria-labelledby="state-coverage">
     <div class="inner">
       <h2 id="state-coverage">Tracked Coastal States</h2>
@@ -99,5 +182,5 @@ const jsonLd = graph(
       </div>
     </div>
   </section>
-  <FaqBlock faqs={faqs} />
+  <FaqBlock faqs={pageFaqs} />
 </Layout>
