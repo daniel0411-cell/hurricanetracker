@@ -3,6 +3,7 @@ import path from "node:path";
 
 const root = process.cwd();
 const distDir = path.join(root, "dist/client");
+const pagesDir = path.join(root, "src/pages");
 const sitemapFile = path.join(distDir, "sitemap.xml");
 
 function readText(file) {
@@ -16,6 +17,38 @@ function extractSitemapPaths(xml) {
 function htmlFileFor(pathname) {
   if (pathname === "/") return path.join(distDir, "index.html");
   return path.join(distDir, pathname, "index.html");
+}
+
+function sourceCandidatesFor(pathname) {
+  const segments = pathname.split("/").filter(Boolean);
+  const candidates = [];
+
+  if (segments.length === 0) {
+    candidates.push(path.join(pagesDir, "index.astro"));
+  } else {
+    candidates.push(path.join(pagesDir, ...segments) + ".astro");
+    candidates.push(path.join(pagesDir, ...segments) + ".ts");
+    candidates.push(path.join(pagesDir, ...segments, "index.astro"));
+    candidates.push(path.join(pagesDir, ...segments, "index.ts"));
+  }
+
+  if (segments[0] === "tracker" && segments.length === 2) {
+    candidates.push(path.join(pagesDir, "tracker", "[id].astro"));
+  }
+
+  if (segments[0] === "hurricane-tracker" && segments[1] === "city" && segments.length === 3) {
+    candidates.push(path.join(pagesDir, "hurricane-tracker", "city", "[city].astro"));
+  }
+
+  if (segments[0] === "hurricane-tracker" && segments[1] === "storm" && segments.length === 3) {
+    candidates.push(path.join(pagesDir, "hurricane-tracker", "storm", "[storm].astro"));
+  }
+
+  if (segments[0] === "blog" && segments.length === 2) {
+    candidates.push(path.join(pagesDir, "blog", "[slug].astro"));
+  }
+
+  return [...new Set(candidates)].filter((file) => fs.existsSync(file));
 }
 
 function firstMatch(text, regex) {
@@ -32,6 +65,13 @@ const paths = extractSitemapPaths(sitemapXml);
 const staticPages = paths
   .map((pathname) => ({ pathname, file: htmlFileFor(pathname) }))
   .filter((page) => fs.existsSync(page.file));
+const dynamicPages = paths
+  .map((pathname) => ({
+    pathname,
+    staticFile: htmlFileFor(pathname),
+    sourceFiles: sourceCandidatesFor(pathname)
+  }))
+  .filter((page) => !fs.existsSync(page.staticFile));
 
 const findings = [];
 for (const page of staticPages) {
@@ -52,6 +92,32 @@ for (const page of staticPages) {
   if (!jsonLdCount) findings.push(`${page.pathname} missing JSON-LD`);
 }
 
+for (const page of dynamicPages) {
+  if (!page.sourceFiles.length) {
+    findings.push(`${page.pathname} has no matching src/pages source file`);
+    continue;
+  }
+
+  const source = page.sourceFiles.map((file) => readText(file)).join("\n");
+  const relFiles = page.sourceFiles.map((file) => path.relative(root, file)).join(", ");
+
+  const usesAstroLayout = /<(?:Layout|BaseLayout)\b/.test(source);
+  const rendersHtmlEndpoint = /<!doctype html>|<html\s+lang=/.test(source);
+
+  if (!usesAstroLayout && !rendersHtmlEndpoint) {
+    findings.push(`${page.pathname} source missing Layout/BaseLayout or HTML endpoint render (${relFiles})`);
+  }
+  if (!/\btitle\s*=/.test(source)) findings.push(`${page.pathname} source missing title prop (${relFiles})`);
+  if (!/\bdescription\s*=/.test(source)) findings.push(`${page.pathname} source missing description prop (${relFiles})`);
+  if (!/\bcanonical\s*=/.test(source)) {
+    findings.push(`${page.pathname} source missing canonical prop/value (${relFiles})`);
+  }
+  if (!/\bjsonLd\s*=/.test(source)) findings.push(`${page.pathname} source missing jsonLd prop (${relFiles})`);
+  if (!/articleSchema|blogPostingSchema|webApplicationSchema|itemListSchema|governmentServiceSchema|howToSchema/.test(source)) {
+    findings.push(`${page.pathname} source missing page-level structured data helper (${relFiles})`);
+  }
+}
+
 for (const finding of findings) {
   console.log(`[metadata-audit] FAIL ${finding}`);
 }
@@ -61,4 +127,6 @@ if (findings.length) {
   process.exit(1);
 }
 
-console.log(`[metadata-audit] OK — checked ${staticPages.length} static sitemap page(s) for title, description, canonical, robots, and JSON-LD.`);
+console.log(
+  `[metadata-audit] OK — checked ${staticPages.length} static sitemap page(s) and ${dynamicPages.length} dynamic sitemap page(s) for SEO metadata coverage.`
+);
