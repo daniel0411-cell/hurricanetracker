@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { site } from "../data/site";
-import { faqSchema, howToSchema, graph, websiteSchema } from "../lib/schema";
+import { articleSchema, faqSchema, howToSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
 
 const title = "HurricaneHub Decision Levels – When to Monitor, Prepare, Act, or Leave";
 const description = "A plain-language guide to hurricane decision levels: what Monitor, Prepare, Act, and Leave mean, the official signals behind each, and the household actions to take at every stage.";
@@ -82,8 +82,60 @@ const faqs = [
   }
 ];
 
+const decisionPaths = [
+  {
+    name: "Check local risk and build a 72-hour plan",
+    description: "Use a ZIP code or state to connect the current decision level with NWS alerts, local hazards, and household actions.",
+    url: `${site.url}/tools/local-risk-plan/`
+  },
+  {
+    name: "Decide whether your household should evacuate",
+    description: "Sort housing type, surge exposure, transportation, pets, and medical needs into Monitor, Prepare, Act, or Leave.",
+    url: `${site.url}/tools/evacuation-decision-helper/`
+  },
+  {
+    name: "Decode official alert language",
+    description: "Translate hurricane, storm surge, flood, tornado, and evacuation wording into plain-language next actions.",
+    url: `${site.url}/tools/alert-action-decoder/`
+  },
+  {
+    name: "Find your city hurricane tracker",
+    description: "Move from a general decision level to city-specific risk context, nearby alerts, and local preparedness links.",
+    url: `${site.url}/hurricane-tracker/city/`
+  }
+];
+
+const levelLinks = [
+  {
+    level: "Monitor",
+    href: "/hurricane-tracker/live/",
+    label: "Open the live hurricane tracker",
+    body: "Use this when no local warning is active but you want to watch active storms, source links, and basin context."
+  },
+  {
+    level: "Prepare",
+    href: "/tools/preparedness-checklist/",
+    label: "Generate a preparedness checklist",
+    body: "Use this when a tropical system could affect your area and you need supplies, documents, pet items, and medication ready."
+  },
+  {
+    level: "Act",
+    href: "/radar/",
+    label: "Compare radar with alerts",
+    body: "Use this when alerts become specific enough to finish outdoor work, move vulnerable people, and monitor worsening conditions."
+  },
+  {
+    level: "Leave",
+    href: "/blog/how-to-check-your-hurricane-evacuation-zone/",
+    label: "Check evacuation-zone guidance",
+    body: "Use this when local officials issue evacuation instructions or your household needs to leave before travel becomes unsafe."
+  }
+];
+
 const jsonLd = graph(
   websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  itemListSchema(decisionPaths),
   faqSchema(faqs),
   howToSchema({
     name: "How to choose your hurricane decision level",
@@ -131,6 +183,38 @@ const jsonLd = graph(
           <p>{faq.answer}</p>
         </article>
       ))}
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="dg-paths">
+    <div class="inner">
+      <p class="eyebrow">Next-step paths</p>
+      <h2 id="dg-paths">Turn a Decision Level Into the Right Page</h2>
+      <p class="answer">The level tells you the urgency. The next page should answer the specific decision: local risk, evacuation, alert meaning, or city-level context.</p>
+      <div class="grid-2 section-grid">
+        {decisionPaths.map((path) => (
+          <article class="panel">
+            <h3><a href={new URL(path.url).pathname}>{path.name}</a></h3>
+            <p>{path.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="dg-level-links">
+    <div class="inner">
+      <p class="eyebrow">Level shortcuts</p>
+      <h2 id="dg-level-links">Best Starting Point for Each Level</h2>
+      <div class="grid-2 section-grid">
+        {levelLinks.map((item) => (
+          <article class="panel">
+            <p class="eyebrow">{item.level}</p>
+            <h3><a href={item.href}>{item.label}</a></h3>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
