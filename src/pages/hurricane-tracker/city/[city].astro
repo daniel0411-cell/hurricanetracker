@@ -35,6 +35,28 @@ const nearbyCityLinks = stateCities.length
 const nextStateLinks = coastalStates
   .filter((candidate) => candidate.code !== city.stateCode)
   .slice(0, 4);
+const actionPaths = [
+  {
+    name: `${city.name} local risk action plan`,
+    description: `Use active alerts and ${city.stateName} storm context to build a 72/48/24-hour household action plan for ${city.name}.`,
+    href: `/tools/local-risk-plan/?state=${city.stateCode}`
+  },
+  {
+    name: `${city.name} evacuation decision helper`,
+    description: `Check whether housing type, flood exposure, transportation, pets, medical needs, or local orders should move a ${city.name} household from prepare to leave.`,
+    href: "/tools/evacuation-decision-helper/"
+  },
+  {
+    name: `${city.name} alert action decoder`,
+    description: `Translate hurricane, surge, flood, tornado, and evacuation alert language into plain-language next actions for ${city.name}.`,
+    href: "/tools/alert-action-decoder/"
+  },
+  {
+    name: `${city.name} power outage planner`,
+    description: `Plan charging, food safety, generator placement, refrigerated medicine, and communication backup for ${city.name} outages.`,
+    href: "/tools/power-outage-planner/"
+  }
+];
 const pageFaqs = [
   {
     question: `Is HurricaneHub an official ${city.name} evacuation source?`,
@@ -61,6 +83,11 @@ const jsonLd = graph(
       name: `${nearbyCity.name} Hurricane Tracker`,
       description: nearbyCity.planningNote,
       url: `${site.url}/hurricane-tracker/city/${nearbyCity.slug}/`
+    })),
+    ...actionPaths.map((path) => ({
+      name: path.name,
+      description: path.description,
+      url: `${site.url}${path.href}`
     }))
   ])
 );
@@ -143,6 +170,22 @@ const jsonLd = graph(
           {city.localSearches.map((query) => <li>{query}</li>)}
         </ul>
       </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="city-action-paths">
+    <div class="inner">
+      <p class="eyebrow">Local action paths</p>
+      <h2 id="city-action-paths">What Should {city.name} Residents Do Next?</h2>
+      <p class="answer">Use the city tracker to understand local hurricane context, then move into the tool that matches the decision you need to make now.</p>
+      <div class="grid-2 section-grid">
+        {actionPaths.map((path) => (
+          <article class="panel">
+            <h3><a href={path.href}>{path.name}</a></h3>
+            <p>{path.description}</p>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
