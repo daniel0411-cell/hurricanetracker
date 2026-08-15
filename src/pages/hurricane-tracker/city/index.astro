@@ -3,6 +3,7 @@ import FaqBlock from "../../../components/FaqBlock.astro";
 import Layout from "../../../layouts/Layout.astro";
 import { hurricaneCities } from "../../../data/cities";
 import { site } from "../../../data/site";
+import { coastalStates } from "../../../data/states";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../../lib/schema";
 
 const title = "City Hurricane Trackers";
@@ -46,6 +47,12 @@ const jsonLd = graph(
     url: `${site.url}/hurricane-tracker/city/${city.slug}/`
   })))
 );
+const citiesByState = coastalStates
+  .map((state) => ({
+    state,
+    cities: hurricaneCities.filter((city) => city.stateCode === state.code)
+  }))
+  .filter((group) => group.cities.length);
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
   <section class="band" aria-labelledby="city-index-title">
@@ -75,5 +82,41 @@ const jsonLd = graph(
     </div>
   </section>
 
+  <section class="band" aria-labelledby="city-state-clusters">
+    <div class="inner">
+      <p class="eyebrow">State-to-city clusters</p>
+      <h2 id="city-state-clusters">City Hurricane Trackers by State</h2>
+      <p class="answer">Use these state groups to move from a broad hurricane tracker to local pages for surge, flood, bridge, route, outage, and county-specific planning context.</p>
+      <div class="grid-3 section-grid">
+        {citiesByState.map(({ state, cities }) => (
+          <article class="panel">
+            <p class="eyebrow">{state.region}</p>
+            <h3>{state.name} City Trackers</h3>
+            <p>{state.preparednessNote}</p>
+            <ul class="cluster-links" aria-label={`${state.name} city hurricane tracker links`}>
+              {cities.map((city) => (
+                <li><a href={`/hurricane-tracker/city/${city.slug}/`}>{city.name} hurricane tracker</a></li>
+              ))}
+            </ul>
+            <p><a class="action-link" href={`/tracker/${state.slug}/`}>Open {state.name} state tracker</a></p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <FaqBlock faqs={faqs} />
 </Layout>
+
+<style>
+  .cluster-links {
+    display: grid;
+    gap: 8px;
+    margin: 16px 0 20px;
+    padding-left: 18px;
+  }
+
+  .cluster-links a {
+    font-weight: 700;
+  }
+</style>
