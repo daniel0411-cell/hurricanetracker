@@ -133,6 +133,11 @@ const htmlChecks = [
     minTextLength: 3200,
     requiredSnippets: ["What To Open After the Live Hurricane Tracker", "Search intent paths", "Decode warning language"]
   },
+  {
+    file: "radar/index.html",
+    minTextLength: 3600,
+    requiredSnippets: ["Hurricane Radar vs Satellite: What To Check First", "Best next page by intent", "Decode a hurricane watch"]
+  },
   ...BLOG_CATEGORY_PAGES.map((category) => ({
     file: `blog/category/${category.slug}/index.html`,
     minTextLength: 1800,

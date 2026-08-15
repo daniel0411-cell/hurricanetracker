@@ -3,12 +3,44 @@ import FaqBlock from "../components/FaqBlock.astro";
 import StormCard from "../components/StormCard.astro";
 import Layout from "../layouts/Layout.astro";
 import { faqs, site, states } from "../data/site";
-import { articleSchema, faqSchema, graph, howToSchema, websiteSchema } from "../lib/schema";
+import { articleSchema, faqSchema, graph, howToSchema, itemListSchema, websiteSchema } from "../lib/schema";
 
 const title = "Hurricane Radar | Live NOAA Data";
 const description = "Live hurricane radar feed, interactive GOES-East and VIIRS satellite layers, and real-time storm tracking for the North Atlantic using RainViewer, NASA GIBS, and NOAA-linked public data sources.";
 const url = `${site.url}/radar/`;
 const lastModified = site.contentLastModified;
+const radarNextPaths = [
+  {
+    name: "Open the live hurricane tracker",
+    href: "/hurricane-tracker/live/",
+    description: "Compare radar and satellite context with current NHC storm position, advisory links, and storm tracker shortcuts."
+  },
+  {
+    name: "Check active NWS alerts",
+    href: "/alerts/",
+    description: "Use official watch, warning, surge, flood, and tornado alert language before changing household plans."
+  },
+  {
+    name: "Find a city hurricane tracker",
+    href: "/hurricane-tracker/city/",
+    description: "Move from map context to local surge, flooding, route, bridge, outage, and evacuation considerations."
+  },
+  {
+    name: "Decode alert action language",
+    href: "/tools/alert-action-decoder/",
+    description: "Translate watches, warnings, flood alerts, surge alerts, and evacuation wording into planning prompts."
+  },
+  {
+    name: "Compare storm distance",
+    href: "/tools/storm-distance-calculator/",
+    description: "Compare a ZIP code with current storm coordinates while keeping distance-only context in perspective."
+  },
+  {
+    name: "Read the radar vs satellite guide",
+    href: "/blog/hurricane-radar-vs-satellite/",
+    description: "Learn when radar, satellite, forecast, and wind layers answer different hurricane tracking questions."
+  }
+];
 const pageFaqs = [
   {
     question: "What does the HurricaneHub radar page show?",
@@ -59,6 +91,11 @@ const jsonLd = graph(
       }
     ]
   }),
+  itemListSchema(radarNextPaths.map((path) => ({
+    name: path.name,
+    description: path.description,
+    url: `${site.url}${path.href}`
+  }))),
   faqSchema(pageFaqs)
 );
 ---
