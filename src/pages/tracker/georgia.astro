@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
+import StateActionPaths from "../../components/StateActionPaths.astro";
 import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateBySlug } from "../../data/states";
@@ -19,6 +20,28 @@ const lastModified = "2026-08-07";
 const intro = `Georgia's Atlantic coastline is short—about 100 miles—but densely developed from the Savannah metro down to Brunswick and the Golden Isles. Hurricanes usually reach Georgia after tracking up the Southeast seaboard or crossing Florida, often arriving as hurricanes or strong tropical storms with high rain rates and tornadoes. The coastal plain's rivers and tidal creeks flood readily, and wind-toppled trees are a major power-outage driver. In 2018, Hurricane Michael crossed into Georgia as a hurricane and inflicted historic wind damage across southwest Georgia's forests, the most damaging tropical cyclone in recent state memory. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is within the active period, so the coast from Savannah to St. Simons should stay alert, pair NWS alerts with county instructions, and keep an evacuation route ready.`;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
+const stateActionPaths = [
+  {
+    name: `${name} local risk action plan`,
+    description: `Build a 72/48/24-hour household action plan from ${name} alerts, coastal hazards, and local constraints.`,
+    url: `${site.url}/tools/local-risk-plan/?state=${code}`
+  },
+  {
+    name: `${name} evacuation decision helper`,
+    description: `Check whether surge exposure, housing type, transport, pets, or medical needs should move a ${name} household toward evacuation.`,
+    url: `${site.url}/tools/evacuation-decision-helper/`
+  },
+  {
+    name: `${name} alert action decoder`,
+    description: `Translate official hurricane, surge, flood, tornado, and evacuation alerts into next actions for ${name} households.`,
+    url: `${site.url}/tools/alert-action-decoder/`
+  },
+  {
+    name: `${name} power outage planner`,
+    description: `Plan charging, food safety, generator placement, medicine, and communication backup for ${name} hurricane outages.`,
+    url: `${site.url}/tools/power-outage-planner/`
+  }
+];
 const adjacent = ["florida", "south-carolina"];
 
 const faqs = [
@@ -39,11 +62,14 @@ const faqs = [
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url: canonical, dateModified: lastModified }),
-  itemListSchema(stateCities.map((city) => ({
-    name: `${city.name} Hurricane Tracker`,
-    description: city.planningNote,
-    url: `${site.url}/hurricane-tracker/city/${city.slug}/`
-  }))),
+  itemListSchema([
+    ...stateCities.map((city) => ({
+      name: `${city.name} Hurricane Tracker`,
+      description: city.planningNote,
+      url: `${site.url}/hurricane-tracker/city/${city.slug}/`
+    })),
+    ...stateActionPaths
+  ]),
   faqSchema(faqs)
 );
 ---
@@ -69,6 +95,8 @@ const jsonLd = graph(
           </article>
         ))}
       </div>
+
+      <StateActionPaths state={state} />
 
       <StateTrackerSeoLinks state={state} cities={stateCities} />
 

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
+import StateActionPaths from "../../components/StateActionPaths.astro";
 import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateBySlug } from "../../data/states";
@@ -19,6 +20,28 @@ const lastModified = "2026-08-07";
 const intro = `Florida faces the Atlantic and Gulf of Mexico at once, giving it more than 1,300 miles of tidal coastline—the longest of any hurricane-prone state. Storms typically organize near the Bahamas or in the Caribbean and track west across South Florida, or curve north into the Panhandle and Big Bend, while others develop in the Gulf and threaten Tampa Bay or the central coast. Because the peninsula is low and surrounded by warm water, rapid intensification just before landfall is common. In recent memory, Hurricane Michael (2018) struck the Panhandle as a catastrophic Category 5, and Hurricane Ian (2022) produced deadly storm surge and flooding across southwest Florida. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August sits in the climatological ramp toward the September peak, when sea-surface temperatures are warmest. Residents should confirm evacuation zones and keep a ready-to-go plan before any system forms, because bridge and causeway closures often arrive well ahead of landfall.`;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
+const stateActionPaths = [
+  {
+    name: `${name} local risk action plan`,
+    description: `Build a 72/48/24-hour household action plan from ${name} alerts, coastal hazards, and local constraints.`,
+    url: `${site.url}/tools/local-risk-plan/?state=${code}`
+  },
+  {
+    name: `${name} evacuation decision helper`,
+    description: `Check whether surge exposure, housing type, transport, pets, or medical needs should move a ${name} household toward evacuation.`,
+    url: `${site.url}/tools/evacuation-decision-helper/`
+  },
+  {
+    name: `${name} alert action decoder`,
+    description: `Translate official hurricane, surge, flood, tornado, and evacuation alerts into next actions for ${name} households.`,
+    url: `${site.url}/tools/alert-action-decoder/`
+  },
+  {
+    name: `${name} power outage planner`,
+    description: `Plan charging, food safety, generator placement, medicine, and communication backup for ${name} hurricane outages.`,
+    url: `${site.url}/tools/power-outage-planner/`
+  }
+];
 const adjacent = ["georgia", "alabama"];
 
 const faqs = [
@@ -39,11 +62,14 @@ const faqs = [
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url: canonical, dateModified: lastModified }),
-  itemListSchema(stateCities.map((city) => ({
-    name: `${city.name} Hurricane Tracker`,
-    description: city.planningNote,
-    url: `${site.url}/hurricane-tracker/city/${city.slug}/`
-  }))),
+  itemListSchema([
+    ...stateCities.map((city) => ({
+      name: `${city.name} Hurricane Tracker`,
+      description: city.planningNote,
+      url: `${site.url}/hurricane-tracker/city/${city.slug}/`
+    })),
+    ...stateActionPaths
+  ]),
   faqSchema(faqs)
 );
 ---
@@ -69,6 +95,8 @@ const jsonLd = graph(
           </article>
         ))}
       </div>
+
+      <StateActionPaths state={state} />
 
       <StateTrackerSeoLinks state={state} cities={stateCities} />
 

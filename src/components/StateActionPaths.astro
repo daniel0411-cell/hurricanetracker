@@ -1,0 +1,50 @@
+---
+import type { CoastalState } from "../data/states";
+
+type Props = {
+  state: CoastalState;
+};
+
+const { state } = Astro.props;
+const paths = [
+  {
+    title: "Build a local risk plan",
+    href: `/tools/local-risk-plan/?state=${state.code}`,
+    body: `Use ${state.name} alerts, coastal hazards, and household constraints to create a 72/48/24-hour action plan.`
+  },
+  {
+    title: "Check evacuation decisions",
+    href: "/tools/evacuation-decision-helper/",
+    body: `Sort ${state.name} surge exposure, housing type, transportation, pets, and medical needs into Monitor, Prepare, Act, or Leave.`
+  },
+  {
+    title: "Decode official alerts",
+    href: "/tools/alert-action-decoder/",
+    body: `Translate hurricane, storm surge, flood, tornado, and evacuation wording into household actions before conditions worsen.`
+  },
+  {
+    title: "Plan for power outages",
+    href: "/tools/power-outage-planner/",
+    body: `Prepare charging, food safety, generator placement, refrigerated medicine, and communication backup for ${state.name} outages.`
+  }
+];
+---
+<section class="state-action-paths" aria-labelledby={`state-action-paths-${state.slug}`}>
+  <p class="eyebrow">State action paths</p>
+  <h2 id={`state-action-paths-${state.slug}`}>What Should {state.name} Residents Do Next?</h2>
+  <p class="source-note">Use this state tracker as the broad screen, then move into the tool that matches your household decision.</p>
+  <div class="grid-2 section-grid">
+    {paths.map((path) => (
+      <article class="panel">
+        <h3><a href={path.href}>{path.title}</a></h3>
+        <p>{path.body}</p>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .state-action-paths {
+    margin-top: 34px;
+  }
+</style>

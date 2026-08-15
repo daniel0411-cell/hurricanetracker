@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
+import StateActionPaths from "../../components/StateActionPaths.astro";
 import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateBySlug } from "../../data/states";
@@ -19,6 +20,28 @@ const lastModified = "2026-08-07";
 const intro = `North Carolina's coastline runs about 300 miles from the Virginia line to the South Carolina border, but its hurricane identity is defined by Cape Hatteras and the Outer Banks—a string of narrow barrier islands in the Atlantic's busy recurvature lane. Storms riding the Gulf Stream often curve ashore here, slamming the islands before pushing into the sounds and inland rivers, producing both wind damage on the coast and catastrophic river flooding hundreds of miles inland. In 2018, Hurricane Florence stalled near the coast and unleashed historic rainfall that flooded communities from Wilmington to the Piedmont. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is within the active period, so Outer Banks and coastal residents should watch tropical outlooks and plan ferry and bridge timing, because island access closes well before the worst conditions arrive.`;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
+const stateActionPaths = [
+  {
+    name: `${name} local risk action plan`,
+    description: `Build a 72/48/24-hour household action plan from ${name} alerts, coastal hazards, and local constraints.`,
+    url: `${site.url}/tools/local-risk-plan/?state=${code}`
+  },
+  {
+    name: `${name} evacuation decision helper`,
+    description: `Check whether surge exposure, housing type, transport, pets, or medical needs should move a ${name} household toward evacuation.`,
+    url: `${site.url}/tools/evacuation-decision-helper/`
+  },
+  {
+    name: `${name} alert action decoder`,
+    description: `Translate official hurricane, surge, flood, tornado, and evacuation alerts into next actions for ${name} households.`,
+    url: `${site.url}/tools/alert-action-decoder/`
+  },
+  {
+    name: `${name} power outage planner`,
+    description: `Plan charging, food safety, generator placement, medicine, and communication backup for ${name} hurricane outages.`,
+    url: `${site.url}/tools/power-outage-planner/`
+  }
+];
 const adjacent = ["south-carolina", "virginia"];
 
 const faqs = [
@@ -39,11 +62,14 @@ const faqs = [
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url: canonical, dateModified: lastModified }),
-  itemListSchema(stateCities.map((city) => ({
-    name: `${city.name} Hurricane Tracker`,
-    description: city.planningNote,
-    url: `${site.url}/hurricane-tracker/city/${city.slug}/`
-  }))),
+  itemListSchema([
+    ...stateCities.map((city) => ({
+      name: `${city.name} Hurricane Tracker`,
+      description: city.planningNote,
+      url: `${site.url}/hurricane-tracker/city/${city.slug}/`
+    })),
+    ...stateActionPaths
+  ]),
   faqSchema(faqs)
 );
 ---
@@ -69,6 +95,8 @@ const jsonLd = graph(
           </article>
         ))}
       </div>
+
+      <StateActionPaths state={state} />
 
       <StateTrackerSeoLinks state={state} cities={stateCities} />
 

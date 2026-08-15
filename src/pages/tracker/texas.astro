@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
+import StateActionPaths from "../../components/StateActionPaths.astro";
 import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateBySlug } from "../../data/states";
@@ -19,6 +20,28 @@ const lastModified = "2026-08-07";
 const intro = `Texas guards about 367 miles of Gulf of Mexico coastline, from the marshy upper coast near Port Arthur to the brush country around Brownsville. Most Texas hurricanes form in the western Gulf or recurve out of the Bay of Campeche, then drive north or northeast toward Galveston, Matagorda, or Corpus Christi. The state's wide, shallow shelf amplifies storm surge, while slow-moving systems can dump feet of rain far inland around Houston. Historically, Hurricane Harvey (2017) stalled over South Texas and became the wettest tropical cyclone in U.S. history, flooding entire communities. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is within the ramp to the September peak, when Gulf waters are warmest. Because Texas evacuations can mean 100-plus-mile drives inland and long power outages, residents should prepare generators safely, stock water and fuel, and learn their county evacuation zone before a storm threatens.`;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
+const stateActionPaths = [
+  {
+    name: `${name} local risk action plan`,
+    description: `Build a 72/48/24-hour household action plan from ${name} alerts, coastal hazards, and local constraints.`,
+    url: `${site.url}/tools/local-risk-plan/?state=${code}`
+  },
+  {
+    name: `${name} evacuation decision helper`,
+    description: `Check whether surge exposure, housing type, transport, pets, or medical needs should move a ${name} household toward evacuation.`,
+    url: `${site.url}/tools/evacuation-decision-helper/`
+  },
+  {
+    name: `${name} alert action decoder`,
+    description: `Translate official hurricane, surge, flood, tornado, and evacuation alerts into next actions for ${name} households.`,
+    url: `${site.url}/tools/alert-action-decoder/`
+  },
+  {
+    name: `${name} power outage planner`,
+    description: `Plan charging, food safety, generator placement, medicine, and communication backup for ${name} hurricane outages.`,
+    url: `${site.url}/tools/power-outage-planner/`
+  }
+];
 const adjacent = ["louisiana"];
 
 const faqs = [
@@ -39,11 +62,14 @@ const faqs = [
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url: canonical, dateModified: lastModified }),
-  itemListSchema(stateCities.map((city) => ({
-    name: `${city.name} Hurricane Tracker`,
-    description: city.planningNote,
-    url: `${site.url}/hurricane-tracker/city/${city.slug}/`
-  }))),
+  itemListSchema([
+    ...stateCities.map((city) => ({
+      name: `${city.name} Hurricane Tracker`,
+      description: city.planningNote,
+      url: `${site.url}/hurricane-tracker/city/${city.slug}/`
+    })),
+    ...stateActionPaths
+  ]),
   faqSchema(faqs)
 );
 ---
@@ -69,6 +95,8 @@ const jsonLd = graph(
           </article>
         ))}
       </div>
+
+      <StateActionPaths state={state} />
 
       <StateTrackerSeoLinks state={state} cities={stateCities} />
 

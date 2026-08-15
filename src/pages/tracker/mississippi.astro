@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
+import StateActionPaths from "../../components/StateActionPaths.astro";
 import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateBySlug } from "../../data/states";
@@ -19,6 +20,28 @@ const lastModified = "2026-08-07";
 const intro = `Mississippi's Gulf coast is the shortest of the hurricane-prone states at roughly 44 miles, yet it has absorbed some of the most violent landfalls in U.S. history. Storms typically approach from the southeast across warm Gulf water that fuels rapid intensification, then drive into Hancock, Harrison, and Jackson counties. The low, flat coast and the Bay of St. Louis make surge the dominant threat. In 1969, Hurricane Camille came ashore as a catastrophic Category 5, among the strongest storms ever recorded, and Hurricane Katrina (2005) then devastated the coast and flooded coastal communities. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is already within the active period, when Gulf warmth peaks. Because much of the coast is low-lying, officials urge early evacuation for mobile-home residents and medically dependent households before routes close.`;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
+const stateActionPaths = [
+  {
+    name: `${name} local risk action plan`,
+    description: `Build a 72/48/24-hour household action plan from ${name} alerts, coastal hazards, and local constraints.`,
+    url: `${site.url}/tools/local-risk-plan/?state=${code}`
+  },
+  {
+    name: `${name} evacuation decision helper`,
+    description: `Check whether surge exposure, housing type, transport, pets, or medical needs should move a ${name} household toward evacuation.`,
+    url: `${site.url}/tools/evacuation-decision-helper/`
+  },
+  {
+    name: `${name} alert action decoder`,
+    description: `Translate official hurricane, surge, flood, tornado, and evacuation alerts into next actions for ${name} households.`,
+    url: `${site.url}/tools/alert-action-decoder/`
+  },
+  {
+    name: `${name} power outage planner`,
+    description: `Plan charging, food safety, generator placement, medicine, and communication backup for ${name} hurricane outages.`,
+    url: `${site.url}/tools/power-outage-planner/`
+  }
+];
 const adjacent = ["louisiana", "alabama"];
 
 const faqs = [
@@ -39,11 +62,14 @@ const faqs = [
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url: canonical, dateModified: lastModified }),
-  itemListSchema(stateCities.map((city) => ({
-    name: `${city.name} Hurricane Tracker`,
-    description: city.planningNote,
-    url: `${site.url}/hurricane-tracker/city/${city.slug}/`
-  }))),
+  itemListSchema([
+    ...stateCities.map((city) => ({
+      name: `${city.name} Hurricane Tracker`,
+      description: city.planningNote,
+      url: `${site.url}/hurricane-tracker/city/${city.slug}/`
+    })),
+    ...stateActionPaths
+  ]),
   faqSchema(faqs)
 );
 ---
@@ -69,6 +95,8 @@ const jsonLd = graph(
           </article>
         ))}
       </div>
+
+      <StateActionPaths state={state} />
 
       <StateTrackerSeoLinks state={state} cities={stateCities} />
 
