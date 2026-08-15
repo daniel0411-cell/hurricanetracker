@@ -3,7 +3,8 @@ import FaqBlock from "../../../components/FaqBlock.astro";
 import Layout from "../../../layouts/Layout.astro";
 import { hurricaneCities, getCityBySlug } from "../../../data/cities";
 import { faqs, site } from "../../../data/site";
-import { articleSchema, faqSchema, graph, websiteSchema } from "../../../lib/schema";
+import { coastalStates, getStateByCode } from "../../../data/states";
+import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../../lib/schema";
 
 export const prerender = true;
 
@@ -23,6 +24,17 @@ const title = `${city.name} Hurricane Tracker and Local Risk Guide`;
 const description = `Track ${city.name} hurricane risk with local NWS alerts, NHC storm context, storm surge, flooding, evacuation planning, and household decision tools.`;
 const url = `${site.url}/hurricane-tracker/city/${city.slug}/`;
 const lastModified = site.contentLastModified;
+const state = getStateByCode(city.stateCode);
+const stateSlug = state?.slug ?? city.stateName.toLowerCase().replaceAll(" ", "-");
+const stateCities = hurricaneCities
+  .filter((candidate) => candidate.stateCode === city.stateCode && candidate.slug !== city.slug)
+  .slice(0, 6);
+const nearbyCityLinks = stateCities.length
+  ? stateCities
+  : hurricaneCities.filter((candidate) => candidate.slug !== city.slug).slice(0, 6);
+const nextStateLinks = coastalStates
+  .filter((candidate) => candidate.code !== city.stateCode)
+  .slice(0, 4);
 const pageFaqs = [
   {
     question: `Is HurricaneHub an official ${city.name} evacuation source?`,
@@ -38,7 +50,19 @@ const pageFaqs = [
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
-  faqSchema(pageFaqs)
+  faqSchema(pageFaqs),
+  itemListSchema([
+    {
+      name: `${city.stateName} Hurricane Tracker`,
+      description: state?.preparednessNote ?? `${city.stateName} state hurricane tracker and alert context.`,
+      url: `${site.url}/tracker/${stateSlug}/`
+    },
+    ...nearbyCityLinks.map((nearbyCity) => ({
+      name: `${nearbyCity.name} Hurricane Tracker`,
+      description: nearbyCity.planningNote,
+      url: `${site.url}/hurricane-tracker/city/${nearbyCity.slug}/`
+    }))
+  ])
 );
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
@@ -63,7 +87,7 @@ const jsonLd = graph(
       <article class="panel">
         <h2>Start Here</h2>
         <ul class="check-list">
-          <li><a href={`/tracker/${city.stateName.toLowerCase().replaceAll(" ", "-")}/`}>Open the {city.stateName} state tracker</a></li>
+          <li><a href={`/tracker/${stateSlug}/`}>Open the {city.stateName} state tracker</a></li>
           <li><a href={`/tools/local-risk-plan/?state=${city.stateCode}`}>Build a local risk action plan</a></li>
           <li><a href="/radar/">Open live radar and satellite</a></li>
           <li><a href="/tools/hurricane-brief/">Generate a printable hurricane brief</a></li>
@@ -117,6 +141,48 @@ const jsonLd = graph(
         <p>These are the practical questions this page is built to answer during hurricane season.</p>
         <ul class="check-list">
           {city.localSearches.map((query) => <li>{query}</li>)}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="nearby-city-links">
+    <div class="inner">
+      <p class="eyebrow">Nearby hurricane tracker pages</p>
+      <h2 id="nearby-city-links">Compare {city.name} With Other {city.stateName} Hurricane Trackers</h2>
+      <p class="answer">A hurricane can shift risk from one metro area to another depending on track angle, coastline shape, rainfall placement, and evacuation routes. Use these nearby pages to compare storm surge, flooding, outage, and local-alert context before focusing on one location.</p>
+      <div class="grid-3 section-grid">
+        {nearbyCityLinks.map((nearbyCity) => (
+          <article class="panel">
+            <p class="eyebrow">{nearbyCity.region}</p>
+            <h3>{nearbyCity.name} Hurricane Tracker</h3>
+            <p>{nearbyCity.planningNote}</p>
+            <a href={`/hurricane-tracker/city/${nearbyCity.slug}/`}>Open {nearbyCity.name}</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="city-cluster-links">
+    <div class="inner grid-2">
+      <article class="panel">
+        <h2 id="city-cluster-links">More {city.stateName} Hurricane Context</h2>
+        <ul class="check-list">
+          <li><a href={`/tracker/${stateSlug}/`}>Open the {city.stateName} state tracker</a></li>
+          <li><a href="/hurricane-tracker/city/">Browse all city hurricane trackers</a></li>
+          <li><a href="/hurricane-tracker/live/">Open the live hurricane tracker</a></li>
+          <li><a href="/storm-archive/">Compare current threats with past storms</a></li>
+        </ul>
+      </article>
+      <article>
+        <p class="eyebrow">Regional comparison</p>
+        <h2>Check Neighboring Coastal States</h2>
+        <p class="answer">Track shifts can move the highest wind, surge, tornado, or rainfall risk across state lines. These state pages help compare the broader coastal setup.</p>
+        <ul class="check-list">
+          {nextStateLinks.map((stateLink) => (
+            <li><a href={`/tracker/${stateLink.slug}/`}>{stateLink.name} hurricane tracker</a></li>
+          ))}
         </ul>
       </article>
     </div>
