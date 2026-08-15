@@ -2,13 +2,55 @@
 import FaqBlock from "../../components/FaqBlock.astro";
 import Layout from "../../layouts/Layout.astro";
 import { site } from "../../data/site";
-import { articleSchema, breadcrumbSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { articleSchema, breadcrumbSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 
 const title = "Live Hurricane Tracker Map";
 const description =
   "Use HurricaneHub's live hurricane tracker map with NHC storm checks, radar and satellite shortcuts, active alerts, city trackers, and decision tools.";
 const url = `${site.url}/hurricane-tracker/live/`;
 const lastModified = site.contentLastModified;
+const liveTrackerPaths = [
+  {
+    name: "Check active storms",
+    href: "/tracker/",
+    description: "Open the live NHC storm feed and state alert snapshot before moving into local planning."
+  },
+  {
+    name: "Compare radar and satellite",
+    href: "/radar/",
+    description: "Use radar and satellite layers to compare rain bands, storm structure, and local weather timing."
+  },
+  {
+    name: "Review local NWS alerts",
+    href: "/alerts/",
+    description: "Check active watches, warnings, advisories, and alert wording before changing household plans."
+  },
+  {
+    name: "Open city hurricane trackers",
+    href: "/hurricane-tracker/city/",
+    description: "Move from storm position to local surge, flood, route, outage, and evacuation context."
+  },
+  {
+    name: "Browse named storm trackers",
+    href: "/hurricane-tracker/storm/",
+    description: "Open standing storm-name pages for current-feed checks and official NHC advisory links."
+  },
+  {
+    name: "Estimate the impact window",
+    href: "/tools/impact-window-estimator/",
+    description: "Translate active alerts and storm context into Monitor, Prepare, Act, or Leave timing."
+  },
+  {
+    name: "Calculate storm distance",
+    href: "/tools/storm-distance-calculator/",
+    description: "Compare a location with current NHC storm coordinates while keeping distance limits in context."
+  },
+  {
+    name: "Decode warning language",
+    href: "/tools/alert-action-decoder/",
+    description: "Turn watches, warnings, surge, flood, tornado, and evacuation wording into planning prompts."
+  }
+];
 const faqs = [
   {
     question: "What is the best way to use a live hurricane tracker?",
@@ -49,6 +91,11 @@ const faqs = [
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
+  itemListSchema(liveTrackerPaths.map((path) => ({
+    name: path.name,
+    description: path.description,
+    url: `${site.url}${path.href}`
+  }))),
   faqSchema(faqs),
   breadcrumbSchema([
     { name: "Home", url: site.canonicalUrl },
@@ -115,6 +162,22 @@ const jsonLd = graph(
           <li><a href="https://www.weather.gov/" rel="noopener nofollow">National Weather Service</a></li>
         </ul>
       </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="live-intent-paths">
+    <div class="inner">
+      <p class="eyebrow">Search intent paths</p>
+      <h2 id="live-intent-paths">What To Open After the Live Hurricane Tracker</h2>
+      <p class="answer">A live tracker answers where the storm is. These next paths help answer what it means for your location, timeline, alerts, and household decisions.</p>
+      <div class="link-list">
+        {liveTrackerPaths.map((path) => (
+          <article class="link-row">
+            <h3><a href={path.href}>{path.name}</a></h3>
+            <p>{path.description}</p>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 

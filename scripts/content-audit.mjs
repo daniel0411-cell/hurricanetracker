@@ -128,6 +128,11 @@ for (const file of missingStatic) {
 }
 
 const htmlChecks = [
+  {
+    file: "hurricane-tracker/live/index.html",
+    minTextLength: 3200,
+    requiredSnippets: ["What To Open After the Live Hurricane Tracker", "Search intent paths", "Decode warning language"]
+  },
   ...BLOG_CATEGORY_PAGES.map((category) => ({
     file: `blog/category/${category.slug}/index.html`,
     minTextLength: 1800,
