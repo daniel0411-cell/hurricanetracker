@@ -138,6 +138,11 @@ const htmlChecks = [
     minTextLength: 3600,
     requiredSnippets: ["Hurricane Radar vs Satellite: What To Check First", "Best next page by intent", "Decode a hurricane watch"]
   },
+  {
+    file: "compare/index.html",
+    minTextLength: 2600,
+    requiredSnippets: ["How to Compare Katrina, Ian, and Sandy With an Active Storm", "Use Historical Storms as Context", "Open live hurricane tracker"]
+  },
   ...BLOG_CATEGORY_PAGES.map((category) => ({
     file: `blog/category/${category.slug}/index.html`,
     minTextLength: 1800,

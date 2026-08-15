@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import FaqBlock from "../components/FaqBlock.astro";
 import { site } from "../data/site";
-import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../lib/schema";
+import { articleSchema, faqSchema, graph, itemListSchema, webApplicationSchema, websiteSchema } from "../lib/schema";
 import {
   BENCHMARK_STORMS,
   categoryLabel,
@@ -37,6 +37,33 @@ const pageFaqs = [
 ];
 
 const canonical = `${site.url}/compare/`;
+const comparisonNextPaths = [
+  {
+    name: "Open live hurricane tracker",
+    href: "/hurricane-tracker/live/",
+    description: "Check current NHC storm status, advisory timing, and map context before comparing with historical benchmarks."
+  },
+  {
+    name: "Open hurricane learning center",
+    href: "/learn/",
+    description: "Review cone, category, storm surge, radar, and satellite explainers so historical comparisons do not over-focus on category alone."
+  },
+  {
+    name: "Browse city hurricane trackers",
+    href: "/hurricane-tracker/city/",
+    description: "Move from historical storm context to local surge, flood, route, outage, and evacuation considerations."
+  },
+  {
+    name: "Use impact window estimator",
+    href: "/tools/impact-window-estimator/",
+    description: "Translate current alert and storm context into Monitor, Prepare, Act, or Leave timing."
+  },
+  {
+    name: "Decode warning language",
+    href: "/tools/alert-action-decoder/",
+    description: "Turn watches, warnings, surge, flood, tornado, and evacuation wording into household planning prompts."
+  }
+];
 const benchmarkGuides = BENCHMARK_STORMS.map((storm) => ({
   storm,
   focus:
@@ -65,6 +92,11 @@ const jsonLd = graph(
       "Saffir-Simpson category reference"
     ]
   }),
+  itemListSchema(comparisonNextPaths.map((path) => ({
+    name: path.name,
+    description: path.description,
+    url: `${site.url}${path.href}`
+  }))),
   faqSchema(pageFaqs)
 );
 ---
@@ -155,21 +187,13 @@ const jsonLd = graph(
         <p>Historical hurricanes help explain track shape, intensity, pressure, and landfall impact, but today's risk still depends on the current NHC forecast, NWS warnings, storm surge zones, rainfall, and local emergency instructions.</p>
       </div>
       <div class="compare-path-grid">
-        <article>
-          <h3>Read the Live Storm First</h3>
-          <p>Open the live tracker for current NHC storm status, advisory timing, and map context before comparing with a past storm.</p>
-          <a href="/hurricane-tracker/live/">Open live hurricane tracker</a>
-        </article>
-        <article>
-          <h3>Compare Hazards, Not Only Category</h3>
-          <p>Use the learning center for cone, category, surge, radar, and satellite explainers that make comparisons more useful.</p>
-          <a href="/learn/">Open hurricane learning center</a>
-        </article>
-        <article>
-          <h3>Move to Local Action</h3>
-          <p>After comparing storms, check city trackers and household tools for alert language, surge exposure, outage planning, and evacuation decisions.</p>
-          <a href="/tools/">Browse hurricane tools</a>
-        </article>
+        {comparisonNextPaths.slice(0, 3).map((path) => (
+          <article>
+            <h3>{path.name}</h3>
+            <p>{path.description}</p>
+            <a href={path.href}>{path.name}</a>
+          </article>
+        ))}
       </div>
     </section>
 
