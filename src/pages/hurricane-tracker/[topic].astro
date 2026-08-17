@@ -1,0 +1,130 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import Layout from "../../layouts/Layout.astro";
+import { faqs, site } from "../../data/site";
+import { getTopicPage, topicPages } from "../../data/topicPages";
+import { articleSchema, breadcrumbSchema, faqSchema, graph, howToSchema, itemListSchema, websiteSchema } from "../../lib/schema";
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return topicPages.map((page) => ({ params: { topic: page.slug } }));
+}
+
+const page = getTopicPage(Astro.params.topic ?? "");
+if (!page) {
+  return Astro.redirect("/hurricane-tracker/live/");
+}
+
+const url = `${site.url}/hurricane-tracker/${page.slug}/`;
+const lastModified = site.contentLastModified;
+const pageFaqs = [...page.faqs, ...faqs];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title: page.title, description: page.description, url, dateModified: lastModified }),
+  howToSchema({
+    name: `How to use ${page.title.toLowerCase()}`,
+    description: page.description,
+    url,
+    steps: page.steps.map((step) => ({ name: step.title, text: step.body }))
+  }),
+  itemListSchema(page.nextLinks.map((link) => ({
+    name: link.name,
+    description: link.description,
+    url: `${site.url}${link.href}`
+  }))),
+  faqSchema(pageFaqs),
+  breadcrumbSchema([
+    { name: "Home", url: site.canonicalUrl },
+    { name: "Hurricane Tracker", url: `${site.url}/hurricane-tracker/live/` },
+    { name: page.shortTitle, url }
+  ])
+);
+---
+<Layout title={page.title} description={page.description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="topic-title">
+    <div class="inner">
+      <p class="eyebrow">{page.eyebrow}</p>
+      <h1 id="topic-title">{page.title}</h1>
+      <p class="answer">{page.intro}</p>
+      <p class="section-actions">
+        <a class="action-link" href={page.primaryAction.href}>{page.primaryAction.label}</a>
+        <a class="action-link secondary-action" href={page.secondaryAction.href}>{page.secondaryAction.label}</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="topic-workflow">
+    <div class="inner">
+      <p class="eyebrow">{page.intent}</p>
+      <h2 id="topic-workflow">Start Here, Then Move Toward a Local Decision</h2>
+      <div class="grid-3 section-grid">
+        {page.steps.map((step, index) => (
+          <article class="panel">
+            <p class="eyebrow">Step {index + 1}</p>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+            <p><a class="action-link" href={step.href}>{step.label}</a></p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="topic-context">
+    <div class="inner grid-2">
+      {page.sections.map((section, index) => (
+        <article class="panel">
+          <p class="eyebrow">{section.eyebrow}</p>
+          <h2 id={index === 0 ? "topic-context" : undefined}>{section.title}</h2>
+          <p>{section.body}</p>
+          <ul class="check-list">
+            {section.bullets.map((bullet) => <li>{bullet}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="topic-next">
+    <div class="inner">
+      <p class="eyebrow">Related hurricane resources</p>
+      <h2 id="topic-next">Open the Next Best Page</h2>
+      <div class="link-list">
+        {page.nextLinks.map((link) => (
+          <article class="link-row">
+            <h3><a href={link.href}>{link.name}</a></h3>
+            <p>{link.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="topic-official">
+    <div class="inner grid-2">
+      <article class="panel">
+        <p class="eyebrow">Official-source check</p>
+        <h2 id="topic-official">Verify Before You Act</h2>
+        <p>HurricaneHub is a planning and interpretation layer. During an active threat, confirm storm advisories, watches, warnings, evacuation orders, shelters, and road restrictions with official sources.</p>
+        <ul class="check-list">
+          <li><a href="https://www.nhc.noaa.gov/" rel="noopener nofollow">National Hurricane Center</a></li>
+          <li><a href="https://www.weather.gov/" rel="noopener nofollow">National Weather Service</a></li>
+          <li><a href="/alerts/">Active NWS alerts on HurricaneHub</a></li>
+        </ul>
+      </article>
+      <article class="panel">
+        <p class="eyebrow">Local planning</p>
+        <h2>Bring the Search Back to Your Location</h2>
+        <p>After reading this hub, the most useful next page is usually a city tracker, state tracker, alert page, or household tool that matches the place you care about.</p>
+        <ul class="check-list">
+          <li><a href="/hurricane-tracker/city/">Browse city hurricane trackers</a></li>
+          <li><a href="/tracker/">Browse state hurricane trackers</a></li>
+          <li><a href="/tools/local-risk-plan/">Build a local risk plan</a></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <FaqBlock faqs={pageFaqs} />
+</Layout>

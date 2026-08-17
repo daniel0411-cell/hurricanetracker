@@ -4,6 +4,7 @@ import type { APIRoute } from "astro";
 import { BLOG_CATEGORY_PAGES, blogPosts } from "../data/blog";
 import { hurricaneCities } from "../data/cities";
 import { stormTrackerPages } from "../data/stormPages";
+import { topicPages } from "../data/topicPages";
 
 type Entry = {
   title: string;
@@ -112,7 +113,21 @@ const cityEntries: Entry[] = hurricaneCities.map((city) => ({
   ].join(" ")
 }));
 
-const entries: Entry[] = [...pages, ...cityEntries, ...stormEntries, ...blogCategoryEntries, ...blogEntries];
+const topicEntries: Entry[] = topicPages.map((page) => ({
+  title: page.title,
+  url: `/hurricane-tracker/${page.slug}/`,
+  description: page.description,
+  category: "Tracker",
+  body: [
+    page.intent,
+    page.intro,
+    page.steps.map((step) => `${step.title} ${step.body}`).join(" "),
+    page.sections.map((section) => `${section.title} ${section.body} ${section.bullets.join(" ")}`).join(" "),
+    page.faqs.map((faq) => `${faq.question} ${faq.answer}`).join(" ")
+  ].join(" ")
+}));
+
+const entries: Entry[] = [...pages, ...topicEntries, ...cityEntries, ...stormEntries, ...blogCategoryEntries, ...blogEntries];
 
 export const GET: APIRoute = () =>
   new Response(JSON.stringify({ entries }), {

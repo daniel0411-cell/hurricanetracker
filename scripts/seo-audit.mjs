@@ -72,12 +72,14 @@ const [
   { BLOG_CATEGORY_PAGES, blogPosts },
   { hurricaneCities },
   { coastalStates },
-  { stormTrackerPages }
+  { stormTrackerPages },
+  { topicPages }
 ] = await Promise.all([
   loadTsModule(path.join(root, "src/data/blog.ts")),
   loadTsModule(path.join(root, "src/data/cities.ts")),
   loadTsModule(path.join(root, "src/data/states.ts")),
-  loadTsModule(path.join(root, "src/data/stormPages.ts"))
+  loadTsModule(path.join(root, "src/data/stormPages.ts")),
+  loadTsModule(path.join(root, "src/data/topicPages.ts"))
 ]);
 
 const sitemapXml = readText(path.join(distDir, "sitemap.xml"));
@@ -132,6 +134,7 @@ const expectedPaths = unique([
   "/decision-guide/",
   "/about/",
   ...coastalStates.map((state) => `/tracker/${state.slug}/`),
+  ...topicPages.map((page) => `/hurricane-tracker/${page.slug}/`),
   ...hurricaneCities.map((city) => `/hurricane-tracker/city/${city.slug}/`),
   ...stormTrackerPages.map((storm) => `/hurricane-tracker/storm/${storm.slug}/`),
   ...BLOG_CATEGORY_PAGES.map((category) => `/blog/category/${category.slug}/`),
@@ -152,6 +155,7 @@ const report = {
   },
   contentSources: {
     states: coastalStates.length,
+    topicHubs: topicPages.length,
     cities: hurricaneCities.length,
     stormNamePages: stormTrackerPages.length,
     blogPosts: blogPosts.length

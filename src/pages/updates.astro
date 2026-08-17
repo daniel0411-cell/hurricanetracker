@@ -4,6 +4,7 @@ import { blogPosts } from "../data/blog";
 import { hurricaneCities } from "../data/cities";
 import { site } from "../data/site";
 import { stormTrackerPages } from "../data/stormPages";
+import { topicPages } from "../data/topicPages";
 import { articleSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
 
 const title = "Latest Hurricane Tracker Updates";
@@ -34,6 +35,14 @@ const stormUpdates = stormTrackerPages.map((storm) => ({
   type: "Storm Tracker"
 }));
 
+const topicUpdates = topicPages.map((page) => ({
+  title: page.title,
+  href: `/hurricane-tracker/${page.slug}/`,
+  description: page.description,
+  date: lastModified,
+  type: "Tracker Hub"
+}));
+
 const blogUpdates = blogPosts
   .slice()
   .sort((a, b) => new Date(b.dateModified).getTime() - new Date(a.dateModified).getTime())
@@ -46,10 +55,11 @@ const blogUpdates = blogPosts
     type: "Guide"
   }));
 
-const updates = [...blogUpdates, ...cityUpdates, ...stormUpdates, ...toolUpdates]
+const updates = [...blogUpdates, ...topicUpdates, ...cityUpdates, ...stormUpdates, ...toolUpdates]
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 const sections = [
+  { id: "topics", title: "Tracker Topic Hubs", items: topicUpdates },
   { id: "guides", title: "Recent Guides", items: blogUpdates },
   { id: "cities", title: "Recent City Trackers", items: cityUpdates },
   { id: "storms", title: "Storm Tracker Updates", items: stormUpdates },

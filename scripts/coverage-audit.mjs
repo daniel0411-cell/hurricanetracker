@@ -76,11 +76,12 @@ function extractRssLinks(xml) {
     .filter((link) => link !== `${siteUrl}/`);
 }
 
-const [{ BLOG_CATEGORY_PAGES, blogPosts }, { hurricaneCities }, { coastalStates }, { stormTrackerPages }] = await Promise.all([
+const [{ BLOG_CATEGORY_PAGES, blogPosts }, { hurricaneCities }, { coastalStates }, { stormTrackerPages }, { topicPages }] = await Promise.all([
   loadTsModule(path.join(root, "src/data/blog.ts")),
   loadTsModule(path.join(root, "src/data/cities.ts")),
   loadTsModule(path.join(root, "src/data/states.ts")),
-  loadTsModule(path.join(root, "src/data/stormPages.ts"))
+  loadTsModule(path.join(root, "src/data/stormPages.ts")),
+  loadTsModule(path.join(root, "src/data/topicPages.ts"))
 ]);
 
 const sitemapXml = readText(path.join(distDir, "sitemap.xml"));
@@ -95,6 +96,7 @@ if (!sitemapXml || !searchIndexRaw || !rssXml) {
 const sourceRoutes = unique(walk(pagesDir).map(routeFromSource).filter(Boolean));
 const dataRoutes = unique([
   ...coastalStates.map((state) => `/tracker/${state.slug}/`),
+  ...topicPages.map((page) => `/hurricane-tracker/${page.slug}/`),
   ...hurricaneCities.map((city) => `/hurricane-tracker/city/${city.slug}/`),
   ...stormTrackerPages.map((storm) => `/hurricane-tracker/storm/${storm.slug}/`),
   ...BLOG_CATEGORY_PAGES.map((category) => `/blog/category/${category.slug}/`),
@@ -117,6 +119,7 @@ const expectedRssRoutes = unique([
   "/radar/",
   "/alerts/",
   "/learn/",
+  ...topicPages.map((page) => `/hurricane-tracker/${page.slug}/`),
   ...hurricaneCities.map((city) => `/hurricane-tracker/city/${city.slug}/`),
   ...stormTrackerPages.map((storm) => `/hurricane-tracker/storm/${storm.slug}/`),
   ...blogPosts.map((post) => `/blog/${post.slug}/`)

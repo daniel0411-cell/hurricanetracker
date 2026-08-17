@@ -3,6 +3,7 @@ import { blogPosts } from "../data/blog";
 import { hurricaneCities } from "../data/cities";
 import { site } from "../data/site";
 import { stormTrackerPages } from "../data/stormPages";
+import { topicPages } from "../data/topicPages";
 
 export const prerender = true;
 
@@ -69,6 +70,13 @@ export const GET: APIRoute = () => {
     date: site.contentLastModified
   }));
 
+  const topicItems: FeedItem[] = topicPages.map((page) => ({
+    title: page.title,
+    url: `${site.url}/hurricane-tracker/${page.slug}/`,
+    description: page.description,
+    date: site.contentLastModified
+  }));
+
   const stormItems: FeedItem[] = stormTrackerPages.map((storm) => ({
     title: `Hurricane ${storm.name} Tracker`,
     url: `${site.url}/hurricane-tracker/storm/${storm.slug}/`,
@@ -83,7 +91,7 @@ export const GET: APIRoute = () => {
     date: post.dateModified || post.datePublished
   }));
 
-  const feedItems = [...coreItems, ...cityItems, ...stormItems, ...blogItems]
+  const feedItems = [...coreItems, ...topicItems, ...cityItems, ...stormItems, ...blogItems]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   const items = feedItems

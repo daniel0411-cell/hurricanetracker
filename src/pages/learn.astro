@@ -3,6 +3,7 @@ import FaqBlock from "../components/FaqBlock.astro";
 import Layout from "../layouts/Layout.astro";
 import { blogPosts, getCategory } from "../data/blog";
 import { site } from "../data/site";
+import { topicPages } from "../data/topicPages";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
 
 export const prerender = true;
@@ -80,6 +81,12 @@ const learningPaths = [
     ]
   }
 ];
+const trackerTopicHubs = topicPages.map((page) => ({
+  title: page.title,
+  href: `/hurricane-tracker/${page.slug}/`,
+  description: page.description,
+  intent: page.intent
+}));
 const questionPaths = [
   {
     question: "I need to know where the storm is right now.",
@@ -157,6 +164,11 @@ const jsonLd = graph(
     description: path.answer,
     url: `${site.url}${path.href}`
   }))),
+  itemListSchema(trackerTopicHubs.map((hub) => ({
+    name: hub.title,
+    description: hub.description,
+    url: `${site.url}${hub.href}`
+  }))),
   faqSchema(faqs)
 );
 ---
@@ -203,6 +215,24 @@ const jsonLd = graph(
                 <li><a href={`/blog/${post.slug}/`}>{post.title}</a></li>
               ))}
             </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="tracker-topic-hubs">
+    <div class="inner">
+      <p class="eyebrow">Tracker keyword hubs</p>
+      <h2 id="tracker-topic-hubs">Hurricane Tracker Topics</h2>
+      <p class="answer">These pages connect high-intent searches to live tools, official-source context, city trackers, and household decision paths.</p>
+      <div class="grid-2 section-grid">
+        {trackerTopicHubs.map((hub) => (
+          <article class="panel">
+            <p class="eyebrow">{hub.intent}</p>
+            <h3><a href={hub.href}>{hub.title}</a></h3>
+            <p>{hub.description}</p>
+            <p><a class="action-link" href={hub.href}>Open topic</a></p>
           </article>
         ))}
       </div>

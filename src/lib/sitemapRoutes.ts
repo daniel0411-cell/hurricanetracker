@@ -3,6 +3,7 @@ import { hurricaneCities } from "../data/cities";
 import { site } from "../data/site";
 import { coastalStates } from "../data/states";
 import { stormTrackerPages } from "../data/stormPages";
+import { topicPages } from "../data/topicPages";
 
 export type SitemapSection = "pages" | "blog" | "tools" | "locations";
 
@@ -31,7 +32,8 @@ const pageRoutes: SitemapRoute[] = [
   { path: "updates/", lastmod: updated, priority: "0.7", changefreq: "daily", section: "pages" },
   { path: "storm-archive/", lastmod: updated, priority: "0.7", changefreq: "daily", section: "pages" },
   { path: "decision-guide/", lastmod: blogLastMod, priority: "0.8", changefreq: "monthly", section: "pages" },
-  { path: "about/", lastmod: updated, priority: "0.8", changefreq: "monthly", section: "pages" }
+  { path: "about/", lastmod: updated, priority: "0.8", changefreq: "monthly", section: "pages" },
+  ...topicPages.map((page) => ({ path: `hurricane-tracker/${page.slug}/`, lastmod: updated, priority: "0.8", changefreq: "weekly", section: "pages" as const }))
 ];
 
 const toolRoutes: SitemapRoute[] = [

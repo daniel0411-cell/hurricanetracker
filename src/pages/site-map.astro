@@ -5,6 +5,7 @@ import { hurricaneCities } from "../data/cities";
 import { site } from "../data/site";
 import { coastalStates } from "../data/states";
 import { stormTrackerPages } from "../data/stormPages";
+import { topicPages } from "../data/topicPages";
 import { articleSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
 
 const title = "HurricaneHub Site Map";
@@ -95,6 +96,12 @@ const toolPages = [
   ["Family Communication Plan", "/tools/family-communication-plan/", "Build a family contact and meeting plan."]
 ].map(([title, href, description]) => ({ title, href, description }));
 
+const topicHubPages = topicPages.map((page) => ({
+  title: page.title,
+  href: `/hurricane-tracker/${page.slug}/`,
+  description: page.description
+}));
+
 const statePages = coastalStates.map((state) => ({
   title: `${state.name} Hurricane Tracker`,
   href: `/tracker/${state.slug}/`,
@@ -127,6 +134,7 @@ const blogPages = blogPosts.map((post) => ({
 
 const sections = [
   { id: "core", title: "Core Hurricane Pages", items: corePages },
+  { id: "topic-hubs", title: "Hurricane Tracker Topic Hubs", items: topicHubPages },
   { id: "tools", title: "Hurricane Tools", items: toolPages },
   { id: "states", title: "State Trackers", items: statePages },
   { id: "cities", title: "City Trackers", items: cityPages },

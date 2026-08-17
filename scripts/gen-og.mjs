@@ -2,7 +2,7 @@
 // Social platforms (Facebook, X/Twitter, LinkedIn, Slack, iMessage) do NOT render
 // SVG in og:image, so we rasterize each flat-vector SVG into a branded PNG card.
 import { Resvg } from "@resvg/resvg-js";
-import { readFileSync, writeFileSync, readdirSync, mkdirSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync, readdirSync, mkdirSync } from "node:fs";
 import { join, basename } from "node:path";
 
 const SRC_DIR = "public/images/blog";
@@ -52,7 +52,10 @@ for (const file of files) {
   });
   const png = resvg.render().asPng();
   const outName = basename(file, ".svg") + ".png";
-  writeFileSync(join(OUT_DIR, outName), png);
+  const outPath = join(OUT_DIR, outName);
+  if (!existsSync(outPath) || !readFileSync(outPath).equals(png)) {
+    writeFileSync(outPath, png);
+  }
   count++;
   console.log(`  ${file} -> og/${outName} (${png.length} bytes)`);
 }

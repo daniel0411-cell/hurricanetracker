@@ -25,11 +25,12 @@ function extractLinks(xml) {
   return [...xml.matchAll(/<link>(.*?)<\/link>/g)].map((match) => match[1]);
 }
 
-const [{ blogPosts }, { hurricaneCities }, { stormTrackerPages }, { site }] = await Promise.all([
+const [{ blogPosts }, { hurricaneCities }, { stormTrackerPages }, { site }, { topicPages }] = await Promise.all([
   loadTsModule(path.join(root, "src/data/blog.ts")),
   loadTsModule(path.join(root, "src/data/cities.ts")),
   loadTsModule(path.join(root, "src/data/stormPages.ts")),
-  loadTsModule(path.join(root, "src/data/site.ts"))
+  loadTsModule(path.join(root, "src/data/site.ts")),
+  loadTsModule(path.join(root, "src/data/topicPages.ts"))
 ]);
 
 const rssXml = readText(rssFile);
@@ -47,6 +48,7 @@ const expectedLinks = [
   `${site.url}/radar/`,
   `${site.url}/alerts/`,
   `${site.url}/learn/`,
+  ...topicPages.map((page) => `${site.url}/hurricane-tracker/${page.slug}/`),
   ...hurricaneCities.map((city) => `${site.url}/hurricane-tracker/city/${city.slug}/`),
   ...stormTrackerPages.map((storm) => `${site.url}/hurricane-tracker/storm/${storm.slug}/`),
   ...blogPosts.map((post) => `${site.url}/blog/${post.slug}/`)

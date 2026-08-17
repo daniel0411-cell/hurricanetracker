@@ -2,6 +2,7 @@
 import FaqBlock from "../../components/FaqBlock.astro";
 import Layout from "../../layouts/Layout.astro";
 import { site } from "../../data/site";
+import { topicPages } from "../../data/topicPages";
 import { articleSchema, breadcrumbSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 
 const title = "Live Hurricane Tracker Map";
@@ -51,6 +52,11 @@ const liveTrackerPaths = [
     description: "Turn watches, warnings, surge, flood, tornado, and evacuation wording into planning prompts."
   }
 ];
+const trackerTopicHubs = topicPages.map((page) => ({
+  name: page.title,
+  href: `/hurricane-tracker/${page.slug}/`,
+  description: page.description
+}));
 const faqs = [
   {
     question: "What is the best way to use a live hurricane tracker?",
@@ -95,6 +101,11 @@ const jsonLd = graph(
     name: path.name,
     description: path.description,
     url: `${site.url}${path.href}`
+  }))),
+  itemListSchema(trackerTopicHubs.map((hub) => ({
+    name: hub.name,
+    description: hub.description,
+    url: `${site.url}${hub.href}`
   }))),
   faqSchema(faqs),
   breadcrumbSchema([
@@ -175,6 +186,22 @@ const jsonLd = graph(
           <article class="link-row">
             <h3><a href={path.href}>{path.name}</a></h3>
             <p>{path.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="live-topic-hubs">
+    <div class="inner">
+      <p class="eyebrow">Popular tracker searches</p>
+      <h2 id="live-topic-hubs">Hurricane Tracker Topic Hubs</h2>
+      <p class="answer">Use these pages when your search is about a specific map, path, surge, or evacuation-zone question.</p>
+      <div class="grid-2 section-grid">
+        {trackerTopicHubs.map((hub) => (
+          <article class="panel">
+            <h3><a href={hub.href}>{hub.name}</a></h3>
+            <p>{hub.description}</p>
           </article>
         ))}
       </div>
