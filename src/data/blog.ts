@@ -2316,7 +2316,253 @@ export const blogPosts: BlogPost[] = [
         answer: "Open the relevant city tracker, alerts page, preparedness checklist, or decision tool so the storm context turns into a household action plan."
       }
     ]
+  },
+  {
+    slug: "hurricane-mold-prevention-after-flood",
+    title: "How to Prevent Mold After a Hurricane Flood",
+    description: "A cautious, official-source-oriented guide to reducing mold risk after hurricane flooding, including safe reentry, drying, cleanup, documentation, and when to call professionals.",
+    datePublished: "2026-08-17",
+    dateModified: "2026-08-17",
+    image: "/images/blog/hurricane-mold-prevention-after-flood.png",
+    imageAlt: "A homeowner wearing protective gear checks flood-damaged flooring and ventilation after a hurricane.",
+    sections: [
+      {
+        heading: "Start With Safe Reentry",
+        body:
+          "Do not enter a flooded home until local officials say reentry is allowed and you can avoid electrical, structural, gas, sewage, and contaminated-water hazards. Mold prevention matters, but it comes after life-safety checks from emergency management, utility providers, and local health officials."
+      },
+      {
+        heading: "Why Mold Risk Rises After Hurricane Flooding",
+        body:
+          "Warm, humid air and wet porous materials can allow mold to grow quickly after flooding. Drying early can reduce risk, but floodwater may contain sewage, chemicals, debris, or other contaminants, so cleanup should follow EPA, CDC, local health department, and insurance guidance rather than improvised shortcuts."
+      },
+      {
+        heading: "First Cleanup Priorities",
+        body: "Use these steps as a planning checklist after officials clear reentry. Stop and get professional help if electricity, structural damage, sewage, chemical contamination, or health conditions make cleanup unsafe.",
+        bullets: [
+          "Document damage with photos and video before moving items when it is safe to do so.",
+          "Remove standing water with pumps, wet/dry vacuums, or professional services only when electricity and structure are safe.",
+          "Increase ventilation and dehumidification when outdoor conditions and power safety allow.",
+          "Separate porous materials that stayed wet from hard surfaces that may be cleaned and dried.",
+          "Keep receipts for equipment, supplies, lodging, and professional cleanup."
+        ]
+      },
+      {
+        heading: "What Usually Cannot Be Saved",
+        body:
+          "Flood-soaked carpet padding, insulation, mattresses, upholstered furniture, and damaged drywall often cannot be fully dried or cleaned. Before disposal, photograph items and check insurer or adjuster instructions so cleanup does not erase documentation needed for a claim."
+      },
+      {
+        heading: "Cleaning Hard Surfaces",
+        body:
+          "Hard, non-porous surfaces may be cleaned with detergent and water, then disinfected with an appropriate product used exactly as labeled. Never mix bleach with ammonia or other cleaners. When the affected area is large, recurring, inside walls, or connected to HVAC, use qualified remediation help."
+      },
+      {
+        heading: "Health-Sensitive Households",
+        body:
+          "People with asthma, allergies, immune conditions, pregnancy, respiratory symptoms, or other medical concerns should be cautious around damp or mold-affected buildings. Follow CDC and local health department guidance and ask a medical professional before participating in cleanup."
+      },
+      {
+        heading: "Insurance and Recovery Documentation",
+        body:
+          "Coverage depends on policy language, the cause of water damage, flood coverage, and required mitigation steps. Standard homeowners policies often treat flood differently from wind-driven rain. Review your policy, contact your insurer, and keep a dated cleanup log. Related guides: /blog/what-to-do-after-a-hurricane/, /blog/hurricane-insurance-claim-guide-documentation/, and /blog/hurricane-flood-insurance-guide-nfip/."
+      },
+      {
+        heading: "Official Resources to Check",
+        body:
+          "Use EPA mold cleanup guidance, CDC flood cleanup health guidance, local health department instructions, FEMA disaster assistance resources, and your local emergency management office. HurricaneHub can organize recovery steps, but official agencies and licensed professionals should guide safety-critical decisions."
+      }
+    ],
+    faqs: [
+      {
+        question: "How fast can mold grow after hurricane flooding?",
+        answer:
+          "Mold can begin growing quickly in warm, humid, wet buildings, often within a couple of days. Exact timing depends on materials, temperature, humidity, airflow, and how long moisture remains."
+      },
+      {
+        question: "Can I clean hurricane mold myself?",
+        answer:
+          "Small, simple areas may be manageable with protective gear and official cleanup guidance, but large areas, recurring growth, HVAC contamination, sewage, chemicals, or health-sensitive households should involve qualified professionals."
+      },
+      {
+        question: "Does insurance cover mold after hurricane flooding?",
+        answer:
+          "It depends on the policy and cause of loss. Flood-related mold is often handled differently from wind or rain damage, so review your policy, contact your insurer, and document mitigation steps carefully."
+      },
+      {
+        question: "Should I use bleach for all mold cleanup?",
+        answer:
+          "No. Product choice depends on the surface and contamination. Follow EPA and product-label instructions, and never mix bleach with ammonia or other cleaners. Porous wet materials may need removal instead of cleaning."
+      },
+      {
+        question: "What should I do before throwing away flood-damaged items?",
+        answer:
+          "When it is safe, take dated photos or video, list damaged items, keep receipts, and check insurer or adjuster instructions before disposal so documentation is preserved."
+      }
+    ]
+  },
+  {
+    slug: "hurricane-flood-zone-map-fema-understanding",
+    title: "How to Read a FEMA Flood Zone Map Before Hurricane Season",
+    description: "Learn what FEMA flood zone letters, base flood elevation, and map updates mean for hurricane preparedness, flood insurance questions, and local evacuation planning.",
+    datePublished: "2026-08-17",
+    dateModified: "2026-08-17",
+    image: "/images/blog/hurricane-flood-zone-map-fema-understanding.png",
+    imageAlt: "A coastal homeowner reviews a digital flood zone map with property documents on a desk.",
+    sections: [
+      {
+        heading: "What FEMA Flood Maps Are For",
+        body:
+          "FEMA Flood Insurance Rate Maps show long-term flood risk for insurance, lending, permitting, and community planning. They are not a live hurricane forecast and do not replace storm-specific evacuation zones, NHC advisories, NWS alerts, or local emergency management orders."
+      },
+      {
+        heading: "Common Flood Zone Letters",
+        body: "Flood zone letters can help you understand broad risk, but local map panels and official definitions matter. Use FEMA's Flood Map Service Center or local government map tools for address-level checks.",
+        bullets: [
+          "A or AE zones usually indicate high-risk flood areas where detailed elevation information may apply.",
+          "V or VE zones usually indicate coastal high-risk areas with wave action risk.",
+          "Shaded X often indicates moderate flood risk.",
+          "Unshaded X often indicates lower mapped risk, not zero risk."
+        ]
+      },
+      {
+        heading: "Base Flood Elevation",
+        body:
+          "Base Flood Elevation is an engineering and insurance reference tied to the mapped one-percent-annual-chance flood. It can affect building requirements, elevation certificates, and insurance pricing, but it does not tell you whether a specific hurricane will flood your home."
+      },
+      {
+        heading: "Flood Zone vs. Evacuation Zone",
+        body:
+          "A FEMA flood zone is a long-term risk map. A hurricane evacuation zone is usually created by state or local emergency managers for storm surge and public safety decisions. A property can be outside a high-risk FEMA zone and still be told to evacuate during a particular storm."
+      },
+      {
+        heading: "How to Check Your Address",
+        body:
+          "Search your address in the FEMA Flood Map Service Center, then compare the result with your county's evacuation-zone tool. Save a copy of the map panel or result for insurance review, home projects, and seasonal preparedness."
+      },
+      {
+        heading: "Insurance Planning Questions",
+        body:
+          "Flood insurance rules, waiting periods, lender requirements, deductibles, and premiums vary by property and policy. Talk with an insurance agent or your lender before hurricane season. Related guides: /blog/hurricane-flood-insurance-guide-nfip/, /blog/hurricane-insurance-deductibles-guide/, and /blog/hurricane-documents-insurance-checklist/."
+      },
+      {
+        heading: "Use Maps With Live Storm Context",
+        body:
+          "During an active storm, pair your flood-zone knowledge with /hurricane-tracker/live/, /radar/, local NWS alerts, NHC storm surge products, and local emergency instructions. Map risk should become a preparedness prompt, not a single decision rule."
+      }
+    ],
+    faqs: [
+      {
+        question: "What does FEMA flood zone AE mean?",
+        answer:
+          "AE generally marks a high-risk Special Flood Hazard Area with base flood elevation information. Confirm the exact status through FEMA's map service, local officials, an insurer, or a qualified floodplain professional."
+      },
+      {
+        question: "Is flood zone X safe from hurricane flooding?",
+        answer:
+          "No zone means zero risk. Zone X is lower or moderate mapped risk depending on whether it is shaded, but flooding can still occur from rainfall, drainage problems, storm surge, or local changes."
+      },
+      {
+        question: "Is a FEMA flood zone the same as a hurricane evacuation zone?",
+        answer:
+          "No. FEMA flood zones describe long-term flood risk. Evacuation zones are local public-safety tools used for storm-specific surge and evacuation decisions."
+      },
+      {
+        question: "Where can I find my flood zone for free?",
+        answer:
+          "Use FEMA's Flood Map Service Center or your local county or city floodplain mapping tool. Many local emergency management sites also link evacuation-zone lookup tools."
+      },
+      {
+        question: "Does my flood zone determine whether I need flood insurance?",
+        answer:
+          "It can affect lender requirements and pricing, but coverage decisions depend on mortgage rules, risk tolerance, policy terms, and property details. Ask your insurer or lender for property-specific guidance."
+      }
+    ]
+  },
+  {
+    slug: "hurricane-small-business-preparedness-plan",
+    title: "Hurricane Preparedness Plan for Small Businesses",
+    description: "A practical hurricane planning guide for small businesses covering staff communication, records backup, building checks, closure triggers, insurance, and reopening.",
+    datePublished: "2026-08-17",
+    dateModified: "2026-08-17",
+    image: "/images/blog/hurricane-small-business-preparedness-plan.png",
+    imageAlt: "A small business team reviews a hurricane preparedness checklist beside a laptop and printed records.",
+    sections: [
+      {
+        heading: "Plan Around People, Property, Data, and Cash Flow",
+        body:
+          "A small-business hurricane plan should explain who makes decisions, how staff receive updates, how records are backed up, what gets secured, when operations pause, and how reopening is checked after the storm. Use Ready.gov, FEMA, SBA, your insurer, and local emergency management as official planning sources."
+      },
+      {
+        heading: "Assign Roles Before a Storm Forms",
+        body:
+          "Name a primary decision lead and backups for staff communication, facilities, records, technology, vendors, and customer updates. Keep the plan short enough that employees can find it on a phone during a stressful week."
+      },
+      {
+        heading: "Protect Records and Systems",
+        body: "Data loss can slow claims, payroll, customer communication, and reopening. Prepare backups before tropical weather threatens your area.",
+        bullets: [
+          "Back up accounting, payroll, customer, inventory, lease, tax, and insurance records to secure cloud storage.",
+          "Keep offline copies of critical documents in waterproof storage when practical.",
+          "Test remote access, passwords, two-factor authentication, and emergency contact lists.",
+          "Document equipment, inventory, and tenant improvements with photos or video."
+        ]
+      },
+      {
+        heading: "Use Official Closure and Evacuation Signals",
+        body:
+          "Do not ask employees to stay in unsafe conditions or ignore evacuation orders. Prewrite closure, remote-work, appointment, delivery, and reopening messages, then update them based on local emergency management, NWS alerts, transportation conditions, and building access."
+      },
+      {
+        heading: "Secure the Site Without Creating New Hazards",
+        body:
+          "Move records and valuable inventory away from low floors when safe, check drainage, secure loose outdoor items, and coordinate with landlords or property managers. Stop outdoor preparation when wind, lightning, flooding, or official instructions make work unsafe."
+      },
+      {
+        heading: "Power, Connectivity, and Generator Safety",
+        body:
+          "Plan for payment systems, phones, refrigeration, security, payroll, and customer service during outages. Generators must stay outdoors and away from openings because carbon monoxide can be deadly; review /blog/hurricane-generator-safety-carbon-monoxide/ before relying on backup power."
+      },
+      {
+        heading: "Insurance and Financial Continuity",
+        body:
+          "Review property, flood, business interruption, spoilage, equipment, and extra-expense coverage with your insurance professional before hurricane season. Keep policy numbers, claim contacts, photos, receipts, lease documents, and vendor contracts accessible. SBA disaster resources may apply after eligible declarations."
+      },
+      {
+        heading: "Reopening After the Storm",
+        body:
+          "Before reopening, confirm local reentry rules, building safety, utilities, water, mold risk, staffing, inventory, and customer communication. Related pages: /blog/what-to-do-after-a-hurricane/, /blog/hurricane-mold-prevention-after-flood/, /tools/power-outage-planner/, and /hurricane-tracker/live/."
+      }
+    ],
+    faqs: [
+      {
+        question: "When should a small business start hurricane preparation?",
+        answer:
+          "Core planning should happen before hurricane season. When a storm threatens, move from planning to updates, backups, site checks, staff communication, and official alert monitoring as early as practical."
+      },
+      {
+        question: "Should employees stay on site during a hurricane warning?",
+        answer:
+          "A business should follow local emergency instructions, evacuation orders, building safety limits, and employment rules. Do not ask staff to remain where officials or conditions indicate it is unsafe."
+      },
+      {
+        question: "Does business insurance automatically cover hurricane flood damage?",
+        answer:
+          "Not necessarily. Flood, wind, business interruption, spoilage, and extra expense coverage may be separate or limited. Review policy terms with an insurance professional before storm season."
+      },
+      {
+        question: "What records should a business back up before a hurricane?",
+        answer:
+          "Back up insurance policies, lease documents, tax records, payroll, accounting files, inventory, customer records, vendor contacts, employee contacts, licenses, and photos of property and equipment."
+      },
+      {
+        question: "What should a business check before reopening?",
+        answer:
+          "Check reentry rules, structural safety, power, water, refrigeration, mold, debris, employee availability, inventory damage, insurance documentation, and customer communication before reopening."
+      }
+    ]
   }
+
 ];
 
 // ── Blog category taxonomy (used by the blog index filter UI) ───────────
@@ -2356,7 +2602,10 @@ export const BLOG_CATEGORIES: Record<string, string> = {
   "hurricane-flood-insurance-guide-nfip": "Insurance & Recovery",
   "hurricane-generator-safety-carbon-monoxide": "Preparedness",
   "hurricane-additional-living-expenses-ale-coverage": "Insurance & Recovery",
-  "how-to-use-hurricane-tracker-live-tools": "Tracking & Forecasting"
+  "how-to-use-hurricane-tracker-live-tools": "Tracking & Forecasting",
+  "hurricane-mold-prevention-after-flood": "Insurance & Recovery",
+  "hurricane-flood-zone-map-fema-understanding": "Insurance & Recovery",
+  "hurricane-small-business-preparedness-plan": "Preparedness"
 };
 
 export const BLOG_CATEGORY_LIST = [
