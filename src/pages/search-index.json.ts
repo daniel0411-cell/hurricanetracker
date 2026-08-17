@@ -3,6 +3,8 @@ export const prerender = true;
 import type { APIRoute } from "astro";
 import { BLOG_CATEGORY_PAGES, blogPosts } from "../data/blog";
 import { hurricaneCities } from "../data/cities";
+import { getStateSeoProfile } from "../data/stateSeo";
+import { coastalStates } from "../data/states";
 import { stormTrackerPages } from "../data/stormPages";
 import { topicPages } from "../data/topicPages";
 
@@ -29,15 +31,6 @@ const pages: Entry[] = [
   { title: "HurricaneHub — North America Hurricane Tracker", url: "/", description: "Track active North American hurricanes, official NWS alerts, evacuation decision levels, and preparedness actions from NOAA, NHC, and NWS data.", category: "Home", body: "hurricane tracker live radar alerts preparedness decision evacuation north america noaa nhc nws" },
   { title: "Live Hurricane Tracker Map", url: "/hurricane-tracker/live/", description: "Current hurricane tracker map with NHC storm checks, radar shortcuts, active alerts, city pages, local risk paths, and decision tools.", category: "Tracker", body: "live current hurricane tracker map nhc radar satellite active alerts city storm local risk path" },
   { title: "Live Hurricane Tracker by State", url: "/tracker/", description: "Live hurricane tracking, NWS alerts, and evacuation decision guidance organized by US state.", category: "Tracker", body: "tracker state live hurricane warnings alerts evacuation" },
-  { title: "Florida Hurricane Tracker", url: "/tracker/florida/", description: "Florida live hurricane tracking, active NWS alerts, evacuation zones, and local risk guidance.", category: "Tracker", body: "florida hurricane tracker miami tampa orlando alerts evacuation" },
-  { title: "Texas Hurricane Tracker", url: "/tracker/texas/", description: "Texas live hurricane tracking, active NWS alerts, and evacuation decision guidance for the Gulf coast.", category: "Tracker", body: "texas hurricane tracker houston galveston alerts evacuation" },
-  { title: "Louisiana Hurricane Tracker", url: "/tracker/louisiana/", description: "Louisiana live hurricane tracking, active NWS alerts, and evacuation guidance for New Orleans and the coast.", category: "Tracker", body: "louisiana hurricane tracker new orleans alerts evacuation" },
-  { title: "North Carolina Hurricane Tracker", url: "/tracker/north-carolina/", description: "North Carolina live hurricane tracking, active NWS alerts, and evacuation guidance for the coast.", category: "Tracker", body: "north carolina hurricane tracker alerts evacuation outer banks" },
-  { title: "South Carolina Hurricane Tracker", url: "/tracker/south-carolina/", description: "South Carolina live hurricane tracking, active NWS alerts, and evacuation guidance for Charleston and the coast.", category: "Tracker", body: "south carolina hurricane tracker charleston alerts evacuation" },
-  { title: "Georgia Hurricane Tracker", url: "/tracker/georgia/", description: "Georgia live hurricane tracking, active NWS alerts, and coastal evacuation guidance.", category: "Tracker", body: "georgia hurricane tracker savannah alerts evacuation" },
-  { title: "Alabama Hurricane Tracker", url: "/tracker/alabama/", description: "Alabama live hurricane tracking, active NWS alerts, and evacuation guidance for Mobile and the coast.", category: "Tracker", body: "alabama hurricane tracker mobile alerts evacuation" },
-  { title: "Mississippi Hurricane Tracker", url: "/tracker/mississippi/", description: "Mississippi live hurricane tracking, active NWS alerts, and evacuation guidance for the Gulf coast.", category: "Tracker", body: "mississippi hurricane tracker gulfport alerts evacuation" },
-  { title: "Virginia Hurricane Tracker", url: "/tracker/virginia/", description: "Virginia live hurricane tracking, active NWS alerts, and coastal evacuation guidance.", category: "Tracker", body: "virginia hurricane tracker hampton roads alerts evacuation" },
   { title: "Interactive Hurricane Radar", url: "/radar/", description: "Live radar, satellite, and NWS alert layers for North America with severe-weather overlays.", category: "Maps", body: "radar satellite rainviewer goes east noaa live weather map" },
   { title: "Standalone Radar Embed", url: "/embed/radar", description: "A self-contained hurricane radar view you can open full screen or embed.", category: "Maps", body: "radar embed standalone full screen" },
   { title: "Active NWS Alerts", url: "/alerts/", description: "Browse active National Weather Service hurricane and severe-weather alerts by state.", category: "Alerts", body: "alerts nws active warnings watch advisory state" },
@@ -129,7 +122,18 @@ const topicEntries: Entry[] = topicPages.map((page) => ({
   ].join(" ")
 }));
 
-const entries: Entry[] = [...pages, ...topicEntries, ...cityEntries, ...stormEntries, ...blogCategoryEntries, ...blogEntries];
+const stateEntries: Entry[] = coastalStates.map((state) => {
+  const seo = getStateSeoProfile(state);
+  return {
+    title: `${state.name} Hurricane Tracker`,
+    url: `/tracker/${state.slug}/`,
+    description: seo.description,
+    category: "Tracker",
+    body: [state.name, state.code, state.region, state.risks.join(" "), state.counties.join(" "), state.preparednessNote, seo.queryFocus.join(" ")].join(" ")
+  };
+});
+
+const entries: Entry[] = [...pages, ...stateEntries, ...topicEntries, ...cityEntries, ...stormEntries, ...blogCategoryEntries, ...blogEntries];
 
 export const GET: APIRoute = () =>
   new Response(JSON.stringify({ entries }), {

@@ -4,6 +4,7 @@ import StateAlerts from "../../components/StateAlerts.astro";
 import StateActionPaths from "../../components/StateActionPaths.astro";
 import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
 import { hurricaneCities } from "../../data/cities";
+import { getStateSeoProfile } from "../../data/stateSeo";
 import { getStateBySlug } from "../../data/states";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 import { site } from "../../data/site";
@@ -12,10 +13,11 @@ const state = getStateBySlug("texas")!;
 const code = state.code;
 const name = state.name;
 const region = state.region;
-const title = `${name} Hurricane Tracker – Live NHC Data & Alerts`;
-const description = `${name} real-time hurricane tracking with NOAA data, NWS alerts, evacuation info, and live updates for ${region}.`;
+const seo = getStateSeoProfile(state);
+const title = seo.title;
+const description = seo.description;
 const canonical = `${site.url}/tracker/${state.slug}/`;
-const lastModified = "2026-08-07";
+const lastModified = site.contentLastModified;
 
 const intro = `Texas guards about 367 miles of Gulf of Mexico coastline, from the marshy upper coast near Port Arthur to the brush country around Brownsville. Most Texas hurricanes form in the western Gulf or recurve out of the Bay of Campeche, then drive north or northeast toward Galveston, Matagorda, or Corpus Christi. The state's wide, shallow shelf amplifies storm surge, while slow-moving systems can dump feet of rain far inland around Houston. Historically, Hurricane Harvey (2017) stalled over South Texas and became the wettest tropical cyclone in U.S. history, flooding entire communities. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is within the ramp to the September peak, when Gulf waters are warmest. Because Texas evacuations can mean 100-plus-mile drives inland and long power outages, residents should prepare generators safely, stock water and fuel, and learn their county evacuation zone before a storm threatens.`;
 
@@ -77,7 +79,7 @@ const jsonLd = graph(
   <article class="band" aria-labelledby="tracker-state-title">
     <div class="inner">
       <p class="eyebrow">{region} hurricane operations</p>
-      <h1 id="tracker-state-title">{name} Hurricane Tracker – Live Updates</h1>
+      <h1 id="tracker-state-title">{seo.headline}</h1>
       <p class="answer">{intro}</p>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>

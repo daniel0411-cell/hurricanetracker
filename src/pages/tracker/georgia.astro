@@ -4,6 +4,7 @@ import StateAlerts from "../../components/StateAlerts.astro";
 import StateActionPaths from "../../components/StateActionPaths.astro";
 import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
 import { hurricaneCities } from "../../data/cities";
+import { getStateSeoProfile } from "../../data/stateSeo";
 import { getStateBySlug } from "../../data/states";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 import { site } from "../../data/site";
@@ -12,10 +13,11 @@ const state = getStateBySlug("georgia")!;
 const code = state.code;
 const name = state.name;
 const region = state.region;
-const title = `${name} Hurricane Tracker – Live NHC Data & Alerts`;
-const description = `${name} real-time hurricane tracking with NOAA data, NWS alerts, evacuation info, and live updates for ${region}.`;
+const seo = getStateSeoProfile(state);
+const title = seo.title;
+const description = seo.description;
 const canonical = `${site.url}/tracker/${state.slug}/`;
-const lastModified = "2026-08-07";
+const lastModified = site.contentLastModified;
 
 const intro = `Georgia's Atlantic coastline is short—about 100 miles—but densely developed from the Savannah metro down to Brunswick and the Golden Isles. Hurricanes usually reach Georgia after tracking up the Southeast seaboard or crossing Florida, often arriving as hurricanes or strong tropical storms with high rain rates and tornadoes. The coastal plain's rivers and tidal creeks flood readily, and wind-toppled trees are a major power-outage driver. In 2018, Hurricane Michael crossed into Georgia as a hurricane and inflicted historic wind damage across southwest Georgia's forests, the most damaging tropical cyclone in recent state memory. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is within the active period, so the coast from Savannah to St. Simons should stay alert, pair NWS alerts with county instructions, and keep an evacuation route ready.`;
 
@@ -77,7 +79,7 @@ const jsonLd = graph(
   <article class="band" aria-labelledby="tracker-state-title">
     <div class="inner">
       <p class="eyebrow">{region} hurricane operations</p>
-      <h1 id="tracker-state-title">{name} Hurricane Tracker – Live Updates</h1>
+      <h1 id="tracker-state-title">{seo.headline}</h1>
       <p class="answer">{intro}</p>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
