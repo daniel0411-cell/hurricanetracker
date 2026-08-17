@@ -21,6 +21,23 @@ const posts = blogPosts
   .filter((post) => getCategory(post.slug) === category.name)
   .sort((a, b) => b.dateModified.localeCompare(a.dateModified));
 const otherCategories = BLOG_CATEGORY_PAGES.filter((item) => item.slug !== category.slug);
+const actionPaths = [
+  {
+    title: "Live hurricane tracker",
+    href: "/hurricane-tracker/live/",
+    description: "Check current storm context, NHC advisory links, radar shortcuts, and local tracker paths."
+  },
+  {
+    title: "Hurricane tools by situation",
+    href: "/tools/",
+    description: "Move from reading into checklist, alert, evacuation, surge, outage, and household planning tools."
+  },
+  {
+    title: "Local hurricane risk",
+    href: "/local-hurricane-risk/",
+    description: "Connect broad guidance to ZIP, city, state, storm surge, evacuation-zone, and household context."
+  }
+];
 const title = category.title;
 const description = category.description;
 const url = `${site.url}/blog/category/${category.slug}/`;
@@ -30,11 +47,18 @@ const lastModified = posts[0]?.dateModified
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
-  itemListSchema(posts.map((post) => ({
-    name: post.title,
-    description: post.description,
-    url: `${site.url}/blog/${post.slug}/`
-  })))
+  itemListSchema([
+    ...posts.map((post) => ({
+      name: post.title,
+      description: post.description,
+      url: `${site.url}/blog/${post.slug}/`
+    })),
+    ...actionPaths.map((path) => ({
+      name: path.title,
+      description: path.description,
+      url: `${site.url}${path.href}`
+    }))
+  ])
 );
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
@@ -79,6 +103,11 @@ const jsonLd = graph(
         <p class="eyebrow">Next paths</p>
         <h2 id="category-next-heading">Move From Research to Action</h2>
         <p class="answer">Use this category page as a topic hub, then open the live tracker, local pages, or planning tools when a current storm or alert affects your location.</p>
+        <ul class="check-list">
+          {actionPaths.map((path) => (
+            <li><a href={path.href}>{path.title}</a> — {path.description}</li>
+          ))}
+        </ul>
       </article>
       <article class="panel">
         <h3>Related category hubs</h3>
