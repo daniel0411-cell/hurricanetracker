@@ -1994,7 +1994,245 @@ export const hurricaneCities: HurricaneCity[] = [
     ],
     lat: 34.7229,
     lon: -76.726
+  },
+  {
+    slug: "naples",
+    name: "Naples",
+    stateCode: "FL",
+    stateName: "Florida",
+    region: "Southwest Florida Gulf Coast",
+    risks: ["Gulf storm surge", "canal and bay flooding", "evacuation route congestion", "extended power outages"],
+    nearbyCounties: ["Collier", "Lee", "Hendry", "Monroe"],
+    planningNote:
+      "Naples households should use official Collier County evacuation zones, NWS Miami alerts, and NHC advisories to compare Gulf surge, canal flooding, road timing, and household needs.",
+    overview:
+      "Naples hurricane risk is shaped by the shallow Gulf shelf, low coastal neighborhoods, bays, canals, and north-south routes across Collier County. This local tracker page points residents toward official evacuation information, current weather alerts, live storm context, radar, outage planning, and household decision tools without replacing local emergency instructions.",
+    localHazards: [
+      {
+        heading: "Gulf Surge and Canal Water Levels",
+        body:
+          "Naples, Marco Island, and nearby coastal neighborhoods can see water rise through bays, canals, and low roads. Use official evacuation-zone maps and local emergency updates for address-level decisions."
+      },
+      {
+        heading: "Road Timing and Shelter Planning",
+        body:
+          "US-41, I-75, bridges, and causeways can become more difficult as watches, warnings, or local evacuation orders expand. Households with pets, medical needs, or transportation limits should monitor official guidance early."
+      },
+      {
+        heading: "Outages, Heat, and Recovery Needs",
+        body:
+          "Southwest Florida storms can leave debris, heat, limited fuel, and utility outages after the strongest weather exits. Charging, cooling, medication, food safety, and generator safety plans should be prepared before conditions worsen."
+      }
+    ],
+    evacuationFocus: [
+      "Check Collier County evacuation zones and emergency updates for your exact address.",
+      "Compare NWS Miami alerts with the latest National Hurricane Center advisory context.",
+      "Use local roads, bridges, pets, medicine, and mobility needs to decide how much time your household needs.",
+      "Prepare outage, cooling, document, communication, and generator safety plans before peak impacts."
+    ],
+    localSearches: [
+      "Naples hurricane tracker",
+      "Naples storm surge map",
+      "Collier County evacuation zones",
+      "Naples Florida hurricane alerts",
+      "NWS Miami Naples hurricane"
+    ],
+    faqs: [
+      {
+        question: "Is this Naples hurricane tracker an official evacuation source?",
+        answer:
+          "No. This page organizes Naples hurricane context and links to tools, but official evacuation zones, shelters, road closures, and local orders come from Collier County, NWS Miami, and other public agencies."
+      },
+      {
+        question: "Why is storm surge important for Naples?",
+        answer:
+          "Naples sits along a low Gulf coast with bays, canals, and nearby islands, so surge can affect roads, homes, marinas, and access points even when the strongest wind is not centered over the city."
+      },
+      {
+        question: "Which weather office covers Naples hurricane alerts?",
+        answer:
+          "Naples is covered by NWS Miami-South Florida for local weather alerts, while the National Hurricane Center provides official tropical cyclone advisories and forecast cones."
+      }
+    ],
+    officialResources: [
+      {
+        name: "Collier County Emergency Management",
+        description: "Official Collier County hurricane preparedness, evacuation, shelter, alert, and recovery information for Naples residents.",
+        url: "https://www.colliercountyfl.gov/government/county-manager-operations/divisions/emergency-management"
+      },
+      {
+        name: "NWS Miami-South Florida",
+        description: "Official National Weather Service alerts and forecasts for Naples, Collier County, and South Florida.",
+        url: "https://www.weather.gov/mfl/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
+      }
+    ],
+    lat: 26.142,
+    lon: -81.7948
+  },
+  {
+    slug: "sarasota",
+    name: "Sarasota",
+    stateCode: "FL",
+    stateName: "Florida",
+    region: "Sarasota Bay and Florida Gulf Coast",
+    risks: ["bay and barrier-island surge", "bridge access", "freshwater flooding", "outage recovery"],
+    nearbyCounties: ["Sarasota", "Manatee", "Charlotte", "DeSoto"],
+    planningNote:
+      "Sarasota residents should use official Sarasota County evacuation levels, NWS Tampa Bay alerts, and NHC advisories to understand bayfront, barrier-island, rain, and outage risk.",
+    overview:
+      "Sarasota hurricane risk is shaped by Sarasota Bay, barrier islands such as Siesta Key and Lido Key, low coastal roads, and inland neighborhoods that can flood during tropical rain bands. This page gives Sarasota residents a local search landing page for hurricane tracker queries while pointing decisions back to official county, NWS, and NHC sources.",
+    localHazards: [
+      {
+        heading: "Bayfront and Barrier-Island Water Risk",
+        body:
+          "Sarasota Bay and nearby keys can experience dangerous water levels when Gulf winds push water inland. Official evacuation levels and county alerts should guide address-level decisions."
+      },
+      {
+        heading: "Bridge and Route Constraints",
+        body:
+          "Barrier-island access, bridge timing, shelter availability, and local road conditions can change before the worst weather arrives. Check official Sarasota County updates before relying on any route."
+      },
+      {
+        heading: "Rain, Outages, and Reentry",
+        body:
+          "Slow tropical systems can bring inland flooding, tornado warnings, debris, heat, and utility outages. Household plans should include charging, cooling, communication, medication, and safe generator placement."
+      }
+    ],
+    evacuationFocus: [
+      "Check Sarasota County evacuation levels and emergency updates for your address.",
+      "Compare NWS Tampa Bay alerts with the latest National Hurricane Center advisory.",
+      "Use bridge access, pets, medicine, mobility, and shelter needs to estimate household timing.",
+      "Keep outage, communication, document, and family contact plans ready before conditions worsen."
+    ],
+    localSearches: [
+      "Sarasota hurricane tracker",
+      "Sarasota County evacuation zones",
+      "Sarasota storm surge",
+      "Siesta Key hurricane evacuation",
+      "NWS Tampa Sarasota alerts"
+    ],
+    faqs: [
+      {
+        question: "Is this Sarasota hurricane tracker an official alert source?",
+        answer:
+          "No. HurricaneHub helps organize Sarasota hurricane context and related tools, but official evacuation levels, shelters, road closures, and emergency instructions come from Sarasota County and weather.gov."
+      },
+      {
+        question: "Do Sarasota barrier islands need different hurricane planning?",
+        answer:
+          "Barrier islands and bayfront areas can face surge, bridge constraints, and local evacuation guidance earlier than inland neighborhoods, so residents should check official county evacuation levels."
+      },
+      {
+        question: "Which weather office covers Sarasota hurricane alerts?",
+        answer:
+          "Sarasota is covered by NWS Tampa Bay for local alerts and forecasts, while the National Hurricane Center issues official tropical cyclone advisories."
+      }
+    ],
+    officialResources: [
+      {
+        name: "Sarasota County Emergency Services",
+        description: "Official Sarasota County emergency preparedness, evacuation, shelter, alert, and recovery information.",
+        url: "https://www.scgov.net/government/emergency-services"
+      },
+      {
+        name: "NWS Tampa Bay",
+        description: "Official National Weather Service alerts and forecasts for Sarasota and the west-central Florida coast.",
+        url: "https://www.weather.gov/tbw/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
+      }
+    ],
+    lat: 27.3364,
+    lon: -82.5307
+  },
+  {
+    slug: "port-charlotte",
+    name: "Port Charlotte",
+    stateCode: "FL",
+    stateName: "Florida",
+    region: "Charlotte Harbor and Southwest Florida",
+    risks: ["Charlotte Harbor surge", "river and canal flooding", "mobile home vulnerability", "power outages"],
+    nearbyCounties: ["Charlotte", "Sarasota", "DeSoto", "Lee"],
+    planningNote:
+      "Port Charlotte residents should use official Charlotte County evacuation zones, NWS Tampa Bay alerts, and NHC advisories to compare harbor, river, housing, and outage risk.",
+    overview:
+      "Port Charlotte hurricane risk comes from Charlotte Harbor, the Peace River, canals, low roads, and neighborhoods that may face surge, rain flooding, wind damage, or long outages. This page gives searchers a local Port Charlotte hurricane tracker hub while keeping evacuation, shelter, and road decisions tied to official county and weather sources.",
+    localHazards: [
+      {
+        heading: "Charlotte Harbor and Peace River Water",
+        body:
+          "Wind direction and rainfall can raise water around Charlotte Harbor, the Peace River, canals, and low roads. Use official evacuation zones and NWS alerts for local water-risk context."
+      },
+      {
+        heading: "Housing and Neighborhood Exposure",
+        body:
+          "Mobile homes, older buildings, canal-side streets, and flood-prone neighborhoods may need earlier planning. County instructions and shelter information should guide household choices."
+      },
+      {
+        heading: "Outage and Recovery Planning",
+        body:
+          "Trees, utility damage, heat, limited fuel, and debris can affect Port Charlotte after landfall. Safe generator placement, medication cooling, and communication backups belong in the plan."
+      }
+    ],
+    evacuationFocus: [
+      "Check Charlotte County evacuation zones and shelter information for your address.",
+      "Compare NWS Tampa Bay alerts with National Hurricane Center storm context.",
+      "Plan around canals, bridges, low roads, housing type, pets, medicine, and mobility needs.",
+      "Prepare charging, cooling, documents, food safety, and safe generator placement before outages."
+    ],
+    localSearches: [
+      "Port Charlotte hurricane tracker",
+      "Charlotte County evacuation zones",
+      "Port Charlotte storm surge",
+      "Peace River flooding hurricane",
+      "NWS Tampa Port Charlotte alerts"
+    ],
+    faqs: [
+      {
+        question: "Is this Port Charlotte hurricane tracker official?",
+        answer:
+          "No. This page helps organize Port Charlotte hurricane context, but official evacuation zones, shelter information, road closures, and emergency orders come from Charlotte County and weather.gov."
+      },
+      {
+        question: "Does Port Charlotte need to worry about surge if it is not on the beach?",
+        answer:
+          "Yes. Charlotte Harbor, canals, and river-connected areas can bring water impacts inland from open beaches, especially when storm track and wind direction push water into the harbor."
+      },
+      {
+        question: "Which weather office covers Port Charlotte hurricane alerts?",
+        answer:
+          "Port Charlotte is generally covered by NWS Tampa Bay for local weather alerts, while the National Hurricane Center provides official tropical cyclone advisories."
+      }
+    ],
+    officialResources: [
+      {
+        name: "Charlotte County Emergency Management",
+        description: "Official Charlotte County evacuation zones, alerts, shelter, preparedness, and recovery information for Port Charlotte.",
+        url: "https://www.charlottecountyfl.gov/departments/public-safety/emergency-management/"
+      },
+      {
+        name: "NWS Tampa Bay",
+        description: "Official National Weather Service alerts and forecasts for Port Charlotte and the surrounding Southwest Florida area.",
+        url: "https://www.weather.gov/tbw/"
+      },
+      {
+        name: "National Hurricane Center",
+        description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.",
+        url: "https://www.nhc.noaa.gov/"
+      }
+    ],
+    lat: 26.9762,
+    lon: -82.0906
   }
+
 ];
 
 export function getCityBySlug(slug: string | undefined) {
