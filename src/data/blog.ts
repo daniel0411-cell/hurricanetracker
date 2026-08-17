@@ -1191,87 +1191,87 @@ export const blogPosts: BlogPost[] = [
     title: "What to Do After a Hurricane: A Step-by-Step Recovery Guide",
     description: "Returning home after a hurricane? Follow this step-by-step recovery guide: safety checks, insurance claims, FEMA help, and safe flood cleanup.",
     datePublished: "2026-08-12",
-    dateModified: "2026-08-12",
+    dateModified: "2026-08-17",
     image: "/images/blog/what-to-do-after-a-hurricane.png",
     imageAlt: "A homeowner carries water-damaged belongings out of a flood-damaged house after a hurricane while a neighbor stacks storm debris.",
     sections: [
       {
-        heading: "Direct Answer: Your First 72 Hours After the Storm",
-        body: "The first three days after a hurricane are about safety, documentation, and starting the paperwork. Wait for officials to declare your area safe before returning. When you go back, inspect for gas leaks, downed lines, and structural damage before you enter. Photograph every bit of damage before you clean up. Call your insurance company immediately, and register with FEMA even if you have coverage. Begin drying out wet materials within 48 hours to stop mold. Move carefully, document everything, and ask for help early."
+        heading: "Direct Answer: Start With Official Re-Entry and Documentation",
+        body: "After a hurricane, treat recovery as a sequence: wait for local officials to say it is safe to return, check for immediate hazards from outside first, document damage before cleanup when safe, contact your insurer, and use official disaster-assistance channels if your area qualifies. This guide is an orientation hub, not a substitute for local emergency management, utility crews, insurance policy terms, medical advice, or contractor guidance."
       },
       {
         heading: "Wait for the Official All-Clear Before Returning",
-        body: "Do not rush back while evacuation orders are still in effect or roads are blocked. Local officials lift orders only after they have confirmed that routes are passable and hazards are cleared. Flooded streets and downed lines are invisible killers in the first hours after landfall.",
+        body: "Do not rush back while evacuation orders are still in effect or roads are blocked. Local officials lift orders only after they have checked routes, utilities, and major hazards. Use county emergency management, weather.gov, and local public-safety updates as the source of truth for re-entry.",
         bullets: [
-          "Local officials must declare your neighborhood safe to re-enter.",
-          "Never drive or walk through standing or moving floodwater.",
-          "Stay clear of downed power lines and damaged gas meters.",
-          "Text instead of calling so emergency networks stay open."
+          "Confirm that your neighborhood or route is open before traveling.",
+          "Avoid standing or moving floodwater and follow road-closure instructions.",
+          "Stay away from downed power lines, damaged gas meters, and unstable structures.",
+          "Use text updates when possible so emergency networks stay available."
         ]
       },
       {
-        heading: "Return Home Safely: The Hazard Check",
-        body: "A house can look intact from the street but hide serious dangers inside. Treat every structure as unstable until inspected, and protect yourself from the most common post-storm injuries: falls, cuts, electrocution, and carbon monoxide poisoning.",
+        heading: "Return Home Safely: Check Hazards Before Entering",
+        body: "A house can look intact from the street but still have hidden damage. Look for exterior hazards first and bring in qualified help for utilities, structural questions, electrical systems, gas, major roof damage, or suspected contamination. If you are unsure whether it is safe, wait for professional or local official guidance.",
         bullets: [
-          "Smell gas? Leave at once and report it from outside.",
-          "Have a professional inspect utilities before restoring power.",
-          "Wear sturdy shoes, gloves, long pants, and an N95 mask.",
-          "Watch for snakes, insects, and unstable debris indoors."
+          "If you smell gas or suspect a leak, leave the area and report it from outside.",
+          "Use licensed professionals for utility, electrical, roof, and structural concerns.",
+          "Wear protective clothing if local officials say cleanup can begin.",
+          "Watch for debris, displaced wildlife, unstable flooring, and hidden sharp objects."
         ]
       },
       {
         heading: "Document Everything Before You Clean Up",
-        body: "Your insurance payout depends on proof. The worst mistake homeowners make is throwing damaged items away before the adjuster sees them. Photograph first, clean second. A thorough record is the difference between a smooth claim and a disputed one.",
+        body: "Insurance and assistance programs usually need evidence. When it is safe, photograph and video damage before cleanup, keep receipts, and write down dates, locations, and conversations. Your policy terms and insurer instructions control what documentation is required, so contact them early and keep copies of everything you send.",
         bullets: [
           "Photograph every room and damaged item from multiple angles.",
           "Capture the roof and exterior if it is safe to do so.",
           "Write a room-by-room inventory with estimated values.",
-          "Keep damaged items or photograph them before disposal."
+          "Keep damaged items when practical, or photograph them before disposal if health or safety requires removal."
         ]
       },
       {
         heading: "File Your Insurance Claim Early",
-        body: "Insurers handle claims in the order they are received, and after a major disaster the queue is long. Report your loss as soon as it is safe. Understand two things that surprise many homeowners: standard policies exclude flood damage, and many include Additional Living Expenses coverage if you cannot occupy your home.",
+        body: "Report your loss as soon as you can do so safely, then ask the insurer what documents, photos, temporary repairs, and receipts it wants. Hurricane claims can involve wind, rain intrusion, flood, and living-expense questions, sometimes under different policies. Review your declarations page and policy terms before assuming what is covered.",
         bullets: [
-          "Report the claim immediately after it is safe to do so.",
-          "Ask about Additional Living Expenses for temporary housing.",
-          "Standard homeowners policies exclude flooding - file separately with the NFIP.",
+          "Report the claim promptly after it is safe to do so.",
+          "Ask whether Additional Living Expenses or loss-of-use coverage applies.",
+          "Ask whether flood damage requires a separate flood policy or NFIP claim.",
           "Save every receipt for temporary repairs and lodging."
         ]
       },
       {
-        heading: "Register With FEMA - Even If You Have Insurance",
-        body: "Federal Emergency Management Agency aid is supplemental, not a substitute for insurance, and you can receive it even when you are fully covered. FEMA assistance opens only after a presidential disaster declaration, and the application window eventually closes, so apply as soon as you can.",
+        heading: "Check FEMA and Disaster Assistance Eligibility",
+        body: "Federal disaster assistance is separate from insurance and is generally tied to a declared disaster. If your area is included, use DisasterAssistance.gov or official FEMA channels to check eligibility, deadlines, inspection steps, and required documents. FEMA assistance is not a replacement for insurance and may not cover every loss.",
         bullets: [
-          "Apply at DisasterAssistance.gov or by calling 1-800-621-3362.",
-          "You may qualify for help even with a paid insurance claim.",
+          "Use DisasterAssistance.gov or FEMA's official phone channels after a declared disaster.",
           "Keep your registration number and inspection appointment.",
-          "Note the deadline - disaster assistance windows do close."
+          "Track deadlines because assistance windows can close.",
+          "Keep insurance communications and FEMA documents in the same recovery folder."
         ]
       },
       {
-        heading: "Begin Cleanup: Flood Water, Mold, and Debris",
-        body: "Mold begins growing on wet surfaces within 24 to 48 hours. The faster you dry and remove soaked materials, the less you will lose to rot and the safer your air will be. Porous items that absorbed floodwater almost always need to be discarded.",
+        heading: "Cleanup: Floodwater, Mold, and Debris",
+        body: "Flood cleanup can involve contaminated water, mold, electrical hazards, sharp debris, unstable materials, and health risks. Use EPA, CDC, local health department, and emergency-management guidance before beginning. People with asthma, immune conditions, pregnancy, infants, older adults, or medical needs should be especially cautious and may need professional help.",
         bullets: [
-          "Start drying and removing wet items within 24 to 48 hours.",
-          "Discard soaked porous materials: carpet, padding, insulation, mattresses.",
-          "Wear gloves, boots, and a respirator when handling mold.",
-          "Disinfect hard surfaces with EPA-registered cleaning products."
+          "Confirm the structure and utilities are safe before cleanup.",
+          "Document damaged materials before removal when possible.",
+          "Use protective gear and ventilation according to official cleanup guidance.",
+          "Consider professional remediation for large, recurring, or HVAC-related mold."
         ]
       },
       {
         heading: "Water, Power, and Food Safety",
-        body: "A hurricane can contaminate the water supply and knock out refrigeration for days. Assume anything that touched floodwater is unsafe, and treat generators with extreme respect - carbon monoxide from a poorly placed unit is one of the leading causes of post-storm deaths.",
+        body: "A hurricane can disrupt water, refrigeration, charging, medical equipment, and communications. Follow boil-water notices and local health guidance. If using a portable generator, follow the manual and official generator-safety guidance; never use it indoors, in a garage, or in any enclosed or partly enclosed area.",
         bullets: [
           "Obey boil-water advisories until officials lift them.",
-          "Throw out any food exposed to power loss or floodwater.",
-          "Run generators outdoors, well away from windows and vents.",
-          "Install battery-powered carbon monoxide alarms."
+          "Follow official food-safety guidance for outage or flood-exposed food.",
+          "Use generators only outdoors and away from openings.",
+          "Keep working carbon monoxide alarms in the home."
         ]
       },
       {
         heading: "Avoid Post-Storm Scams and Bad Contractors",
-        body: "After every major hurricane, unscrupulous contractors sweep in promising fast repairs for cash up front. Protect yourself by slowing down and verifying. A legitimate contractor will welcome scrutiny and put everything in writing.",
+        body: "After major disasters, contractor fraud and price-gouging complaints often rise. Slow down, verify licenses, check references, get written estimates, and avoid pressure tactics. Your state insurance department, attorney general, or local consumer-protection office may publish post-disaster warnings.",
         bullets: [
           "Beware door-to-door contractors demanding upfront payment.",
           "Verify licenses and insurance before signing anything.",
@@ -1280,26 +1280,52 @@ export const blogPosts: BlogPost[] = [
         ]
       },
       {
-        heading: "Take Care of Yourself and Your Family",
-        body: "Recovery is a marathon measured in weeks, not days. Sleep, routine, and connection matter as much as physical repairs. If anxiety, grief, or sleeplessness linger, reach out to SAMHSA's free Disaster Distress Helpline at 1-800-985-5990."
+        heading: "Take Care of Yourself and Your Household",
+        body: "Recovery can take weeks or months. Keep a routine, document tasks, ask for help, and use official or nonprofit support channels when available. If distress, grief, anxiety, or sleeplessness becomes overwhelming, consider contacting SAMHSA's Disaster Distress Helpline or a local health professional."
       },
       {
-        heading: "Stay Informed With HurricaneHub",
-        body: "Preparation does not stop when the wind dies down. HurricaneHub keeps you oriented through the entire life cycle of a storm - from the first advisory to the long recovery. Our real-time hurricane tracker combines the NHC forecast cone with GOES-East satellite, RainViewer Doppler radar, NWS active alerts, storm surge zones, and evacuation overlays on one interactive map. When the next storm forms, track its path, check live alerts for your area, and plan your return home with confidence at hurricanetracker.cc."
+        heading: "Use This Recovery Hub With Related Guides",
+        body: "For a fuller recovery path, pair this page with the hurricane insurance claim documentation guide, Additional Living Expenses coverage guide, generator safety guide, power outage planner, and live hurricane tracker. Those pages break out high-risk topics so this article can remain a navigation hub rather than an overconfident replacement for official instructions.",
+        bullets: [
+          "Insurance documents and claim photos: /blog/hurricane-insurance-claim-guide-documentation/",
+          "Additional living expenses: /blog/hurricane-additional-living-expenses-ale-coverage/",
+          "Generator safety: /blog/hurricane-generator-safety-carbon-monoxide/",
+          "Power outage planning: /tools/power-outage-planner/",
+          "Live tracker and alerts: /hurricane-tracker/live/"
+        ]
+      },
+      {
+        heading: "Official Resources to Check First",
+        body: "Use official sources before making recovery decisions. Local emergency management controls re-entry and evacuation updates, weather.gov provides local warnings, NHC provides tropical cyclone advisories, DisasterAssistance.gov handles federal disaster-assistance applications, and your insurer or policy controls coverage decisions.",
+        bullets: [
+          "National Weather Service: https://www.weather.gov/",
+          "National Hurricane Center: https://www.nhc.noaa.gov/",
+          "Disaster assistance: https://www.disasterassistance.gov/",
+          "FEMA: https://www.fema.gov/",
+          "Ready.gov hurricane guidance: https://www.ready.gov/hurricanes"
+        ]
       }
     ],
     faqs: [
       {
         question: "Does homeowners insurance cover flood damage after a hurricane?",
-        answer: "In most cases, no. Standard homeowners and renters policies exclude flood damage. You need a separate National Flood Insurance Program (NFIP) or private flood policy. If your home flooded, file both your standard claim and your flood claim as soon as possible."
+        answer: "Standard homeowners and renters policies often exclude flood damage, while wind and other covered losses may be handled separately. A National Flood Insurance Program or private flood policy may apply. Review your policy and contact your insurer for the claim path."
       },
       {
         question: "How soon can I return home after a hurricane?",
-        answer: "Only after local officials lift evacuation orders and declare your area safe to re-enter. Roads must be cleared, utilities stabilized, and structural hazards addressed first. Returning too early puts you and rescue crews at risk."
+        answer: "Return only after local officials say your area and route are open. Conditions can vary by neighborhood, road, bridge, utility status, and flood level, so use local emergency management updates rather than a general timeline."
       },
       {
         question: "How do I apply for FEMA assistance after a hurricane?",
-        answer: "Register at DisasterAssistance.gov or call 1-800-621-3362 after a presidential disaster declaration for your area. Apply even if you have insurance - FEMA aid is supplemental. Keep your registration number and meet the inspector promptly, and watch the application deadline."
+        answer: "Use DisasterAssistance.gov or FEMA's official phone channels after a declared disaster that includes your area. Keep your registration number, watch deadlines, and continue working with your insurer because FEMA assistance and insurance are separate."
+      },
+      {
+        question: "What should I document before cleaning up hurricane damage?",
+        answer: "When it is safe, take photos and videos of rooms, exterior damage, damaged items, water marks, receipts, and temporary repairs. Follow your insurer's instructions before disposing of items unless health or safety requires removal."
+      },
+      {
+        question: "Where should I check official recovery guidance?",
+        answer: "Start with local emergency management for re-entry, weather.gov for alerts, DisasterAssistance.gov and FEMA for assistance, and your insurer for coverage. Use this page as a navigation guide, not an official instruction."
       }
     ]
   },
