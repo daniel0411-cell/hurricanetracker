@@ -20,10 +20,10 @@ export const topicPages: TopicPage[] = [
     title: "Hurricane Tracker Map",
     shortTitle: "Tracker Map",
     description:
-      "Use a hurricane tracker map to compare live storm position, NHC advisory context, radar, satellite, alerts, city trackers, and local decision tools.",
+      "Open a hurricane tracker map for current storm position, live NHC advisory context, radar, satellite, alerts, city trackers, and local decision tools.",
     eyebrow: "Map search hub",
     intro:
-      "A hurricane tracker map is most useful when it leads to a local decision. Start with active storm position, then compare radar, satellite, NWS alerts, city pages, and household tools before changing travel or shelter plans.",
+      "Use this current hurricane tracker map hub when you need a live hurricane map, storm position, NHC advisory context, radar, satellite, and the next local page to open. The map is most useful when it leads to a local decision.",
     primaryAction: { label: "Open live tracker map", href: "/hurricane-tracker/live/" },
     secondaryAction: { label: "Open radar map", href: "/radar/" },
     intent: "hurricane tracker map, live hurricane map, storm tracker map",
@@ -75,6 +75,7 @@ export const topicPages: TopicPage[] = [
     ],
     nextLinks: [
       { name: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Active storm hub with NHC checks, radar shortcuts, alerts, and city pages." },
+      { name: "Local Hurricane Risk", href: "/local-hurricane-risk/", description: "Move from the map into ZIP, city, state, surge, and evacuation-zone context." },
       { name: "Interactive Hurricane Radar", href: "/radar/", description: "Radar, satellite, wind, and alert layers for local weather context." },
       { name: "City Hurricane Trackers", href: "/hurricane-tracker/city/", description: "Local pages for surge, flooding, route, outage, and evacuation context." },
       { name: "Storm Distance Calculator", href: "/tools/storm-distance-calculator/", description: "Estimate distance from a storm to a location while keeping local hazards in context." }
@@ -83,7 +84,7 @@ export const topicPages: TopicPage[] = [
       {
         question: "What is the best hurricane tracker map to use first?",
         answer:
-          "Start with the live tracker for official storm context, then compare radar, satellite, NWS alerts, and local city pages before making household decisions."
+          "Start with the live hurricane tracker map for official storm context, then compare radar, satellite, NWS alerts, local risk, and city pages before making household decisions."
       },
       {
         question: "Does a hurricane tracker map show evacuation orders?",
@@ -102,10 +103,10 @@ export const topicPages: TopicPage[] = [
     title: "Hurricane Path Tracker",
     shortTitle: "Path Tracker",
     description:
-      "Track a hurricane path using live NHC storm context, forecast cone explainers, city trackers, radar, and impact-window tools.",
+      "Track a hurricane path with live NHC storm context, current storm position, forecast cone explainers, city trackers, radar, and impact-window tools.",
     eyebrow: "Forecast path hub",
     intro:
-      "A hurricane path tracker helps answer where the storm may go next. For a real planning decision, compare the path with forecast uncertainty, local alerts, storm timing, and your evacuation or shelter constraints.",
+      "A hurricane path tracker helps answer where the storm may go next and whether the current track matters for your location. For a real planning decision, compare the path with forecast uncertainty, local alerts, storm timing, and your evacuation or shelter constraints.",
     primaryAction: { label: "Open live tracker", href: "/tracker/" },
     secondaryAction: { label: "Estimate impact window", href: "/tools/impact-window-estimator/" },
     intent: "hurricane path tracker, hurricane storm path, track hurricane path",

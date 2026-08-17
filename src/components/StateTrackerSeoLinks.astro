@@ -10,6 +10,13 @@ type Props = {
 const { state, cities } = Astro.props;
 const featuredCities = cities.slice(0, 4);
 const primaryRisks = state.risks.slice(0, 4);
+const searchQueries = [
+  `${state.name} hurricane tracker`,
+  `hurricane tracker ${state.name}`,
+  `${state.code.toLowerCase()} hurricane tracker`,
+  `${state.name} hurricane alerts`,
+  `${state.name} evacuation zones`
+];
 ---
 <section class="state-seo-block" aria-labelledby="state-seo-heading">
   <div class="grid-2 section-grid">
@@ -19,8 +26,10 @@ const primaryRisks = state.risks.slice(0, 4);
       <p>{state.preparednessNote}</p>
       <ul class="check-list">
         <li><a href="/hurricane-tracker/live/">Check the live hurricane tracker map</a></li>
+        <li><a href="/local-hurricane-risk/">Check local hurricane risk by ZIP, city, or state</a></li>
         <li><a href="/alerts/">Review active NWS alerts by state</a></li>
         <li><a href="/tools/local-risk-plan/">Build a local 72-hour action plan</a></li>
+        <li><a href="/hurricane-tracker/map/">Compare hurricane tracker map options</a></li>
         <li><a href="/learn/">Learn how to read hurricane tracker products</a></li>
       </ul>
     </article>
@@ -31,7 +40,26 @@ const primaryRisks = state.risks.slice(0, 4);
       <div class="risk-tags">
         {primaryRisks.map((risk) => <span class="risk-tag">{risk}</span>)}
       </div>
+      <p class="source-note">Common searches this page answers: {searchQueries.join(", ")}.</p>
     </article>
+  </div>
+
+  <div class="state-seo-cities" aria-labelledby="state-risk-shortcuts-heading">
+    <h2 id="state-risk-shortcuts-heading">{state.name} Hurricane Risk Shortcuts</h2>
+    <div class="grid-3 section-grid">
+      <article class="panel compact-panel">
+        <h3><a href="/local-hurricane-risk/">Local hurricane risk</a></h3>
+        <p>Use ZIP, city, state, storm surge, evacuation-zone, and household planning paths for {state.name} risk checks.</p>
+      </article>
+      <article class="panel compact-panel">
+        <h3><a href="/hurricane-tracker/evacuation-zones/">Evacuation zones</a></h3>
+        <p>Understand how local evacuation zones, official orders, surge risk, and household constraints fit together.</p>
+      </article>
+      <article class="panel compact-panel">
+        <h3><a href="/hurricane-tracker/storm-surge-map/">Storm surge map</a></h3>
+        <p>Review why surge risk is local and separate from hurricane category, especially for coastal counties.</p>
+      </article>
+    </div>
   </div>
 
   {featuredCities.length ? (
