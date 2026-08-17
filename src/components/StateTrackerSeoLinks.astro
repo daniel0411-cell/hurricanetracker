@@ -1,6 +1,7 @@
 ---
 import type { CoastalState } from "../data/states";
 import type { HurricaneCity } from "../data/cities";
+import { topicPages } from "../data/topicPages";
 
 type Props = {
   state: CoastalState;
@@ -10,13 +11,23 @@ type Props = {
 const { state, cities } = Astro.props;
 const featuredCities = cities.slice(0, 4);
 const primaryRisks = state.risks.slice(0, 4);
+const priorityTopics = ["live-tracker", "map", "radar", "spaghetti-models", "evacuation-zones", "storm-surge-map", "preparedness-checklist"]
+  .map((slug) => topicPages.find((page) => page.slug === slug))
+  .filter((page): page is NonNullable<typeof page> => Boolean(page));
 const searchQueries = [
   `${state.name} hurricane tracker`,
   `hurricane tracker ${state.name}`,
   `${state.code.toLowerCase()} hurricane tracker`,
   `${state.name} hurricane alerts`,
-  `${state.name} evacuation zones`
+  `${state.name} evacuation zones`,
+  `${state.name} storm surge map`,
+  `${state.name} hurricane radar`
 ];
+const cityRiskQueries = featuredCities.flatMap((city) => [
+  `${city.name} hurricane tracker`,
+  `${city.name} storm surge`,
+  `${city.name} evacuation zones`
+]).slice(0, 12);
 ---
 <section class="state-seo-block" aria-labelledby="state-seo-heading">
   <div class="grid-2 section-grid">
@@ -42,6 +53,20 @@ const searchQueries = [
       </div>
       <p class="source-note">Common searches this page answers: {searchQueries.join(", ")}.</p>
     </article>
+  </div>
+
+  <div class="state-seo-cities" aria-labelledby="state-topic-shortcuts-heading">
+    <h2 id="state-topic-shortcuts-heading">{state.name} Hurricane Topic Shortcuts</h2>
+    <p class="source-note">Use these topic hubs to move from a state-level tracker into the specific hurricane question behind the search.</p>
+    <div class="grid-3 section-grid">
+      {priorityTopics.map((topic) => (
+        <article class="panel compact-panel">
+          <p class="eyebrow">{topic.intent}</p>
+          <h3><a href={`/hurricane-tracker/${topic.slug}/`}>{topic.title}</a></h3>
+          <p>{topic.description}</p>
+        </article>
+      ))}
+    </div>
   </div>
 
   <div class="state-seo-cities" aria-labelledby="state-risk-shortcuts-heading">
@@ -73,6 +98,7 @@ const searchQueries = [
           </article>
         ))}
       </div>
+      <p class="source-note">Local searches covered by these city paths: {cityRiskQueries.join(", ")}.</p>
     </div>
   ) : null}
 </section>
