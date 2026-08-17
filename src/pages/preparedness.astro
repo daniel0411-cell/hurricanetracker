@@ -1,8 +1,8 @@
 ---
 import FaqBlock from "../components/FaqBlock.astro";
 import Layout from "../layouts/Layout.astro";
-import { faqs, site } from "../data/site";
-import { articleSchema, faqSchema, graph, howToSchema, websiteSchema } from "../lib/schema";
+import { site } from "../data/site";
+import { articleSchema, faqSchema, graph, howToSchema, itemListSchema, websiteSchema } from "../lib/schema";
 
 const title = "Hurricane Preparedness Decision Matrix";
 const description = "Use a clear hurricane decision matrix for monitoring, preparing, acting, and leaving before tropical cyclone hazards arrive.";
@@ -70,6 +70,71 @@ const householdScenarios = [
     label: "Read pet safety guide"
   }
 ];
+const preparednessToolChains = [
+  {
+    title: "Before a storm is named",
+    body: "Use quiet weather to finish supplies, documents, insurance photos, family contacts, pet plans, and backup power decisions.",
+    links: [
+      { label: "Preparedness checklist generator", href: "/tools/preparedness-checklist/" },
+      { label: "Documents and insurance checklist", href: "/blog/hurricane-documents-insurance-checklist/" },
+      { label: "Family communication plan", href: "/tools/family-communication-plan/" }
+    ]
+  },
+  {
+    title: "When a watch is possible",
+    body: "Move from general readiness into local risk: storm surge, flooding, evacuation zones, city context, fuel, routes, and household constraints.",
+    links: [
+      { label: "Local hurricane risk hub", href: "/local-hurricane-risk/" },
+      { label: "City hurricane trackers", href: "/hurricane-tracker/city/" },
+      { label: "Evacuation zone guide", href: "/blog/how-to-check-your-hurricane-evacuation-zone/" }
+    ]
+  },
+  {
+    title: "When a warning is issued",
+    body: "Complete protective actions only while safe, follow official instructions, and use decision tools to organize evacuation or shelter timing.",
+    links: [
+      { label: "Alert action decoder", href: "/tools/alert-action-decoder/" },
+      { label: "Evacuation decision helper", href: "/tools/evacuation-decision-helper/" },
+      { label: "Hurricane warning checklist", href: "/blog/what-to-do-during-a-hurricane-warning/" }
+    ]
+  },
+  {
+    title: "After impacts begin",
+    body: "Shift from preparation to safety, outage management, communication, and official reentry or recovery instructions.",
+    links: [
+      { label: "Power outage planner", href: "/tools/power-outage-planner/" },
+      { label: "What to do after a hurricane", href: "/blog/what-to-do-after-a-hurricane/" },
+      { label: "Mold prevention after flooding", href: "/blog/hurricane-mold-prevention-after-flood/" }
+    ]
+  }
+];
+const preparednessFaqs = [
+  {
+    question: "What is the first thing to do for hurricane preparedness?",
+    answer:
+      "Start with your location: check whether your home is in an evacuation, flood, storm surge, mobile home, or medically vulnerable situation. Then build supplies, documents, contacts, and route plans around that local risk."
+  },
+  {
+    question: "Is a hurricane kit enough if I may need to evacuate?",
+    answer:
+      "No. A home kit helps if you shelter in place, but an evacuation plan needs a smaller go-bag, destination, route, fuel, documents, medicine, chargers, pet supplies, and a contact who knows where you are going."
+  },
+  {
+    question: "When should I move from preparing to acting?",
+    answer:
+      "Move from preparing to acting when official alerts, evacuation-zone instructions, storm surge risk, flash flooding, tornado warnings, or household constraints mean waiting could reduce safe options."
+  },
+  {
+    question: "How early should households with medical needs prepare?",
+    answer:
+      "Households with medical equipment, refrigerated medicine, mobility limits, oxygen, dialysis, caregiving, or transportation constraints should prepare earlier than the general timeline and verify local registry or shelter options before a storm is close."
+  },
+  {
+    question: "Should renters and apartment residents use the same checklist as homeowners?",
+    answer:
+      "Some supplies overlap, but renters also need building rules, elevator and stair plans, lease and renters insurance records, parking decisions, pet rules, and property-manager communication."
+  }
+];
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
@@ -96,7 +161,12 @@ const jsonLd = graph(
       }
     ]
   }),
-  faqSchema(faqs)
+  itemListSchema(preparednessToolChains.flatMap((chain) => chain.links.map((link) => ({
+    name: link.label,
+    description: chain.body,
+    url: `${site.url}${link.href}`
+  })))),
+  faqSchema(preparednessFaqs)
 );
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
@@ -183,7 +253,28 @@ const jsonLd = graph(
     </div>
   </section>
 
-  <FaqBlock faqs={faqs} />
+  <section class="band" aria-labelledby="preparedness-tool-chains">
+    <div class="inner">
+      <p class="eyebrow">Preparedness paths</p>
+      <h2 id="preparedness-tool-chains">Use the Right Page at the Right Time</h2>
+      <p class="answer">Preparedness changes as a storm gets closer. These paths connect the decision matrix to the most useful HurricaneHub tool or guide for each stage.</p>
+      <div class="grid-2 section-grid">
+        {preparednessToolChains.map((chain) => (
+          <article class="panel">
+            <h3>{chain.title}</h3>
+            <p>{chain.body}</p>
+            <ul class="prep-links">
+              {chain.links.map((link) => (
+                <li><a href={link.href}>{link.label}</a></li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FaqBlock faqs={preparednessFaqs} />
 </Layout>
 
 <style>
