@@ -2083,6 +2083,213 @@ export const blogPosts: BlogPost[] = [
         "answer": "You can apply, but NFIP coverage will not start for 30 days, so it will not help for the approaching storm. Private policies may have shorter waits but vary—read the terms before relying on them."
       }
     ]
+  },
+  {
+    slug: "hurricane-generator-safety-carbon-monoxide",
+    title: "Hurricane Generator Safety: How to Avoid Carbon Monoxide Poisoning",
+    description: "Use portable generators safely during hurricane outages: outdoor placement, CO alarms, fuel handling, extension cords, and medical-device planning.",
+    datePublished: "2026-08-16",
+    dateModified: "2026-08-17",
+    image: "/images/blog/hurricane-power-outage-food-medicine-plan.png",
+    imageAlt: "A portable generator runs outdoors after a hurricane power outage while a home stays safely in the background.",
+    sections: [
+      {
+        heading: "Direct Answer",
+        body: "Run a portable generator only outdoors and away from doors, windows, vents, garages, crawl spaces, and attached structures. Carbon monoxide is invisible and can build up quickly, so pair generator use with working battery or battery-backup carbon monoxide alarms. Follow the generator manual, local fire guidance, and official emergency instructions before relying on a generator during a hurricane outage."
+      },
+      {
+        heading: "Why Generator Safety Matters After Hurricanes",
+        body: "Hurricane outages create pressure to restore refrigeration, charging, medical equipment, and lights quickly. That urgency is exactly when unsafe generator placement, overloaded cords, fuel spills, and improvised electrical connections become dangerous. Treat the generator as outdoor equipment that needs a planned location before the storm, not a last-minute fix during heavy rain or darkness."
+      },
+      {
+        heading: "Choose the Outdoor Generator Location Before the Storm",
+        body: "Pick a dry, stable outdoor location where exhaust is directed away from the home and nearby openings. Do not run the generator in a garage, carport, shed, enclosed porch, balcony, or any partly enclosed space. If homes are close together, consider where exhaust could drift toward neighbors as well as your own windows."
+      },
+      {
+        heading: "Carbon Monoxide Alarms Are a Required Layer",
+        body: "Install working carbon monoxide alarms according to the manufacturer's instructions and local code. Battery or battery-backup alarms are important during outages because plug-in alarms may lose power. If an alarm sounds or people feel sick while a generator is running nearby, move to fresh air and call emergency services."
+      },
+      {
+        heading: "Fuel Storage and Refueling",
+        body: "Store fuel only in approved containers and away from living areas, heat, sparks, and ignition sources. Shut the generator down and let it cool before refueling, because spilled fuel on hot parts can ignite. Keep fuel handling outdoors and away from children and pets."
+      },
+      {
+        heading: "Electrical Connections and Backfeeding",
+        body: "Do not connect a generator to a wall outlet to power a home circuit. Backfeeding can endanger utility workers and damage equipment. Use properly rated outdoor extension cords for individual loads, or ask a licensed electrician about an approved transfer switch before hurricane season."
+      },
+      {
+        heading: "Plan Critical Loads Before the Outage",
+        body: "A portable generator has limited capacity. Decide which appliances or devices matter most, check the manual, and avoid overloading the unit. For medical equipment, refrigerated medicine, oxygen, CPAP, or similar needs, ask the clinician, equipment provider, or pharmacist for a power continuity plan before a storm is close."
+      },
+      {
+        heading: "Use HurricaneHub Tools With Generator Planning",
+        body: "Generator safety is one part of a broader outage plan. Use the power outage planner for charging, food, medicine, and communication prompts. Pair it with the preparedness checklist and live hurricane tracker so the generator is not your only readiness step."
+      },
+      {
+        heading: "Official Source Check",
+        body: "Before operating a generator, check current instructions from Ready.gov, FEMA, your local fire department, the generator manual, and weather.gov alerts. This article is educational and does not replace product instructions, electrical code, medical advice, or emergency orders."
+      }
+    ],
+    faqs: [
+      {
+        question: "Can I run a generator in a garage if the door is open?",
+        answer: "No. A garage is not a safe generator location, even with the door open. Run portable generators outdoors and away from openings so exhaust cannot enter living spaces."
+      },
+      {
+        question: "Do I need carbon monoxide alarms if the generator is outside?",
+        answer: "Yes. Working carbon monoxide alarms add an important warning layer because exhaust can drift or enter through openings. Follow alarm installation instructions and replace batteries as directed."
+      },
+      {
+        question: "Can I plug a generator into a wall outlet?",
+        answer: "No. Backfeeding through a wall outlet can endanger utility workers and damage equipment. Use rated cords for individual loads or consult a licensed electrician about an approved transfer switch."
+      },
+      {
+        question: "Is a generator enough for medical equipment during a hurricane?",
+        answer: "Not by itself. Ask your clinician, equipment provider, or pharmacist about backup power, storage, and safe destinations before a storm threatens your area."
+      },
+      {
+        question: "Where should I check official generator safety guidance?",
+        answer: "Use Ready.gov, FEMA, local fire or emergency management guidance, and the generator manual. During an active storm, also follow weather.gov and local emergency instructions."
+      }
+    ]
+  },
+  {
+    slug: "hurricane-additional-living-expenses-ale-coverage",
+    title: "Hurricane Additional Living Expenses Coverage After Displacement",
+    description: "Learn how additional living expenses coverage may help after hurricane displacement, what receipts to keep, and why policy terms control the claim.",
+    datePublished: "2026-08-16",
+    dateModified: "2026-08-17",
+    image: "/images/blog/hurricane-insurance-claim-guide-documentation.png",
+    imageAlt: "A family reviews hurricane insurance documents and temporary lodging receipts after an evacuation.",
+    sections: [
+      {
+        heading: "Direct Answer",
+        body: "Additional Living Expenses coverage, often called ALE or loss-of-use, may help with reasonable extra costs when covered hurricane damage makes a home uninhabitable. It commonly relates to temporary lodging, extra meal costs, storage, pet boarding, or travel created by displacement, but the policy language, limits, cause of loss, and state rules control what is actually paid."
+      },
+      {
+        heading: "What Counts as an Extra Living Expense",
+        body: "The key word is extra. ALE is generally about the difference between normal living costs and the added costs caused by being unable to live at home. Keep receipts, dates, claim numbers, and notes explaining why each cost was necessary. Ask the insurer how it wants expenses submitted before sending a large pile of documents."
+      },
+      {
+        heading: "Limits, Time Caps, and Policy Terms",
+        body: "ALE is not unlimited. Some policies use a dollar limit, a percentage of dwelling coverage, a time limit, or a combination. Renters policies may include loss-of-use coverage with different caps. Read the declarations page and ask the insurer or agent for the exact limit before assuming a hotel, rental, or meal cost will be reimbursed."
+      },
+      {
+        heading: "Wind, Flood, and Habitability Questions",
+        body: "Hurricane claims often involve separate causes of loss, including wind, rain intrusion, storm surge, or flood. Standard homeowners policies often treat flood differently from wind, and a separate flood policy may be involved. Ask the insurer which policy applies and whether the home is considered uninhabitable under the policy terms."
+      },
+      {
+        heading: "Build a Claim-Ready Record",
+        body: "Save receipts digitally and on paper, photograph damage before cleanup when safe, keep all insurer messages, and write a simple date log of where you stayed and why. The cleaner the record, the easier it is for an adjuster to understand the displacement timeline."
+      },
+      {
+        heading: "Before the Storm: Confirm Coverage",
+        body: "Before hurricane season, ask your insurer or agent whether your policy includes ALE or loss-of-use coverage, what the limit is, whether flood-related displacement is handled differently, and what documentation is required. Store the answer with your hurricane documents."
+      },
+      {
+        heading: "During Displacement: Keep Spending Reasonable",
+        body: "Most policies use reasonableness language. Choose lodging and meals that match the household's needs rather than treating ALE as open-ended spending. If a long displacement is likely, ask the adjuster whether a temporary rental, hotel extension, or other option should be approved in writing."
+      },
+      {
+        heading: "Use HurricaneHub to Prepare Documents",
+        body: "Pair this guide with the hurricane documents and insurance checklist, evacuation-zone guide, preparedness checklist, and live hurricane tracker. Those pages help you pack policy documents before leaving and organize the evidence you may need after the storm."
+      },
+      {
+        heading: "Official Source Check",
+        body: "For coverage decisions, the policy and insurer are authoritative. For disaster assistance, use DisasterAssistance.gov, FEMA, your state insurance department, and local emergency management. This article is general information, not legal, financial, or insurance advice."
+      }
+    ],
+    faqs: [
+      {
+        question: "Does hurricane ALE cover hotel costs?",
+        answer: "It may, if a covered loss makes the home uninhabitable and the hotel cost is a reasonable extra expense. Confirm the limit, cause of loss, and documentation rules with the insurer."
+      },
+      {
+        question: "How long does additional living expenses coverage last?",
+        answer: "It depends on the policy. Many policies include a dollar limit, a time cap, or both. Ask your insurer or agent for the exact terms before relying on a specific duration."
+      },
+      {
+        question: "Does renters insurance include loss-of-use coverage?",
+        answer: "Many renters policies include some loss-of-use coverage, but limits vary. Review your declarations page or contact the insurer for your exact cap and covered situations."
+      },
+      {
+        question: "What receipts should I keep for ALE?",
+        answer: "Keep dated, itemized receipts for lodging, extra meals, pet boarding, storage, travel, and other displacement-related costs. Also keep notes explaining the connection to the claim."
+      },
+      {
+        question: "Is ALE the same as FEMA disaster assistance?",
+        answer: "No. ALE is insurance coverage controlled by your policy. FEMA disaster assistance is a separate public program that may be available after a declared disaster and has its own eligibility rules."
+      }
+    ]
+  },
+  {
+    slug: "how-to-use-hurricane-tracker-live-tools",
+    title: "How to Use a Live Hurricane Tracker for Your Location",
+    description: "Learn how to use a live hurricane tracker: set your location, read the cone, compare alerts, check surge context, and know when official orders matter most.",
+    datePublished: "2026-08-16",
+    dateModified: "2026-08-17",
+    image: "/images/blog/real-time-hurricane-tracking-2026.png",
+    imageAlt: "A person uses a live hurricane tracker map on a laptop while checking weather alerts on a phone.",
+    sections: [
+      {
+        heading: "Direct Answer",
+        body: "A live hurricane tracker helps you connect official storm data to your location: forecast cone, storm position, radar, satellite, watches, warnings, surge context, and local preparedness paths. It should never override the National Hurricane Center, weather.gov, or local emergency management orders. Use it to understand the situation earlier and act on official instructions faster."
+      },
+      {
+        heading: "Set Your Location First",
+        body: "Start with the place you actually need to protect: home, work, school, family, or a coastal property. A hurricane's center can be far from the hazard that matters to you, so location context helps connect the map to alerts, evacuation zones, city pages, and household planning tools."
+      },
+      {
+        heading: "Read the Cone as Uncertainty, Not a Safety Line",
+        body: "The forecast cone describes possible center-track error; it does not show every impact. Wind, rain, surge, and tornado risk can extend outside the cone. Use the cone to understand forecast uncertainty, then check separate alert, surge, radar, and rainfall information."
+      },
+      {
+        heading: "Compare Watches, Warnings, and Local Alerts",
+        body: "A tracker is most useful when it surfaces official watches and warnings near your area. Read the alert name and the issuing office, then open the full weather.gov alert text for details. A warning or evacuation order should move you from watching the map to following the plan."
+      },
+      {
+        heading: "Check Surge, Flooding, Wind, and Tornado Context",
+        body: "Do not focus only on the storm center. Surge, rainfall flooding, tropical-storm-force winds, and tornado warnings can drive very different decisions. Use the live tracker with radar, city tracker pages, and the alert action decoder to understand which hazard is most relevant."
+      },
+      {
+        heading: "Build a Tracking Routine",
+        body: "In calm weather, learn the interface and save key pages. When a storm forms, check official advisories and tracker context at a steady rhythm. When a watch or warning appears, increase attention and finish planning steps before power, roads, or data service become unreliable."
+      },
+      {
+        heading: "Share One Source of Truth With Your Household",
+        body: "A tracker reduces confusion only if everyone is looking at the same information. Share the live tracker, city tracker, and family communication plan with household members so decisions are based on current official context rather than scattered screenshots or rumors."
+      },
+      {
+        heading: "Use HurricaneHub Tools After the Map",
+        body: "After checking the live tracker, move to the preparedness checklist, local risk plan, storm distance calculator, city trackers, and alert action decoder. That path turns map-reading into concrete planning without pretending the map itself is an evacuation order."
+      },
+      {
+        heading: "Official Source Check",
+        body: "Use the National Hurricane Center for tropical cyclone advisories, weather.gov for local watches and warnings, and local emergency management for evacuation instructions. HurricaneHub summarizes and links context, but official sources control life-safety decisions."
+      }
+    ],
+    faqs: [
+      {
+        question: "Is a live hurricane tracker more important than official alerts?",
+        answer: "No. A tracker helps you interpret official data for your location, but NHC advisories, weather.gov warnings, and local evacuation orders are the authoritative sources."
+      },
+      {
+        question: "What does the hurricane cone not show?",
+        answer: "The cone does not show the full wind field, storm surge, rainfall flooding, tornado risk, or every local impact. Those hazards require separate alerts and map layers."
+      },
+      {
+        question: "How often should I check a hurricane tracker?",
+        answer: "Check more often as risk increases. During an active threat, follow official advisory schedules and local alerts rather than relying on a single old map view."
+      },
+      {
+        question: "Can I use HurricaneHub on a phone?",
+        answer: "Yes. The site is designed for mobile use, but you should also plan for power and data outages with chargers, radios, and official local alert sources."
+      },
+      {
+        question: "What should I do after checking the live tracker?",
+        answer: "Open the relevant city tracker, alerts page, preparedness checklist, or decision tool so the storm context turns into a household action plan."
+      }
+    ]
   }
 ];
 
@@ -2120,7 +2327,10 @@ export const BLOG_CATEGORIES: Record<string, string> = {
   "hurricane-insurance-claim-guide-documentation": "Insurance & Recovery",
   "hurricane-home-hardening-checklist": "Preparedness",
   "hurricane-medical-needs-registry-preparedness": "Safety & Warnings",
-  "hurricane-flood-insurance-guide-nfip": "Insurance & Recovery"
+  "hurricane-flood-insurance-guide-nfip": "Insurance & Recovery",
+  "hurricane-generator-safety-carbon-monoxide": "Preparedness",
+  "hurricane-additional-living-expenses-ale-coverage": "Insurance & Recovery",
+  "how-to-use-hurricane-tracker-live-tools": "Tracking & Forecasting"
 };
 
 export const BLOG_CATEGORY_LIST = [
