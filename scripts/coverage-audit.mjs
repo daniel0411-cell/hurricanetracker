@@ -119,6 +119,7 @@ const expectedRssRoutes = unique([
   "/radar/",
   "/alerts/",
   "/learn/",
+  "/topics/",
   ...topicPages.map((page) => `/hurricane-tracker/${page.slug}/`),
   ...hurricaneCities.map((city) => `/hurricane-tracker/city/${city.slug}/`),
   ...stormTrackerPages.map((storm) => `/hurricane-tracker/storm/${storm.slug}/`),

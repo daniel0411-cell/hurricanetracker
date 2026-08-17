@@ -25,6 +25,7 @@ const pageRoutes: SitemapRoute[] = [
   { path: "radar/", lastmod: updated, priority: "0.8", changefreq: "daily", section: "pages" },
   { path: "alerts/", lastmod: updated, priority: "0.8", changefreq: "daily", section: "pages" },
   { path: "learn/", lastmod: updated, priority: "0.8", changefreq: "weekly", section: "pages" },
+  { path: "topics/", lastmod: updated, priority: "0.8", changefreq: "weekly", section: "pages" },
   { path: "preparedness/", lastmod: updated, priority: "0.8", changefreq: "weekly", section: "pages" },
   { path: "compare/", lastmod: updated, priority: "0.7", changefreq: "weekly", section: "pages" },
   { path: "newsletter/", lastmod: updated, priority: "0.5", changefreq: "monthly", section: "pages" },

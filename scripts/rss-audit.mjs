@@ -48,6 +48,7 @@ const expectedLinks = [
   `${site.url}/radar/`,
   `${site.url}/alerts/`,
   `${site.url}/learn/`,
+  `${site.url}/topics/`,
   ...topicPages.map((page) => `${site.url}/hurricane-tracker/${page.slug}/`),
   ...hurricaneCities.map((city) => `${site.url}/hurricane-tracker/city/${city.slug}/`),
   ...stormTrackerPages.map((storm) => `${site.url}/hurricane-tracker/storm/${storm.slug}/`),

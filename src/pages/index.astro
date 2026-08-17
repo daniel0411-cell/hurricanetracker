@@ -7,7 +7,9 @@ import Layout from "../layouts/Layout.astro";
 import { differentiators, faqs, site, stats } from "../data/site";
 import { coastalStates } from "../data/states";
 import { blogPosts } from "../data/blog";
+import { contentClusters } from "../data/contentClusters";
 import { hurricaneCities } from "../data/cities";
+import { topicPages } from "../data/topicPages";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
 import type { NhcStorm, NwsAlert } from "../lib/weather";
 
@@ -87,6 +89,16 @@ const featuredCitySlugs = [
 const featuredCities = featuredCitySlugs
   .map((slug) => hurricaneCities.find((city) => city.slug === slug))
   .filter((city): city is NonNullable<typeof city> => Boolean(city));
+const trackerTopicHubs = topicPages.map((page) => ({
+  title: page.title,
+  href: `/hurricane-tracker/${page.slug}/`,
+  description: page.description
+}));
+const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
+  title: cluster.title,
+  href: `/topics/#${cluster.id}`,
+  description: cluster.description
+}));
 ---
 
 <Layout title={title} description={description} canonical={site.url} jsonLd={jsonLd} lastModified={lastModified} showTopAd={true}>
@@ -167,6 +179,38 @@ const featuredCities = featuredCitySlugs
           <p>Use city pages for local planning notes, nearby counties, state alert links, and decision tools.</p>
           <a href="/hurricane-tracker/city/">Browse city trackers</a>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="topic-hubs-heading">
+    <div class="inner">
+      <p class="eyebrow">Popular search topics</p>
+      <h2 id="topic-hubs-heading">Browse by Hurricane Topic</h2>
+      <p class="answer">Use these topic paths when you are searching for a map, path, evacuation-zone, surge, alert, or preparedness question instead of a specific city.</p>
+      <p class="section-actions"><a class="action-link secondary-action" href="/topics/">Open all hurricane topics</a></p>
+      <div class="grid-2 section-grid">
+        {trackerTopicHubs.map((hub) => (
+          <article class="state-card">
+            <h3><a href={hub.href}>{hub.title}</a></h3>
+            <p>{hub.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="clusters-heading">
+    <div class="inner">
+      <p class="eyebrow">Topic groups</p>
+      <h2 id="clusters-heading">Follow the Right Hurricane Topic Path</h2>
+      <div class="grid-2 section-grid">
+        {homeClusters.map((cluster) => (
+          <article class="state-card">
+            <h3><a href={cluster.href}>{cluster.title}</a></h3>
+            <p>{cluster.description}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>

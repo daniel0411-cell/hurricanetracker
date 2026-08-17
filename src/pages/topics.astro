@@ -1,0 +1,85 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { contentClusters } from "../data/contentClusters";
+import { site } from "../data/site";
+import { articleSchema, breadcrumbSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
+
+const title = "Hurricane Topics and Content Paths";
+const description =
+  "Browse HurricaneHub content clusters for hurricane tracking, local evacuation risk, preparedness, alerts, storm surge, insurance, and recovery.";
+const url = `${site.url}/topics/`;
+const lastModified = site.contentLastModified;
+const allLinks = contentClusters.flatMap((cluster) => cluster.links);
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  itemListSchema(contentClusters.map((cluster) => ({
+    name: cluster.title,
+    description: cluster.description,
+    url: `${site.url}/topics/#${cluster.id}`
+  }))),
+  itemListSchema(allLinks.map((link) => ({
+    name: link.title,
+    description: link.description,
+    url: new URL(link.href, site.url).href
+  }))),
+  breadcrumbSchema([
+    { name: "Home", url: site.canonicalUrl },
+    { name: "Hurricane Topics", url }
+  ])
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="topics-title">
+    <div class="inner">
+      <p class="eyebrow">Topic clusters</p>
+      <h1 id="topics-title">Hurricane Topics</h1>
+      <p class="answer">Use this hub to move between HurricaneHub's major topic paths: live tracking, local evacuation risk, preparedness, official alert language, and recovery planning.</p>
+      <div class="quick-links" aria-label="Hurricane topic clusters">
+        {contentClusters.map((cluster) => <a href={`#${cluster.id}`}>{cluster.title}</a>)}
+      </div>
+    </div>
+  </section>
+
+  {contentClusters.map((cluster) => (
+    <section class="band" id={cluster.id} aria-labelledby={`${cluster.id}-heading`}>
+      <div class="inner">
+        <div class="section-heading">
+          <p class="eyebrow">{cluster.intent}</p>
+          <h2 id={`${cluster.id}-heading`}>{cluster.title}</h2>
+          <p class="answer">{cluster.description}</p>
+          <p class="section-actions"><a class="action-link" href={cluster.primaryHref}>Start this cluster</a></p>
+        </div>
+        <div class="link-list">
+          {cluster.links.map((link) => (
+            <article class="link-row">
+              <h3><a href={link.href}>{link.title}</a></h3>
+              <p>{link.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="band" aria-labelledby="topics-next">
+    <div class="inner grid-2">
+      <article class="panel">
+        <p class="eyebrow">Live workflow</p>
+        <h2 id="topics-next">During an Active Storm</h2>
+        <p>Use topic clusters for orientation, then move back to live NHC advisories, NWS alerts, city trackers, and official local emergency management before acting.</p>
+        <ul class="check-list">
+          <li><a href="/hurricane-tracker/live/">Live hurricane tracker map</a></li>
+          <li><a href="/alerts/">Active NWS alerts</a></li>
+          <li><a href="/hurricane-tracker/city/">City hurricane trackers</a></li>
+        </ul>
+      </article>
+      <article class="panel">
+        <p class="eyebrow">Site discovery</p>
+        <h2>Find Every Indexable Page</h2>
+        <p>The site map lists every core page, topic hub, tool, state tracker, city tracker, storm page, category hub, and blog article.</p>
+        <p><a class="action-link secondary-action" href="/site-map/">Open site map</a></p>
+      </article>
+    </div>
+  </section>
+</Layout>

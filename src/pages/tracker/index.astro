@@ -5,6 +5,7 @@ import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
 import { hurricaneCities } from "../../data/cities";
 import { coastalStates } from "../../data/states";
+import { topicPages } from "../../data/topicPages";
 import { articleSchema, faqSchema, governmentServiceSchema, graph, websiteSchema } from "../../lib/schema";
 import type { NhcStorm, NwsAlert } from "../../lib/weather";
 
@@ -51,6 +52,12 @@ const alerts = alertFeed?.alerts ?? [];
 const decisionLevel = alertFeed?.decisionLevel ?? (storms.length ? "Prepare" : "Monitor");
 const lastModified = stormFeed?.updatedAt ?? alertFeed?.updatedAt ?? site.contentLastModified;
 const featuredCities = hurricaneCities.slice(0, 12);
+const trackerTopicHubs = topicPages.map((page) => ({
+  title: page.title,
+  href: `/hurricane-tracker/${page.slug}/`,
+  description: page.description,
+  intent: page.intent
+}));
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
@@ -117,6 +124,23 @@ const jsonLd = graph(
             <h3>{state.name}</h3>
             <p>{state.region}. Watch for {state.risks.slice(0, 2).join(" and ")}.</p>
             <a href={`/tracker/${state.slug}/`}>View {state.name} tracker</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="tracker-topic-heading">
+    <div class="inner">
+      <p class="eyebrow">Popular tracker intents</p>
+      <h2 id="tracker-topic-heading">Hurricane Tracker Topic Hubs</h2>
+      <p class="answer">Open these pages when your question is about maps, path tracking, evacuation zones, or storm surge instead of one state.</p>
+      <div class="grid-2 section-grid">
+        {trackerTopicHubs.map((hub) => (
+          <article class="panel">
+            <p class="eyebrow">{hub.intent}</p>
+            <h3><a href={hub.href}>{hub.title}</a></h3>
+            <p>{hub.description}</p>
           </article>
         ))}
       </div>

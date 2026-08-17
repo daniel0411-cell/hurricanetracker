@@ -109,6 +109,7 @@ const expectedPaths = unique([
   "/radar/",
   "/alerts/",
   "/learn/",
+  "/topics/",
   "/preparedness/",
   "/tools/",
   "/tools/my-hurricane-dashboard/",

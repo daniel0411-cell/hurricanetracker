@@ -60,6 +60,12 @@ export const GET: APIRoute = () => {
       url: `${site.url}/learn/`,
       description: "Plain-language hurricane lessons about tracker maps, cones, spaghetti models, storm surge, radar, satellite, and categories.",
       date: site.contentLastModified
+    },
+    {
+      title: "Hurricane Topics",
+      url: `${site.url}/topics/`,
+      description: "Content clusters for hurricane tracking, local evacuation risk, preparedness, alerts, storm surge, insurance, and recovery.",
+      date: site.contentLastModified
     }
   ];
 
