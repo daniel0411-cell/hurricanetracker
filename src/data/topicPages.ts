@@ -507,6 +507,170 @@ export const topicPages: TopicPage[] = [
           "Satellite can show storm organization over water and broad cloud structure before local radar has the storm fully in range."
       }
     ]
+  },
+  {
+    slug: "live-tracker",
+    title: "Live Hurricane Tracker",
+    shortTitle: "Live Tracker",
+    description:
+      "Open a live hurricane tracker workflow for current storms, NHC advisories, radar, alerts, city pages, and practical local decision tools.",
+    eyebrow: "Live tracker hub",
+    intro:
+      "Use the live hurricane tracker when you want current storm status and the next useful action. The goal is not only watching the map; it is moving from official storm context to local risk and household planning.",
+    primaryAction: { label: "Open live tracker map", href: "/hurricane-tracker/live/" },
+    secondaryAction: { label: "Check local risk", href: "/local-hurricane-risk/" },
+    intent: "live hurricane tracker, hurricane tracker live, current hurricane tracker",
+    steps: [
+      {
+        title: "Check Current NHC Systems",
+        body: "Start with active storms and official advisory links so the rest of your planning is anchored to current information.",
+        href: "/hurricane-tracker/live/",
+        label: "Open live map"
+      },
+      {
+        title: "Move to Your State or City",
+        body: "Use state and city pages to compare storm context with local alerts, surge exposure, evacuation routes, bridges, and outage planning.",
+        href: "/hurricane-tracker/city/",
+        label: "Browse cities"
+      },
+      {
+        title: "Use the Right Decision Tool",
+        body: "Once you know the storm and location context, use an action plan, evacuation helper, outage planner, or brief generator.",
+        href: "/tools/",
+        label: "Open tools"
+      }
+    ],
+    sections: [
+      {
+        eyebrow: "Search intent",
+        title: "Live Tracking Should Lead to Local Context",
+        body:
+          "People search live tracker when they need current storm information. The highest-value next step is usually a local page, alert feed, or planning tool for the place that matters.",
+        bullets: [
+          "Current NHC storm status",
+          "Radar and satellite shortcuts",
+          "State and city tracker links",
+          "Household action tools"
+        ]
+      },
+      {
+        eyebrow: "Decision flow",
+        title: "Do Not Stop at the Map",
+        body:
+          "A map can confirm that a storm exists and where it may go. Watches, warnings, evacuation orders, surge zones, and household needs turn that information into a plan.",
+        bullets: [
+          "Check NWS alerts near your location",
+          "Confirm official local evacuation information",
+          "Prepare before roads or power become unreliable",
+          "Keep checking official updates as advisories change"
+        ]
+      }
+    ],
+    nextLinks: [
+      { name: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Active storm checks, NHC links, radar shortcuts, alerts, city pages, and decision tools." },
+      { name: "Local Hurricane Risk", href: "/local-hurricane-risk/", description: "ZIP, city, state, storm surge, evacuation-zone, and household planning paths." },
+      { name: "Hurricane Tracker Map", href: "/hurricane-tracker/map/", description: "Map-focused hub for storm position, radar, satellite, and local tracker paths." },
+      { name: "My Hurricane Dashboard", href: "/tools/my-hurricane-dashboard/", description: "Build a saved-location dashboard for storm season." }
+    ],
+    faqs: [
+      {
+        question: "What should a live hurricane tracker show first?",
+        answer:
+          "It should show current official storm context, then make it easy to open radar, alerts, state pages, city pages, and household planning tools."
+      },
+      {
+        question: "Is a live hurricane tracker enough for evacuation decisions?",
+        answer:
+          "No. Evacuation decisions need local official orders, evacuation zones, housing type, surge and flood risk, transport, pets, and medical needs."
+      },
+      {
+        question: "How often should I check a live tracker during a threat?",
+        answer:
+          "Check official updates regularly during an active threat, especially around NHC advisory cycles and when local watches or warnings change."
+      }
+    ]
+  },
+  {
+    slug: "preparedness-checklist",
+    title: "Hurricane Preparedness Checklist",
+    shortTitle: "Preparedness Checklist",
+    description:
+      "Build a hurricane preparedness checklist for supplies, documents, pets, medical needs, power outages, family communication, and evacuation timing.",
+    eyebrow: "Preparedness search hub",
+    intro:
+      "A useful hurricane preparedness checklist is more than bottled water. It should connect supplies, documents, medicine, pets, power, transport, alerts, and evacuation timing into a plan your household can actually follow.",
+    primaryAction: { label: "Generate checklist", href: "/tools/preparedness-checklist/" },
+    secondaryAction: { label: "Open preparedness guide", href: "/preparedness/" },
+    intent: "hurricane preparedness checklist, hurricane supply list, hurricane emergency kit",
+    steps: [
+      {
+        title: "Build the Household Kit",
+        body: "Start with water, food, medications, documents, flashlights, batteries, chargers, hygiene supplies, pet supplies, and special household needs.",
+        href: "/tools/preparedness-checklist/",
+        label: "Generate list"
+      },
+      {
+        title: "Add People, Pets, and Medicine",
+        body: "A checklist should change for children, older adults, pets, refrigerated medicine, mobility needs, and transportation limits.",
+        href: "/tools/family-communication-plan/",
+        label: "Build family plan"
+      },
+      {
+        title: "Tie Supplies to Timing",
+        body: "Use 72/48/24-hour planning so shopping, fueling, charging, document packing, and evacuation decisions happen before conditions worsen.",
+        href: "/blog/hurricane-preparation-timeline-72-48-24-hours/",
+        label: "Read timeline"
+      }
+    ],
+    sections: [
+      {
+        eyebrow: "Checklist scope",
+        title: "The Best Checklist Matches Your Household",
+        body:
+          "Generic lists miss important details. A coastal apartment, inland house, mobile home, pet household, and medically dependent household all need different planning emphasis.",
+        bullets: [
+          "People and pet count",
+          "Medication and medical device needs",
+          "Evacuation route and destination",
+          "Power, cooling, and communication backup"
+        ]
+      },
+      {
+        eyebrow: "Timing",
+        title: "Preparedness Gets Harder After Warnings Peak",
+        body:
+          "Fuel, groceries, medications, shelters, bridges, and routes can become constrained as a storm approaches. The checklist should help you finish early instead of racing the weather.",
+        bullets: [
+          "Shop and fuel before rush periods",
+          "Pack documents and medicine together",
+          "Charge devices and backup batteries",
+          "Follow local officials on shelters and evacuation orders"
+        ]
+      }
+    ],
+    nextLinks: [
+      { name: "Preparedness Checklist Generator", href: "/tools/preparedness-checklist/", description: "Create a kit list for household size, pets, and planning needs." },
+      { name: "Hurricane Preparation Timeline", href: "/blog/hurricane-preparation-timeline-72-48-24-hours/", description: "Plan what to do 72, 48, and 24 hours before expected impacts." },
+      { name: "Power Outage Planner", href: "/tools/power-outage-planner/", description: "Plan charging, medicine, food safety, generator placement, and communication." },
+      { name: "Family Communication Plan", href: "/tools/family-communication-plan/", description: "Build a contact, destination, pet, and medical-needs communication plan." }
+    ],
+    faqs: [
+      {
+        question: "What should be on a hurricane preparedness checklist?",
+        answer:
+          "Include water, food, medicine, documents, chargers, lighting, hygiene, pet supplies, cash, fuel planning, evacuation information, and communication contacts."
+      },
+      {
+        question: "When should I finish hurricane supplies?",
+        answer:
+          "Finish core supplies before watches and warnings create heavy demand. Use official local guidance and your household needs to decide timing."
+      },
+      {
+        question: "Should every household use the same checklist?",
+        answer:
+          "No. Adjust the checklist for household size, pets, medical needs, mobility, housing type, evacuation zone, outage risk, and local hazards."
+      }
+    ]
   }
 ];
 

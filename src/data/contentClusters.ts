@@ -71,6 +71,7 @@ export const contentClusters: ContentCluster[] = [
       "Use this cluster when the searcher wants to understand where a storm is, where it may go, and how to compare official forecast products with radar and satellite.",
     primaryHref: "/hurricane-tracker/live/",
     links: compact([
+      topicLink("live-tracker"),
       topicLink("map"),
       topicLink("path"),
       topicLink("spaghetti-models"),
@@ -113,6 +114,7 @@ export const contentClusters: ContentCluster[] = [
       "Use this cluster before a storm threatens or when a watch gives the household time to finish supplies, documents, communication, and outage planning.",
     primaryHref: "/preparedness/",
     links: compact([
+      topicLink("preparedness-checklist"),
       { title: "Hurricane Preparedness Decision Matrix", href: "/preparedness/", description: "Monitor, Prepare, Act, and Leave levels tied to household actions." },
       { title: "Preparedness Checklist Generator", href: "/tools/preparedness-checklist/", description: "Generate a household hurricane kit checklist." },
       { title: "Family Communication Plan", href: "/tools/family-communication-plan/", description: "Build a contact, destination, pet, and medical-needs plan." },
