@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { faqs, site } from "../../data/site";
-import { articleSchema, breadcrumbSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
+import { articleSchema, breadcrumbSchema, faqSchema, graph, itemListSchema, webApplicationSchema, websiteSchema } from "../../lib/schema";
 
 const pageFaqs = [
   {
@@ -14,6 +14,38 @@ const pageFaqs = [
 const title = "Hurricane Preparedness Checklist Generator";
 const description = "Generate a hurricane preparedness checklist for 1-4 people, with optional pet supplies, emergency documents, food, water, medicine, and decision-focused planning items.";
 const canonical = `${site.url}/tools/preparedness-checklist/`;
+const relatedPaths = [
+  {
+    name: "Hurricane Emergency Kit Checklist",
+    description: "Use the full guide when you want more context behind the generated kit list.",
+    url: `${site.url}/blog/hurricane-emergency-kit-checklist/`
+  },
+  {
+    name: "Hurricane Preparation Timeline",
+    description: "Connect checklist work to the 72, 48, and 24 hour preparedness windows.",
+    url: `${site.url}/blog/hurricane-preparation-timeline-72-48-24-hours/`
+  },
+  {
+    name: "Local Hurricane Risk and 72-Hour Action Plan",
+    description: "Pair the kit with local alerts, location context, and a household action plan.",
+    url: `${site.url}/tools/local-risk-plan/`
+  },
+  {
+    name: "Hurricane Power Outage Planner",
+    description: "Add outage planning for communication, charging, food safety, and household continuity.",
+    url: `${site.url}/tools/power-outage-planner/`
+  },
+  {
+    name: "Family Communication Plan",
+    description: "Turn checklist items into contacts, destinations, and household coordination notes.",
+    url: `${site.url}/tools/family-communication-plan/`
+  },
+  {
+    name: "City Hurricane Trackers",
+    description: "Move from a general checklist to city-level hurricane context and official resource links.",
+    url: `${site.url}/hurricane-tracker/city/`
+  }
+];
 
 function escapeHtml(value: unknown) {
   const replacements: Record<string, string> = {
@@ -43,8 +75,9 @@ function renderPage(lastModified: string) {
       name: title,
       description,
       url: canonical,
-      featureList: ["Household-size emergency kit calculation", "Pet supply option", "Markdown checklist output"]
+      featureList: ["Household-size emergency kit calculation", "Pet supply option", "Preparedness content cluster links", "Markdown checklist output"]
     }),
+    itemListSchema(relatedPaths),
     breadcrumbSchema([
       { name: site.name, url: site.canonicalUrl },
       { name: "Tools", url: `${site.url}/tools/` },
@@ -175,6 +208,7 @@ function renderPage(lastModified: string) {
       p, li { line-height: 1.65; }
       .answer { max-width: 760px; margin: 20px 0 0; font-size: clamp(1.05rem, 2vw, 1.25rem); }
       .grid-2 { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr); gap: 18px; align-items: start; }
+      .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
       .panel, .checklist-card, .faq-item {
         background: var(--panel);
         border: 1px solid var(--line);
@@ -201,6 +235,20 @@ function renderPage(lastModified: string) {
         cursor: pointer;
       }
       .checklist-card ul { margin: 14px 0 0; padding-left: 22px; }
+      .link-list {
+        list-style: none;
+        margin: 20px 0 0;
+        padding: 0;
+        display: grid;
+        gap: 12px;
+      }
+      .link-list li {
+        border-top: 1px solid var(--line);
+        padding-top: 12px;
+      }
+      .link-list a { font-weight: 800; }
+      .link-list p { margin: 4px 0 0; color: var(--muted); }
+      .source-note { color: var(--muted); font-size: 0.95rem; }
       .badge {
         display: inline-flex;
         align-items: center;
@@ -226,7 +274,7 @@ function renderPage(lastModified: string) {
       footer p { margin: 0; max-width: 820px; }
       .footer-links { display: flex; gap: 12px; align-items: center; }
       @media (max-width: 860px) {
-        .site-header, .grid-2 { display: grid; grid-template-columns: 1fr; }
+        .site-header, .grid-2, .grid-3 { display: grid; grid-template-columns: 1fr; }
         nav { justify-content: flex-start; }
       }
     </style>
@@ -254,6 +302,7 @@ function renderPage(lastModified: string) {
           <p class="eyebrow">Emergency decision tool</p>
           <h1 id="checklist-title">Hurricane Preparedness Checklist Generator</h1>
           <p class="answer">Generate a hurricane emergency kit checklist for your household size, including water, food, medicine, documents, power, hygiene, and pet supplies when needed.</p>
+          <p class="answer">Use the generator as a starting point, then move into local alerts, city trackers, the preparation timeline, and household planning tools before relying on any checklist for a real storm decision.</p>
         </div>
       </section>
 
@@ -282,6 +331,7 @@ function renderPage(lastModified: string) {
             </form>
             <p><span class="badge">Decision note</span></p>
             <p>Use this tool before watches become warnings. If your county issues an evacuation order, take the kit and leave before route options shrink.</p>
+            <p class="source-note">For current storm conditions, pair this checklist with the <a href="/hurricane-tracker/live/">live hurricane tracker</a>, <a href="/alerts/">active NWS alerts</a>, and official guidance from weather.gov.</p>
           </article>
 
           <article class="checklist-card" aria-labelledby="output-heading">
@@ -289,6 +339,47 @@ function renderPage(lastModified: string) {
             <div id="checklist-output" class="stack" aria-live="polite"></div>
             <h3>Markdown Version</h3>
             <textarea id="markdown-output" readonly></textarea>
+          </article>
+        </div>
+      </section>
+
+      <section class="band" aria-labelledby="cluster-heading">
+        <div class="inner">
+          <p class="eyebrow">Preparedness content cluster</p>
+          <h2 id="cluster-heading">Use This Checklist With Related Preparedness Pages</h2>
+          <p class="answer">The generator answers the kit-list question. These related pages answer timing, local risk, outage, communication, and city-context questions so the page is part of a stronger preparedness path.</p>
+          <div class="grid-3">
+            ${relatedPaths.map((path) => `
+              <article class="panel">
+                <h3><a href="${new URL(path.url).pathname}">${escapeHtml(path.name)}</a></h3>
+                <p>${escapeHtml(path.description)}</p>
+              </article>
+            `).join("")}
+          </div>
+        </div>
+      </section>
+
+      <section class="band" aria-labelledby="official-context-heading">
+        <div class="inner grid-2">
+          <article class="panel">
+            <p class="eyebrow">Official context</p>
+            <h2 id="official-context-heading">Checklist First, Official Instructions Always</h2>
+            <p>This tool organizes preparedness work, but it does not replace official alerts, evacuation orders, medical advice, product manuals, insurance documents, or local emergency management instructions.</p>
+            <ul class="link-list">
+              <li><a href="https://www.weather.gov/">National Weather Service alerts</a><p>Use weather.gov for official watches, warnings, and local forecast office updates.</p></li>
+              <li><a href="https://www.nhc.noaa.gov/">National Hurricane Center advisories</a><p>Use NHC products for official tropical cyclone advisories and forecast context.</p></li>
+              <li><a href="https://www.ready.gov/hurricanes">Ready.gov hurricane guidance</a><p>Use federal preparedness guidance as a source for household readiness basics.</p></li>
+            </ul>
+          </article>
+          <article class="panel">
+            <p class="eyebrow">Next local step</p>
+            <h2>Move From Checklist to Local Risk</h2>
+            <p>After generating a kit list, use local pages to understand whether your location needs evacuation-zone checks, flood awareness, outage planning, or alert interpretation.</p>
+            <ul class="link-list">
+              <li><a href="/hurricane-tracker/city/">Browse city hurricane trackers</a></li>
+              <li><a href="/tools/local-risk-plan/">Build a local 72-hour action plan</a></li>
+              <li><a href="/tools/alert-action-decoder/">Decode watch and warning language</a></li>
+            </ul>
           </article>
         </div>
       </section>

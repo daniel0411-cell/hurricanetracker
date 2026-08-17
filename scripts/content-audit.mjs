@@ -153,6 +153,11 @@ const htmlChecks = [
     minTextLength: 2600,
     requiredSnippets: ["How to Compare Katrina, Ian, and Sandy With an Active Storm", "Use Historical Storms as Context", "Open live hurricane tracker"]
   },
+  {
+    file: "tools/preparedness-checklist/index.html",
+    minTextLength: 3600,
+    requiredSnippets: ["Use This Checklist With Related Preparedness Pages", "Preparedness content cluster", "Checklist First, Official Instructions Always"]
+  },
   ...BLOG_CATEGORY_PAGES.map((category) => ({
     file: `blog/category/${category.slug}/index.html`,
     minTextLength: 1800,
