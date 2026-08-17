@@ -37,15 +37,42 @@ const faqs = [
       "Start with the nearest city page, then also check your state tracker and official county or local emergency management resources for address-specific instructions."
   }
 ];
+const cityUseCases = [
+  {
+    title: "Coastal and barrier-island planning",
+    body: "Use city pages to identify local surge exposure, bridges, causeways, barrier-island access, and when route decisions may need to happen before peak wind.",
+    href: "/hurricane-tracker/storm-surge-map/",
+    label: "Review storm surge map guide"
+  },
+  {
+    title: "Inland flooding and outage planning",
+    body: "Some inland cities have low storm surge exposure but serious rain, tree, tornado, transportation, and multi-day power outage concerns.",
+    href: "/tools/power-outage-planner/",
+    label: "Open power outage planner"
+  },
+  {
+    title: "Nearby county and state context",
+    body: "A city page is a planning shortcut, but watches, warnings, shelters, road closures, and evacuation orders still depend on official county and state instructions.",
+    href: "/alerts/",
+    label: "Check active NWS alerts"
+  }
+];
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
   faqSchema(faqs),
-  itemListSchema(hurricaneCities.map((city) => ({
-    name: `${city.name} Hurricane Tracker`,
-    description: city.planningNote,
-    url: `${site.url}/hurricane-tracker/city/${city.slug}/`
-  })))
+  itemListSchema([
+    ...hurricaneCities.map((city) => ({
+      name: `${city.name} Hurricane Tracker`,
+      description: city.planningNote,
+      url: `${site.url}/hurricane-tracker/city/${city.slug}/`
+    })),
+    ...cityUseCases.map((item) => ({
+      name: item.title,
+      description: item.body,
+      url: `${site.url}${item.href}`
+    }))
+  ])
 );
 const citiesByState = coastalStates
   .map((state) => ({
@@ -60,6 +87,23 @@ const citiesByState = coastalStates
       <p class="eyebrow">Local hurricane planning</p>
       <h1 id="city-index-title">City Hurricane Trackers</h1>
       <p class="answer">Browse city-level hurricane tracker pages for local storm surge, flooding, evacuation-route, bridge, outage, NWS alert, and NHC storm context.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="city-use-cases">
+    <div class="inner">
+      <p class="eyebrow">How to use city trackers</p>
+      <h2 id="city-use-cases">Match the City Page to the Local Risk</h2>
+      <p class="answer">A city hurricane tracker is most useful after you know which local hazard matters: coastal water, inland flooding, route timing, outage planning, or official alert wording.</p>
+      <div class="grid-3 section-grid">
+        {cityUseCases.map((item) => (
+          <article class="panel">
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+            <p><a class="action-link secondary-action" href={item.href}>{item.label}</a></p>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 

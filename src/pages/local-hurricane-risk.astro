@@ -75,6 +75,40 @@ const localChecks = [
     ]
   }
 ];
+const scenarioPaths = [
+  {
+    title: "A named storm is active in the Atlantic or Gulf",
+    body: "Start with the live tracker for NHC context, then open your state and city page to separate the cone from local wind, surge, rain, and tornado hazards.",
+    links: [
+      { label: "Live hurricane tracker", href: "/hurricane-tracker/live/" },
+      { label: "State trackers", href: "/tracker/" }
+    ]
+  },
+  {
+    title: "Your phone shows a watch or warning",
+    body: "Read the alert language first, then use the alert decoder to translate the warning into household actions before checking evacuation-zone instructions.",
+    links: [
+      { label: "Alert action decoder", href: "/tools/alert-action-decoder/" },
+      { label: "Evacuation zones guide", href: "/hurricane-tracker/evacuation-zones/" }
+    ]
+  },
+  {
+    title: "You are worried about flooding or storm surge",
+    body: "Do not rely on hurricane category alone. Compare storm surge, rainfall flooding, local elevation, bays, rivers, and official evacuation zones.",
+    links: [
+      { label: "Storm surge checker", href: "/tools/storm-surge-checker/" },
+      { label: "Storm surge map guide", href: "/hurricane-tracker/storm-surge-map/" }
+    ]
+  },
+  {
+    title: "You need a practical household plan",
+    body: "Turn local risk into a short plan for supplies, documents, pets, medical needs, power outages, communication, and when to leave.",
+    links: [
+      { label: "Preparedness checklist", href: "/hurricane-tracker/preparedness-checklist/" },
+      { label: "Evacuation decision helper", href: "/tools/evacuation-decision-helper/" }
+    ]
+  }
+];
 const pageFaqs = [
   {
     question: "Can I check exact hurricane risk from a ZIP code?",
@@ -113,6 +147,11 @@ const jsonLd = graph(
       description: step.body,
       url: `${site.url}${step.href}`
     })),
+    ...scenarioPaths.flatMap((scenario) => scenario.links.map((link) => ({
+      name: link.label,
+      description: scenario.body,
+      url: `${site.url}${link.href}`
+    }))),
     ...featuredCities.map((city) => ({
       name: `${city.name} Hurricane Tracker`,
       description: city.planningNote,
@@ -169,6 +208,25 @@ const jsonLd = graph(
             <p>{check.body}</p>
             <ul class="check-list">
               {check.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="scenario-paths">
+    <div class="inner">
+      <p class="eyebrow">Use-case paths</p>
+      <h2 id="scenario-paths">Where to Go Next for Your Situation</h2>
+      <p class="answer">Local hurricane risk changes by storm timing, alert wording, water exposure, and household needs. Use these paths to move from a broad search into the most useful tracker, guide, or planning tool.</p>
+      <div class="grid-2 section-grid">
+        {scenarioPaths.map((scenario) => (
+          <article class="panel">
+            <h3>{scenario.title}</h3>
+            <p>{scenario.body}</p>
+            <ul class="check-list">
+              {scenario.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
             </ul>
           </article>
         ))}
