@@ -66,6 +66,12 @@ export const GET: APIRoute = () => {
       url: `${site.url}/topics/`,
       description: "Content clusters for hurricane tracking, local evacuation risk, preparedness, alerts, storm surge, insurance, and recovery.",
       date: site.contentLastModified
+    },
+    {
+      title: "Local Hurricane Risk",
+      url: `${site.url}/local-hurricane-risk/`,
+      description: "ZIP, city, state, alert, surge, evacuation-zone, and household planning paths for local hurricane risk.",
+      date: site.contentLastModified
     }
   ];
 

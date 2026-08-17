@@ -25,6 +25,11 @@ const tools = [
     url: `${site.url}/tools/local-risk-plan/`
   },
   {
+    name: "Local Hurricane Risk Hub",
+    description: "Choose the right ZIP, city, state, storm surge, evacuation-zone, and household planning path for local hurricane risk.",
+    url: `${site.url}/local-hurricane-risk/`
+  },
+  {
     name: "Preparedness Checklist Generator",
     description: "Create a household hurricane emergency kit list for 1-4 people, with optional pet supplies.",
     url: `${site.url}/tools/preparedness-checklist/`
@@ -78,6 +83,7 @@ const workflows = [
     summary: "Start with your saved locations, then compare active alerts with the local city tracker and live map.",
     steps: [
       { label: "Open My Hurricane Dashboard", href: "/tools/my-hurricane-dashboard/" },
+      { label: "Check Local Hurricane Risk", href: "/local-hurricane-risk/" },
       { label: "Check City Hurricane Trackers", href: "/hurricane-tracker/city/" },
       { label: "Review Live Alerts", href: "/alerts/" }
     ]
@@ -172,7 +178,7 @@ const jsonLd = graph(
         <p class="eyebrow">How tools fit together</p>
         <h2 id="tool-context-heading">From Storm Tracking to Household Action</h2>
         <p class="answer">A hurricane tool works best when it answers one decision at a time: where the storm is, what alerts are active, what hazards affect your location, and what your household should finish before conditions worsen.</p>
-        <p>Use the <a href="/hurricane-tracker/live/">live hurricane tracker</a> for current storm context, the <a href="/hurricane-tracker/storm/">named storm pages</a> for storm-specific updates, and the <a href="/learn/">Hurricane Learning Center</a> when you need plain-language explanations before using a checklist or decision helper.</p>
+        <p>Use the <a href="/hurricane-tracker/live/">live hurricane tracker</a> for current storm context, the <a href="/local-hurricane-risk/">local hurricane risk hub</a> for ZIP, city, state, surge, and evacuation-zone paths, and the <a href="/learn/">Hurricane Learning Center</a> when you need plain-language explanations before using a checklist or decision helper.</p>
       </article>
       <article class="panel">
         <h3>High-intent hurricane searches covered here</h3>

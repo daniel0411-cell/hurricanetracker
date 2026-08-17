@@ -1,0 +1,230 @@
+---
+import FaqBlock from "../components/FaqBlock.astro";
+import LocationRiskPlanner from "../components/LocationRiskPlanner.astro";
+import Layout from "../layouts/Layout.astro";
+import { hurricaneCities } from "../data/cities";
+import { faqs, site } from "../data/site";
+import { coastalStates } from "../data/states";
+import { articleSchema, breadcrumbSchema, faqSchema, graph, howToSchema, itemListSchema, websiteSchema } from "../lib/schema";
+
+const title = "Local Hurricane Risk by ZIP Code, City, and State";
+const description =
+  "Check local hurricane risk with ZIP-based NWS alerts, city hurricane trackers, storm surge checks, evacuation-zone guidance, and household planning tools.";
+const url = `${site.url}/local-hurricane-risk/`;
+const lastModified = site.contentLastModified;
+const featuredCities = ["miami", "tampa", "houston", "new-orleans", "charleston", "wilmington", "naples", "sarasota"]
+  .map((slug) => hurricaneCities.find((city) => city.slug === slug))
+  .filter((city): city is NonNullable<typeof city> => Boolean(city));
+const riskWorkflow = [
+  {
+    title: "Check Your Current Alert Screen",
+    body: "Use a ZIP code or state to load active NWS alert context and a Monitor, Prepare, Act, or Leave planning level.",
+    href: "/tools/local-risk-plan/",
+    label: "Open local risk plan"
+  },
+  {
+    title: "Move From State to City Context",
+    body: "City pages add local surge, flooding, route, outage, nearby county, and evacuation planning notes.",
+    href: "/hurricane-tracker/city/",
+    label: "Browse city trackers"
+  },
+  {
+    title: "Separate Surge From Wind",
+    body: "Storm surge, rainfall flooding, tornadoes, and wind can require different actions even when the storm path looks simple.",
+    href: "/tools/storm-surge-checker/",
+    label: "Check storm surge"
+  },
+  {
+    title: "Confirm Official Local Instructions",
+    body: "County evacuation zones, shelters, routes, and road restrictions come from local emergency management, not a national tracker page.",
+    href: "/hurricane-tracker/evacuation-zones/",
+    label: "Review evacuation zones"
+  }
+];
+const localChecks = [
+  {
+    title: "ZIP code",
+    body: "Best for quickly screening nearby NWS alerts and building a first household action plan.",
+    links: [
+      { label: "Local risk plan", href: "/tools/local-risk-plan/" },
+      { label: "My location alert center", href: "/tools/my-hurricane-dashboard/" }
+    ]
+  },
+  {
+    title: "City",
+    body: "Best for local planning notes, nearby counties, surge exposure, flooding, routes, bridges, and outages.",
+    links: [
+      { label: "City hurricane trackers", href: "/hurricane-tracker/city/" },
+      { label: "Miami tracker", href: "/hurricane-tracker/city/miami/" }
+    ]
+  },
+  {
+    title: "State",
+    body: "Best for broad NWS alert context, coastal state risks, and a starting point when you do not have a city page yet.",
+    links: [
+      { label: "State trackers", href: "/tracker/" },
+      { label: "Active NWS alerts", href: "/alerts/" }
+    ]
+  },
+  {
+    title: "Household",
+    body: "Best for turning local hazard context into supplies, route choices, pets, medical needs, and communication.",
+    links: [
+      { label: "Evacuation helper", href: "/tools/evacuation-decision-helper/" },
+      { label: "Hurricane brief", href: "/tools/hurricane-brief/" }
+    ]
+  }
+];
+const pageFaqs = [
+  {
+    question: "Can I check exact hurricane risk from a ZIP code?",
+    answer:
+      "A ZIP code can help screen nearby NWS alerts and state context, but exact evacuation zones, shelter rules, and road restrictions must be verified with county or city emergency management."
+  },
+  {
+    question: "Should I use a city hurricane tracker or a state tracker?",
+    answer:
+      "Use a state tracker for broad alert context, then use a city tracker when you need local storm surge, flooding, route, outage, nearby county, and evacuation planning notes."
+  },
+  {
+    question: "Is storm surge risk the same as hurricane category?",
+    answer:
+      "No. Hurricane category is based on sustained wind speed. Storm surge depends on track, storm size, tide, shoreline shape, elevation, bays, rivers, and local evacuation zones."
+  },
+  {
+    question: "What should I do after checking local hurricane risk?",
+    answer:
+      "Read the official alert, confirm local emergency instructions, then use a checklist, evacuation helper, household brief, or dashboard to organize your next actions."
+  },
+  ...faqs
+];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  howToSchema({
+    name: "How to check local hurricane risk",
+    description,
+    url,
+    steps: riskWorkflow.map((step) => ({ name: step.title, text: step.body }))
+  }),
+  itemListSchema([
+    ...riskWorkflow.map((step) => ({
+      name: step.title,
+      description: step.body,
+      url: `${site.url}${step.href}`
+    })),
+    ...featuredCities.map((city) => ({
+      name: `${city.name} Hurricane Tracker`,
+      description: city.planningNote,
+      url: `${site.url}/hurricane-tracker/city/${city.slug}/`
+    }))
+  ]),
+  faqSchema(pageFaqs),
+  breadcrumbSchema([
+    { name: "Home", url: site.canonicalUrl },
+    { name: "Local Hurricane Risk", url }
+  ])
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="local-risk-title">
+    <div class="inner">
+      <p class="eyebrow">Location-first hurricane planning</p>
+      <h1 id="local-risk-title">Local Hurricane Risk</h1>
+      <p class="answer">Use this hub to move from broad hurricane tracking into the local questions that matter: active NWS alerts, city risk, storm surge, evacuation zones, routes, outages, and household constraints.</p>
+      <p class="section-actions">
+        <a class="action-link" href="/tools/local-risk-plan/">Check ZIP or state risk</a>
+        <a class="action-link secondary-action" href="/hurricane-tracker/city/">Browse city trackers</a>
+      </p>
+    </div>
+  </section>
+
+  <LocationRiskPlanner />
+
+  <section class="band" aria-labelledby="local-risk-workflow">
+    <div class="inner">
+      <p class="eyebrow">Decision workflow</p>
+      <h2 id="local-risk-workflow">How to Check Local Hurricane Risk</h2>
+      <div class="grid-2 section-grid">
+        {riskWorkflow.map((step, index) => (
+          <article class="panel">
+            <p class="eyebrow">Step {index + 1}</p>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+            <p><a class="action-link secondary-action" href={step.href}>{step.label}</a></p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="local-checks">
+    <div class="inner">
+      <p class="eyebrow">Choose the right local signal</p>
+      <h2 id="local-checks">ZIP, City, State, or Household?</h2>
+      <div class="grid-2 section-grid">
+        {localChecks.map((check) => (
+          <article class="panel">
+            <h3>{check.title}</h3>
+            <p>{check.body}</p>
+            <ul class="check-list">
+              {check.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="local-city-links">
+    <div class="inner">
+      <p class="eyebrow">High-value coastal cities</p>
+      <h2 id="local-city-links">Local Hurricane Tracker Pages</h2>
+      <p class="answer">These city pages are useful when you need place-specific planning notes rather than a general map.</p>
+      <div class="link-list">
+        {featuredCities.map((city) => (
+          <article class="link-row">
+            <h3><a href={`/hurricane-tracker/city/${city.slug}/`}>{city.name} Hurricane Tracker</a></h3>
+            <p>{city.planningNote}</p>
+          </article>
+        ))}
+      </div>
+      <p class="section-actions"><a class="action-link secondary-action" href="/hurricane-tracker/city/">Browse all city trackers</a></p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="state-links">
+    <div class="inner">
+      <p class="eyebrow">State alert desks</p>
+      <h2 id="state-links">State Hurricane Trackers</h2>
+      <p class="answer">Use state pages when you need broad NWS alert context before choosing a city page or ZIP-based tool.</p>
+      <div class="grid-3 section-grid">
+        {coastalStates.map((state) => (
+          <article class="panel">
+            <h3><a href={`/tracker/${state.slug}/`}>{state.name} Hurricane Tracker</a></h3>
+            <p>{state.preparednessNote}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="local-next-tools">
+    <div class="inner grid-2">
+      <article class="panel">
+        <p class="eyebrow">Saved locations</p>
+        <h2 id="local-next-tools">Monitor More Than One Place</h2>
+        <p>Use the location alert center for home, work, parents, or another coastal place you care about. Saved ZIP codes stay in your browser.</p>
+        <p><a class="action-link" href="/tools/my-hurricane-dashboard/">Open my location alert center</a></p>
+      </article>
+      <article class="panel">
+        <p class="eyebrow">Printable summary</p>
+        <h2>Create a Household Brief</h2>
+        <p>Generate a concise brief with ZIP context, active NWS alerts, NHC storm information, and next household decisions.</p>
+        <p><a class="action-link secondary-action" href="/tools/hurricane-brief/">Build hurricane brief</a></p>
+      </article>
+    </div>
+  </section>
+
+  <FaqBlock faqs={pageFaqs} />
+</Layout>

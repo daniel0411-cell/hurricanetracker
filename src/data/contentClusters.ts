@@ -91,6 +91,7 @@ export const contentClusters: ContentCluster[] = [
     links: compact([
       topicLink("evacuation-zones"),
       topicLink("storm-surge-map"),
+      { title: "Local Hurricane Risk", href: "/local-hurricane-risk/", description: "ZIP, city, state, alert, storm surge, evacuation-zone, and household planning paths." },
       { title: "City Hurricane Trackers", href: "/hurricane-tracker/city/", description: "Local surge, flooding, route, outage, and evacuation planning pages." },
       stateLink("florida"),
       stateLink("texas"),
