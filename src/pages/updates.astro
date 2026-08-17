@@ -1,0 +1,127 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { blogPosts } from "../data/blog";
+import { hurricaneCities } from "../data/cities";
+import { site } from "../data/site";
+import { stormTrackerPages } from "../data/stormPages";
+import { articleSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
+
+const title = "Latest Hurricane Tracker Updates";
+const description = "Recent HurricaneHub updates: new hurricane preparedness articles, city tracker pages, storm tracker pages, tools, and sitemap discovery sections.";
+const url = `${site.url}/updates/`;
+const lastModified = site.contentLastModified;
+
+const toolUpdates = [
+  { title: "My Hurricane Dashboard", href: "/tools/my-hurricane-dashboard/", description: "Track saved locations and active threats.", date: lastModified, type: "Tool" },
+  { title: "Storm Surge ZIP Checker", href: "/tools/storm-surge-checker/", description: "Check nearby surge-related NWS alerts by ZIP code.", date: lastModified, type: "Tool" },
+  { title: "Local Risk Plan", href: "/tools/local-risk-plan/", description: "Build a localized hurricane plan from a ZIP code or address.", date: lastModified, type: "Tool" },
+  { title: "Alert Action Decoder", href: "/tools/alert-action-decoder/", description: "Translate watches, warnings, and advisories into planning prompts.", date: lastModified, type: "Tool" }
+];
+
+const cityUpdates = hurricaneCities.slice(-12).reverse().map((city) => ({
+  title: `${city.name} Hurricane Tracker`,
+  href: `/hurricane-tracker/city/${city.slug}/`,
+  description: city.planningNote,
+  date: lastModified,
+  type: "City Tracker"
+}));
+
+const stormUpdates = stormTrackerPages.map((storm) => ({
+  title: `Hurricane ${storm.name} Tracker`,
+  href: `/hurricane-tracker/storm/${storm.slug}/`,
+  description: storm.searchDemandNote,
+  date: lastModified,
+  type: "Storm Tracker"
+}));
+
+const blogUpdates = blogPosts
+  .slice()
+  .sort((a, b) => new Date(b.dateModified).getTime() - new Date(a.dateModified).getTime())
+  .slice(0, 18)
+  .map((post) => ({
+    title: post.title,
+    href: `/blog/${post.slug}/`,
+    description: post.description,
+    date: post.dateModified || post.datePublished,
+    type: "Guide"
+  }));
+
+const updates = [...blogUpdates, ...cityUpdates, ...stormUpdates, ...toolUpdates]
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+const sections = [
+  { id: "guides", title: "Recent Guides", items: blogUpdates },
+  { id: "cities", title: "Recent City Trackers", items: cityUpdates },
+  { id: "storms", title: "Storm Tracker Updates", items: stormUpdates },
+  { id: "tools", title: "Tool Updates", items: toolUpdates }
+];
+
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: lastModified }),
+  itemListSchema(updates.slice(0, 30).map((item) => ({
+    name: item.title,
+    url: new URL(item.href, site.url).href,
+    description: item.description
+  })))
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="updates-title">
+    <div class="inner">
+      <p class="eyebrow">Fresh discovery hub</p>
+      <h1 id="updates-title">Latest HurricaneHub Updates</h1>
+      <p class="answer">Use this page to find recently added hurricane preparedness guides, local city trackers, named storm pages, and planning tools. For live storm decisions, always pair these pages with official NHC advisories, weather.gov alerts, and local emergency management.</p>
+      <div class="quick-links" aria-label="Update sections">
+        {sections.map((section) => <a href={`#${section.id}`}>{section.title}</a>)}
+        <a href="/sitemap-index.xml">Sitemap index</a>
+      </div>
+    </div>
+  </section>
+
+  {sections.map((section) => (
+    <section class="band" id={section.id} aria-labelledby={`${section.id}-heading`}>
+      <div class="inner">
+        <div class="section-heading">
+          <p class="eyebrow">{section.items.length} updates</p>
+          <h2 id={`${section.id}-heading`}>{section.title}</h2>
+        </div>
+        <div class="link-list">
+          {section.items.map((item) => (
+            <article class="link-row">
+              <p class="eyebrow">{item.type} · Updated {new Date(item.date).toLocaleDateString("en-US", { timeZone: "UTC" })}</p>
+              <h3><a href={item.href}>{item.title}</a></h3>
+              <p>{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="band" aria-labelledby="sitemap-discovery-heading">
+    <div class="inner grid-2">
+      <article class="panel">
+        <h2 id="sitemap-discovery-heading">Sitemap Discovery Sections</h2>
+        <p>These XML files split the site into clearer discovery groups while the original sitemap remains available.</p>
+        <ul class="check-list">
+          <li><a href="/sitemap-pages.xml">Core pages sitemap</a></li>
+          <li><a href="/sitemap-blog.xml">Blog sitemap</a></li>
+          <li><a href="/sitemap-tools.xml">Tools sitemap</a></li>
+          <li><a href="/sitemap-locations.xml">Locations sitemap</a></li>
+        </ul>
+      </article>
+      <article>
+        <p class="eyebrow">Next step after browsing</p>
+        <h2>Move From Reading to Action</h2>
+        <p class="answer">Open the live tracker, alerts page, city tracker, or household tool that matches your current question before relying on any single article.</p>
+        <ul class="check-list">
+          <li><a href="/hurricane-tracker/live/">Live hurricane tracker</a></li>
+          <li><a href="/alerts/">Active NWS alerts</a></li>
+          <li><a href="/hurricane-tracker/city/">City hurricane trackers</a></li>
+          <li><a href="/tools/">Hurricane tools</a></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</Layout>

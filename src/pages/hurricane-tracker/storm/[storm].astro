@@ -28,7 +28,10 @@ if (!stormPage) {
 
 let feed: StormFeed | null = null;
 try {
-  const response = await fetch(new URL("/api/nhc/current.json", Astro.url));
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
+  const response = await fetch(new URL("/api/nhc/current.json", Astro.url), { signal: controller.signal });
+  clearTimeout(timeout);
   if (response.ok) {
     feed = await response.json() as StormFeed;
   }

@@ -3,16 +3,21 @@ import { site } from "../data/site";
 
 export const prerender = true;
 
-// Sitemap index — referenced by Google Search Console as:
-//   https://www.hurricanetracker.cc/sitemap-index.xml
-// Wraps the main /sitemap.xml so GSC can discover all URLs in one place.
+const sitemapPaths = [
+  "sitemap.xml",
+  "sitemap-pages.xml",
+  "sitemap-blog.xml",
+  "sitemap-tools.xml",
+  "sitemap-locations.xml"
+];
+
 export const GET: APIRoute = () => {
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>${site.url}/sitemap.xml</loc>
+${sitemapPaths.map((path) => `  <sitemap>
+    <loc>${site.url}/${path}</loc>
     <lastmod>${site.contentLastModified}</lastmod>
-  </sitemap>
+  </sitemap>`).join("\n")}
 </sitemapindex>`;
   return new Response(body, {
     headers: {

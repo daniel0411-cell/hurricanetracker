@@ -1,10 +1,10 @@
 import type { APIRoute } from "astro";
-import { renderUrlset, sitemapRoutes } from "../lib/sitemapRoutes";
+import { renderUrlset, routesBySection } from "../lib/sitemapRoutes";
 
 export const prerender = true;
 
 export const GET: APIRoute = () =>
-  new Response(renderUrlset(sitemapRoutes), {
+  new Response(renderUrlset(routesBySection("pages")), {
     headers: {
       "content-type": "application/xml; charset=utf-8",
       "cache-control": "public, max-age=3600"
