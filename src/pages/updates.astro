@@ -48,6 +48,34 @@ const freshTopicSlugs = ["live-tracker", "preparedness-checklist", "spaghetti-mo
 const freshTopicUpdates = freshTopicSlugs
   .map((slug) => topicUpdates.find((item) => item.href === `/hurricane-tracker/${slug}/`))
   .filter((item): item is NonNullable<typeof item> => Boolean(item));
+const updateUseCases = [
+  {
+    title: "New to the site",
+    body: "Start with topic clusters and the learning center, then move into live tracking, local risk, or preparedness when a storm becomes relevant.",
+    links: [
+      { label: "Hurricane topics", href: "/topics/" },
+      { label: "Learning center", href: "/learn/" }
+    ]
+  },
+  {
+    title: "Tracking an active storm",
+    body: "Use the live tracker, NWS alerts, radar, and city pages before relying on any single update or article.",
+    links: [
+      { label: "Live hurricane tracker", href: "/hurricane-tracker/live/" },
+      { label: "Active NWS alerts", href: "/alerts/" },
+      { label: "Interactive radar", href: "/radar/" }
+    ]
+  },
+  {
+    title: "Checking what was recently added",
+    body: "Use the update sections to find new topic hubs, recent guides, city trackers, named-storm pages, and household tools.",
+    links: [
+      { label: "Recent guides", href: "#guides" },
+      { label: "Recent city trackers", href: "#cities" },
+      { label: "Tool updates", href: "#tools" }
+    ]
+  }
+];
 
 const blogUpdates = blogPosts
   .slice()
@@ -79,7 +107,12 @@ const jsonLd = graph(
     name: item.title,
     url: new URL(item.href, site.url).href,
     description: item.description
-  })))
+  }))),
+  itemListSchema(updateUseCases.flatMap((useCase) => useCase.links.map((link) => ({
+    name: link.label,
+    url: new URL(link.href, site.url).href,
+    description: useCase.body
+  }))))
 );
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
@@ -106,6 +139,27 @@ const jsonLd = graph(
             <p class="eyebrow">{item.type}</p>
             <h3><a href={item.href}>{item.title}</a></h3>
             <p>{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="updates-use-cases">
+    <div class="inner">
+      <p class="eyebrow">How to use updates</p>
+      <h2 id="updates-use-cases">Choose the Update Path That Matches Your Goal</h2>
+      <p class="answer">This page is both a recent-content feed and a discovery hub. Use it to find new pages, but switch to live official-source pages when a storm or alert affects your location.</p>
+      <div class="grid-3 section-grid">
+        {updateUseCases.map((useCase) => (
+          <article class="panel">
+            <h3>{useCase.title}</h3>
+            <p>{useCase.body}</p>
+            <ul class="check-list">
+              {useCase.links.map((link) => (
+                <li><a href={link.href}>{link.label}</a></li>
+              ))}
+            </ul>
           </article>
         ))}
       </div>

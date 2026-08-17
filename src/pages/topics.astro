@@ -2,7 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import { contentClusters } from "../data/contentClusters";
 import { site } from "../data/site";
-import { articleSchema, breadcrumbSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
+import FaqBlock from "../components/FaqBlock.astro";
+import { articleSchema, breadcrumbSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
 
 const title = "Hurricane Topics and Content Paths";
 const description =
@@ -10,6 +11,60 @@ const description =
 const url = `${site.url}/topics/`;
 const lastModified = site.contentLastModified;
 const allLinks = contentClusters.flatMap((cluster) => cluster.links);
+const intentPaths = [
+  {
+    question: "I want to track a storm live.",
+    answer: "Start with the tracking cluster, then move into radar, storm path, spaghetti models, and state alerts if the storm may affect land.",
+    href: "#tracking",
+    label: "Open tracking cluster"
+  },
+  {
+    question: "I need to know my local risk.",
+    answer: "Use the local risk cluster for city trackers, state pages, storm surge, evacuation zones, and tools that convert alerts into household planning.",
+    href: "#local-risk",
+    label: "Open local risk cluster"
+  },
+  {
+    question: "I need a checklist or family plan.",
+    answer: "Use the preparedness cluster when the goal is supplies, documents, pets, medical needs, communication, outage planning, or deciding when to leave.",
+    href: "#preparedness",
+    label: "Open preparedness cluster"
+  },
+  {
+    question: "I received a warning or alert.",
+    answer: "Use the alerts cluster to translate watch, warning, storm surge, flood, tornado, and evacuation language into a next page or planning tool.",
+    href: "#alerts",
+    label: "Open alerts cluster"
+  },
+  {
+    question: "I am dealing with damage or insurance questions.",
+    answer: "Use the recovery cluster for flood insurance, claim documentation, contractors, mold prevention, outages, and what to do after a hurricane.",
+    href: "#recovery",
+    label: "Open recovery cluster"
+  }
+];
+const topicFaqs = [
+  {
+    question: "How should I use the Hurricane Topics page?",
+    answer:
+      "Use it as a starting map for HurricaneHub. Pick the situation closest to your question, then open the cluster that links to the most relevant tracker, tool, city page, article, or recovery guide."
+  },
+  {
+    question: "Why are hurricane pages grouped into clusters?",
+    answer:
+      "Clusters help users and search engines understand how related pages fit together. Tracking, local risk, preparedness, alerts, and recovery are different parts of the same hurricane decision process."
+  },
+  {
+    question: "Should I start with a topic cluster during an active storm?",
+    answer:
+      "Use a topic cluster for orientation, but current decisions should still start with official NHC advisories, weather.gov alerts, local emergency management, and the relevant city or state tracker."
+  },
+  {
+    question: "Which cluster is best for evacuation questions?",
+    answer:
+      "Start with Local Hurricane Risk and Evacuation. It links to city trackers, evacuation-zone guidance, storm surge context, state trackers, and the evacuation decision helper."
+  }
+];
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
@@ -23,6 +78,12 @@ const jsonLd = graph(
     description: link.description,
     url: new URL(link.href, site.url).href
   }))),
+  itemListSchema(intentPaths.map((path) => ({
+    name: path.question,
+    description: path.answer,
+    url: `${site.url}/topics/${path.href}`
+  }))),
+  faqSchema(topicFaqs),
   breadcrumbSchema([
     { name: "Home", url: site.canonicalUrl },
     { name: "Hurricane Topics", url }
@@ -37,6 +98,23 @@ const jsonLd = graph(
       <p class="answer">Use this hub to move between HurricaneHub's major topic paths: live tracking, local evacuation risk, preparedness, official alert language, and recovery planning.</p>
       <div class="quick-links" aria-label="Hurricane topic clusters">
         {contentClusters.map((cluster) => <a href={`#${cluster.id}`}>{cluster.title}</a>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="topics-intent-paths">
+    <div class="inner">
+      <p class="eyebrow">Choose by question</p>
+      <h2 id="topics-intent-paths">Start With the Topic That Matches Your Situation</h2>
+      <p class="answer">Most hurricane searches are not just browsing. They usually begin with a storm, a place, a warning, a checklist, or a recovery problem. Use these shortcuts before choosing a full cluster.</p>
+      <div class="link-list">
+        {intentPaths.map((path) => (
+          <article class="link-row">
+            <h3>{path.question}</h3>
+            <p>{path.answer}</p>
+            <p><a class="action-link secondary-action" href={path.href}>{path.label}</a></p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -82,4 +160,6 @@ const jsonLd = graph(
       </article>
     </div>
   </section>
+
+  <FaqBlock faqs={topicFaqs} />
 </Layout>
