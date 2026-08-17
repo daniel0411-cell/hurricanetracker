@@ -107,11 +107,63 @@ const workflows = [
     ]
   }
 ];
+const searchIntentPaths = [
+  {
+    intent: "live hurricane tracker",
+    question: "I want to track the storm live.",
+    topicHref: "/hurricane-tracker/live-tracker/",
+    toolHref: "/tools/my-hurricane-dashboard/",
+    topicLabel: "Live hurricane tracker hub",
+    toolLabel: "Build my hurricane dashboard",
+    summary: "Start with the live tracker workflow, then save locations and move into alerts, radar, and city risk pages."
+  },
+  {
+    intent: "hurricane radar and satellite",
+    question: "I need to compare radar with the forecast.",
+    topicHref: "/hurricane-tracker/radar/",
+    toolHref: "/radar/",
+    topicLabel: "Radar and satellite tracker",
+    toolLabel: "Open interactive radar",
+    summary: "Use the radar topic hub to understand what radar can answer, then open the live map layer for near-term weather context."
+  },
+  {
+    intent: "hurricane evacuation zones",
+    question: "I need to know whether leaving is part of the plan.",
+    topicHref: "/hurricane-tracker/evacuation-zones/",
+    toolHref: "/tools/evacuation-decision-helper/",
+    topicLabel: "Evacuation zone guide",
+    toolLabel: "Use evacuation helper",
+    summary: "Learn how local evacuation zones work, then organize official orders, housing risk, transportation, pets, and medical needs."
+  },
+  {
+    intent: "storm surge map",
+    question: "I am worried about coastal water.",
+    topicHref: "/hurricane-tracker/storm-surge-map/",
+    toolHref: "/tools/storm-surge-checker/",
+    topicLabel: "Storm surge map guide",
+    toolLabel: "Check surge alerts by ZIP",
+    summary: "Separate storm surge from wind category, then check whether nearby NWS surge alerts are active for a ZIP code."
+  },
+  {
+    intent: "hurricane preparedness checklist",
+    question: "I need a practical supply and family plan.",
+    topicHref: "/hurricane-tracker/preparedness-checklist/",
+    toolHref: "/tools/preparedness-checklist/",
+    topicLabel: "Preparedness checklist guide",
+    toolLabel: "Generate checklist",
+    summary: "Use the checklist topic hub to understand what belongs in a plan, then generate a household-specific list."
+  }
+];
 
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
   itemListSchema(tools),
+  itemListSchema(searchIntentPaths.map((path) => ({
+    name: path.question,
+    description: path.summary,
+    url: `${site.url}${path.topicHref}`
+  }))),
   faqSchema(faqs)
 );
 ---
@@ -160,6 +212,27 @@ const jsonLd = graph(
     </div>
   </section>
 
+  <section class="band" aria-labelledby="intent-paths-heading">
+    <div class="inner">
+      <p class="eyebrow">Search intent paths</p>
+      <h2 id="intent-paths-heading">Match the Search Question to the Right Tool</h2>
+      <p class="answer">Many hurricane searches start as a map, radar, evacuation, storm surge, or checklist question. Use these paths to move from the explanation page into the tool that supports the next household decision.</p>
+      <div class="grid-2 section-grid">
+        {searchIntentPaths.map((path) => (
+          <article class="post-card">
+            <p class="eyebrow">{path.intent}</p>
+            <h3>{path.question}</h3>
+            <p>{path.summary}</p>
+            <p class="tool-path-links">
+              <a href={path.topicHref}>{path.topicLabel}</a>
+              <a href={path.toolHref}>{path.toolLabel}</a>
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="band" aria-labelledby="tools-list">
     <div class="inner grid-3">
       {tools.map((tool, index) => (
@@ -200,5 +273,16 @@ const jsonLd = graph(
     gap: 8px;
     margin: 16px 0 0;
     padding-left: 1.3rem;
+  }
+
+  .tool-path-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    margin-top: 14px;
+  }
+
+  .tool-path-links a {
+    font-weight: 800;
   }
 </style>

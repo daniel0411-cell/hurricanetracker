@@ -44,6 +44,10 @@ const topicUpdates = topicPages.map((page) => ({
   date: lastModified,
   type: "Tracker Hub"
 }));
+const freshTopicSlugs = ["live-tracker", "preparedness-checklist", "spaghetti-models", "radar", "storm-surge-map", "evacuation-zones"];
+const freshTopicUpdates = freshTopicSlugs
+  .map((slug) => topicUpdates.find((item) => item.href === `/hurricane-tracker/${slug}/`))
+  .filter((item): item is NonNullable<typeof item> => Boolean(item));
 
 const blogUpdates = blogPosts
   .slice()
@@ -87,6 +91,23 @@ const jsonLd = graph(
       <div class="quick-links" aria-label="Update sections">
         {sections.map((section) => <a href={`#${section.id}`}>{section.title}</a>)}
         <a href="/sitemap-index.xml">Sitemap index</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="fresh-topic-heading">
+    <div class="inner">
+      <p class="eyebrow">Recently expanded tracker paths</p>
+      <h2 id="fresh-topic-heading">New Hurricane Tracker Topic Paths</h2>
+      <p class="answer">These topic pages connect high-intent searches to live tools, official-source context, state and city trackers, and household planning decisions.</p>
+      <div class="grid-3 section-grid">
+        {freshTopicUpdates.map((item) => (
+          <article class="panel">
+            <p class="eyebrow">{item.type}</p>
+            <h3><a href={item.href}>{item.title}</a></h3>
+            <p>{item.description}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
