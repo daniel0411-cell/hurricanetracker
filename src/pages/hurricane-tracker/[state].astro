@@ -5,6 +5,7 @@ import Layout from "../../layouts/Layout.astro";
 import { hurricaneCities } from "../../data/cities";
 import { site } from "../../data/site";
 import { getStateBySlug } from "../../data/states";
+import { getTopicPage } from "../../data/topicPages";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
 import type { NhcStorm, NwsAlert } from "../../lib/weather";
 
@@ -22,8 +23,12 @@ type AlertFeed = {
 };
 
 const state = getStateBySlug(Astro.params.state);
+const topic = getTopicPage(Astro.params.state ?? "");
 
 if (!state) {
+  if (topic) {
+    return Astro.redirect(`/hurricane-tracker/${topic.slug}/`);
+  }
   return Astro.redirect("/tracker/");
 }
 
