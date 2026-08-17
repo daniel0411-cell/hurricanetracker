@@ -343,6 +343,170 @@ export const topicPages: TopicPage[] = [
           "No. HurricaneHub organizes official-source context and tools, but NHC, NWS, and local emergency management remain the sources to verify during an active threat."
       }
     ]
+  },
+  {
+    slug: "spaghetti-models",
+    title: "Hurricane Spaghetti Models",
+    shortTitle: "Spaghetti Models",
+    description:
+      "Learn how hurricane spaghetti models fit with the NHC cone, forecast track, model spread, live tracker maps, radar, and local alert decisions.",
+    eyebrow: "Forecast model hub",
+    intro:
+      "Spaghetti models are useful for seeing forecast spread, but they are not a single answer. Use this hub to understand model guidance, compare it with official NHC forecasts, and then move toward local alerts, city trackers, and household decisions.",
+    primaryAction: { label: "Open live tracker", href: "/hurricane-tracker/live/" },
+    secondaryAction: { label: "Read model guide", href: "/blog/how-to-read-hurricane-spaghetti-models/" },
+    intent: "hurricane spaghetti models, spaghetti model tracker, hurricane model tracks",
+    steps: [
+      {
+        title: "Start With the Official Forecast",
+        body: "Use NHC advisories and the forecast cone as the official baseline before reacting to individual model lines or social screenshots.",
+        href: "/hurricane-tracker/live/",
+        label: "Open official tracker"
+      },
+      {
+        title: "Compare Model Spread",
+        body: "Wide spread means uncertainty is high. Tight clustering can still miss local hazards such as surge, rain bands, tornadoes, and outages.",
+        href: "/blog/how-to-read-hurricane-spaghetti-models/",
+        label: "Learn model spread"
+      },
+      {
+        title: "Move From Track to Location",
+        body: "After reviewing model guidance, check your state, city, evacuation zone, and active NWS alerts before making a household plan.",
+        href: "/hurricane-tracker/city/",
+        label: "Browse city trackers"
+      }
+    ],
+    sections: [
+      {
+        eyebrow: "Model basics",
+        title: "Spaghetti Models Show Possibilities, Not Orders",
+        body:
+          "Each line can represent a different model or model run. The spread helps explain uncertainty, but official decisions should be tied to NHC and NWS products plus local emergency management.",
+        bullets: [
+          "Compare model spread with the NHC cone",
+          "Look for trend changes over several advisory cycles",
+          "Do not treat one outlier line as the forecast",
+          "Check local alerts as impacts get closer"
+        ]
+      },
+      {
+        eyebrow: "Local impact gap",
+        title: "A Model Track Does Not Show Every Hazard",
+        body:
+          "Model tracks focus on storm movement. Local water, wind, rainfall, and tornado risk can extend away from the center and may change before the track itself looks dramatic.",
+        bullets: [
+          "Storm surge can depend on wind direction and coastline shape",
+          "Rain bands can flood areas outside the center path",
+          "Tornado warnings can appear in outer bands",
+          "Power outages depend on trees, soil, wind gusts, and grid exposure"
+        ]
+      }
+    ],
+    nextLinks: [
+      { name: "How to Read Hurricane Spaghetti Models", href: "/blog/how-to-read-hurricane-spaghetti-models/", description: "Plain-language guide to model spread, outliers, and forecast uncertainty." },
+      { name: "Hurricane Path Tracker", href: "/hurricane-tracker/path/", description: "Connect model guidance with official path, timing, and local action steps." },
+      { name: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Current storm status, NHC checks, radar shortcuts, alerts, and local tracker paths." },
+      { name: "Impact Window Estimator", href: "/tools/impact-window-estimator/", description: "Turn storm timing into a practical household planning window." }
+    ],
+    faqs: [
+      {
+        question: "Are hurricane spaghetti models more accurate than the NHC forecast?",
+        answer:
+          "No. Spaghetti models are inputs and comparisons. The NHC forecast is the official public forecast and should be the baseline for storm-track decisions."
+      },
+      {
+        question: "What does wide spaghetti model spread mean?",
+        answer:
+          "Wide spread means forecast uncertainty is higher. Use that as a reason to prepare earlier and keep checking official updates rather than waiting for a single perfect track."
+      },
+      {
+        question: "Can spaghetti models tell me whether to evacuate?",
+        answer:
+          "No. Evacuation decisions come from local orders, evacuation zones, storm surge and flood risk, housing type, household needs, and official local guidance."
+      }
+    ]
+  },
+  {
+    slug: "radar",
+    title: "Hurricane Radar and Satellite Tracker",
+    shortTitle: "Radar Tracker",
+    description:
+      "Use hurricane radar and satellite with NHC storm context, rain bands, wind timing, local NWS alerts, and city tracker links.",
+    eyebrow: "Radar search hub",
+    intro:
+      "Radar and satellite help show what is happening now: rain bands, storm structure, cloud tops, and nearby severe weather. For hurricane decisions, combine those live layers with NHC advisory context and local alerts.",
+    primaryAction: { label: "Open hurricane radar", href: "/radar/" },
+    secondaryAction: { label: "Open live tracker", href: "/hurricane-tracker/live/" },
+    intent: "hurricane radar, hurricane satellite tracker, live storm radar",
+    steps: [
+      {
+        title: "Open the Live Radar Layer",
+        body: "Use radar to see rain bands, local heavy rain, and approaching weather that may not be obvious from a track map alone.",
+        href: "/radar/",
+        label: "Open radar"
+      },
+      {
+        title: "Compare With NHC Context",
+        body: "Radar shows current weather, while NHC advisories explain storm status, forecast direction, watches, warnings, and uncertainty.",
+        href: "/hurricane-tracker/live/",
+        label: "Open tracker"
+      },
+      {
+        title: "Check Local Alerts",
+        body: "Use NWS alerts for tornado, flood, wind, surge, and marine warnings near the place you care about.",
+        href: "/alerts/",
+        label: "Check alerts"
+      }
+    ],
+    sections: [
+      {
+        eyebrow: "Radar use",
+        title: "Radar Is Best for Near-Term Weather",
+        body:
+          "Radar is strongest when impacts are already near enough to see rain bands and severe cells. It should not replace forecast advisories for longer-range track decisions.",
+        bullets: [
+          "Watch for heavy rain bands and training storms",
+          "Check tornado warnings during outer bands",
+          "Compare radar timing with local alert language",
+          "Use city pages for route and outage context"
+        ]
+      },
+      {
+        eyebrow: "Satellite use",
+        title: "Satellite Helps Before Radar Coverage Matters",
+        body:
+          "Satellite is useful over open water and early in a storm threat. It helps reveal storm organization and cloud structure before local radar becomes the main short-term tool.",
+        bullets: [
+          "Use satellite for broad storm structure",
+          "Use radar for local rainfall and cells",
+          "Use NHC advisories for official status",
+          "Use NWS alerts for local warnings"
+        ]
+      }
+    ],
+    nextLinks: [
+      { name: "Interactive Hurricane Radar", href: "/radar/", description: "Radar, satellite, wind, and alert layers for tropical weather monitoring." },
+      { name: "Hurricane Radar vs Satellite", href: "/blog/hurricane-radar-vs-satellite/", description: "Learn when radar or satellite is the better storm-tracking tool." },
+      { name: "Active NWS Alerts", href: "/alerts/", description: "Check official weather alerts by state." },
+      { name: "City Hurricane Trackers", href: "/hurricane-tracker/city/", description: "Move from radar to local surge, flood, route, and outage context." }
+    ],
+    faqs: [
+      {
+        question: "Should I use radar or the hurricane forecast cone?",
+        answer:
+          "Use both for different jobs. Radar shows current rain and storm bands; the NHC cone shows official forecast uncertainty for the storm center."
+      },
+      {
+        question: "Can radar show storm surge risk?",
+        answer:
+          "Radar does not directly show surge risk. Use NHC surge products, NWS storm surge alerts, local evacuation zones, and local emergency management guidance."
+      },
+      {
+        question: "Why do I need satellite when radar exists?",
+        answer:
+          "Satellite can show storm organization over water and broad cloud structure before local radar has the storm fully in range."
+      }
+    ]
   }
 ];
 

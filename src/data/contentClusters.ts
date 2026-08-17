@@ -73,6 +73,8 @@ export const contentClusters: ContentCluster[] = [
     links: compact([
       topicLink("map"),
       topicLink("path"),
+      topicLink("spaghetti-models"),
+      topicLink("radar"),
       { title: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Active storm checks, radar shortcuts, alerts, city pages, and decision tools." },
       { title: "Interactive Hurricane Radar", href: "/radar/", description: "Radar, satellite, wind, and alert map layers for tropical weather monitoring." },
       blogLink("real-time-hurricane-tracking-2026"),
