@@ -2561,7 +2561,83 @@ export const blogPosts: BlogPost[] = [
           "Check reentry rules, structural safety, power, water, refrigeration, mold, debris, employee availability, inventory damage, insurance documentation, and customer communication before reopening."
       }
     ]
+  },
+  {
+    slug: "apartment-hurricane-preparedness-renters-checklist",
+    title: "Apartment Hurricane Preparedness Checklist for Renters",
+    description: "A renter-focused hurricane checklist for apartment go-bags, renters insurance, building rules, pets, documents, outages, and safe evacuation decisions.",
+    datePublished: "2026-08-17",
+    dateModified: "2026-08-17",
+    image: "/images/blog/apartment-hurricane-preparedness-renters-checklist.png",
+    imageAlt: "Apartment renters organize hurricane supplies, documents, and a go-bag on a kitchen table.",
+    sections: [
+      { heading: "Why Renters Need a Different Hurricane Plan", body: "Apartment renters cannot control the roof, exterior shutters, elevators, drainage, or building repairs, so the plan should focus on people, documents, communication, insurance, pets, and knowing when official guidance says to leave. Use property-manager instructions, local emergency management, NWS alerts, and NHC advisories as the decision sources." },
+      { heading: "Build a Renter Go-Bag", body: "Keep a bag where each household member can grab it quickly if your building loses power, floods, or receives an evacuation order.", bullets: ["Photo ID, lease copy, renters insurance information, medications, chargers, and emergency contacts.", "Water, no-cook food, flashlight, batteries, radio, basic first aid, and cash in small bills.", "Pet food, carriers, vaccination records, leashes, and a pet-friendly destination plan.", "Comfort items for children and written care notes for seniors, disabled household members, or medical needs."] },
+      { heading: "Room-by-Room Apartment Checks", body: "Move valuables and electronics away from windows and low floors when safe. Bring balcony items indoors, keep shoes and flashlights near beds, know two stairwell routes, and photograph every room before storm season or before damage cleanup when safe." },
+      { heading: "Elevators, Upper Floors, and Shared Buildings", body: "Power outages can stop elevators, card access, water pumps, and air conditioning. Upper floors may avoid some flooding but can face stronger wind, broken glass, stairwell access issues, and heat after outages. Ask property management about emergency procedures before a storm threatens." },
+      { heading: "Renters Insurance and Flood Coverage", body: "A landlord policy usually covers the building, not your belongings. Renters insurance may cover personal property and loss-of-use, but flood damage often requires separate coverage. Review policy terms with your insurer and see /blog/hurricane-flood-insurance-guide-nfip/ and /blog/hurricane-additional-living-expenses-ale-coverage/." },
+      { heading: "After the Storm", body: "Return only when local officials and building management allow it. Watch for electrical hazards, water damage, elevator outages, mold, and unsafe repairs. Photograph damage before cleanup and report issues to the landlord and insurer. Recovery context is available at /blog/what-to-do-after-a-hurricane/ and /blog/hurricane-mold-prevention-after-flood/." },
+      { heading: "Use Local Tracker and Preparedness Tools", body: "Pair your apartment plan with /hurricane-tracker/live/, /hurricane-tracker/city/, /tools/preparedness-checklist/, and /tools/local-risk-plan/. HurricaneHub helps organize context, but local officials control evacuation, reentry, shelter, and road decisions." }
+    ],
+    faqs: [
+      { question: "Does my landlord's insurance cover my belongings during a hurricane?", answer: "Usually no. A landlord policy generally covers the building, not a renter's personal property or temporary living costs. Review renters insurance and flood coverage with your insurer." },
+      { question: "Should apartment renters evacuate from upper floors?", answer: "Follow official evacuation orders and building guidance. Upper floors can face wind, broken glass, heat, elevator outages, and stairwell issues even when flooding is lower." },
+      { question: "Can renters install hurricane shutters?", answer: "Only with written permission from the property owner or manager. Renters can still move valuables away from windows, bring balcony items inside, and follow building procedures." },
+      { question: "What should renters photograph before a hurricane?", answer: "Photograph every room, closets, electronics, furniture, valuables, lease documents, and visible pre-storm building conditions. Store copies in cloud storage." },
+      { question: "Where should apartment renters get evacuation guidance?", answer: "Use local emergency management, county evacuation-zone tools, weather.gov alerts, NHC advisories, and property-manager instructions for official decisions." }
+    ]
+  },
+  {
+    slug: "hurricane-school-daycare-emergency-plan",
+    title: "Hurricane School and Daycare Emergency Plan for Families",
+    description: "A family-focused hurricane guide for school closures, daycare pickup, child go-bags, communication plans, documents, pets, and post-storm routines.",
+    datePublished: "2026-08-17",
+    dateModified: "2026-08-17",
+    image: "/images/blog/hurricane-school-daycare-emergency-plan.png",
+    imageAlt: "A parent reviews a hurricane family communication plan and school pickup contacts with a child.",
+    sections: [
+      { heading: "Plan Before Closures Begin", body: "Schools and daycares may close, release early, or change pickup procedures as a hurricane threat changes. Families should keep pickup authorizations current, know district alert channels, and write a reunification plan before watches or warnings create time pressure." },
+      { heading: "Child-Focused Go-Bag", body: "Children need basic supplies plus familiar items that reduce stress during sheltering, evacuation, or extended closures.", bullets: ["Medications, written care notes, allergy information, insurance cards, and copies of school or daycare contacts.", "Comfort items, simple games, books, chargers, headphones, and child-friendly no-cook food.", "Diapers, formula, wipes, special foods, mobility supplies, or device chargers when needed.", "A paper contact card with authorized pickup adults and an out-of-area family contact."] },
+      { heading: "Pickup and Reunification", body: "Confirm who can pick up each child, what ID the school requires, where students are moved if campus closes, and how the district communicates changes. Keep a backup adult on the list in case traffic, work, or evacuation routes prevent one caregiver from arriving." },
+      { heading: "Children With Medical, Disability, or Sensory Needs", body: "Coordinate with the school nurse, daycare director, medical provider, or support team before hurricane season. Written instructions should cover medication, mobility, device power, communication needs, and backup care locations. See /blog/hurricane-safety-seniors-children-disability/ for broader household planning." },
+      { heading: "Pets and Service Animals", body: "If a child depends on a service animal or household pet, include food, medications, records, carriers, and a pet-friendly destination. Check shelter and hotel rules early, because animal policies differ. Related planning: /blog/hurricane-pet-safety/." },
+      { heading: "After the Storm", body: "Return children to routine when roads, homes, and school buildings are safe. Expect schedule changes, transport disruption, stress reactions, or temporary childcare gaps. Limit repeated storm footage, keep communication calm, and watch official school district updates." },
+      { heading: "Track Weather and Local Decisions", body: "Use /hurricane-tracker/live/, /alerts/, and your city tracker for storm context, then rely on the school district, local emergency management, NWS, and NHC for official closure, weather, and evacuation information." }
+    ],
+    faqs: [
+      { question: "Who can pick up my child during a hurricane closure?", answer: "Only the adults listed in the school's or daycare's official authorization system. Keep that list current and make sure backup caregivers know pickup rules and ID requirements." },
+      { question: "Should I send my child to school if a hurricane may affect the area later?", answer: "Follow district announcements and local emergency guidance. Weather may look calm before conditions deteriorate, so monitor official school, NWS, and emergency management updates." },
+      { question: "What documents should parents save before hurricane season?", answer: "Save school contacts, pickup authorizations, custody documents if applicable, medical forms, insurance cards, immunization records, and emergency contact lists in cloud and paper copies." },
+      { question: "How can I help children cope after a hurricane?", answer: "Restore predictable routines when safe, limit repeated storm footage, answer questions simply, reconnect with school or friends, and seek professional support if distress persists or worsens." },
+      { question: "Where should families check school closure information?", answer: "Use the official school district or daycare alert system, local emergency management, local news, and weather.gov alerts rather than social media rumors." }
+    ]
+  },
+  {
+    slug: "hurricane-contractor-scams-insurance-claim",
+    title: "Hurricane Contractor Scams: Protect Your Insurance Claim",
+    description: "How to reduce post-hurricane contractor fraud risk with damage documentation, license checks, written estimates, claim logs, and official reporting channels.",
+    datePublished: "2026-08-17",
+    dateModified: "2026-08-17",
+    image: "/images/blog/hurricane-contractor-scams-insurance-claim.png",
+    imageAlt: "A homeowner reviews contractor paperwork, insurance documents, and storm damage photos after a hurricane.",
+    sections: [
+      { heading: "Slow Down Before You Sign", body: "After hurricanes, homeowners may face legitimate repair needs alongside aggressive sales tactics, fake inspectors, unlicensed contractors, and confusing claim paperwork. Protect the home and the claim by documenting damage, contacting your insurer directly, checking licenses, and getting written estimates before signing anything." },
+      { heading: "Document Damage First", body: "When it is safe, create a room-by-room record before cleanup or permanent repairs begin. Follow insurer instructions if they give specific documentation rules.", bullets: ["Photograph exterior, roof, windows, ceilings, floors, furniture, appliances, and utilities from multiple angles.", "Keep a dated written inventory with approximate values and notes about when damage was found.", "Save receipts for tarps, drying equipment, cleanup supplies, lodging, and temporary repairs.", "Keep claim numbers, adjuster names, contractor estimates, and call notes in one folder."] },
+      { heading: "Verify Contractors Through Official Channels", body: "Check state licensing boards, local permit offices, proof of insurance, references, and written estimates. Be cautious with door-to-door pressure, large upfront cash or wire demands, vague contracts, refusal to pull permits, or promises that sound too easy." },
+      { heading: "Assignment of Benefits and Claim Paperwork", body: "Some documents can transfer claim payment rights or control to a contractor or third party. Rules vary by state and policy, so do not sign claim-rights paperwork under pressure. Ask your insurer, state insurance department, or a qualified professional if you do not understand a form." },
+      { heading: "Temporary Repairs and Permits", body: "Reasonable temporary measures may help prevent further damage, but permanent work should follow local permit and inspection rules. Coordinate tarping, drying, demolition, mold remediation, and rebuild steps with your insurer and local building department when required." },
+      { heading: "Protect Seniors and Vulnerable Neighbors", body: "Older adults, non-English speakers, disabled residents, and people under severe stress may be targeted after disasters. Offer to help review written estimates, verify licenses, call the insurer, or report suspicious activity through official channels." },
+      { heading: "Related Recovery Guides", body: "Use /blog/what-to-do-after-a-hurricane/ for recovery order of operations, /blog/hurricane-insurance-claim-guide-documentation/ for claim documentation, /blog/hurricane-mold-prevention-after-flood/ for damp-building cleanup context, and /hurricane-tracker/live/ to understand the official storm record." }
+    ],
+    faqs: [
+      { question: "How do I verify a contractor after a hurricane?", answer: "Check the state licensing board, local permit office, proof of insurance, references, written estimates, and your insurer's guidance before signing or paying." },
+      { question: "Should I sign an Assignment of Benefits after storm damage?", answer: "Do not sign under pressure. Assignment rules and risks vary, so ask your insurer, state insurance department, or a qualified professional to explain the document before you agree." },
+      { question: "Is a door-to-door contractor always a scam?", answer: "Not always, but pressure tactics, no license proof, vague contracts, large upfront payment demands, and refusal to provide written estimates are warning signs." },
+      { question: "Who handles hurricane contractor fraud complaints?", answer: "Report concerns to your state insurance department, attorney general or consumer protection office, local law enforcement, licensing board, and your insurer as appropriate." },
+      { question: "Can I make temporary repairs before the adjuster arrives?", answer: "Reasonable temporary mitigation may be expected, but document damage first when safe, keep receipts, and follow your insurer's instructions for what to preserve or photograph." }
+    ]
   }
+
 
 ];
 
@@ -2605,7 +2681,10 @@ export const BLOG_CATEGORIES: Record<string, string> = {
   "how-to-use-hurricane-tracker-live-tools": "Tracking & Forecasting",
   "hurricane-mold-prevention-after-flood": "Insurance & Recovery",
   "hurricane-flood-zone-map-fema-understanding": "Insurance & Recovery",
-  "hurricane-small-business-preparedness-plan": "Preparedness"
+  "hurricane-small-business-preparedness-plan": "Preparedness",
+  "apartment-hurricane-preparedness-renters-checklist": "Preparedness",
+  "hurricane-school-daycare-emergency-plan": "Preparedness",
+  "hurricane-contractor-scams-insurance-claim": "Insurance & Recovery"
 };
 
 export const BLOG_CATEGORY_LIST = [
