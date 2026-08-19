@@ -16,6 +16,103 @@ export type TopicPage = {
 
 export const topicPages: TopicPage[] = [
   {
+    slug: "hurricane-landfall-forecast",
+    title: "Hurricane Landfall Forecast | Track, Timing & Risk",
+    shortTitle: "Landfall Forecast",
+    description: "Understand the latest hurricane landfall forecast using the NHC track, cone, arrival timing, wind field, surge products, and local official alerts.",
+    eyebrow: "Forecast interpretation",
+    intro: "A hurricane landfall forecast estimates where and when the storm center may cross the coast, but it is not a single-point promise. Use the latest NHC track together with the cone, wind field, surge products, rainfall forecasts, and local alerts to understand the full risk.",
+    primaryAction: { label: "Check current NHC storms", href: "/hurricane-tracker/live/" },
+    secondaryAction: { label: "Read the hurricane path guide", href: "/hurricane-tracker/path/" },
+    intent: "hurricane landfall forecast, where will the hurricane make landfall, hurricane arrival time",
+    steps: [
+      { title: "Check the Latest Advisory", body: "Start with the advisory time, current position, movement, intensity, and official forecast track. Older screenshots can be misleading after a forecast changes.", href: "/hurricane-tracker/live/", label: "Open live tracker" },
+      { title: "Read the Uncertainty", body: "Use the full cone and forecast discussion instead of treating the center line or one model as an exact landfall location.", href: "/blog/how-to-read-the-hurricane-cone-of-uncertainty/", label: "Understand the cone" },
+      { title: "Translate It Locally", body: "Check NWS alerts, evacuation zones, surge risk, rainfall, and county instructions for the location you care about.", href: "/alerts/", label: "Check local alerts" }
+    ],
+    sections: [
+      { eyebrow: "Direct answer", title: "Where Will the Hurricane Make Landfall?", body: "The best current answer comes from the latest NHC forecast, but the likely crossing point can shift between advisories. Confidence is usually lower several days out and improves as observations and model agreement increase.", bullets: ["Latest NHC forecast position and valid time", "Cone of uncertainty, not only the center line", "Forecast discussion and model trends", "Local watches, warnings, and evacuation orders"] },
+      { eyebrow: "Impact area", title: "Landfall Is Not the Edge of the Danger", body: "Wind, surge, rain, tornadoes, waves, and outages can occur far from the exact point where the center crosses the coast.", bullets: ["Onshore flow can drive surge away from the eye", "Rainfall flooding can peak inland", "Tornadoes often occur in outer rain bands", "Large storms spread wind across a wider area"] }
+    ],
+    nextLinks: [
+      { name: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Current NHC storms, positions, forecast tracks, radar, and advisory times." },
+      { name: "Hurricane Path Tracker", href: "/hurricane-tracker/path/", description: "Learn how forecast tracks change and how to read the cone." },
+      { name: "Spaghetti Models", href: "/hurricane-tracker/spaghetti-models/", description: "Understand model spread without treating one run as an official forecast." },
+      { name: "Storm Surge Map", href: "/hurricane-tracker/storm-surge-map/", description: "Separate coastal water risk from the forecast center track." },
+      { name: "State Hurricane Trackers", href: "/tracker/", description: "Move from basin-scale forecast context to state alerts and local planning." }
+    ],
+    faqs: [
+      { question: "Where will the hurricane make landfall?", answer: "Use the latest NHC forecast track and advisory discussion. The forecast point can change, so monitor the full cone and local alerts rather than relying on one exact location." },
+      { question: "How accurate is a hurricane landfall forecast?", answer: "Accuracy generally improves as the storm approaches, but track, intensity, size, and impacts remain uncertain. Forecast errors are larger farther into the future." },
+      { question: "Does landfall mean the eye will hit my city?", answer: "No. Landfall refers to the surface center crossing the coast. Dangerous wind, surge, rain, tornadoes, and waves can affect places far from the eye." },
+      { question: "When should I act on a landfall forecast?", answer: "Follow official watches, warnings, evacuation orders, and local emergency guidance. Households with transport, medical, mobility, pet, or flood-zone constraints may need to act earlier." }
+    ]
+  },
+  {
+    slug: "tropical-storm-vs-hurricane",
+    title: "Tropical Storm vs Hurricane | Wind, Risk & Warnings",
+    shortTitle: "Tropical Storm vs Hurricane",
+    description: "Compare a tropical storm vs hurricane by wind speed, forecast labels, warnings, surge, rainfall, tornado, and preparation decisions.",
+    eyebrow: "Storm classification guide",
+    intro: "A tropical storm has maximum sustained winds of 39 to 73 mph, while a hurricane has sustained winds of at least 74 mph. The label describes wind intensity near the circulation, not the full danger: either can cause life-threatening flooding, surge, tornadoes, and outages.",
+    primaryAction: { label: "Check current storm classifications", href: "/hurricane-tracker/live/" },
+    secondaryAction: { label: "Check active warnings", href: "/alerts/" },
+    intent: "tropical storm vs hurricane, difference between hurricane and tropical storm, tropical storm wind speed",
+    steps: [
+      { title: "Identify the Classification", body: "Check the latest NHC advisory for the official wind-based classification and advisory time.", href: "/hurricane-tracker/live/", label: "Check current storms" },
+      { title: "Look Beyond the Label", body: "Compare surge, rainfall, tornado, flood, and wind alerts because category alone does not measure every hazard.", href: "/alerts/", label: "Review alerts" },
+      { title: "Match the Local Action", body: "Use state and city trackers plus local emergency management guidance to decide what preparation is needed.", href: "/tracker/", label: "Choose a location" }
+    ],
+    sections: [
+      { eyebrow: "Wind thresholds", title: "What Is the Difference Between a Tropical Storm and a Hurricane?", body: "The NHC classifies tropical cyclones primarily by maximum sustained wind. A tropical depression is below 39 mph, a tropical storm is 39 to 73 mph, and a hurricane begins at 74 mph.", bullets: ["Tropical depression: 38 mph or less", "Tropical storm: 39 to 73 mph", "Hurricane: 74 mph or higher", "Major hurricane: Category 3 or higher"] },
+      { eyebrow: "Real-world risk", title: "A Tropical Storm Can Still Be Deadly", body: "Storm size, forward speed, rainfall, terrain, tides, and vulnerability can matter more locally than the wind label.", bullets: ["Freshwater flooding far inland", "Storm surge along bays and coastlines", "Tornadoes in outer rain bands", "Long power and communication outages"] }
+    ],
+    nextLinks: [
+      { name: "Live Hurricane Tracker", href: "/hurricane-tracker/live/", description: "See current NHC classifications and advisory times." },
+      { name: "Hurricane Categories", href: "/hurricane-tracker/hurricane-categories/", description: "Compare Category 1 through Category 5 wind thresholds and limits." },
+      { name: "Hurricane Warning Guide", href: "/hurricane-tracker/hurricane-warning/", description: "Understand watches, warnings, timing, and household action." },
+      { name: "Radar and Satellite", href: "/radar/", description: "Compare rain bands and cloud structure with the official advisory." }
+    ],
+    faqs: [
+      { question: "What is the difference between a tropical storm and a hurricane?", answer: "A tropical storm has maximum sustained winds of 39 to 73 mph. A hurricane has maximum sustained winds of at least 74 mph." },
+      { question: "Can a tropical storm cause storm surge?", answer: "Yes. Tropical storms can cause dangerous surge, rainfall flooding, tornadoes, waves, and outages even without reaching hurricane strength." },
+      { question: "Is a Category 1 hurricane always worse than a tropical storm?", answer: "Not for every location or hazard. A large, slow tropical storm can produce worse flooding than a smaller hurricane. Use local hazard forecasts and alerts." },
+      { question: "Can a tropical storm become a hurricane quickly?", answer: "Yes. Classification can change as winds strengthen or weaken, including rapid intensification. Always check the latest advisory timestamp." }
+    ]
+  },
+  {
+    slug: "hurricane-categories",
+    title: "Hurricane Categories 1-5 | Wind Speed & Damage Guide",
+    shortTitle: "Hurricane Categories",
+    description: "Compare hurricane categories 1 through 5, wind speed thresholds, likely wind damage, and why category does not measure surge or rainfall risk.",
+    eyebrow: "Saffir-Simpson scale",
+    intro: "Hurricane categories rank maximum sustained wind from Category 1 through Category 5. The Saffir-Simpson scale helps communicate wind damage potential, but it does not measure storm surge, rainfall flooding, tornadoes, storm size, or duration.",
+    primaryAction: { label: "Check current hurricane strength", href: "/hurricane-tracker/live/" },
+    secondaryAction: { label: "Compare all storm hazards", href: "/alerts/" },
+    intent: "hurricane categories, Category 1 through 5 wind speed, hurricane category scale",
+    steps: [
+      { title: "Check the Current Wind", body: "Use the latest NHC advisory for maximum sustained wind, category, pressure, movement, and update time.", href: "/hurricane-tracker/live/", label: "Open live tracker" },
+      { title: "Add the Missing Hazards", body: "Read surge, rainfall, flood, tornado, and local wind products because the category measures wind only.", href: "/alerts/", label: "Check official alerts" },
+      { title: "Plan for Your Location", body: "Housing, trees, utilities, flood zones, bridges, and evacuation constraints determine how the same storm affects different places.", href: "/local-hurricane-risk/", label: "Check local risk" }
+    ],
+    sections: [
+      { eyebrow: "Category thresholds", title: "Hurricane Category Wind Speeds", body: "The scale uses one-minute maximum sustained wind. Major hurricanes are Category 3, 4, or 5, but all hurricanes can produce dangerous conditions.", bullets: ["Category 1: 74-95 mph", "Category 2: 96-110 mph", "Category 3: 111-129 mph", "Category 4: 130-156 mph", "Category 5: 157 mph or higher"] },
+      { eyebrow: "Scale limits", title: "Category Does Not Equal Total Risk", body: "A lower-category storm can be catastrophic when it is large, slow, rain-heavy, or pushing water into a vulnerable coastline.", bullets: ["No storm surge measurement", "No rainfall or inland flood measurement", "No tornado or wave measurement", "No storm size or duration measurement"] }
+    ],
+    nextLinks: [
+      { name: "Tropical Storm vs Hurricane", href: "/hurricane-tracker/tropical-storm-vs-hurricane/", description: "Compare the broader cyclone classifications and thresholds." },
+      { name: "Live Hurricane Tracker", href: "/hurricane-tracker/live/", description: "Check the latest official strength for active systems." },
+      { name: "Storm Surge Map", href: "/hurricane-tracker/storm-surge-map/", description: "Review the water hazard that category does not measure." },
+      { name: "Local Hurricane Risk", href: "/local-hurricane-risk/", description: "Connect storm hazards to a city, state, ZIP, or household plan." }
+    ],
+    faqs: [
+      { question: "What are the five hurricane categories?", answer: "Category 1 is 74-95 mph, Category 2 is 96-110 mph, Category 3 is 111-129 mph, Category 4 is 130-156 mph, and Category 5 is 157 mph or higher." },
+      { question: "What is a major hurricane?", answer: "A major hurricane is Category 3, 4, or 5, with maximum sustained winds of at least 111 mph." },
+      { question: "Does hurricane category predict storm surge?", answer: "No. The category measures maximum sustained wind only. Surge depends on storm size, track, coastline shape, depth, speed, and tides." },
+      { question: "Can a Category 1 hurricane be dangerous?", answer: "Yes. Category 1 hurricanes can cause damaging wind, surge, rainfall flooding, tornadoes, waves, outages, and dangerous travel conditions." }
+    ]
+  },
+  {
     slug: "southeast",
     title: "Southeast Hurricane Tracker | East Coast NHC Updates",
     shortTitle: "Southeast Tracker",
