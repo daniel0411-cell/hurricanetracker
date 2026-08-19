@@ -31,7 +31,7 @@
     "verify:seo": "node scripts/verify-seo-endpoints.mjs",
     "deploy": "wrangler deploy --config wrangler.deploy.toml && node scripts/verify-seo-endpoints.mjs && (node scripts/indexnow-submit.mjs || true) && (node scripts/gindex-submit.mjs || true)",
     "deploy:monitor": "wrangler deploy --config wrangler.monitor.toml",
-    "ship": "npm run build && npm run deploy"
+    "ship": "node scripts/ship.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

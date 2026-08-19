@@ -41,20 +41,21 @@ npm run build
 
 ## Deployment Guide
 
-1. Push this repository to GitHub.
-2. In Cloudflare, open **Workers & Pages**.
-3. Choose **Create application**.
-4. Select **Pages**.
-5. Connect your GitHub repository.
-6. Configure the build settings:
+Production runs as a Cloudflare Worker configured by `wrangler.deploy.toml`. Use the guarded release command so the GitHub `main` branch and the production deployment always represent the same source revision:
 
-```txt
-Build Command: npm run build
-Output Directory: dist
-Node Version: 22
+```sh
+npm run ship -- "Describe the release"
 ```
 
-7. Deploy the project.
+The command builds the site, commits any working-tree changes with the supplied message, verifies that local `main` is not behind GitHub, pushes `main`, and then deploys to Cloudflare. It stops before deployment if any of those checks fail.
+
+To redeploy an already committed revision without changing GitHub, use:
+
+```sh
+npm run deploy
+```
+
+Use `npm run deploy:monitor` separately when `workers/storm-monitor.mjs` or its configuration changes.
 
 ### Cloudflare Bindings
 
