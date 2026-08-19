@@ -47,7 +47,7 @@ Production runs as a Cloudflare Worker configured by `wrangler.deploy.toml`. Use
 npm run ship -- "Describe the release"
 ```
 
-The command builds the site, commits any working-tree changes with the supplied message, verifies that local `main` is not behind GitHub, pushes `main`, and then deploys to Cloudflare. It stops before deployment if any of those checks fail.
+The command builds the site, commits any working-tree changes with the supplied message, verifies that local `main` is not behind GitHub, pushes `main`, and then deploys to Cloudflare. GitHub network operations retry with a relaxed low-speed timeout, and a failed push response is verified against the remote revision before deployment continues. It stops before deployment if any check still fails.
 
 To redeploy an already committed revision without changing GitHub, use:
 
