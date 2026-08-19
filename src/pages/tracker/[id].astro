@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import StormLocationCompare from "../../components/StormLocationCompare.astro";
 import { faqs, site } from "../../data/site";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
-import type { NhcStorm } from "../../lib/weather";
+import { advisoryUrl, type NhcStorm } from "../../lib/weather";
 
 type StormFeed = {
   storms?: Array<NhcStorm & { summary?: string }>;
@@ -32,6 +32,8 @@ const storm = (feed?.storms ?? []).find((item) => {
   const keys = [item.id, item.name, item.binNumber].filter(Boolean).map((value) => String(value).toLowerCase());
   return keys.includes(id.toLowerCase());
 });
+const publicAdvisory = advisoryUrl(storm?.publicAdvisory);
+const forecastAdvisory = advisoryUrl(storm?.forecastAdvisory);
 const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
 const jsonLd = graph(
   websiteSchema(),
@@ -66,8 +68,8 @@ const jsonLd = graph(
               </tbody>
             </table>
             <p class="storm-detail-links">
-              {storm.publicAdvisory && <a href={storm.publicAdvisory} rel="nofollow">Read NHC public advisory</a>}
-              {storm.forecastAdvisory && <a href={storm.forecastAdvisory} rel="nofollow">Read NHC forecast advisory</a>}
+              {publicAdvisory && <a href={publicAdvisory} rel="nofollow">Read NHC public advisory</a>}
+              {forecastAdvisory && <a href={forecastAdvisory} rel="nofollow">Read NHC forecast advisory</a>}
             </p>
           </>
         ) : (
@@ -93,8 +95,8 @@ const jsonLd = graph(
           stormName={storm.name ?? storm.id ?? "this storm"}
           latitude={storm.latitude}
           longitude={storm.longitude}
-          publicAdvisory={storm.publicAdvisory}
-          forecastAdvisory={storm.forecastAdvisory}
+          publicAdvisory={publicAdvisory}
+          forecastAdvisory={forecastAdvisory}
         />
       </div>
     </section>

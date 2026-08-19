@@ -396,12 +396,6 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
     text-align: center;
   }
 
-  @media (min-width: 1024px) {
-    .disclaimer p {
-      white-space: nowrap;
-    }
-  }
-
   .disclaimer a {
     color: #fff;
     text-decoration-thickness: 2px;
@@ -1449,6 +1443,10 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .metric-strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .compact-dashboard {
       grid-template-columns: 1fr;
     }
@@ -1456,6 +1454,10 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
 
   @media (max-width: 520px) {
     .dashboard {
+      grid-template-columns: 1fr;
+    }
+
+    .metric-strip {
       grid-template-columns: 1fr;
     }
 

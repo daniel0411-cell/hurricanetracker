@@ -3,19 +3,24 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
 import StateActionPaths from "../../components/StateActionPaths.astro";
 import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
+import StateCurrentAnswer from "../../components/StateCurrentAnswer.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateBySlug } from "../../data/states";
+import { getStateSeoProfile } from "../../data/stateSeo";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 import { site } from "../../data/site";
+import { getStateCurrentStatus, stateCurrentFaqs } from "../../lib/stateCurrent";
 
 const state = getStateBySlug("virginia")!;
 const code = state.code;
 const name = state.name;
 const region = state.region;
-const title = `${name} Hurricane Tracker – Live NHC Data & Alerts`;
-const description = `${name} real-time hurricane tracking with NOAA data, NWS alerts, evacuation info, and live updates for ${region}.`;
+const seo = getStateSeoProfile(state);
+const title = seo.title;
+const description = seo.description;
 const canonical = `${site.url}/tracker/${state.slug}/`;
-const lastModified = "2026-08-07";
+const lastModified = site.contentLastModified;
+const currentStatus = await getStateCurrentStatus(code);
 
 const intro = `Virginia's hurricane exposure centers on the Chesapeake Bay and the Hampton Roads region, with about 110 miles of tidal shoreline opening to the Atlantic. Systems usually reach Virginia after recurving up the Mid-Atlantic coast, arriving as hurricanes or strong tropical storms that drive tidal flooding through the bay, spin up tornadoes, and topple trees onto power lines. Bridge-tunnels become critical constraints during evacuations. In 2003, Hurricane Isabel struck as a major hurricane and caused widespread wind damage, tidal flooding, and long outages across the Chesapeake region, the most damaging storm in recent Virginia memory. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is within the active window, so bay communities should monitor tropical threats and plan for tidal and river flooding, not just wind.`;
 
@@ -70,7 +75,7 @@ const jsonLd = graph(
     })),
     ...stateActionPaths
   ]),
-  faqSchema(faqs)
+  faqSchema([...stateCurrentFaqs(name, currentStatus), ...faqs])
 );
 ---
 <BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={lastModified}>
@@ -79,6 +84,12 @@ const jsonLd = graph(
       <p class="eyebrow">{region} hurricane operations</p>
       <h1 id="tracker-state-title">{name} Hurricane Tracker – Live Updates</h1>
       <p class="answer">{intro}</p>
+      <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
+      <section class="intent-answer" aria-labelledby="virginia-intent-heading">
+        <h2 id="virginia-intent-heading">Is There a Hurricane Coming to Virginia Today?</h2>
+        <p>Use the live status above for the latest NHC answer, then check Mid-Atlantic storm timing, Virginia NWS alerts, Chesapeake Bay flooding, and local evacuation guidance. Bridge and tunnel restrictions can change quickly.</p>
+        <p><a href="/hurricane-tracker/live/">Check the live hurricane tracker</a> · <a href="/alerts/">View Virginia alerts</a> · <a href="/hurricane-tracker/path/">Read the forecast path</a></p>
+      </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
@@ -112,5 +123,7 @@ const jsonLd = graph(
 </BaseLayout>
 
 <style>
-  .answer { font-size: 1.05rem; line-height: 1.75; }
+.answer { font-size: 1.05rem; line-height: 1.75; }
+.intent-answer { margin: 24px 0; padding: 18px 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface, #f3f7fa); }
+.intent-answer h2 { margin-top: 0; }
 </style>

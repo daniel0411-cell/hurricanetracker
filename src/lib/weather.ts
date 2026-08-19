@@ -1,3 +1,12 @@
+export type AdvisoryLink = string | { url?: string };
+export type NhcGisLink = {
+  advNum?: string;
+  issuance?: string;
+  fileUpdateTime?: string;
+  zipFile?: string;
+  kmzFile?: string;
+};
+
 export type NhcStorm = {
   id?: string;
   name?: string;
@@ -7,13 +16,22 @@ export type NhcStorm = {
   pressure?: string;
   latitude?: string;
   longitude?: string;
+  latitudeNumeric?: number;
+  longitudeNumeric?: number;
   movementDir?: number | string;
   movementSpeed?: number | string;
   lastUpdate?: string;
-  publicAdvisory?: string;
-  forecastAdvisory?: string;
+  publicAdvisory?: AdvisoryLink;
+  forecastAdvisory?: AdvisoryLink;
+  forecastTrack?: NhcGisLink;
+  trackCone?: NhcGisLink;
   windSpeed?: string;
 };
+
+export function advisoryUrl(value: AdvisoryLink | null | undefined) {
+  const url = typeof value === "string" ? value : value?.url;
+  return typeof url === "string" && /^https?:\/\//i.test(url) ? url : "";
+}
 
 export type NwsAlert = {
   id: string;

@@ -16,12 +16,15 @@ export type SitemapRoute = {
 };
 
 const updated = site.contentLastModified;
-const blogLastMod = "2026-08-17";
+const blogLastMod = new Date(
+  Math.max(...blogPosts.map((post) => new Date(post.dateModified || post.datePublished).getTime()))
+).toISOString();
 
 const pageRoutes: SitemapRoute[] = [
   { path: "", lastmod: updated, priority: "1.0", changefreq: "daily", section: "pages" },
   { path: "tracker/", lastmod: updated, priority: "0.8", changefreq: "daily", section: "pages" },
   { path: "hurricane-tracker/live/", lastmod: updated, priority: "0.9", changefreq: "daily", section: "pages" },
+  { path: "hurricane-tracker/tropical-disturbances/", lastmod: updated, priority: "0.9", changefreq: "daily", section: "pages" },
   { path: "radar/", lastmod: updated, priority: "0.8", changefreq: "daily", section: "pages" },
   { path: "alerts/", lastmod: updated, priority: "0.8", changefreq: "daily", section: "pages" },
   { path: "learn/", lastmod: updated, priority: "0.8", changefreq: "weekly", section: "pages" },
@@ -64,7 +67,7 @@ const locationRoutes: SitemapRoute[] = [
 const blogRoutes: SitemapRoute[] = [
   { path: "blog/", lastmod: blogLastMod, priority: "0.8", changefreq: "weekly", section: "blog" },
   ...BLOG_CATEGORY_PAGES.map((category) => ({ path: `blog/category/${category.slug}/`, lastmod: updated, priority: "0.7", changefreq: "weekly", section: "blog" as const })),
-  ...blogPosts.map((post) => ({ path: `blog/${post.slug}/`, lastmod: new Date(post.dateModified).toISOString(), priority: "0.7", changefreq: "weekly", section: "blog" as const })),
+  ...blogPosts.map((post) => ({ path: `blog/${post.slug}/`, lastmod: new Date(post.dateModified || post.datePublished).toISOString(), priority: "0.7", changefreq: "weekly", section: "blog" as const })),
   { path: "blog/hurricane-watch-vs-warning/", lastmod: blogLastMod, priority: "0.7", changefreq: "weekly", section: "blog" },
   { path: "blog/flood-advisory-vs-watch-vs-warning/", lastmod: blogLastMod, priority: "0.7", changefreq: "weekly", section: "blog" },
   { path: "blog/rip-current-statement-gulf-coast/", lastmod: blogLastMod, priority: "0.7", changefreq: "weekly", section: "blog" }

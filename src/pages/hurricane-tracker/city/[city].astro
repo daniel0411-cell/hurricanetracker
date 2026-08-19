@@ -93,6 +93,9 @@ const jsonLd = graph(
 );
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" data-city-storm-relevance data-city-lat={city.lat} data-city-lon={city.lon} hidden>
+    <div class="inner"><p class="eyebrow">Active storm context</p><h2>Active Storms To Monitor</h2><p class="answer">Current NHC centers within 500 miles appear here as a navigation aid, not a landfall or impact forecast.</p><div class="grid-3 section-grid" data-city-storm-list></div></div>
+  </section>
   <section class="band" aria-labelledby="city-title">
     <div class="inner">
       <p class="eyebrow">{city.region}</p>
@@ -263,6 +266,19 @@ const jsonLd = graph(
 
   <FaqBlock faqs={pageFaqs} />
 </Layout>
+
+<script>
+  const section = document.querySelector<HTMLElement>("[data-city-storm-relevance]");
+  const list = section?.querySelector<HTMLElement>("[data-city-storm-list]");
+  const distance = (a:number,b:number,c:number,d:number) => { const r=Math.PI/180; const x=Math.sin((c-a)*r/2)**2+Math.cos(a*r)*Math.cos(c*r)*Math.sin((d-b)*r/2)**2; return 3959*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x)); };
+  if (section && list) fetch("/api/nhc/current.json").then((response) => response.json() as Promise<{ storms?: any[] }>).then((feed) => {
+    const lat=Number(section.dataset.cityLat), lon=Number(section.dataset.cityLon);
+    const storms=(feed.storms ?? []).filter((storm:any) => Number.isFinite(storm.latitudeNumeric) && Number.isFinite(storm.longitudeNumeric) && distance(lat,lon,storm.latitudeNumeric,storm.longitudeNumeric)<=500);
+    if (!storms.length) return;
+    list.replaceChildren(...storms.map((storm:any)=>{const name=String(storm.name??storm.id??"storm");const slug=name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");const article=document.createElement("article");article.className="state-card";const badge=document.createElement("span");badge.className="badge warn";badge.textContent="NHC active";const heading=document.createElement("h3");heading.textContent=name;const body=document.createElement("p");body.textContent="Check the official forecast and local NWS alerts.";const link=document.createElement("a");link.href=["","hurricane-tracker","storm",slug,""].join("/");link.textContent=`Track ${name}`;article.appendChild(badge);article.appendChild(heading);article.appendChild(body);article.appendChild(link);return article;}));
+    section.hidden=false;
+  }).catch(()=>{});
+</script>
 
 <style is:global>
   .alert-feed {

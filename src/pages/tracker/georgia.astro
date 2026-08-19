@@ -3,11 +3,13 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
 import StateActionPaths from "../../components/StateActionPaths.astro";
 import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
+import StateCurrentAnswer from "../../components/StateCurrentAnswer.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateSeoProfile } from "../../data/stateSeo";
 import { getStateBySlug } from "../../data/states";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 import { site } from "../../data/site";
+import { getStateCurrentStatus, stateCurrentFaqs } from "../../lib/stateCurrent";
 
 const state = getStateBySlug("georgia")!;
 const code = state.code;
@@ -18,6 +20,7 @@ const title = seo.title;
 const description = seo.description;
 const canonical = `${site.url}/tracker/${state.slug}/`;
 const lastModified = site.contentLastModified;
+const currentStatus = await getStateCurrentStatus(code);
 
 const intro = `Georgia's Atlantic coastline is short—about 100 miles—but densely developed from the Savannah metro down to Brunswick and the Golden Isles. Hurricanes usually reach Georgia after tracking up the Southeast seaboard or crossing Florida, often arriving as hurricanes or strong tropical storms with high rain rates and tornadoes. The coastal plain's rivers and tidal creeks flood readily, and wind-toppled trees are a major power-outage driver. In 2018, Hurricane Michael crossed into Georgia as a hurricane and inflicted historic wind damage across southwest Georgia's forests, the most damaging tropical cyclone in recent state memory. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is within the active period, so the coast from Savannah to St. Simons should stay alert, pair NWS alerts with county instructions, and keep an evacuation route ready.`;
 
@@ -72,7 +75,7 @@ const jsonLd = graph(
     })),
     ...stateActionPaths
   ]),
-  faqSchema(faqs)
+  faqSchema([...stateCurrentFaqs(name, currentStatus), ...faqs])
 );
 ---
 <BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={lastModified}>
@@ -81,6 +84,12 @@ const jsonLd = graph(
       <p class="eyebrow">{region} hurricane operations</p>
       <h1 id="tracker-state-title">{seo.headline}</h1>
       <p class="answer">{intro}</p>
+      <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
+
+      <section class="intent-answer" aria-labelledby="georgia-intent-heading">
+        <h2 id="georgia-intent-heading">Georgia Hurricane Questions Today</h2>
+        <p>This page answers “is there a hurricane coming to Georgia,” “is there a hurricane coming near Georgia,” and “is a hurricane coming to Georgia this week” with the current NHC path, Georgia NWS alerts, and coastal city context.</p>
+      </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
@@ -101,6 +110,7 @@ const jsonLd = graph(
       <StateActionPaths state={state} />
 
       <StateTrackerSeoLinks state={state} cities={stateCities} />
+      <p class="region-link"><a href="/hurricane-tracker/southeast/">Compare Georgia with the Southeast and East Coast Hurricane Tracker</a></p>
 
       <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
       <ul class="check-list">
@@ -115,4 +125,7 @@ const jsonLd = graph(
 
 <style>
   .answer { font-size: 1.05rem; line-height: 1.75; }
+  .intent-answer { margin: 24px 0; padding: 18px 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface, #f3f7fa); }
+  .intent-answer h2 { margin-top: 0; }
+  .region-link { margin: 24px 0; font-weight: 800; }
 </style>

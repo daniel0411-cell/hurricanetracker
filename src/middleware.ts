@@ -2,6 +2,7 @@ import { defineMiddleware } from "astro:middleware";
 import { TRACKER_SLUG_SET } from "./data/trackerSlugs";
 
 const canonicalHost = "www.hurricanetracker.cc";
+const localHosts = new Set(["localhost", "127.0.0.1", "::1"]);
 
 /**
  * Global exception boundary for the whole Cloudflare Worker.
@@ -33,7 +34,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     // NOTE: only normalize on a hostname mismatch. Under Cloudflare Flexible
     // SSL the Worker always receives an http:// request, so checking the
     // protocol here would cause an infinite redirect loop.
-    if (url.hostname !== canonicalHost) {
+    if (url.hostname !== canonicalHost && !localHosts.has(url.hostname)) {
       url.hostname = canonicalHost;
       url.protocol = "https:";
       return Response.redirect(url.toString(), 301);

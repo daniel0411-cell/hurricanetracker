@@ -8,6 +8,8 @@
     "verify:official-resources": "node scripts/verify-official-resources.mjs",
     "seo:audit": "node scripts/seo-audit.mjs",
     "metadata:audit": "node scripts/metadata-audit.mjs",
+    "seo:opportunities": "node scripts/seo-opportunity-report.mjs",
+    "seo:keywords": "node scripts/keyword-coverage-report.mjs",
     "links:audit": "node scripts/internal-link-audit.mjs",
     "rss:audit": "node scripts/rss-audit.mjs",
     "coverage:audit": "node scripts/coverage-audit.mjs",
@@ -16,7 +18,7 @@
     "content:audit": "node scripts/content-audit.mjs",
     "media:audit": "node scripts/media-audit.mjs",
     "search:audit": "node scripts/search-audit.mjs",
-    "seo:full": "npm run build && npm run seo:audit && npm run metadata:audit && npm run schema:audit && npm run links:audit && npm run rss:audit && npm run coverage:audit && npm run faq:audit && npm run content:audit && npm run media:audit && npm run search:audit",
+    "seo:full": "npm run build && npm run seo:audit && npm run metadata:audit && npm run seo:opportunities && npm run seo:keywords && npm run schema:audit && npm run links:audit && npm run rss:audit && npm run coverage:audit && npm run faq:audit && npm run content:audit && npm run media:audit && npm run search:audit",
     "prebuild": "npm run verify:city-data && node scripts/gen-og.mjs",
     "dev": "ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG_PATH=.wrangler/logs astro dev --host 127.0.0.1",
     "build": "ASTRO_TELEMETRY_DISABLED=1 WRANGLER_LOG_PATH=.wrangler/logs astro build",
@@ -28,12 +30,14 @@
     "indexall": "node scripts/indexnow-submit.mjs && node scripts/gindex-submit.mjs",
     "verify:seo": "node scripts/verify-seo-endpoints.mjs",
     "deploy": "wrangler deploy --config wrangler.deploy.toml && node scripts/verify-seo-endpoints.mjs && (node scripts/indexnow-submit.mjs || true) && (node scripts/gindex-submit.mjs || true)",
+    "deploy:monitor": "wrangler deploy --config wrangler.monitor.toml",
     "ship": "npm run build && npm run deploy"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/cloudflare": "^14.2.1",
     "astro": "^7.2.1",
+    "fflate": "^0.8.3",
     "leaflet": "^1.9.4",
     "typescript": "^5.9.2"
   },

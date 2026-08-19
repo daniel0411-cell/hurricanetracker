@@ -3,11 +3,13 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
 import StateActionPaths from "../../components/StateActionPaths.astro";
 import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
+import StateCurrentAnswer from "../../components/StateCurrentAnswer.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateSeoProfile } from "../../data/stateSeo";
 import { getStateBySlug } from "../../data/states";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 import { site } from "../../data/site";
+import { getStateCurrentStatus, stateCurrentFaqs } from "../../lib/stateCurrent";
 
 const state = getStateBySlug("florida")!;
 const code = state.code;
@@ -18,6 +20,7 @@ const title = seo.title;
 const description = seo.description;
 const canonical = `${site.url}/tracker/${state.slug}/`;
 const lastModified = site.contentLastModified;
+const currentStatus = await getStateCurrentStatus(code);
 
 const intro = `Florida faces the Atlantic and Gulf of Mexico at once, giving it more than 1,300 miles of tidal coastline—the longest of any hurricane-prone state. Storms typically organize near the Bahamas or in the Caribbean and track west across South Florida, or curve north into the Panhandle and Big Bend, while others develop in the Gulf and threaten Tampa Bay or the central coast. Because the peninsula is low and surrounded by warm water, rapid intensification just before landfall is common. In recent memory, Hurricane Michael (2018) struck the Panhandle as a catastrophic Category 5, and Hurricane Ian (2022) produced deadly storm surge and flooding across southwest Florida. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August sits in the climatological ramp toward the September peak, when sea-surface temperatures are warmest. Residents should confirm evacuation zones and keep a ready-to-go plan before any system forms, because bridge and causeway closures often arrive well ahead of landfall.`;
 
@@ -45,6 +48,13 @@ const stateActionPaths = [
   }
 ];
 const adjacent = ["georgia", "alabama"];
+const gulfLinks = [
+  { href: "/hurricane-tracker/gulf/", label: "Gulf Hurricane Tracker" },
+  { href: "/tracker/texas/", label: "Texas Hurricane Tracker" },
+  { href: "/tracker/louisiana/", label: "Louisiana Hurricane Tracker" },
+  { href: "/tracker/mississippi/", label: "Mississippi Hurricane Tracker" },
+  { href: "/tracker/alabama/", label: "Alabama Hurricane Tracker" }
+];
 
 const faqs = [
   {
@@ -72,7 +82,7 @@ const jsonLd = graph(
     })),
     ...stateActionPaths
   ]),
-  faqSchema(faqs)
+  faqSchema([...stateCurrentFaqs(name, currentStatus), ...faqs])
 );
 ---
 <BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={lastModified}>
@@ -81,12 +91,18 @@ const jsonLd = graph(
       <p class="eyebrow">{region} hurricane operations</p>
       <h1 id="tracker-state-title">{seo.headline}</h1>
       <p class="answer">{intro}</p>
+      <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
+
+      <section class="intent-answer" aria-labelledby="florida-intent-heading">
+        <h2 id="florida-intent-heading">Florida Hurricane Questions Today</h2>
+        <p>Users searching “is there a hurricane coming to Florida,” “is Florida getting a hurricane,” and “will the hurricane hit Florida” should start here. Check the live NHC answer above, then compare Florida NWS alerts, evacuation zones, and city trackers for Miami, Tampa, Orlando, Jacksonville, and the Panhandle.</p>
+      </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
       <StateAlerts state={code} />
 
-      <h2 id="city-trackers">{name} City Hurricane Trackers</h2>
+      <h2 id="city-trackers">Florida Hurricane Tracker by City</h2>
       <p class="source-note">Open city guides for local surge, flooding, evacuation-route, and outage planning notes within {name}.</p>
       <div class="grid-3" style="margin-top: 18px;">
         {stateCities.map((city) => (
@@ -98,9 +114,23 @@ const jsonLd = graph(
         ))}
       </div>
 
+      <section class="city-intent-strip" aria-labelledby="florida-city-intent-heading">
+        <h3 id="florida-city-intent-heading">Florida Hurricane Tracker Today by City</h3>
+        <p>For local searches such as Orlando hurricane today, Miami hurricane tracker, or Tampa Bay storm risk, open the closest city guide and verify county alerts.</p>
+        <div class="city-intent-links">
+          {stateCities.slice(0, 8).map((city) => <a href={`/hurricane-tracker/city/${city.slug}/`}>{city.name} hurricane tracker</a>)}
+        </div>
+      </section>
+
       <StateActionPaths state={state} />
 
       <StateTrackerSeoLinks state={state} cities={stateCities} />
+
+      <section class="gulf-links" aria-labelledby="florida-gulf-heading">
+        <h2 id="florida-gulf-heading">Florida Gulf Hurricane Tracker Connections</h2>
+        <p>Florida Gulf searches overlap with Texas, Louisiana, Mississippi, and Alabama storm questions. Use the Gulf basin page first, then open the state page closest to your location.</p>
+        <ul class="check-list">{gulfLinks.map((link) => <li><a href={link.href}>{link.label}</a></li>)}</ul>
+      </section>
 
       <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
       <ul class="check-list">
@@ -115,4 +145,11 @@ const jsonLd = graph(
 
 <style>
   .answer { font-size: 1.05rem; line-height: 1.75; }
+  .intent-answer { margin: 24px 0; padding: 18px 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface, #f3f7fa); }
+  .intent-answer h2 { margin-top: 0; }
+  .gulf-links { margin-top: 28px; padding: 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface, #f3f7fa); }
+  .gulf-links h2 { margin-top: 0; }
+  .city-intent-strip { margin: 24px 0; padding: 18px 20px; border-top: 3px solid var(--ocean); background: var(--surface, #f3f7fa); }
+  .city-intent-strip h3 { margin-top: 0; }
+  .city-intent-links { display: flex; flex-wrap: wrap; gap: 8px 16px; font-weight: 800; }
 </style>

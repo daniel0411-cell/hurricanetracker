@@ -3,19 +3,24 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
 import StateActionPaths from "../../components/StateActionPaths.astro";
 import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
+import StateCurrentAnswer from "../../components/StateCurrentAnswer.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateBySlug } from "../../data/states";
+import { getStateSeoProfile } from "../../data/stateSeo";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 import { site } from "../../data/site";
+import { getStateCurrentStatus, stateCurrentFaqs } from "../../lib/stateCurrent";
 
 const state = getStateBySlug("south-carolina")!;
 const code = state.code;
 const name = state.name;
 const region = state.region;
-const title = `${name} Hurricane Tracker – Live NHC Data & Alerts`;
-const description = `${name} real-time hurricane tracking with NOAA data, NWS alerts, evacuation info, and live updates for ${region}.`;
+const seo = getStateSeoProfile(state);
+const title = seo.title;
+const description = seo.description;
 const canonical = `${site.url}/tracker/${state.slug}/`;
-const lastModified = "2026-08-07";
+const lastModified = site.contentLastModified;
+const currentStatus = await getStateCurrentStatus(code);
 
 const intro = `South Carolina's Atlantic coast spans roughly 185 miles, anchored by the Lowcountry around Charleston and the Grand Strand near Myrtle Beach. Hurricanes typically approach from the southeast or track up the Southeast seaboard, then curve into the coast where wide tidal estuaries and salt marshes magnify storm surge. The Lowcountry's bridges and causeways become vulnerable as winds rise, and heavy rain compounds coastal flooding. In 1989, Hurricane Hugo made a devastating Category 4 landfall near Charleston, leveling timber and producing a memorable surge that remains the state benchmark. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is inside the active window, so coastal households should confirm their evacuation zone and plan to leave before the reversal of I-26 and other routes jams with traffic.`;
 
@@ -70,7 +75,7 @@ const jsonLd = graph(
     })),
     ...stateActionPaths
   ]),
-  faqSchema(faqs)
+  faqSchema([...stateCurrentFaqs(name, currentStatus), ...faqs])
 );
 ---
 <BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={lastModified}>
@@ -79,6 +84,12 @@ const jsonLd = graph(
       <p class="eyebrow">{region} hurricane operations</p>
       <h1 id="tracker-state-title">{name} Hurricane Tracker – Live Updates</h1>
       <p class="answer">{intro}</p>
+      <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
+
+      <section class="intent-answer" aria-labelledby="south-carolina-intent-heading">
+        <h2 id="south-carolina-intent-heading">South Carolina Hurricane Questions Today</h2>
+        <p>This page answers “is there a hurricane coming to South Carolina,” “is there a hurricane coming to SC,” and “is a hurricane coming to South Carolina next week” with current NHC context, Lowcountry risk, and local alerts.</p>
+      </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
@@ -113,4 +124,6 @@ const jsonLd = graph(
 
 <style>
   .answer { font-size: 1.05rem; line-height: 1.75; }
+  .intent-answer { margin: 24px 0; padding: 18px 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface, #f3f7fa); }
+  .intent-answer h2 { margin-top: 0; }
 </style>

@@ -16,23 +16,179 @@ export type TopicPage = {
 
 export const topicPages: TopicPage[] = [
   {
+    slug: "southeast",
+    title: "Southeast Hurricane Tracker | East Coast NHC Updates",
+    shortTitle: "Southeast Tracker",
+    description: "Track hurricanes approaching the Southeast and East Coast with live NHC paths, radar, alerts, and Georgia, Carolinas, Virginia, and Florida trackers.",
+    eyebrow: "Southeast and East Coast tracker",
+    intro: "Use this Southeast hurricane tracker to check active Atlantic systems that may approach Florida, Georgia, South Carolina, North Carolina, or Virginia, then move into state and city alerts for local decisions.",
+    primaryAction: { label: "Open live hurricane map", href: "/hurricane-tracker/live/" },
+    secondaryAction: { label: "Check Southeast states", href: "/tracker/" },
+    intent: "southeast hurricane tracker, east coast hurricane tracker, hurricane near Georgia and Carolinas",
+    steps: [
+      { title: "Check the Atlantic Track", body: "Start with current NHC systems and the official forecast path before focusing on one state or model run.", href: "/hurricane-tracker/live/", label: "Check current storms" },
+      { title: "Compare Southeast States", body: "A track near the coast can affect several states through surge, rain, wind, tornadoes, and travel disruption.", href: "/tracker/", label: "Choose a state" },
+      { title: "Verify Local Alerts", body: "Use NWS watches and warnings plus county emergency management for location-specific timing and instructions.", href: "/alerts/", label: "Check active alerts" }
+    ],
+    sections: [
+      { eyebrow: "Current question", title: "Is a Hurricane Heading Toward the Southeast Coast?", body: "Use the latest NHC position and forecast cone to check whether an active system is approaching the Southeast. Do not treat the center line as an impact boundary.", bullets: ["Florida Atlantic coast context", "Georgia and South Carolina coastal alerts", "North Carolina and Outer Banks timing", "Virginia and Hampton Roads risk"] },
+      { eyebrow: "Regional risk", title: "One Atlantic Storm Can Affect Several States", body: "Recurving storms can produce different hazards from Florida through Virginia even without a direct landfall in every state.", bullets: ["Storm surge and tidal flooding", "Freshwater and river flooding", "Rain-band tornadoes", "Bridge, ferry, and evacuation-route constraints"] }
+    ],
+    nextLinks: [
+      { name: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Current NHC systems, forecast paths, radar, and satellite context." },
+      { name: "Georgia Hurricane Tracker", href: "/tracker/georgia/", description: "Savannah, Brunswick, coastal alerts, flooding, and routes." },
+      { name: "South Carolina Hurricane Tracker", href: "/tracker/south-carolina/", description: "Charleston, Myrtle Beach, Lowcountry alerts, and surge context." },
+      { name: "North Carolina Hurricane Tracker", href: "/tracker/north-carolina/", description: "Outer Banks, Wilmington, river flooding, and NWS updates." },
+      { name: "Virginia Hurricane Tracker", href: "/tracker/virginia/", description: "Hampton Roads, Chesapeake Bay, bridge, and tidal flooding context." }
+    ],
+    faqs: [
+      { question: "Is a hurricane heading toward the East Coast?", answer: "Check the live NHC systems and forecast path, then open the relevant state tracker. Forecasts can shift, and impacts can occur outside the cone." },
+      { question: "Which Southeast states should I monitor?", answer: "Monitor Florida, Georgia, South Carolina, North Carolina, and Virginia when an Atlantic system approaches, then verify local NWS alerts and emergency instructions." },
+      { question: "Can a hurricane affect the Carolinas without making landfall there?", answer: "Yes. Surge, heavy rain, tornadoes, waves, rip currents, and outages can occur even when the storm center stays offshore or lands elsewhere." }
+    ]
+  },
+  {
+    slug: "gulf",
+    title: "Gulf Hurricane Tracker | Live NHC Storm Updates",
+    shortTitle: "Gulf Tracker",
+    description: "Check whether a hurricane or tropical storm is in the Gulf right now with current NHC positions, forecast paths, radar, and Gulf Coast state trackers.",
+    eyebrow: "Gulf Coast live tracker",
+    intro: "Use this Gulf hurricane tracker to check active systems in the Gulf of Mexico, compare the latest NHC position and forecast path, and move into Florida, Texas, Louisiana, Mississippi, or Alabama local alerts.",
+    primaryAction: { label: "Open live hurricane map", href: "/hurricane-tracker/live/" },
+    secondaryAction: { label: "Check Gulf Coast states", href: "/tracker/" },
+    intent: "Gulf hurricane tracker, hurricane in Gulf right now, tropical storm Gulf",
+    steps: [
+      { title: "Check Active Gulf Systems", body: "Start with the live NHC feed to see whether a named hurricane, tropical storm, or disturbance is currently in or approaching the Gulf.", href: "/hurricane-tracker/live/", label: "Check current storms" },
+      { title: "Compare Track and Radar", body: "Use the official forecast path for broad timing, then compare radar and satellite for rain bands and local weather changes.", href: "/radar/", label: "Open radar" },
+      { title: "Move to Local Alerts", body: "Gulf risk differs by coastline, bay, river, and county. Open the relevant state or city page before making a household decision.", href: "/tracker/", label: "Choose a state" }
+    ],
+    sections: [
+      { eyebrow: "Gulf questions", title: "Is There a Hurricane in the Gulf Right Now?", body: "The Gulf can change quickly when a system enters warm water. Use current NHC advisories and local NWS alerts rather than social media screenshots or a single storm-center position.", bullets: ["Active NHC hurricane and tropical-storm status", "Forecast path and advisory time", "Radar and satellite context", "Florida, Texas, Louisiana, Mississippi, and Alabama links"] },
+      { eyebrow: "Risk distinction", title: "A Gulf Track Is Not a Landfall Prediction", body: "A storm can affect the Gulf Coast through surge, rain, tornadoes, or outages outside the center path. Local orders and warnings control what people should do.", bullets: ["Storm surge and bay flooding", "Freshwater and river flooding", "Rain-band tornadoes", "Evacuation zones and route constraints"] }
+    ],
+    nextLinks: [
+      { name: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Current NHC systems, radar, satellite, and forecast context." },
+      { name: "Florida Hurricane Tracker", href: "/tracker/florida/", description: "Florida Atlantic and Gulf risk with live alerts." },
+      { name: "Texas Hurricane Tracker", href: "/tracker/texas/", description: "Texas Gulf track, rainfall, surge, and alerts." },
+      { name: "Louisiana Hurricane Tracker", href: "/tracker/louisiana/", description: "Louisiana surge, levee, and evacuation context." },
+      { name: "Storm Surge Map", href: "/hurricane-tracker/storm-surge-map/", description: "Understand why surge risk differs from storm category." }
+    ],
+    faqs: [
+      { question: "Is there a hurricane in the Gulf right now?", answer: "Check the current NHC storm list and Gulf tracker status above. A system's Gulf position does not by itself predict landfall or local impacts." },
+      { question: "Is there a tropical storm in the Gulf?", answer: "Use the current NHC classification and advisory time. Tropical storms can produce dangerous rain, surge, tornadoes, and flooding before or without hurricane-force winds." },
+      { question: "Which Gulf Coast states should I check?", answer: "Check Florida, Alabama, Mississippi, Louisiana, and Texas state trackers, then verify county NWS alerts and local emergency management instructions." }
+    ]
+  },
+  {
+    slug: "how-hurricanes-are-tracked",
+    title: "How Hurricanes Are Tracked | NHC, Radar & Forecasts",
+    shortTitle: "How Hurricanes Are Tracked",
+    description: "Learn how scientists and the National Hurricane Center track hurricanes with satellites, aircraft, radar, buoys, models, and official forecast advisories.",
+    eyebrow: "Hurricane tracking explained",
+    intro: "Hurricanes are tracked by combining satellite observations, aircraft reconnaissance, radar, ocean data, surface reports, and forecast models. The NHC turns those inputs into the official position, intensity, forecast path, and advisory products used by emergency managers.",
+    primaryAction: { label: "Open live tracker", href: "/hurricane-tracker/live/" },
+    secondaryAction: { label: "Read the path guide", href: "/hurricane-tracker/path/" },
+    intent: "how are hurricanes tracked, how do scientists track hurricanes, hurricane forecast",
+    steps: [
+      { title: "Observe the System", body: "Satellites and aircraft help locate the circulation, estimate organization, and measure winds, pressure, temperature, and moisture.", href: "/learn/", label: "Open learning center" },
+      { title: "Build the Forecast", body: "Forecasters combine observations with numerical models and official expertise to estimate movement and intensity uncertainty.", href: "/hurricane-tracker/path/", label: "Read path guide" },
+      { title: "Communicate the Risk", body: "Advisories, watches, warnings, cones, and local NWS products translate forecast information into public decisions.", href: "/alerts/", label: "Review alerts" }
+    ],
+    sections: [
+      { eyebrow: "Observation", title: "How Scientists Track a Hurricane", body: "No single instrument is enough. Repeated observations show where a system is, how strong it is, and whether the circulation is changing.", bullets: ["Geostationary and polar-orbiting satellites", "Hurricane hunter aircraft and dropsondes", "Coastal and land-based radar", "Buoys, ships, and surface weather stations"] },
+      { eyebrow: "Forecast", title: "Tracking Is Different From Predicting", body: "Tracking describes the observed and forecast center. Prediction includes uncertainty, and impacts can extend far beyond the center line.", bullets: ["Official NHC forecast track", "Cone of uncertainty", "Intensity forecasts", "Local wind, surge, flood, and tornado alerts"] }
+    ],
+    nextLinks: [
+      { name: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "See current NHC storm positions and advisories." },
+      { name: "Hurricane Path Tracker", href: "/hurricane-tracker/path/", description: "Learn to read track and cone information." },
+      { name: "Radar and Satellite", href: "/radar/", description: "Compare local rain bands with satellite structure." },
+      { name: "NWS Alerts", href: "/alerts/", description: "Review official watches and warnings." }
+    ],
+    faqs: [
+      { question: "How are hurricanes tracked?", answer: "The NHC combines satellites, aircraft reconnaissance, radar, buoys, surface observations, forecast models, and forecaster analysis." },
+      { question: "How often does the NHC update hurricane tracks?", answer: "NHC advisories follow scheduled cycles and may include intermediate updates when conditions require them. Always check the timestamp on the latest official advisory." },
+      { question: "Can hurricanes be predicted exactly?", answer: "No. Forecast uncertainty remains, especially farther into the future. Use the official cone and local alerts rather than treating one line as a guarantee." }
+    ]
+  },
+  {
+    slug: "hurricane-warning",
+    title: "Hurricane Warning Explained | Watch vs Warning",
+    shortTitle: "Hurricane Warning",
+    description: "Understand what a hurricane warning means, how it differs from a watch, and how to turn NWS alerts into a household action plan.",
+    eyebrow: "Warning language guide",
+    intro: "A hurricane warning means hurricane conditions are expected in the specified area, usually within 36 hours. A watch means conditions are possible. Always read the full local NWS product and follow emergency management instructions.",
+    primaryAction: { label: "Check active alerts", href: "/alerts/" },
+    secondaryAction: { label: "Decode an alert", href: "/tools/alert-action-decoder/" },
+    intent: "what is a hurricane warning, hurricane watch vs warning, NWS hurricane alert",
+    steps: [
+      { title: "Read the Alert Type", body: "Identify whether the product is a watch, warning, advisory, surge warning, flood warning, or tornado warning.", href: "/alerts/", label: "Check alerts" },
+      { title: "Check Your Location", body: "Read the counties, zones, timing, hazards, and instructions in the official local product.", href: "/local-hurricane-risk/", label: "Check local risk" },
+      { title: "Take the Next Action", body: "Use the alert decoder and local orders to decide whether to monitor, prepare, act, or leave.", href: "/tools/alert-action-decoder/", label: "Decode the alert" }
+    ],
+    sections: [
+      { eyebrow: "Definitions", title: "Watch Versus Warning", body: "A watch means conditions are possible and preparation should be underway. A warning means dangerous conditions are expected and protective action may be needed.", bullets: ["Hurricane watch: possible hurricane conditions", "Hurricane warning: expected hurricane conditions", "Storm surge warning: life-threatening water possible", "Flood and tornado warnings: separate immediate hazards"] },
+      { eyebrow: "Action", title: "The Alert Is Not the Whole Plan", body: "Pair the alert with local evacuation orders, your zone, housing type, mobility, medical needs, pets, and route timing.", bullets: ["Follow local emergency management", "Do not wait for the center line", "Leave early if your household needs more time", "Use official shelter and road information"] }
+    ],
+    nextLinks: [
+      { name: "Active NWS Alerts", href: "/alerts/", description: "Review current official alert products." },
+      { name: "Alert Action Decoder", href: "/tools/alert-action-decoder/", description: "Turn alert wording into planning steps." },
+      { name: "Evacuation Decision Helper", href: "/tools/evacuation-decision-helper/", description: "Organize household constraints and timing." },
+      { name: "Evacuation Zones", href: "/hurricane-tracker/evacuation-zones/", description: "Find the right local zone source." }
+    ],
+    faqs: [
+      { question: "What is a hurricane warning?", answer: "A hurricane warning means hurricane conditions are expected in the specified area, generally within 36 hours. Follow the complete NWS product and local instructions." },
+      { question: "What is the difference between a hurricane watch and warning?", answer: "A watch means hurricane conditions are possible; a warning means they are expected. Use a watch to finish preparation and a warning to act on official instructions." },
+      { question: "Does a hurricane warning mean everyone must evacuate?", answer: "Not automatically. Evacuation orders are local, and decisions depend on zone, surge, flooding, housing, transport, and household needs." }
+    ]
+  },
+  {
+    slug: "what-does-a-hurricane-look-like",
+    title: "What Does a Hurricane Look Like? Radar & Satellite",
+    shortTitle: "What a Hurricane Looks Like",
+    description: "See what hurricanes look like on satellite and radar, including the eye, eyewall, rain bands, cloud structure, and why appearance is not a complete risk measure.",
+    eyebrow: "Storm structure guide",
+    intro: "A hurricane can look like a spiral of clouds from satellite, a compact eye and eyewall, or broad rain bands on radar. Appearance helps explain structure, but official intensity, forecast track, surge, flood, and local alerts matter more than a dramatic image.",
+    primaryAction: { label: "Open radar and satellite", href: "/radar/" },
+    secondaryAction: { label: "Open live tracker", href: "/hurricane-tracker/live/" },
+    intent: "what does a hurricane look like, hurricane satellite image, hurricane radar",
+    steps: [
+      { title: "Use Satellite", body: "Satellite imagery shows cloud structure, organization, outflow, and the shape of the larger tropical system.", href: "/radar/", label: "View satellite" },
+      { title: "Use Radar", body: "Radar shows precipitation and rain-band timing when the system is close enough to radar coverage.", href: "/radar/", label: "View radar" },
+      { title: "Check Official Risk", body: "Pair images with NHC intensity, forecast track, storm surge, flood, wind, and tornado alerts.", href: "/alerts/", label: "Check alerts" }
+    ],
+    sections: [
+      { eyebrow: "Structure", title: "Eye, Eyewall, and Rain Bands", body: "The eye is calmer relative to the eyewall, where the strongest winds often occur. Outer rain bands can still bring flooding and tornadoes far from the center.", bullets: ["Eye and eyewall", "Spiral rain bands", "Central dense overcast", "Outflow and cloud-top structure"] },
+      { eyebrow: "Safety", title: "A Dramatic Image Does Not Show Every Hazard", body: "A storm can look organized without threatening your location, or look less symmetrical while producing dangerous local impacts. Use official data and local warnings.", bullets: ["Wind and gust forecasts", "Storm surge and coastal flooding", "Rainfall and river flooding", "Tornado and outage risk"] }
+    ],
+    nextLinks: [
+      { name: "Interactive Radar", href: "/radar/", description: "Compare radar, satellite, wind, and alert layers." },
+      { name: "Live Hurricane Tracker", href: "/hurricane-tracker/live/", description: "Check current storms and NHC paths." },
+      { name: "Hurricane Path Guide", href: "/hurricane-tracker/path/", description: "Understand forecast track and cone limits." }
+    ],
+    faqs: [
+      { question: "What does a hurricane look like on satellite?", answer: "It often appears as a spiral cloud system with a central dense overcast, rain bands, and sometimes a visible eye. Satellite appearance is only one part of the risk picture." },
+      { question: "What does a hurricane look like on radar?", answer: "Radar can show precipitation bands, the eyewall, and areas of heavy rain when the storm is within coverage. Radar does not replace the NHC forecast or local warnings." },
+      { question: "Does a visible eye mean the storm is safe?", answer: "No. The eyewall can contain the strongest winds, and conditions can change quickly. Follow official warnings even when the center appears calm." }
+    ]
+  },
+  {
     slug: "map",
     title: "Hurricane Tracker Map",
     shortTitle: "Tracker Map",
     description:
-      "Open a hurricane tracker map for current storm position, live NHC advisory context, radar, satellite, alerts, city trackers, and local decision tools.",
-    eyebrow: "Map search hub",
+      "Learn how hurricane map layers differ, then open the live hurricane tracker for current NHC storm positions, radar, satellite, forecast tracks, and advisories.",
+    eyebrow: "Hurricane map guide",
     intro:
-      "Use this current hurricane tracker map hub when you need a live hurricane map, storm position, NHC advisory context, radar, satellite, and the next local page to open. The map is most useful when it leads to a local decision.",
+      "Use this guide to choose the right hurricane map layer. The live tracker is the canonical page for current storm position and NHC status; this page explains when to use radar, satellite, the forecast track, and local alerts.",
     primaryAction: { label: "Open live tracker map", href: "/hurricane-tracker/live/" },
     secondaryAction: { label: "Open radar map", href: "/radar/" },
     intent: "hurricane tracker map, live hurricane map, storm tracker map",
     steps: [
       {
         title: "Start With Current Storms",
-        body: "Use the live tracker to see whether the NHC has an active system, where the center is, and which advisory links matter.",
-        href: "/tracker/",
-        label: "Open state tracker"
+        body: "Use the live hurricane tracker to see whether the NHC has an active system, where the center is, and which advisory links matter.",
+        href: "/hurricane-tracker/live/",
+        label: "Open live hurricane map"
       },
       {
         title: "Compare Map Layers",
@@ -107,15 +263,15 @@ export const topicPages: TopicPage[] = [
     eyebrow: "Forecast path hub",
     intro:
       "A hurricane path tracker helps answer where the storm may go next and whether the current track matters for your location. For a real planning decision, compare the path with forecast uncertainty, local alerts, storm timing, and your evacuation or shelter constraints.",
-    primaryAction: { label: "Open live tracker", href: "/tracker/" },
+    primaryAction: { label: "Open current NHC tracks", href: "/hurricane-tracker/live/" },
     secondaryAction: { label: "Estimate impact window", href: "/tools/impact-window-estimator/" },
     intent: "hurricane path tracker, hurricane storm path, track hurricane path",
     steps: [
       {
         title: "Check the Active Track",
         body: "Open current storms and official advisory links before relying on screenshots or social posts.",
-        href: "/tracker/",
-        label: "Track active storms"
+        href: "/hurricane-tracker/live/",
+        label: "Track current hurricanes"
       },
       {
         title: "Read the Cone Correctly",
@@ -157,6 +313,7 @@ export const topicPages: TopicPage[] = [
       }
     ],
     nextLinks: [
+      { name: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Current NHC storm positions, advisory times, radar, satellite, and active tracking links." },
       { name: "Impact Window Estimator", href: "/tools/impact-window-estimator/", description: "Estimate when impacts may matter for a location." },
       { name: "Named Hurricane Trackers", href: "/hurricane-tracker/storm/", description: "Standing storm-name pages with live NHC source checks." },
       { name: "Cone of Uncertainty Guide", href: "/blog/how-to-read-the-hurricane-cone-of-uncertainty/", description: "Learn what the NHC cone does and does not show." },

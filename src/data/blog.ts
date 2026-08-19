@@ -1191,13 +1191,46 @@ export const blogPosts: BlogPost[] = [
     title: "What to Do After a Hurricane: A Step-by-Step Recovery Guide",
     description: "Returning home after a hurricane? Follow this step-by-step recovery guide: safety checks, insurance claims, FEMA help, and safe flood cleanup.",
     datePublished: "2026-08-12",
-    dateModified: "2026-08-17",
+    dateModified: "2026-08-19",
     image: "/images/blog/what-to-do-after-a-hurricane.png",
     imageAlt: "A homeowner carries water-damaged belongings out of a flood-damaged house after a hurricane while a neighbor stacks storm debris.",
     sections: [
       {
         heading: "Direct Answer: Start With Official Re-Entry and Documentation",
         body: "After a hurricane, treat recovery as a sequence: wait for local officials to say it is safe to return, check for immediate hazards from outside first, document damage before cleanup when safe, contact your insurer, and use official disaster-assistance channels if your area qualifies. This guide is an orientation hub, not a substitute for local emergency management, utility crews, insurance policy terms, medical advice, or contractor guidance."
+      },
+      {
+        heading: "Your First 24 Hours: Stabilize People, Access, and Evidence",
+        body: "The first day is about preventing a second emergency. Confirm that everyone is accounted for, follow re-entry instructions, keep away from floodwater and utilities, and preserve evidence before cleanup. Do not make a risky repair simply to protect property or speed up a claim.",
+        bullets: [
+          "Confirm the official all-clear and that your exact route is open.",
+          "Check household members, pets, medications, and urgent medical needs.",
+          "Photograph exterior, rooms, water lines, utilities, and damaged belongings when safe.",
+          "Report gas leaks, downed lines, fires, and life-safety hazards from a safe location.",
+          "Call your insurer and save the claim number, adjuster contact, and every receipt."
+        ]
+      },
+      {
+        heading: "Hours 24–72: Protect the Structure and Start the Recovery File",
+        body: "Once officials and qualified professionals confirm that work can begin, separate urgent stabilization from permanent repairs. Keep a dated recovery log with photos, receipts, contractor details, utility calls, hotel costs, and assistance applications. This record helps your household coordinate and gives insurers or assistance programs a clearer timeline.",
+        bullets: [
+          "Use licensed help for electrical, gas, structural, roof, and major mold problems.",
+          "Follow local water, food, debris, and flood-cleanup instructions.",
+          "Ventilate and dry affected areas only after electrical and structural hazards are cleared.",
+          "Ask your insurer before discarding damaged items unless safety requires immediate removal.",
+          "Apply through DisasterAssistance.gov only if an eligible disaster declaration covers your area."
+        ]
+      },
+      {
+        heading: "Return-Home Decision Checklist",
+        body: "There is no universal number of hours after landfall when a home is safe. Use this short checklist with local emergency management: the route is open, the evacuation order is lifted, utilities are safe or disconnected, floodwater has receded, the structure shows no obvious instability, and your household has the protective equipment and supplies needed for a brief inspection. If any answer is no or uncertain, wait and ask the responsible official or a qualified professional.",
+        bullets: [
+          "Local officials have authorized re-entry for your neighborhood.",
+          "Roads, bridges, and access points are open and not covered by moving water.",
+          "There is no gas odor, sparking, downed line, active fire, or visible structural collapse.",
+          "You know how to report utility hazards and where to get local instructions.",
+          "You can leave immediately if conditions worsen."
+        ]
       },
       {
         heading: "Wait for the Official All-Clear Before Returning",
@@ -1302,7 +1335,8 @@ export const blogPosts: BlogPost[] = [
           "National Hurricane Center: https://www.nhc.noaa.gov/",
           "Disaster assistance: https://www.disasterassistance.gov/",
           "FEMA: https://www.fema.gov/",
-          "Ready.gov hurricane guidance: https://www.ready.gov/hurricanes"
+          "Ready.gov hurricane guidance: https://www.ready.gov/hurricanes",
+          "CDC floodwater and cleanup guidance: https://www.cdc.gov/floods/"
         ]
       }
     ],
@@ -2636,6 +2670,70 @@ export const blogPosts: BlogPost[] = [
       { question: "Who handles hurricane contractor fraud complaints?", answer: "Report concerns to your state insurance department, attorney general or consumer protection office, local law enforcement, licensing board, and your insurer as appropriate." },
       { question: "Can I make temporary repairs before the adjuster arrives?", answer: "Reasonable temporary mitigation may be expected, but document damage first when safe, keep receipts, and follow your insurer's instructions for what to preserve or photograph." }
     ]
+  },
+  {
+    slug: "hurricane-water-storage-purification-emergency",
+    title: "Emergency Water Storage and Purification for Hurricanes",
+    description: "How much emergency water to store for a hurricane, which containers to use, how to follow boil-water notices, and when boiling or filtering is not enough.",
+    datePublished: "2026-08-18",
+    dateModified: "2026-08-18",
+    image: "/images/blog/hurricane-emergency-kit-checklist.png",
+    imageAlt: "Household hurricane emergency supplies with sealed drinking-water containers ready for an outage.",
+    sections: [
+      {
+        heading: "Direct Answer",
+        body: "Ready.gov advises storing at least one gallon of water per person per day for drinking and sanitation, with several days of supply and more when practical. Store commercially bottled water or properly prepared food-grade containers in a cool place away from chemicals. If officials issue a boil-water or do-not-use notice, follow the exact local instructions because boiling kills many germs but does not remove fuels, pesticides, metals, or other chemical contamination."
+      },
+      {
+        heading: "How Much Water To Store",
+        body: "Use one gallon per person per day as a planning minimum, then adjust for heat, pregnancy, illness, physical activity, pets, and medical needs. Ready.gov recommends considering a two-week home supply when possible. Keep a smaller portable supply with your evacuation kit.",
+        bullets: [
+          "Three people for three days: plan at least nine gallons.",
+          "Add water for pets and any medical or hygiene needs that require clean water.",
+          "Do not depend on post-storm distribution points being immediately accessible.",
+          "Store water before a watch creates shortages and crowded stores."
+        ]
+      },
+      {
+        heading: "Choose Safe Containers",
+        body: "Unopened commercial bottled water is the simplest option. For water filled at home, CDC recommends food-grade storage containers with tight closures that cannot be easily broken. Do not use containers that previously held toxic chemicals, and avoid containers that are difficult to clean thoroughly. Label home-filled containers with the storage date."
+      },
+      {
+        heading: "Store and Rotate Water Safely",
+        body: "Keep emergency water in a cool location away from direct sunlight, gasoline, pesticides, and household chemicals. CDC guidance recommends replacing water stored in self-filled containers every six months. Follow the printed date and storage instructions for commercial bottled water, and inspect every container for leaks or contamination before use."
+      },
+      {
+        heading: "Understand Local Water Advisories",
+        body: "A boil-water advisory, do-not-drink advisory, and do-not-use advisory are not interchangeable. During a boil-water advisory, local officials may instruct residents to boil water for drinking, cooking, brushing teeth, and infant formula. A do-not-drink or do-not-use notice may indicate chemical contamination that boiling cannot fix. Use sealed bottled water and follow the utility or health department instructions exactly."
+      },
+      {
+        heading: "Boiling Questionable Water",
+        body: "CDC guidance generally calls for bringing clear water to a rolling boil for one minute, then cooling it in a clean, covered container; elevation-specific directions may differ. Cloudy water may need filtering through a clean cloth or settling before boiling. Always follow the current local notice, because boiling does not make chemically contaminated water safe."
+      },
+      {
+        heading: "Filters, Disinfectants, and Their Limits",
+        body: "Portable filters remove different organisms depending on their specifications, and many filters do not remove viruses or chemicals. Disinfectant directions depend on the product and concentration. Use only products labeled for drinking-water treatment and follow their instructions; do not improvise a dose. EPA's emergency disinfection guidance and local public-health instructions should control when boiling is not available."
+      },
+      {
+        heading: "Infants, Medical Needs, and Pets",
+        body: "Infant formula, pregnancy, illness, dialysis, wound care, and some medical equipment can require additional or specially prepared water. Ask the relevant clinician or equipment provider before a storm for need-specific instructions. Store pet water with the household supply and keep some in the evacuation kit."
+      },
+      {
+        heading: "Connect Water With the Full Hurricane Plan",
+        body: "Water planning works best alongside /blog/hurricane-emergency-kit-checklist/, /blog/hurricane-power-outage-food-medicine-plan/, /blog/hurricane-pet-safety/, /tools/preparedness-checklist/, and /hurricane-tracker/live/. Use the tracker for storm context, but get water-safety orders from the local utility, health department, emergency management, and weather.gov alerts."
+      },
+      {
+        heading: "Official Guidance",
+        body: "Sources reviewed for this guide: Ready.gov water preparedness at https://www.ready.gov/water; CDC emergency water storage and treatment at https://www.cdc.gov/water-emergency/about/; and EPA emergency drinking-water disinfection guidance at https://www.epa.gov/ground-water-and-drinking-water/emergency-disinfection-drinking-water. Local notices override general guidance."
+      }
+    ],
+    faqs: [
+      { question: "How much water should I store per person for a hurricane?", answer: "Use at least one gallon per person per day for drinking and sanitation. Store several days of supply and consider up to two weeks at home when space and resources allow, with extra for heat, illness, pets, and medical needs." },
+      { question: "How often should home-filled emergency water be replaced?", answer: "CDC guidance recommends replacing water stored in self-filled containers every six months. Keep it cool, sealed, dated, and away from chemicals." },
+      { question: "Does boiling make flood water safe?", answer: "Not necessarily. Boiling kills many germs but does not remove chemical contamination, fuels, metals, salt, or pesticides. Never assume floodwater is drinkable; follow local public-health instructions and use sealed water when chemical contamination is possible." },
+      { question: "Can a household water filter replace boiling?", answer: "Only if the product is designed for the specific contaminants involved. Filters vary, and many do not remove viruses or chemicals. Check the label and follow the local water advisory." },
+      { question: "What is the difference between a boil-water and do-not-use notice?", answer: "A boil-water notice usually addresses microbial risk, while a do-not-drink or do-not-use notice can involve contaminants boiling cannot remove. Follow the exact notice from the local utility or health department." }
+    ]
   }
 
 
@@ -2684,7 +2782,8 @@ export const BLOG_CATEGORIES: Record<string, string> = {
   "hurricane-small-business-preparedness-plan": "Preparedness",
   "apartment-hurricane-preparedness-renters-checklist": "Preparedness",
   "hurricane-school-daycare-emergency-plan": "Preparedness",
-  "hurricane-contractor-scams-insurance-claim": "Insurance & Recovery"
+  "hurricane-contractor-scams-insurance-claim": "Insurance & Recovery",
+  "hurricane-water-storage-purification-emergency": "Preparedness"
 };
 
 export const BLOG_CATEGORY_LIST = [

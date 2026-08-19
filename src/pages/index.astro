@@ -12,6 +12,8 @@ import { hurricaneCities } from "../data/cities";
 import { topicPages } from "../data/topicPages";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
 import type { NhcStorm, NwsAlert } from "../lib/weather";
+import { getNhcForecast } from "../lib/nhcForecast";
+import { relevantLocations } from "../lib/stormRelevance";
 
 const title = "North America Hurricane Tracker and Emergency Decision Hub";
 const description = "Track active North American hurricanes, official NWS alerts, evacuation decision levels, and preparedness actions from NOAA, NHC, and NWS data.";
@@ -49,6 +51,34 @@ const [stormFeed, floridaAlertFeed] = await Promise.all([
 ]);
 
 const storms = stormFeed?.storms ?? [];
+const stateDemandOrder = ["georgia", "north-carolina", "texas", "florida", "virginia", "south-carolina", "louisiana", "mississippi", "alabama"];
+const activeStateCodes: string[] = [];
+for (const storm of storms) {
+  if (!storm.id) continue;
+  try {
+    const forecast = await getNhcForecast(storm.id);
+    const current = Number.isFinite(storm.latitudeNumeric) && Number.isFinite(storm.longitudeNumeric)
+      ? [storm.longitudeNumeric!, storm.latitudeNumeric!] as [number, number]
+      : undefined;
+    for (const state of relevantLocations(forecast?.track ?? [], current).states) {
+      if (!activeStateCodes.includes(state.code)) activeStateCodes.push(state.code);
+    }
+  } catch (error) {
+    console.error("Homepage state relevance failed", { stormId: storm.id, error });
+  }
+}
+const orderedStates = [...coastalStates].sort((a, b) => {
+  const activeA = activeStateCodes.indexOf(a.code);
+  const activeB = activeStateCodes.indexOf(b.code);
+  if (activeA >= 0 || activeB >= 0) {
+    if (activeA < 0) return 1;
+    if (activeB < 0) return -1;
+    return activeA - activeB;
+  }
+  return stateDemandOrder.indexOf(a.slug) - stateDemandOrder.indexOf(b.slug);
+});
+const primaryStorm = storms[0];
+const primaryStormSlug = String(primaryStorm?.name ?? primaryStorm?.id ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const floridaAlerts = floridaAlertFeed?.alerts ?? [];
 const featuredStateName = "Florida";
 const featuredDecisionLevel = floridaAlertFeed?.decisionLevel ?? (storms.length ? "Prepare" : "Monitor");
@@ -76,6 +106,7 @@ const tools = [
   { href: "/tools/storm-distance-calculator/", icon: "fa-location-crosshairs", title: "Storm Distance Calculator", body: "Compare a ZIP code with the current NHC storm position, then verify the forecast and local alerts." }
 ];
 const featuredCitySlugs = [
+  "orlando",
   "clearwater",
   "morehead-city",
   "pensacola",
@@ -108,12 +139,12 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
   <section class="hero band" aria-labelledby="home-title">
     <div class="inner hero-grid">
       <div>
-        <p class="eyebrow">North America hurricane operations</p>
+        <p class="eyebrow">{primaryStorm ? "Active hurricane-season operations" : "North America hurricane operations"}</p>
         <h1 id="home-title">HurricaneHub</h1>
         <p class="answer">HurricaneHub shows live hurricanes approaching North America, official NHC storm context, state NWS warnings, and emergency decision tools so coastal households can monitor, prepare, act, or leave with fewer tabs open.</p>
         <p class="section-actions">
-          <a class="action-link" href="/tools/my-hurricane-dashboard/">Build my hurricane dashboard</a>
-          <a class="action-link secondary-action" href="/hurricane-tracker/live/">Open live tracker map</a>
+          <a class="action-link" href={primaryStorm ? `/hurricane-tracker/storm/${primaryStormSlug}/` : "/hurricane-tracker/live/"}>{primaryStorm ? `Track ${primaryStorm.name ?? "active storm"}` : "Open live hurricane tracker"}</a>
+          <a class="action-link secondary-action" href="/tools/my-hurricane-dashboard/">Build my hurricane dashboard</a>
           <a class="action-link secondary-action" href="/local-hurricane-risk/">Check local risk</a>
           <a class="action-link secondary-action" href="/updates/">See latest updates</a>
         </p>
@@ -130,6 +161,27 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
       </div>
     </div>
   </section>
+
+  {storms.length > 0 && (
+    <section class="band active-season-band" aria-labelledby="active-season-heading">
+      <div class="inner">
+        <p class="eyebrow">Current NHC systems</p>
+        <h2 id="active-season-heading">Track Active Storms Now</h2>
+        <div class="grid-3 section-grid">
+          {storms.map((storm) => {
+            const slug = String(storm.name ?? storm.id ?? "storm").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+            return <article class="state-card active-storm-card">
+              <span class="badge warn">{storm.classification ?? "NHC system"}</span>
+              <h3>{storm.name ?? storm.id ?? "Active storm"}</h3>
+              <p>{storm.summary ?? `Latest NHC position: ${storm.latitude ?? "pending"}, ${storm.longitude ?? "pending"}.`}</p>
+              <p class="source-note">Updated {storm.lastUpdate ?? lastModified}</p>
+              <a href={`/hurricane-tracker/storm/${slug}/`}>Track {storm.name ?? "storm"}</a>
+            </article>;
+          })}
+        </div>
+      </div>
+    </section>
+  )}
 
   <section class="band persona-band" aria-labelledby="persona-heading">
     <div class="inner">
@@ -293,8 +345,9 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
       <h2 id="state-heading">State Hurricane Trackers</h2>
       <p class="answer">Start with your state page to combine official NHC storm context, active NWS alerts, county planning notes, and a household decision level.</p>
       <div class="grid-3 section-grid">
-        {coastalStates.map((state) => (
+        {orderedStates.map((state) => (
           <article class="state-card">
+            {activeStateCodes.includes(state.code) && <span class="badge warn">Active path nearby</span>}
             <h3>{state.name} Hurricane Tracker</h3>
             <div class="risk-tags">
               {state.risks.slice(0, 3).map((risk) => <span class="risk-tag">{risk}</span>)}

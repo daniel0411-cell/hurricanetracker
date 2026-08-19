@@ -29,6 +29,41 @@ export type HurricaneCity = {
 
 export const hurricaneCities: HurricaneCity[] = [
   {
+    slug: "orlando",
+    name: "Orlando",
+    stateCode: "FL",
+    stateName: "Florida",
+    region: "Central Florida inland metro",
+    risks: ["freshwater flooding", "tornadoes in rain bands", "tree damage", "extended outages"],
+    nearbyCounties: ["Orange", "Seminole", "Osceola", "Lake", "Volusia"],
+    planningNote: "Orlando hurricane planning focuses on rainfall flooding, tornadoes, falling trees, heat, and multi-day outages even when the storm center stays near the coast.",
+    overview: "An Orlando hurricane tracker should not be used only to look for a landfall point. Central Florida can face long-duration tropical rain, flash flooding, tornadoes in outer bands, blocked roads, and power outages after a coastal storm moves inland. Check the current NHC path, then use Central Florida NWS alerts and Orange County emergency guidance for local decisions.",
+    localHazards: [
+      { heading: "Rain and Freshwater Flooding", body: "Tropical systems can produce heavy rain across Central Florida after landfall. Avoid flooded roads and low-water crossings, and check local flood alerts even when winds are weakening." },
+      { heading: "Tornadoes in Outer Bands", body: "Fast-moving rain bands can produce short-fuse tornado warnings far from the storm center. Keep phones charged and use official NWS warnings rather than relying on the hurricane category." },
+      { heading: "Heat and Extended Outages", body: "Power loss after a storm can create dangerous indoor heat and disrupt refrigeration, medication, traffic signals, and communications. Prepare for several days of backup power and cooling needs." }
+    ],
+    evacuationFocus: [
+      "Follow Orange County and local emergency management instructions rather than coastal evacuation assumptions.",
+      "Know alternate routes if flooding, trees, or traffic signals affect major roads.",
+      "Prepare water, medication, cooling, chargers, and food for an extended outage.",
+      "Monitor tornado and flood warnings as rain bands move through Central Florida."
+    ],
+    localSearches: ["Orlando hurricane tracker", "is there a hurricane today in Orlando FL", "Orlando hurricane today", "Orlando NWS hurricane alerts", "Orlando hurricane radar"],
+    faqs: [
+      { question: "Is there a hurricane in Orlando today?", answer: "Check the current NHC storm context and Central Florida NWS alerts. Orlando can face rain, tornadoes, flooding, and outages even when no hurricane center is over the city." },
+      { question: "Does Orlando evacuate for hurricanes?", answer: "Evacuation decisions depend on local orders, housing, flooding, medical needs, transportation, and destination. Follow Orange County and local emergency management instructions." },
+      { question: "What is the main hurricane risk in Orlando?", answer: "Freshwater flooding, tornadoes in rain bands, falling trees, heat, and extended power outages are often more relevant than storm surge in inland Orlando." }
+    ],
+    officialResources: [
+      { name: "Orange County Emergency Management", description: "Official Orlando-area emergency alerts, shelters, preparedness, and storm information.", url: "https://www.ocfl.net/EmergencySafety/" },
+      { name: "NWS Melbourne", description: "Official National Weather Service alerts and forecasts for Orlando and Central Florida.", url: "https://www.weather.gov/mlb/" },
+      { name: "National Hurricane Center", description: "Official tropical cyclone advisories, watches, warnings, and forecasts.", url: "https://www.nhc.noaa.gov/" }
+    ],
+    lat: 28.5383,
+    lon: -81.3792
+  },
+  {
     slug: "miami",
     name: "Miami",
     stateCode: "FL",

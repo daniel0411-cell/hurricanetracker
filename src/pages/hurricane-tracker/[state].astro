@@ -5,6 +5,9 @@ import Layout from "../../layouts/Layout.astro";
 import { hurricaneCities } from "../../data/cities";
 import { site } from "../../data/site";
 import { getStateBySlug } from "../../data/states";
+import ActiveStormRelevance from "../../components/ActiveStormRelevance.astro";
+
+export const prerender = false;
 import { getTopicPage } from "../../data/topicPages";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
 import type { NhcStorm, NwsAlert } from "../../lib/weather";
@@ -187,6 +190,7 @@ const jsonLd = graph(
 );
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <ActiveStormRelevance stateCode={state.code} />
   <section class="band" aria-labelledby="state-tracker-title">
     <div class="inner">
       <p class="eyebrow">{state.region} decision support</p>

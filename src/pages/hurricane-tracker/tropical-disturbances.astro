@@ -1,0 +1,26 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import Layout from "../../layouts/Layout.astro";
+import { site } from "../../data/site";
+import { articleSchema, breadcrumbSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+import { getNhcCurrentFeed } from "../../lib/nhcCurrent";
+
+const { feed } = await getNhcCurrentFeed();
+const title = "Tropical Disturbance Tracker | Atlantic Formation Outlook";
+const description = "Track Atlantic tropical disturbances, NHC formation outlook areas, current named storms, and the difference between an outlook area, Invest, and forecast track.";
+const url = `${site.url}/hurricane-tracker/tropical-disturbances/`;
+const faqs = [
+  { question: "What is a tropical disturbance?", answer: "A tropical disturbance is an area of organized tropical weather that may or may not develop into a tropical cyclone. It is not automatically a depression, named storm, or hurricane." },
+  { question: "Does an NHC outlook area show where a storm will travel?", answer: "No. An outlook area shows where development could occur during the outlook period. It is not a forecast cone, storm track, warning area, or impact boundary." },
+  { question: "What is an Invest?", answer: "An Invest is a numbered system used by operational weather centers to organize additional data collection and model analysis. Not every disturbance receives an Invest number, and not every Invest becomes a named storm." },
+  { question: "Where can I track a disturbance after it is named?", answer: "Once NHC lists a named tropical cyclone, open its HurricaneHub named-storm page and verify all forecasts and watches with the official NHC advisory." }
+];
+const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url, dateModified: feed.updatedAt }), faqSchema(faqs), breadcrumbSchema([{ name: "Home", url: site.canonicalUrl }, { name: "Live Hurricane Tracker", url: `${site.url}/hurricane-tracker/live/` }, { name: "Tropical Disturbances", url }]));
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={feed.updatedAt}>
+  <section class="band" aria-labelledby="disturbance-title"><div class="inner"><p class="eyebrow">Official NHC formation outlook</p><h1 id="disturbance-title">Tropical Disturbance Tracker</h1><p class="answer">Monitor Atlantic development areas before a storm receives a name. Use the NHC seven-day outlook for formation potential, then move to the live hurricane tracker when NHC begins issuing cyclone advisories.</p><p class="section-actions"><a class="action-link" href="https://www.nhc.noaa.gov/gtwo.php" rel="noopener nofollow">Open official NHC outlook</a><a class="action-link secondary-action" href="/hurricane-tracker/live/">Open live hurricane tracker</a></p></div></section>
+  <section class="band" aria-labelledby="atlantic-outlook"><div class="inner grid-2"><article><p class="eyebrow">Atlantic basin</p><h2 id="atlantic-outlook">Seven-Day Formation Outlook Map</h2><p>The map uses NHC development probabilities. Colored regions identify where a tropical cyclone could form, not where an eventual storm would travel or cause impacts.</p><p class="source-note">Current named systems in the NHC feed: {feed.storms.length ? feed.storms.map((storm) => storm.name).filter(Boolean).join(", ") : "none"}. Feed checked {feed.updatedAt}.</p></article><article class="panel outlook-map"><img src="https://www.nhc.noaa.gov/xgtwo/two_atl_7d0.png" width="900" height="679" loading="eager" alt="Official NHC seven-day Atlantic tropical weather outlook map" /></article></div></section>
+  <section class="band" aria-labelledby="disturbance-terms"><div class="inner"><p class="eyebrow">Development stages</p><h2 id="disturbance-terms">Disturbance, Invest, Depression, and Named Storm</h2><div class="grid-2 section-grid"><article class="panel"><h3>Tropical Disturbance</h3><p>An area of unsettled tropical weather. Formation probability can rise or fall without a cyclone forming.</p></article><article class="panel"><h3>Invest</h3><p>An operational identifier such as 90L used to organize observations and model analysis. It is not a storm classification.</p></article><article class="panel"><h3>Tropical Depression</h3><p>A closed tropical circulation with maximum sustained winds below tropical-storm strength. NHC advisories and a forecast track begin.</p></article><article class="panel"><h3>Named Tropical Storm or Hurricane</h3><p>A classified tropical cyclone with a name and recurring official advisory package. Use its dedicated tracker page for current status.</p></article></div></div></section>
+  <FaqBlock faqs={faqs} />
+</Layout>
+<style>.outlook-map img{display:block;width:100%;height:auto;border-radius:6px}</style>

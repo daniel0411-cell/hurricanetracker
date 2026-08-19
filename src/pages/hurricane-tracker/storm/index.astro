@@ -4,12 +4,33 @@ import Layout from "../../../layouts/Layout.astro";
 import { stormTrackerPages } from "../../../data/stormPages";
 import { site } from "../../../data/site";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../../lib/schema";
+import type { NhcStorm } from "../../../lib/weather";
 
 const title = "Named Hurricane Trackers";
 const description =
   "Browse named hurricane tracker pages for live NHC status checks, official advisory links, radar shortcuts, and storm-name search context.";
 const url = `${site.url}/hurricane-tracker/storm/`;
-const lastModified = site.contentLastModified;
+let activeStorms: NhcStorm[] = [];
+let activeUpdatedAt = site.contentLastModified;
+try {
+  const response = await fetch(new URL("/api/nhc/current.json", Astro.url));
+  if (response.ok) {
+    const data = await response.json() as { storms?: NhcStorm[]; updatedAt?: string; fetchedAt?: string };
+    activeStorms = data.storms ?? [];
+    activeUpdatedAt = data.updatedAt ?? data.fetchedAt ?? activeUpdatedAt;
+  }
+} catch (error) {
+  console.error("Named storm index feed failed", { error });
+}
+const activePages = activeStorms.filter((storm) => storm.name).map((storm) => ({
+  slug: String(storm.name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+  name: String(storm.name),
+  basin: storm.id?.startsWith("cp") ? "Central Pacific" : storm.id?.startsWith("ep") ? "Eastern Pacific" : "Atlantic",
+  searchDemandNote: `${storm.classification ?? "NHC system"} ${storm.name} is active. Open the live position, forecast path, radar, and official advisory links.`,
+  primaryKeywords: [`${String(storm.name).toLowerCase()} tracker`, `${String(storm.name).toLowerCase()} path`, `${String(storm.name).toLowerCase()} live map`]
+}));
+const allStormPages = [...activePages, ...stormTrackerPages.filter((known) => !activePages.some((active) => active.slug === known.slug))];
+const lastModified = activeUpdatedAt;
 const faqs = [
   {
     question: "What is a named hurricane tracker page?",
@@ -41,7 +62,7 @@ const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
   faqSchema(faqs),
-  itemListSchema(stormTrackerPages.map((storm) => ({
+  itemListSchema(allStormPages.map((storm) => ({
     name: `Hurricane ${storm.name} Tracker`,
     description: storm.searchDemandNote,
     url: `${site.url}/hurricane-tracker/storm/${storm.slug}/`
@@ -55,7 +76,7 @@ const jsonLd = graph(
       <h1 id="storm-index-title">Named Hurricane Trackers</h1>
       <p class="answer">Open standing pages for high-demand named storm searches. Each page connects live NHC feed checks, official advisory links, radar shortcuts, and local decision tools without claiming a storm is active unless the current feed shows it.</p>
       <p class="section-actions">
-        <a class="action-link" href="/tracker/">Open live hurricane tracker</a>
+        <a class="action-link" href="/hurricane-tracker/live/">Open live hurricane tracker</a>
         <a class="action-link secondary-action" href="/storm-archive/">Open storm archive</a>
       </p>
     </div>
@@ -65,7 +86,7 @@ const jsonLd = graph(
     <div class="inner">
       <h2 id="storm-list">Choose a Storm Name</h2>
       <div class="grid-3 section-grid">
-        {stormTrackerPages.map((storm) => (
+        {allStormPages.map((storm) => (
           <article class="panel">
             <p class="eyebrow">{storm.basin}</p>
             <h3>Hurricane {storm.name} Tracker</h3>

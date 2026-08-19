@@ -4,7 +4,8 @@ import Layout from "../layouts/Layout.astro";
 import { stormTrackerPages } from "../data/stormPages";
 import { faqs, site } from "../data/site";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
-import type { NhcStorm } from "../lib/weather";
+import { advisoryUrl, type NhcStorm } from "../lib/weather";
+import { readStormRegistry } from "../lib/stormRegistry";
 
 type StormFeed = {
   storms?: Array<NhcStorm & { summary?: string }>;
@@ -27,6 +28,7 @@ try {
 }
 
 const storms = feed?.storms ?? [];
+const registryStorms = await readStormRegistry();
 const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
 const archiveIntents = [
   {
@@ -173,8 +175,8 @@ const jsonLd = graph(
             <p>{storm.summary ?? "Current NHC storm data loaded."}</p>
             <p class="small">Position: {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"} · Updated: {storm.lastUpdate ?? lastModified}</p>
             <p>
-              {storm.publicAdvisory && <a href={storm.publicAdvisory} rel="nofollow">NHC public advisory</a>}
-              {storm.forecastAdvisory && <> · <a href={storm.forecastAdvisory} rel="nofollow">NHC forecast advisory</a></>}
+              {advisoryUrl(storm.publicAdvisory) && <a href={advisoryUrl(storm.publicAdvisory)} rel="nofollow">NHC public advisory</a>}
+              {advisoryUrl(storm.forecastAdvisory) && <> · <a href={advisoryUrl(storm.forecastAdvisory)} rel="nofollow">NHC forecast advisory</a></>}
             </p>
           </article>
         )) : (
@@ -197,10 +199,31 @@ const jsonLd = graph(
       <article class="panel">
         <h2>Use Today</h2>
         <p>For current decisions, pair the tracker with state NWS alerts, radar, and local emergency instructions.</p>
-        <p><a class="action-link" href="/tracker/">Open live tracker</a></p>
+        <p><a class="action-link" href="/hurricane-tracker/live/">Open live tracker</a></p>
       </article>
     </div>
   </section>
+
+  {registryStorms.length > 0 && (
+    <section class="band" aria-labelledby="preserved-storms">
+      <div class="inner">
+        <p class="eyebrow">Preserved storm records</p>
+        <h2 id="preserved-storms">Named Storm Pages From This Season</h2>
+        <p class="answer">These stable URLs remain available after a system leaves the active NHC feed, preserving its final recorded status and source context.</p>
+        <div class="grid-3 section-grid">
+          {registryStorms.map((storm) => (
+            <article class="panel">
+              <span class={`badge ${storm.active ? "warn" : ""}`}>{storm.active ? "Active" : "Archived"}</span>
+              <h3>{storm.name ?? storm.id}</h3>
+              <p>{storm.classification ?? "Tropical system"} · {storm.intensity ?? storm.windSpeed ?? "final intensity pending"}</p>
+              <p class="source-note">Last NHC record {storm.lastSeen}</p>
+              <a href={`/hurricane-tracker/storm/${storm.slug}/`}>Open {storm.name ?? "storm"} page</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <section class="band" aria-labelledby="archive-workflow">
     <div class="inner">

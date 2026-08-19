@@ -1,0 +1,121 @@
+---
+import { getStateCurrentStatus, stateCurrentFaqs, type StateCurrentStatus } from "../lib/stateCurrent";
+import OfficialUpdateStamp from "./OfficialUpdateStamp.astro";
+
+type Props = { stateCode: string; stateName: string; status?: StateCurrentStatus };
+const { stateCode, stateName } = Astro.props;
+
+const status = (Astro.props.status as StateCurrentStatus | undefined) ?? await getStateCurrentStatus(stateCode);
+const currentFaqs = stateCurrentFaqs(stateName, status);
+const nearest = status.matches[0];
+const updatedLabel = new Date(status.checkedAt).toLocaleString("en-US", {
+  timeZone: "UTC",
+  month: "short",
+  day: "numeric",
+  hour: "numeric",
+  minute: "2-digit",
+  hour12: true
+});
+---
+
+<section class="current-answer" aria-labelledby="current-answer-heading">
+  <div class="current-answer-header">
+    <div>
+      <p class="eyebrow">Hurricane {stateName} today</p>
+      <h2 id="current-answer-heading">Is There a Hurricane in {stateName} Right Now?</h2>
+    </div>
+    <span class:list={["status-badge", { nearby: Boolean(nearest) }]}>
+      {nearest ? "Storm to monitor" : "No nearby forecast path"}
+    </span>
+  </div>
+
+  {status.feedAvailable ? (
+    nearest ? (
+      <>
+        <p class="direct-answer"><strong>{nearest.name} is the nearest active NHC system to monitor for {stateName}.</strong> Its current or official forecast center path comes within approximately {nearest.distance} miles of an established {stateName} city tracker.</p>
+        <div class="answer-grid">
+          <div><span>Active NHC systems</span><strong>{status.activeStormCount}</strong></div>
+          <div><span>Nearest system</span><strong>{nearest.name}</strong></div>
+          <div><span>Nearest center-path point</span><strong>About {nearest.distance} mi</strong></div>
+        </div>
+        <p class="answer-link"><a href={`/hurricane-tracker/storm/${nearest.slug}/`}>Track {nearest.name} and view NHC advisory context</a></p>
+      </>
+    ) : (
+      <>
+        <p class="direct-answer"><strong>No active NHC system currently has a center position or official forecast path within 500 miles of this site's established {stateName} city trackers.</strong> That means there is no nearby tracked center path in this check, but conditions and forecasts can change.</p>
+        <div class="answer-grid">
+          <div><span>Active NHC systems</span><strong>{status.activeStormCount}</strong></div>
+          <div><span>{stateName} path matches</span><strong>0</strong></div>
+          <div><span>Official alerts</span><strong>Check below</strong></div>
+        </div>
+      </>
+    )
+  ) : (
+    <p class="direct-answer"><strong>The live NHC check is temporarily unavailable.</strong> Use the official state alerts below and the National Hurricane Center before making weather or travel decisions.</p>
+  )}
+
+  <p class="source-note">NHC data checked {updatedLabel} UTC. A nearby center path is not a landfall prediction, an impact boundary, or an evacuation decision. Follow NWS alerts and local emergency management instructions.</p>
+  <OfficialUpdateStamp updatedAt={status.checkedAt} label="Official current check" />
+
+  <div class="current-questions" aria-labelledby="current-questions-heading">
+    <h3 id="current-questions-heading">Current {stateName} Hurricane Questions</h3>
+    {currentFaqs.slice(1).map((faq) => (
+      <details>
+        <summary>{faq.question}</summary>
+        <p>{faq.answer}</p>
+      </details>
+    ))}
+  </div>
+</section>
+
+<style>
+  .current-answer {
+    margin: 24px 0 30px;
+    padding: 22px;
+    border: 1px solid var(--line, #d7e0ea);
+    border-left: 5px solid var(--ocean, #0e6f8f);
+    border-radius: 8px;
+    background: var(--panel, #fff);
+    box-shadow: var(--soft-shadow);
+  }
+  .current-answer-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+  }
+  .current-answer h2 { margin: 0; }
+  .current-answer .eyebrow { margin-top: 0; }
+  .status-badge {
+    flex: 0 0 auto;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: #e8f5ee;
+    color: #17613a;
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+  .status-badge.nearby { background: #fff0d9; color: #7a4300; }
+  .direct-answer { margin: 16px 0; font-size: 1.04rem; line-height: 1.65; }
+  .answer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .answer-grid div { padding: 12px; background: var(--surface, #f3f7fa); border-radius: 6px; }
+  .answer-grid span { display: block; color: var(--muted, #5b6b7b); font-size: 0.78rem; }
+  .answer-grid strong { display: block; margin-top: 3px; overflow-wrap: anywhere; }
+  .answer-link { margin: 14px 0 0; font-weight: 800; }
+  .source-note { margin: 14px 0 0; }
+  .current-questions { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line, #d7e0ea); }
+  .current-questions h3 { margin: 0 0 8px; }
+  .current-questions details { border-top: 1px solid var(--line, #d7e0ea); }
+  .current-questions summary { padding: 12px 0; cursor: pointer; font-weight: 800; }
+  .current-questions p { margin: 0 0 14px; line-height: 1.6; }
+  @media (max-width: 640px) {
+    .current-answer { padding: 18px 16px; }
+    .current-answer-header { display: block; }
+    .status-badge { display: inline-block; margin-top: 12px; }
+    .answer-grid { grid-template-columns: 1fr; }
+  }
+</style>

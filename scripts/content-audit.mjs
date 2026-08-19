@@ -53,7 +53,6 @@ const requiredStaticHtml = [
   "hurricane-tracker/city/miami/index.html",
   "hurricane-tracker/city/houston/index.html",
   ...hurricaneCities.slice(0, 8).map((city) => `hurricane-tracker/city/${city.slug}/index.html`),
-  ...stormTrackerPages.map((storm) => `hurricane-tracker/storm/${storm.slug}/index.html`),
   ...BLOG_CATEGORY_PAGES.map((category) => `blog/category/${category.slug}/index.html`)
 ];
 

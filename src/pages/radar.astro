@@ -687,6 +687,7 @@ const jsonLd = graph(
 
           return L.tileLayer(`${data.host}${latest.path}/256/{z}/{x}/{y}/${activeScheme}/1_1.png`, {
             opacity: 0.76,
+            maxNativeZoom: 7,
             maxZoom: 8,
             attribution: '<a href="https://www.rainviewer.com/">RainViewer</a>'
           });
@@ -695,6 +696,7 @@ const jsonLd = graph(
           setStatus("Radar temporarily unavailable. Satellite is still available.", true);
           return L.tileLayer("https://tile.rainviewer.com/v2/radar/{z}/{x}/{y}.png", {
             opacity: 0.76,
+            maxNativeZoom: 7,
             maxZoom: 8,
             attribution: '<a href="https://www.rainviewer.com/">RainViewer</a>'
           });

@@ -3,11 +3,13 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
 import StateActionPaths from "../../components/StateActionPaths.astro";
 import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
+import StateCurrentAnswer from "../../components/StateCurrentAnswer.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateSeoProfile } from "../../data/stateSeo";
 import { getStateBySlug } from "../../data/states";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 import { site } from "../../data/site";
+import { getStateCurrentStatus, stateCurrentFaqs } from "../../lib/stateCurrent";
 
 const state = getStateBySlug("texas")!;
 const code = state.code;
@@ -18,6 +20,7 @@ const title = seo.title;
 const description = seo.description;
 const canonical = `${site.url}/tracker/${state.slug}/`;
 const lastModified = site.contentLastModified;
+const currentStatus = await getStateCurrentStatus(code);
 
 const intro = `Texas guards about 367 miles of Gulf of Mexico coastline, from the marshy upper coast near Port Arthur to the brush country around Brownsville. Most Texas hurricanes form in the western Gulf or recurve out of the Bay of Campeche, then drive north or northeast toward Galveston, Matagorda, or Corpus Christi. The state's wide, shallow shelf amplifies storm surge, while slow-moving systems can dump feet of rain far inland around Houston. Historically, Hurricane Harvey (2017) stalled over South Texas and became the wettest tropical cyclone in U.S. history, flooding entire communities. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is within the ramp to the September peak, when Gulf waters are warmest. Because Texas evacuations can mean 100-plus-mile drives inland and long power outages, residents should prepare generators safely, stock water and fuel, and learn their county evacuation zone before a storm threatens.`;
 
@@ -72,7 +75,7 @@ const jsonLd = graph(
     })),
     ...stateActionPaths
   ]),
-  faqSchema(faqs)
+  faqSchema([...stateCurrentFaqs(name, currentStatus), ...faqs])
 );
 ---
 <BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={lastModified}>
@@ -81,6 +84,12 @@ const jsonLd = graph(
       <p class="eyebrow">{region} hurricane operations</p>
       <h1 id="tracker-state-title">{seo.headline}</h1>
       <p class="answer">{intro}</p>
+      <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
+
+      <section class="intent-answer" aria-labelledby="texas-intent-heading">
+        <h2 id="texas-intent-heading">Texas Hurricane Questions Today</h2>
+        <p>This page answers “is there a hurricane coming to Texas,” “is Texas getting a hurricane,” “will the hurricane hit Texas,” and “is a hurricane coming to Houston” with current NHC context, Gulf risk, and Texas NWS alerts.</p>
+      </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
@@ -101,6 +110,7 @@ const jsonLd = graph(
       <StateActionPaths state={state} />
 
       <StateTrackerSeoLinks state={state} cities={stateCities} />
+      <p class="basin-link"><a href="/hurricane-tracker/gulf/">Compare this Texas track with the Gulf Hurricane Tracker</a></p>
 
       <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
       <ul class="check-list">
@@ -115,4 +125,7 @@ const jsonLd = graph(
 
 <style>
   .answer { font-size: 1.05rem; line-height: 1.75; }
+  .intent-answer { margin: 24px 0; padding: 18px 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface, #f3f7fa); }
+  .intent-answer h2 { margin-top: 0; }
+  .basin-link { margin: 24px 0; font-weight: 800; }
 </style>

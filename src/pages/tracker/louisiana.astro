@@ -3,19 +3,24 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
 import StateActionPaths from "../../components/StateActionPaths.astro";
 import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
+import StateCurrentAnswer from "../../components/StateCurrentAnswer.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateBySlug } from "../../data/states";
+import { getStateSeoProfile } from "../../data/stateSeo";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 import { site } from "../../data/site";
+import { getStateCurrentStatus, stateCurrentFaqs } from "../../lib/stateCurrent";
 
 const state = getStateBySlug("louisiana")!;
 const code = state.code;
 const name = state.name;
 const region = state.region;
-const title = `${name} Hurricane Tracker – Live NHC Data & Alerts`;
-const description = `${name} real-time hurricane tracking with NOAA data, NWS alerts, evacuation info, and live updates for ${region}.`;
+const seo = getStateSeoProfile(state);
+const title = seo.title;
+const description = seo.description;
 const canonical = `${site.url}/tracker/${state.slug}/`;
-const lastModified = "2026-08-07";
+const lastModified = site.contentLastModified;
+const currentStatus = await getStateCurrentStatus(code);
 
 const intro = `Louisiana's Gulf coastline stretches nearly 400 miles, but its true exposure lies in thousands of miles of bayous, estuaries, and low-lying parishes that sit at or below sea level behind a fragile levee system. Storms usually organize in the central or eastern Gulf and track northwest toward New Orleans, the River Parishes, and the Cajun coast. Shallow, warm water lets systems rapidly intensify only hours before landfall. In 2005, Hurricane Katrina breached levees and flooded New Orleans, and Hurricane Rita struck weeks later, reshaping state evacuation policy. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is already inside the most active window, when Gulf heat content peaks. Because many Louisiana routes flood before peak wind, officials urge residents of low-lying parishes and mobile homes to decide early and keep documents, medications, and evacuation plans staged.`;
 
@@ -70,7 +75,7 @@ const jsonLd = graph(
     })),
     ...stateActionPaths
   ]),
-  faqSchema(faqs)
+  faqSchema([...stateCurrentFaqs(name, currentStatus), ...faqs])
 );
 ---
 <BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={lastModified}>
@@ -79,6 +84,12 @@ const jsonLd = graph(
       <p class="eyebrow">{region} hurricane operations</p>
       <h1 id="tracker-state-title">{name} Hurricane Tracker – Live Updates</h1>
       <p class="answer">{intro}</p>
+      <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
+      <section class="intent-answer" aria-labelledby="louisiana-intent-heading">
+        <h2 id="louisiana-intent-heading">Is There a Hurricane Coming to Louisiana Today?</h2>
+        <p>Use the live status above for the latest NHC answer, then check Gulf storm tracks, Louisiana NWS alerts, storm surge, and parish evacuation instructions. A storm center track does not show every flood or surge impact.</p>
+        <p><a href="/hurricane-tracker/live/">Check the live hurricane tracker</a> · <a href="/hurricane-tracker/gulf/">Check the Gulf tracker</a> · <a href="/alerts/">View Louisiana alerts</a></p>
+      </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
@@ -99,6 +110,7 @@ const jsonLd = graph(
       <StateActionPaths state={state} />
 
       <StateTrackerSeoLinks state={state} cities={stateCities} />
+      <p class="basin-link"><a href="/hurricane-tracker/gulf/">Compare this Louisiana track with the Gulf Hurricane Tracker</a></p>
 
       <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
       <ul class="check-list">
@@ -112,5 +124,8 @@ const jsonLd = graph(
 </BaseLayout>
 
 <style>
-  .answer { font-size: 1.05rem; line-height: 1.75; }
+.answer { font-size: 1.05rem; line-height: 1.75; }
+.intent-answer { margin: 24px 0; padding: 18px 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface, #f3f7fa); }
+.intent-answer h2 { margin-top: 0; }
+  .basin-link { margin: 24px 0; font-weight: 800; }
 </style>

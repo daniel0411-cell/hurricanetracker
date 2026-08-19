@@ -1,0 +1,11 @@
+name = "hurricanehub-storm-monitor"
+main = "./workers/storm-monitor.mjs"
+compatibility_date = "2026-07-28"
+workers_dev = true
+
+[triggers]
+crons = ["*/15 * * * *"]
+
+[[kv_namespaces]]
+binding = "HURRICANEHUB_CACHE"
+id = "0d55cd1eaac145b49e6367ff4c89397d"

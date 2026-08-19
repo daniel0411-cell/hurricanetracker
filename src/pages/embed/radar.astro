@@ -29,55 +29,148 @@ const showControls = params.get("controls") !== "0";
       :root { color-scheme: dark light; }
       * { box-sizing: border-box; }
       html, body { margin: 0; height: 100%; }
-      body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; background: #0b2231; }
-      #map { position: absolute; inset: 0; z-index: 1; background: #0b2231; }
+      body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; background: #08131b; }
+      button, a { font: inherit; }
+      #map { position: absolute; inset: 0; z-index: 1; background: #08131b; }
+      #map::after {
+        content: ""; position: absolute; inset: 0; z-index: 500; pointer-events: none;
+        box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.28);
+      }
       .embed-bar {
-        position: absolute; z-index: 600; left: 10px; top: 10px; right: 10px;
-        display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between;
+        position: absolute; z-index: 600; left: 14px; top: 14px; right: 14px;
+        display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;
         pointer-events: none;
       }
-      .embed-toggle { display: inline-flex; gap: 4px; padding: 4px; border-radius: 8px;
-        background: rgba(7, 20, 29, 0.74); border: 1px solid rgba(226, 239, 243, 0.26);
-        box-shadow: 0 12px 30px rgba(7, 20, 29, 0.3); backdrop-filter: blur(12px); pointer-events: auto; }
-      .embed-toggle button {
-        width: auto; min-height: 34px; display: inline-flex; align-items: center; gap: 6px;
-        border: 0; border-radius: 6px; padding: 0 11px; background: transparent;
-        color: rgba(255, 255, 255, 0.86); font-size: 0.84rem; font-weight: 800; cursor: pointer; }
-      .embed-toggle button.active { background: #c1442e; color: #fff; }
-      .embed-toggle button:hover { background: rgba(255, 255, 255, 0.16); }
-      .embed-toggle button.active:hover { background: #a8351f; }
-      .embed-credit { pointer-events: auto; display: inline-flex; align-items: center; gap: 6px;
-        padding: 6px 10px; border-radius: 8px; background: rgba(7, 20, 29, 0.74);
-        border: 1px solid rgba(226, 239, 243, 0.26); color: rgba(255, 255, 255, 0.86);
-        font-size: 0.78rem; font-weight: 800; text-decoration: none; backdrop-filter: blur(12px); }
-      .embed-credit i { color: #95d9ea; }
-      .embed-home { pointer-events: auto; display: inline-flex; align-items: center; gap: 6px;
-        padding: 6px 10px; border-radius: 8px; background: rgba(7, 20, 29, 0.74);
-        border: 1px solid rgba(226, 239, 243, 0.26); color: #fff;
-        font-size: 0.78rem; font-weight: 800; text-decoration: none; backdrop-filter: blur(12px); }
-      .embed-home:hover { background: rgba(255, 255, 255, 0.16); }
-      .embed-status { position: absolute; z-index: 600; left: 10px; bottom: 10px;
-        padding: 6px 10px; border-radius: 8px; background: rgba(7, 20, 29, 0.74);
-        border: 1px solid rgba(226, 239, 243, 0.22); color: rgba(255, 255, 255, 0.8);
-        font-size: 0.76rem; font-weight: 700; max-width: calc(100% - 20px); }
+      .control-surface {
+        display: flex; align-items: center; gap: 5px; padding: 5px; border-radius: 8px;
+        background: rgba(7, 17, 25, 0.88); border: 1px solid rgba(176, 210, 222, 0.3);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.34); backdrop-filter: blur(14px); pointer-events: auto;
+      }
+      .control-surface button {
+        width: auto; min-height: 36px; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+        border: 0; border-radius: 6px; padding: 0 12px; background: transparent;
+        color: #c8d8df; font-size: 0.78rem; font-weight: 800; cursor: pointer; white-space: nowrap;
+      }
+      .control-surface button:hover, .control-surface button:focus-visible { background: rgba(255, 255, 255, 0.11); color: #fff; }
+      .embed-toggle button.active { background: #d84d32; color: #fff; box-shadow: 0 4px 14px rgba(216, 77, 50, 0.32); }
+      .view-toggle button.active { background: rgba(63, 174, 207, 0.19); color: #9be5f5; }
+      .forecast-toggle.active { background: rgba(63, 174, 207, 0.19); color: #9be5f5; }
+      .map-actions button { width: 38px; padding: 0; }
+      .map-actions button span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      .storm-picker { position: absolute; z-index: 600; left: 14px; top: 76px; pointer-events: auto; }
+      .storm-picker[hidden] { display: none; }
+      .storm-picker select {
+        min-height: 38px; max-width: 240px; padding: 0 34px 0 11px; border: 1px solid rgba(176, 210, 222, 0.3);
+        border-radius: 7px; background: rgba(7, 17, 25, 0.9); color: #e5eff3; font-size: 0.75rem; font-weight: 800;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3); backdrop-filter: blur(12px); cursor: pointer;
+      }
+      .radar-timeline {
+        position: absolute; z-index: 600; left: 50%; bottom: 14px; transform: translateX(-50%);
+        display: grid; grid-template-columns: 36px minmax(140px, 360px) auto; align-items: center; gap: 10px;
+        width: min(520px, calc(100% - 520px)); min-width: 340px; padding: 7px 9px;
+        border: 1px solid rgba(176, 210, 222, 0.28); border-radius: 7px; background: rgba(7, 17, 25, 0.9);
+        color: #d5e3e8; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3); backdrop-filter: blur(12px);
+      }
+      .radar-timeline[hidden] { display: none; }
+      .timeline-play {
+        width: 34px; height: 34px; border: 0; border-radius: 6px; background: #d84d32; color: #fff; cursor: pointer;
+      }
+      .timeline-play:hover, .timeline-play:focus-visible { background: #ee6246; }
+      .timeline-range { width: 100%; accent-color: #49c6e5; cursor: pointer; }
+      .timeline-time { min-width: 76px; color: #b8ccd5; font-size: 0.68rem; font-weight: 800; text-align: right; white-space: nowrap; }
+      .gesture-lock {
+        position: absolute; inset: 0; z-index: 590; display: none; place-items: center; padding: 20px;
+        background: rgba(4, 12, 18, 0.16); cursor: pointer;
+      }
+      .gesture-lock span { padding: 9px 12px; border: 1px solid rgba(176, 210, 222, 0.32); border-radius: 7px; background: rgba(7, 17, 25, 0.9); color: #e5eff3; font-size: 0.74rem; font-weight: 800; box-shadow: 0 10px 24px rgba(0,0,0,.3); }
+      .embed-status { position: absolute; z-index: 600; left: 14px; bottom: 14px;
+        display: inline-flex; align-items: center; gap: 8px; padding: 8px 11px; border-radius: 7px;
+        background: rgba(7, 17, 25, 0.88); border: 1px solid rgba(176, 210, 222, 0.28); color: #d5e3e8;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.26); font-size: 0.72rem; font-weight: 800; max-width: calc(100% - 28px); }
+      .embed-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #45d18a; box-shadow: 0 0 0 4px rgba(69, 209, 138, 0.14); }
       .embed-status.error { color: #ffd9d2; border-color: rgba(240, 93, 79, 0.6); }
-      #map .leaflet-bar a, #map .leaflet-control-attribution { background: rgba(7, 20, 29, 0.78); color: rgba(255, 255, 255, 0.86); }
+      .embed-status.error::before { background: #f05d4f; box-shadow: 0 0 0 4px rgba(240, 93, 79, 0.14); }
+      .radar-legend {
+        position: absolute; z-index: 600; right: 14px; bottom: 14px; width: min(230px, calc(100% - 28px));
+        padding: 9px 11px; border-radius: 7px; background: rgba(7, 17, 25, 0.88);
+        border: 1px solid rgba(176, 210, 222, 0.28); color: #c8d8df; backdrop-filter: blur(12px);
+      }
+      .legend-head { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 6px; font-size: 0.66rem; font-weight: 800; text-transform: uppercase; }
+      .legend-scale { height: 6px; border-radius: 3px; background: linear-gradient(90deg, #16a8d8 0 25%, #2fce67 25% 45%, #ffe34d 45% 63%, #ff7a2f 63% 80%, #ed2e65 80% 92%, #bd36d8 92%); }
+      .storm-marker {
+        position: relative; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+        background: #d84d32; border: 3px solid #fff; color: #fff; font-size: 17px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6); }
+      .storm-marker::before { content: ""; position: absolute; inset: -9px; border: 2px solid rgba(255, 111, 78, 0.62); border-radius: 50%; animation: storm-pulse 2.1s ease-out infinite; }
+      .forecast-point { display: grid; place-items: center; width: 25px; height: 25px; border-radius: 50%; background: #fff; border: 3px solid #d84d32; color: #172631; font-size: 0.55rem; font-weight: 900; box-shadow: 0 3px 10px rgba(0,0,0,.45); }
+      @keyframes storm-pulse { 0% { transform: scale(0.72); opacity: 1; } 100% { transform: scale(1.45); opacity: 0; } }
+      @media (prefers-reduced-motion: reduce) { .storm-marker::before { animation: none; } }
+      .storm-popup { min-width: 210px; line-height: 1.5; }
+      .storm-popup strong { display: block; margin-bottom: 5px; font-size: 1rem; color: #12222d; }
+      .forecast-legend { position: absolute; z-index: 600; right: 14px; top: 76px; width: 190px; padding: 8px 10px; border-radius: 7px; background: rgba(7,17,25,.88); border: 1px solid rgba(176,210,222,.28); color: #d5e3e8; font-size: .65rem; line-height: 1.45; pointer-events: none; }
+      .forecast-legend[hidden] { display: none; }
+      .forecast-legend strong { display: block; margin-bottom: 3px; }
+      #map .leaflet-bar { border: 1px solid rgba(176, 210, 222, 0.28); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); }
+      #map .leaflet-bar a, #map .leaflet-control-attribution { background: rgba(7, 17, 25, 0.88); color: rgba(255, 255, 255, 0.9); }
       #map .leaflet-control-attribution a { color: #95d9ea; }
+      #map .leaflet-control-zoom { margin-left: 14px; margin-top: 76px; }
+      @media (max-width: 680px) {
+        .embed-bar { left: 8px; right: 8px; top: 8px; gap: 6px; }
+        .view-toggle { order: 3; width: 100%; overflow-x: auto; justify-content: flex-start; scrollbar-width: none; }
+        .view-toggle::-webkit-scrollbar { display: none; }
+        .control-surface { padding: 4px; }
+        .control-surface button { min-height: 34px; padding: 0 10px; font-size: 0.72rem; }
+        .map-actions button { width: 34px; padding: 0; }
+        #map .leaflet-control-zoom { margin-left: 8px; margin-top: 103px; }
+        .embed-status { left: 8px; bottom: 8px; }
+        .radar-legend { right: 8px; bottom: 8px; width: 150px; }
+        .legend-head span:first-child { display: none; }
+        .storm-picker { left: 8px; top: 108px; }
+        .storm-picker select { max-width: 210px; }
+        .forecast-legend { display: none; }
+        .radar-timeline { left: 8px; right: 8px; bottom: 58px; transform: none; width: auto; min-width: 0; grid-template-columns: 34px minmax(0, 1fr) 66px; }
+        .gesture-lock { display: grid; }
+        .gesture-lock.unlocked { display: none; }
+      }
     </style>
   </head>
   <body>
     <div id="map" aria-label="HurricaneHub live radar and satellite map"></div>
     {showControls && (
       <div class="embed-bar">
-        <a class="embed-home" href="/" target="_self" rel="noopener" aria-label="Back to HurricaneHub home"><i class="fa-solid fa-house"></i> Home</a>
-        <div class="embed-toggle" role="group" aria-label="Map layer">
+        <div class="control-surface embed-toggle" role="group" aria-label="Map layer">
           <button type="button" data-layer="radar" class={layer === "radar" || layer === "both" ? "active" : ""} aria-pressed={layer === "radar" || layer === "both"}><i class="fa-solid fa-cloud-showers-heavy"></i><span>Radar</span></button>
           <button type="button" data-layer="satellite" class={layer === "satellite" || layer === "both" ? "active" : ""} aria-pressed={layer === "satellite" || layer === "both"}><i class="fa-solid fa-satellite-dish"></i><span>Satellite</span></button>
         </div>
-        <a class="embed-credit" href="https://www.hurricanetracker.cc/radar/" target="_blank" rel="noopener"><i class="fa-solid fa-circle-nodes"></i> HurricaneHub</a>
+        <div class="control-surface view-toggle" role="group" aria-label="Map region">
+          <button type="button" data-view="atlantic" class={view === "atlantic" ? "active" : ""}>Atlantic</button>
+          <button type="button" data-view="gulf" class={view === "gulf" ? "active" : ""}>Gulf</button>
+          <button type="button" data-view="florida" class={view === "florida" ? "active" : ""}>Florida</button>
+          <button type="button" data-view="caribbean" class={view === "caribbean" ? "active" : ""}>Caribbean</button>
+          <button type="button" data-view="pacific" class={view === "pacific" ? "active" : ""}>Pacific</button>
+        </div>
+        <div class="control-surface map-actions">
+          <button type="button" id="forecast-toggle" class="forecast-toggle active" title="Show or hide NHC forecast" aria-pressed="true"><i class="fa-solid fa-route"></i><span>Forecast</span></button>
+          <button type="button" id="reset-map" title="Reset map view"><i class="fa-solid fa-rotate-left"></i><span>Reset</span></button>
+          <button type="button" id="full-map" title="View map full screen"><i class="fa-solid fa-expand"></i><span>Full screen</span></button>
+        </div>
       </div>
     )}
     <div class="embed-status" id="embed-status" role="status">Loading radar…</div>
+    <div class="storm-picker" id="storm-picker" hidden>
+      <select id="storm-select" aria-label="Focus an active storm"></select>
+    </div>
+    <div class="forecast-legend" id="forecast-legend" hidden><strong>NHC forecast</strong>Blue area: center-track uncertainty<br />White dashed line: forecast track<br />Time markers: forecast center positions<br />Not an impact boundary</div>
+    <div class="radar-timeline" id="radar-timeline" hidden aria-label="Radar animation timeline">
+      <button type="button" class="timeline-play" id="timeline-play" aria-label="Play radar animation"><i class="fa-solid fa-play"></i></button>
+      <input class="timeline-range" id="timeline-range" type="range" min="0" max="0" step="1" value="0" aria-label="Radar frame" />
+      <time class="timeline-time" id="timeline-time">Latest</time>
+    </div>
+    <button type="button" class="gesture-lock" id="gesture-lock" aria-label="Enable map interaction"><span>Tap to explore map · swipe page normally</span></button>
+    <div class="radar-legend" id="radar-legend" aria-label="Radar intensity legend">
+      <div class="legend-head"><span>Radar intensity</span><span>Light → Severe</span></div>
+      <div class="legend-scale"></div>
+    </div>
 
     <script>
       // @ts-nocheck
@@ -94,12 +187,26 @@ const showControls = params.get("controls") !== "0";
           atlantic: { center: [25.0, -75.0], zoom: 5 },
           gulf: { center: [26.0, -90.0], zoom: 5 },
           florida: { center: [27.7, -81.7], zoom: 6 },
-          caribbean: { center: [18.5, -72.5], zoom: 5 }
+          caribbean: { center: [18.5, -72.5], zoom: 5 },
+          pacific: { center: [22.0, -145.0], zoom: 4 }
         };
         const GOES_EAST_BOUNDS = [[75, -160], [-75, 10]];
         const statusEl = document.querySelector("#embed-status");
         const mapEl = document.querySelector("#map");
         const toggleButtons = Array.from(document.querySelectorAll(".embed-toggle button"));
+        const viewButtons = Array.from(document.querySelectorAll(".view-toggle button"));
+        const resetButton = document.querySelector("#reset-map");
+        const fullButton = document.querySelector("#full-map");
+        const forecastButton = document.querySelector("#forecast-toggle");
+        const forecastLegend = document.querySelector("#forecast-legend");
+        const legendEl = document.querySelector("#radar-legend");
+        const stormPicker = document.querySelector("#storm-picker");
+        const stormSelect = document.querySelector("#storm-select");
+        const timelineEl = document.querySelector("#radar-timeline");
+        const timelinePlay = document.querySelector("#timeline-play");
+        const timelineRange = document.querySelector("#timeline-range");
+        const timelineTime = document.querySelector("#timeline-time");
+        const gestureLock = document.querySelector("#gesture-lock");
 
         const url = new URL(window.location.href);
         const qLayer = url.searchParams.get("layer") || "radar";
@@ -111,6 +218,45 @@ const showControls = params.get("controls") !== "0";
           if (!statusEl) return;
           statusEl.textContent = msg;
           statusEl.classList.toggle("error", isError);
+        }
+
+        function ageMinutes(value) {
+          const time = Date.parse(value || "");
+          return Number.isFinite(time) ? Math.max(0, Math.floor((Date.now() - time) / 60000)) : null;
+        }
+
+        function freshnessLabel(source, value, staleAfterMinutes) {
+          const age = ageMinutes(value);
+          if (age === null) return `${source} update time unavailable`;
+          if (age > staleAfterMinutes) return `${source} data delayed · ${age} min old`;
+          return age < 1 ? `${source} updated just now` : `${source} updated ${age} min ago`;
+        }
+
+        function refreshStatus() {
+          if (activeLayerName === "satellite") return;
+          const radarAge = ageMinutes(radarFetchedAt);
+          const nhcAge = ageMinutes(nhcFetchedAt);
+          const stale = radarAge === null || radarAge > 15 || nhcAge === null || nhcAge > 30;
+          setStatus(`${freshnessLabel("Radar", radarFetchedAt, 15)} · ${freshnessLabel("NHC", nhcFetchedAt, 30)}`, stale);
+        }
+
+        function syncLegend(layerName) {
+          if (legendEl) legendEl.hidden = layerName === "satellite";
+        }
+
+        function escapeHtml(value) {
+          return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+            "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+          })[char]);
+        }
+
+        function coordinate(value) {
+          if (typeof value === "number") return value;
+          const match = String(value ?? "").trim().match(/^(-?\d+(?:\.\d+)?)\s*([NSEW])?$/i);
+          if (!match) return null;
+          const amount = Number(match[1]);
+          if (!Number.isFinite(amount)) return null;
+          return /[SW]/i.test(match[2] ?? "") ? -Math.abs(amount) : amount;
         }
 
         if (!mapEl || typeof L === "undefined") {
@@ -134,8 +280,51 @@ const showControls = params.get("controls") !== "0";
         let activeBase = (bases[qTheme] || bases.dark).addTo(map);
 
         const stormLayer = L.layerGroup().addTo(map);
-        let activeOverlay = null;
+        const forecastLayer = L.layerGroup().addTo(map);
+        let radarLayer = null;
+        let satelliteLayer = null;
+        let radarFrames = [];
+        let radarHost = "";
+        let currentFrameIndex = 0;
+        let activeLayerName = qLayer === "satellite" ? "satellite" : "radar";
+        let animationTimer = null;
+        let layerRequestId = 0;
+        let frameRequestId = 0;
+        const stormMarkers = [];
+        const forecastBounds = new Map();
+        let forecastVisible = true;
+        let radarFetchedAt = null;
+        let nhcFetchedAt = null;
+        let radarRefreshTimer = null;
+        let stormRefreshTimer = null;
         let satOpacity = 0.85;
+
+        function stopAnimation() {
+          if (animationTimer) window.clearInterval(animationTimer);
+          animationTimer = null;
+          if (timelinePlay) {
+            timelinePlay.innerHTML = '<i class="fa-solid fa-play"></i>';
+            timelinePlay.setAttribute("aria-label", "Play radar animation");
+          }
+        }
+
+        function removeWeatherLayers() {
+          stopAnimation();
+          frameRequestId += 1;
+          if (radarLayer && map.hasLayer(radarLayer)) map.removeLayer(radarLayer);
+          if (satelliteLayer && map.hasLayer(satelliteLayer)) map.removeLayer(satelliteLayer);
+          radarLayer = null;
+          satelliteLayer = null;
+        }
+
+        function setActiveLayerButton(name) {
+          activeLayerName = name;
+          toggleButtons.forEach((button) => {
+            const on = button.dataset.layer === name;
+            button.classList.toggle("active", on);
+            button.setAttribute("aria-pressed", String(on));
+          });
+        }
 
         function createSatelliteLayer() {
           const u = "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/1808x1808.jpg";
@@ -143,63 +332,262 @@ const showControls = params.get("controls") !== "0";
           return L.imageOverlay(url, GOES_EAST_BOUNDS, { opacity: satOpacity, attribution: '<a href="https://www.star.nesdis.noaa.gov/goes/">NOAA</a>' });
         }
 
-        async function createRainViewerLayer(scheme = 2) {
-          try {
-            const res = await fetch("/api/radar/rainviewer.json", { cache: "no-store" });
-            if (!res.ok) throw new Error("RainViewer unavailable");
-            const data = await res.json();
-            const frames = data.radar?.past?.length ? data.radar.past : (data.radar?.nowcast ?? []);
-            const latest = frames[frames.length - 1];
-            if (!latest?.path || !data.host) throw new Error("frame unavailable");
-            setStatus("RainViewer radar loaded.");
-            return L.tileLayer(`${data.host}${latest.path}/256/{z}/{x}/{y}/${scheme}/1_1.png`, { opacity: 0.78, maxZoom: 8, attribution: '<a href="https://www.rainviewer.com/">RainViewer</a>' });
-          } catch (e) {
-            console.error("embed radar failed", e);
-            setStatus("Radar temporarily unavailable. Satellite mode may still work.", true);
-            return null;
-          }
+        function createRadarFrameLayer(frame, scheme = 2) {
+          return L.tileLayer(`${radarHost}${frame.path}/256/{z}/{x}/{y}/${scheme}/1_1.png`, {
+            opacity: 0.78, maxNativeZoom: 7, maxZoom: 8,
+            attribution: '<a href="https://www.rainviewer.com/">RainViewer</a>'
+          });
         }
 
-        async function showLayer(name) {
-          if (activeOverlay) { map.removeLayer(activeOverlay); activeOverlay = null; }
+        function formatFrameTime(frame) {
+          return frame?.time ? new Date(frame.time * 1000).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) : "Latest";
+        }
+
+        function showRadarFrame(index) {
+          if (!radarFrames.length || activeLayerName !== "radar") return;
+          const requestId = ++frameRequestId;
+          currentFrameIndex = Math.max(0, Math.min(index, radarFrames.length - 1));
+          const nextLayer = createRadarFrameLayer(radarFrames[currentFrameIndex]);
+          nextLayer.once("load", () => {
+            if (requestId !== frameRequestId || activeLayerName !== "radar") {
+              if (map.hasLayer(nextLayer)) map.removeLayer(nextLayer);
+              return;
+            }
+            if (radarLayer && radarLayer !== nextLayer && map.hasLayer(radarLayer)) map.removeLayer(radarLayer);
+            radarLayer = nextLayer;
+          });
+          nextLayer.once("tileerror", () => {
+            if (requestId !== frameRequestId || nextLayer === radarLayer) return;
+            if (map.hasLayer(nextLayer)) map.removeLayer(nextLayer);
+          });
+          nextLayer.addTo(map);
+          if (timelineRange) timelineRange.value = String(currentFrameIndex);
+          if (timelineTime) timelineTime.textContent = formatFrameTime(radarFrames[currentFrameIndex]);
+        }
+
+        async function loadRadarTimeline() {
+          const response = await fetch("/api/radar/rainviewer.json", { cache: "no-store" });
+          if (!response.ok) throw new Error("RainViewer unavailable");
+          const data = await response.json();
+          radarFetchedAt = data.fetchedAt ?? new Date().toISOString();
+          const past = data.radar?.past ?? [];
+          const nowcast = data.radar?.nowcast ?? [];
+          radarFrames = [...past.slice(-8), ...nowcast.slice(0, 3)].filter((frame) => frame?.path);
+          radarHost = data.host ?? "";
+          if (!radarFrames.length || !radarHost) throw new Error("Radar timeline unavailable");
+          currentFrameIndex = radarFrames.length - 1;
+          if (timelineRange) {
+            timelineRange.max = String(radarFrames.length - 1);
+            timelineRange.value = String(currentFrameIndex);
+          }
+          if (timelineEl) timelineEl.hidden = false;
+        }
+
+        async function showLayer(name, options = {}) {
+          const requestId = ++layerRequestId;
+          removeWeatherLayers();
+          setActiveLayerButton(name);
           if (name === "satellite") {
-            activeOverlay = createSatelliteLayer().addTo(map);
-            setStatus("NOAA GOES-East GeoColor satellite active.");
-          } else {
-            const layer = await createRainViewerLayer(2);
-            if (layer) { activeOverlay = layer.addTo(map); }
+            satelliteLayer = createSatelliteLayer().addTo(map);
+            setStatus(options.status || "NOAA GOES-East GeoColor satellite active.", Boolean(options.isError));
+            syncLegend("satellite");
+            if (timelineEl) timelineEl.hidden = true;
+            return;
+          }
+          try {
+            if (!radarFrames.length) await loadRadarTimeline();
+            if (requestId !== layerRequestId) return;
+            if (timelineEl) timelineEl.hidden = false;
+            showRadarFrame(currentFrameIndex);
+            refreshStatus();
+            syncLegend("radar");
+          } catch (error) {
+            console.error("embed radar failed", error);
+            if (requestId !== layerRequestId) return;
+            showLayer("satellite", { status: "Radar unavailable. Switched to NOAA satellite.", isError: true });
           }
         }
 
-        async function showBoth() {
-          if (activeOverlay) { map.removeLayer(activeOverlay); activeOverlay = null; }
-          const radar = await createRainViewerLayer(2);
-          if (radar) radar.addTo(map);
-          const sat = createSatelliteLayer().addTo(map);
-          sat.setOpacity(0.5);
-          activeOverlay = sat;
-          setStatus("Radar + satellite active.");
+        async function loadForecast(storm) {
+          if (!storm?.id) return;
+          try {
+            const response = await fetch(`/api/nhc/forecast/${encodeURIComponent(storm.id)}.json`, { cache: "no-store" });
+            if (!response.ok) return;
+            const data = await response.json();
+            const track = Array.isArray(data.track) ? data.track.map(([lon, lat]) => [lat, lon]) : [];
+            const cone = Array.isArray(data.cone) ? data.cone.map(([lon, lat]) => [lat, lon]) : [];
+            if (cone.length >= 4) L.polygon(cone, { color: "#74d7ef", weight: 1.5, fillColor: "#58bfd9", fillOpacity: 0.16, interactive: false }).addTo(forecastLayer);
+            if (track.length >= 2) L.polyline(track, { color: "#fff", weight: 3, opacity: 0.88, dashArray: "8 7", interactive: false }).addTo(forecastLayer);
+            (data.points ?? []).forEach((point) => {
+              const [lon, lat] = point.coordinates ?? [];
+              if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
+              const label = point.hour === 0 ? "NOW" : point.hour ? `${point.hour}H` : "FC";
+              L.marker([lat, lon], { icon: L.divIcon({ className: "", html: `<span class="forecast-point">${escapeHtml(label)}</span>`, iconSize: [25, 25], iconAnchor: [12, 12] }) })
+                .bindTooltip(`${escapeHtml(storm.name || storm.id)} · ${escapeHtml(label)}${point.windMph ? ` · ${escapeHtml(point.windMph)} mph` : ""}`)
+                .addTo(forecastLayer);
+            });
+            const bounds = L.latLngBounds([...track, ...cone]);
+            if (bounds.isValid()) forecastBounds.set(String(storm.id), bounds);
+            if (forecastLegend) forecastLegend.hidden = forecastLayer.getLayers().length === 0 || !forecastVisible;
+          } catch (error) {
+            console.error("embed NHC forecast failed", error);
+          }
+        }
+
+        async function loadStormMarkers() {
+          try {
+            const response = await fetch("/api/nhc/current.json", { cache: "no-store" });
+            if (!response.ok) return;
+            const data = await response.json();
+            nhcFetchedAt = data.fetchedAt ?? data.updatedAt ?? null;
+            const storms = Array.isArray(data.storms) ? data.storms : [];
+            stormLayer.clearLayers();
+            forecastLayer.clearLayers();
+            forecastBounds.clear();
+            stormMarkers.length = 0;
+            if (stormSelect) stormSelect.innerHTML = '<option value="">Focus active storm</option>';
+            storms.forEach((storm, index) => {
+              const lat = coordinate(storm.latitude);
+              const lon = coordinate(storm.longitude);
+              if (lat === null || lon === null) return;
+              const icon = L.divIcon({
+                className: "",
+                html: '<span class="storm-marker" aria-hidden="true">&#x1F300;</span>',
+                iconSize: [30, 30],
+                iconAnchor: [15, 15]
+              });
+              const name = escapeHtml(storm.name || storm.id || "Active tropical system");
+              const classification = escapeHtml(storm.classification || "NHC tropical system");
+              const intensity = escapeHtml(storm.intensity || storm.windSpeed || "Intensity pending");
+              const motion = storm.movementDir && storm.movementSpeed ? `${escapeHtml(storm.movementDir)} at ${escapeHtml(storm.movementSpeed)}` : "Motion pending";
+              const updated = escapeHtml(storm.lastUpdate || "Update time pending");
+              const marker = L.marker([lat, lon], { icon })
+                .bindPopup(`<div class="storm-popup"><strong>${name}</strong>${classification}<br>${intensity}<br>${motion}<br>Position ${lat.toFixed(1)}, ${lon.toFixed(1)}<br>Updated ${updated}</div>`)
+                .addTo(stormLayer);
+              stormMarkers.push({ marker, lat, lon, name, id: storm.id });
+              if (stormSelect) {
+                const option = document.createElement("option");
+                option.value = String(index);
+                option.textContent = `${storm.name || storm.id || "Active storm"} · ${storm.classification || "NHC"}`;
+                stormSelect.appendChild(option);
+              }
+            });
+            await Promise.all(storms.map(loadForecast));
+            if (stormPicker) stormPicker.hidden = stormMarkers.length === 0;
+            if (qView === "atlantic" && storms.length && storms.every((storm) => coordinate(storm.longitude) < -100)) {
+              const allBounds = L.latLngBounds(stormMarkers.map((storm) => [storm.lat, storm.lon]));
+              forecastBounds.forEach((bounds) => allBounds.extend(bounds));
+              if (allBounds.isValid()) map.fitBounds(allBounds, { padding: [45, 45], maxZoom: 5 });
+            }
+            refreshStatus();
+          } catch (error) {
+            console.error("embed NHC markers failed", error);
+          }
         }
 
         // Initial layer
-        if (qLayer === "both") showBoth();
-        else if (qLayer === "satellite") showLayer("satellite");
-        else showLayer("radar");
+        showLayer(qLayer === "satellite" ? "satellite" : "radar");
+        loadStormMarkers();
+        radarRefreshTimer = window.setInterval(async () => {
+          try {
+            radarFrames = [];
+            await loadRadarTimeline();
+            if (activeLayerName === "radar") showRadarFrame(currentFrameIndex);
+            refreshStatus();
+          } catch (error) {
+            console.error("embed radar refresh failed", error);
+            refreshStatus();
+          }
+        }, 5 * 60 * 1000);
+        stormRefreshTimer = window.setInterval(loadStormMarkers, 10 * 60 * 1000);
+        const freshnessTimer = window.setInterval(refreshStatus, 60 * 1000);
 
         toggleButtons.forEach((btn) => {
           btn.addEventListener("click", () => {
             const lyr = btn.dataset.layer;
             if (!lyr) return;
-            toggleButtons.forEach((b) => { const on = b === btn; b.classList.toggle("active", on); b.setAttribute("aria-pressed", String(on)); });
-            if (lyr === "satellite") showLayer("satellite");
-            else showLayer("radar");
+            showLayer(lyr === "satellite" ? "satellite" : "radar");
           });
         });
+
+        viewButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const nextView = VIEWS[btn.dataset.view];
+            if (!nextView) return;
+            map.flyTo(nextView.center, nextView.zoom, { duration: 0.8 });
+            viewButtons.forEach((button) => button.classList.toggle("active", button === btn));
+          });
+        });
+
+        resetButton?.addEventListener("click", () => map.flyTo(initial.center, initial.zoom, { duration: 0.8 }));
+        forecastButton?.addEventListener("click", () => {
+          forecastVisible = !forecastVisible;
+          if (forecastVisible) forecastLayer.addTo(map); else map.removeLayer(forecastLayer);
+          forecastButton.classList.toggle("active", forecastVisible);
+          forecastButton.setAttribute("aria-pressed", String(forecastVisible));
+          if (forecastLegend) forecastLegend.hidden = !forecastVisible || forecastLayer.getLayers().length === 0;
+        });
+        stormSelect?.addEventListener("change", () => {
+          const storm = stormMarkers[Number(stormSelect.value)];
+          if (!storm) return;
+          const bounds = forecastBounds.get(String(storm.id));
+          if (forecastVisible && bounds?.isValid()) map.fitBounds(bounds, { padding: [50, 50], maxZoom: 6 });
+          else map.flyTo([storm.lat, storm.lon], 7, { duration: 0.9 });
+          window.setTimeout(() => storm.marker.openPopup(), 900);
+        });
+        timelineRange?.addEventListener("input", () => {
+          stopAnimation();
+          showRadarFrame(Number(timelineRange.value));
+        });
+        timelinePlay?.addEventListener("click", () => {
+          if (animationTimer) { stopAnimation(); return; }
+          timelinePlay.innerHTML = '<i class="fa-solid fa-pause"></i>';
+          timelinePlay.setAttribute("aria-label", "Pause radar animation");
+          animationTimer = window.setInterval(() => showRadarFrame((currentFrameIndex + 1) % radarFrames.length), 900);
+        });
+        fullButton?.addEventListener("click", () => {
+          const target = document.documentElement;
+          if (document.fullscreenElement) document.exitFullscreen();
+          else target.requestFullscreen?.();
+        });
+        map.on("zoomend", () => {
+          if (map.getZoom() > 7 && document.querySelector('[data-layer="radar"]')?.classList.contains("active")) {
+            setStatus("Maximum radar detail reached. Map labels can continue to zoom.");
+          }
+        });
+
+        const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+        const unlockMap = () => {
+          gestureLock?.classList.add("unlocked");
+          map.dragging.enable();
+          map.touchZoom.enable();
+        };
+        gestureLock?.addEventListener("click", unlockMap);
+        if (isCoarsePointer) {
+          map.dragging.disable();
+          map.touchZoom.disable();
+          map.scrollWheelZoom.disable();
+          document.addEventListener("keydown", (event) => {
+            if (event.key !== "Escape") return;
+            gestureLock?.classList.remove("unlocked");
+            map.dragging.disable();
+            map.touchZoom.disable();
+          });
+        } else if (gestureLock) {
+          gestureLock.hidden = true;
+        }
 
         // Keep the embed sized correctly inside iframes.
         window.setTimeout(() => map.invalidateSize(), 200);
         window.addEventListener("resize", () => map.invalidateSize());
         window.addEventListener("load", () => map.invalidateSize());
+        window.addEventListener("pagehide", () => {
+          if (radarRefreshTimer) window.clearInterval(radarRefreshTimer);
+          if (stormRefreshTimer) window.clearInterval(stormRefreshTimer);
+          window.clearInterval(freshnessTimer);
+          removeWeatherLayers();
+          map.remove();
+        }, { once: true });
       }
 
       if (document.readyState === "loading") {

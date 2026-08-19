@@ -1,0 +1,24 @@
+---
+type Props = { updatedAt: string; advisory?: string; label?: string };
+const { updatedAt, advisory, label = "Official data" } = Astro.props;
+const formatted = new Date(updatedAt).toLocaleString("en-US", {
+  timeZone: "UTC",
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+  hour: "numeric",
+  minute: "2-digit",
+  hour12: true
+});
+---
+<p class="official-stamp" aria-label={`${label} timestamp`}>
+  <span>{label}: NHC/NWS</span>
+  <span>Last updated {formatted} UTC</span>
+  {advisory && <span>Advisory #{advisory}</span>}
+</p>
+
+<style>
+  .official-stamp { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 14px 0 0; color: var(--muted); font-size: .82rem; }
+  .official-stamp span + span { border-left: 1px solid var(--line); padding-left: 16px; }
+  @media (max-width: 640px) { .official-stamp { display: grid; gap: 4px; } .official-stamp span + span { border-left: 0; padding-left: 0; } }
+</style>

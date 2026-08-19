@@ -9,24 +9,24 @@ export type StateSeoProfile = {
 
 const profiles: Record<string, Omit<StateSeoProfile, "title" | "headline"> & { titleTail: string; headlineTail: string }> = {
   florida: {
-    titleTail: "Live NHC Track, NWS Alerts, Evacuation Zones",
+    titleTail: "Is a Hurricane Coming? Live NHC & NWS Alerts",
     headlineTail: "Live NHC Track, Alerts, and Evacuation Zones",
     description:
-      "Track Florida hurricanes with live NHC context, NWS alerts, storm surge and evacuation-zone planning, plus Miami, Tampa, Fort Myers, Naples, and Sarasota city trackers.",
+      "Is there a hurricane coming to Florida? Check today's live NHC track, nearby storm path, NWS alerts, evacuation zones, Orlando, Miami, Tampa, and Gulf Coast updates.",
     queryFocus: ["florida hurricane tracker", "hurricane tracker florida", "fl hurricane tracker", "florida hurricane alerts"]
   },
   texas: {
-    titleTail: "Live Gulf Track, NWS Alerts, Evacuation Routes",
+    titleTail: "Today | Live NHC Track & Texas Alerts",
     headlineTail: "Live Gulf Track, Alerts, and Evacuation Routes",
     description:
-      "Track Texas hurricanes with live NHC context, NWS alerts, Gulf surge and flooding risk, evacuation-route planning, and Houston, Galveston, Corpus Christi, and Brownsville trackers.",
+      "Is a hurricane coming to Texas? Check today's live NHC track, nearest active storm, Texas NWS alerts, Gulf flooding risk, and Houston and Galveston trackers.",
     queryFocus: ["hurricane tracker texas", "texas hurricane tracker", "texas hurricane alerts", "gulf hurricane tracker texas"]
   },
   "north-carolina": {
-    titleTail: "Live Outer Banks Track, NWS Alerts, Evacuation Zones",
+    titleTail: "Today | Live NHC & NWS Updates",
     headlineTail: "Live Outer Banks Track, Alerts, and Evacuation Zones",
     description:
-      "Track North Carolina hurricanes with live NHC context, NWS alerts, Outer Banks access risk, sound-side flooding, evacuation-zone planning, and Wilmington and Morehead City trackers.",
+      "Is a hurricane near North Carolina today? Check the live NHC track, nearest active storm, NWS alerts, Outer Banks risk, and Wilmington and Morehead City updates.",
     queryFocus: ["hurricane tracker north carolina", "hurricane nc tracker", "hurricane tracker nc", "north carolina hurricane tracker"]
   },
   georgia: {
@@ -37,17 +37,17 @@ const profiles: Record<string, Omit<StateSeoProfile, "title" | "headline"> & { t
     queryFocus: ["hurricane tracker georgia", "georgia hurricane tracker", "georgia hurricane alerts", "savannah hurricane tracker"]
   },
   louisiana: {
-    titleTail: "Live Gulf Track, NWS Alerts, New Orleans Risk",
+    titleTail: "Today | Live NHC Track & Alerts",
     headlineTail: "Live Gulf Track, Alerts, and New Orleans Risk",
     description:
-      "Track Louisiana hurricanes with live NHC context, NWS alerts, storm surge and levee risk, low-lying evacuation routes, and New Orleans, Baton Rouge, and Lake Charles trackers.",
+      "Check Louisiana hurricanes today with the live NHC track, nearest active storm, NWS alerts, Gulf surge risk, and New Orleans, Baton Rouge, and Lake Charles updates.",
     queryFocus: ["louisiana hurricane tracker", "hurricane tracker louisiana", "new orleans hurricane tracker", "louisiana hurricane alerts"]
   },
   "south-carolina": {
-    titleTail: "Live NHC Track, NWS Alerts, Charleston and Myrtle Beach Risk",
+    titleTail: "Today | Live NHC & NWS Updates",
     headlineTail: "Live NHC Track, Alerts, Charleston, and Myrtle Beach Risk",
     description:
-      "Track South Carolina hurricanes with live NHC context, NWS alerts, Charleston and Myrtle Beach city trackers, Lowcountry surge risk, and evacuation-zone planning.",
+      "Is a hurricane near South Carolina today? Check the live NHC track, nearest active storm, NWS alerts, Lowcountry risk, Charleston, and Myrtle Beach updates.",
     queryFocus: ["south carolina hurricane tracker", "hurricane tracker south carolina", "charleston hurricane tracker", "myrtle beach hurricane tracker"]
   },
   alabama: {
@@ -65,10 +65,10 @@ const profiles: Record<string, Omit<StateSeoProfile, "title" | "headline"> & { t
     queryFocus: ["hurricane tracker mississippi", "mississippi hurricane tracker", "gulfport hurricane tracker", "biloxi hurricane tracker"]
   },
   virginia: {
-    titleTail: "Live NHC Track, NWS Alerts, Hampton Roads Risk",
+    titleTail: "Today | Live NHC & NWS Updates",
     headlineTail: "Live NHC Track, Alerts, and Hampton Roads Risk",
     description:
-      "Track Virginia hurricanes with live NHC context, NWS alerts, Chesapeake Bay flooding, Hampton Roads bridge and tunnel constraints, and Virginia Beach and Norfolk trackers.",
+      "Is a hurricane near Virginia today? Check the live NHC track, nearest active storm, NWS alerts, Chesapeake Bay risk, Virginia Beach, and Norfolk updates.",
     queryFocus: ["virginia hurricane tracker", "hurricane tracker virginia", "hampton roads hurricane tracker", "virginia beach hurricane tracker"]
   }
 };

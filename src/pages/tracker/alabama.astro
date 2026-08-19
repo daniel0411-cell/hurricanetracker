@@ -3,10 +3,12 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
 import StateActionPaths from "../../components/StateActionPaths.astro";
 import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
+import StateCurrentAnswer from "../../components/StateCurrentAnswer.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateBySlug } from "../../data/states";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 import { site } from "../../data/site";
+import { getStateCurrentStatus, stateCurrentFaqs } from "../../lib/stateCurrent";
 
 const state = getStateBySlug("alabama")!;
 const code = state.code;
@@ -15,7 +17,8 @@ const region = state.region;
 const title = `${name} Hurricane Tracker – Live NHC Data & Alerts`;
 const description = `${name} real-time hurricane tracking with NOAA data, NWS alerts, evacuation info, and live updates for ${region}.`;
 const canonical = `${site.url}/tracker/${state.slug}/`;
-const lastModified = "2026-08-07";
+const lastModified = site.contentLastModified;
+const currentStatus = await getStateCurrentStatus(code);
 
 const intro = `Alabama's coastline is the second-shortest among Gulf states at about 53 miles, centered on Mobile Bay and the white-sand communities of Baldwin County. Yet that compact shore sits where easterly Gulf storms often slow and pivot, and Mobile Bay's funnel shape can concentrate storm surge. Inland river systems then carry flooding far beyond the beach. In 2020, Hurricane Sally crawled along the Alabama coast and produced extreme rainfall and flooding around Mobile and Gulf Shores, one of the most damaging recent storms for the state. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is inside the active window, so Mobile Bay residents—especially those in mobile homes—should stage plans early, because surge and flooding can cut coastal routes before peak wind arrives.`;
 
@@ -70,7 +73,7 @@ const jsonLd = graph(
     })),
     ...stateActionPaths
   ]),
-  faqSchema(faqs)
+  faqSchema([...stateCurrentFaqs(name, currentStatus), ...faqs])
 );
 ---
 <BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={lastModified}>
@@ -79,6 +82,7 @@ const jsonLd = graph(
       <p class="eyebrow">{region} hurricane operations</p>
       <h1 id="tracker-state-title">{name} Hurricane Tracker – Live Updates</h1>
       <p class="answer">{intro}</p>
+      <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
@@ -99,6 +103,7 @@ const jsonLd = graph(
       <StateActionPaths state={state} />
 
       <StateTrackerSeoLinks state={state} cities={stateCities} />
+      <p class="basin-link"><a href="/hurricane-tracker/gulf/">Compare this Alabama track with the Gulf Hurricane Tracker</a></p>
 
       <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
       <ul class="check-list">
@@ -113,4 +118,5 @@ const jsonLd = graph(
 
 <style>
   .answer { font-size: 1.05rem; line-height: 1.75; }
+  .basin-link { margin: 24px 0; font-weight: 800; }
 </style>

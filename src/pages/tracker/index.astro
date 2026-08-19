@@ -52,6 +52,8 @@ const alerts = alertFeed?.alerts ?? [];
 const decisionLevel = alertFeed?.decisionLevel ?? (storms.length ? "Prepare" : "Monitor");
 const lastModified = stormFeed?.updatedAt ?? alertFeed?.updatedAt ?? site.contentLastModified;
 const featuredCities = hurricaneCities.slice(0, 12);
+const stateDemandOrder = ["georgia", "north-carolina", "texas", "florida", "virginia", "south-carolina", "louisiana", "mississippi", "alabama"];
+const orderedStates = [...coastalStates].sort((a, b) => stateDemandOrder.indexOf(a.slug) - stateDemandOrder.indexOf(b.slug));
 const trackerTopicHubs = topicPages.map((page) => ({
   title: page.title,
   href: `/hurricane-tracker/${page.slug}/`,
@@ -119,7 +121,7 @@ const jsonLd = graph(
       <h2 id="state-trackers-heading">Choose a State Hurricane Tracker</h2>
       <p class="answer">Open a state page for local NWS alerts, county planning notes, source timestamps, and a Monitor/Prepare/Act/Leave decision guide.</p>
       <div class="grid-3 section-grid">
-        {coastalStates.map((state) => (
+        {orderedStates.map((state) => (
           <article class="panel">
             <h3>{state.name}</h3>
             <p>{state.region}. Watch for {state.risks.slice(0, 2).join(" and ")}.</p>

@@ -1,19 +1,13 @@
 ---
 import FaqBlock from "../../../components/FaqBlock.astro";
 import Layout from "../../../layouts/Layout.astro";
-import { getStormPageBySlug, stormTrackerPages } from "../../../data/stormPages";
+import { getStormPageBySlug } from "../../../data/stormPages";
 import { site } from "../../../data/site";
 import { articleSchema, breadcrumbSchema, faqSchema, graph, websiteSchema } from "../../../lib/schema";
-import type { NhcStorm } from "../../../lib/weather";
-
-export const prerender = true;
-
-export async function getStaticPaths() {
-  return stormTrackerPages.map((storm) => ({
-    params: { storm: storm.slug },
-    props: { stormPage: storm }
-  }));
-}
+import { advisoryUrl, type NhcStorm } from "../../../lib/weather";
+import { readStormRegistry } from "../../../lib/stormRegistry";
+import { relevantLocations } from "../../../lib/stormRelevance";
+import { getAdvisoryHistory, getNhcForecast } from "../../../lib/nhcForecast";
 
 type StormFeed = {
   storms?: Array<NhcStorm & { summary?: string }>;
@@ -21,10 +15,8 @@ type StormFeed = {
   fetchedAt?: string;
 };
 
-const stormPage = Astro.props.stormPage ?? getStormPageBySlug(Astro.params.storm);
-if (!stormPage) {
-  return Astro.redirect("/storm-archive/");
-}
+const slug = String(Astro.params.storm ?? "").toLowerCase();
+if (!/^[a-z][a-z0-9-]{1,48}$/.test(slug)) return Astro.redirect("/storm-archive/");
 
 let feed: StormFeed | null = null;
 try {
@@ -36,21 +28,62 @@ try {
     feed = await response.json() as StormFeed;
   }
 } catch (error) {
-  console.error("HurricaneHub storm-name feed failed", { storm: stormPage.slug, error });
+  console.error("HurricaneHub storm-name feed failed", { storm: slug, error });
 }
 
 const activeStorm = (feed?.storms ?? []).find((item) => {
   const values = [item.name, item.id, item.binNumber].filter(Boolean).map((value) => String(value).toLowerCase());
-  return values.some((value) => value.includes(stormPage.slug));
+  return values.some((value) => value === slug || value.includes(slug));
 });
+const knownPage = getStormPageBySlug(slug);
+const archivedStorm = (await readStormRegistry()).find((item) => item.slug === slug);
+if (!knownPage && !activeStorm && !archivedStorm) return Astro.redirect("/storm-archive/", 302);
+const stormRecord = activeStorm ?? archivedStorm;
+const isArchived = !activeStorm && Boolean(archivedStorm);
+const stormName = stormRecord?.name ?? knownPage?.name ?? slug.replace(/(^|-)(\w)/g, (_, space, letter) => `${space}${letter.toUpperCase()}`);
+const basinCode = activeStorm?.id?.slice(0, 2).toLowerCase();
+const basin = knownPage?.basin ?? ({ al: "Atlantic", ep: "Eastern Pacific", cp: "Central Pacific" }[basinCode ?? ""] ?? "NHC");
+const primaryKeywords = knownPage?.primaryKeywords ?? [`hurricane ${stormName.toLowerCase()} tracker`, `hurricane ${stormName.toLowerCase()} path`, `hurricane ${stormName.toLowerCase()} live map`, `where is hurricane ${stormName.toLowerCase()} now`];
+const overview = knownPage?.overview ?? `Track ${stormName} with the latest NHC position, official advisory time, forecast path, radar, satellite imagery, and local-alert context. This page updates from official NHC data while the system is active and remains available as a stable storm reference.`;
+const searchDemandNote = knownPage?.searchDemandNote ?? `Use this page for live ${stormName} tracker, path, map, forecast, and current-position searches.`;
+const trackerFocus = knownPage?.trackerFocus ?? [
+  `Check the latest NHC position and advisory time for ${stormName}.`,
+  "Compare the official forecast path with radar and satellite imagery.",
+  "Use local NWS alerts and emergency management guidance for decisions.",
+  "Treat the forecast cone as center-track uncertainty, not an impact boundary."
+];
+const publicAdvisory = advisoryUrl(activeStorm?.publicAdvisory);
+const forecastAdvisory = advisoryUrl(activeStorm?.forecastAdvisory);
+type ForecastFeed = { advisoryNumber?: string; track?: Array<[number, number]>; points?: Array<{ coordinates: [number, number]; hour?: number | null; windMph?: number | null }> };
+let forecast: ForecastFeed | null = null;
+if (activeStorm?.id) {
+  try {
+    forecast = await getNhcForecast(activeStorm.id.toLowerCase()) as ForecastFeed | null;
+  } catch (error) {
+    console.error("Storm forecast relevance feed failed", { storm: slug, error });
+  }
+}
+const locationRelevance = relevantLocations(
+  forecast?.track ?? [],
+  Number.isFinite(activeStorm?.latitudeNumeric) && Number.isFinite(activeStorm?.longitudeNumeric)
+    ? [activeStorm!.longitudeNumeric!, activeStorm!.latitudeNumeric!]
+    : undefined
+);
+const next48 = (forecast?.points ?? []).filter((point) => (point.hour ?? 999) > 0 && (point.hour ?? 999) <= 48);
+const advisoryHistory = activeStorm?.id ? await getAdvisoryHistory(activeStorm.id) : [];
 const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
-const title = `Hurricane ${stormPage.name} Tracker Live Map and NHC Updates`;
-const description = `Track Hurricane ${stormPage.name} with NHC status checks, advisory links, radar and satellite context, forecast-path notes, and local decision tools.`;
-const url = `${site.url}/hurricane-tracker/storm/${stormPage.slug}/`;
+const title = `${stormName} ${isArchived ? "Storm Archive" : "Tracker Live Map, Path & NHC Updates"}`;
+const description = isArchived
+  ? `Review the archived ${stormName} hurricane tracker with the last known NHC position, advisory context, forecast path history, and official source links.`
+  : `Track ${stormName} with its current NHC position, latest advisory, forecast path, radar, satellite imagery and local alert links.`;
+const url = `${site.url}/hurricane-tracker/storm/${slug}/`;
 const pageFaqs = [
-  ...stormPage.faqs,
+  ...(knownPage?.faqs ?? [
+    { question: `Where is ${stormName} now?`, answer: `The current NHC position, movement, intensity, and advisory time appear on this page while ${stormName} is active.` },
+    { question: `Where can I see the ${stormName} forecast path?`, answer: "Open the live tracker on this page to compare the official NHC forecast path and cone with radar and satellite imagery." }
+  ]),
   {
-    question: `Is HurricaneHub an official Hurricane ${stormPage.name} advisory source?`,
+    question: `Is HurricaneHub an official ${stormName} advisory source?`,
     answer:
       "No. HurricaneHub organizes official-source links and decision tools, but NHC, NWS, and local emergency management remain the official sources for forecasts, watches, warnings, and evacuation orders."
   }
@@ -62,19 +95,20 @@ const jsonLd = graph(
   breadcrumbSchema([
     { name: "Home", url: site.canonicalUrl },
     { name: "Storm Archive", url: `${site.url}/storm-archive/` },
-    { name: `Hurricane ${stormPage.name} Tracker`, url }
+    { name: `${stormName} Tracker`, url }
   ])
 );
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
   <section class="band" aria-labelledby="storm-title">
     <div class="inner">
-      <p class="eyebrow">{stormPage.basin} storm-name tracker</p>
-      <h1 id="storm-title">Hurricane {stormPage.name} Tracker Live Map and NHC Updates</h1>
-      <p class="answer">{stormPage.overview}</p>
-      <p class="answer">{stormPage.searchDemandNote}</p>
+      <p class="eyebrow">{basin} storm tracker</p>
+      <h1 id="storm-title">{stormName} Tracker Live Map, Path and NHC Updates</h1>
+      {isArchived && <p class="archive-notice"><strong>{stormName} is not active in the current NHC feed.</strong> This stable archive page preserves the last observed advisory context; use the live tracker for current storms.</p>}
+      <p class="answer">{overview}</p>
+      <p class="answer">{searchDemandNote}</p>
       <p class="section-actions">
-        <a class="action-link" href="/tracker/">Open live hurricane tracker</a>
+        <a class="action-link" href="/hurricane-tracker/live/">Open live hurricane tracker</a>
         <a class="action-link secondary-action" href="/radar/">Open radar and satellite map</a>
       </p>
     </div>
@@ -84,7 +118,7 @@ const jsonLd = graph(
     <div class="inner grid-2">
       <article class="panel">
         <p class="eyebrow">Current NHC status</p>
-        <h2 id="live-status">{activeStorm ? `${stormPage.name} is listed in the current feed` : `No active ${stormPage.name} record in the current feed`}</h2>
+        <h2 id="live-status">{activeStorm ? `${stormName} is active in the current NHC feed` : isArchived ? `${stormName} historical status` : `No active ${stormName} record in the current feed`}</h2>
         {activeStorm ? (
           <>
             <p>{activeStorm.summary ?? "Current NHC storm data loaded for this named system."}</p>
@@ -95,37 +129,98 @@ const jsonLd = graph(
                 <tr><th>Position</th><td>{activeStorm.latitude ?? "pending"}, {activeStorm.longitude ?? "pending"}</td></tr>
                 <tr><th>Movement</th><td>{activeStorm.movementDir ?? "pending"} at {activeStorm.movementSpeed ?? "pending"}</td></tr>
                 <tr><th>NHC update</th><td>{activeStorm.lastUpdate ?? lastModified}</td></tr>
+                <tr><th>Advisory</th><td>{forecast?.advisoryNumber ? `#${forecast.advisoryNumber}` : "Latest official advisory"}</td></tr>
               </tbody>
             </table>
             <p class="storm-links">
-              {activeStorm.publicAdvisory && <a href={activeStorm.publicAdvisory} rel="noopener nofollow">NHC public advisory</a>}
-              {activeStorm.forecastAdvisory && <a href={activeStorm.forecastAdvisory} rel="noopener nofollow">NHC forecast advisory</a>}
+              {publicAdvisory && <a href={publicAdvisory} rel="noopener nofollow">NHC public advisory</a>}
+              {forecastAdvisory && <a href={forecastAdvisory} rel="noopener nofollow">NHC forecast advisory</a>}
             </p>
           </>
         ) : (
-          <p>No active NHC tropical cyclone named {stormPage.name} appears in HurricaneHub's current feed. Keep using this page for storm-name search context, official links, and readiness steps when the name appears in forecasts or past-storm searches.</p>
+          <p>{isArchived ? `The last observed ${stormName} record remains available for historical context and advisory links. It is not a current threat signal.` : `No active NHC tropical cyclone named ${stormName} appears in HurricaneHub's current feed. Keep using this page for storm history, official links, and preparedness context.`}</p>
         )}
       </article>
       <article class="panel">
         <p class="eyebrow">Keyword cluster</p>
-        <h2>Common {stormPage.name} Searches</h2>
+        <h2>Common {stormName} Searches</h2>
         <ul>
-          {stormPage.primaryKeywords.map((keyword) => <li>{keyword}</li>)}
+          {primaryKeywords.map((keyword) => <li>{keyword}</li>)}
         </ul>
         <p>These searches usually mean the user wants live position, forecast path, map context, and official advisory links in one place.</p>
       </article>
     </div>
   </section>
 
+  {activeStorm && (
+    <section class="band" aria-labelledby="storm-live-map">
+      <div class="inner">
+        <p class="eyebrow">Official forecast context</p>
+        <h2 id="storm-live-map">Live {stormName} Map and NHC Forecast Path</h2>
+        <div class="storm-map-frame">
+          <iframe title={`${stormName} live tracker map`} src={`/embed/radar?layer=radar&theme=dark&view=atlantic&loc=${activeStorm.latitudeNumeric ?? activeStorm.latitude},${activeStorm.longitudeNumeric ?? activeStorm.longitude}`} loading="eager"></iframe>
+        </div>
+        <p class="source-note">The cone shows uncertainty for the storm center, not the full impact area. Follow NHC, NWS, and local emergency guidance.</p>
+      </div>
+    </section>
+  )}
+
+  {advisoryHistory.length > 0 && (
+    <section class="band" aria-labelledby="advisory-history">
+      <div class="inner">
+        <p class="eyebrow">Official update history</p>
+        <h2 id="advisory-history">Recent {stormName} Advisories</h2>
+        <div class="stack section-grid">
+          {advisoryHistory.map((item) => (
+            <article class="panel">
+              <h3>Advisory #{item.advisoryNumber}</h3>
+              <p>{item.classification ?? "Tropical system"} · {item.intensity ?? "intensity pending"} · Position {item.latitude ?? "pending"}, {item.longitude ?? "pending"}</p>
+              <p class="source-note">{item.time} · Moving {item.movementDir ?? "pending"} at {item.movementSpeed ?? "pending"}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {activeStorm && (
+    <section class="band" aria-labelledby="storm-outlook">
+      <div class="inner">
+        <p class="eyebrow">Advisory update</p>
+        <h2 id="storm-outlook">{stormName} 24–48 Hour Tracker Outlook</h2>
+        <p class="answer">The current NHC record places {stormName} at {activeStorm.latitude ?? "a pending latitude"}, {activeStorm.longitude ?? "a pending longitude"}, moving {activeStorm.movementDir ?? "in a direction pending confirmation"} at {activeStorm.movementSpeed ?? "a speed pending confirmation"}. {next48.length ? `The official GIS forecast includes ${next48.length} center positions through 48 hours.` : "Use the official forecast advisory for the next scheduled positions."}</p>
+        <p class="source-note">Updated {activeStorm.lastUpdate ?? lastModified}{forecast?.advisoryNumber ? ` · NHC advisory #${forecast.advisoryNumber}` : ""}. NHC normally issues full advisories every six hours, with intermediate updates when needed.</p>
+      </div>
+    </section>
+  )}
+
+  {activeStorm && locationRelevance.cities.length > 0 && (
+    <section class="band" aria-labelledby="areas-monitor">
+      <div class="inner">
+        <p class="eyebrow">Forecast-path context</p>
+        <h2 id="areas-monitor">Areas To Monitor for {stormName}</h2>
+        <p class="answer">These established local tracker pages are within 500 miles of a current or forecast NHC center point. This is a navigation aid, not a landfall forecast, warning area, or impact boundary.</p>
+        <div class="grid-3 section-grid">
+          {locationRelevance.states.map((state) => (
+            <article class="state-card"><h3>{state.name}</h3><p>Check state NWS alerts and local planning context.</p><a href={`/tracker/${state.slug}/`}>Open {state.name} tracker</a></article>
+          ))}
+          {locationRelevance.cities.map((city) => (
+            <article class="state-card"><h3>{city.name}</h3><p>Approx. {city.distanceMiles} miles from the nearest forecast center point.</p><a href={`/hurricane-tracker/city/${city.slug}/`}>Open {city.name} tracker</a></article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
   <section class="band" aria-labelledby="tracking-plan">
     <div class="inner">
       <p class="eyebrow">How to use this tracker</p>
-      <h2 id="tracking-plan">Track Hurricane {stormPage.name} Without Missing Local Risk</h2>
+      <h2 id="tracking-plan">Track {stormName} Without Missing Local Risk</h2>
       <div class="grid-2 section-grid">
         <article class="panel">
           <h3>Tracker Checklist</h3>
           <ul>
-            {stormPage.trackerFocus.map((item) => <li>{item}</li>)}
+            {trackerFocus.map((item) => <li>{item}</li>)}
           </ul>
         </article>
         <article class="panel">
@@ -144,12 +239,12 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="related-trackers">
     <div class="inner">
       <p class="eyebrow">Related trackers</p>
-      <h2 id="related-trackers">Keep Context Around {stormPage.name}</h2>
+      <h2 id="related-trackers">Keep Context Around {stormName}</h2>
       <div class="grid-3 section-grid">
         <article class="state-card">
           <h3>Live Hurricane Tracker</h3>
           <p>See all active NHC systems and current advisory links.</p>
-          <a href="/tracker/">Open tracker</a>
+          <a href="/hurricane-tracker/live/">Open live tracker</a>
         </article>
         <article class="state-card">
           <h3>Florida Hurricane Tracker</h3>
@@ -176,4 +271,7 @@ const jsonLd = graph(
     margin: 18px 0 0;
     font-weight: 800;
   }
+  .storm-map-frame { overflow: hidden; min-height: 500px; border: 1px solid var(--line); border-radius: 8px; background: #071119; }
+  .storm-map-frame iframe { display: block; width: 100%; height: 500px; border: 0; }
+  .archive-notice { margin: 16px 0; padding: 14px 16px; border-left: 4px solid var(--ocean); background: var(--surface, #f3f7fa); }
 </style>

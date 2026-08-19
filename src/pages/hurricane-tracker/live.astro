@@ -4,12 +4,37 @@ import Layout from "../../layouts/Layout.astro";
 import { site } from "../../data/site";
 import { topicPages } from "../../data/topicPages";
 import { articleSchema, breadcrumbSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
+import { advisoryUrl, type NhcStorm } from "../../lib/weather";
+import OfficialUpdateStamp from "../../components/OfficialUpdateStamp.astro";
 
-const title = "Live Hurricane Tracker Map";
-const description =
-  "Open HurricaneHub's live hurricane tracker map for current hurricane tracking, NHC storm checks, radar and satellite shortcuts, active alerts, city trackers, and decision tools.";
+type StormFeed = {
+  storms?: Array<NhcStorm & { summary?: string }>;
+  fetchedAt?: string;
+  updatedAt?: string;
+};
+
 const url = `${site.url}/hurricane-tracker/live/`;
-const lastModified = site.contentLastModified;
+let stormFeed: StormFeed | null = null;
+try {
+  const response = await fetch(new URL("/api/nhc/current.json", Astro.url));
+  if (response.ok) stormFeed = await response.json() as StormFeed;
+} catch (error) {
+  console.error("HurricaneHub live tracker feed failed", { error });
+}
+const storms = stormFeed?.storms ?? [];
+const activeStormNames = storms.map((storm) => storm.name).filter(Boolean).slice(0, 2);
+const activeContext = activeStormNames.length ? ` Track ${activeStormNames.join(" and ")} now.` : "";
+const title = "Live Hurricane Tracker Map | Where Is the Storm Now?";
+const description = `Where is the hurricane now? Track current storms on a live map with official NHC positions, forecast paths, radar, satellite imagery and advisory updates.${activeContext}`;
+const lastModified = stormFeed?.updatedAt ?? stormFeed?.fetchedAt ?? site.contentLastModified;
+const updatedLabel = new Date(lastModified).toLocaleString("en-US", {
+  timeZone: "UTC",
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+  hour: "numeric",
+  minute: "2-digit"
+});
 const liveTrackerPaths = [
   {
     name: "Check active storms",
@@ -59,9 +84,30 @@ const trackerTopicHubs = topicPages.map((page) => ({
 }));
 const faqs = [
   {
+    question: "Are there any hurricanes right now?",
+    answer: storms.length ? `The latest NHC feed lists ${storms.length} active system${storms.length === 1 ? "" : "s"}. Open the current storm list and verify the advisory time before making decisions.` : "The latest NHC feed does not list an active named hurricane right now. Tropical outlooks and local NWS alerts can change, so keep monitoring official updates."
+  },
+  {
+    question: "Where is the hurricane now?",
+    answer: storms.length ? "The current storm list below shows the latest NHC-reported position and update time for each active system. Use the map and official advisory for the full forecast context." : "No active named hurricane is currently listed in the latest NHC feed. Check official tropical outlooks and local NWS alerts for changes."
+  },
+  {
+    question: "Is there a hurricane in the Gulf right now?",
+    answer: "Use the Gulf hurricane tracker for the current NHC Gulf status, then check Florida, Alabama, Mississippi, Louisiana, or Texas local pages for alerts and official instructions."
+  },
+  {
+    question: "When does the NHC update hurricane tracks?",
+    answer: "NHC advisories follow scheduled cycles and may include intermediate updates when conditions require them. Always use the timestamp attached to the latest official advisory."
+  },
+  {
     question: "What is the best way to use a live hurricane tracker?",
     answer:
       "Use the tracker for storm position and advisory context, then compare it with radar, local NWS alerts, and local emergency guidance before making travel, shelter, or evacuation decisions."
+  },
+  {
+    question: "Where is the hurricane right now?",
+    answer:
+      "Check the current NHC storm list on this page for the latest reported position, classification, and advisory time. If no active system is listed, monitor the official NHC tropical weather outlook because conditions can change between advisories."
   },
   {
     question: "Does a live tracker show every local hurricane impact?",
@@ -116,26 +162,119 @@ const jsonLd = graph(
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
   <section class="band" aria-labelledby="live-title">
+    <div class="inner live-hero-grid">
+      <div>
+        <p class="eyebrow">Current NHC storm data</p>
+        <h1 id="live-title">Live Hurricane Tracker Map</h1>
+        <p class="answer">Track current hurricanes right now with the latest NHC storm positions and advisory times, then compare forecast tracks with radar, satellite, and local alerts.</p>
+        <p class="section-actions">
+          <a class="action-link" href="#current-hurricanes">View current hurricanes</a>
+          <a class="action-link secondary-action" href="/tracker/">Open interactive tracker</a>
+        </p>
+      </div>
+      <aside class="panel live-snapshot" aria-label="Current hurricane tracker status">
+        <p class="eyebrow">Live snapshot</p>
+        <strong class="storm-count" data-live-storm-count>{storms.length}</strong>
+        <span data-live-storm-label>{storms.length === 1 ? "active NHC system" : "active NHC systems"}</span>
+        <p class="source-note" data-live-updated>Last checked {updatedLabel} UTC</p>
+        <OfficialUpdateStamp updatedAt={lastModified} />
+        <a href="https://www.nhc.noaa.gov/" rel="noopener nofollow">Verify with the National Hurricane Center</a>
+      </aside>
+    </div>
+  </section>
+
+  <section class="live-map-section" aria-labelledby="live-map-heading">
     <div class="inner">
-      <p class="eyebrow">Live map hub</p>
-      <h1 id="live-title">Live Hurricane Tracker Map</h1>
-      <p class="answer">Use this live hurricane tracker hub as a current hurricane map: move quickly between active storm tracking, radar and satellite views, city-level risk pages, named-storm trackers, and practical decision tools.</p>
-      <p class="section-actions">
-        <a class="action-link" href="/tracker/">Open live tracker</a>
-        <a class="action-link secondary-action" href="/radar/">Open radar map</a>
-      </p>
+      <div class="map-console">
+        <div class="live-map-heading">
+          <div>
+            <p class="eyebrow"><span class="live-indicator"></span> Interactive weather operations</p>
+            <h2 id="live-map-heading">Live Hurricane Map</h2>
+            <p>Explore current NHC storm positions with live radar and NOAA satellite imagery across the Atlantic basin.</p>
+          </div>
+          <div class="map-source-stack" aria-label="Live map sources">
+            <span>NHC positions</span>
+            <span>RainViewer radar</span>
+            <span>GOES-East satellite</span>
+          </div>
+        </div>
+        <div class="live-map-frame">
+          <iframe
+            src="/embed/radar?layer=radar&theme=dark&view=atlantic"
+            title="Interactive live hurricane map with NHC storm positions, radar, and satellite"
+            loading="eager"
+            allow="fullscreen"
+          ></iframe>
+        </div>
+        <div class="map-console-footer">
+          <p><strong>How to read this map:</strong> switch layers to compare precipitation with cloud structure. NHC markers show the latest reported center, not the full hazard area.</p>
+          <a href="#current-hurricanes">View storm details</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="current-hurricanes" aria-labelledby="current-hurricanes-heading">
+    <div class="inner">
+      <p class="eyebrow">Hurricanes right now</p>
+      <h2 id="current-hurricanes-heading">Current Hurricanes and NHC Tracks</h2>
+      <p class="answer">This list reflects the latest available NHC feed. Open the interactive tracker for map context and confirm urgent decisions with the official advisory and local NWS alerts.</p>
+      <p class="source-note">Looking for the latest hurricanes or tropical storms right now? This live list includes named systems currently reported by the NHC; disturbances are tracked separately in the outlook below.</p>
+      <div class="stack current-storm-list" data-live-storm-list>
+        {storms.length ? storms.map((storm) => (
+          <article class="panel current-storm">
+            <header>
+              <div>
+                <p class="eyebrow">{storm.classification ?? "NHC tropical system"}</p>
+                <h3>{storm.name ?? storm.id ?? "Active tropical system"}</h3>
+              </div>
+              <span class="badge warn">{storm.intensity ?? storm.windSpeed ?? "Advisory active"}</span>
+            </header>
+            <p>{storm.summary ?? `Latest NHC position: ${storm.latitude ?? "pending"}, ${storm.longitude ?? "pending"}.`}</p>
+            <p class="source-note">Position {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"} · Updated {storm.lastUpdate ?? lastModified}</p>
+            <p class="section-actions">
+              <a class="action-link" href={`/hurricane-tracker/storm/${String(storm.name ?? storm.id ?? "storm").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}/`}>Open {storm.name ?? "storm"} live tracker</a>
+              {advisoryUrl(storm.publicAdvisory) && <a class="action-link secondary-action" href={advisoryUrl(storm.publicAdvisory)} rel="noopener nofollow">NHC advisory</a>}
+            </p>
+          </article>
+        )) : (
+          <article class="panel no-active-storms">
+            <h3>No Active NHC Tropical Cyclones</h3>
+            <p>No active tropical cyclone is listed in the latest NHC feed. This is not an all-clear for every location: disturbances and local hazards can develop before a named system appears.</p>
+            <p class="section-actions">
+              <a class="action-link" href="https://www.nhc.noaa.gov/gtwo.php" rel="noopener nofollow">Check tropical outlook</a>
+              <a class="action-link secondary-action" href="/alerts/">Check local alerts</a>
+            </p>
+          </article>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="disturbance-outlook">
+    <div class="inner grid-2">
+      <article>
+        <p class="eyebrow">Before a storm is named</p>
+        <h2 id="disturbance-outlook">Atlantic Tropical Disturbance Outlook</h2>
+        <p class="answer">Monitor official NHC development areas, tropical waves, and disturbances before they become named storms. A colored outlook area indicates formation potential, not a forecast track or an impact area.</p>
+        <p class="section-actions"><a class="action-link" href="/hurricane-tracker/tropical-disturbances/">Open disturbance tracker</a><a class="action-link secondary-action" href="https://www.nhc.noaa.gov/gtwo.php" rel="noopener nofollow">Open official NHC outlook</a></p>
+      </article>
+      <article class="panel outlook-panel">
+        <img src="https://www.nhc.noaa.gov/xgtwo/two_atl_7d0.png" alt="Official NHC seven-day Atlantic tropical weather outlook" loading="lazy" width="900" height="679" />
+        <p class="source-note">Official NHC seven-day Atlantic outlook. Check the issue time and accompanying NHC text before making decisions.</p>
+      </article>
     </div>
   </section>
 
   <section class="band" aria-labelledby="live-workflow">
     <div class="inner">
-      <p class="eyebrow">Fast workflow</p>
-      <h2 id="live-workflow">Track the Storm, Then Check Local Risk</h2>
+      <p class="eyebrow">Live map workflow</p>
+      <h2 id="live-workflow">Use the NHC Tracking Map, Radar, and Local Alerts Together</h2>
       <div class="grid-3 section-grid">
         <article class="panel">
-          <h3>1. Start With Active Storms</h3>
-          <p>Open the live tracker to see current NHC systems, advisory links, and map context for the basin.</p>
-          <p><a class="action-link" href="/tracker/">Live tracker</a></p>
+          <h3>1. Start With the NHC Track</h3>
+          <p>Use the current hurricane tracker for storm position, forecast movement, advisory time, and official NHC links.</p>
+          <p><a class="action-link" href="/tracker/">Interactive tracking map</a></p>
         </article>
         <article class="panel">
           <h3>2. Compare Radar and Alerts</h3>
@@ -146,6 +285,36 @@ const jsonLd = graph(
           <h3>3. Use Local Pages</h3>
           <p>City and state pages help connect the storm map with evacuation zones, surge exposure, flooding, and outages.</p>
           <p><a class="action-link" href="/hurricane-tracker/city/">City trackers</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="map-layers-heading">
+    <div class="inner">
+      <p class="eyebrow">Read each layer correctly</p>
+      <h2 id="map-layers-heading">NHC Tracking Map vs Radar, Satellite, and Forecast Cone</h2>
+      <p class="answer">These layers answer different questions. Compare them instead of treating any single map as a complete picture of hurricane risk.</p>
+      <div class="grid-2 section-grid layer-guide">
+        <article class="panel">
+          <h3>NHC Hurricane Tracking Map</h3>
+          <p>Shows the official storm center, classification, advisory time, and forecast track. Use it to understand where the system is and where the center may move.</p>
+          <a href="https://www.nhc.noaa.gov/" rel="noopener nofollow">Check official NHC advisories</a>
+        </article>
+        <article class="panel">
+          <h3>Weather Radar</h3>
+          <p>Shows precipitation and rain-band movement near radar coverage. Radar is most useful as a storm approaches land, but it does not show the complete hurricane forecast.</p>
+          <a href="/radar/">Open full hurricane radar</a>
+        </article>
+        <article class="panel">
+          <h3>Satellite Imagery</h3>
+          <p>Shows cloud structure and organization across the ocean, including systems beyond coastal radar range. It helps reveal storm shape, not exact local impacts.</p>
+          <a href="/radar/">Compare satellite layers</a>
+        </article>
+        <article class="panel">
+          <h3>NHC Forecast Cone</h3>
+          <p>Shows probable uncertainty in the future position of the storm center. It is not an impact boundary: wind, surge, flooding, and tornadoes can occur outside it.</p>
+          <a href="/blog/how-to-read-the-hurricane-cone-of-uncertainty/">Learn how to read the cone</a>
         </article>
       </div>
     </div>
@@ -213,3 +382,213 @@ const jsonLd = graph(
 
   <FaqBlock faqs={faqs} />
 </Layout>
+
+<script>
+  const countEl = document.querySelector<HTMLElement>("[data-live-storm-count]");
+  const labelEl = document.querySelector<HTMLElement>("[data-live-storm-label]");
+  const updatedEl = document.querySelector<HTMLElement>("[data-live-updated]");
+  const listEl = document.querySelector<HTMLElement>("[data-live-storm-list]");
+  const escapeHtml = (value: unknown) => String(value ?? "").replace(/[&<>'"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char] ?? char);
+  const advisoryUrl = (value: unknown) => {
+    const url = typeof value === "string" ? value : (value && typeof value === "object" ? (value as { url?: string }).url : "");
+    return typeof url === "string" && /^https:\/\//.test(url) ? url : "";
+  };
+  function stormMarkup(storm: Record<string, any>) {
+    const name = storm.name ?? storm.id ?? "Active tropical system";
+    const slug = String(name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const advisory = advisoryUrl(storm.publicAdvisory);
+    return `<article class="panel current-storm"><header><div><p class="eyebrow">${escapeHtml(storm.classification ?? "NHC tropical system")}</p><h3>${escapeHtml(name)}</h3></div><span class="badge warn">${escapeHtml(storm.intensity ?? storm.windSpeed ?? "Advisory active")}</span></header><p>${escapeHtml(storm.summary ?? `Latest NHC position: ${storm.latitude ?? "pending"}, ${storm.longitude ?? "pending"}.`)}</p><p class="source-note">Position ${escapeHtml(storm.latitude ?? "pending")}, ${escapeHtml(storm.longitude ?? "pending")} · Updated ${escapeHtml(storm.lastUpdate ?? "latest feed")}</p><p class="section-actions"><a class="action-link" href="/hurricane-tracker/storm/${slug}/">Open ${escapeHtml(name)} live tracker</a>${advisory ? `<a class="action-link secondary-action" href="${escapeHtml(advisory)}" rel="noopener nofollow">NHC advisory</a>` : ""}</p></article>`;
+  }
+  async function refreshStormList() {
+    try {
+      const response = await fetch("/api/nhc/current.json", { cache: "no-store" });
+      if (!response.ok) return;
+      const feed = await response.json() as { storms?: Array<Record<string, any>>; updatedAt?: string; fetchedAt?: string };
+      const storms = Array.isArray(feed.storms) ? feed.storms : [];
+      if (countEl) countEl.textContent = String(storms.length);
+      if (labelEl) labelEl.textContent = storms.length === 1 ? "active NHC system" : "active NHC systems";
+      if (updatedEl) updatedEl.textContent = `Last checked ${new Date(feed.updatedAt ?? feed.fetchedAt ?? Date.now()).toLocaleString("en-US", { timeZone: "UTC" })} UTC`;
+      if (listEl && storms.length) listEl.innerHTML = storms.map(stormMarkup).join("");
+    } catch {}
+  }
+  window.setInterval(refreshStormList, 10 * 60 * 1000);
+</script>
+
+<style>
+  .live-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 380px);
+    gap: clamp(24px, 4vw, 52px);
+    align-items: center;
+  }
+
+  .live-snapshot {
+    display: grid;
+    gap: 10px;
+  }
+
+  .storm-count {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1;
+  }
+
+  .current-storm-list {
+    margin-top: 22px;
+  }
+
+  .live-map-section {
+    padding: 0 0 clamp(48px, 7vw, 86px);
+  }
+
+  .map-console {
+    overflow: hidden;
+    border: 1px solid #294656;
+    border-radius: 8px;
+    background: #0b1821;
+    box-shadow: 0 28px 70px rgba(10, 28, 39, 0.22);
+  }
+
+  .live-map-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    padding: clamp(22px, 3vw, 34px);
+    color: #f3f8fa;
+    border-bottom: 1px solid #294656;
+  }
+
+  .live-map-heading h2 {
+    margin: 4px 0 8px;
+    color: #fff;
+  }
+
+  .live-map-heading p:not(.eyebrow) {
+    max-width: 700px;
+    margin: 0;
+    color: #9db3bf;
+  }
+
+  .live-map-heading .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #8dd9ea;
+  }
+
+  .live-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #45d18a;
+    box-shadow: 0 0 0 5px rgba(69, 209, 138, 0.14);
+  }
+
+  .map-source-stack {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 7px;
+    max-width: 350px;
+  }
+
+  .map-source-stack span {
+    padding: 6px 9px;
+    border: 1px solid #345565;
+    border-radius: 6px;
+    color: #bdd0d9;
+    font-size: 0.72rem;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .live-map-frame {
+    position: relative;
+    width: 100%;
+    min-height: 480px;
+    height: min(64vh, 720px);
+    overflow: hidden;
+    border: 0;
+    border-radius: 0;
+    background: #08131b;
+  }
+
+  .live-map-frame iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .map-console-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 14px clamp(18px, 3vw, 30px);
+    border-top: 1px solid #294656;
+    color: #9db3bf;
+    font-size: 0.82rem;
+  }
+
+  .map-console-footer p {
+    margin: 0;
+  }
+
+  .map-console-footer strong {
+    color: #e5eff3;
+  }
+
+  .map-console-footer a {
+    flex: none;
+    color: #8dd9ea;
+    font-weight: 800;
+  }
+
+  .current-storm header {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .outlook-panel img { display: block; width: 100%; height: auto; border-radius: 6px; }
+
+  .current-storm .section-actions,
+  .no-active-storms .section-actions {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 760px) {
+    .live-hero-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .current-storm header {
+      flex-direction: column;
+    }
+
+    .live-map-heading {
+      display: block;
+    }
+
+    .map-source-stack {
+      justify-content: flex-start;
+      margin-top: 18px;
+    }
+
+    .map-console-footer {
+      display: block;
+    }
+
+    .map-console-footer a {
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .live-map-frame {
+      min-height: 420px;
+      height: 58vh;
+    }
+  }
+</style>

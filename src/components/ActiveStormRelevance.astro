@@ -1,0 +1,35 @@
+---
+import { getNhcCurrentFeed } from "../lib/nhcCurrent";
+import { getNhcForecast } from "../lib/nhcForecast";
+import { relevantLocations } from "../lib/stormRelevance";
+
+type Props = { citySlug?: string; stateCode?: string };
+const { citySlug, stateCode } = Astro.props;
+const matches: Array<{ name: string; slug: string; distance: number; advisory?: string }> = [];
+try {
+  const { feed } = await getNhcCurrentFeed();
+  for (const storm of feed.storms) {
+    if (!storm.id || !storm.name) continue;
+    const forecast = await getNhcForecast(storm.id);
+    const relevance = relevantLocations(forecast?.track ?? [], Number.isFinite(storm.latitudeNumeric) && Number.isFinite(storm.longitudeNumeric) ? [storm.longitudeNumeric!, storm.latitudeNumeric!] : undefined);
+    const cities = relevance.cities.filter((city) => city.slug === citySlug || city.stateCode === stateCode);
+    if (cities.length) matches.push({ name: storm.name, slug: storm.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""), distance: Math.min(...cities.map((city) => city.distanceMiles)), advisory: forecast?.advisoryNumber });
+  }
+} catch (error) {
+  console.error("Active local storm relevance failed", { citySlug, stateCode, error });
+}
+---
+{matches.length > 0 && (
+  <section class="band" aria-labelledby="active-local-storms">
+    <div class="inner">
+      <p class="eyebrow">Active forecast-path context</p>
+      <h2 id="active-local-storms">Active Storms To Monitor</h2>
+      <p class="answer">These systems have an official NHC center position within 500 miles of this area's established city trackers. This does not mean landfall, warning conditions, or impacts are forecast here.</p>
+      <div class="grid-3 section-grid">
+        {matches.map((storm) => (
+          <article class="state-card"><span class="badge warn">NHC {storm.advisory ? `#${storm.advisory}` : "active"}</span><h3>{storm.name}</h3><p>Nearest forecast center point is approximately {storm.distance} miles away.</p><a href={`/hurricane-tracker/storm/${storm.slug}/`}>Track {storm.name}</a></article>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
