@@ -36,6 +36,9 @@ const pageRoutes: SitemapRoute[] = [
   { path: "site-map/", lastmod: updated, priority: "0.6", changefreq: "weekly", section: "pages" },
   { path: "updates/", lastmod: updated, priority: "0.7", changefreq: "daily", section: "pages" },
   { path: "storm-archive/", lastmod: updated, priority: "0.7", changefreq: "daily", section: "pages" },
+  { path: "storm/2026-arthur/", lastmod: updated, priority: "0.7", changefreq: "weekly", section: "pages" },
+  { path: "storm/2026-bertha/", lastmod: updated, priority: "0.7", changefreq: "weekly", section: "pages" },
+  { path: "storm/2026-cristobal/", lastmod: updated, priority: "0.7", changefreq: "weekly", section: "pages" },
   { path: "decision-guide/", lastmod: blogLastMod, priority: "0.8", changefreq: "monthly", section: "pages" },
   { path: "about/", lastmod: updated, priority: "0.8", changefreq: "monthly", section: "pages" },
   ...topicPages.map((page) => ({ path: `hurricane-tracker/${page.slug}/`, lastmod: updated, priority: "0.8", changefreq: "weekly", section: "pages" as const }))

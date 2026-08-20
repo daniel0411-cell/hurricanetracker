@@ -1,0 +1,178 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import FaqBlock from "../../../components/FaqBlock.astro";
+import { site } from "../../../data/site";
+import { articleSchema, breadcrumbSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../../lib/schema";
+import { arthur } from "./_data/arthur";
+
+const s = arthur;
+const url = `${site.url}/storm/2026-${s.name.toLowerCase()}/`;
+const title = `Tropical Storm Arthur 2026: NHC Data & History`;
+const description = `Tropical Storm Arthur 2026 made landfall on the Texas coast with life-threatening flooding. Review NHC data, timeline, impacts, and past Arthur storms.`;
+const lastModified = "2026-08-20T00:00:00.000Z";
+const datePublished = "2026-06-18T00:00:00.000Z";
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, datePublished, dateModified: lastModified }),
+  breadcrumbSchema([
+    { name: "Home", url: site.canonicalUrl },
+    { name: "Storm Archive", url: `${site.url}/storm-archive/` },
+    { name: `${s.name} 2026`, url }
+  ]),
+  itemListSchema(s.related.map((l) => ({ name: l.title, description: l.body, url: `${site.url}${l.href}` }))),
+  faqSchema(s.faqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band" aria-labelledby="hero-title">
+    <div class="inner">
+      <p class="eyebrow">{s.basin} · {s.code} · {s.pronunciation}</p>
+      <h1 id="hero-title">Tropical Storm {s.name} {s.year}: NHC Data, Timeline &amp; History</h1>
+      <p class="answer">{s.summary}</p>
+      <div class="hero-stats">
+        {s.heroStats.map((stat) => (
+          <div class="hero-stat"><span class="hero-stat-value">{stat.value}</span><span class="hero-stat-label">{stat.label}</span></div>
+        ))}
+      </div>
+      <p class="section-actions">
+        <a class="action-link" href="/hurricane-tracker/live/">Open live tracker</a>
+        <a class="action-link secondary-action" href={s.live.nhcAdvisoryUrl} rel="noopener nofollow">NHC advisory source</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="live-title">
+    <div class="inner grid-2">
+      <article class="panel">
+        <p class="eyebrow">Final NHC status</p>
+        <h2 id="live-title">{s.name} {s.year} — {s.status}</h2>
+        <p>{s.live.bulletin}</p>
+        <table>
+          <tbody>
+            {s.live.rows.map((row) => (
+              <tr><th>{row.label}</th><td>{row.value}</td></tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="storm-links">
+          <a href={s.live.nhcAdvisoryUrl} rel="noopener nofollow">NHC public advisory ({s.live.advisoryNumber})</a>
+          <a href={s.live.nhcSourceUrl} rel="noopener nofollow">NHC Tropical Cyclone Report</a>
+        </p>
+      </article>
+      <article class="panel">
+        <p class="eyebrow">Why it mattered</p>
+        <h2>More Than a Number on the Scale</h2>
+        <p>{s.classification} {s.name} {s.year} is a reminder that Saffir-Simpson category measures wind, not total risk. Its flood footprint reached far beyond the Texas coast into the Southeast.</p>
+        <p>Use the official trackers and local alerts to turn this history into action for the next system.</p>
+        <p class="section-actions">
+          <a class="action-link" href="/hurricane-tracker/storm/">Named storm trackers</a>
+          <a class="action-link secondary-action" href="/tracker/texas/">Texas tracker</a>
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="timeline-title">
+    <div class="inner">
+      <p class="eyebrow">Advisory timeline</p>
+      <h2 id="timeline-title">{s.name} {s.year} Timeline</h2>
+      <ol class="timeline">
+        {s.timeline.map((event) => (
+          <li><span class="timeline-date">{event.date}</span><span class="timeline-event">{event.event}</span></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="impact-title">
+    <div class="inner">
+      <p class="eyebrow">Impacts</p>
+      <h2 id="impact-title">What {s.name} {s.year} Did</h2>
+      <div class="stack section-grid">
+        {s.impact.map((section) => (
+          <article class="panel"><h3>{section.title}</h3><p>{section.body}</p></article>
+        ))}
+      </div>
+      <h3 class="historical-heading">Historical {s.name} storms</h3>
+      <div class="grid-2 section-grid">
+        {s.historical.map((h) => (
+          <article class="panel historical-card">
+            <span class="badge warn">{h.year} · {h.classification}</span>
+            <p>{h.summary}</p>
+            <table>
+              <tbody>
+                {h.stats.map((stat) => (<tr><th>{stat.label}</th><td>{stat.value}</td></tr>))}
+              </tbody>
+            </table>
+            <p class="source-note">{h.comparison}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="forecast-title">
+    <div class="inner">
+      <p class="eyebrow">Forecast context</p>
+      <h2 id="forecast-title">{s.name} {s.year} Forecast Discussion</h2>
+      <div class="stack section-grid">
+        {s.forecast.map((section) => (
+          <article class="panel"><h3>{section.title}</h3><p>{section.body}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="prep-title">
+    <div class="inner">
+      <p class="eyebrow">Preparedness</p>
+      <h2 id="prep-title">Lessons From {s.name} {s.year}</h2>
+      <div class="grid-2 section-grid">
+        {s.preparedness.map((section) => (
+          <article class="panel"><h3>{section.title}</h3><p>{section.body}</p></article>
+        ))}
+      </div>
+      <p class="section-actions">
+        <a class="action-link" href="/tools/preparedness-checklist/">Build a preparedness checklist</a>
+        <a class="action-link secondary-action" href="/hurricane-tracker/city/">City trackers</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="related-title">
+    <div class="inner">
+      <p class="eyebrow">Related</p>
+      <h2 id="related-title">Keep Context Around {s.name} {s.year}</h2>
+      <div class="grid-3 section-grid">
+        {s.related.map((link) => (
+          <article class="state-card"><h3>{link.title}</h3><p>{link.body}</p><a href={link.href}>Open {link.title.toLowerCase()}</a></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FaqBlock faqs={s.faqs} />
+</Layout>
+
+<style>
+  .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 22px 0 10px; }
+  .hero-stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+  .hero-stat-value { font-weight: 800; color: var(--ocean); font-size: 1.05rem; }
+  .hero-stat-label { font-size: 0.82rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .timeline { list-style: none; margin: 18px 0 0; padding: 0; border-left: 3px solid var(--ocean); }
+  .timeline li { display: grid; grid-template-columns: 180px 1fr; gap: 16px; padding: 0 0 18px 20px; position: relative; }
+  .timeline li::before { content: ""; position: absolute; left: -9px; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: var(--ocean); border: 3px solid #fff; }
+  .timeline-date { font-weight: 800; color: var(--navy); }
+  .timeline-event { color: var(--ink); }
+  .historical-heading { margin-top: 34px; }
+  .historical-card .badge { margin-bottom: 10px; display: inline-block; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  table th, table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table th { color: var(--muted); font-weight: 700; width: 42%; }
+  .storm-links { display: flex; flex-wrap: wrap; gap: 14px; margin: 16px 0 0; font-weight: 800; }
+  .section-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+  @media (max-width: 720px) {
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .timeline li { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
