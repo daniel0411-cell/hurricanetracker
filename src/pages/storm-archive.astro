@@ -82,6 +82,32 @@ const comparisonGuides = [
     body: "Use this guide when a storm strengthens quickly near warm water or close to land."
   }
 ];
+const namedStormArchives = [
+  {
+    name: "Arthur",
+    code: "AL012026",
+    classification: "Tropical Storm",
+    status: "Dissipated (June 18, 2026)",
+    href: "/storm/2026-arthur/",
+    blurb: "The first named storm of the 2026 Atlantic season — its NHC data, timeline, coastal impacts, and how it compares with past Arthur storms."
+  },
+  {
+    name: "Bertha",
+    code: "AL022026",
+    classification: "Tropical Storm",
+    status: "Dissipated (July 23, 2026)",
+    href: "/storm/2026-bertha/",
+    blurb: "A slow westward Gulf Coast grinder — NHC data, timeline, coastal flooding and surge impacts, and comparison with past Bertha storms."
+  },
+  {
+    name: "Cristobal",
+    code: "AL032026",
+    classification: "Tropical Storm",
+    status: "Dissipated (August 13, 2026)",
+    href: "/storm/2026-cristobal/",
+    blurb: "A short-lived open-Atlantic fish storm — NHC data, timeline, and how the 2026 version compares with past Cristobal storms."
+  }
+];
 const archiveWorkflows = [
   {
     title: "I searched a storm name",
@@ -143,6 +169,11 @@ const jsonLd = graph(
       name: `Hurricane ${storm.name} Tracker`,
       description: storm.searchDemandNote,
       url: `${site.url}/hurricane-tracker/storm/${storm.slug}/`
+    })),
+    ...namedStormArchives.map((storm) => ({
+      name: `${storm.name} 2026 Storm Archive`,
+      description: storm.blurb,
+      url: `${site.url}${storm.href}`
     })),
     ...archiveWorkflows.flatMap((workflow) => workflow.links.map((link) => ({
       name: link.label,
@@ -224,6 +255,25 @@ const jsonLd = graph(
       </div>
     </section>
   )}
+
+  <section class="band" aria-labelledby="named-archive-2026">
+    <div class="inner">
+      <p class="eyebrow">2026 season archive</p>
+      <h2 id="named-archive-2026">2026 Named Storm Archive Pages</h2>
+      <p class="answer">Final NHC records, timelines, impact summaries, and historical same-name comparisons for the 2026 Atlantic named storms. Each page preserves the storm's last recorded status and official source context.</p>
+      <div class="grid-3 section-grid">
+        {namedStormArchives.map((storm) => (
+          <article class="panel">
+            <span class="badge">{storm.classification}</span>
+            <h3><a href={storm.href}>{storm.name} 2026 Archive</a></h3>
+            <p>{storm.blurb}</p>
+            <p class="source-note">{storm.code} · {storm.status}</p>
+            <a href={storm.href}>Open {storm.name} 2026 archive</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
   <section class="band" aria-labelledby="archive-workflow">
     <div class="inner">
