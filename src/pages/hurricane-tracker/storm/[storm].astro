@@ -72,10 +72,10 @@ const locationRelevance = relevantLocations(
 const next48 = (forecast?.points ?? []).filter((point) => (point.hour ?? 999) > 0 && (point.hour ?? 999) <= 48);
 const advisoryHistory = activeStorm?.id ? await getAdvisoryHistory(activeStorm.id) : [];
 const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
-const title = `${stormName} ${isArchived ? "Storm Archive" : "Tracker Live Map, Path & NHC Updates"}`;
-const description = isArchived
+const title = knownPage?.title ?? `${stormName} ${isArchived ? "Storm Archive" : "Tracker Live Map, Path & NHC Updates"}`;
+const description = knownPage?.description ?? (isArchived
   ? `Review the archived ${stormName} hurricane tracker with the last known NHC position, advisory context, forecast path history, and official source links.`
-  : `Track ${stormName} with its current NHC position, latest advisory, forecast path, radar, satellite imagery and local alert links.`;
+  : `Track ${stormName} with its current NHC position, latest advisory, forecast path, radar, satellite imagery and local alert links.`);
 const url = `${site.url}/hurricane-tracker/storm/${slug}/`;
 const pageFaqs = [
   ...(knownPage?.faqs ?? [
