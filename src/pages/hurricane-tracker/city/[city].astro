@@ -20,7 +20,7 @@ if (!city) {
   return Astro.redirect("/tracker/");
 }
 
-const title = `${city.name} Hurricane Tracker and Local Risk Guide`;
+const title = `${city.name} Hurricane Tracker & Alerts`;
 const description = `Track ${city.name} hurricane risk with local NWS alerts, NHC storm context, storm surge, flooding, evacuation planning, and household decision tools.`;
 const url = `${site.url}/hurricane-tracker/city/${city.slug}/`;
 const lastModified = site.contentLastModified;

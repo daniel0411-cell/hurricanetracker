@@ -2834,7 +2834,7 @@ export const BLOG_CATEGORY_PAGES = [
     slug: "tracking-forecasting",
     title: "Hurricane Tracking and Forecasting Articles",
     description:
-      "Hurricane tracking articles about live maps, forecast cones, radar, satellite, spaghetti models, rapid intensification, storm surge forecasts, and inland impacts.",
+      "Hurricane tracking guides on live maps, forecast cones, radar, satellite, spaghetti models, rapid intensification, surge forecasts, and inland impacts.",
     intent:
       "live hurricane tracker, cone of uncertainty, spaghetti models, radar satellite",
     actionHref: "/hurricane-tracker/live/",

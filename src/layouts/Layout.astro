@@ -15,6 +15,8 @@ type Props = {
   lastModified?: string;
   image?: string;
   ogImage?: string;
+  imageAlt?: string;
+  publishedTime?: string;
   lang?: Lang;
   showTopAd?: boolean;
   showBottomAd?: boolean;
@@ -28,6 +30,8 @@ const {
   lastModified,
   image,
   ogImage,
+  imageAlt,
+  publishedTime,
   lang = defaultLang,
   showTopAd = false,
   showBottomAd = false
@@ -61,6 +65,8 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
       lastModified={lastModified}
       image={image}
       ogImage={ogImage}
+      imageAlt={imageAlt}
+      publishedTime={publishedTime}
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

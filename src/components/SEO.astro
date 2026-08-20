@@ -11,9 +11,11 @@ type Props = {
   lastModified?: string;
   image?: string;
   ogImage?: string;
+  imageAlt?: string;
+  publishedTime?: string;
 };
 
-const { title, description, canonical, siteName, jsonLd, lastModified, image, ogImage } = Astro.props;
+const { title, description, canonical, siteName, jsonLd, lastModified, image, ogImage, imageAlt, publishedTime } = Astro.props;
 const modified = lastModified ?? site.contentLastModified;
 const schema = jsonLd ?? graph(websiteSchema(), organizationSchema());
 
@@ -33,6 +35,18 @@ const canonicalHref = normalizeCanonical(canonical);
 
 const absoluteImage = image ? new URL(image, canonicalHref).href : undefined;
 const absoluteOgImage = ogImage ? new URL(ogImage, canonicalHref).href : absoluteImage ?? new URL("/images/og/default-og.png", canonicalHref).href;
+
+// Social cards from scripts/gen-og.mjs and the site default are always 1200x630.
+// Only declare dimensions for those; a page-supplied hero `image` fallback has
+// unknown intrinsic size and a wrong og:image:width breaks crawler previews.
+const ogImageIsSocialCard = Boolean(ogImage) || !absoluteImage;
+const ogImageAlt = imageAlt ?? `${title} — ${siteName}`;
+
+// Blog article URLs are /blog/<slug>/; everything else stays a website.
+// Derived from the canonical path so no page has to pass an extra prop.
+const canonicalSegments = new URL(canonicalHref).pathname.split("/").filter(Boolean);
+const isArticle = canonicalSegments[0] === "blog" && canonicalSegments.length === 2;
+const ogType = isArticle ? "article" : "website";
 
 function labelForSegment(segment: string) {
   return segment
@@ -73,13 +87,21 @@ const schemaWithBreadcrumb = (() => {
 <link rel="canonical" href={canonicalHref} />
 <meta name="last-modified" content={modified} />
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
-<meta property="og:type" content="website" />
+<meta property="og:type" content={ogType} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalHref} />
 <meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content="en_US" />
 {absoluteOgImage && <meta property="og:image" content={absoluteOgImage} />}
-<meta property="article:modified_time" content={modified} />
+{absoluteOgImage && <meta property="og:image:alt" content={ogImageAlt} />}
+{absoluteOgImage && ogImageIsSocialCard && <meta property="og:image:width" content="1200" />}
+{absoluteOgImage && ogImageIsSocialCard && <meta property="og:image:height" content="630" />}
+{isArticle && publishedTime && <meta property="article:published_time" content={publishedTime} />}
+{isArticle && <meta property="article:modified_time" content={modified} />}
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
 {absoluteOgImage && <meta name="twitter:image" content={absoluteOgImage} />}
+{absoluteOgImage && <meta name="twitter:image:alt" content={ogImageAlt} />}
 <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaWithBreadcrumb)} />

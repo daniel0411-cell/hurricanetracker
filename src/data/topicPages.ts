@@ -17,7 +17,7 @@ export type TopicPage = {
 export const topicPages: TopicPage[] = [
   {
     slug: "hurricane-landfall-forecast",
-    title: "Hurricane Landfall Forecast | Track, Timing & Risk",
+    title: "Hurricane Landfall Forecast: Track & Timing",
     shortTitle: "Landfall Forecast",
     description: "Understand the latest hurricane landfall forecast using the NHC track, cone, arrival timing, wind field, surge products, and local official alerts.",
     eyebrow: "Forecast interpretation",
@@ -50,7 +50,7 @@ export const topicPages: TopicPage[] = [
   },
   {
     slug: "tropical-storm-vs-hurricane",
-    title: "Tropical Storm vs Hurricane | Wind, Risk & Warnings",
+    title: "Tropical Storm vs Hurricane Explained",
     shortTitle: "Tropical Storm vs Hurricane",
     description: "Compare a tropical storm vs hurricane by wind speed, forecast labels, warnings, surge, rainfall, tornado, and preparation decisions.",
     eyebrow: "Storm classification guide",
@@ -82,7 +82,7 @@ export const topicPages: TopicPage[] = [
   },
   {
     slug: "hurricane-categories",
-    title: "Hurricane Categories 1-5 | Wind Speed & Damage Guide",
+    title: "Hurricane Categories 1-5: Wind & Damage",
     shortTitle: "Hurricane Categories",
     description: "Compare hurricane categories 1 through 5, wind speed thresholds, likely wind damage, and why category does not measure surge or rainfall risk.",
     eyebrow: "Saffir-Simpson scale",
@@ -114,7 +114,7 @@ export const topicPages: TopicPage[] = [
   },
   {
     slug: "southeast",
-    title: "Southeast Hurricane Tracker | East Coast NHC Updates",
+    title: "Southeast Hurricane Tracker & Alerts",
     shortTitle: "Southeast Tracker",
     description: "Track hurricanes approaching the Southeast and East Coast with live NHC paths, radar, alerts, and Georgia, Carolinas, Virginia, and Florida trackers.",
     eyebrow: "Southeast and East Coast tracker",
@@ -146,7 +146,7 @@ export const topicPages: TopicPage[] = [
   },
   {
     slug: "gulf",
-    title: "Gulf Hurricane Tracker | Live NHC Storm Updates",
+    title: "Gulf Hurricane Tracker & Live Alerts",
     shortTitle: "Gulf Tracker",
     description: "Check whether a hurricane or tropical storm is in the Gulf right now with current NHC positions, forecast paths, radar, and Gulf Coast state trackers.",
     eyebrow: "Gulf Coast live tracker",
@@ -178,7 +178,7 @@ export const topicPages: TopicPage[] = [
   },
   {
     slug: "how-hurricanes-are-tracked",
-    title: "How Hurricanes Are Tracked | NHC, Radar & Forecasts",
+    title: "How Hurricanes Are Tracked: NHC & Radar",
     shortTitle: "How Hurricanes Are Tracked",
     description: "Learn how scientists and the National Hurricane Center track hurricanes with satellites, aircraft, radar, buoys, models, and official forecast advisories.",
     eyebrow: "Hurricane tracking explained",
@@ -209,7 +209,7 @@ export const topicPages: TopicPage[] = [
   },
   {
     slug: "hurricane-warning",
-    title: "Hurricane Warning Explained | Watch vs Warning",
+    title: "Hurricane Warning vs Watch Explained",
     shortTitle: "Hurricane Warning",
     description: "Understand what a hurricane warning means, how it differs from a watch, and how to turn NWS alerts into a household action plan.",
     eyebrow: "Warning language guide",
@@ -240,9 +240,9 @@ export const topicPages: TopicPage[] = [
   },
   {
     slug: "what-does-a-hurricane-look-like",
-    title: "What Does a Hurricane Look Like? Radar & Satellite",
+    title: "What Does a Hurricane Look Like?",
     shortTitle: "What a Hurricane Looks Like",
-    description: "See what hurricanes look like on satellite and radar, including the eye, eyewall, rain bands, cloud structure, and why appearance is not a complete risk measure.",
+    description: "See what hurricanes look like on satellite and radar: the eye, eyewall, rain bands, cloud structure, and why appearance alone is not a risk measure.",
     eyebrow: "Storm structure guide",
     intro: "A hurricane can look like a spiral of clouds from satellite, a compact eye and eyewall, or broad rain bands on radar. Appearance helps explain structure, but official intensity, forecast track, surge, flood, and local alerts matter more than a dramatic image.",
     primaryAction: { label: "Open radar and satellite", href: "/radar/" },
