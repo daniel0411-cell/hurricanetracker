@@ -1,0 +1,53 @@
+---
+import FaqBlock from "./FaqBlock.astro";
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+import { preparednessSteps, type LocalPreparednessPage } from "../data/localPreparednessPages";
+import { articleSchema, breadcrumbSchema, faqSchema, graph, howToSchema } from "../lib/schema";
+
+const { page } = Astro.props as { page: LocalPreparednessPage };
+const path = page.kind === "state" ? `state/${page.slug}/preparedness/` : `city/${page.slug}/hurricane-tracker/`;
+const url = `${site.url}/${path}`;
+const statePage = `/state/${page.stateSlug}/preparedness/`;
+const jsonLd = graph(
+  articleSchema({ title: page.title, description: page.description, url, dateModified: site.contentLastModified }),
+  faqSchema(page.faqs),
+  howToSchema({ name: `${page.name} seven-day hurricane preparedness checklist`, description: `Prepare a household in ${page.name} for evacuation, outages, flooding, and official hurricane alerts.`, url, steps: preparednessSteps }),
+  breadcrumbSchema([{ name: "Home", url: site.canonicalUrl }, { name: page.stateName, url: page.kind === "state" ? url : `${site.url}${statePage}` }, { name: `${page.name} Hurricane Guide`, url }])
+);
+---
+
+<Layout title={page.title} description={page.description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified}>
+  <section class="band local-hero" aria-labelledby="local-title"><div class="inner"><p class="eyebrow">2026 Atlantic season readiness</p><h1 id="local-title">{page.name} Hurricane {page.kind === "state" ? "Preparedness" : "Tracker"} Guide</h1><p class="answer">The 2026 Atlantic season is active. No current threat to {page.name} should be inferred from this standing guide; check the current NHC feed and local alerts before making decisions.</p><p class="section-actions"><a class="action-link" href="/2026-hurricane-season/">2026 season hub</a><a class="action-link secondary-action" href="/hurricane-tracker/storm/danielle/">Danielle tracker hub</a></p></div></section>
+
+  <section class="band" aria-labelledby="local-risk"><div class="inner"><p class="eyebrow">Local vulnerability</p><h2 id="local-risk">Why {page.name} Faces Hurricane Risk</h2>{page.risk.map((paragraph) => <p class="answer">{paragraph}</p>)}</div></section>
+
+  <section class="band muted" aria-labelledby="storm-history"><div class="inner"><p class="eyebrow">Historical context</p><h2 id="storm-history">Ten Hurricanes That Shaped {page.name} Planning</h2><p>These events are planning examples drawn from NHC historical records. Category describes wind near landfall; it does not measure the full cost, rainfall, surge, or community impact.</p><div class="history-grid">{page.history.map((item) => <article><h3>{item.storm}</h3><p>{item.detail}</p></article>)}</div><p class="source-note">Source context: <a href="https://www.nhc.noaa.gov/data/tcr/" rel="noopener nofollow">NHC Tropical Cyclone Reports</a> and official state emergency guidance.</p></div></section>
+
+  <section class="band" aria-labelledby="evacuation-plan"><div class="inner"><p class="eyebrow">Leave by local order</p><h2 id="evacuation-plan">Evacuation Zones, Routes and Timing</h2>{page.evacuation.map((paragraph) => <p class="answer">{paragraph}</p>)}<aside class="safety-note"><strong>Route safety:</strong> Never rely on a remembered route, automatic contraflow, or a forecast center line. Check the current local order, road conditions, destination risk, and arrival of tropical-storm-force winds.</aside></div></section>
+
+  <section class="band muted" aria-labelledby="kit-checklist"><div class="inner"><p class="eyebrow">Seven-day baseline</p><h2 id="kit-checklist">{page.name} Hurricane Emergency Kit Checklist</h2><ol class="checklist">{preparednessSteps.map((step) => <li><h3>{step.name}</h3><p>{step.text}</p></li>)}</ol></div></section>
+
+  <section class="band" aria-labelledby="official-resources"><div class="inner"><p class="eyebrow">Decision sources</p><h2 id="official-resources">Official {page.name} Emergency Resources</h2><p class="answer">Shelter locations and evacuation orders change by event. Use the official links below for current information rather than treating this guide as an emergency directive.</p><div class="resource-grid">{page.resources.map((resource) => <a href={resource.href} rel="noopener nofollow">{resource.label}</a>)}<a href="https://www.weather.gov/" rel="noopener nofollow">National Weather Service alerts</a><a href="https://www.nhc.noaa.gov/" rel="noopener nofollow">National Hurricane Center</a></div></div></section>
+
+  <section class="band link-band" aria-labelledby="planning-links"><div class="inner"><p class="eyebrow">Keep planning connected</p><h2 id="planning-links">Track the Storm, Then Check Local Risk</h2><div class="link-grid">{page.kind === "city" && <a href={statePage}>Open {page.stateName} preparedness guide</a>}<a href={`/tracker/${page.stateSlug}/`}>Open {page.stateName} live tracker</a><a href="/hurricane-tracker/live/">Open live hurricane tracker</a><a href="/tools/preparedness-checklist/">Build a preparedness checklist</a><a href="/tools/storm-surge-checker/">Check active surge alerts</a><a href="/hurricane-tracker/storm/earl/">Open Earl tracker hub</a></div></div></section>
+
+  <FaqBlock faqs={page.faqs} />
+</Layout>
+
+<style>
+  .local-hero { background: #123644; color: #fff; }
+  .local-hero .answer { color: #e1edf1; }
+  .muted { background: var(--surface, #f3f6f7); }
+  .history-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 24px; }
+  .history-grid article { padding: 18px; border-left: 4px solid var(--ocean); background: var(--bg, #fff); }
+  .history-grid h3, .checklist h3 { margin: 0 0 8px; }
+  .safety-note { margin-top: 20px; padding: 18px; border: 1px solid var(--line); border-radius: 8px; background: #fff3cd; color: #4b3900; }
+  .checklist { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 28px; padding-left: 24px; }
+  .checklist li { padding: 10px 12px; }
+  .resource-grid, .link-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .resource-grid a, .link-grid a { padding: 14px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg, #fff); font-weight: 800; }
+  :global([data-theme="dark"]) .history-grid article, :global([data-theme="dark"]) .resource-grid a, :global([data-theme="dark"]) .link-grid a { background: #111d22; }
+  :global([data-theme="dark"]) .safety-note { background: #3e3212; color: #fff0bd; }
+  @media (max-width: 720px) { .history-grid, .checklist, .resource-grid, .link-grid { grid-template-columns: 1fr; } }
+</style>

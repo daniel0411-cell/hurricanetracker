@@ -8,6 +8,7 @@ import { coastalStates } from "../data/states";
 import { stormTrackerPages } from "../data/stormPages";
 import { stormArchivePages } from "../data/stormArchivePages";
 import { topicPages } from "../data/topicPages";
+import { localPreparednessPages } from "../data/localPreparednessPages";
 
 type Entry = {
   title: string;
@@ -95,6 +96,14 @@ const stormEntries: Entry[] = stormTrackerPages.map((storm) => ({
   body: [storm.name, storm.basin, storm.primaryKeywords.join(" "), storm.trackerFocus.join(" ")].join(" ")
 }));
 
+const localPreparednessEntries: Entry[] = localPreparednessPages.map((page) => ({
+  title: page.title,
+  url: page.kind === "state" ? `/state/${page.slug}/preparedness/` : `/city/${page.slug}/hurricane-tracker/`,
+  description: page.description,
+  category: page.kind === "state" ? "Preparedness" : "City Tracker",
+  body: [page.name, page.stateName, page.risk.join(" "), page.evacuation.join(" "), page.faqs.map((faq) => `${faq.question} ${faq.answer}`).join(" ")].join(" ")
+}));
+
 const stormArchiveEntries: Entry[] = stormArchivePages.map((archive) => ({
   title: archive.title,
   url: archive.url,
@@ -144,7 +153,7 @@ const stateEntries: Entry[] = coastalStates.map((state) => {
   };
 });
 
-const entries: Entry[] = [...pages, ...stateEntries, ...topicEntries, ...cityEntries, ...stormEntries, ...stormArchiveEntries, ...blogCategoryEntries, ...blogEntries];
+const entries: Entry[] = [...pages, ...stateEntries, ...topicEntries, ...cityEntries, ...stormEntries, ...localPreparednessEntries, ...stormArchiveEntries, ...blogCategoryEntries, ...blogEntries];
 
 export const GET: APIRoute = () =>
   new Response(JSON.stringify({ entries }), {

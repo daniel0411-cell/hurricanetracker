@@ -1,0 +1,6 @@
+---
+import LocalPreparednessPage from "../../../components/LocalPreparednessPage.astro";
+import { getLocalPreparednessPage } from "../../../data/localPreparednessPages";
+const page = getLocalPreparednessPage("city", "tampa")!;
+---
+<LocalPreparednessPage page={page} />
