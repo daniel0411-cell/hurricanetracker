@@ -1,0 +1,118 @@
+---
+import FaqBlock from "../components/FaqBlock.astro";
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+import { coastalStates } from "../data/states";
+import { articleSchema, breadcrumbSchema, faqSchema, graph } from "../lib/schema";
+import { readStormRegistry } from "../lib/stormRegistry";
+import { advisoryUrl, type NhcStorm } from "../lib/weather";
+
+type StormFeed = {
+  storms?: Array<NhcStorm & { summary?: string }>;
+  updatedAt?: string;
+  fetchedAt?: string;
+};
+
+const title = "2026 Hurricane Season: Live Tracker, Storm List & Forecast";
+const description = "Track the 2026 Atlantic hurricane season live: named storms, NHC advisories, forecast outlook, and state-by-state impact.";
+const url = `${site.url}/2026-hurricane-season/`;
+const names2026 = ["Arthur", "Bertha", "Cristobal", "Danielle", "Earl", "Fiona", "Gordon", "Hermine", "Ian", "Julia", "Karl", "Lisa", "Martin", "Nicole", "Owen", "Paula", "Richard", "Shary", "Tobias", "Virginie", "Walter"];
+
+let feed: StormFeed | null = null;
+try {
+  const response = await fetch(new URL("/api/nhc/current.json", Astro.url));
+  if (response.ok) feed = await response.json() as StormFeed;
+} catch (error) {
+  console.error("HurricaneHub season hub feed failed", { error });
+}
+
+const storms = feed?.storms ?? [];
+const registryStorms = await readStormRegistry();
+const seasonRegistry = registryStorms.filter((storm) => storm.id?.toUpperCase().endsWith("2026") || storm.firstSeen.startsWith("2026-"));
+const activeNames = new Set(storms.map((storm) => storm.name?.toLowerCase()).filter(Boolean));
+const archivedNames = new Set(seasonRegistry.map((storm) => storm.name?.toLowerCase()).filter(Boolean));
+const nextName = names2026.find((name) => !activeNames.has(name.toLowerCase()) && !archivedNames.has(name.toLowerCase()));
+const nameRows = names2026.map((name) => ({
+  name,
+  status: activeNames.has(name.toLowerCase()) ? "active" : archivedNames.has(name.toLowerCase()) ? "dissipated" : name === nextName ? "next" : "scheduled"
+}));
+const namedStorms = new Set([...activeNames, ...archivedNames]).size;
+const hurricaneRecords = seasonRegistry.filter((storm) => /hurricane/i.test(storm.classification ?? ""));
+const hurricanes = hurricaneRecords.length;
+const majorHurricanes = hurricaneRecords.filter((storm) => /major|category\s*[3-5]/i.test(`${storm.classification ?? ""} ${storm.intensity ?? ""}`)).length;
+const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
+const faqs = [
+  { question: "When is the 2026 hurricane season?", answer: "The Atlantic hurricane season runs from June 1 through November 30. Tropical cyclones can occur outside those dates, so official outlooks remain the source for current conditions." },
+  { question: "How many storms are predicted for 2026?", answer: "Seasonal outlooks can change as ocean and atmospheric conditions evolve. Check NOAA's current Atlantic outlook rather than relying on an older forecast total." },
+  { question: "What was the first storm of 2026?", answer: "Tropical Storm Arthur was the first named storm in the 2026 Atlantic list. Its archive page preserves HurricaneHub's NHC data and timeline context." },
+  { question: "When does hurricane season peak?", answer: "Atlantic hurricane activity statistically peaks around September 10, with the busiest period generally running from mid-August through October." },
+  { question: "Where can I track active hurricanes?", answer: "Use HurricaneHub's live hurricane tracker for map context and follow the National Hurricane Center for official advisories, forecasts, watches, and warnings." }
+];
+const jsonLd = graph(
+  articleSchema({ title, description, url, datePublished: "2026-06-01T00:00:00.000Z", dateModified: lastModified }),
+  faqSchema(faqs),
+  breadcrumbSchema([{ name: "Home", url: site.canonicalUrl }, { name: "2026 Hurricane Season", url }])
+);
+---
+
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band season-hero" aria-labelledby="season-title">
+    <div class="inner hero-grid">
+      <div>
+        <p class="eyebrow">Atlantic hurricane season</p>
+        <h1 id="season-title">2026 Hurricane Season Live Tracker</h1>
+        <p class="answer">Follow named storms, current NHC advisories, the 2026 name list, and state impact resources from one season-long hub.</p>
+        <p class="section-actions"><a class="action-link" href="/hurricane-tracker/live/">Open live tracker</a><a class="action-link secondary-action" href="https://www.nhc.noaa.gov/" rel="noopener nofollow">Official NHC advisories</a></p>
+      </div>
+      <aside class="status-panel" aria-label="Current 2026 season status"><strong>{storms.length}</strong><span>active NHC system{storms.length === 1 ? "" : "s"}</span><small>Updated {new Date(lastModified).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" })} UTC</small></aside>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="active-storms">
+    <div class="inner">
+      <p class="eyebrow">Current NHC feed</p><h2 id="active-storms">Active Tropical Cyclones</h2>
+      {storms.length ? <div class="grid-2 section-grid">{storms.map((storm) => <article class="season-card"><span class="status active">Active</span><h3>{storm.name ?? storm.id ?? "NHC system"}</h3><p>{storm.classification ?? "Tropical cyclone"} · {storm.intensity ?? storm.windSpeed ?? "Intensity pending"}</p><p>Position {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"}</p><p class="source-note">Updated {storm.lastUpdate ?? lastModified}</p><p class="card-links"><a href={`/hurricane-tracker/storm/${(storm.name ?? storm.id ?? "storm").toLowerCase().replace(/[^a-z0-9]+/g, "-")}/`}>Open storm tracker</a>{advisoryUrl(storm.publicAdvisory) && <a href={advisoryUrl(storm.publicAdvisory)} rel="noopener nofollow">NHC advisory</a>}</p></article>)}</div> : <div class="empty-state"><strong>No active tropical cyclones at this time.</strong><p>{nextName ? <>The next available name on the 2026 list is <strong>{nextName}</strong>.</> : "The standard 2026 name list has been used."}</p></div>}
+    </div>
+  </section>
+
+  <section class="band stats-band" aria-labelledby="season-statistics"><div class="inner"><p class="eyebrow">Recorded season activity</p><h2 id="season-statistics">2026 Season Statistics</h2><div class="stats"><div><strong>{namedStorms}</strong><span>Named storms recorded</span></div><div><strong>{hurricanes}</strong><span>Hurricanes recorded</span></div><div><strong>{majorHurricanes}</strong><span>Major hurricanes recorded</span></div></div><p class="source-note">Counts use HurricaneHub's 2026 NHC storm registry and current feed. They update as official records are observed.</p></div></section>
+
+  <section class="band" aria-labelledby="name-list"><div class="inner"><p class="eyebrow">Official sequence</p><h2 id="name-list">2026 Atlantic Storm Name List</h2><p class="answer">A standing page does not mean a storm has formed. Active and dissipated labels reflect observed feed or registry records; “next” marks the first unused name.</p><ol class="name-grid">{nameRows.map((item) => <li><a href={item.name === "Arthur" || item.name === "Bertha" || item.name === "Cristobal" ? `/storm/2026-${item.name.toLowerCase()}/` : `/hurricane-tracker/storm/${item.name.toLowerCase()}/`}><span>{item.name}</span><small class:list={["status", item.status]}>{item.status}</small></a></li>)}</ol></div></section>
+
+  <section class="band" aria-labelledby="state-impact"><div class="inner"><p class="eyebrow">Local planning</p><h2 id="state-impact">State-by-State Hurricane Impact</h2><p class="answer">Pair the season outlook with local NWS alerts, evacuation zones, surge risk, and county emergency instructions.</p><div class="state-grid">{coastalStates.map((state) => <article class="season-card"><h3>{state.name}</h3><p>{state.risks.slice(0, 3).join(" · ")}</p><a href={`/tracker/${state.slug}/`}>Open {state.name} tracker</a></article>)}</div></div></section>
+
+  <section class="band prep-band" aria-labelledby="prepare-now"><div class="inner prep-grid"><div><p class="eyebrow">Before the next advisory</p><h2 id="prepare-now">Prepare While Conditions Are Quiet</h2><p>Build your supply plan, confirm evacuation triggers, and save official alert sources before watches or warnings begin.</p></div><p class="section-actions"><a class="action-link" href="/preparedness/">Preparedness guide</a><a class="action-link secondary-action" href="/tools/">Hurricane tools</a></p></div></section>
+
+  <FaqBlock faqs={faqs} />
+
+  <section class="band" aria-labelledby="related-season-links"><div class="inner"><p class="eyebrow">Continue monitoring</p><h2 id="related-season-links">2026 Season Resources</h2><nav class="related-links" aria-label="Related hurricane season pages"><a href="/storm-archive/">Storm archive</a><a href="/hurricane-tracker/live/">Live hurricane tracker</a><a href="/blog/">Hurricane guides</a></nav></div></section>
+</Layout>
+
+<style>
+  .season-hero { background: #092c3e; color: #fff; }
+  .season-hero .answer { color: #dcebf1; }
+  .hero-grid, .prep-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 340px); gap: 32px; align-items: center; }
+  .status-panel { display: grid; gap: 4px; padding: 24px; border: 1px solid #477487; border-radius: 8px; background: #0d3c51; }
+  .status-panel strong { font-size: 3rem; line-height: 1; }
+  .status-panel span { font-weight: 800; }
+  .status-panel small { color: #c6dce5; }
+  .season-card, .empty-state { padding: 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface, #fff); }
+  .season-card h3 { margin: 10px 0; }
+  .card-links, .related-links { display: flex; flex-wrap: wrap; gap: 16px; font-weight: 800; }
+  .stats-band, .prep-band { background: var(--surface, #f4f7f9); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .stats div { display: grid; gap: 4px; padding: 20px; border-left: 4px solid var(--ocean); background: var(--bg, #fff); }
+  .stats strong { font-size: 2rem; }
+  .stats span { font-weight: 700; }
+  .name-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding: 0; list-style-position: inside; }
+  .name-grid li { border-bottom: 1px solid var(--line); }
+  .name-grid a { display: flex; justify-content: space-between; gap: 10px; padding: 12px 8px; font-weight: 800; text-decoration: none; }
+  .status { align-self: start; width: fit-content; padding: 3px 7px; border-radius: 4px; background: #dce5e9; color: #27353b; font-size: .75rem; font-weight: 800; text-transform: uppercase; }
+  .status.active { background: #bce8d1; color: #115b35; }
+  .status.dissipated { background: #dce5e9; color: #35464e; }
+  .status.next { background: #ffe3a8; color: #684600; }
+  .state-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 760px) { .hero-grid, .prep-grid, .stats, .name-grid, .state-grid { grid-template-columns: 1fr; } }
+  :global([data-theme="dark"]) .season-card, :global([data-theme="dark"]) .empty-state { background: #111d22; }
+  :global([data-theme="dark"]) .stats div { background: #111d22; }
+</style>

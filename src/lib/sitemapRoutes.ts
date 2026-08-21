@@ -36,6 +36,7 @@ const pageRoutes: SitemapRoute[] = [
   { path: "site-map/", lastmod: updated, priority: "0.6", changefreq: "weekly", section: "pages" },
   { path: "updates/", lastmod: updated, priority: "0.7", changefreq: "daily", section: "pages" },
   { path: "storm-archive/", lastmod: updated, priority: "0.7", changefreq: "daily", section: "pages" },
+  { path: "2026-hurricane-season/", lastmod: updated, priority: "0.9", changefreq: "daily", section: "pages" },
   { path: "storm/2026-arthur/", lastmod: updated, priority: "0.7", changefreq: "weekly", section: "pages" },
   { path: "storm/2026-bertha/", lastmod: updated, priority: "0.7", changefreq: "weekly", section: "pages" },
   { path: "storm/2026-cristobal/", lastmod: updated, priority: "0.7", changefreq: "weekly", section: "pages" },

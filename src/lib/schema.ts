@@ -64,6 +64,28 @@ export function articleSchema(params: {
   };
 }
 
+export function liveBlogPostingSchema(params: {
+  title: string;
+  description: string;
+  url: string;
+  datePublished: string;
+  dateModified?: string;
+  image?: string;
+  liveCoverageEndTime?: string;
+}) {
+  return {
+    "@type": "LiveBlogPosting",
+    headline: params.title,
+    description: params.description,
+    url: params.url,
+    image: params.image,
+    datePublished: params.datePublished,
+    dateModified: params.dateModified ?? new Date().toISOString(),
+    liveCoverageEndTime: params.liveCoverageEndTime,
+    coverageStartTime: params.datePublished
+  };
+}
+
 export function blogPostingSchema(params: {
   title: string;
   description: string;
