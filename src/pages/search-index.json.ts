@@ -6,6 +6,7 @@ import { hurricaneCities } from "../data/cities";
 import { getStateSeoProfile } from "../data/stateSeo";
 import { coastalStates } from "../data/states";
 import { stormTrackerPages } from "../data/stormPages";
+import { stormArchivePages } from "../data/stormArchivePages";
 import { topicPages } from "../data/topicPages";
 
 type Entry = {
@@ -93,6 +94,14 @@ const stormEntries: Entry[] = stormTrackerPages.map((storm) => ({
   body: [storm.name, storm.basin, storm.primaryKeywords.join(" "), storm.trackerFocus.join(" ")].join(" ")
 }));
 
+const stormArchiveEntries: Entry[] = stormArchivePages.map((archive) => ({
+  title: archive.title,
+  url: archive.url,
+  description: archive.description,
+  category: archive.category,
+  body: archive.body
+}));
+
 const cityEntries: Entry[] = hurricaneCities.map((city) => ({
   title: `${city.name} Hurricane Tracker`,
   url: `/hurricane-tracker/city/${city.slug}/`,
@@ -134,7 +143,7 @@ const stateEntries: Entry[] = coastalStates.map((state) => {
   };
 });
 
-const entries: Entry[] = [...pages, ...stateEntries, ...topicEntries, ...cityEntries, ...stormEntries, ...blogCategoryEntries, ...blogEntries];
+const entries: Entry[] = [...pages, ...stateEntries, ...topicEntries, ...cityEntries, ...stormEntries, ...stormArchiveEntries, ...blogCategoryEntries, ...blogEntries];
 
 export const GET: APIRoute = () =>
   new Response(JSON.stringify({ entries }), {

@@ -15,6 +15,7 @@ const excludedSourcePatterns = [
   /^rss\.xml\.ts$/,
   /^search-index\.json\.ts$/,
   /^sitemap(?:-[a-z]+)?\.xml\.ts$/,
+  /\/_data\//,
   /\[[^\]]+\]/
 ];
 
