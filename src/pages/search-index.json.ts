@@ -91,7 +91,7 @@ const blogCategoryEntries: Entry[] = BLOG_CATEGORY_PAGES.map((category) => ({
 const stormEntries: Entry[] = stormTrackerPages.map((storm) => ({
   title: `Hurricane ${storm.name} Tracker`,
   url: `/hurricane-tracker/storm/${storm.slug}/`,
-  description: storm.searchDemandNote,
+  description: cleanText(storm.searchDemandNote, 220),
   category: "Storm Tracker",
   body: [storm.name, storm.basin, storm.primaryKeywords.join(" "), storm.trackerFocus.join(" ")].join(" ")
 }));
@@ -100,14 +100,14 @@ const localPreparednessEntries: Entry[] = localPreparednessPages.map((page) => (
   title: page.title,
   url: page.kind === "state" ? `/state/${page.slug}/preparedness/` : `/city/${page.slug}/hurricane-tracker/`,
   description: page.description,
-  category: page.kind === "state" ? "Preparedness" : "City Tracker",
+  category: "Preparedness",
   body: [page.name, page.stateName, page.risk.join(" "), page.evacuation.join(" "), page.faqs.map((faq) => `${faq.question} ${faq.answer}`).join(" ")].join(" ")
 }));
 
 const stormArchiveEntries: Entry[] = stormArchivePages.map((archive) => ({
   title: archive.title,
   url: archive.url,
-  description: archive.description,
+  description: cleanText(archive.description, 220),
   category: archive.category,
   body: archive.body
 }));

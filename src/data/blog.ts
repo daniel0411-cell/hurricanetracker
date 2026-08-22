@@ -55,7 +55,7 @@ export const blogPosts: BlogPost[] = [
     description: "A homeowner checklist for shutters, drainage, documents, supplies, and evacuation timing before hurricane watches become warnings.",
     datePublished: "2025-06-03",
     dateModified: "2026-07-28",
-    image: "/images/blog/how-to-prepare-your-home-for-a-hurricane.png",
+    image: "/images/blog/how-to-prepare-your-home-for-a-hurricane.jpg",
     imageAlt: "Homeowners install storm shutters and stack sandbags while preparing a coastal home for an approaching hurricane.",
     sections: [
       {
@@ -739,7 +739,7 @@ export const blogPosts: BlogPost[] = [
     description: "Most hurricane deaths happen after landfall from inland flooding and tornadoes. Learn how real-time hurricane tracking and extreme weather alerts keep inland residents safe.",
     datePublished: "2026-08-07",
     dateModified: "2026-08-07",
-    image: "/images/blog/hurricane-tracking-after-landfall-inland-flooding-tornadoes.png",
+    image: "/images/blog/hurricane-tracking-after-landfall-inland-flooding-tornadoes.jpg",
     imageAlt: "A resident wades through a flooded inland street after a hurricane, a downed tree across the road and a distant funnel cloud on the horizon.",
     sections: [
       {
@@ -1047,7 +1047,7 @@ export const blogPosts: BlogPost[] = [
     description: "Storm surge causes half of all hurricane deaths. Learn how forecasters predict coastal flooding and how to track surge warnings in real time.",
     datePublished: "2026-08-11",
     dateModified: "2026-08-11",
-    image: "/images/blog/hurricane-storm-surge-forecasting.png",
+    image: "/images/blog/hurricane-storm-surge-forecasting.jpg",
     imageAlt: "A resident stands on a porch watching storm surge seawater rising over a coastal residential street while dark hurricane clouds gather over the ocean.",
     sections: [
       {
@@ -1192,7 +1192,7 @@ export const blogPosts: BlogPost[] = [
     description: "Returning home after a hurricane? Follow this step-by-step recovery guide: safety checks, insurance claims, FEMA help, and safe flood cleanup.",
     datePublished: "2026-08-12",
     dateModified: "2026-08-19",
-    image: "/images/blog/what-to-do-after-a-hurricane.png",
+    image: "/images/blog/what-to-do-after-a-hurricane.jpg",
     imageAlt: "A homeowner carries water-damaged belongings out of a flood-damaged house after a hurricane while a neighbor stacks storm debris.",
     sections: [
       {
@@ -2357,7 +2357,7 @@ export const blogPosts: BlogPost[] = [
     description: "A cautious, official-source-oriented guide to reducing mold risk after hurricane flooding, including safe reentry, drying, cleanup, documentation, and when to call professionals.",
     datePublished: "2026-08-17",
     dateModified: "2026-08-17",
-    image: "/images/blog/hurricane-mold-prevention-after-flood.png",
+    image: "/images/blog/hurricane-mold-prevention-after-flood.jpg",
     imageAlt: "A homeowner wearing protective gear checks flood-damaged flooring and ventilation after a hurricane.",
     sections: [
       {

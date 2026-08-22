@@ -77,12 +77,13 @@ function extractRssLinks(xml) {
     .filter((link) => link !== `${siteUrl}/`);
 }
 
-const [{ BLOG_CATEGORY_PAGES, blogPosts }, { hurricaneCities }, { coastalStates }, { stormTrackerPages }, { topicPages }] = await Promise.all([
+const [{ BLOG_CATEGORY_PAGES, blogPosts }, { hurricaneCities }, { coastalStates }, { stormTrackerPages }, { topicPages }, { localPreparednessPages }] = await Promise.all([
   loadTsModule(path.join(root, "src/data/blog.ts")),
   loadTsModule(path.join(root, "src/data/cities.ts")),
   loadTsModule(path.join(root, "src/data/states.ts")),
   loadTsModule(path.join(root, "src/data/stormPages.ts")),
-  loadTsModule(path.join(root, "src/data/topicPages.ts"))
+  loadTsModule(path.join(root, "src/data/topicPages.ts")),
+  loadTsModule(path.join(root, "src/data/localPreparednessPages.ts"))
 ]);
 
 const sitemapXml = readText(path.join(distDir, "sitemap.xml"));
@@ -100,6 +101,7 @@ const dataRoutes = unique([
   ...topicPages.map((page) => `/hurricane-tracker/${page.slug}/`),
   ...hurricaneCities.map((city) => `/hurricane-tracker/city/${city.slug}/`),
   ...stormTrackerPages.map((storm) => `/hurricane-tracker/storm/${storm.slug}/`),
+  ...localPreparednessPages.map((page) => page.kind === "state" ? `/state/${page.slug}/preparedness/` : `/city/${page.slug}/hurricane-tracker/`),
   ...BLOG_CATEGORY_PAGES.map((category) => `/blog/category/${category.slug}/`),
   ...blogPosts.map((post) => `/blog/${post.slug}/`)
 ]);

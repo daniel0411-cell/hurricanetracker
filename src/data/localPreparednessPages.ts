@@ -506,8 +506,8 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
   },
   {
     kind: "city", slug: "miami", name: "Miami", stateName: "Florida", stateSlug: "florida",
-    title: "Miami Hurricane Tracker 2026: Live Alerts, Zones & Safety",
-    description: "Miami hurricane tracker for 2026 with NHC updates, Miami-Dade evacuation zones, NWS Miami alerts, storm surge, emergency routes, history, and safety.",
+    title: "Miami Hurricane Preparedness 2026: Evacuation & Safety",
+    description: "Miami hurricane preparedness for 2026: Miami-Dade evacuation zones, official alerts, storm surge, emergency routes, history, and safety.",
     risk: [
       "Miami sits near the warm western Atlantic at the southeast edge of the Florida peninsula. Biscayne Bay, low coastal neighborhoods, canals, barrier islands, high-rise buildings, and porous limestone create distinct storm-surge, rainfall, wind, and drainage problems across Miami-Dade County.",
       "A forecast track east of Miami can still produce dangerous surf, rip currents, tornadoes, and wind, while a track through the Straits or from the southwest can drive water into the bay. Residents should watch the NHC cone, wind field, surge products, and local warnings rather than focus on the center line.",
@@ -545,8 +545,8 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
   },
   {
     kind: "city", slug: "tampa", name: "Tampa", stateName: "Florida", stateSlug: "florida",
-    title: "Tampa Hurricane Tracker 2026: Live Alerts, Zones & Safety",
-    description: "Tampa hurricane tracker for 2026 with NHC updates, Hillsborough evacuation zones, NWS Tampa Bay alerts, storm surge, routes, history, and safety.",
+    title: "Tampa Hurricane Preparedness 2026: Evacuation & Safety",
+    description: "Tampa hurricane preparedness for 2026: Hillsborough evacuation zones, official alerts, storm surge, routes, history, and safety.",
     risk: [
       "Tampa lies at the upper end of a shallow bay connected to the Gulf of Mexico. Onshore winds can push water through Tampa Bay toward low neighborhoods, rivers, ports, causeways, and critical infrastructure, making surge a central planning hazard.",
       "The exact track matters for wind direction, but residents should not wait for an exact landfall forecast. A large hurricane passing west or north can produce surge, tornadoes, rainfall flooding, and long outages across Hillsborough, Pinellas, and Pasco counties.",
@@ -584,8 +584,8 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
   },
   {
     kind: "city", slug: "orlando", name: "Orlando", stateName: "Florida", stateSlug: "florida",
-    title: "Orlando Hurricane Tracker 2026: Live Alerts & Safety Guide",
-    description: "Orlando hurricane tracker for 2026 with NHC updates, NWS Melbourne alerts, inland wind, tornadoes, flooding, shelters, emergency kits, and local safety.",
+    title: "Orlando Hurricane Preparedness 2026: Flood & Safety Guide",
+    description: "Orlando hurricane preparedness for 2026: official alerts, inland wind, tornadoes, flooding, shelters, emergency kits, and local safety.",
     risk: [
       "Orlando is inland and outside coastal storm-surge zones, but that does not make it hurricane-proof. Tropical cyclones crossing the peninsula can retain hurricane or tropical-storm wind, produce tornadoes in rain bands, overwhelm drainage, and knock trees onto homes and power lines.",
       "Central Florida often receives evacuees from both coasts, so hotels, roads, fuel, shelters, and medical services may be busy before local conditions deteriorate. Residents should protect their own household while avoiding travel that interferes with coastal evacuation flows.",
@@ -623,8 +623,8 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
   },
   {
     kind: "city", slug: "jacksonville", name: "Jacksonville", stateName: "Florida", stateSlug: "florida",
-    title: "Jacksonville Hurricane Tracker 2026: Alerts, Zones & Safety",
-    description: "Jacksonville hurricane tracker for 2026 with NHC updates, Duval evacuation zones, NWS Jacksonville alerts, river and coastal flooding, routes, and safety.",
+    title: "Jacksonville Hurricane Preparedness 2026: Evacuation & Safety",
+    description: "Jacksonville hurricane preparedness for 2026: Duval evacuation zones, official alerts, river and coastal flooding, routes, and safety.",
     risk: [
       "Jacksonville spans the Atlantic coast, St. Johns River, Intracoastal Waterway, tributaries, wetlands, and a large inland area. Ocean surge, river rise, rainfall, and tide can combine differently across Jacksonville Beach, Mayport, downtown, and river neighborhoods.",
       "The city can receive major impacts from storms passing offshore, crossing Florida, or moving north through Georgia. Nor'easter-like onshore flow after a tropical system can prolong beach erosion and water levels after the center moves away.",
@@ -662,8 +662,8 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
   },
   {
     kind: "city", slug: "houston", name: "Houston", stateName: "Texas", stateSlug: "texas",
-    title: "Houston Hurricane Tracker 2026: Live Alerts, Zones & Safety",
-    description: "Houston hurricane tracker for 2026 with NHC updates, NWS Houston alerts, ZIP evacuation zones, bayou flooding, surge, routes, history, and safety.",
+    title: "Houston Hurricane Preparedness 2026: Flood & Evacuation",
+    description: "Houston hurricane preparedness for 2026: official alerts, ZIP evacuation zones, bayou flooding, surge, routes, history, and safety.",
     risk: [
       "Houston is inland from the open Gulf but connected to Galveston Bay through the Ship Channel and surrounded by bayous, reservoirs, flat terrain, and extensive development. The metro can face coastal surge in eastern areas, extreme rainfall, flash flooding, tornadoes, wind, heat, and prolonged power loss.",
       "A hurricane does not need to make landfall at Galveston to threaten Houston. Large or slow storms can place the region in persistent rain bands or onshore flow, while trees and infrastructure fail across a broad area beyond mapped floodplains.",
@@ -701,8 +701,8 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
   },
   {
     kind: "city", slug: "new-orleans", name: "New Orleans", stateName: "Louisiana", stateSlug: "louisiana",
-    title: "New Orleans Hurricane Tracker 2026: Alerts, Zones & Safety",
-    description: "New Orleans hurricane tracker for 2026 with NHC updates, NWS New Orleans alerts, city evacuation guidance, levee and surge risk, routes, and safety.",
+    title: "New Orleans Hurricane Preparedness 2026: Evacuation & Surge",
+    description: "New Orleans hurricane preparedness for 2026: official alerts, city evacuation guidance, levee and surge risk, routes, and safety.",
     risk: [
       "New Orleans lies between the Mississippi River, Lake Pontchartrain, surrounding wetlands, navigation channels, and low terrain. Hurricane risk includes regional storm surge, intense rainfall, wind, tornadoes, pump and power failure, and loss of access even where levees reduce some water risk.",
       "The Hurricane and Storm Damage Risk Reduction System and local drainage infrastructure reduce risk but cannot eliminate it. Residents should not use the presence of levees as a reason to ignore an evacuation order, and should not assume every neighborhood experiences the same source or depth of flooding.",
@@ -740,8 +740,8 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
   },
   {
     kind: "city", slug: "charleston", name: "Charleston", stateName: "South Carolina", stateSlug: "south-carolina",
-    title: "Charleston Hurricane Tracker 2026: Alerts, Zones & Safety",
-    description: "Charleston hurricane tracker for 2026 with NHC updates, NWS Charleston alerts, evacuation zones, I-26 routes, storm surge, flooding, and safety.",
+    title: "Charleston Hurricane Preparedness 2026: Evacuation & Safety",
+    description: "Charleston hurricane preparedness for 2026: official alerts, evacuation zones, I-26 routes, storm surge, flooding, and safety.",
     risk: [
       "Charleston occupies a low peninsula between tidal rivers and a harbor connected to the Atlantic. Barrier islands, marshes, creeks, old drainage systems, high tide, and sea-level rise can combine with tropical rainfall and surge to flood roads well before the eye approaches.",
       "Risk varies across downtown, West Ashley, James Island, Johns Island, Mount Pleasant, North Charleston, and nearby barrier islands. A storm can pass offshore and still produce dangerous onshore water, tornadoes, tree damage, and long outages across the tri-county area.",
@@ -779,8 +779,8 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
   },
   {
     kind: "city", slug: "savannah", name: "Savannah", stateName: "Georgia", stateSlug: "georgia",
-    title: "Savannah Hurricane Tracker 2026: Alerts, Zones & Safety",
-    description: "Savannah hurricane tracker for 2026 with NHC updates, NWS Charleston alerts, Chatham evacuation zones, I-16 routes, surge, flooding, and safety.",
+    title: "Savannah Hurricane Preparedness 2026: Evacuation & Safety",
+    description: "Savannah hurricane preparedness for 2026: official alerts, Chatham evacuation zones, I-16 routes, surge, flooding, and safety.",
     risk: [
       "Savannah sits along the tidal Savannah River near marshes, creeks, barrier islands, and low coastal communities. Storm surge can enter from the Atlantic through sounds and waterways, while heavy rainfall and high tide slow drainage across Chatham County.",
       "Tybee Island, eastern islands, riverfront areas, and low roads face different access and water risks from inland neighborhoods. Tropical storms passing offshore or striking Florida and South Carolina can still produce serious coastal flooding, tornadoes, wind, and outages.",
@@ -818,8 +818,8 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
   },
   {
     kind: "city", slug: "wilmington", name: "Wilmington", stateName: "North Carolina", stateSlug: "north-carolina",
-    title: "Wilmington Hurricane Tracker 2026: Alerts, Zones & Safety",
-    description: "Wilmington hurricane tracker for 2026 with NHC updates, NWS Wilmington alerts, Know Your Zone, Cape Fear flooding, evacuation routes, and safety.",
+    title: "Wilmington Hurricane Preparedness 2026: Evacuation & Safety",
+    description: "Wilmington hurricane preparedness for 2026: official alerts, Know Your Zone, Cape Fear flooding, evacuation routes, and safety.",
     risk: [
       "Wilmington lies near the Cape Fear River, Intracoastal Waterway, beaches, barrier islands, tidal creeks, and low roads. Surge can affect coastal and river communities while heavy rainfall causes freshwater flooding across New Hanover and neighboring counties.",
       "Cape Fear's position exposes the area to storms approaching from the south, southeast, or along the coast. A slow storm can isolate Wilmington through flooded roads even after weakening, while tornadoes and falling pines create additional inland danger.",
@@ -857,8 +857,8 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
   },
   {
     kind: "city", slug: "virginia-beach", name: "Virginia Beach", stateName: "Virginia", stateSlug: "virginia",
-    title: "Virginia Beach Hurricane Tracker 2026: Alerts & Zone Safety",
-    description: "Virginia Beach hurricane tracker for 2026 with NHC updates, NWS Wakefield alerts, Know Your Zone, coastal flooding, bridge routes, and local safety.",
+    title: "Virginia Beach Hurricane Preparedness 2026: Zone Safety",
+    description: "Virginia Beach hurricane preparedness for 2026: official alerts, Know Your Zone, coastal flooding, bridge routes, and local safety.",
     risk: [
       "Virginia Beach faces the Atlantic, Chesapeake Bay, tidal inlets, Back Bay, low neighborhoods, beaches, and a large system of roads and drainage. Ocean surge, bay water, heavy rainfall, and high tide can affect different parts of the city at different times.",
       "The city is part of the interconnected Hampton Roads region, where bridges, tunnels, military facilities, ports, and regional traffic shape evacuation. A storm passing offshore can still generate dangerous surf, rip currents, tornadoes, wind, and power loss.",

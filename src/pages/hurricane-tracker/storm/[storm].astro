@@ -17,6 +17,8 @@ type StormFeed = {
 
 const slug = String(Astro.params.storm ?? "").toLowerCase();
 if (!/^[a-z][a-z0-9-]{1,48}$/.test(slug)) return Astro.redirect("/storm-archive/");
+const retired2026StormSlugs = new Set(["danielle", "earl", "fiona", "gordon", "hermine", "ian", "julia", "karl", "lisa", "martin", "nicole", "owen", "paula", "richard", "shary", "tobias", "virginie", "walter"]);
+if (retired2026StormSlugs.has(slug)) return Astro.redirect("/2026-hurricane-season/", 301);
 
 let feed: StormFeed | null = null;
 try {

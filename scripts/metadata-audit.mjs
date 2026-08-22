@@ -36,6 +36,10 @@ function sourceCandidatesFor(pathname) {
     candidates.push(path.join(pagesDir, "tracker", "[id].astro"));
   }
 
+  if ((segments[0] === "state" && segments.length === 3 && segments[2] === "preparedness") || (segments[0] === "city" && segments.length === 3 && segments[2] === "hurricane-tracker")) {
+    candidates.push(path.join(root, "src", "components", "LocalPreparednessPage.astro"));
+  }
+
   if (segments[0] === "hurricane-tracker" && segments[1] === "city" && segments.length === 3) {
     candidates.push(path.join(pagesDir, "hurricane-tracker", "city", "[city].astro"));
   }
