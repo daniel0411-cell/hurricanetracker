@@ -8,6 +8,7 @@ import { advisoryUrl, type NhcStorm } from "../../../lib/weather";
 import { readStormRegistry } from "../../../lib/stormRegistry";
 import { relevantLocations } from "../../../lib/stormRelevance";
 import { getAdvisoryHistory, getNhcForecast } from "../../../lib/nhcForecast";
+import { detectRapidIntensification } from "../../../lib/riDetection";
 
 type StormFeed = {
   storms?: Array<NhcStorm & { summary?: string }>;
@@ -73,6 +74,7 @@ const locationRelevance = relevantLocations(
 );
 const next48 = (forecast?.points ?? []).filter((point) => (point.hour ?? 999) > 0 && (point.hour ?? 999) <= 48);
 const advisoryHistory = activeStorm?.id ? await getAdvisoryHistory(activeStorm.id) : [];
+const riSignal = advisoryHistory.length ? detectRapidIntensification(advisoryHistory) : null;
 const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
 const title = knownPage?.title ?? `${stormName} ${isArchived ? "Storm Archive" : "Tracker Live Map, Path & NHC Updates"}`;
 const description = knownPage?.description ?? (isArchived
@@ -124,6 +126,15 @@ const jsonLd = graph(
         {activeStorm ? (
           <>
             <p>{activeStorm.summary ?? "Current NHC storm data loaded for this named system."}</p>
+            {riSignal?.riActive && (
+              <p class="ri-badge" role="note">
+                <i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i>
+                Rapid intensification observed in the last 24 hours
+                {riSignal.windIncrease24hMph != null ? ` (+${Math.round(riSignal.windIncrease24hMph)} mph)` : ""}
+                {riSignal.pressureDrop24hMb != null ? ` (pressure down ${Math.round(riSignal.pressureDrop24hMb)} mb)` : ""}.
+                Source: NHC advisory history. {(publicAdvisory || forecastAdvisory) ? <a href={publicAdvisory || forecastAdvisory} rel="noopener nofollow">Verify with the official NHC advisory.</a> : "Verify with the official NHC advisory."}
+              </p>
+            )}
             <table>
               <tbody>
                 <tr><th>Classification</th><td>{activeStorm.classification ?? "pending"}</td></tr>
@@ -266,6 +277,8 @@ const jsonLd = graph(
 </Layout>
 
 <style>
+  .ri-badge { margin: 14px 0; padding: 10px 12px; border-left: 4px solid #d58a24; background: #fff7e8; color: #63400f; font-size: 0.85rem; }
+  .ri-badge i { margin-right: 6px; }
   .storm-links {
     display: flex;
     flex-wrap: wrap;

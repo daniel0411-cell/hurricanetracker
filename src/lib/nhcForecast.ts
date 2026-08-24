@@ -4,7 +4,7 @@ import { getNhcCurrentFeed } from "./nhcCurrent";
 
 type Coordinate = [number, number];
 export type NhcForecastFeed = { stormId: string; advisoryNumber: string; advisory?: string; fetchedAt: string; source: string; track: Coordinate[]; points: Array<{ coordinates: Coordinate; hour: number | null; windMph: number | null }>; cone: Coordinate[] };
-export type AdvisoryHistoryItem = { advisoryNumber: string; time: string; classification?: string; intensity?: string; pressure?: string; latitude?: string; longitude?: string; movementDir?: number | string; movementSpeed?: number | string };
+export type AdvisoryHistoryItem = { advisoryNumber: string; time: string; classification?: string; intensity?: string; pressure?: string; windSpeedMph?: number | null; pressureMb?: number | null; latitude?: string; longitude?: string; movementDir?: number | string; movementSpeed?: number | string };
 
 export async function getAdvisoryHistory(id: string): Promise<AdvisoryHistoryItem[]> {
   return (await env.HURRICANEHUB_CACHE?.get(`nhc:advisory-history:${id.toLowerCase()}`, "json") as AdvisoryHistoryItem[] | null) ?? [];
@@ -12,6 +12,10 @@ export async function getAdvisoryHistory(id: string): Promise<AdvisoryHistoryIte
 
 function coordinates(text: string): Coordinate[] {
   return text.trim().split(/\s+/).map((value) => value.split(",").map(Number) as Coordinate).filter(([lon, lat]) => Number.isFinite(lon) && Number.isFinite(lat));
+}
+function numeric(value?: string | number) {
+  const parsed = Number.parseFloat(String(value ?? "").replace(/[^0-9.-]/g, ""));
+  return Number.isFinite(parsed) ? parsed : null;
 }
 function placemarks(kml: string) { return [...kml.matchAll(/<Placemark\b[\s\S]*?<\/Placemark>/gi)].map((match) => match[0]); }
 function parseTrack(kml: string) {
@@ -66,7 +70,7 @@ export async function getNhcForecast(id: string): Promise<NhcForecastFeed | null
   const historyKey = `nhc:advisory-history:${id.toLowerCase()}`;
   const history = await getAdvisoryHistory(id);
   if (!history.some((item) => item.advisoryNumber === advisoryNumber)) {
-    history.unshift({ advisoryNumber, time: storm.lastUpdate ?? result.fetchedAt, classification: storm.classification, intensity: storm.intensity ?? storm.windSpeed, pressure: storm.pressure, latitude: storm.latitude, longitude: storm.longitude, movementDir: storm.movementDir, movementSpeed: storm.movementSpeed });
+    history.unshift({ advisoryNumber, time: storm.lastUpdate ?? result.fetchedAt, classification: storm.classification, intensity: storm.intensity ?? storm.windSpeed, pressure: storm.pressure, windSpeedMph: numeric(storm.windSpeed) ?? numeric(storm.intensity), pressureMb: numeric(storm.pressure), latitude: storm.latitude, longitude: storm.longitude, movementDir: storm.movementDir, movementSpeed: storm.movementSpeed });
     await env.HURRICANEHUB_CACHE?.put(historyKey, JSON.stringify(history.slice(0, 12)));
   }
   return result;
