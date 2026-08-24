@@ -8,6 +8,18 @@ const pageFaqs = [
     answer:
       "Put water, shelf-stable food, medications, first aid, flashlights, batteries, phone charging, hygiene supplies, cash, copies of important documents, and pet supplies when needed."
   },
+  {
+    question: "What is the difference between a hurricane kit and a preparedness checklist?",
+    answer: "A kit is the physical supply set you can use at home or take during evacuation. A preparedness checklist also covers alerts, contacts, routes, documents, pets, medication planning, and decisions that supplies alone cannot solve."
+  },
+  {
+    question: "What food should I stock for a hurricane?",
+    answer: "Choose shelf-stable foods your household already eats, including no-cook options, and account for allergies, infants, older adults, pets, and medical diets. Follow product labels and official food-storage guidance."
+  },
+  {
+    question: "Do I need a separate tropical storm emergency kit?",
+    answer: "Usually no. The same core water, food, medicine, light, power, document, hygiene, and communication supplies cover hurricanes and tropical storms; adjust the plan for the actual local alerts and expected outage or flood risk."
+  },
   ...faqs
 ];
 
@@ -15,6 +27,11 @@ const title = "Hurricane Preparedness Checklist Generator";
 const description = "Generate a hurricane preparedness checklist for 1-4 people, with optional pet supplies, emergency documents, food, water, medicine, and decision-focused planning items.";
 const canonical = `${site.url}/tools/preparedness-checklist/`;
 const relatedPaths = [
+  {
+    name: "Hurricane Business Supply List",
+    description: "Prepare workplace supplies, employee communication, records, remote work, and continuity actions.",
+    url: `${site.url}/tools/business-preparedness/`
+  },
   {
     name: "Hurricane Emergency Kit Checklist",
     description: "Use the full guide when you want more context behind the generated kit list.",
@@ -356,6 +373,32 @@ function renderPage(lastModified: string) {
               </article>
             `).join("")}
           </div>
+        </div>
+      </section>
+
+      <section class="band" aria-labelledby="kit-checklist-heading">
+        <div class="inner grid-3">
+          <article class="panel">
+            <h2 id="kit-checklist-heading">Hurricane Kit vs. Preparedness Checklist</h2>
+            <p>A hurricane kit is the physical collection of water, food, medicine, light, charging, first aid, hygiene, documents, cash, and pet supplies. A preparedness checklist is broader: it also records alerts, evacuation triggers, destinations, contacts, transport, housing risks, and recovery steps.</p>
+            <p>Build both together. Supplies help you function; the checklist helps you decide when to stay, leave, communicate, and verify official instructions.</p>
+          </article>
+          <article class="panel">
+            <h2>Tropical Storm Emergency Kit</h2>
+            <p>You normally do not need a separate tropical storm kit. Tropical storms can still produce flooding, tornadoes, dangerous surf, downed trees, and long outages, so use the same core kit and change the local action plan to match current NWS alerts.</p>
+            <p>Do not reduce preparation only because the system is below hurricane strength. Rainfall, surge, housing, medical needs, and road conditions may matter more than the wind label.</p>
+          </article>
+          <article class="panel">
+            <h2>Food &amp; Water Supply List</h2>
+            <ul>
+              <li>Drinking water and safe containers based on official local guidance.</li>
+              <li>Shelf-stable meals and snacks the household already eats.</li>
+              <li>No-cook foods for outages, plus a manual can opener where needed.</li>
+              <li>Infant, allergy, medical-diet, pet, and cultural food needs.</li>
+              <li>Cooler and thermometer planning for perishable food and medicine.</li>
+            </ul>
+            <p>Follow product labels and local food- and water-safety notices. Ask a doctor or pharmacist how to protect temperature-sensitive medication.</p>
+          </article>
         </div>
       </section>
 

@@ -1,0 +1,46 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import Layout from "../../layouts/Layout.astro";
+import { site } from "../../data/site";
+import { articleSchema, breadcrumbSchema, faqSchema, graph, itemListSchema, webApplicationSchema, websiteSchema } from "../../lib/schema";
+
+const title = "Hurricane Business Preparedness Supply List";
+const description = "Build a hurricane preparedness list for businesses covering workplace supplies, employee communication, records, remote work, recovery, and continuity.";
+const url = `${site.url}/tools/business-preparedness/`;
+const supplies = [
+  { name: "Water and food", description: "Store practical, shelf-stable supplies for employees who may need to shelter briefly, following product labels and local official guidance." },
+  { name: "Communication", description: "Keep radios, chargers, power banks, printed contacts, call trees, and backup methods available when internet or mobile service fails." },
+  { name: "First aid and PPE", description: "Maintain workplace first aid, gloves, eye protection, masks, sanitation supplies, and task-appropriate protective equipment." },
+  { name: "Records and cash", description: "Protect insurance, payroll, banking, lease, vendor, inventory, employee, tax, and emergency contact records with secure backups." },
+  { name: "Power and access", description: "Plan safe backup power, keys, access cards, lighting, refrigeration, alarms, and shutdown procedures without operating generators indoors." },
+  { name: "Recovery supplies", description: "Keep cameras, moisture protection, cleanup PPE, signage, tarps, and documentation tools for safe temporary actions after officials permit access." }
+];
+const pageFaqs = [
+  { question: "What belongs on a hurricane preparedness list for businesses?", answer: "Include employee contacts, closure triggers, water and food, first aid, communication backup, protected records, safe power planning, vendor contacts, remote-work access, insurance details, and recovery documentation." },
+  { question: "Does every workplace need a hurricane kit?", answer: "Businesses in hurricane-prone areas need a plan matched to occupancy, building risks, employee needs, local hazards, and whether anyone may shelter briefly. Follow local emergency, fire, building, and workplace requirements." },
+  { question: "Should employees shelter at work during a hurricane?", answer: "Only when the building, employer plan, and official instructions support it. Do not keep employees in an evacuation zone or unsafe structure, and do not override local evacuation orders." },
+  { question: "How should a business protect records before a hurricane?", answer: "Use secure off-site or cloud backups, test access, restrict sensitive information, document inventory and equipment, and keep essential insurance, payroll, vendor, and contact records available to authorized staff." },
+  { question: "What should a business do after the storm?", answer: "Wait for official reentry, check structural and electrical safety, document damage before cleanup, contact the insurer, protect employees from hazards, and use qualified contractors. Consult legal, insurance, and local officials for business-specific obligations." }
+];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: site.contentLastModified }),
+  webApplicationSchema({ name: title, description, url, featureList: supplies.map((item) => item.name) }),
+  itemListSchema(supplies.map((item) => ({ ...item, url }))),
+  faqSchema(pageFaqs),
+  breadcrumbSchema([{ name: site.name, url: site.canonicalUrl }, { name: "Tools", url: `${site.url}/tools/` }, { name: "Business Preparedness", url }])
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified}>
+  <section class="band" aria-labelledby="business-title"><div class="inner"><p class="eyebrow">Workplace continuity tool</p><h1 id="business-title">Hurricane Business &amp; Workplace Preparedness Supply List</h1><p class="answer">Use this business hurricane checklist to connect workplace supplies with employee safety, closure decisions, records protection, remote work, vendors, insurance, and recovery. It is a planning worksheet, not a substitute for evacuation orders, workplace rules, professional advice, or official alerts.</p></div></section>
+
+  <section class="band" aria-labelledby="who-needs"><div class="inner grid-2"><article class="panel"><h2 id="who-needs">Who Needs a Workplace Hurricane Kit?</h2><p>Offices, stores, restaurants, clinics, warehouses, contractors, nonprofits, property managers, and distributed teams need plans proportional to their actual exposure. Coastal locations may face surge and evacuation; inland businesses may face flooding, tornadoes, road closures, heat, and prolonged outages.</p><p>Account for every shift, visitors, contractors, disabled employees, language needs, medications, transport limits, pets at work, refrigeration, hazardous materials, and workers who may already be preparing their own homes.</p></article><article class="panel"><h2>Set Decision Owners and Triggers</h2><p>Name a primary decision lead and backups for closure, employee messages, facilities, technology, records, vendors, and recovery. Write the triggers that move the business from monitoring to remote work, closure, shutdown, or evacuation.</p><p>Use NHC and NWS products for weather context and local emergency management for evacuation, shelter, road, and reentry decisions. Do not ask employees to travel through warnings or remain in an ordered evacuation area.</p></article></div></section>
+
+  <section class="band" aria-labelledby="core-supplies"><div class="inner"><p class="eyebrow">Business supply list</p><h2 id="core-supplies">Core Workplace Hurricane Supplies</h2><div class="grid-3 section-grid">{supplies.map((item) => <article class="panel"><h3>{item.name}</h3><p>{item.description}</p></article>)}</div><p class="source-note">Medication, medical equipment, food safety, fuel, generators, hazardous materials, and occupational safety require product instructions and qualified guidance. Consult the relevant doctor, pharmacist, insurer, vendor, regulator, or local official.</p></div></section>
+
+  <section class="band" aria-labelledby="coordination"><div class="inner grid-2"><article class="panel"><h2 id="coordination">Remote and Multi-Location Coordination</h2><p>List each site's decision lead, local hazards, evacuation authority, shutdown tasks, employee roster, building contact, insurer, utility, vendors, and reopening requirements. A company-wide alert should not erase local differences between a surge zone, inland warehouse, and remote team.</p><ul class="check-list"><li>Test VPN, cloud records, passwords, and two-factor authentication.</li><li>Assign backup payroll, customer, vendor, and website communication owners.</li><li>Record which work can stop, move remotely, or requires a safe shutdown.</li><li>Set check-in times and a method that works without normal chat tools.</li></ul></article><article class="panel"><h2>Employee Communication and Shelter-in-Place</h2><p>Send short messages that state the decision, effective time, affected sites, paid-work expectations, safety priority, next update time, and official source. Keep employee contact data protected and give managers a backup call tree.</p><p>If temporary sheltering is part of the plan, verify that the building and location are appropriate, supplies are accessible, and nobody is being held in an evacuation zone. Local orders and life safety override business continuity.</p></article></div></section>
+
+  <section class="band" aria-labelledby="recovery"><div class="inner grid-2"><article class="panel"><h2 id="recovery">Recovery and Continuity Checklist</h2><ol class="check-list"><li>Wait for official reentry and confirm building access.</li><li>Check structural, electrical, gas, water, fire, mold, and environmental hazards.</li><li>Photograph damage and inventory before non-emergency cleanup.</li><li>Contact the insurer and follow claim documentation instructions.</li><li>Confirm utilities, sanitation, staffing, vendors, payroll, and customer communication.</li><li>Use licensed or qualified contractors and required permits.</li><li>Reopen only when the site and travel conditions are safe.</li></ol></article><article class="panel"><h2>Connect the Workplace Plan</h2><ul class="check-list"><li><a href="/tools/preparedness-checklist/">Generate a household and supply checklist</a></li><li><a href="/tools/local-risk-plan/">Build a local risk plan</a></li><li><a href="/tools/family-communication-plan/">Create a communication plan</a></li><li><a href="/tracker/florida/">Open the Florida tracker</a></li><li><a href="/tracker/texas/">Open the Texas tracker</a></li><li><a href="/hurricane-tracker/live/">Check current hurricane activity</a></li></ul><p class="source-note"><a href="https://www.ready.gov/business" rel="noopener nofollow">Ready Business</a> · <a href="https://www.fema.gov/" rel="noopener nofollow">FEMA</a> · <a href="https://www.weather.gov/" rel="noopener nofollow">National Weather Service</a></p></article></div></section>
+
+  <FaqBlock faqs={pageFaqs} />
+</Layout>

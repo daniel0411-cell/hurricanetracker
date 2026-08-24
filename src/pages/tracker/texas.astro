@@ -7,7 +7,7 @@ import StateCurrentAnswer from "../../components/StateCurrentAnswer.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateSeoProfile } from "../../data/stateSeo";
 import { getStateBySlug } from "../../data/states";
-import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
+import { articleSchema, faqSchema, governmentServiceSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 import { site } from "../../data/site";
 import { getStateCurrentStatus, stateCurrentFaqs } from "../../lib/stateCurrent";
 
@@ -60,12 +60,17 @@ const faqs = [
   },
   {
     question: `Does ${name} have hurricane evacuation routes?`,
-    answer: `Yes. Texas coastal counties publish evacuation zones and use lane reversals (Contraflow) on major highways like I-45 and I-37. Residents should know their county zone, plan for long drives inland, and leave early because traffic and fuel shortages develop quickly.`
+    answer: `Yes. Texas coastal communities publish evacuation zones and routes. Residents should know local instructions, plan more than one route and destination, and leave at the directed time. Contraflow or lane reversal applies only when officials activate it for the event.`
+  },
+  {
+    question: "How should I prepare for hurricane season in Texas?",
+    answer: "Know the local evacuation zone, prepare water and food, protect medication and documents, plan for pets, check flood and surge exposure, arrange safe generator use, and account for long drives and extended heat during outages."
   }
 ];
 
 const jsonLd = graph(
   websiteSchema(),
+  governmentServiceSchema({ areaServed: name }),
   articleSchema({ title, description, url: canonical, dateModified: lastModified }),
   itemListSchema([
     ...stateCities.map((city) => ({
@@ -89,6 +94,12 @@ const jsonLd = graph(
       <section class="intent-answer" aria-labelledby="texas-intent-heading">
         <h2 id="texas-intent-heading">Texas Hurricane Questions Today</h2>
         <p>This page answers “is there a hurricane coming to Texas,” “is Texas getting a hurricane,” “will the hurricane hit Texas,” and “is a hurricane coming to Houston” with current NHC context, Gulf risk, and Texas NWS alerts.</p>
+      </section>
+
+      <section class="intent-answer" aria-labelledby="texas-season-heading">
+        <h2 id="texas-season-heading">How to Prepare for Hurricane Season in Texas</h2>
+        <p>Texas hurricane preparation must cover both coastal surge and inland rainfall. Confirm the county evacuation zone and routes, choose a destination far enough from the threatened area, protect documents and medication, and prepare for heat, food safety, fuel limits, and prolonged outages. Houston-area households should treat bayou and street flooding as a separate risk from the forecast landfall point.</p>
+        <p>Use the <a href="/tools/preparedness-checklist/">hurricane supply checklist</a> for household essentials and the <a href="/hurricane-tracker/evacuation-plan/">evacuation plan guide</a> for transport, destinations, pets, medical needs, and local triggers.</p>
       </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>

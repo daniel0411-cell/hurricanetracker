@@ -7,7 +7,7 @@ import StateCurrentAnswer from "../../components/StateCurrentAnswer.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateSeoProfile } from "../../data/stateSeo";
 import { getStateBySlug } from "../../data/states";
-import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
+import { articleSchema, faqSchema, governmentServiceSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 import { site } from "../../data/site";
 import { getStateCurrentStatus, stateCurrentFaqs } from "../../lib/stateCurrent";
 
@@ -67,12 +67,21 @@ const faqs = [
   },
   {
     question: `Does ${name} have hurricane evacuation routes?`,
-    answer: `Yes. Florida uses labeled evacuation zones (A, B, C and beyond) set by county emergency management, not ZIP code. Coastal and barrier-island residents should learn their zone, identify Contraflow routes, and plan to leave before bridges and causeways close.`
+    answer: `Yes. Florida counties set evacuation zones and routes for local hazards. Coastal and barrier-island residents should learn their zone and plan more than one route. Lane reversals or special traffic controls apply only when officials announce them for the current storm.`
+  },
+  {
+    question: "What belongs on a Florida hurricane supply list?",
+    answer: "Include water, shelf-stable food, medication, first aid, lighting, batteries, charging, documents, cash, hygiene, pet needs, weather alerts, and portable evacuation supplies. Adjust the list for heat, flooding, housing, and medical needs."
+  },
+  {
+    question: "How do I make a Florida hurricane evacuation plan?",
+    answer: "Confirm the county evacuation zone, choose two destinations and routes, plan transport for people and pets, record official alerts, and leave when local authorities direct the zone. Do not use an insurance flood zone as the only trigger."
   }
 ];
 
 const jsonLd = graph(
   websiteSchema(),
+  governmentServiceSchema({ areaServed: name }),
   articleSchema({ title, description, url: canonical, dateModified: lastModified }),
   itemListSchema([
     ...stateCities.map((city) => ({
@@ -96,6 +105,17 @@ const jsonLd = graph(
       <section class="intent-answer" aria-labelledby="florida-intent-heading">
         <h2 id="florida-intent-heading">Florida Hurricane Questions Today</h2>
         <p>Users searching “is there a hurricane coming to Florida,” “is Florida getting a hurricane,” and “will the hurricane hit Florida” should start here. Check the live NHC answer above, then compare Florida NWS alerts, evacuation zones, and city trackers for Miami, Tampa, Orlando, Jacksonville, and the Panhandle.</p>
+      </section>
+
+      <section class="intent-answer" aria-labelledby="florida-preparedness-heading">
+        <h2 id="florida-preparedness-heading">How to Prepare for a Hurricane in Florida</h2>
+        <p>Start before a storm forms: confirm the county evacuation zone, identify a safe room and two destinations, protect documents, refill permitted prescriptions, plan for pets, and prepare for heat and extended outages. A “Florida hurricane box” should be a portable part of the broader plan, not the entire plan.</p>
+        <p><a href="/tools/preparedness-checklist/">Build a Florida hurricane supply list</a>, then use the <a href="/hurricane-tracker/evacuation-plan/">hurricane evacuation plan</a> to record routes, transport, contacts, and departure triggers.</p>
+      </section>
+
+      <section class="intent-answer" aria-labelledby="florida-evacuation-heading">
+        <h2 id="florida-evacuation-heading">Florida Hurricane Evacuation Plan</h2>
+        <p>Use the county address lookup rather than ZIP code or an insurance flood map. Choose a primary and backup destination outside the threatened area, plan more than one route, and allow extra time for barrier islands, bridges, medical equipment, disability, children, pets, or no personal vehicle. Follow current county and state instructions; do not assume contraflow or a bridge will remain open.</p>
       </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>

@@ -7,7 +7,7 @@ import StateCurrentAnswer from "../../components/StateCurrentAnswer.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateBySlug } from "../../data/states";
 import { getStateSeoProfile } from "../../data/stateSeo";
-import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
+import { articleSchema, faqSchema, governmentServiceSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 import { site } from "../../data/site";
 import { getStateCurrentStatus, stateCurrentFaqs } from "../../lib/stateCurrent";
 
@@ -60,12 +60,17 @@ const faqs = [
   },
   {
     question: `Does ${name} have hurricane evacuation routes?`,
-    answer: `Yes. South Carolina designates coastal evacuation zones by county and uses lane reversals on I-26 (the Charleston reversal) and other routes. Residents should learn their zone and leave early, since Lowcountry bridges and causeways close as winds rise.`
+    answer: `Yes. South Carolina designates coastal evacuation zones and routes. Residents should learn the local zone and follow current instructions for bridges, causeways, I-26, and other roads. Lane reversal applies only when officials activate it for the storm.`
+  },
+  {
+    question: "What should South Carolina hurricane preparedness include?",
+    answer: "Include the local evacuation zone, two destinations and routes, water and food, medications, documents, pet supplies, alerts, outage planning, and extra travel time for Lowcountry bridges, barrier islands, and coastal traffic."
   }
 ];
 
 const jsonLd = graph(
   websiteSchema(),
+  governmentServiceSchema({ areaServed: name }),
   articleSchema({ title, description, url: canonical, dateModified: lastModified }),
   itemListSchema([
     ...stateCities.map((city) => ({
@@ -89,6 +94,12 @@ const jsonLd = graph(
       <section class="intent-answer" aria-labelledby="south-carolina-intent-heading">
         <h2 id="south-carolina-intent-heading">South Carolina Hurricane Questions Today</h2>
         <p>This page answers “is there a hurricane coming to South Carolina,” “is there a hurricane coming to SC,” and “is a hurricane coming to South Carolina next week” with current NHC context, Lowcountry risk, and local alerts.</p>
+      </section>
+
+      <section class="intent-answer" aria-labelledby="south-carolina-preparedness-heading">
+        <h2 id="south-carolina-preparedness-heading">South Carolina Hurricane Preparedness</h2>
+        <p>Lowcountry preparation starts with the official evacuation zone, bridge and causeway access, and a destination outside the threatened coast. Prepare water, food, medications, documents, pet supplies, charging, and safe outage plans before watches create heavy demand. Inland households should also plan for river flooding, tornadoes, falling trees, and heat after power loss.</p>
+        <p>Generate a <a href="/tools/preparedness-checklist/">hurricane preparedness checklist</a> and record routes and destinations with the <a href="/hurricane-tracker/evacuation-plan/">hurricane evacuation plan guide</a>.</p>
       </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
