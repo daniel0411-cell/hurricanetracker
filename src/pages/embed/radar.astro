@@ -160,7 +160,7 @@ const showControls = params.get("controls") !== "0";
     <div class="storm-picker" id="storm-picker" hidden>
       <select id="storm-select" aria-label="Focus an active storm"></select>
     </div>
-    <div class="forecast-legend" id="forecast-legend" hidden><strong>NHC forecast</strong>Blue area: center-track uncertainty<br />White dashed line: forecast track<br />Time markers: forecast center positions<br />Not an impact boundary</div>
+    <div class="forecast-legend" id="forecast-legend" hidden><strong>NHC forecast</strong>Blue area: center-track uncertainty<br />White dashed line: forecast track<br />Amber area: right-front quadrant, typically strongest in the Northern Hemisphere<br />Confirm with the official NHC advisory and local guidance. Not an impact boundary.</div>
     <div class="radar-timeline" id="radar-timeline" hidden aria-label="Radar animation timeline">
       <button type="button" class="timeline-play" id="timeline-play" aria-label="Play radar animation"><i class="fa-solid fa-play"></i></button>
       <input class="timeline-range" id="timeline-range" type="range" min="0" max="0" step="1" value="0" aria-label="Radar frame" />
@@ -176,6 +176,7 @@ const showControls = params.get("controls") !== "0";
       // @ts-nocheck
       import L from "leaflet";
       import "leaflet/dist/leaflet.css";
+      import { dirtySideQuadrants, movementBearingDeg } from "../../lib/dirtySide";
 
       window.addEventListener("error", (ev) => {
         const s = document.querySelector("#embed-status");
@@ -416,6 +417,22 @@ const showControls = params.get("controls") !== "0";
             const data = await response.json();
             const track = Array.isArray(data.track) ? data.track.map(([lon, lat]) => [lat, lon]) : [];
             const cone = Array.isArray(data.cone) ? data.cone.map(([lon, lat]) => [lat, lon]) : [];
+            const lat = coordinate(storm.latitude);
+            const lon = coordinate(storm.longitude);
+            const bearing = movementBearingDeg(storm.movementDir);
+            if (lat !== null && lon !== null && lat >= 0 && bearing !== null) {
+              const quadrant = dirtySideQuadrants(bearing).find((item) => item.dangerous);
+              if (quadrant) {
+                const arc = [];
+                for (let angle = quadrant.bearingDeg - 45; angle <= quadrant.bearingDeg + 45; angle += 5) {
+                  const radians = angle * Math.PI / 180;
+                  arc.push([lat + 2.5 * Math.cos(radians), lon + 2.5 * Math.sin(radians) / Math.max(Math.cos(lat * Math.PI / 180), 0.35)]);
+                }
+                L.polygon([[lat, lon], ...arc], { color: "#e8a33d", weight: 1, fillColor: "#e8a33d", fillOpacity: 0.18, interactive: false })
+                  .bindTooltip("Right-front quadrant — typically the strongest side in the Northern Hemisphere. Confirm with the official NHC advisory and local guidance.")
+                  .addTo(forecastLayer);
+              }
+            }
             if (cone.length >= 4) L.polygon(cone, { color: "#74d7ef", weight: 1.5, fillColor: "#58bfd9", fillOpacity: 0.16, interactive: false }).addTo(forecastLayer);
             if (track.length >= 2) L.polyline(track, { color: "#fff", weight: 3, opacity: 0.88, dashArray: "8 7", interactive: false }).addTo(forecastLayer);
             (data.points ?? []).forEach((point) => {
