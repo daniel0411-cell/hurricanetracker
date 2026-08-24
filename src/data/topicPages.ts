@@ -603,13 +603,13 @@ export const topicPages: TopicPage[] = [
     title: "Hurricane Spaghetti Models",
     shortTitle: "Spaghetti Models",
     description:
-      "Learn how hurricane spaghetti models fit with the NHC cone, forecast track, model spread, live tracker maps, radar, and local alert decisions.",
+      "Learn how hurricane spaghetti models, GFS, ECMWF, ICON, AI guidance, and model spread fit with the official NHC forecast and local alerts.",
     eyebrow: "Forecast model hub",
     intro:
       "Spaghetti models are useful for seeing forecast spread, but they are not a single answer. Use this hub to understand model guidance, compare it with official NHC forecasts, and then move toward local alerts, city trackers, and household decisions.",
     primaryAction: { label: "Open live tracker", href: "/hurricane-tracker/live/" },
     secondaryAction: { label: "Read model guide", href: "/blog/how-to-read-hurricane-spaghetti-models/" },
-    intent: "hurricane spaghetti models, spaghetti model tracker, hurricane model tracks",
+    intent: "hurricane spaghetti models, GFS vs Euro hurricane model, hurricane model tracks",
     steps: [
       {
         title: "Start With the Official Forecast",
@@ -654,10 +654,35 @@ export const topicPages: TopicPage[] = [
           "Tornado warnings can appear in outer bands",
           "Power outages depend on trees, soil, wind gusts, and grid exposure"
         ]
+      },
+      {
+        eyebrow: "Global guidance",
+        title: "GFS and ECMWF Are Guidance, Not Competing Official Forecasts",
+        body:
+          "The U.S. Global Forecast System (GFS) and the European Centre for Medium-Range Weather Forecasts model (ECMWF, often called the Euro) are widely watched global models. Each turns observations into a possible evolution of the atmosphere. Forecasters compare their tracks, intensity output, ensembles, bias patterns, and recent observations; neither one is a standalone public evacuation or landfall forecast.",
+        bullets: [
+          "Use the NHC forecast and discussion as the public decision baseline",
+          "Check whether successive runs show a persistent trend instead of one dramatic run",
+          "Separate track agreement from intensity agreement",
+          "Read the NHC forecast discussion when model differences matter"
+        ]
+      },
+      {
+        eyebrow: "More model names",
+        title: "ICON, UKMET, AI Guidance, and Ensembles Add Context",
+        body:
+          "Other global models, including ICON and UKMET, can add useful comparison points. Newer AI-based weather guidance can also help researchers and forecasters explore possible patterns. These products have different designs, update cycles, inputs, and limits. An ensemble is especially useful because it runs a model many times with varied starting conditions or configurations to show a range of plausible outcomes rather than one deterministic line.",
+        bullets: [
+          "More lines do not automatically mean a more certain forecast",
+          "A tight track cluster can still leave rainfall, surge, and tornado uncertainty",
+          "Intensity is often harder to forecast than track",
+          "Official watches, warnings, and local orders can change before every model agrees"
+        ]
       }
     ],
     nextLinks: [
       { name: "How to Read Hurricane Spaghetti Models", href: "/blog/how-to-read-hurricane-spaghetti-models/", description: "Plain-language guide to model spread, outliers, and forecast uncertainty." },
+      { name: "How Hurricanes Are Tracked", href: "/hurricane-tracker/how-hurricanes-are-tracked/", description: "See how observations, models, and forecaster analysis become an official advisory." },
       { name: "Hurricane Path Tracker", href: "/hurricane-tracker/path/", description: "Connect model guidance with official path, timing, and local action steps." },
       { name: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Current storm status, NHC checks, radar shortcuts, alerts, and local tracker paths." },
       { name: "Impact Window Estimator", href: "/tools/impact-window-estimator/", description: "Turn storm timing into a practical household planning window." }
@@ -677,6 +702,115 @@ export const topicPages: TopicPage[] = [
         question: "Can spaghetti models tell me whether to evacuate?",
         answer:
           "No. Evacuation decisions come from local orders, evacuation zones, storm surge and flood risk, housing type, household needs, and official local guidance."
+      },
+      {
+        question: "Is the GFS or Euro model always better for hurricanes?",
+        answer:
+          "No. Model performance varies by storm, forecast time, and weather pattern. Use the official NHC forecast and discussion rather than choosing one model as a guaranteed answer."
+      },
+      {
+        question: "What does an ensemble hurricane forecast show?",
+        answer:
+          "An ensemble combines many model runs to show a range of plausible outcomes. It helps describe uncertainty, but it is not a direct local-impact or evacuation forecast."
+      }
+    ]
+  },
+  {
+    slug: "hurricane-travel-cruise-flights",
+    title: "Hurricane Travel: Cruises and Flights",
+    shortTitle: "Hurricane Travel",
+    description:
+      "Plan hurricane-season cruises and flights with official storm updates, carrier terms, port status, flexible itinerary checks, and practical disruption steps.",
+    eyebrow: "Hurricane travel planning",
+    intro:
+      "A tropical system can change a cruise itinerary, port call, flight schedule, airport operation, or ground-transfer plan with little notice. Use this page to prepare for disruption before travel and to verify the latest storm, carrier, port, airport, and local-government information during an active threat.",
+    primaryAction: { label: "Open live hurricane tracker", href: "/hurricane-tracker/live/" },
+    secondaryAction: { label: "Check active alerts", href: "/alerts/" },
+    intent: "hurricane cruise itinerary, hurricane flight cancellation, hurricane season travel",
+    steps: [
+      {
+        title: "Check the Official Storm Context",
+        body: "Use the latest NHC advisory, local NWS alerts, and port or airport notices to understand timing and uncertainty around the places on your itinerary.",
+        href: "/hurricane-tracker/live/",
+        label: "Open live tracker"
+      },
+      {
+        title: "Read Your Carrier Terms",
+        body: "Check the cruise line, airline, booking channel, and travel-insurance documents that apply to your reservation. Policies, waivers, rebooking options, and deadlines vary by provider and event.",
+        href: "/learn/",
+        label: "Open planning resources"
+      },
+      {
+        title: "Make a Flexible Backup Plan",
+        body: "Keep reservation numbers, alternate transport and lodging options, medicines, chargers, and a way to receive carrier notices if ports, roads, or airports change operations.",
+        href: "/tools/hurricane-brief/",
+        label: "Create a hurricane brief"
+      }
+    ],
+    sections: [
+      {
+        eyebrow: "Cruise changes",
+        title: "How Hurricanes Can Change a Cruise Itinerary",
+        body:
+          "Cruise operators may change a departure time, skip or substitute a port, alter the route, or cancel a sailing when forecast conditions affect ships, ports, pilots, terminals, or destinations. A storm far from your home port can still affect the itinerary. The cruise line's current notice and guest contract are the source for your specific sailing; social posts and an older itinerary are not enough.",
+        bullets: [
+          "Watch the cruise line app, email, and official guest notices",
+          "Check home-port, destination-port, and transfer conditions separately",
+          "Do not travel to a terminal unless the operator confirms instructions",
+          "Keep passport, medication, and essential items accessible during schedule changes"
+        ]
+      },
+      {
+        eyebrow: "Flight disruption",
+        title: "Hurricane Flight Delays and Cancellations Need Carrier-Specific Checks",
+        body:
+          "Airlines may delay, cancel, reroute, or restrict operations because of wind, flooding, airport closures, crew and aircraft positioning, or downstream network effects. A weather-related cancellation does not create the same options in every booking or jurisdiction. Read the airline's current travel waiver and the U.S. Department of Transportation consumer guidance, then contact the airline or booking provider for the options that apply to your ticket.",
+        bullets: [
+          "Check the airline directly before relying on a third-party booking alert",
+          "Review any travel waiver before voluntarily changing a ticket",
+          "Monitor airport operations, ground transport, and hotel plans as separate risks",
+          "Keep receipts and written notices for your own records"
+        ]
+      },
+      {
+        eyebrow: "Before booking",
+        title: "Build Hurricane Season Flexibility Before You Travel",
+        body:
+          "The Atlantic hurricane season runs from June 1 through November 30, but a calendar date alone does not predict disruption. Before booking, compare fare rules, cancellation terms, travel-insurance exclusions and purchase timing, port alternatives, and how much time you need before a cruise embarkation or connection. During an active threat, official storm and local emergency information should guide safety choices ahead of vacation plans.",
+        bullets: [
+          "Consider arriving before a cruise embarkation day when your itinerary allows",
+          "Store carrier, hotel, insurer, and emergency contacts offline",
+          "Check policy language for named-storm, cancellation, interruption, and delay terms",
+          "Follow local evacuation, shelter, and road instructions even when you are traveling"
+        ]
+      }
+    ],
+    nextLinks: [
+      { name: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Check current NHC storm context, timing, and active system status." },
+      { name: "Hurricane Radar and Satellite", href: "/radar/", description: "Review nearby rain bands and current weather around travel locations." },
+      { name: "Active NWS Alerts", href: "/alerts/", description: "Check official weather alerts near ports, airports, and destinations." },
+      { name: "U.S. DOT Air Travel Consumer Guidance", href: "https://www.transportation.gov/airconsumer", description: "Read current federal air-travel consumer information and official resources." }
+    ],
+    faqs: [
+      {
+        question: "Will a hurricane cancel my cruise?",
+        answer:
+          "It can cause an itinerary change, delay, cancellation, or port substitution, but the outcome depends on the specific sailing and operational conditions. Check the cruise line's official notice and guest contract for your reservation."
+      },
+      {
+        question: "Can I get a refund if a hurricane affects my flight?",
+        answer:
+          "Options depend on what happened, your ticket, the airline's current policy, applicable law, and how the booking was made. Check the airline directly and review U.S. DOT guidance instead of assuming a weather waiver guarantees a refund."
+      },
+      {
+        question: "Does travel insurance cover hurricane disruption?",
+        answer:
+          "Coverage depends on the exact policy, purchase date, named-storm provisions, exclusions, and the event. Read the policy and ask the insurer about your specific reservation; this page is not insurance advice."
+      },
+      {
+        question: "Should I travel when a hurricane is forecast?",
+        answer:
+          "Follow official storm, airport, port, and local emergency guidance. If a destination is under an evacuation order or unsafe travel conditions, prioritize the instructions of local authorities over itinerary plans."
       }
     ]
   },
