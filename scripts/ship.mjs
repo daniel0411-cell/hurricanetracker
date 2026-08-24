@@ -1,7 +1,7 @@
 import { spawnSync } from "node:child_process";
 
-const commitMessage = process.argv.slice(2).join(" ").trim();
 const retryDelays = [0, 5_000, 15_000];
+const gitTimeout = 60_000;
 
 function run(command, args, options = {}) {
   const result = spawnSync(command, args, {
@@ -26,6 +26,7 @@ function attempt(command, args, options = {}) {
     cwd: process.cwd(),
     encoding: "utf8",
     stdio: options.capture ? "pipe" : "inherit",
+    timeout: options.timeout,
     ...options,
   });
 }
@@ -38,6 +39,7 @@ function remoteMainRevision() {
   const result = attempt("git", ["ls-remote", "origin", "refs/heads/main"], {
     capture: true,
     env: gitNetworkEnv,
+    timeout: gitTimeout,
   });
   if (result.status !== 0) return "";
   return result.stdout.trim().split(/\s+/)[0] ?? "";
@@ -50,7 +52,7 @@ function retryGit(args, verify) {
       wait(retryDelays[index]);
     }
 
-    const result = attempt("git", args, { env: gitNetworkEnv });
+    const result = attempt("git", args, { env: gitNetworkEnv, timeout: gitTimeout });
     if (result.status === 0 || verify?.()) return;
   }
 
@@ -70,19 +72,13 @@ if (branch !== "main") {
   process.exit(1);
 }
 
-const status = run("git", ["status", "--porcelain"], { capture: true });
-if (status && !commitMessage) {
-  console.error('[ship] Uncommitted changes found. Run `npm run ship -- "Your commit message"` to commit them.');
+const trackedChanges = run("git", ["status", "--porcelain", "--untracked-files=no"], { capture: true });
+if (trackedChanges) {
+  console.error("[ship] Uncommitted tracked changes found. Commit only the intended files before releasing.");
   process.exit(1);
 }
 
 run("npm", ["run", "build"]);
-
-if (status) {
-  run("git", ["add", "--all"]);
-  run("git", ["diff", "--cached", "--check"]);
-  run("git", ["commit", "-m", commitMessage]);
-}
 
 retryGit(["fetch", "origin", "main"]);
 
@@ -94,6 +90,10 @@ if (behind > 0) {
 
 const localRevision = run("git", ["rev-parse", "HEAD"], { capture: true });
 retryGit(["push", "origin", "main"], () => remoteMainRevision() === localRevision);
+if (remoteMainRevision() !== localRevision) {
+  console.error("[ship] GitHub main does not match local HEAD. Cloudflare was not deployed.");
+  process.exit(1);
+}
 run("npm", ["run", "deploy"]);
 
 const revision = run("git", ["rev-parse", "--short", "HEAD"], { capture: true });

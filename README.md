@@ -44,10 +44,10 @@ npm run build
 Production runs as a Cloudflare Worker configured by `wrangler.deploy.toml`. Use the guarded release command so the GitHub `main` branch and the production deployment always represent the same source revision:
 
 ```sh
-npm run ship -- "Describe the release"
+npm run ship
 ```
 
-The command builds the site, commits any working-tree changes with the supplied message, verifies that local `main` is not behind GitHub, pushes `main`, and then deploys to Cloudflare. GitHub network operations retry with a relaxed low-speed timeout, and a failed push response is verified against the remote revision before deployment continues. It stops before deployment if any check still fails.
+Commit only the intended files first. The command refuses uncommitted tracked changes, ignores untracked local drafts without staging them, builds the site, verifies that local `main` is not behind GitHub, pushes `main`, and then deploys to Cloudflare. GitHub network operations have a bounded timeout and retry, and the remote revision must match local `HEAD` before deployment continues. It stops before deployment if any check still fails.
 
 To redeploy an already committed revision without changing GitHub, use:
 
