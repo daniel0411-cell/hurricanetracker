@@ -24,8 +24,8 @@ try {
 const storms = stormFeed?.storms ?? [];
 const activeStormNames = storms.map((storm) => storm.name).filter(Boolean).slice(0, 2);
 const activeContext = activeStormNames.length ? ` Track ${activeStormNames.join(" and ")} now.` : "";
-const title = "Live Hurricane Tracker Map | Where Is the Storm Now?";
-const description = `Where is the hurricane now? Track current storms on a live map with official NHC positions, forecast paths, radar, satellite imagery and advisory updates.${activeContext}`;
+const title = "Hurricane Tracker Live Map | Current Storms & NHC Updates";
+const description = `Check the current hurricane tracker live map for NHC storm positions, forecast paths, radar, satellite imagery, alerts, and advisory update times.${activeContext}`;
 const lastModified = stormFeed?.updatedAt ?? stormFeed?.fetchedAt ?? site.contentLastModified;
 const updatedLabel = new Date(lastModified).toLocaleString("en-US", {
   timeZone: "UTC",
@@ -45,6 +45,16 @@ const liveTrackerPaths = [
     name: "Compare radar and satellite",
     href: "/radar/",
     description: "Use radar and satellite layers to compare rain bands, storm structure, and local weather timing."
+  },
+  {
+    name: "Follow the hurricane path",
+    href: "/hurricane-tracker/path/",
+    description: "Read the forecast track and cone correctly before treating a center line as a local impact forecast."
+  },
+  {
+    name: "Review landfall forecast context",
+    href: "/hurricane-tracker/hurricane-landfall-forecast/",
+    description: "Compare official forecast uncertainty with surge, rainfall, and local alert context near a possible landfall area."
   },
   {
     name: "Review local NWS alerts",
@@ -165,8 +175,8 @@ const jsonLd = graph(
     <div class="inner live-hero-grid">
       <div>
         <p class="eyebrow">Current NHC storm data</p>
-        <h1 id="live-title">Live Hurricane Tracker Map</h1>
-        <p class="answer">Track current hurricanes right now with the latest NHC storm positions and advisory times, then compare forecast tracks with radar, satellite, and local alerts.</p>
+        <h1 id="live-title">Hurricane Tracker Live Map</h1>
+        <p class="answer">Check current hurricanes right now on the live NHC tracking map. Compare official storm positions and forecast paths with radar, satellite imagery, local alerts, and the latest advisory update time.</p>
         <p class="section-actions">
           <a class="action-link" href="#current-hurricanes">View current hurricanes</a>
           <a class="action-link secondary-action" href="/tracker/">Open interactive tracker</a>
@@ -190,7 +200,7 @@ const jsonLd = graph(
           <div>
             <p class="eyebrow"><span class="live-indicator"></span> Interactive weather operations</p>
             <h2 id="live-map-heading">Live Hurricane Map</h2>
-            <p>Explore current NHC storm positions with live radar and NOAA satellite imagery across the Atlantic basin.</p>
+            <p>Explore current NHC hurricane positions, forecast tracks, live radar, and NOAA satellite imagery across the Atlantic basin.</p>
           </div>
           <div class="map-source-stack" aria-label="Live map sources">
             <span>NHC positions</span>
@@ -218,7 +228,7 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">Hurricanes right now</p>
       <h2 id="current-hurricanes-heading">Current Hurricanes and NHC Tracks</h2>
-      <p class="answer">This list reflects the latest available NHC feed. Open the interactive tracker for map context and confirm urgent decisions with the official advisory and local NWS alerts.</p>
+      <p class="answer">This list reflects the latest available NHC feed and advisory update time. Open the interactive tracker for current-map context, forecast paths, radar, and local NWS alerts before making urgent decisions.</p>
       <p class="source-note">Looking for the latest hurricanes or tropical storms right now? This live list includes named systems currently reported by the NHC; disturbances are tracked separately in the outlook below.</p>
       <div class="stack current-storm-list" data-live-storm-list>
         {storms.length ? storms.map((storm) => (
@@ -328,9 +338,13 @@ const jsonLd = graph(
         <ul>
           <li><a href="/hurricane-tracker/map/">Hurricane tracker map</a></li>
           <li><a href="/hurricane-tracker/path/">Hurricane path tracker</a></li>
+          <li><a href="/hurricane-tracker/hurricane-landfall-forecast/">Hurricane landfall forecast</a></li>
+          <li><a href="/hurricane-tracker/tropical-disturbances/">Tropical disturbance tracker</a></li>
           <li><a href="/local-hurricane-risk/">Local hurricane risk</a></li>
           <li><a href="/hurricane-tracker/storm/">Named hurricane trackers</a></li>
           <li><a href="/tracker/florida/">Florida hurricane tracker</a></li>
+          <li><a href="/tracker/georgia/">Georgia hurricane tracker</a></li>
+          <li><a href="/tracker/north-carolina/">North Carolina hurricane tracker</a></li>
           <li><a href="/tracker/texas/">Texas hurricane tracker</a></li>
           <li><a href="/tools/impact-window-estimator/">Impact window estimator</a></li>
           <li><a href="/tools/storm-distance-calculator/">Storm distance calculator</a></li>
