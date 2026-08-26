@@ -6,7 +6,7 @@ import { faqs, site, states } from "../data/site";
 import { articleSchema, faqSchema, graph, howToSchema, itemListSchema, websiteSchema } from "../lib/schema";
 
 const title = "Hurricane Map: Live Radar, Satellite & NHC Tracks";
-const description = "Use the live hurricane map to compare NHC storm tracks, current positions, radar, satellite imagery, and forecast layers with official advisory updates.";
+const description = "Use the live hurricane map to compare NHC storm tracks, radar, GOES satellite loops, cloud structure, and forecast layers with official advisory updates.";
 const url = `${site.url}/radar/`;
 const lastModified = site.contentLastModified;
 const radarNextPaths = [
@@ -40,12 +40,18 @@ const radarNextPaths = [
     href: "/blog/hurricane-radar-vs-satellite/",
     description: "Learn when radar, satellite, forecast, and wind layers answer different hurricane tracking questions."
   }
+  ,
+  {
+    name: "Open the live hurricane tracker",
+    href: "/hurricane-tracker/live/",
+    description: "Move from the GOES hurricane loop to current NHC systems, advisories, tropical outlooks, and local alert paths."
+  }
 ];
 const pageFaqs = [
   {
     question: "What does the HurricaneHub radar page show?",
     answer:
-      "It shows RainViewer precipitation radar, an interactive GOES-East GeoColor true-color satellite layer and VIIRS infrared cloud-top temperature, a high-resolution NOAA GOES-East full-disk preview, the NCEP HRRR forecast radar layer, a server-key wind layer, current NHC storm markers when available, and a state-level NWS alert panel for decision context."
+      "It shows RainViewer precipitation radar, interactive GOES-East GeoColor, infrared, and water-vapor satellite layers, official NOAA GOES hurricane loops, a high-resolution full-disk preview, forecast radar, wind, NHC storm markers, and state-level NWS alerts for decision context."
   },
   {
     question: "How often should I refresh the radar and alerts?",
@@ -56,6 +62,16 @@ const pageFaqs = [
     question: "Should I use hurricane radar or satellite first?",
     answer:
       "Use satellite first when a tropical system is far offshore or organizing over open water, then use radar when rain bands move within range of coastal radar sites. For household decisions, pair both layers with NWS alerts and local evacuation guidance."
+  },
+  {
+    question: "Where can I view a GOES hurricane satellite loop?",
+    answer:
+      "Switch the map to Satellite, choose GeoColor, infrared, or water vapor, then use the play control to open the current official NOAA GOES loop. The loop shows changing cloud structure, not a forecast or impact boundary."
+  },
+  {
+    question: "Can a Gulf satellite loop show where a hurricane will make landfall?",
+    answer:
+      "No. Satellite loops show observed cloud and moisture patterns. Use the official NHC forecast, local NWS alerts, and emergency management guidance for forecast and protective decisions."
   },
   {
     question: "What should I do after seeing hurricane rain bands on radar?",
@@ -124,7 +140,7 @@ const jsonLd = graph(
     <div class="radar-intro">
       <p class="eyebrow">Live radar and satellite</p>
       <h1 id="radar-title">Hurricane Radar</h1>
-      <p class="answer">This page shows a live hurricane radar feed and NOAA GOES-East satellite preview for the North Atlantic so users can compare precipitation, cloud organization, and storm context before checking official NOAA/NWS alerts.</p>
+      <p class="answer">Compare live hurricane radar with NOAA GOES-East GeoColor, infrared, water-vapor, and official satellite-loop views for the Atlantic, Gulf, East Coast, and Caribbean. Use cloud structure for observation, then check NHC and NWS sources for forecasts and local decisions.</p>
     </div>
 
     <section class="radar-stage" aria-label="Interactive North Atlantic map">
@@ -324,7 +340,7 @@ const jsonLd = graph(
       <div class="grid-3">
         <article class="panel">
           <h3>Radar + Satellite Toggle</h3>
-          <p>Switch between precipitation radar and the NOAA GOES-East satellite preview. Use radar for rain bands and satellite for tropical cloud organization.</p>
+          <p>Switch between precipitation radar and NOAA GOES-East satellite. Choose GeoColor, infrared, or water vapor; the loop control opens the current official animation without adding a heavy map download.</p>
         </article>
         <article class="panel">
           <h3>Storm Markers</h3>
@@ -347,7 +363,7 @@ const jsonLd = graph(
         </article>
         <article class="panel">
           <h3>Interactive Satellite Layers</h3>
-          <p>Switch to satellite mode for a zoomable GOES-East GeoColor true-color layer and VIIRS infrared cloud-top temperature. Open the NOAA full-disk preview for high-resolution detail.</p>
+          <p>Switch to satellite mode for zoomable GOES-East GeoColor, infrared, and water-vapor layers. Open the official NOAA loop to watch cloud structure change, then use NHC advisories for the forecast.</p>
         </article>
         <article class="panel">
           <h3>Decision Check</h3>

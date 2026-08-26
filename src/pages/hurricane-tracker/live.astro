@@ -47,6 +47,11 @@ const liveTrackerPaths = [
     description: "Use radar and satellite layers to compare rain bands, storm structure, and local weather timing."
   },
   {
+    name: "Watch the GOES satellite loop",
+    href: "/radar/",
+    description: "Open NOAA GOES-East GeoColor, infrared, or water-vapor views for Atlantic, Gulf, East Coast, and Caribbean cloud changes."
+  },
+  {
     name: "Follow the hurricane path",
     href: "/hurricane-tracker/path/",
     description: "Read the forecast track and cone correctly before treating a center line as a local impact forecast."
@@ -140,6 +145,11 @@ const faqs = [
       "Radar can show rain bands and local precipitation timing, while hurricane tracker data explains the larger tropical system. Looking at both helps users avoid focusing only on the storm center."
   },
   {
+    question: "Where can I watch a hurricane satellite loop?",
+    answer:
+      "Open HurricaneHub radar, switch to Satellite, choose GeoColor, infrared, or water vapor, then use the loop control for the official NOAA GOES animation. Satellite shows observed cloud structure, not a landfall forecast or impact boundary."
+  },
+  {
     question: "Can I search for a specific storm name from the live tracker hub?",
     answer:
       "Yes. Use the named hurricane tracker hub to open standing pages for specific storm names, then confirm whether the current NHC feed lists that name as active."
@@ -200,7 +210,7 @@ const jsonLd = graph(
           <div>
             <p class="eyebrow"><span class="live-indicator"></span> Interactive weather operations</p>
             <h2 id="live-map-heading">Live Hurricane Map</h2>
-            <p>Explore current NHC hurricane positions, forecast tracks, live radar, and NOAA satellite imagery across the Atlantic basin.</p>
+            <p>Explore current NHC hurricane positions, forecast tracks, live radar, and NOAA GOES satellite-loop views across the Atlantic basin.</p>
           </div>
           <div class="map-source-stack" aria-label="Live map sources">
             <span>NHC positions</span>
@@ -221,6 +231,27 @@ const jsonLd = graph(
           <a href="#current-hurricanes">View storm details</a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="satellite-loop-heading">
+    <div class="inner grid-2">
+      <article>
+        <p class="eyebrow">Observe cloud changes</p>
+        <h2 id="satellite-loop-heading">Hurricane Satellite Loop and Radar Context</h2>
+        <p class="answer">Use the GOES satellite loop when a system is offshore or organizing over open water. GeoColor shows broad cloud structure, infrared highlights colder cloud tops, and water vapor helps show surrounding moisture patterns. These observations do not predict landfall or local impacts.</p>
+        <p class="section-actions"><a class="action-link" href="/radar/">Open GOES satellite loop</a><a class="action-link secondary-action" href="/hurricane-tracker/tropical-disturbances/">Check tropical disturbances</a></p>
+      </article>
+      <article class="panel">
+        <p class="eyebrow">Use each layer correctly</p>
+        <h3>Observation Before Action</h3>
+        <ul>
+          <li>Satellite: cloud structure and broad tropical environment.</li>
+          <li>Radar: nearby rain bands and short-term precipitation timing.</li>
+          <li>NHC: official status, forecast track, and advisory discussion.</li>
+          <li>NWS and local officials: warnings, evacuation, roads, and shelters.</li>
+        </ul>
+      </article>
     </div>
   </section>
 

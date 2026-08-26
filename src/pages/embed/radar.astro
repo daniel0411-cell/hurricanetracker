@@ -2,6 +2,7 @@
 // Standalone, embeddable hurricane radar for cross-origin <iframe> use.
 // Query params:
 //   ?layer=radar|satellite|both   (default radar)
+//   ?sat=geocolor|ir|wv           (default geocolor)
 //   ?theme=light|dark             (default dark)
 //   ?view=atlantic|gulf|florida|caribbean  (default atlantic)
 //   ?loc=lat,lon                  (override center)
@@ -12,6 +13,7 @@ const theme = params.get("theme") || "dark";
 const view = params.get("view") || "atlantic";
 const loc = params.get("loc");
 const showControls = params.get("controls") !== "0";
+const satelliteBand = params.get("sat") || "geocolor";
 ---
 <!doctype html>
 <html lang="en" data-theme={theme === "dark" ? "dark" : "light"}>
@@ -53,6 +55,7 @@ const showControls = params.get("controls") !== "0";
       }
       .control-surface button:hover, .control-surface button:focus-visible { background: rgba(255, 255, 255, 0.11); color: #fff; }
       .embed-toggle button.active { background: #d84d32; color: #fff; box-shadow: 0 4px 14px rgba(216, 77, 50, 0.32); }
+      .satellite-toggle button.active { background: rgba(63, 174, 207, 0.19); color: #9be5f5; }
       .view-toggle button.active { background: rgba(63, 174, 207, 0.19); color: #9be5f5; }
       .forecast-toggle.active { background: rgba(63, 174, 207, 0.19); color: #9be5f5; }
       .map-actions button { width: 38px; padding: 0; }
@@ -142,6 +145,11 @@ const showControls = params.get("controls") !== "0";
           <button type="button" data-layer="radar" class={layer === "radar" || layer === "both" ? "active" : ""} aria-pressed={layer === "radar" || layer === "both"}><i class="fa-solid fa-cloud-showers-heavy"></i><span>Radar</span></button>
           <button type="button" data-layer="satellite" class={layer === "satellite" || layer === "both" ? "active" : ""} aria-pressed={layer === "satellite" || layer === "both"}><i class="fa-solid fa-satellite-dish"></i><span>Satellite</span></button>
         </div>
+        <div class="control-surface satellite-toggle" id="satellite-toggle" role="group" aria-label="Satellite band" hidden>
+          <button type="button" data-sat="geocolor" class={satelliteBand === "geocolor" ? "active" : ""} aria-pressed={satelliteBand === "geocolor"}>Geo</button>
+          <button type="button" data-sat="ir" class={satelliteBand === "ir" ? "active" : ""} aria-pressed={satelliteBand === "ir"}>IR</button>
+          <button type="button" data-sat="wv" class={satelliteBand === "wv" ? "active" : ""} aria-pressed={satelliteBand === "wv"}>WV</button>
+        </div>
         <div class="control-surface view-toggle" role="group" aria-label="Map region">
           <button type="button" data-view="atlantic" class={view === "atlantic" ? "active" : ""}>Atlantic</button>
           <button type="button" data-view="gulf" class={view === "gulf" ? "active" : ""}>Gulf</button>
@@ -161,9 +169,9 @@ const showControls = params.get("controls") !== "0";
       <select id="storm-select" aria-label="Focus an active storm"></select>
     </div>
     <div class="forecast-legend" id="forecast-legend" hidden><strong>NHC forecast</strong>Blue area: center-track uncertainty<br />White dashed line: forecast track<br />Amber area: right-front quadrant, typically strongest in the Northern Hemisphere<br />Confirm with the official NHC advisory and local guidance. Not an impact boundary.</div>
-    <div class="radar-timeline" id="radar-timeline" hidden aria-label="Radar animation timeline">
-      <button type="button" class="timeline-play" id="timeline-play" aria-label="Play radar animation"><i class="fa-solid fa-play"></i></button>
-      <input class="timeline-range" id="timeline-range" type="range" min="0" max="0" step="1" value="0" aria-label="Radar frame" />
+    <div class="radar-timeline" id="radar-timeline" hidden aria-label="Weather animation timeline">
+      <button type="button" class="timeline-play" id="timeline-play" aria-label="Play weather animation"><i class="fa-solid fa-play"></i></button>
+      <input class="timeline-range" id="timeline-range" type="range" min="0" max="0" step="1" value="0" aria-label="Weather animation frame" />
       <time class="timeline-time" id="timeline-time">Latest</time>
     </div>
     <button type="button" class="gesture-lock" id="gesture-lock" aria-label="Enable map interaction"><span>Tap to explore map · swipe page normally</span></button>
@@ -195,6 +203,8 @@ const showControls = params.get("controls") !== "0";
         const statusEl = document.querySelector("#embed-status");
         const mapEl = document.querySelector("#map");
         const toggleButtons = Array.from(document.querySelectorAll(".embed-toggle button"));
+        const satelliteButtons = Array.from(document.querySelectorAll(".satellite-toggle button"));
+        const satelliteToggle = document.querySelector("#satellite-toggle");
         const viewButtons = Array.from(document.querySelectorAll(".view-toggle button"));
         const resetButton = document.querySelector("#reset-map");
         const fullButton = document.querySelector("#full-map");
@@ -214,6 +224,11 @@ const showControls = params.get("controls") !== "0";
         const qTheme = url.searchParams.get("theme") || "dark";
         const qView = url.searchParams.get("view") || "atlantic";
         const qLoc = url.searchParams.get("loc"); // "lat,lon"
+        const SATELLITE = {
+          geocolor: { label: "GeoColor", path: "GEOCOLOR", animation: "GOES19-CONUS-GEOCOLOR-625x375.gif" },
+          ir: { label: "Infrared", path: "13", animation: "GOES19-CONUS-13-625x375.gif" },
+          wv: { label: "Water vapor", path: "08", animation: "GOES19-CONUS-08-625x375.gif" }
+        };
 
         function setStatus(msg, isError = false) {
           if (!statusEl) return;
@@ -243,6 +258,7 @@ const showControls = params.get("controls") !== "0";
 
         function syncLegend(layerName) {
           if (legendEl) legendEl.hidden = layerName === "satellite";
+          if (satelliteToggle) satelliteToggle.hidden = layerName !== "satellite";
         }
 
         function escapeHtml(value) {
@@ -288,6 +304,7 @@ const showControls = params.get("controls") !== "0";
         let radarHost = "";
         let currentFrameIndex = 0;
         let activeLayerName = qLayer === "satellite" ? "satellite" : "radar";
+        let activeSatelliteBand = SATELLITE[url.searchParams.get("sat")] ? url.searchParams.get("sat") : "geocolor";
         let animationTimer = null;
         let layerRequestId = 0;
         let frameRequestId = 0;
@@ -305,7 +322,7 @@ const showControls = params.get("controls") !== "0";
           animationTimer = null;
           if (timelinePlay) {
             timelinePlay.innerHTML = '<i class="fa-solid fa-play"></i>';
-            timelinePlay.setAttribute("aria-label", "Play radar animation");
+            timelinePlay.setAttribute("aria-label", "Play weather animation");
           }
         }
 
@@ -328,9 +345,15 @@ const showControls = params.get("controls") !== "0";
         }
 
         function createSatelliteLayer() {
-          const u = "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/1808x1808.jpg";
+          const source = SATELLITE[activeSatelliteBand] || SATELLITE.geocolor;
+          const u = `https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/${source.path}/1808x1808.jpg`;
           const url = `${u}?t=${Math.floor(Date.now() / 600000)}`;
           return L.imageOverlay(url, GOES_EAST_BOUNDS, { opacity: satOpacity, attribution: '<a href="https://www.star.nesdis.noaa.gov/goes/">NOAA</a>' });
+        }
+
+        function satelliteAnimationUrl() {
+          const source = SATELLITE[activeSatelliteBand] || SATELLITE.geocolor;
+          return `https://cdn.star.nesdis.noaa.gov/GOES19/ABI/CONUS/${source.path}/${source.animation}`;
         }
 
         function createRadarFrameLayer(frame, scheme = 2) {
@@ -390,15 +413,18 @@ const showControls = params.get("controls") !== "0";
           setActiveLayerButton(name);
           if (name === "satellite") {
             satelliteLayer = createSatelliteLayer().addTo(map);
-            setStatus(options.status || "NOAA GOES-East GeoColor satellite active.", Boolean(options.isError));
+            if (timelineEl) timelineEl.hidden = false;
+            if (timelineRange) timelineRange.disabled = true;
+            if (timelineTime) timelineTime.textContent = `${(SATELLITE[activeSatelliteBand] || SATELLITE.geocolor).label} loop`;
+            setStatus(options.status || `NOAA GOES-East ${(SATELLITE[activeSatelliteBand] || SATELLITE.geocolor).label} active. Play opens the official satellite loop.`, Boolean(options.isError));
             syncLegend("satellite");
-            if (timelineEl) timelineEl.hidden = true;
             return;
           }
           try {
             if (!radarFrames.length) await loadRadarTimeline();
             if (requestId !== layerRequestId) return;
             if (timelineEl) timelineEl.hidden = false;
+            if (timelineRange) timelineRange.disabled = false;
             showRadarFrame(currentFrameIndex);
             refreshStatus();
             syncLegend("radar");
@@ -526,6 +552,19 @@ const showControls = params.get("controls") !== "0";
             showLayer(lyr === "satellite" ? "satellite" : "radar");
           });
         });
+        satelliteButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const band = btn.dataset.sat;
+            if (!band || !SATELLITE[band]) return;
+            activeSatelliteBand = band;
+            satelliteButtons.forEach((button) => {
+              const active = button.dataset.sat === band;
+              button.classList.toggle("active", active);
+              button.setAttribute("aria-pressed", String(active));
+            });
+            if (activeLayerName === "satellite") showLayer("satellite");
+          });
+        });
 
         viewButtons.forEach((btn) => {
           btn.addEventListener("click", () => {
@@ -554,9 +593,14 @@ const showControls = params.get("controls") !== "0";
         });
         timelineRange?.addEventListener("input", () => {
           stopAnimation();
-          showRadarFrame(Number(timelineRange.value));
+          if (activeLayerName === "radar") showRadarFrame(Number(timelineRange.value));
         });
         timelinePlay?.addEventListener("click", () => {
+          if (activeLayerName === "satellite") {
+            window.open(satelliteAnimationUrl(), "_blank", "noopener");
+            setStatus("Opened the official NOAA satellite loop. The map remains on the latest frame.");
+            return;
+          }
           if (animationTimer) { stopAnimation(); return; }
           timelinePlay.innerHTML = '<i class="fa-solid fa-pause"></i>';
           timelinePlay.setAttribute("aria-label", "Pause radar animation");
