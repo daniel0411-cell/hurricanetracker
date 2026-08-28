@@ -24,8 +24,7 @@ try {
 const storms = stormFeed?.storms ?? [];
 const activeStormNames = storms.map((storm) => storm.name).filter(Boolean).slice(0, 2);
 const activeContext = activeStormNames.length ? ` Track ${activeStormNames.join(" and ")} now.` : "";
-const title = "Hurricane Tracker Live Map | Current Storms & NHC Updates";
-const description = `Check the current hurricane tracker live map for NHC storm positions, forecast paths, radar, satellite imagery, alerts, and advisory update times.${activeContext}`;
+const title = "Hurricane Tracker: Live NHC Map, Storms & Alerts";
 const lastModified = stormFeed?.updatedAt ?? stormFeed?.fetchedAt ?? site.contentLastModified;
 const updatedLabel = new Date(lastModified).toLocaleString("en-US", {
   timeZone: "UTC",
@@ -35,6 +34,7 @@ const updatedLabel = new Date(lastModified).toLocaleString("en-US", {
   hour: "numeric",
   minute: "2-digit"
 });
+const description = `${storms.length ? `${storms.length} active NHC system${storms.length === 1 ? "" : "s"}.` : "No active NHC systems listed."} View the live hurricane tracker map, current paths, radar, satellite and alerts. Updated ${updatedLabel} UTC.${activeContext}`;
 const liveTrackerPaths = [
   {
     name: "Check active storms",
@@ -186,7 +186,7 @@ const jsonLd = graph(
       <div>
         <p class="eyebrow">Current NHC storm data</p>
         <h1 id="live-title">Hurricane Tracker Live Map</h1>
-        <p class="answer">Check current hurricanes right now on the live NHC tracking map. Compare official storm positions and forecast paths with radar, satellite imagery, local alerts, and the latest advisory update time.</p>
+        <p class="answer">{storms.length ? `The latest NHC feed lists ${storms.length} active system${storms.length === 1 ? "" : "s"}${activeStormNames.length ? `: ${activeStormNames.join(" and ")}` : ""}.` : "The latest NHC feed lists no active tropical cyclones."} Last checked {updatedLabel} UTC. Use the live map for current positions and forecast paths, then compare radar, satellite imagery, and local NWS alerts.</p>
         <p class="section-actions">
           <a class="action-link" href="#current-hurricanes">View current hurricanes</a>
           <a class="action-link secondary-action" href="/tracker/">Open interactive tracker</a>

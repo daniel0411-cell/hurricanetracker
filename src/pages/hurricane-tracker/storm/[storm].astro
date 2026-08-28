@@ -79,7 +79,7 @@ const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModif
 const title = knownPage?.title ?? `${stormName} ${isArchived ? "Storm Archive" : "Tracker Live Map, Path & NHC Updates"}`;
 const description = knownPage?.description ?? (isArchived
   ? `Review the archived ${stormName} hurricane tracker with the last known NHC position, advisory context, forecast path history, and official source links.`
-  : `Track ${stormName} with its current NHC position, latest advisory, forecast path, radar, satellite imagery and local alert links.`);
+  : `Track ${stormName} live with its current NHC position, latest advisory update, forecast path, radar, satellite imagery and local alert links.`);
 const url = `${site.url}/hurricane-tracker/storm/${slug}/`;
 const pageFaqs = [
   ...(knownPage?.faqs ?? [
@@ -109,7 +109,7 @@ const jsonLd = graph(
       <p class="eyebrow">{basin} storm tracker</p>
       <h1 id="storm-title">{stormName} Tracker Live Map, Path and NHC Updates</h1>
       {isArchived && <p class="archive-notice"><strong>{stormName} is not active in the current NHC feed.</strong> This stable archive page preserves the last observed advisory context; use the live tracker for current storms.</p>}
-      <p class="answer">{overview}</p>
+      <p class="answer">{activeStorm ? `${stormName} live updates: NHC last reported the system at ${activeStorm.latitude ?? "a pending latitude"}, ${activeStorm.longitude ?? "a pending longitude"}, moving ${activeStorm.movementDir ?? "in a direction pending confirmation"} at ${activeStorm.movementSpeed ?? "a speed pending confirmation"}. Updated ${activeStorm.lastUpdate ?? lastModified}. Use the tracker and official forecast path below for current details.` : overview}</p>
       <p class="answer">{searchDemandNote}</p>
       <p class="section-actions">
         <a class="action-link" href="/hurricane-tracker/live/">Open live hurricane tracker</a>
