@@ -38,6 +38,7 @@ const updatedLabel = new Date(status.checkedAt).toLocaleString("en-US", {
           <div><span>Nearest system</span><strong>{nearest.name}</strong></div>
           <div><span>Nearest center-path point</span><strong>About {nearest.distance} mi</strong></div>
         </div>
+        <p class="source-note">{nearest.advisory ? `NHC advisory #${nearest.advisory}. ` : ""}{nearest.updatedAt ? `Storm update ${nearest.updatedAt}.` : ""}</p>
         <p class="answer-link"><a href={`/hurricane-tracker/storm/${nearest.slug}/`}>Track {nearest.name} and view NHC advisory context</a></p>
       </>
     ) : (

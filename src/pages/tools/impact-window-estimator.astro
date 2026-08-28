@@ -4,8 +4,8 @@ import Layout from "../../layouts/Layout.astro";
 import { faqs, site, states } from "../../data/site";
 import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
 
-const title = "Storm Impact Window Estimator";
-const description = "Estimate a household action window from active state alerts, NHC storm context, and official alert timing without pretending to predict landfall.";
+const title = "When Will a Hurricane Reach Me? Impact Window";
+const description = "Estimate when to monitor, prepare, act, or leave using active NWS alert timing and NHC storm context. This tool does not predict hurricane arrival or landfall.";
 const url = `${site.url}/tools/impact-window-estimator/`;
 const pageFaqs = [
   {
@@ -34,8 +34,8 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="window-title">
     <div class="inner">
       <p class="eyebrow">Action timing</p>
-      <h1 id="window-title">Storm Impact Window Estimator</h1>
-      <p class="answer">Choose a state to estimate a practical household action window from active NWS alerts and current NHC storm context, without treating the result as a landfall forecast.</p>
+      <h1 id="window-title">When Will a Hurricane Reach My Location?</h1>
+      <p class="answer">Choose a state to estimate when your household should monitor, prepare, act, or leave from active NWS alert timing and current NHC storm context. This is an action window, not a prediction of hurricane arrival, landfall, or first winds.</p>
     </div>
   </section>
 
@@ -47,6 +47,8 @@ const jsonLd = graph(
         <select id="window-state">
           {states.map(([code, name]) => <option value={code} selected={code === "FL"}>{name}</option>)}
         </select>
+        <label for="window-location">City or ZIP code <span class="small">(optional)</span></label>
+        <input id="window-location" type="text" autocomplete="postal-code" maxlength="80" placeholder="Miami or 33101" />
         <button type="submit">Estimate window</button>
         <p id="window-status" class="small" role="status">Uses active NWS alerts and current NHC storm count.</p>
       </form>
@@ -97,6 +99,7 @@ const jsonLd = graph(
 
   const form = document.querySelector<HTMLFormElement>("#window-form");
   const stateSelect = document.querySelector("#window-state") as HTMLSelectElement | null;
+  const locationInput = document.querySelector("#window-location") as HTMLInputElement | null;
   const statusEl = document.querySelector<HTMLElement>("#window-status");
   const levelEl = document.querySelector<HTMLElement>("#window-level");
   const summaryEl = document.querySelector<HTMLElement>("#window-summary");
@@ -117,6 +120,7 @@ const jsonLd = graph(
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const state = stateSelect?.value ?? "FL";
+    const location = locationInput?.value.trim();
     try {
       if (statusEl) statusEl.textContent = "Loading official feeds...";
       const [alertResponse, stormResponse] = await Promise.all([
@@ -132,7 +136,7 @@ const jsonLd = graph(
       const expires = alerts.alerts?.map((alert) => Date.parse(alert.expires ?? "")).filter(Number.isFinite).sort((a, b) => a - b)[0];
       const expireText = expires ? ` Next listed alert expiration: ${new Date(expires).toLocaleString([], { dateStyle: "medium", timeStyle: "short" })}.` : "";
       if (levelEl) levelEl.textContent = level;
-      if (summaryEl) summaryEl.textContent = `${alertCount} active state alert${alertCount === 1 ? "" : "s"} and ${stormCount} active NHC system${stormCount === 1 ? "" : "s"} were returned.${expireText}`;
+      if (summaryEl) summaryEl.textContent = `${location ? `${location}: ` : ""}${alertCount} active state alert${alertCount === 1 ? "" : "s"} and ${stormCount} active NHC system${stormCount === 1 ? "" : "s"} were returned.${expireText} State-level results must be checked against local NWS and emergency-management instructions.`;
       if (actionsEl) actionsEl.innerHTML = actionSet(level, alertCount, stormCount).map((action) => `<li>${escapeHtml(action)}</li>`).join("");
       if (statusEl) statusEl.textContent = "Impact window updated. Verify official local instructions before acting.";
     } catch (error) {

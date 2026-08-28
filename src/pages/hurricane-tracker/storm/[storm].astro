@@ -74,6 +74,14 @@ const locationRelevance = relevantLocations(
 );
 const next48 = (forecast?.points ?? []).filter((point) => (point.hour ?? 999) > 0 && (point.hour ?? 999) <= 48);
 const advisoryHistory = activeStorm?.id ? await getAdvisoryHistory(activeStorm.id) : [];
+const advisoryChanges = advisoryHistory.map((item, index) => {
+  const previous = advisoryHistory[index + 1];
+  return {
+    ...item,
+    windChange: item.windSpeedMph != null && previous?.windSpeedMph != null ? item.windSpeedMph - previous.windSpeedMph : null,
+    pressureChange: item.pressureMb != null && previous?.pressureMb != null ? item.pressureMb - previous.pressureMb : null
+  };
+});
 const riSignal = advisoryHistory.length ? detectRapidIntensification(advisoryHistory) : null;
 const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
 const title = knownPage?.title ?? `${stormName} ${isArchived ? "Storm Archive" : "Tracker Live Map, Path & NHC Updates"}`;
@@ -184,11 +192,12 @@ const jsonLd = graph(
         <p class="eyebrow">Official update history</p>
         <h2 id="advisory-history">Recent {stormName} Advisories</h2>
         <div class="stack section-grid">
-          {advisoryHistory.map((item) => (
+          {advisoryChanges.map((item) => (
             <article class="panel">
               <h3>Advisory #{item.advisoryNumber}</h3>
               <p>{item.classification ?? "Tropical system"} · {item.intensity ?? "intensity pending"} · Position {item.latitude ?? "pending"}, {item.longitude ?? "pending"}</p>
               <p class="source-note">{item.time} · Moving {item.movementDir ?? "pending"} at {item.movementSpeed ?? "pending"}</p>
+              {(item.windChange != null || item.pressureChange != null) && <p><strong>Change from prior advisory:</strong> {item.windChange != null ? `wind ${item.windChange > 0 ? "+" : ""}${Math.round(item.windChange)} mph` : "wind change unavailable"}{item.pressureChange != null ? ` · pressure ${item.pressureChange > 0 ? "+" : ""}${Math.round(item.pressureChange)} mb` : ""}.</p>}
             </article>
           ))}
         </div>

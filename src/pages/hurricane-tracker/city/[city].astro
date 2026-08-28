@@ -93,9 +93,6 @@ const jsonLd = graph(
 );
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
-  <section class="band" data-city-storm-relevance data-city-lat={city.lat} data-city-lon={city.lon} hidden>
-    <div class="inner"><p class="eyebrow">Active storm context</p><h2>Active Storms To Monitor</h2><p class="answer">Current NHC centers within 500 miles appear here as a navigation aid, not a landfall or impact forecast.</p><div class="grid-3 section-grid" data-city-storm-list></div></div>
-  </section>
   <section class="band" aria-labelledby="city-title">
     <div class="inner">
       <p class="eyebrow">{city.region}</p>
@@ -103,6 +100,10 @@ const jsonLd = graph(
       <p class="answer">This page helps {city.name} residents connect state NWS alerts, NHC storm context, evacuation-zone checks, and household planning tools before wind, surge, flooding, or road constraints reduce options.</p>
       <p class="answer">{city.overview}</p>
     </div>
+  </section>
+
+  <section class="band" data-city-storm-relevance data-city-lat={city.lat} data-city-lon={city.lon}>
+    <div class="inner"><p class="eyebrow">Current hurricane impacts</p><h2>Is a Hurricane Affecting {city.name} Right Now?</h2><p class="answer" data-city-storm-answer>Checking the current NHC feed for systems within 500 miles of {city.name}. This distance screen is not a landfall forecast or an impact boundary.</p><div class="grid-3 section-grid" data-city-storm-list></div><p class="source-note">Always pair storm distance with the active {city.name} area NWS alerts below and local emergency-management instructions.</p></div>
   </section>
 
   <section class="band" aria-labelledby="city-actions">
@@ -270,14 +271,15 @@ const jsonLd = graph(
 <script>
   const section = document.querySelector<HTMLElement>("[data-city-storm-relevance]");
   const list = section?.querySelector<HTMLElement>("[data-city-storm-list]");
+  const answer = section?.querySelector<HTMLElement>("[data-city-storm-answer]");
   const distance = (a:number,b:number,c:number,d:number) => { const r=Math.PI/180; const x=Math.sin((c-a)*r/2)**2+Math.cos(a*r)*Math.cos(c*r)*Math.sin((d-b)*r/2)**2; return 3959*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x)); };
   if (section && list) fetch("/api/nhc/current.json").then((response) => response.json() as Promise<{ storms?: any[] }>).then((feed) => {
     const lat=Number(section.dataset.cityLat), lon=Number(section.dataset.cityLon);
     const storms=(feed.storms ?? []).filter((storm:any) => Number.isFinite(storm.latitudeNumeric) && Number.isFinite(storm.longitudeNumeric) && distance(lat,lon,storm.latitudeNumeric,storm.longitudeNumeric)<=500);
-    if (!storms.length) return;
+    if (!storms.length) { if (answer) answer.textContent=`No active NHC center is currently within 500 miles of this city check. That does not rule out hazards outside the center path or later forecast changes.`; return; }
+    if (answer) answer.textContent=`${storms.length} active NHC system${storms.length===1?" is":"s are"} within 500 miles of this city check. Open each tracker and verify local NWS alerts before making decisions.`;
     list.replaceChildren(...storms.map((storm:any)=>{const name=String(storm.name??storm.id??"storm");const slug=name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");const article=document.createElement("article");article.className="state-card";const badge=document.createElement("span");badge.className="badge warn";badge.textContent="NHC active";const heading=document.createElement("h3");heading.textContent=name;const body=document.createElement("p");body.textContent="Check the official forecast and local NWS alerts.";const link=document.createElement("a");link.href=["","hurricane-tracker","storm",slug,""].join("/");link.textContent=`Track ${name}`;article.appendChild(badge);article.appendChild(heading);article.appendChild(body);article.appendChild(link);return article;}));
-    section.hidden=false;
-  }).catch(()=>{});
+  }).catch(()=>{if(answer) answer.textContent="The current NHC check is temporarily unavailable. Use the official NWS alerts below and the National Hurricane Center.";});
 </script>
 
 <style is:global>
