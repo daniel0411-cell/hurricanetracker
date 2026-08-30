@@ -189,7 +189,7 @@ const jsonLd = graph(
         <p class="answer">{storms.length ? `The latest NHC feed lists ${storms.length} active system${storms.length === 1 ? "" : "s"}${activeStormNames.length ? `: ${activeStormNames.join(" and ")}` : ""}.` : "The latest NHC feed lists no active tropical cyclones."} Last checked {updatedLabel} UTC. Use the live map for current positions and forecast paths, then compare radar, satellite imagery, and local NWS alerts.</p>
         <p class="section-actions">
           <a class="action-link" href="#current-hurricanes">View current hurricanes</a>
-          <a class="action-link secondary-action" href="/tracker/">Open interactive tracker</a>
+          <a class="action-link secondary-action" href="/2026-hurricane-season/">2026 season storms and names</a>
         </p>
       </div>
       <aside class="panel live-snapshot" aria-label="Current hurricane tracker status">
@@ -289,6 +289,7 @@ const jsonLd = graph(
           </article>
         )}
       </div>
+      <p class="section-actions"><a class="action-link secondary-action" href="/2026-hurricane-season/">View the 2026 storm list and next name</a></p>
     </div>
   </section>
 

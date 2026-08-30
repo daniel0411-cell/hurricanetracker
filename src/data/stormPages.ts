@@ -83,22 +83,18 @@ export const stormTrackerPages: StormTrackerPage[] = [
     ]
   },
   {
-    // 2026 状态（截至 2026-08-20）：Dolly 是 2026 大西洋名单第 4 个名字。
-    // Arthur/Bertha/Cristobal 已消散；NHC 当时监视 Invest 94L（可能发展为 Dolly），
-    // 但尚未命名。此为常驻枢纽页：风暴形成后由 [storm].astro 挂接实时 feed；
-    // 未形成时渲染准备指南 + 历史同名对比 + FAQ。不编造生命周期数据。
     slug: "dolly",
     name: "Dolly",
     basin: "Atlantic",
     title: "Tropical Storm Dolly 2026 Tracker: NHC Path & Live Map",
-    description: "Dolly 2026 tracker: live NHC position, forecast path, radar and advisory links. Standing hub for the next 2026 name; Dolly has not yet formed.",
+    description: "Track Tropical Storm Dolly 2026 with the latest NHC position, forecast path, live map, advisory updates, radar, satellite and local alert links.",
     primaryKeywords: ["tropical storm dolly tracker", "hurricane dolly path", "dolly live tracker map", "where is storm dolly now"],
     searchDemandNote:
-      "Dolly is the fourth name on the 2026 Atlantic list. Tracker searches typically spike the moment NHC designates a tropical depression or storm, so this page is set up in advance as a stable hub for live position, forecast path, and advisory links.",
+      "Use this page for Tropical Storm Dolly live tracker, path, map, current position, forecast, and NHC advisory update searches.",
     overview:
-      "Use this Hurricane Dolly tracker page as a standing search hub for NHC status checks, official advisory links, radar and satellite shortcuts, and local decision tools. As of 2026-08-20, no system has been designated Tropical Storm Dolly in the 2026 Atlantic season. Dolly is the next name queued on the 2026 Atlantic list (after Arthur, Bertha, and Cristobal); if an NHC system reaches tropical-storm strength it will receive this name and HurricaneHub can connect the live feed here. Until then, use the page for preparedness context, official source checking, and review of past Dolly storms.",
+      "Use this Tropical Storm Dolly 2026 tracker for the latest NHC position, official advisory time, forecast path, radar, satellite imagery, and local-alert context. Live NHC data appears while Dolly is active; the page remains available afterward as a stable advisory and storm-history reference.",
     trackerFocus: [
-      "Watch the NHC tropical weather outlook for the system that could be designated Dolly; do not treat invest areas or model spins as a named storm until NHC confirms it.",
+      "Check Dolly's latest NHC position, movement, intensity, and advisory time before relying on an older map or screenshot.",
       "When Dolly is active, compare the official forecast track with radar, satellite, and the cone of uncertainty — never the center line alone.",
       "Pair any Dolly forecast with local NWS alerts and emergency management guidance before making evacuation or shelter decisions.",
       "Historical Dolly storms include 2008 (Hurricane Dolly, Category 1 landfall near South Padre Island, Texas, with heavy rain and surge) and 2014 (Tropical Storm Dolly, landfall near Tampico, Mexico). Each Dolly had a very different footprint, so the 2026 system should be assessed on its own data, not the name."
@@ -107,12 +103,12 @@ export const stormTrackerPages: StormTrackerPage[] = [
       {
         question: "Is Tropical Storm Dolly active right now?",
         answer:
-          "Check the live status section and official NHC advisory links on this page. Dolly is the fourth name on the 2026 Atlantic list; if no active Dolly record appears, NHC has not yet designated a 2026 system with that name, and HurricaneHub's feed reflects that."
+          "Check the live status section and official NHC advisory links on this page. If Dolly appears in the current feed, the page shows its latest position and update time; if not, the page clearly marks the storm as no longer active."
       },
       {
-        question: "Where would a 2026 Dolly make landfall?",
+        question: "Where is Tropical Storm Dolly headed?",
         answer:
-          "No landfall can be predicted in advance of the storm forming. Landfall depends on the steering pattern present as Dolly approaches, which is only predictable within several days. Use NHC advisories and local emergency management for any landfall or evacuation information."
+          "Use the latest NHC forecast track, cone, and discussion on this page. The center line and any single advisory can change, while wind, rain, surge, and tornado hazards may extend far outside the forecast center path."
       },
       {
         question: "How does the 2026 Dolly compare to past Dolly storms?",
