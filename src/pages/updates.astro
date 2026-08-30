@@ -6,11 +6,23 @@ import { site } from "../data/site";
 import { stormTrackerPages } from "../data/stormPages";
 import { topicPages } from "../data/topicPages";
 import { articleSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
+import type { NhcStorm } from "../lib/weather";
 
 const title = "Latest Hurricane Tracker Updates";
 const description = "Recent HurricaneHub updates: new hurricane preparedness articles, city tracker pages, storm tracker pages, tools, and sitemap discovery sections.";
 const url = `${site.url}/updates/`;
-const lastModified = site.contentLastModified;
+let activeStorms: NhcStorm[] = [];
+let lastModified = site.contentLastModified;
+try {
+  const response = await fetch(new URL("/api/nhc/current.json", Astro.url));
+  if (response.ok) {
+    const feed = await response.json() as { storms?: NhcStorm[]; updatedAt?: string; fetchedAt?: string };
+    activeStorms = feed.storms ?? [];
+    lastModified = feed.updatedAt ?? feed.fetchedAt ?? lastModified;
+  }
+} catch (error) {
+  console.error("HurricaneHub updates feed failed", { error });
+}
 
 const toolUpdates = [
   { title: "Hurricane Topics", href: "/topics/", description: "Content clusters for tracking, local evacuation risk, preparedness, alerts, storm surge, insurance, and recovery.", date: lastModified, type: "Topic Hub" },
@@ -35,6 +47,13 @@ const stormUpdates = stormTrackerPages.map((storm) => ({
   description: storm.searchDemandNote,
   date: lastModified,
   type: "Storm Tracker"
+}));
+const activeStormUpdates = activeStorms.filter((storm) => storm.name).map((storm) => ({
+  title: `${storm.name} Live Tracker`,
+  href: `/hurricane-tracker/storm/${String(storm.name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}/`,
+  description: `${storm.classification ?? "NHC system"} ${storm.name}: current position, forecast path, advisory and radar context.`,
+  date: storm.lastUpdate ?? lastModified,
+  type: "Active Storm"
 }));
 
 const topicUpdates = topicPages.map((page) => ({
@@ -89,10 +108,11 @@ const blogUpdates = blogPosts
     type: "Guide"
   }));
 
-const updates = [...blogUpdates, ...topicUpdates, ...cityUpdates, ...stormUpdates, ...toolUpdates]
+const updates = [...activeStormUpdates, ...blogUpdates, ...topicUpdates, ...cityUpdates, ...stormUpdates, ...toolUpdates]
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 const sections = [
+  { id: "active-storms", title: "Active Storm Updates", items: activeStormUpdates },
   { id: "topics", title: "Tracker Topic Hubs", items: topicUpdates },
   { id: "guides", title: "Recent Guides", items: blogUpdates },
   { id: "cities", title: "Recent City Trackers", items: cityUpdates },
