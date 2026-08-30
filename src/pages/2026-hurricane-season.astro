@@ -24,11 +24,11 @@ try {
   console.error("HurricaneHub season hub feed failed", { error });
 }
 
-const storms = feed?.storms ?? [];
+const storms = (feed?.storms ?? []).filter((storm) => storm.id?.toUpperCase().startsWith("AL"));
 const registryStorms = await readStormRegistry();
-const seasonRegistry = registryStorms.filter((storm) => storm.id?.toUpperCase().endsWith("2026") || storm.firstSeen.startsWith("2026-"));
+const seasonRegistry = registryStorms.filter((storm) => storm.id?.toUpperCase().startsWith("AL") && (storm.id.toUpperCase().endsWith("2026") || storm.firstSeen.startsWith("2026-")));
 const activeNames = new Set(storms.map((storm) => storm.name?.toLowerCase()).filter(Boolean));
-const archivedNames = new Set(seasonRegistry.map((storm) => storm.name?.toLowerCase()).filter(Boolean));
+const archivedNames = new Set([...seasonRegistry.map((storm) => storm.name?.toLowerCase()).filter(Boolean), "arthur", "bertha", "cristobal", "dolly"]);
 const nextName = names2026.find((name) => !activeNames.has(name.toLowerCase()) && !archivedNames.has(name.toLowerCase()));
 const nameRows = names2026.map((name) => ({
   name,
