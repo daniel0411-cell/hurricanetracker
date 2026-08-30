@@ -12,16 +12,17 @@ const t = useTranslations(lang);
 const homeHref = "/";
 
 const navItems = [
-  { href: "/", label: t("nav.home") },
   { href: "/hurricane-tracker/live/", label: t("nav.tracker") },
-  { href: "/hurricane-tracker/city/", label: t("nav.cities") },
-  { href: "/hurricane-tracker/storm/", label: t("nav.storms") },
   { href: "/alerts/", label: t("nav.alerts") },
   { href: "/radar/", label: t("nav.radar") },
-  { href: "/learn/", label: t("nav.learn") },
   { href: "/preparedness/", label: t("nav.prepare") },
+  { href: "/tools/", label: t("nav.tools") }
+];
+const moreItems = [
+  { href: "/hurricane-tracker/city/", label: t("nav.cities") },
+  { href: "/hurricane-tracker/storm/", label: t("nav.storms") },
+  { href: "/learn/", label: t("nav.learn") },
   { href: "/compare/", label: t("nav.compare") },
-  { href: "/tools/", label: t("nav.tools") },
   { href: "/blog/", label: t("nav.blog") },
   { href: "/about/", label: t("nav.about") }
 ];
@@ -37,6 +38,10 @@ const navItems = [
   </button>
   <nav class="primary-nav" id="primary-nav" aria-label="Primary">
     {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+    <details class="nav-more">
+      <summary>More</summary>
+      <div class="nav-more-menu">{moreItems.map((item) => <a href={item.href}>{item.label}</a>)}</div>
+    </details>
     <SearchModal variant="trigger" />
     <button type="button" id="theme-toggle" class="theme-toggle" aria-label={t("theme.toggle")} aria-pressed="false">
       <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
@@ -81,7 +86,10 @@ const navItems = [
       setOpen(!nav.classList.contains("open"));
     });
     nav.querySelectorAll("a").forEach(function (link) {
-      link.addEventListener("click", function () { setOpen(false); });
+      link.addEventListener("click", function () {
+        setOpen(false);
+        nav.querySelectorAll("details").forEach(function (details) { details.open = false; });
+      });
     });
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && nav.classList.contains("open")) setOpen(false);
@@ -90,6 +98,65 @@ const navItems = [
 </script>
 
 <style>
+  .nav-more {
+    position: relative;
+  }
+
+  .nav-more summary {
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 12px;
+    color: var(--muted);
+    font-size: 0.94rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .nav-more summary:hover,
+  .nav-more summary:focus-visible {
+    background: #e7eef1;
+    color: var(--ink);
+  }
+
+  .nav-more-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 40;
+    width: 210px;
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    box-shadow: var(--shadow);
+  }
+
+  .nav-more-menu a {
+    width: 100%;
+  }
+
+  :root[data-theme="dark"] .nav-more summary:hover,
+  :root[data-theme="dark"] .nav-more summary:focus-visible {
+    background: #1c2e3b;
+    color: var(--ink);
+  }
+
+  @media (max-width: 860px) {
+    .nav-more summary {
+      width: 100%;
+      min-height: 44px;
+    }
+
+    .nav-more-menu {
+      position: static;
+      width: 100%;
+      padding: 0 0 4px 12px;
+      border: 0;
+      box-shadow: none;
+    }
+  }
+
   .theme-toggle {
     min-height: 38px;
     display: inline-flex;

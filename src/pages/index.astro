@@ -144,20 +144,18 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
         <p class="answer">HurricaneHub shows live hurricanes approaching North America, official NHC storm context, state NWS warnings, and emergency decision tools so coastal households can monitor, prepare, act, or leave with fewer tabs open.</p>
         <p class="section-actions">
           <a class="action-link" href={primaryStorm ? `/hurricane-tracker/storm/${primaryStormSlug}/` : "/hurricane-tracker/live/"}>{primaryStorm ? `Track ${primaryStorm.name ?? "active storm"}` : "Open live hurricane tracker"}</a>
-          <a class="action-link secondary-action" href="/tools/my-hurricane-dashboard/">Build my hurricane dashboard</a>
           <a class="action-link secondary-action" href="/local-hurricane-risk/">Check local risk</a>
-          <a class="action-link secondary-action" href="/updates/">See latest updates</a>
         </p>
       </div>
-      <div class="decision-card" aria-label="Current emergency decision snapshot">
-        <p class="eyebrow">Current snapshot</p>
-        <h2>{featuredDecisionLevel}</h2>
-        <p>{nextAction}</p>
+      <div class="decision-card" aria-label="Atlantic activity and Florida alert example">
+        <p class="eyebrow">Atlantic operations snapshot</p>
+        <h2>{storms.length ? `${storms.length} active system${storms.length === 1 ? "" : "s"}` : "No active systems"}</h2>
+        <p><strong>{featuredStateName} example: {featuredDecisionLevel}.</strong> {nextAction}</p>
         <div class="dashboard compact-dashboard" aria-label="Current official feed metrics">
           <div class="metric"><strong>{storms.length}</strong><span>active NHC systems</span></div>
-          <div class="metric"><strong>{floridaAlerts.length}</strong><span>{featuredStateName} NWS alerts</span></div>
+          <div class="metric"><strong>{floridaAlerts.length}</strong><span>{featuredStateName} alert example</span></div>
         </div>
-        <p class="source-note">Official {featuredStateName} feed checked {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC.</p>
+        <p class="source-note">NHC basin status plus an example {featuredStateName} NWS feed. Check your local page for decisions. Updated {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC.</p>
       </div>
     </div>
   </section>
@@ -448,13 +446,7 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
     margin-top: 22px;
   }
 
-  /* Subtle tech grid across the whole homepage body (theme-aware, faint). */
-  :global(body) {
-    background-image: radial-gradient(circle at 1px 1px, rgba(14, 111, 143, 0.05) 1px, transparent 0);
-    background-size: 28px 28px;
-  }
-
-  /* ---------- Hero: command-center treatment ---------- */
+  /* ---------- Hero ---------- */
   .hero {
     position: relative;
     overflow: hidden;
@@ -470,18 +462,6 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
     background-size: 42px 42px;
     -webkit-mask-image: radial-gradient(ellipse at 28% 42%, #000 28%, transparent 78%);
     mask-image: radial-gradient(ellipse at 28% 42%, #000 28%, transparent 78%);
-    pointer-events: none;
-  }
-
-  .hero::after {
-    content: "";
-    position: absolute;
-    width: 52%;
-    height: 130%;
-    top: -25%;
-    right: -8%;
-    background: radial-gradient(circle, rgba(120, 220, 240, 0.30), transparent 62%);
-    filter: blur(46px);
     pointer-events: none;
   }
 
@@ -517,7 +497,7 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
     position: relative;
     overflow: hidden;
     border: 1px solid var(--line);
-    border-radius: 14px;
+    border-radius: 8px;
     background: var(--panel);
     box-shadow: var(--soft-shadow);
     transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
@@ -526,7 +506,7 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
   .why-card:hover,
   .state-card:hover,
   .tool-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow);
     border-color: rgba(14, 111, 143, 0.4);
   }
