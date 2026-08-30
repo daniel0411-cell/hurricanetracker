@@ -46,6 +46,7 @@ const isArchived = !activeStorm && Boolean(archivedStorm);
 const stormName = stormRecord?.name ?? knownPage?.name ?? slug.replace(/(^|-)(\w)/g, (_, space, letter) => `${space}${letter.toUpperCase()}`);
 const basinCode = activeStorm?.id?.slice(0, 2).toLowerCase();
 const basin = knownPage?.basin ?? ({ al: "Atlantic", ep: "Eastern Pacific", cp: "Central Pacific" }[basinCode ?? ""] ?? "NHC");
+const mapView = basinCode === "ep" || basinCode === "cp" ? "pacific" : "atlantic";
 const primaryKeywords = knownPage?.primaryKeywords ?? [`hurricane ${stormName.toLowerCase()} tracker`, `hurricane ${stormName.toLowerCase()} path`, `hurricane ${stormName.toLowerCase()} live map`, `where is hurricane ${stormName.toLowerCase()} now`];
 const overview = knownPage?.overview ?? `Track ${stormName} with the latest NHC position, official advisory time, forecast path, radar, satellite imagery, and local-alert context. This page updates from official NHC data while the system is active and remains available as a stable storm reference.`;
 const searchDemandNote = knownPage?.searchDemandNote ?? `Use this page for live ${stormName} tracker, path, map, forecast, and current-position searches.`;
@@ -179,7 +180,7 @@ const jsonLd = graph(
         <p class="eyebrow">Official forecast context</p>
         <h2 id="storm-live-map">Live {stormName} Map and NHC Forecast Path</h2>
         <div class="storm-map-frame">
-          <iframe title={`${stormName} live tracker map`} src={`/embed/radar?layer=radar&theme=dark&view=atlantic&loc=${activeStorm.latitudeNumeric ?? activeStorm.latitude},${activeStorm.longitudeNumeric ?? activeStorm.longitude}`} loading="eager"></iframe>
+          <iframe title={`${stormName} live tracker map`} src={`/embed/radar?layer=radar&theme=dark&view=${mapView}&loc=${activeStorm.latitudeNumeric ?? activeStorm.latitude},${activeStorm.longitudeNumeric ?? activeStorm.longitude}`} loading="eager"></iframe>
         </div>
         <p class="source-note">The cone shows uncertainty for the storm center, not the full impact area. Follow NHC, NWS, and local emergency guidance.</p>
       </div>
