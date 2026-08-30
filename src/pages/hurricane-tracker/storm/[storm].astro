@@ -9,6 +9,7 @@ import { readStormRegistry } from "../../../lib/stormRegistry";
 import { relevantLocations } from "../../../lib/stormRelevance";
 import { getAdvisoryHistory, getNhcForecast } from "../../../lib/nhcForecast";
 import { detectRapidIntensification } from "../../../lib/riDetection";
+import { formatWind } from "../../../lib/wind-speed";
 
 type StormFeed = {
   storms?: Array<NhcStorm & { summary?: string }>;
@@ -118,7 +119,7 @@ const jsonLd = graph(
       <p class="eyebrow">{basin} storm tracker</p>
       <h1 id="storm-title">{stormName} Tracker Live Map, Path and NHC Updates</h1>
       {isArchived && <p class="archive-notice"><strong>{stormName} is not active in the current NHC feed.</strong> This stable archive page preserves the last observed advisory context; use the live tracker for current storms.</p>}
-      <p class="answer">{activeStorm ? `${stormName} live updates: NHC last reported the system at ${activeStorm.latitude ?? "a pending latitude"}, ${activeStorm.longitude ?? "a pending longitude"}, moving ${activeStorm.movementDir ?? "in a direction pending confirmation"} at ${activeStorm.movementSpeed ?? "a speed pending confirmation"}. Updated ${activeStorm.lastUpdate ?? lastModified}. Use the tracker and official forecast path below for current details.` : overview}</p>
+      <p class="answer">{activeStorm ? `${stormName} live updates: NHC last reported the system at ${activeStorm.latitude ?? "a pending latitude"}, ${activeStorm.longitude ?? "a pending longitude"}, moving ${activeStorm.movementDir != null ? `${activeStorm.movementDir}°` : "in a direction pending confirmation"} at ${activeStorm.movementSpeed != null ? `${activeStorm.movementSpeed} kt` : "a speed pending confirmation"}. Updated ${activeStorm.lastUpdate ?? lastModified}. Use the tracker and official forecast path below for current details.` : overview}</p>
       <p class="answer">{searchDemandNote}</p>
       <p class="section-actions">
         <a class="action-link" href="/hurricane-tracker/live/">Open live hurricane tracker</a>
@@ -147,9 +148,9 @@ const jsonLd = graph(
             <table>
               <tbody>
                 <tr><th>Classification</th><td>{activeStorm.classification ?? "pending"}</td></tr>
-                <tr><th>Intensity</th><td>{activeStorm.intensity ?? activeStorm.windSpeed ?? "pending"}</td></tr>
+                <tr><th>Intensity</th><td>{activeStorm.intensity ? formatWind(Number(activeStorm.intensity)) : activeStorm.windSpeed ?? "pending"}</td></tr>
                 <tr><th>Position</th><td>{activeStorm.latitude ?? "pending"}, {activeStorm.longitude ?? "pending"}</td></tr>
-                <tr><th>Movement</th><td>{activeStorm.movementDir ?? "pending"} at {activeStorm.movementSpeed ?? "pending"}</td></tr>
+                <tr><th>Movement</th><td>{activeStorm.movementDir != null ? `${activeStorm.movementDir}°` : "pending"} at {activeStorm.movementSpeed != null ? `${activeStorm.movementSpeed} kt` : "pending"}</td></tr>
                 <tr><th>NHC update</th><td>{activeStorm.lastUpdate ?? lastModified}</td></tr>
                 <tr><th>Advisory</th><td>{forecast?.advisoryNumber ? `#${forecast.advisoryNumber}` : "Latest official advisory"}</td></tr>
               </tbody>
@@ -211,7 +212,7 @@ const jsonLd = graph(
       <div class="inner">
         <p class="eyebrow">Advisory update</p>
         <h2 id="storm-outlook">{stormName} 24–48 Hour Tracker Outlook</h2>
-        <p class="answer">The current NHC record places {stormName} at {activeStorm.latitude ?? "a pending latitude"}, {activeStorm.longitude ?? "a pending longitude"}, moving {activeStorm.movementDir ?? "in a direction pending confirmation"} at {activeStorm.movementSpeed ?? "a speed pending confirmation"}. {next48.length ? `The official GIS forecast includes ${next48.length} center positions through 48 hours.` : "Use the official forecast advisory for the next scheduled positions."}</p>
+        <p class="answer">The current NHC record places {stormName} at {activeStorm.latitude ?? "a pending latitude"}, {activeStorm.longitude ?? "a pending longitude"}, moving {activeStorm.movementDir != null ? `${activeStorm.movementDir}°` : "in a direction pending confirmation"} at {activeStorm.movementSpeed != null ? `${activeStorm.movementSpeed} kt` : "a speed pending confirmation"}. {next48.length ? `The official GIS forecast includes ${next48.length} center positions through 48 hours.` : "Use the official forecast advisory for the next scheduled positions."}</p>
         <p class="source-note">Updated {activeStorm.lastUpdate ?? lastModified}{forecast?.advisoryNumber ? ` · NHC advisory #${forecast.advisoryNumber}` : ""}. NHC normally issues full advisories every six hours, with intermediate updates when needed.</p>
       </div>
     </section>

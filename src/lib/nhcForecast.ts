@@ -1,6 +1,7 @@
 import { env } from "cloudflare:workers";
 import { unzipSync, strFromU8 } from "fflate";
 import { getNhcCurrentFeed } from "./nhcCurrent";
+import { knotsToMph } from "./wind-speed";
 
 type Coordinate = [number, number];
 export type NhcForecastFeed = { stormId: string; advisoryNumber: string; advisory?: string; fetchedAt: string; source: string; track: Coordinate[]; points: Array<{ coordinates: Coordinate; hour: number | null; windMph: number | null }>; cone: Coordinate[] };
@@ -70,7 +71,8 @@ export async function getNhcForecast(id: string): Promise<NhcForecastFeed | null
   const historyKey = `nhc:advisory-history:${id.toLowerCase()}`;
   const history = await getAdvisoryHistory(id);
   if (!history.some((item) => item.advisoryNumber === advisoryNumber)) {
-    history.unshift({ advisoryNumber, time: storm.lastUpdate ?? result.fetchedAt, classification: storm.classification, intensity: storm.intensity ?? storm.windSpeed, pressure: storm.pressure, windSpeedMph: numeric(storm.windSpeed) ?? numeric(storm.intensity), pressureMb: numeric(storm.pressure), latitude: storm.latitude, longitude: storm.longitude, movementDir: storm.movementDir, movementSpeed: storm.movementSpeed });
+    const windKnots = numeric(storm.intensity);
+    history.unshift({ advisoryNumber, time: storm.lastUpdate ?? result.fetchedAt, classification: storm.classification, intensity: storm.intensity ?? storm.windSpeed, pressure: storm.pressure, windSpeedMph: windKnots == null ? numeric(storm.windSpeed) : knotsToMph(windKnots), pressureMb: numeric(storm.pressure), latitude: storm.latitude, longitude: storm.longitude, movementDir: storm.movementDir, movementSpeed: storm.movementSpeed });
     await env.HURRICANEHUB_CACHE?.put(historyKey, JSON.stringify(history.slice(0, 12)));
   }
   return result;

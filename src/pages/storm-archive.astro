@@ -6,6 +6,7 @@ import { faqs, site } from "../data/site";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
 import { advisoryUrl, type NhcStorm } from "../lib/weather";
 import { readStormRegistry } from "../lib/stormRegistry";
+import { formatWind } from "../lib/wind-speed";
 
 type StormFeed = {
   storms?: Array<NhcStorm & { summary?: string }>;
@@ -246,7 +247,7 @@ const jsonLd = graph(
             <article class="panel">
               <span class={`badge ${storm.active ? "warn" : ""}`}>{storm.active ? "Active" : "Archived"}</span>
               <h3>{storm.name ?? storm.id}</h3>
-              <p>{storm.classification ?? "Tropical system"} · {storm.intensity ?? storm.windSpeed ?? "final intensity pending"}</p>
+              <p>{storm.classification ?? "Tropical system"} · {storm.intensity ? formatWind(Number(storm.intensity)) : storm.windSpeed ?? "final intensity pending"}</p>
               <p class="source-note">Last NHC record {storm.lastSeen}</p>
               <a href={`/hurricane-tracker/storm/${storm.slug}/`}>Open {storm.name ?? "storm"} page</a>
             </article>

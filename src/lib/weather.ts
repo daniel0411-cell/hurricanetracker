@@ -79,6 +79,6 @@ export function priorityRisks(alerts: NwsAlert[]) {
 export function summarizeStorm(storm: NhcStorm) {
   const name = storm.name ?? storm.id ?? "Active disturbance";
   const type = storm.classification ?? "Tropical cyclone";
-  const motion = storm.movementDir && storm.movementSpeed ? `${storm.movementDir} at ${storm.movementSpeed}` : "motion pending";
-  return `${type} ${name}: ${storm.intensity ?? storm.windSpeed ?? "intensity pending"}, ${motion}.`;
+  const motion = storm.movementDir && storm.movementSpeed ? `${storm.movementDir}° at ${storm.movementSpeed} kt` : "motion pending";
+  return `${type} ${name}: ${storm.intensity ? `${storm.intensity} kt` : storm.windSpeed ?? "intensity pending"}, ${motion}.`;
 }

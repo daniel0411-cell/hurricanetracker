@@ -264,7 +264,7 @@ const jsonLd = graph(
                 <p class="eyebrow">{storm.classification ?? "NHC tropical system"}</p>
                 <h3>{storm.name ?? storm.id ?? "Active tropical system"}</h3>
               </div>
-              <span class="badge warn">{storm.intensity ?? storm.windSpeed ?? "Advisory active"}</span>
+              <span class="badge warn">{storm.intensity ? `${storm.intensity} kt` : storm.windSpeed ?? "Advisory active"}</span>
             </header>
             <p>{storm.summary ?? `Latest NHC position: ${storm.latitude ?? "pending"}, ${storm.longitude ?? "pending"}.`}</p>
             <p class="source-note">Position {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"} · Updated {storm.lastUpdate ?? lastModified}</p>
@@ -441,7 +441,7 @@ const jsonLd = graph(
     const name = storm.name ?? storm.id ?? "Active tropical system";
     const slug = String(name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
     const advisory = advisoryUrl(storm.publicAdvisory);
-    return `<article class="panel current-storm"><header><div><p class="eyebrow">${escapeHtml(storm.classification ?? "NHC tropical system")}</p><h3>${escapeHtml(name)}</h3></div><span class="badge warn">${escapeHtml(storm.intensity ?? storm.windSpeed ?? "Advisory active")}</span></header><p>${escapeHtml(storm.summary ?? `Latest NHC position: ${storm.latitude ?? "pending"}, ${storm.longitude ?? "pending"}.`)}</p><p class="source-note">Position ${escapeHtml(storm.latitude ?? "pending")}, ${escapeHtml(storm.longitude ?? "pending")} · Updated ${escapeHtml(storm.lastUpdate ?? "latest feed")}</p><p class="section-actions"><a class="action-link" href="/hurricane-tracker/storm/${slug}/">Open ${escapeHtml(name)} live tracker</a>${advisory ? `<a class="action-link secondary-action" href="${escapeHtml(advisory)}" rel="noopener nofollow">NHC advisory</a>` : ""}</p></article>`;
+    return `<article class="panel current-storm"><header><div><p class="eyebrow">${escapeHtml(storm.classification ?? "NHC tropical system")}</p><h3>${escapeHtml(name)}</h3></div><span class="badge warn">${escapeHtml(storm.intensity ? `${storm.intensity} kt` : storm.windSpeed ?? "Advisory active")}</span></header><p>${escapeHtml(storm.summary ?? `Latest NHC position: ${storm.latitude ?? "pending"}, ${storm.longitude ?? "pending"}.`)}</p><p class="source-note">Position ${escapeHtml(storm.latitude ?? "pending")}, ${escapeHtml(storm.longitude ?? "pending")} · Updated ${escapeHtml(storm.lastUpdate ?? "latest feed")}</p><p class="section-actions"><a class="action-link" href="/hurricane-tracker/storm/${slug}/">Open ${escapeHtml(name)} live tracker</a>${advisory ? `<a class="action-link secondary-action" href="${escapeHtml(advisory)}" rel="noopener nofollow">NHC advisory</a>` : ""}</p></article>`;
   }
   async function refreshStormList() {
     try {

@@ -6,6 +6,7 @@ import { coastalStates } from "../data/states";
 import { articleSchema, breadcrumbSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
 import { readStormRegistry } from "../lib/stormRegistry";
 import { advisoryUrl, type NhcStorm } from "../lib/weather";
+import { formatWind } from "../lib/wind-speed";
 
 type StormFeed = {
   storms?: Array<NhcStorm & { summary?: string }>;
@@ -77,7 +78,7 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="active-storms">
     <div class="inner">
       <p class="eyebrow">Current NHC feed</p><h2 id="active-storms">Active Tropical Cyclones</h2>
-      {storms.length ? <div class="grid-2 section-grid">{storms.map((storm) => <article class="season-card"><span class="status active">Active</span><h3>{storm.name ?? storm.id ?? "NHC system"}</h3><p>{storm.classification ?? "Tropical cyclone"} · {storm.intensity ?? storm.windSpeed ?? "Intensity pending"}</p><p>Position {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"}</p><p class="source-note">Updated {storm.lastUpdate ?? lastModified}</p><p class="card-links"><a href={`/hurricane-tracker/storm/${(storm.name ?? storm.id ?? "storm").toLowerCase().replace(/[^a-z0-9]+/g, "-")}/`}>Open storm tracker</a>{advisoryUrl(storm.publicAdvisory) && <a href={advisoryUrl(storm.publicAdvisory)} rel="noopener nofollow">NHC advisory</a>}</p></article>)}</div> : <div class="empty-state"><strong>No active tropical cyclones at this time.</strong><p>{nextName ? <>The next available name on the 2026 list is <strong>{nextName}</strong>.</> : "The standard 2026 name list has been used."}</p></div>}
+      {storms.length ? <div class="grid-2 section-grid">{storms.map((storm) => <article class="season-card"><span class="status active">Active</span><h3>{storm.name ?? storm.id ?? "NHC system"}</h3><p>{storm.classification ?? "Tropical cyclone"} · {storm.intensity ? formatWind(Number(storm.intensity)) : storm.windSpeed ?? "Intensity pending"}</p><p>Position {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"}</p><p class="source-note">Updated {storm.lastUpdate ?? lastModified}</p><p class="card-links"><a href={`/hurricane-tracker/storm/${(storm.name ?? storm.id ?? "storm").toLowerCase().replace(/[^a-z0-9]+/g, "-")}/`}>Open storm tracker</a>{advisoryUrl(storm.publicAdvisory) && <a href={advisoryUrl(storm.publicAdvisory)} rel="noopener nofollow">NHC advisory</a>}</p></article>)}</div> : <div class="empty-state"><strong>No active tropical cyclones at this time.</strong><p>{nextName ? <>The next available name on the 2026 list is <strong>{nextName}</strong>.</> : "The standard 2026 name list has been used."}</p></div>}
     </div>
   </section>
 

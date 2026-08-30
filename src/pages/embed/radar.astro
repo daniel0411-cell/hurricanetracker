@@ -501,8 +501,8 @@ const satelliteBand = params.get("sat") || "geocolor";
               });
               const name = escapeHtml(storm.name || storm.id || "Active tropical system");
               const classification = escapeHtml(storm.classification || "NHC tropical system");
-              const intensity = escapeHtml(storm.intensity || storm.windSpeed || "Intensity pending");
-              const motion = storm.movementDir && storm.movementSpeed ? `${escapeHtml(storm.movementDir)} at ${escapeHtml(storm.movementSpeed)}` : "Motion pending";
+              const intensity = escapeHtml(storm.intensity ? `${storm.intensity} kt` : storm.windSpeed || "Intensity pending");
+              const motion = storm.movementDir && storm.movementSpeed ? `${escapeHtml(storm.movementDir)}° at ${escapeHtml(storm.movementSpeed)} kt` : "Motion pending";
               const updated = escapeHtml(storm.lastUpdate || "Update time pending");
               const marker = L.marker([lat, lon], { icon })
                 .bindPopup(`<div class="storm-popup"><strong>${name}</strong>${classification}<br>${intensity}<br>${motion}<br>Position ${lat.toFixed(1)}, ${lon.toFixed(1)}<br>Updated ${updated}</div>`)
