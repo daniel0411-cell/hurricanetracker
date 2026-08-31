@@ -152,7 +152,7 @@ export const topicPages: TopicPage[] = [
     eyebrow: "Gulf Coast live tracker",
     intro: "Use this Gulf hurricane tracker to check active systems in the Gulf of Mexico, compare the latest NHC position and forecast path, and move into Florida, Texas, Louisiana, Mississippi, or Alabama local alerts.",
     primaryAction: { label: "Open live hurricane map", href: "/hurricane-tracker/live/" },
-    secondaryAction: { label: "Check Gulf Coast states", href: "/tracker/" },
+    secondaryAction: { label: "Check current disturbances", href: "/hurricane-tracker/tropical-disturbances/" },
     intent: "Gulf hurricane tracker, hurricane in Gulf right now, tropical storm Gulf",
     steps: [
       { title: "Check Active Gulf Systems", body: "Start with the live NHC feed to see whether a named hurricane, tropical storm, or disturbance is currently in or approaching the Gulf.", href: "/hurricane-tracker/live/", label: "Check current storms" },
@@ -165,6 +165,7 @@ export const topicPages: TopicPage[] = [
     ],
     nextLinks: [
       { name: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Current NHC systems, radar, satellite, and forecast context." },
+      { name: "Atlantic Tropical Disturbance Outlook", href: "/hurricane-tracker/tropical-disturbances/", description: "Current NHC formation areas before a system becomes a named storm." },
       { name: "Florida Hurricane Tracker", href: "/tracker/florida/", description: "Florida Atlantic and Gulf risk with live alerts." },
       { name: "Texas Hurricane Tracker", href: "/tracker/texas/", description: "Texas Gulf track, rainfall, surge, and alerts." },
       { name: "Louisiana Hurricane Tracker", href: "/tracker/louisiana/", description: "Louisiana surge, levee, and evacuation context." },

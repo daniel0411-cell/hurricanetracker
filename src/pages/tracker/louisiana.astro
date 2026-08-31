@@ -85,6 +85,11 @@ const jsonLd = graph(
       <h1 id="tracker-state-title">{name} Hurricane Tracker – Live Updates</h1>
       <p class="answer">{intro}</p>
       <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
+      <section class="intent-answer" aria-labelledby="louisiana-outlook-heading">
+        <h2 id="louisiana-outlook-heading">Current Gulf Tropical Disturbance Outlook</h2>
+        <p>NHC is monitoring developing areas separately from named storms. Check the live Atlantic outlook for formation probability and official wording, then use Louisiana NWS alerts and parish guidance for watches, warnings, rainfall, flooding, and local instructions.</p>
+        <p><a href="/hurricane-tracker/tropical-disturbances/">Check the current Gulf and Atlantic disturbance outlook</a></p>
+      </section>
       <section class="intent-answer" aria-labelledby="louisiana-intent-heading">
         <h2 id="louisiana-intent-heading">Is There a Hurricane Coming to Louisiana Today?</h2>
         <p>Use the live status above for the latest NHC answer, then check Gulf storm tracks, Louisiana NWS alerts, storm surge, and parish evacuation instructions. A storm center track does not show every flood or surge impact.</p>

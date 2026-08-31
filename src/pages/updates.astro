@@ -7,12 +7,14 @@ import { stormTrackerPages } from "../data/stormPages";
 import { topicPages } from "../data/topicPages";
 import { articleSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
 import type { NhcStorm } from "../lib/weather";
+import { getAtlanticOutlook } from "../lib/nhcOutlook";
 
 const title = "Latest Hurricane Tracker Updates";
 const description = "Recent HurricaneHub updates: new hurricane preparedness articles, city tracker pages, storm tracker pages, tools, and sitemap discovery sections.";
 const url = `${site.url}/updates/`;
 let activeStorms: NhcStorm[] = [];
 let lastModified = site.contentLastModified;
+const atlanticOutlook = await getAtlanticOutlook();
 try {
   const response = await fetch(new URL("/api/nhc/current.json", Astro.url));
   if (response.ok) {
@@ -164,6 +166,8 @@ const jsonLd = graph(
       </div>
     </div>
   </section>
+
+  {atlanticOutlook && <section class="band" aria-labelledby="atlantic-watch-heading"><div class="inner"><p class="eyebrow">NHC Atlantic outlook · {atlanticOutlook.issued}</p><h2 id="atlantic-watch-heading">Developing Areas To Watch Now</h2><p class="answer">{atlanticOutlook.text}</p><p class="section-actions"><a class="action-link" href="/hurricane-tracker/tropical-disturbances/">Open disturbance tracker</a><a class="action-link secondary-action" href="/tracker/texas/">Texas tracker</a><a class="action-link secondary-action" href="/tracker/louisiana/">Louisiana tracker</a></p><p class="source-note">This is the latest official formation outlook, not a named-storm advisory or landfall forecast.</p></div></section>}
 
   <section class="band" aria-labelledby="updates-use-cases">
     <div class="inner">
