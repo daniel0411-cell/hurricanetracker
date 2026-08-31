@@ -22,7 +22,7 @@ const canonical = `${site.url}/tracker/${state.slug}/`;
 const lastModified = site.contentLastModified;
 const currentStatus = await getStateCurrentStatus(code);
 
-const intro = `South Carolina's Atlantic coast spans roughly 185 miles, anchored by the Lowcountry around Charleston and the Grand Strand near Myrtle Beach. Hurricanes typically approach from the southeast or track up the Southeast seaboard, then curve into the coast where wide tidal estuaries and salt marshes magnify storm surge. The Lowcountry's bridges and causeways become vulnerable as winds rise, and heavy rain compounds coastal flooding. In 1989, Hurricane Hugo made a devastating Category 4 landfall near Charleston, leveling timber and producing a memorable surge that remains the state benchmark. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is inside the active window, so coastal households should confirm their evacuation zone and plan to leave before the reversal of I-26 and other routes jams with traffic.`;
+const intro = `South Carolina's Atlantic coast spans roughly 185 miles, anchored by the Lowcountry around Charleston and the Grand Strand near Myrtle Beach. Hurricanes typically approach from the southeast or track up the Southeast seaboard, then curve into the coast where wide tidal estuaries and salt marshes magnify storm surge. The Lowcountry's bridges and causeways become vulnerable as winds rise, and heavy rain compounds coastal flooding. In 1989, Hurricane Hugo made a devastating Category 4 landfall near Charleston, leveling timber and producing a memorable surge that remains the state benchmark. The 2026 Atlantic hurricane season runs June 1 through November 30, and late August is within the peak-season window, so coastal households should confirm their evacuation zone and plan to leave before the reversal of I-26 and other routes jams with traffic.`;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const stateActionPaths = [
@@ -52,7 +52,7 @@ const adjacent = ["north-carolina", "georgia"];
 const faqs = [
   {
     question: `When is hurricane season in ${name}?`,
-    answer: `South Carolina's season follows June 1–November 30, with the greatest danger from August through September as systems approach the Southeast coast. Early August is within the active period, so Lowcountry households should confirm zones before storms form.`
+    answer: `South Carolina's season follows June 1–November 30, with the greatest danger from August through September as systems approach the Southeast coast. Late August is within the peak-season window, so Lowcountry households should confirm zones before storms form.`
   },
   {
     question: `What was the worst hurricane to hit ${name}?`,

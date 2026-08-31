@@ -22,7 +22,7 @@ const canonical = `${site.url}/tracker/${state.slug}/`;
 const lastModified = site.contentLastModified;
 const currentStatus = await getStateCurrentStatus(code);
 
-const intro = `Texas guards about 367 miles of Gulf of Mexico coastline, from the marshy upper coast near Port Arthur to the brush country around Brownsville. Most Texas hurricanes form in the western Gulf or recurve out of the Bay of Campeche, then drive north or northeast toward Galveston, Matagorda, or Corpus Christi. The state's wide, shallow shelf amplifies storm surge, while slow-moving systems can dump feet of rain far inland around Houston. Historically, Hurricane Harvey (2017) stalled over South Texas and became the wettest tropical cyclone in U.S. history, flooding entire communities. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is within the ramp to the September peak, when Gulf waters are warmest. Because Texas evacuations can mean 100-plus-mile drives inland and long power outages, residents should prepare generators safely, stock water and fuel, and learn their county evacuation zone before a storm threatens.`;
+const intro = `Texas guards about 367 miles of Gulf of Mexico coastline, from the marshy upper coast near Port Arthur to the brush country around Brownsville. Most Texas hurricanes form in the western Gulf or recurve out of the Bay of Campeche, then drive north or northeast toward Galveston, Matagorda, or Corpus Christi. The state's wide, shallow shelf amplifies storm surge, while slow-moving systems can dump feet of rain far inland around Houston. Historically, Hurricane Harvey (2017) stalled over South Texas and became the wettest tropical cyclone in U.S. history, flooding entire communities. The 2026 Atlantic hurricane season runs June 1 through November 30, and late August is within the peak-season window, when Gulf waters are warmest. Because Texas evacuations can mean 100-plus-mile drives inland and long power outages, residents should prepare generators safely, stock water and fuel, and learn their county evacuation zone before a storm threatens.`;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const stateActionPaths = [
@@ -52,7 +52,7 @@ const adjacent = ["louisiana"];
 const faqs = [
   {
     question: `When is hurricane season in ${name}?`,
-    answer: `The Atlantic hurricane season runs June 1 to November 30, with Texas most active from August through September as Gulf waters peak in warmth. Early August is within the ramp to peak season, so Gulf Coast households should keep an evacuation and power-outage plan ready.`
+    answer: `The Atlantic hurricane season runs June 1 to November 30, with Texas most active from August through September as Gulf waters peak in warmth. Late August is within the peak-season window, so Gulf Coast households should keep an evacuation and power-outage plan ready.`
   },
   {
     question: `What was the worst hurricane to hit ${name}?`,

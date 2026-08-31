@@ -22,7 +22,7 @@ const canonical = `${site.url}/tracker/${state.slug}/`;
 const lastModified = site.contentLastModified;
 const currentStatus = await getStateCurrentStatus(code);
 
-const intro = `Louisiana's Gulf coastline stretches nearly 400 miles, but its true exposure lies in thousands of miles of bayous, estuaries, and low-lying parishes that sit at or below sea level behind a fragile levee system. Storms usually organize in the central or eastern Gulf and track northwest toward New Orleans, the River Parishes, and the Cajun coast. Shallow, warm water lets systems rapidly intensify only hours before landfall. In 2005, Hurricane Katrina breached levees and flooded New Orleans, and Hurricane Rita struck weeks later, reshaping state evacuation policy. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is already inside the most active window, when Gulf heat content peaks. Because many Louisiana routes flood before peak wind, officials urge residents of low-lying parishes and mobile homes to decide early and keep documents, medications, and evacuation plans staged.`;
+const intro = `Louisiana's Gulf coastline stretches nearly 400 miles, but its true exposure lies in thousands of miles of bayous, estuaries, and low-lying parishes that sit at or below sea level behind a fragile levee system. Storms usually organize in the central or eastern Gulf and track northwest toward New Orleans, the River Parishes, and the Cajun coast. Shallow, warm water lets systems rapidly intensify only hours before landfall. In 2005, Hurricane Katrina breached levees and flooded New Orleans, and Hurricane Rita struck weeks later, reshaping state evacuation policy. The 2026 Atlantic hurricane season runs June 1 through November 30, and late August is within the peak-season window, when Gulf heat content peaks. Because many Louisiana routes flood before peak wind, officials urge residents of low-lying parishes and mobile homes to decide early and keep documents, medications, and evacuation plans staged.`;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const stateActionPaths = [
@@ -52,7 +52,7 @@ const adjacent = ["texas", "mississippi"];
 const faqs = [
   {
     question: `When is hurricane season in ${name}?`,
-    answer: `Louisiana's hurricane season follows the June 1–November 30 window, with the highest threat from August through September as Gulf heat content peaks. Early August is already inside the most active period, so low-lying parishes should pre-stage plans and documents.`
+    answer: `Louisiana's hurricane season follows the June 1–November 30 window, with the highest threat from August through September as Gulf heat content peaks. Late August is within the peak-season window, so low-lying parishes should pre-stage plans and documents.`
   },
   {
     question: `What was the worst hurricane to hit ${name}?`,

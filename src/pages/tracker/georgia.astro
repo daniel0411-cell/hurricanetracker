@@ -22,7 +22,7 @@ const canonical = `${site.url}/tracker/${state.slug}/`;
 const lastModified = site.contentLastModified;
 const currentStatus = await getStateCurrentStatus(code);
 
-const intro = `Georgia's Atlantic coastline is short—about 100 miles—but densely developed from the Savannah metro down to Brunswick and the Golden Isles. Hurricanes usually reach Georgia after tracking up the Southeast seaboard or crossing Florida, often arriving as hurricanes or strong tropical storms with high rain rates and tornadoes. The coastal plain's rivers and tidal creeks flood readily, and wind-toppled trees are a major power-outage driver. In 2018, Hurricane Michael crossed into Georgia as a hurricane and inflicted historic wind damage across southwest Georgia's forests, the most damaging tropical cyclone in recent state memory. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is within the active period, so the coast from Savannah to St. Simons should stay alert, pair NWS alerts with county instructions, and keep an evacuation route ready.`;
+const intro = `Georgia's Atlantic coastline is short—about 100 miles—but densely developed from the Savannah metro down to Brunswick and the Golden Isles. Hurricanes usually reach Georgia after tracking up the Southeast seaboard or crossing Florida, often arriving as hurricanes or strong tropical storms with high rain rates and tornadoes. The coastal plain's rivers and tidal creeks flood readily, and wind-toppled trees are a major power-outage driver. In 2018, Hurricane Michael crossed into Georgia as a hurricane and inflicted historic wind damage across southwest Georgia's forests, the most damaging tropical cyclone in recent state memory. The 2026 Atlantic hurricane season runs June 1 through November 30, and late August is within the peak-season window, so the coast from Savannah to St. Simons should stay alert, pair NWS alerts with county instructions, and keep an evacuation route ready.`;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const stateActionPaths = [
@@ -52,7 +52,7 @@ const adjacent = ["florida", "south-carolina"];
 const faqs = [
   {
     question: `When is hurricane season in ${name}?`,
-    answer: `Georgia's season runs June 1–November 30, with coastal risk highest from August through September as storms track up the Southeast seaboard. Early August is within the active window, so the coast from Brunswick to Savannah should stay alert.`
+    answer: `Georgia's season runs June 1–November 30, with coastal risk highest from August through September as storms track up the Southeast seaboard. Late August is within the peak-season window, so the coast from Brunswick to Savannah should stay alert.`
   },
   {
     question: `What was the worst hurricane to hit ${name}?`,

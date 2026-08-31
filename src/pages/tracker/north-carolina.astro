@@ -22,7 +22,7 @@ const canonical = `${site.url}/tracker/${state.slug}/`;
 const lastModified = site.contentLastModified;
 const currentStatus = await getStateCurrentStatus(code);
 
-const intro = `North Carolina's coastline runs about 300 miles from the Virginia line to the South Carolina border, but its hurricane identity is defined by Cape Hatteras and the Outer Banks—a string of narrow barrier islands in the Atlantic's busy recurvature lane. Storms riding the Gulf Stream often curve ashore here, slamming the islands before pushing into the sounds and inland rivers, producing both wind damage on the coast and catastrophic river flooding hundreds of miles inland. In 2018, Hurricane Florence stalled near the coast and unleashed historic rainfall that flooded communities from Wilmington to the Piedmont. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is within the active period, so Outer Banks and coastal residents should watch tropical outlooks and plan ferry and bridge timing, because island access closes well before the worst conditions arrive.`;
+const intro = `North Carolina's coastline runs about 300 miles from the Virginia line to the South Carolina border, but its hurricane identity is defined by Cape Hatteras and the Outer Banks—a string of narrow barrier islands in the Atlantic's busy recurvature lane. Storms riding the Gulf Stream often curve ashore here, slamming the islands before pushing into the sounds and inland rivers, producing both wind damage on the coast and catastrophic river flooding hundreds of miles inland. In 2018, Hurricane Florence stalled near the coast and unleashed historic rainfall that flooded communities from Wilmington to the Piedmont. The 2026 Atlantic hurricane season runs June 1 through November 30, and late August is within the peak-season window, so Outer Banks and coastal residents should watch tropical outlooks and plan ferry and bridge timing, because island access closes well before the worst conditions arrive.`;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const stateActionPaths = [
@@ -52,7 +52,7 @@ const adjacent = ["south-carolina", "virginia"];
 const faqs = [
   {
     question: `When is hurricane season in ${name}?`,
-    answer: `The Atlantic season runs June 1–November 30, and North Carolina peaks from August through September as Cape Hatteras sits in a frequent recurvature lane. Early August is inside the active window, so Outer Banks and coastal residents should watch tropical outlooks closely.`
+    answer: `The Atlantic season runs June 1–November 30, and North Carolina peaks from August through September as Cape Hatteras sits in a frequent recurvature lane. Late August is within the peak-season window, so Outer Banks and coastal residents should watch tropical outlooks closely.`
   },
   {
     question: `What was the worst hurricane to hit ${name}?`,

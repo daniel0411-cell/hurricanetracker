@@ -20,7 +20,7 @@ const canonical = `${site.url}/tracker/${state.slug}/`;
 const lastModified = site.contentLastModified;
 const currentStatus = await getStateCurrentStatus(code);
 
-const intro = `Alabama's coastline is the second-shortest among Gulf states at about 53 miles, centered on Mobile Bay and the white-sand communities of Baldwin County. Yet that compact shore sits where easterly Gulf storms often slow and pivot, and Mobile Bay's funnel shape can concentrate storm surge. Inland river systems then carry flooding far beyond the beach. In 2020, Hurricane Sally crawled along the Alabama coast and produced extreme rainfall and flooding around Mobile and Gulf Shores, one of the most damaging recent storms for the state. The 2026 Atlantic hurricane season runs June 1 through November 30, and early August is inside the active window, so Mobile Bay residents—especially those in mobile homes—should stage plans early, because surge and flooding can cut coastal routes before peak wind arrives.`;
+const intro = `Alabama's coastline is the second-shortest among Gulf states at about 53 miles, centered on Mobile Bay and the white-sand communities of Baldwin County. Yet that compact shore sits where easterly Gulf storms often slow and pivot, and Mobile Bay's funnel shape can concentrate storm surge. Inland river systems then carry flooding far beyond the beach. In 2020, Hurricane Sally crawled along the Alabama coast and produced extreme rainfall and flooding around Mobile and Gulf Shores, one of the most damaging recent storms for the state. The 2026 Atlantic hurricane season runs June 1 through November 30, and late August is within the peak-season window, so Mobile Bay residents—especially those in mobile homes—should stage plans early, because surge and flooding can cut coastal routes before peak wind arrives.`;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const stateActionPaths = [
@@ -50,7 +50,7 @@ const adjacent = ["florida", "mississippi"];
 const faqs = [
   {
     question: `When is hurricane season in ${name}?`,
-    answer: `Alabama's season runs June 1–November 30, with the greatest threat from August through September as Gulf storms approach from the south and southeast. Early August is inside the active period, so Mobile Bay communities should stay prepared.`
+    answer: `Alabama's season runs June 1–November 30, with the greatest threat from August through September as Gulf storms approach from the south and southeast. Late August is within the peak-season window, so Mobile Bay communities should stay prepared.`
   },
   {
     question: `What was the worst hurricane to hit ${name}?`,
