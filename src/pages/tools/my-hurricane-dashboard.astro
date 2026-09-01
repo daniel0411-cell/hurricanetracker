@@ -4,8 +4,8 @@ import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
 import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
 
-const title = "My Location Hurricane Alert Center";
-const description = "Save up to five US locations and monitor local NWS alerts, active NHC storms, decision levels, and alert preferences from one hurricane dashboard.";
+const title = "Hurricane Tracking Dashboard for Saved US Locations";
+const description = "Build a hurricane tracking dashboard for up to five US locations with local NWS alerts, active NHC storms, decision levels and saved alert preferences.";
 const url = `${site.url}/tools/my-hurricane-dashboard/`;
 const pageFaqs = [
   {
@@ -39,8 +39,8 @@ const jsonLd = graph(
     <div class="inner dashboard-heading">
       <div>
         <p class="eyebrow">Personal storm desk</p>
-        <h1 id="dashboard-title">My Location Alert Center</h1>
-        <p class="answer">Save the places that matter to you and check each location's active NWS alerts, decision level, and current NHC storm context in one view.</p>
+        <h1 id="dashboard-title">My Hurricane Tracking Dashboard</h1>
+        <p class="answer">Save up to five US ZIP-code locations and check active NWS alerts, the current NHC storm list, distance context, and Monitor, Prepare, Act, or Leave planning levels in one dashboard.</p>
       </div>
       <div class="privacy-note">
         <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>

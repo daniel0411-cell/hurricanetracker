@@ -4,8 +4,8 @@ import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
 import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
 
-const title = "Hurricane Evacuation Decision Helper";
-const description = "Use a hurricane evacuation decision helper to sort household risk into Monitor, Prepare, Act, or Leave based on evacuation orders, surge zone, housing type, pets, and medical needs.";
+const title = "Hurricane Evacuation Assessment Tool & Decision Helper";
+const description = "Use this hurricane evacuation assessment tool to sort risk into Monitor, Prepare, Act, or Leave using orders, surge zone, housing, pets, transport and medical needs.";
 const url = `${site.url}/tools/evacuation-decision-helper/`;
 const lastModified = site.contentLastModified;
 const pageFaqs = [
@@ -37,8 +37,8 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="helper-title">
     <div class="inner">
       <p class="eyebrow">Household decision support</p>
-      <h1 id="helper-title">Hurricane Evacuation Decision Helper</h1>
-      <p class="answer">This tool helps households turn hurricane watches, warnings, surge risk, housing vulnerability, pets, and medical needs into a Monitor, Prepare, Act, or Leave planning level.</p>
+      <h1 id="helper-title">Hurricane Evacuation Assessment and Decision Helper</h1>
+      <p class="answer">Use this assessment to organize hurricane watches, warnings, evacuation orders, surge exposure, housing vulnerability, pets, transport, and medical needs into a Monitor, Prepare, Act, or Leave planning level. Local officials always control evacuation orders.</p>
     </div>
   </section>
 
