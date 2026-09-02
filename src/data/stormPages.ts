@@ -121,35 +121,35 @@ export const stormTrackerPages: StormTrackerPage[] = [
     slug: "edouard",
     name: "Edouard",
     basin: "Atlantic",
-    title: "Tropical Storm Edouard 2026 Tracker: Path & Warnings",
-    description: "Track Tropical Storm Edouard 2026 in the Gulf with the latest NHC path, Texas and Louisiana warnings, surge, rainfall, radar and advisory links.",
+    title: "Tropical Storm Edouard 2026: Final Path & Updates",
+    description: "Review Tropical Storm Edouard's 2026 Gulf path, final NHC status, Texas and Louisiana impacts, rainfall, radar, and archived advisory links.",
     primaryKeywords: ["tropical storm edouard tracker", "hurricane edouard path", "edouard live tracker", "where is storm edouard now"],
     searchDemandNote:
       "Use this page for Tropical Storm Edouard live tracker, Gulf path, Texas and Louisiana warning, storm surge, rainfall, and NHC advisory searches.",
     overview:
-      "Tropical Storm Edouard formed from AL97 in the northwestern Gulf on August 31, 2026. Use this page for its current NHC position, official forecast path, Texas and Louisiana watches and warnings, radar, satellite, rainfall, storm surge, and local-alert context.",
+      "Tropical Storm Edouard formed from AL97 in the northwestern Gulf on August 31, 2026 and is no longer listed in the current NHC feed. Use this page for its final observed track, archived advisory context, and Texas and Louisiana rainfall, flooding, radar, and local-alert resources.",
     trackerFocus: [
       "NHC designated AL97 as Tropical Depression Five and then Tropical Storm Edouard on August 31, 2026, over the northwestern Gulf.",
       "Use the official NHC forecast path together with the cone, wind field, rainfall, and surge products — not a single model or the center line.",
-      "A Tropical Storm Warning extends from Port Bolivar, Texas, to the Vermilion/Iberia Parish Line, Louisiana, with a Storm Surge Watch from High Island to the Vermilion/Cameron Parish Line.",
-      "NHC expects the center to reach the northwestern Gulf Coast on September 1 and move inland over southeast Texas that night; heavy rainfall and flash flooding can extend inland beyond the center track.",
+      "During the advisory cycle, a Tropical Storm Warning covered Port Bolivar, Texas, to the Vermilion/Iberia Parish Line, Louisiana, and a Storm Surge Watch covered High Island to the Vermilion/Cameron Parish Line.",
+      "Edouard is no longer listed in the current NHC feed. Check current NWS alerts and local emergency management updates for any remaining rainfall, flooding, or recovery concerns.",
       "Historical Edouard storms include 1996 (Hurricane Edouard, a major hurricane that paralleled the U.S. East Coast and brushed Cape Hatteras and New England) and 2014 (Hurricane Edouard, the first major hurricane of that season, which stayed over the open Atlantic). The name's past intensity does not predict the 2026 system."
     ],
     faqs: [
       {
         question: "Is Tropical Storm Edouard active right now?",
         answer:
-          "Yes. NHC named Tropical Storm Edouard on August 31, 2026, in the northwestern Gulf. Use the live status and official advisory links on this page for its latest position, intensity, and warnings."
+          "No. Edouard is no longer listed in the current NHC tropical cyclone feed. This page preserves its final observed track and advisory context; use current NWS alerts for any remaining local hazards."
       },
       {
         question: "Has Edouard ever hit the United States?",
         answer:
-          "Past Edouard storms have mostly stayed offshore or weakened before landfall; 1996 Hurricane Edouard brushed Cape Hatteras and New England as a major hurricane without a direct landfall, and 2014 Edouard remained over the open Atlantic. Any 2026 Edouard should be tracked on its own NHC data."
+          "Past Edouard storms have mostly stayed offshore or weakened before landfall; 1996 Hurricane Edouard brushed Cape Hatteras and New England as a major hurricane without a direct landfall, and 2014 Edouard remained over the open Atlantic. The 2026 system is documented here from its own NHC data."
       },
       {
-        question: "Where is Tropical Storm Edouard headed?",
+        question: "What happened to Tropical Storm Edouard?",
         answer:
-          "NHC forecasts Edouard to move west-northwest to northwest toward the Upper Texas and southwest Louisiana coast, reach the coast on September 1, and move inland over southeast Texas that night. Track changes through the latest official advisory."
+          "Edouard moved toward the Upper Texas and southwest Louisiana coast during its advisory cycle and is no longer listed as an active NHC tropical cyclone. Review archived advisories for its track and current local alerts for any lingering impacts."
       }
     ]
   },
