@@ -273,16 +273,16 @@ export const topicPages: TopicPage[] = [
   },
   {
     slug: "map",
-    title: "Hurricane Tracker Map",
-    shortTitle: "Tracker Map",
+    title: "How to Read a Hurricane Map",
+    shortTitle: "Map Guide",
     description:
-      "Learn how hurricane map layers differ, then open the live hurricane tracker for current NHC storm positions, radar, satellite, forecast tracks, and advisories.",
+      "Learn how NHC track, radar, satellite, forecast-cone, and alert layers differ, then open the live hurricane tracker map for current storm positions.",
     eyebrow: "Hurricane map guide",
     intro:
       "Use this guide to choose the right hurricane map layer. The live tracker is the canonical page for current storm position and NHC status; this page explains when to use radar, satellite, the forecast track, and local alerts.",
     primaryAction: { label: "Open live tracker map", href: "/hurricane-tracker/live/" },
     secondaryAction: { label: "Open radar map", href: "/radar/" },
-    intent: "hurricane tracker map, live hurricane map, storm tracker map",
+    intent: "how to read a hurricane map, hurricane map layers, forecast cone map",
     steps: [
       {
         title: "Start With Current Storms",

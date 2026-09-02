@@ -69,7 +69,7 @@ const jsonLd = graph(
         <p class="eyebrow">Atlantic hurricane season</p>
         <h1 id="season-title">2026 Hurricane Season Live Tracker</h1>
         <p class="answer">{storms.length ? `The latest NHC Atlantic feed lists ${storms.length} active system${storms.length === 1 ? "" : "s"}${activeStormNames.length ? `: ${activeStormNames.join(", ")}` : ""}.` : "The latest NHC Atlantic feed lists no active tropical cyclones."} {nextName ? `The next unused 2026 Atlantic name is ${nextName}.` : "The standard 2026 name list has been used."} Updated {new Date(lastModified).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" })} UTC; open the active storm card for its latest advisory and local impact links.</p>
-        <p class="section-actions"><a class="action-link" href="/hurricane-tracker/live/">Open live tracker</a><a class="action-link secondary-action" href="https://www.nhc.noaa.gov/" rel="noopener nofollow">Official NHC advisories</a></p>
+        <p class="section-actions"><a class="action-link" href="/hurricane-tracker/live/">Are there any hurricanes right now?</a><a class="action-link secondary-action" href="https://www.nhc.noaa.gov/" rel="noopener nofollow">Official NHC advisories</a></p>
       </div>
       <aside class="status-panel" aria-label="Current 2026 season status"><strong>{storms.length}</strong><span>active NHC system{storms.length === 1 ? "" : "s"}</span><small>Updated {new Date(lastModified).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" })} UTC</small></aside>
     </div>
