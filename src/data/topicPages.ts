@@ -148,7 +148,7 @@ export const topicPages: TopicPage[] = [
     slug: "gulf",
     title: "Gulf Hurricane Tracker & Live Alerts",
     shortTitle: "Gulf Tracker",
-    description: "Check whether a hurricane or tropical storm is in the Gulf right now with current NHC positions, forecast paths, radar, and Gulf Coast state trackers.",
+    description: "Check whether a hurricane or tropical storm is in the Gulf now with the live NHC map, forecast path, radar, and Florida, Texas, and Louisiana alerts.",
     eyebrow: "Gulf Coast live tracker",
     intro: "Use this Gulf hurricane tracker to check active systems in the Gulf of Mexico, compare the latest NHC position and forecast path, and move into Florida, Texas, Louisiana, Mississippi, or Alabama local alerts.",
     primaryAction: { label: "Open live hurricane map", href: "/hurricane-tracker/live/" },
@@ -157,7 +157,7 @@ export const topicPages: TopicPage[] = [
     steps: [
       { title: "Check Active Gulf Systems", body: "Start with the live NHC feed to see whether a named hurricane, tropical storm, or disturbance is currently in or approaching the Gulf.", href: "/hurricane-tracker/live/", label: "Check current storms" },
       { title: "Compare Track and Radar", body: "Use the official forecast path for broad timing, then compare radar and satellite for rain bands and local weather changes.", href: "/radar/", label: "Open radar" },
-      { title: "Move to Local Alerts", body: "Gulf risk differs by coastline, bay, river, and county. Open the relevant state or city page before making a household decision.", href: "/tracker/", label: "Choose a state" }
+      { title: "Move to Local Alerts", body: "Gulf risk differs by coastline, bay, river, and county. Start with Florida, Texas, or Louisiana, then verify county alerts before making a household decision.", href: "/tracker/florida/", label: "Check Florida alerts" }
     ],
     sections: [
       { eyebrow: "Gulf questions", title: "Is There a Hurricane in the Gulf Right Now?", body: "The Gulf can change quickly when a system enters warm water. Use current NHC advisories and local NWS alerts rather than social media screenshots or a single storm-center position.", bullets: ["Active NHC hurricane and tropical-storm status", "Forecast path and advisory time", "Radar and satellite context", "Florida, Texas, Louisiana, Mississippi, and Alabama links"] },
@@ -169,6 +169,8 @@ export const topicPages: TopicPage[] = [
       { name: "Florida Hurricane Tracker", href: "/tracker/florida/", description: "Florida Atlantic and Gulf risk with live alerts." },
       { name: "Texas Hurricane Tracker", href: "/tracker/texas/", description: "Texas Gulf track, rainfall, surge, and alerts." },
       { name: "Louisiana Hurricane Tracker", href: "/tracker/louisiana/", description: "Louisiana surge, levee, and evacuation context." },
+      { name: "Mississippi Hurricane Tracker", href: "/tracker/mississippi/", description: "Mississippi Gulf Coast surge, flooding, and local alerts." },
+      { name: "Alabama Hurricane Tracker", href: "/tracker/alabama/", description: "Alabama Gulf Coast storm status, Mobile Bay risk, and alerts." },
       { name: "Storm Surge Map", href: "/hurricane-tracker/storm-surge-map/", description: "Understand why surge risk differs from storm category." }
     ],
     faqs: [

@@ -185,6 +185,7 @@ const jsonLd = graph(
         <p class="section-actions">
           <a class="action-link" href="#current-hurricanes">View current hurricanes</a>
           {activeStormNames[0] && <a class="action-link secondary-action" href={`/hurricane-tracker/storm/${String(activeStormNames[0]).toLowerCase()}/`}>Track {activeStormNames[0]}</a>}
+          <a class="action-link secondary-action" href="/hurricane-tracker/gulf/">Check the Gulf now</a>
           <a class="action-link secondary-action" href="/2026-hurricane-season/">2026 season storms and names</a>
         </p>
       </div>
