@@ -24,7 +24,7 @@ try {
 const storms = stormFeed?.storms ?? [];
 const activeStormNames = storms.map((storm) => storm.name).filter(Boolean).slice(0, 2);
 const activeContext = activeStormNames.length ? ` Track ${activeStormNames.join(" and ")} now.` : "";
-const title = "Live Hurricane Tracker Map: Current NHC Storms & Alerts";
+const title = "Live Hurricane Tracker Map: Current Storms, NHC Path & Alerts";
 const lastModified = stormFeed?.updatedAt ?? stormFeed?.fetchedAt ?? site.contentLastModified;
 const updatedLabel = new Date(lastModified).toLocaleString("en-US", {
   timeZone: "UTC",
@@ -34,7 +34,7 @@ const updatedLabel = new Date(lastModified).toLocaleString("en-US", {
   hour: "numeric",
   minute: "2-digit"
 });
-const description = `${storms.length ? `${storms.length} active NHC system${storms.length === 1 ? "" : "s"}.` : "No active NHC systems listed."} Open the live NHC hurricane tracking map for current paths, radar, satellite and alerts. Updated ${updatedLabel} UTC.${activeContext}`;
+const description = `${storms.length ? `${storms.length} active NHC system${storms.length === 1 ? "" : "s"}.` : "No active NHC systems listed."} See the current hurricane path, live map, radar, satellite and alerts. Updated ${updatedLabel} UTC.${activeContext}`;
 const liveTrackerPaths = [
   {
     name: "Check active storms",
@@ -181,7 +181,7 @@ const jsonLd = graph(
       <div>
         <p class="eyebrow">Current NHC storm data</p>
         <h1 id="live-title">Live Hurricane Tracker and NHC Tracking Map</h1>
-        <p class="answer">{storms.length ? `The latest NHC feed lists ${storms.length} active system${storms.length === 1 ? "" : "s"}${activeStormNames.length ? `: ${activeStormNames.join(" and ")}` : ""}.` : "The latest NHC feed lists no active tropical cyclones."} Last checked {updatedLabel} UTC. Open the interactive NHC tracking map below for current centers and forecast paths, then compare radar, satellite imagery, and local NWS alerts.</p>
+        <p class="answer">{storms.length ? `Yes. The latest NHC feed lists ${storms.length} active system${storms.length === 1 ? "" : "s"}${activeStormNames.length ? `: ${activeStormNames.join(" and ")}` : ""}.` : "No active tropical cyclone is listed in the latest NHC feed right now."} Last checked {updatedLabel} UTC. Open the interactive NHC hurricane tracking map below for the current position and forecast path, then compare radar, satellite imagery, and local NWS alerts.</p>
         <p class="section-actions">
           <a class="action-link" href="#current-hurricanes">View current hurricanes</a>
           {activeStormNames[0] && <a class="action-link secondary-action" href={`/hurricane-tracker/storm/${String(activeStormNames[0]).toLowerCase()}/`}>Track {activeStormNames[0]}</a>}

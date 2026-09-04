@@ -89,7 +89,7 @@ const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModif
 const title = knownPage?.title ?? `${stormName} ${isArchived ? "Storm Archive" : "Tracker Live Map, Path & NHC Updates"}`;
 const description = knownPage?.description ?? (isArchived
   ? `Review the archived ${stormName} hurricane tracker with the last known NHC position, advisory context, forecast path history, and official source links.`
-  : `Track ${stormName} live with its current NHC position, latest advisory update, forecast path, radar, satellite imagery and local alert links.`);
+  : `Track ${stormName} live with its current NHC position, latest NHC advisory, hurricane path, live map, radar, satellite imagery and local alerts.`);
 const url = `${site.url}/hurricane-tracker/storm/${slug}/`;
 const pageFaqs = [
   ...(knownPage?.faqs ?? [
