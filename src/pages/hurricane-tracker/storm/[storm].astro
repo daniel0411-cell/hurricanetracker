@@ -86,10 +86,10 @@ const advisoryChanges = advisoryHistory.map((item, index) => {
 });
 const riSignal = advisoryHistory.length ? detectRapidIntensification(advisoryHistory) : null;
 const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
-const title = knownPage?.title ?? `${stormName} ${isArchived ? "Storm Archive" : "Tracker Live Map, Path & NHC Updates"}`;
+const title = knownPage?.title ?? `${stormName} ${isArchived ? "Storm Archive" : "Hurricane Tracker: Live Path, Map & NHC Updates"}`;
 const description = knownPage?.description ?? (isArchived
   ? `Review the archived ${stormName} hurricane tracker with the last known NHC position, advisory context, forecast path history, and official source links.`
-  : `Track ${stormName} live with its current NHC position, latest NHC advisory, hurricane path, live map, radar, satellite imagery and local alerts.`);
+  : `Track ${stormName} live with the latest NHC position, hurricane path, live map, advisory update, radar, satellite imagery and local alerts.`);
 const url = `${site.url}/hurricane-tracker/storm/${slug}/`;
 const pageFaqs = [
   ...(knownPage?.faqs ?? [
