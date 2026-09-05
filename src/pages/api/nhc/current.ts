@@ -31,7 +31,8 @@ export const GET: APIRoute = async () => {
         ...CORS_HEADERS,
         "content-type": "application/json; charset=utf-8",
         "cache-control": "public, max-age=120",
-        "x-hurricanehub-cache": cacheStatus
+        "x-hurricanehub-cache": cacheStatus,
+        ...(cacheStatus === "stale" ? { "x-hurricanehub-data-status": "stale" } : {})
       }
     });
   } catch (error) {

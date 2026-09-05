@@ -14,7 +14,7 @@ export type NhcCurrentFeed = {
   storms: Array<NhcStorm & { summary: string }>;
 };
 
-export async function getNhcCurrentFeed(): Promise<{ feed: NhcCurrentFeed; cacheStatus: "hit" | "miss" }> {
+export async function getNhcCurrentFeed(): Promise<{ feed: NhcCurrentFeed; cacheStatus: "hit" | "miss" | "stale" }> {
   const cache = env.HURRICANEHUB_CACHE;
   try {
     const cached = await cache?.get(CACHE_KEY);
@@ -23,13 +23,24 @@ export async function getNhcCurrentFeed(): Promise<{ feed: NhcCurrentFeed; cache
     console.error("NHC cache read failed, skipping cache", { error });
   }
 
-  const response = await fetch(NHC_CURRENT_STORMS, {
-    signal: AbortSignal.timeout(8_000),
-    headers: {
-      accept: "application/json",
-      "user-agent": "HurricaneHub/0.1 (https://www.hurricanetracker.cc; weather-data@hurricanetracker.cc)"
+  let response: Response;
+  try {
+    response = await fetch(NHC_CURRENT_STORMS, {
+      signal: AbortSignal.timeout(8_000),
+      headers: {
+        accept: "application/json",
+        "user-agent": "HurricaneHub/0.1 (https://www.hurricanetracker.cc; weather-data@hurricanetracker.cc)"
+      }
+    });
+  } catch (error) {
+    try {
+      const stale = await cache?.get(CACHE_KEY);
+      if (stale) return { feed: JSON.parse(stale) as NhcCurrentFeed, cacheStatus: "stale" };
+    } catch (cacheError) {
+      console.error("NHC stale cache read failed", { cacheError });
     }
-  });
+    throw error;
+  }
   if (!response.ok) throw new Error(`NHC feed returned HTTP ${response.status}`);
 
   const raw = await response.json() as { activeStorms?: NhcStorm[] };
