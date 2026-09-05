@@ -123,7 +123,7 @@ const jsonLd = graph(
       <p class="answer">{searchDemandNote}</p>
       <p class="section-actions">
         <a class="action-link" href="/hurricane-tracker/live/">Open live hurricane tracker</a>
-        <a class="action-link secondary-action" href="/radar/">Open radar and satellite map</a>
+        <a class="action-link secondary-action" href={`/embed/radar?layer=radar&theme=dark&view=${mapView}`}>Open ${basin} radar and satellite map</a>
       </p>
     </div>
   </section>
@@ -270,11 +270,15 @@ const jsonLd = graph(
           <p>See all active NHC systems and current advisory links.</p>
           <a href="/hurricane-tracker/live/">Open live tracker</a>
         </article>
-        <article class="state-card">
+        {basin === "Atlantic" ? <article class="state-card">
           <h3>Florida Hurricane Tracker</h3>
           <p>High-demand local page for Florida storm watches, warnings, and risk context.</p>
           <a href="/tracker/florida/">Open Florida</a>
-        </article>
+        </article> : <article class="state-card">
+          <h3>{basin} Satellite and Radar</h3>
+          <p>Compare official storm position with satellite structure and radar context for this basin.</p>
+          <a href={`/embed/radar?layer=satellite&theme=dark&view=${mapView}`}>Open basin map</a>
+        </article>}
         <article class="state-card">
           <h3>Storm Archive</h3>
           <p>Use the archive as HurricaneHub expands named-storm history and advisory records.</p>

@@ -22,6 +22,7 @@ try {
   console.error("HurricaneHub live tracker feed failed", { error });
 }
 const storms = stormFeed?.storms ?? [];
+const basinLabel = (storm: NhcStorm) => storm.id?.toUpperCase().startsWith("AL") ? "Atlantic" : storm.id?.toUpperCase().startsWith("CP") ? "Central Pacific" : "Eastern Pacific";
 const activeStormNames = storms.map((storm) => storm.name).filter(Boolean).slice(0, 2);
 const activeContext = activeStormNames.length ? ` Track ${activeStormNames.join(" and ")} now.` : "";
 const title = "Live Hurricane Tracker Map: Current Storms, NHC Path & Alerts";
@@ -207,7 +208,7 @@ const jsonLd = graph(
           <div>
             <p class="eyebrow"><span class="live-indicator"></span> Interactive weather operations</p>
             <h2 id="live-map-heading">Live NHC Hurricane Tracking Map</h2>
-            <p>Explore current NHC hurricane positions, forecast tracks, live radar, and NOAA GOES satellite-loop views across the Atlantic basin.</p>
+            <p>Explore current NHC hurricane positions, forecast tracks, live radar, and NOAA GOES satellite-loop views across the Atlantic, Gulf, and Pacific basins.</p>
           </div>
           <div class="map-source-stack" aria-label="Live map sources">
             <span>NHC positions</span>
@@ -268,7 +269,7 @@ const jsonLd = graph(
               </div>
               <span class="badge warn">{storm.intensity ? `${storm.intensity} kt` : storm.windSpeed ?? "Advisory active"}</span>
             </header>
-            <p>{storm.summary ?? `Latest NHC position: ${storm.latitude ?? "pending"}, ${storm.longitude ?? "pending"}.`}</p>
+            <p><strong>{basinLabel(storm)}</strong> · {storm.summary ?? `Latest NHC position: ${storm.latitude ?? "pending"}, ${storm.longitude ?? "pending"}.`}</p>
             <p class="source-note">Position {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"} · Updated {storm.lastUpdate ?? lastModified}</p>
             <p class="section-actions">
               <a class="action-link" href={`/hurricane-tracker/storm/${String(storm.name ?? storm.id ?? "storm").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}/`}>Open {storm.name ?? "storm"} live tracker</a>
