@@ -1,0 +1,23 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+import { articleSchema, breadcrumbSchema, graph, websiteSchema } from "../lib/schema";
+
+const title = "Privacy Policy";
+const description = "Read how HurricaneHub uses analytics, cookies, local storage, email subscriptions, browser notifications, advertising services, and public weather data.";
+const url = `${site.url}/privacy/`;
+const lastModified = "2026-09-07T00:00:00.000Z";
+const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url, dateModified: lastModified }), breadcrumbSchema([{ name: "Home", url: site.canonicalUrl }, { name: title, url }]));
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band"><div class="inner"><p class="eyebrow">Effective September 7, 2026</p><h1>Privacy Policy</h1><p class="answer">This policy explains what HurricaneHub collects, why it is used, and the choices available when you use hurricanetracker.cc.</p></div></section>
+  <section class="band"><div class="inner stack">
+    <article><h2>Information We Process</h2><p>Our hosting and security provider, Cloudflare, may process IP addresses, request details, device and browser information, security signals, and diagnostic logs to deliver and protect the site. HurricaneHub also uses Google Analytics to understand aggregate page visits, traffic sources, device categories, and site performance.</p></article>
+    <article><h2>Cookies and Local Storage</h2><p>Google Analytics and future advertising services may use cookies or similar technologies. HurricaneHub uses browser local storage for preferences and optional features such as theme, saved locations, watch lists, and notification status. You can clear cookies and site data in your browser. Blocking storage may limit optional features but core public content remains available.</p></article>
+    <article><h2>Advertising</h2><p>HurricaneHub may use Google AdSense or other advertising partners. Google and its partners may use cookies to serve, measure, and personalize ads based on visits to this and other websites, subject to applicable consent requirements. You can review or control Google ad personalization at <a href="https://myadcenter.google.com/" rel="noopener nofollow">My Ad Center</a> and learn how Google uses information from partner sites in <a href="https://policies.google.com/technologies/partner-sites" rel="noopener nofollow">Google's partner-sites policy</a>.</p></article>
+    <article><h2>Email and Browser Alerts</h2><p>If you voluntarily subscribe, we process the email address and source of the signup. Alert features may also process a ZIP code, state, browser push endpoint, and notification keys. These records are used only to provide the requested readiness emails or alerts and are stored in Cloudflare infrastructure for the configured retention period. Do not submit sensitive medical or emergency information.</p></article>
+    <article><h2>Public Weather and Third-Party Services</h2><p>The site retrieves public weather information from sources including NOAA, NHC, NWS, radar, satellite, and location services. Opening an external source sends your request to that provider under its own privacy policy. HurricaneHub does not sell personal information.</p></article>
+    <article><h2>Your Choices and Children's Privacy</h2><p>You may decline optional subscriptions, disable browser notifications, clear local site data, block cookies, or use browser privacy controls. To request deletion of an email or alert subscription, contact us. HurricaneHub is a general-audience weather and preparedness site and is not directed to children under 13.</p></article>
+    <article><h2>Policy Changes and Contact</h2><p>We may update this policy as services or legal requirements change. The effective date above identifies the current version. Questions or privacy requests can be sent to <a href="mailto:weather-data@hurricanetracker.cc">weather-data@hurricanetracker.cc</a> or through the <a href="/contact/">contact page</a>.</p></article>
+  </div></section>
+</Layout>

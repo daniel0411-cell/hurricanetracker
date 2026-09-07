@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+import { articleSchema, breadcrumbSchema, graph, websiteSchema } from "../lib/schema";
+
+const title = "Contact HurricaneHub";
+const description = "Contact HurricaneHub about corrections, source attribution, privacy requests, accessibility, partnerships, and general site feedback.";
+const url = `${site.url}/contact/`;
+const lastModified = "2026-09-07T00:00:00.000Z";
+const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url, dateModified: lastModified }), breadcrumbSchema([{ name: "Home", url: site.canonicalUrl }, { name: "Contact", url }]));
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band"><div class="inner"><p class="eyebrow">Questions and corrections</p><h1>Contact HurricaneHub</h1><p class="answer">Email <a href="mailto:weather-data@hurricanetracker.cc">weather-data@hurricanetracker.cc</a> for site feedback, factual corrections, source attribution, privacy requests, accessibility issues, or partnership inquiries.</p></div></section>
+  <section class="band"><div class="inner grid-2">
+    <article class="panel"><h2>What To Include</h2><ul class="check-list"><li>The page URL and a short description of the issue.</li><li>The official source or evidence supporting a correction.</li><li>For privacy requests, the email address used to subscribe and the feature involved.</li></ul><p>We do not need passwords, government IDs, payment details, medical records, or precise household information.</p></article>
+    <article class="panel"><h2>Emergency Information</h2><p>HurricaneHub does not provide emergency dispatch, forecasts, evacuation orders, shelter placement, or individual safety advice. For an immediate emergency, contact local emergency services. For official tropical forecasts use the <a href="https://www.nhc.noaa.gov/" rel="noopener nofollow">National Hurricane Center</a>; for local warnings use the <a href="https://www.weather.gov/" rel="noopener nofollow">National Weather Service</a> and local emergency management.</p></article>
+  </div></section>
+  <section class="band"><div class="inner"><h2>Response Expectations</h2><p>We prioritize factual corrections, broken official-source links, privacy requests, and accessibility issues. HurricaneHub cannot guarantee a response time during severe-weather events.</p><p><a href="/about/">About HurricaneHub and its sources</a> · <a href="/privacy/">Privacy Policy</a> · <a href="/terms/">Terms of Use</a></p></div></section>
+</Layout>

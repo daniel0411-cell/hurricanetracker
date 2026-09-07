@@ -50,6 +50,9 @@ const pageRoutes: SitemapRoute[] = [
   })),
   { path: "decision-guide/", lastmod: blogLastMod, priority: "0.8", changefreq: "monthly", section: "pages" },
   { path: "about/", lastmod: updated, priority: "0.8", changefreq: "monthly", section: "pages" },
+  { path: "contact/", lastmod: "2026-09-07T00:00:00.000Z", priority: "0.5", changefreq: "yearly", section: "pages" },
+  { path: "privacy/", lastmod: "2026-09-07T00:00:00.000Z", priority: "0.4", changefreq: "yearly", section: "pages" },
+  { path: "terms/", lastmod: "2026-09-07T00:00:00.000Z", priority: "0.4", changefreq: "yearly", section: "pages" },
   ...topicPages.map((page) => ({ path: `hurricane-tracker/${page.slug}/`, lastmod: updated, priority: "0.8", changefreq: "weekly", section: "pages" as const }))
 ];
 

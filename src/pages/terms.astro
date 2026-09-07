@@ -1,0 +1,23 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+import { articleSchema, breadcrumbSchema, graph, websiteSchema } from "../lib/schema";
+
+const title = "Terms of Use";
+const description = "Review the terms for using HurricaneHub weather information, maps, preparedness tools, subscriptions, external links, and advertising-supported content.";
+const url = `${site.url}/terms/`;
+const lastModified = "2026-09-07T00:00:00.000Z";
+const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url, dateModified: lastModified }), breadcrumbSchema([{ name: "Home", url: site.canonicalUrl }, { name: title, url }]));
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+  <section class="band"><div class="inner"><p class="eyebrow">Effective September 7, 2026</p><h1>Terms of Use</h1><p class="answer">By using HurricaneHub, you agree to use the site as an informational resource and to verify urgent decisions with official authorities.</p></div></section>
+  <section class="band"><div class="inner stack">
+    <article><h2>Informational Use Only</h2><p>HurricaneHub organizes public weather data, maps, educational content, and preparedness prompts. It is not an official forecast, warning, evacuation order, emergency service, engineering assessment, insurance opinion, or substitute for professional advice.</p></article>
+    <article><h2>Weather Data and Availability</h2><p>Weather conditions and official advisories can change quickly. Data may be delayed, cached, unavailable, incomplete, or affected by third-party outages. Always verify storm information with NHC, local warnings with NWS, and evacuation or shelter instructions with local emergency management.</p></article>
+    <article><h2>Tools and User Decisions</h2><p>Calculators, checklists, dashboards, and decision prompts provide general planning context. Results are estimates and do not determine whether a location is safe. You remain responsible for following official instructions and evaluating your household's circumstances.</p></article>
+    <article><h2>Acceptable Use</h2><p>Do not misuse the site, interfere with its operation, attempt unauthorized access, submit malicious content, overwhelm its services, or present HurricaneHub content as an official government warning. Automated access must respect published technical controls and applicable law.</p></article>
+    <article><h2>External Links, Advertising, and Intellectual Property</h2><p>External services and advertisements are governed by their providers. A link or advertisement does not imply endorsement. HurricaneHub's original text, design, and software are protected by applicable law; public government data remains subject to its source terms and attribution requirements.</p></article>
+    <article><h2>No Warranty and Limitation</h2><p>The site is provided on an “as available” basis without guarantees of accuracy, availability, fitness, or uninterrupted operation. To the extent permitted by law, HurricaneHub is not liable for losses arising from reliance on the site, delayed data, third-party services, or decisions made during a weather event.</p></article>
+    <article><h2>Changes and Contact</h2><p>These terms may change as the site evolves. Continued use after an update means the current terms apply. Questions can be sent to <a href="mailto:weather-data@hurricanetracker.cc">weather-data@hurricanetracker.cc</a>.</p></article>
+  </div></section>
+</Layout>
