@@ -48,6 +48,10 @@ const stormName = stormRecord?.name ?? knownPage?.name ?? slug.replace(/(^|-)(\w
 const basinCode = activeStorm?.id?.slice(0, 2).toLowerCase();
 const basin = knownPage?.basin ?? ({ al: "Atlantic", ep: "Eastern Pacific", cp: "Central Pacific" }[basinCode ?? ""] ?? "NHC");
 const mapView = basinCode === "ep" || basinCode === "cp" ? "pacific" : "atlantic";
+const classification = ({ HU: "Hurricane", TS: "Tropical Storm", TD: "Tropical Depression", PTC: "Post-Tropical Cyclone" }[activeStorm?.classification ?? ""] ?? activeStorm?.classification ?? "NHC tropical system");
+const isPostTropical = activeStorm?.classification === "PTC";
+const forecastCenter = basin === "Central Pacific" ? "Central Pacific Hurricane Center" : "National Hurricane Center";
+const forecastCenterUrl = basin === "Central Pacific" ? "https://www.nhc.noaa.gov/?cpac" : "https://www.nhc.noaa.gov/";
 const primaryKeywords = knownPage?.primaryKeywords ?? [`hurricane ${stormName.toLowerCase()} tracker`, `hurricane ${stormName.toLowerCase()} path`, `hurricane ${stormName.toLowerCase()} live map`, `where is hurricane ${stormName.toLowerCase()} now`];
 const overview = knownPage?.overview ?? `Track ${stormName} with the latest NHC position, official advisory time, forecast path, radar, satellite imagery, and local-alert context. This page updates from official NHC data while the system is active and remains available as a stable storm reference.`;
 const searchDemandNote = knownPage?.searchDemandNote ?? `Use this page for live ${stormName} tracker, path, map, forecast, and current-position searches.`;
@@ -119,7 +123,7 @@ const jsonLd = graph(
       <p class="eyebrow">{basin} storm tracker</p>
       <h1 id="storm-title">{stormName} Tracker Live Map, Path and NHC Updates</h1>
       {isArchived && <p class="archive-notice"><strong>{stormName} is not active in the current NHC feed.</strong> This stable archive page preserves the last observed advisory context; use the live tracker for current storms.</p>}
-      <p class="answer">{activeStorm ? `${stormName} live updates: NHC last reported the system at ${activeStorm.latitude ?? "a pending latitude"}, ${activeStorm.longitude ?? "a pending longitude"}, moving ${activeStorm.movementDir != null ? `${activeStorm.movementDir}°` : "in a direction pending confirmation"} at ${activeStorm.movementSpeed != null ? `${activeStorm.movementSpeed} kt` : "a speed pending confirmation"}. Updated ${activeStorm.lastUpdate ?? lastModified}. Use the tracker and official forecast path below for current details.` : overview}</p>
+      <p class="answer">{activeStorm ? `${stormName} is currently classified as a ${classification}. ${forecastCenter} last reported the system at ${activeStorm.latitude ?? "a pending latitude"}, ${activeStorm.longitude ?? "a pending longitude"}, moving ${activeStorm.movementDir != null ? `${activeStorm.movementDir}°` : "in a direction pending confirmation"} at ${activeStorm.movementSpeed != null ? `${activeStorm.movementSpeed} kt` : "a speed pending confirmation"}. Updated ${activeStorm.lastUpdate ?? lastModified}. Use the tracker and official forecast path below for current details.` : overview}</p>
       <p class="answer">{searchDemandNote}</p>
       <p class="section-actions">
         <a class="action-link" href="/hurricane-tracker/live/">Open live hurricane tracker</a>
@@ -131,8 +135,8 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="live-status">
     <div class="inner grid-2">
       <article class="panel">
-        <p class="eyebrow">Current NHC status</p>
-        <h2 id="live-status">{activeStorm ? `${stormName} is active in the current NHC feed` : isArchived ? `${stormName} historical status` : `No active ${stormName} record in the current feed`}</h2>
+        <p class="eyebrow">Current official status</p>
+        <h2 id="live-status">{activeStorm ? isPostTropical ? `${stormName} is post-tropical in the current NHC feed` : `${stormName} is active in the current NHC feed` : isArchived ? `${stormName} historical status` : `No active ${stormName} record in the current feed`}</h2>
         {activeStorm ? (
           <>
             <p>{activeStorm.summary ?? "Current NHC storm data loaded for this named system."}</p>
@@ -147,7 +151,7 @@ const jsonLd = graph(
             )}
             <table>
               <tbody>
-                <tr><th>Classification</th><td>{activeStorm.classification ?? "pending"}</td></tr>
+                <tr><th>Classification</th><td>{classification}</td></tr>
                 <tr><th>Intensity</th><td>{activeStorm.intensity ? formatWind(Number(activeStorm.intensity)) : activeStorm.windSpeed ?? "pending"}</td></tr>
                 <tr><th>Position</th><td>{activeStorm.latitude ?? "pending"}, {activeStorm.longitude ?? "pending"}</td></tr>
                 <tr><th>Movement</th><td>{activeStorm.movementDir != null ? `${activeStorm.movementDir}°` : "pending"} at {activeStorm.movementSpeed != null ? `${activeStorm.movementSpeed} kt` : "pending"}</td></tr>
@@ -156,8 +160,9 @@ const jsonLd = graph(
               </tbody>
             </table>
             <p class="storm-links">
-              {publicAdvisory && <a href={publicAdvisory} rel="noopener nofollow">NHC public advisory</a>}
-              {forecastAdvisory && <a href={forecastAdvisory} rel="noopener nofollow">NHC forecast advisory</a>}
+              {publicAdvisory && <a href={publicAdvisory} rel="noopener nofollow">Official public advisory</a>}
+              {forecastAdvisory && <a href={forecastAdvisory} rel="noopener nofollow">Official forecast advisory</a>}
+              {basin === "Central Pacific" && <a href={forecastCenterUrl} rel="noopener nofollow">CPHC hurricane information</a>}
             </p>
           </>
         ) : (
@@ -250,7 +255,7 @@ const jsonLd = graph(
         <article class="panel">
           <h3>Official Sources</h3>
           <ul>
-            <li><a href="https://www.nhc.noaa.gov/" rel="noopener nofollow">National Hurricane Center advisories</a></li>
+            <li><a href={forecastCenterUrl} rel="noopener nofollow">{forecastCenter} advisories</a></li>
             <li><a href="https://www.weather.gov/" rel="noopener nofollow">National Weather Service local alerts</a></li>
             <li><a href="/tools/storm-distance-calculator/">Storm distance calculator</a></li>
             <li><a href="/tools/storm-surge-checker/">Storm surge checker</a></li>

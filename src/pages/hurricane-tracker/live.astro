@@ -23,8 +23,12 @@ try {
 }
 const storms = stormFeed?.storms ?? [];
 const basinLabel = (storm: NhcStorm) => storm.id?.toUpperCase().startsWith("AL") ? "Atlantic" : storm.id?.toUpperCase().startsWith("CP") ? "Central Pacific" : "Eastern Pacific";
-const activeStormNames = storms.map((storm) => storm.name).filter(Boolean).slice(0, 2);
-const activeContext = activeStormNames.length ? ` Track ${activeStormNames.join(" and ")} now.` : "";
+const classificationLabel = (classification?: string) => ({ HU: "Hurricane", TS: "Tropical Storm", TD: "Tropical Depression", PTC: "Post-Tropical Cyclone" }[classification ?? ""] ?? classification ?? "NHC tropical system");
+const tropicalStorms = storms.filter((storm) => storm.classification !== "PTC");
+const postTropicalStorms = storms.filter((storm) => storm.classification === "PTC");
+const stormSummary = storms.length ? `${tropicalStorms.length} active tropical system${tropicalStorms.length === 1 ? "" : "s"}${postTropicalStorms.length ? ` and ${postTropicalStorms.length} post-tropical system${postTropicalStorms.length === 1 ? "" : "s"}` : ""}` : "No active NHC systems listed";
+const activeStormNames = tropicalStorms.map((storm) => storm.name).filter(Boolean).slice(0, 2);
+const activeContext = storms.length ? ` Track ${storms.map((storm) => storm.name).filter(Boolean).join(", ")} now.` : "";
 const title = "Hurricane Tracker: Live Map, Current Storms & NHC Alerts";
 const lastModified = stormFeed?.updatedAt ?? stormFeed?.fetchedAt ?? site.contentLastModified;
 const updatedLabel = new Date(lastModified).toLocaleString("en-US", {
@@ -35,7 +39,7 @@ const updatedLabel = new Date(lastModified).toLocaleString("en-US", {
   hour: "numeric",
   minute: "2-digit"
 });
-const description = `${storms.length ? `${storms.length} active NHC system${storms.length === 1 ? "" : "s"}.` : "No active NHC systems listed."} Open the live hurricane tracker map for current storm paths, NHC updates, radar, satellite and local alerts. Updated ${updatedLabel} UTC.${activeContext}`;
+const description = `${stormSummary}. Open the live hurricane tracker map for current storm paths, NHC updates, radar, satellite and local alerts. Updated ${updatedLabel} UTC.${activeContext}`;
 const liveTrackerPaths = [
   {
     name: "Check active storms",
@@ -182,7 +186,7 @@ const jsonLd = graph(
       <div>
         <p class="eyebrow">Current NHC storm data</p>
         <h1 id="live-title">Live Hurricane Tracker and NHC Tracking Map</h1>
-        <p class="answer">{storms.length ? `Yes. The latest NHC feed lists ${storms.length} active system${storms.length === 1 ? "" : "s"}${activeStormNames.length ? `: ${activeStormNames.join(" and ")}` : ""}.` : "No active tropical cyclone is listed in the latest NHC feed right now."} Last checked {updatedLabel} UTC. Use this live hurricane tracker to see current storm positions, forecast paths, NHC advisories, radar, satellite imagery, and local NWS alerts in one place.</p>
+        <p class="answer">{storms.length ? `The latest NHC feed lists ${stormSummary}: ${storms.map((storm) => `${storm.name ?? storm.id ?? "unnamed system"} (${classificationLabel(storm.classification)})`).join(", ")}.` : "No active tropical cyclone is listed in the latest NHC feed right now."} Last checked {updatedLabel} UTC. Use this live hurricane tracker to see current storm positions, forecast paths, NHC advisories, radar, satellite imagery, and local NWS alerts in one place.</p>
         <p class="section-actions">
           <a class="action-link" href="#current-hurricanes">View current storms</a>
           <a class="action-link secondary-action" href="#live-map-heading">Open live map</a>
@@ -265,7 +269,7 @@ const jsonLd = graph(
           <article class="panel current-storm">
             <header>
               <div>
-                <p class="eyebrow">{storm.classification ?? "NHC tropical system"}</p>
+                <p class="eyebrow">{classificationLabel(storm.classification)}</p>
                 <h3>{storm.name ?? storm.id ?? "Active tropical system"}</h3>
               </div>
               <span class="badge warn">{storm.intensity ? `${storm.intensity} kt` : storm.windSpeed ?? "Advisory active"}</span>
@@ -442,11 +446,12 @@ const jsonLd = graph(
     const url = typeof value === "string" ? value : (value && typeof value === "object" ? (value as { url?: string }).url : "");
     return typeof url === "string" && /^https:\/\//.test(url) ? url : "";
   };
+  const classificationLabel = (classification: unknown) => ({ HU: "Hurricane", TS: "Tropical Storm", TD: "Tropical Depression", PTC: "Post-Tropical Cyclone" }[String(classification ?? "")] ?? String(classification || "NHC tropical system"));
   function stormMarkup(storm: Record<string, any>) {
     const name = storm.name ?? storm.id ?? "Active tropical system";
     const slug = String(name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
     const advisory = advisoryUrl(storm.publicAdvisory);
-    return `<article class="panel current-storm"><header><div><p class="eyebrow">${escapeHtml(storm.classification ?? "NHC tropical system")}</p><h3>${escapeHtml(name)}</h3></div><span class="badge warn">${escapeHtml(storm.intensity ? `${storm.intensity} kt` : storm.windSpeed ?? "Advisory active")}</span></header><p>${escapeHtml(storm.summary ?? `Latest NHC position: ${storm.latitude ?? "pending"}, ${storm.longitude ?? "pending"}.`)}</p><p class="source-note">Position ${escapeHtml(storm.latitude ?? "pending")}, ${escapeHtml(storm.longitude ?? "pending")} · Updated ${escapeHtml(storm.lastUpdate ?? "latest feed")}</p><p class="section-actions"><a class="action-link" href="/hurricane-tracker/storm/${slug}/">Open ${escapeHtml(name)} live tracker</a>${advisory ? `<a class="action-link secondary-action" href="${escapeHtml(advisory)}" rel="noopener nofollow">NHC advisory</a>` : ""}</p></article>`;
+    return `<article class="panel current-storm"><header><div><p class="eyebrow">${escapeHtml(classificationLabel(storm.classification))}</p><h3>${escapeHtml(name)}</h3></div><span class="badge warn">${escapeHtml(storm.intensity ? `${storm.intensity} kt` : storm.windSpeed ?? "Advisory active")}</span></header><p>${escapeHtml(storm.summary ?? `Latest NHC position: ${storm.latitude ?? "pending"}, ${storm.longitude ?? "pending"}.`)}</p><p class="source-note">Position ${escapeHtml(storm.latitude ?? "pending")}, ${escapeHtml(storm.longitude ?? "pending")} · Updated ${escapeHtml(storm.lastUpdate ?? "latest feed")}</p><p class="section-actions"><a class="action-link" href="/hurricane-tracker/storm/${slug}/">Open ${escapeHtml(name)} live tracker</a>${advisory ? `<a class="action-link secondary-action" href="${escapeHtml(advisory)}" rel="noopener nofollow">NHC advisory</a>` : ""}</p></article>`;
   }
   async function refreshStormList() {
     try {
@@ -454,8 +459,10 @@ const jsonLd = graph(
       if (!response.ok) return;
       const feed = await response.json() as { storms?: Array<Record<string, any>>; updatedAt?: string; fetchedAt?: string };
       const storms = Array.isArray(feed.storms) ? feed.storms : [];
+      const tropicalCount = storms.filter((storm) => storm.classification !== "PTC").length;
+      const postTropicalCount = storms.length - tropicalCount;
       if (countEl) countEl.textContent = String(storms.length);
-      if (labelEl) labelEl.textContent = storms.length === 1 ? "active NHC system" : "active NHC systems";
+      if (labelEl) labelEl.textContent = postTropicalCount ? `${tropicalCount} active tropical, ${postTropicalCount} post-tropical` : storms.length === 1 ? "active NHC system" : "active NHC systems";
       if (updatedEl) updatedEl.textContent = `Last checked ${new Date(feed.updatedAt ?? feed.fetchedAt ?? Date.now()).toLocaleString("en-US", { timeZone: "UTC" })} UTC`;
       if (listEl && storms.length) listEl.innerHTML = storms.map(stormMarkup).join("");
     } catch {}
