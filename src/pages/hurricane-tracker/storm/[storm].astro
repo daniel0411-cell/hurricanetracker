@@ -50,8 +50,9 @@ const basin = knownPage?.basin ?? ({ al: "Atlantic", ep: "Eastern Pacific", cp: 
 const mapView = basinCode === "ep" || basinCode === "cp" ? "pacific" : "atlantic";
 const classification = ({ HU: "Hurricane", TS: "Tropical Storm", TD: "Tropical Depression", PTC: "Post-Tropical Cyclone" }[activeStorm?.classification ?? ""] ?? activeStorm?.classification ?? "NHC tropical system");
 const isPostTropical = activeStorm?.classification === "PTC";
-const forecastCenter = basin === "Central Pacific" ? "Central Pacific Hurricane Center" : "National Hurricane Center";
-const forecastCenterUrl = basin === "Central Pacific" ? "https://www.nhc.noaa.gov/?cpac" : "https://www.nhc.noaa.gov/";
+const isCphc = basin === "Central Pacific" || /\/text\/HFO/i.test(advisoryUrl(activeStorm?.publicAdvisory) || advisoryUrl(activeStorm?.forecastAdvisory));
+const forecastCenter = isCphc ? "Central Pacific Hurricane Center" : "National Hurricane Center";
+const forecastCenterUrl = isCphc ? "https://www.nhc.noaa.gov/?cpac" : "https://www.nhc.noaa.gov/";
 const primaryKeywords = knownPage?.primaryKeywords ?? [`hurricane ${stormName.toLowerCase()} tracker`, `hurricane ${stormName.toLowerCase()} path`, `hurricane ${stormName.toLowerCase()} live map`, `where is hurricane ${stormName.toLowerCase()} now`];
 const overview = knownPage?.overview ?? `Track ${stormName} with the latest NHC position, official advisory time, forecast path, radar, satellite imagery, and local-alert context. This page updates from official NHC data while the system is active and remains available as a stable storm reference.`;
 const searchDemandNote = knownPage?.searchDemandNote ?? `Use this page for live ${stormName} tracker, path, map, forecast, and current-position searches.`;
@@ -162,7 +163,7 @@ const jsonLd = graph(
             <p class="storm-links">
               {publicAdvisory && <a href={publicAdvisory} rel="noopener nofollow">Official public advisory</a>}
               {forecastAdvisory && <a href={forecastAdvisory} rel="noopener nofollow">Official forecast advisory</a>}
-              {basin === "Central Pacific" && <a href={forecastCenterUrl} rel="noopener nofollow">CPHC hurricane information</a>}
+              {isCphc && <a href={forecastCenterUrl} rel="noopener nofollow">CPHC hurricane information</a>}
             </p>
           </>
         ) : (
