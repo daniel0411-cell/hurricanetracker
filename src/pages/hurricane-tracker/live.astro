@@ -6,6 +6,7 @@ import { topicPages } from "../../data/topicPages";
 import { articleSchema, breadcrumbSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 import { advisoryUrl, type NhcStorm } from "../../lib/weather";
 import OfficialUpdateStamp from "../../components/OfficialUpdateStamp.astro";
+import ContentFigure from "../../components/ContentFigure.astro";
 
 type StormFeed = {
   storms?: Array<NhcStorm & { summary?: string }>;
@@ -340,6 +341,7 @@ const jsonLd = graph(
       <p class="eyebrow">Read each layer correctly</p>
       <h2 id="map-layers-heading">NHC Tracking Map vs Radar, Satellite, and Forecast Cone</h2>
       <p class="answer">These layers answer different questions. Compare them instead of treating any single map as a complete picture of hurricane risk.</p>
+      <ContentFigure src="/images/guides/forecast-cone-impact-boundary.svg" alt="Diagram showing the NHC forecast cone as possible storm-center positions while hazards can extend outside the cone" caption="The NHC forecast cone represents probable storm-center positions, not the full area of wind, storm surge, rain, flooding, or tornado risk." />
       <div class="grid-2 section-grid layer-guide">
         <article class="panel">
           <h3>NHC Hurricane Tracking Map</h3>

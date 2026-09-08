@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">How to read the NHC forecast cone</title><desc id="desc">The forecast cone tracks probable storm-center positions while hazards can extend beyond it.</desc>
+  <rect width="1200" height="675" fill="#f3f8fa"/><rect x="54" y="48" width="1092" height="579" rx="20" fill="#fff" stroke="#b7cbd4" stroke-width="2"/>
+  <text x="94" y="112" font-family="Arial,sans-serif" font-size="38" font-weight="700" fill="#123849">The cone tracks the center, not every hazard</text><text x="94" y="151" font-family="Arial,sans-serif" font-size="21" fill="#496773">Wind, surge, rain and tornado risk can extend outside the forecast cone.</text>
+  <path d="M120 490 C310 410 450 350 600 328 C770 303 925 248 1080 172 L1080 414 C905 410 750 413 602 438 C438 466 290 512 120 570 Z" fill="#dceef4" stroke="#5f9db5" stroke-width="3"/>
+  <path d="M125 530 C320 452 455 397 603 381 C770 362 920 320 1072 286" fill="none" stroke="#123849" stroke-width="7" stroke-linecap="round" stroke-dasharray="16 14"/>
+  <g fill="#fff" stroke="#123849" stroke-width="4"><circle cx="235" cy="486" r="13"/><circle cx="420" cy="420" r="13"/><circle cx="603" cy="381" r="13"/><circle cx="805" cy="344" r="13"/><circle cx="1010" cy="302" r="13"/></g>
+  <g font-family="Arial,sans-serif"><rect x="112" y="208" width="336" height="112" rx="14" fill="#e7f3f7" stroke="#6ca1b5"/><text x="136" y="250" font-size="24" font-weight="700" fill="#123849">INSIDE THE CONE</text><text x="136" y="284" font-size="18" fill="#334f5a">Possible future center locations</text><rect x="752" y="468" width="330" height="112" rx="14" fill="#fff0e9" stroke="#d98a70"/><text x="776" y="510" font-size="24" font-weight="700" fill="#6e2d19">OUTSIDE THE CONE</text><text x="776" y="544" font-size="18" fill="#63382c">Hazards may still reach here</text></g>
+  <text x="94" y="600" font-family="Arial,sans-serif" font-size="18" fill="#496773">Use NHC hazard products, NWS alerts and local orders alongside the cone.</text>
+</svg>

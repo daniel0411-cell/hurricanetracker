@@ -1,5 +1,6 @@
 ---
 import FaqBlock from "../components/FaqBlock.astro";
+import ContentFigure from "../components/ContentFigure.astro";
 import StormCard from "../components/StormCard.astro";
 import Layout from "../layouts/Layout.astro";
 import { faqs, site, states } from "../data/site";
@@ -375,6 +376,7 @@ const jsonLd = graph(
     <section class="radar-notes" aria-labelledby="radar-decision-heading">
       <p class="eyebrow">Radar search guide</p>
       <h2 id="radar-decision-heading">Hurricane Radar vs Satellite: What To Check First</h2>
+      <ContentFigure src="/images/guides/radar-vs-satellite.svg" alt="Comparison showing weather radar for nearby rain bands and satellite imagery for offshore cloud structure" caption="Radar is strongest for nearby precipitation timing; GOES satellite is strongest for broad cloud structure over open water. Neither replaces NHC forecasts or NWS alerts." />
       <div class="grid-2">
         <article>
           <p class="answer">Hurricane radar and hurricane satellite answer different questions. Satellite is better for storms over open water because it shows cloud organization, convective bursts, and whether the circulation is becoming better defined. Radar becomes more useful near land because it can show rain-band timing, embedded thunderstorms, and short-term changes closer to a specific city.</p>
