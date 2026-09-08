@@ -1,6 +1,7 @@
 ---
 import FaqBlock from "../components/FaqBlock.astro";
 import Layout from "../layouts/Layout.astro";
+import ContentFigure from "../components/ContentFigure.astro";
 import { site } from "../data/site";
 import { articleSchema, faqSchema, graph, howToSchema, itemListSchema, websiteSchema } from "../lib/schema";
 
@@ -219,6 +220,7 @@ const jsonLd = graph(
       <p class="eyebrow">Time-based planning</p>
       <h2 id="preparedness-timeline">Hurricane Preparedness by Time Window</h2>
       <p class="answer">The safest hurricane plan is staged before warnings compress your options. Use these windows with official alerts and local instructions.</p>
+      <ContentFigure src="/images/guides/hurricane-preparedness-timeline.svg" alt="Hurricane preparedness timeline covering quiet weather, 72 hours, 48 hours, and 24 hours before expected impacts" caption="This general sequence helps stage household tasks. Always follow current NHC forecasts, NWS alerts, evacuation orders, and local timing." />
       <div class="grid-3 section-grid">
         {timelineWindows.map((item) => (
           <article class="panel">

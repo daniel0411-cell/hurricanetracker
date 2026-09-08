@@ -1,6 +1,7 @@
 ---
 import FaqBlock from "../../components/FaqBlock.astro";
 import Layout from "../../layouts/Layout.astro";
+import ContentFigure from "../../components/ContentFigure.astro";
 import { faqs, site } from "../../data/site";
 import { getTopicPage, topicPages } from "../../data/topicPages";
 import { articleSchema, breadcrumbSchema, faqSchema, graph, howToSchema, itemListSchema, websiteSchema } from "../../lib/schema";
@@ -53,6 +54,9 @@ const jsonLd = graph(
       </p>
     </div>
   </section>
+
+  {page.slug === "hurricane-categories" && <section class="band" aria-labelledby="category-visual"><div class="inner"><h2 id="category-visual">Hurricane Category Wind Thresholds</h2><ContentFigure src="/images/guides/hurricane-category-wind-scale.svg" alt="Saffir-Simpson hurricane wind scale showing Category 1 through 5 wind speed thresholds in miles per hour" caption="The Saffir-Simpson scale measures maximum sustained wind only. It does not measure storm surge, rainfall flooding, tornadoes, storm size, or duration." /></div></section>}
+  {page.slug === "storm-surge-map" && <section class="band" aria-labelledby="surge-visual"><div class="inner"><h2 id="surge-visual">Use Each Hurricane Map for the Right Question</h2><ContentFigure src="/images/guides/storm-hazard-map-differences.svg" alt="Comparison of hurricane forecast track, storm surge, rainfall and flood maps, and local weather alerts" caption="Forecast tracks, surge maps, rainfall forecasts, and local alerts describe different hazards. Check the latest official products together before acting." /></div></section>}
 
   <section class="band" aria-labelledby="topic-workflow">
     <div class="inner">

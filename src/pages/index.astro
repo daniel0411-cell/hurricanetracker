@@ -4,6 +4,7 @@ import LiveDashboard from "../components/LiveDashboard.astro";
 import LocalRiskWidget from "../components/LocalRiskWidget.astro";
 import ReminderSignup from "../components/ReminderSignup.astro";
 import Layout from "../layouts/Layout.astro";
+import ContentFigure from "../components/ContentFigure.astro";
 import { differentiators, faqs, site, stats } from "../data/site";
 import { coastalStates } from "../data/states";
 import { blogPosts } from "../data/blog";
@@ -157,6 +158,14 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
         </div>
         <p class="source-note">NHC basin status plus an example {featuredStateName} NWS feed. Check your local page for decisions. Updated {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC.</p>
       </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="decision-path-heading">
+    <div class="inner">
+      <p class="eyebrow">Use the right source</p>
+      <h2 id="decision-path-heading">From Hurricane Track to Local Action</h2>
+      <ContentFigure src="/images/guides/hurricane-decision-path.svg" alt="Four-step hurricane decision path from NHC track to radar and satellite, local alerts, and household action" caption="Start with the official storm track, add observational layers, then use NWS alerts and local instructions for decisions. HurricaneHub does not issue forecasts or evacuation orders." />
     </div>
   </section>
 

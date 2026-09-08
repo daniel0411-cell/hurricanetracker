@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Atlantic hurricane season timeline</title><desc id="desc">The official June through November Atlantic hurricane season with the statistical peak near September 10.</desc>
+  <rect width="1200" height="675" fill="#f3f8fa"/><rect x="54" y="48" width="1092" height="579" rx="20" fill="#fff" stroke="#b7cbd4" stroke-width="2"/>
+  <text x="94" y="118" font-family="Arial,sans-serif" font-size="38" font-weight="700" fill="#123849">Atlantic hurricane season: June 1–November 30</text><text x="94" y="157" font-family="Arial,sans-serif" font-size="21" fill="#496773">Activity can occur throughout the season; the historical peak is near September 10.</text>
+  <path d="M118 430 C250 420 290 395 390 360 C500 320 570 245 690 220 C780 204 830 238 895 290 C970 350 1020 395 1080 420" fill="none" stroke="#176b87" stroke-width="22" stroke-linecap="round"/>
+  <line x1="118" y1="475" x2="1080" y2="475" stroke="#8198a2" stroke-width="3"/>
+  <g font-family="Arial,sans-serif" font-size="20" fill="#243f4a" text-anchor="middle"><text x="145" y="515">JUN</text><text x="325" y="515">JUL</text><text x="505" y="515">AUG</text><text x="685" y="515">SEP</text><text x="865" y="515">OCT</text><text x="1045" y="515">NOV</text></g>
+  <g stroke="#8198a2" stroke-width="3"><line x1="145" y1="462" x2="145" y2="488"/><line x1="325" y1="462" x2="325" y2="488"/><line x1="505" y1="462" x2="505" y2="488"/><line x1="685" y1="462" x2="685" y2="488"/><line x1="865" y1="462" x2="865" y2="488"/><line x1="1045" y1="462" x2="1045" y2="488"/></g>
+  <line x1="720" y1="195" x2="720" y2="475" stroke="#d55d36" stroke-width="4" stroke-dasharray="10 8"/><circle cx="720" cy="214" r="13" fill="#d55d36"/><rect x="760" y="190" width="276" height="104" rx="12" fill="#fff2ed" stroke="#d98a70"/><text x="782" y="229" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#8b351d">Historical peak</text><text x="782" y="263" font-family="Arial,sans-serif" font-size="20" fill="#63382c">Around September 10</text>
+  <text x="94" y="572" font-family="Arial,sans-serif" font-size="18" fill="#496773">Source context: NOAA/NHC Atlantic hurricane climatology. This curve is historical context, not a forecast for a specific year.</text>
+</svg>

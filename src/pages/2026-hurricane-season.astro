@@ -1,6 +1,7 @@
 ---
 import FaqBlock from "../components/FaqBlock.astro";
 import Layout from "../layouts/Layout.astro";
+import ContentFigure from "../components/ContentFigure.astro";
 import { site } from "../data/site";
 import { coastalStates } from "../data/states";
 import { articleSchema, breadcrumbSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
@@ -83,6 +84,8 @@ const jsonLd = graph(
   </section>
 
   <section class="band stats-band" aria-labelledby="season-statistics"><div class="inner"><p class="eyebrow">Recorded season activity</p><h2 id="season-statistics">2026 Season Statistics</h2><div class="stats"><div><strong>{namedStorms}</strong><span>Named storms recorded</span></div><div><strong>{hurricanes}</strong><span>Hurricanes recorded</span></div><div><strong>{majorHurricanes}</strong><span>Major hurricanes recorded</span></div></div><p class="source-note">Counts use HurricaneHub's 2026 NHC storm registry and current feed. They update as official records are observed.</p></div></section>
+
+  <section class="band" aria-labelledby="season-timeline"><div class="inner"><p class="eyebrow">Season timing</p><h2 id="season-timeline">When Atlantic Hurricane Activity Usually Peaks</h2><ContentFigure src="/images/guides/atlantic-hurricane-season-timeline.svg" alt="Atlantic hurricane season timeline from June through November with the historical activity peak near September 10" caption="NOAA and NHC climatology place the historical peak near September 10. The curve provides seasonal context, not a forecast for 2026 or any individual storm." /></div></section>
 
   <section class="band" aria-labelledby="name-list"><div class="inner"><p class="eyebrow">Official sequence</p><h2 id="name-list">2026 Atlantic Storm Name List</h2><p class="answer">A standing page does not mean a storm has formed. Active and dissipated labels reflect observed feed or registry records; “next” marks the first unused name.</p><ol class="name-grid">{nameRows.map((item) => <li>{stormNameLinks[item.name] ? <a href={stormNameLinks[item.name]}><span>{item.name}</span><small class:list={["status", item.status]}>{item.status}</small></a> : <span class="name-row"><span>{item.name}</span><small class:list={["status", item.status]}>{item.status}</small></span>}</li>)}</ol></div></section>
 
