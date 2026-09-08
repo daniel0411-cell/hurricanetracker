@@ -141,7 +141,7 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
     <div class="inner hero-grid">
       <div>
         <p class="eyebrow">{primaryStorm ? "Active hurricane-season operations" : "North America hurricane operations"}</p>
-        <h1 id="home-title">HurricaneHub</h1>
+        <h1 id="home-title">HurricaneHub Live Hurricane Tracker</h1>
         <p class="answer">HurricaneHub shows live hurricanes approaching North America, official NHC storm context, state NWS warnings, and emergency decision tools so coastal households can monitor, prepare, act, or leave with fewer tabs open.</p>
         <p class="section-actions">
           <a class="action-link" href={primaryStorm ? `/hurricane-tracker/storm/${primaryStormSlug}/` : "/hurricane-tracker/live/"}>{primaryStorm ? `Track ${primaryStorm.name ?? "active storm"}` : "Open live hurricane tracker"}</a>

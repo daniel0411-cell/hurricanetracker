@@ -33,6 +33,7 @@ const storm = (feed?.storms ?? []).find((item) => {
   const keys = [item.id, item.name, item.binNumber].filter(Boolean).map((value) => String(value).toLowerCase());
   return keys.includes(id.toLowerCase());
 });
+if (feed && !storm) return Astro.redirect("/tracker/", 302);
 const publicAdvisory = advisoryUrl(storm?.publicAdvisory);
 const forecastAdvisory = advisoryUrl(storm?.forecastAdvisory);
 const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
@@ -46,7 +47,7 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="storm-detail-title">
     <div class="inner">
       <p class="eyebrow">NHC storm detail</p>
-      <h1 id="storm-detail-title">{storm?.name ?? "暂无活跃风暴"}</h1>
+      <h1 id="storm-detail-title">{storm?.name ?? "Storm Data Temporarily Unavailable"}</h1>
       <p class="answer">This page shows the latest NHC details for this active storm, including its current position, intensity, movement, official advisory links, and an approximate ZIP-to-storm distance for planning context.</p>
     </div>
   </section>
@@ -75,8 +76,8 @@ const jsonLd = graph(
           </>
         ) : (
           <>
-            <h3>暂无活跃风暴</h3>
-            <p>No active NHC storm matched this detail URL. Return to the tracker for the current storm list.</p>
+            <h3>Live Storm Data Is Temporarily Unavailable</h3>
+            <p>The NHC feed could not be confirmed for this storm. Return to the tracker for the latest available storm list and official advisory links.</p>
           </>
         )}
       </article>
