@@ -12,7 +12,7 @@ const profiles: Record<string, Omit<StateSeoProfile, "title" | "headline"> & { t
     titleTail: "Is a Hurricane Coming? Live NHC & NWS Alerts",
     headlineTail: "Live NHC Track, Alerts, and Evacuation Zones",
     description:
-      "Is there a hurricane coming to Florida? Check today's live NHC track, nearby storm path, NWS alerts, evacuation zones, Orlando, Miami, Tampa, and Gulf Coast updates.",
+      "Check Florida hurricane conditions today: NHC track, nearby storm path, NWS alerts, evacuation zones, plus Miami, Tampa, Orlando, and Gulf Coast updates.",
     queryFocus: ["florida hurricane tracker", "hurricane tracker florida", "fl hurricane tracker", "florida hurricane alerts"]
   },
   texas: {
