@@ -92,10 +92,10 @@ const advisoryChanges = advisoryHistory.map((item, index) => {
 const riSignal = advisoryHistory.length ? detectRapidIntensification(advisoryHistory) : null;
 const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
 const title = activeStorm
-  ? `${stormName} Tracker: Current Position, Path & NHC Update`
+  ? `${stormName} ${classification} Tracker: Current Position & NHC Update`
   : knownPage?.title ?? `${stormName} ${isArchived ? "Storm Archive" : "Hurricane Tracker: Live Path, Map & NHC Updates"}`;
 const description = activeStorm
-  ? `${stormName} is a ${classification} at ${activeStorm.latitude ?? "a pending position"}, ${activeStorm.longitude ?? ""}, with ${activeStorm.intensity ? formatWind(Number(activeStorm.intensity)) : "intensity pending"}. See its path, live map and NHC update from ${activeStorm.lastUpdate ?? lastModified}.`
+  ? `${stormName} is a ${classification} at ${activeStorm.latitude ?? "a pending position"}, ${activeStorm.longitude ?? ""}, with ${activeStorm.intensity ? formatWind(Number(activeStorm.intensity)) : "intensity pending"}. See its current path, live map and NHC update from ${activeStorm.lastUpdate ?? lastModified}.`
   : knownPage?.description ?? (isArchived
   ? `Review the archived ${stormName} hurricane tracker with the last known NHC position, advisory context, forecast path history, and official source links.`
   : `Track ${stormName} live with the latest NHC position, hurricane path, live map, advisory update, radar, satellite imagery and local alerts.`);
@@ -126,7 +126,7 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="storm-title">
     <div class="inner">
       <p class="eyebrow">{basin} storm tracker</p>
-      <h1 id="storm-title">{stormName} Tracker Live Map, Path and NHC Updates</h1>
+      <h1 id="storm-title">{stormName} {classification} Tracker: Live Map, Path and NHC Updates</h1>
       {isArchived && <p class="archive-notice"><strong>{stormName} is not active in the current NHC feed.</strong> This stable archive page preserves the last observed advisory context; use the live tracker for current storms.</p>}
       <p class="answer">{activeStorm ? `${stormName} is currently classified as a ${classification}. ${forecastCenter} last reported the system at ${activeStorm.latitude ?? "a pending latitude"}, ${activeStorm.longitude ?? "a pending longitude"}, moving ${activeStorm.movementDir != null ? `${activeStorm.movementDir}°` : "in a direction pending confirmation"} at ${activeStorm.movementSpeed != null ? `${activeStorm.movementSpeed} kt` : "a speed pending confirmation"}. Updated ${activeStorm.lastUpdate ?? lastModified}. Use the tracker and official forecast path below for current details.` : overview}</p>
       <p class="answer">{searchDemandNote}</p>
