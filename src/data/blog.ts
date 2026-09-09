@@ -34,14 +34,14 @@ export const blogPosts: BlogPost[] = [
         caption: "NOAA/NESDIS satellite imagery shows the ocean temperature background associated with an El Niño episode. Public domain."
       },
       {
-        src: "/images/blog/el-nino-wind-shear.svg",
-        alt: "Diagram showing vertical wind shear tilting a tropical cyclone circulation and disrupting thunderstorm organization.",
-        caption: "Strong vertical wind shear can make it harder for a tropical cyclone to organize, but the effect is statistical rather than absolute. HurricaneHub original explanatory graphic."
-      },
-      {
         src: "/images/blog/external/nasa-el-nino-ocean.jpg",
         alt: "NASA Earth Observatory visualization of ocean conditions during an El Niño event.",
         caption: "NASA Earth Observatory visualization of El Niño ocean conditions. Public domain; image courtesy of NASA/JPL-Caltech."
+      },
+      {
+        src: "/images/blog/external/noaa-enso-satellite.png",
+        alt: "NOAA satellite view showing a strong El Niño pattern across the Pacific Ocean.",
+        caption: "NOAA/NESDIS satellite view of a strong El Niño pattern. Public domain; image courtesy of NOAA."
       }
     ],
     sections: [
