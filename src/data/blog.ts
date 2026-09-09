@@ -6,6 +6,7 @@ export type BlogPost = {
   dateModified: string;
   image: string;
   imageAlt: string;
+  figures?: Array<{ src: string; alt: string; caption: string }>;
   sections: Array<{
     heading: string;
     body: string;
@@ -18,6 +19,62 @@ export type BlogPost = {
 };
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "how-el-nino-affects-hurricanes",
+    title: "How El Niño Affects Atlantic Hurricane Activity",
+    description: "Learn how El Niño can change Atlantic and Pacific hurricane patterns, why it does not control one storm, and how to use official forecasts safely.",
+    datePublished: "2026-09-09",
+    dateModified: "2026-09-09",
+    image: "/images/blog/el-nino-hurricane-climate-background.svg",
+    imageAlt: "Educational diagram showing warm equatorial Pacific water, atmospheric circulation, and the separate role of a single hurricane.",
+    figures: [
+      {
+        src: "/images/blog/el-nino-hurricane-climate-background.svg",
+        alt: "Diagram of El Niño warm water in the equatorial Pacific and the broader climate background it can create.",
+        caption: "El Niño is a large-scale climate pattern. It changes the background environment; it is not a named storm."
+      },
+      {
+        src: "/images/blog/el-nino-wind-shear.svg",
+        alt: "Diagram showing vertical wind shear tilting a tropical cyclone circulation and disrupting thunderstorm organization.",
+        caption: "Strong vertical wind shear can make it harder for a tropical cyclone to organize, but the effect is statistical rather than absolute."
+      },
+      {
+        src: "/images/blog/climate-background-vs-storm.svg",
+        alt: "Decision diagram separating seasonal climate signals from the observations and warnings used for one active hurricane.",
+        caption: "Use climate signals for context, then use NHC advisories and local alerts for decisions about a specific storm."
+      }
+    ],
+    sections: [
+      {
+        heading: "El Niño Is a Climate Pattern, Not a Hurricane",
+        body: "El Niño describes unusually warm sea-surface temperatures across part of the equatorial Pacific and the atmosphere's response to them. A hurricane such as Lowell is a specific tropical cyclone with a tracked center, measured winds, pressure, advisories, and a forecast. The two can be discussed together as background and event, but they are not the same thing, and El Niño alone does not explain why one storm formed."
+      },
+      {
+        heading: "Why Atlantic Activity Often Changes",
+        body: "During many El Niño episodes, the altered circulation increases upper-level westerly winds over the tropical Atlantic. That can increase vertical wind shear, the change in wind speed or direction with height. Shear may tilt a developing circulation, separate thunderstorms from the center, or limit intensification. This is a basin-wide tendency, not a guarantee: sea-surface temperature, moisture, dry air, African easterly waves, and each storm's track also matter.",
+        bullets: ["Seasonal outlooks describe probabilities across a basin, not a city-specific landfall.", "A below-normal season can still produce a dangerous hurricane.", "A single storm can develop despite an otherwise unfavorable climate pattern."]
+      },
+      {
+        heading: "The Pacific Response Can Differ",
+        body: "El Niño often supports a more favorable large-scale environment for eastern and central Pacific tropical cyclones than for Atlantic systems, but the result varies by location, month, and other weather patterns. That is why a Pacific storm and an Atlantic outlook should be read separately. Do not transfer an Atlantic seasonal statement directly to a Pacific storm such as Lowell."
+      },
+      {
+        heading: "How to Use This Information Safely",
+        body: "Use El Niño information to understand seasonal context and finish low-regret preparation early. Once a system is active, switch to the current NHC advisory, forecast track, watches or warnings, and local NWS and emergency-management guidance. The live hurricane tracker can help you find the current official update, but no climate pattern or map should replace a local evacuation order."
+      },
+      {
+        heading: "What El Niño Cannot Tell You",
+        body: "El Niño cannot identify which city will be hit, determine a storm's exact intensity, or prove that a particular hurricane was caused by the pattern. Those questions require current observations and official forecasts. Treat climate signals as one input to planning, not as a reason to ignore an active storm or delay preparation."
+      }
+    ],
+    faqs: [
+      { question: "Is Hurricane Lowell the same thing as El Niño?", answer: "No. Lowell is a specific eastern Pacific tropical cyclone. El Niño is a large-scale equatorial Pacific climate pattern that can influence the background environment for many weather systems." },
+      { question: "Does El Niño stop Atlantic hurricanes?", answer: "No. El Niño often increases Atlantic vertical wind shear and lowers the statistical odds of basin-wide activity, but it cannot prevent every hurricane or determine the risk for one coastline." },
+      { question: "Can El Niño predict a hurricane landfall?", answer: "No. Seasonal climate patterns provide broad probabilities. Landfall risk comes from the storm's current observations, official NHC forecast, watches or warnings, and local guidance." },
+      { question: "Why can the Pacific and Atlantic respond differently?", answer: "The two basins have different background winds, ocean temperatures, and storm-development regions. A climate pattern that suppresses some Atlantic development can support more favorable Pacific conditions in some periods." },
+      { question: "What should I check during an active storm?", answer: "Check the latest NHC advisory and forecast products, local NWS alerts, and emergency-management instructions. Use HurricaneHub's live tracker as an access point to those current sources." }
+    ]
+  },
   {
     slug: "2025-atlantic-hurricane-season-outlook",
     title: "2025 Atlantic Hurricane Season Outlook",

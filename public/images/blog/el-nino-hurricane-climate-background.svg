@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">El Niño climate background and hurricane activity</title><desc id="desc">A simple educational diagram showing warm equatorial Pacific water as a climate background separate from an individual hurricane.</desc>
+  <rect width="1600" height="900" fill="#f3f8fa"/><rect x="70" y="58" width="1460" height="784" rx="22" fill="#fff" stroke="#b7cbd4" stroke-width="3"/>
+  <text x="120" y="135" font-family="Arial,sans-serif" font-size="46" font-weight="700" fill="#123849">El Niño changes the background, not one storm</text>
+  <text x="120" y="180" font-family="Arial,sans-serif" font-size="25" fill="#496773">A climate pattern influences large-scale conditions; NHC tracks each cyclone separately.</text>
+  <path d="M150 340 C370 285 610 300 790 340 S1200 395 1450 335 L1450 575 C1210 625 1010 565 790 600 S350 610 150 570 Z" fill="#e3f2f7" stroke="#5f9db5" stroke-width="4"/>
+  <path d="M180 475 C430 430 650 450 820 480 S1190 520 1420 455" fill="none" stroke="#ed9a45" stroke-width="34" stroke-linecap="round" opacity=".85"/>
+  <text x="220" y="405" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#123849">Equatorial Pacific</text><text x="220" y="445" font-family="Arial,sans-serif" font-size="24" fill="#334f5a">warmer water anomaly</text>
+  <path d="M390 290 C300 235 260 215 190 215 M1140 290 C1230 235 1270 215 1340 215" fill="none" stroke="#5f9db5" stroke-width="7" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <rect x="170" y="665" width="520" height="95" rx="15" fill="#e7f3f7" stroke="#6ca1b5" stroke-width="2"/><text x="200" y="705" font-family="Arial,sans-serif" font-size="25" font-weight="700" fill="#123849">Climate context</text><text x="200" y="738" font-family="Arial,sans-serif" font-size="20" fill="#334f5a">seasonal wind and moisture patterns</text>
+  <rect x="910" y="665" width="520" height="95" rx="15" fill="#fff0e9" stroke="#d98a70" stroke-width="2"/><text x="940" y="705" font-family="Arial,sans-serif" font-size="25" font-weight="700" fill="#6e2d19">One active storm</text><text x="940" y="738" font-family="Arial,sans-serif" font-size="20" fill="#63382c">position, wind, pressure and NHC advisory</text>
+  <defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#5f9db5"/></marker></defs>
+</svg>

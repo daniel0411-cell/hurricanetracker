@@ -135,6 +135,12 @@ const jsonLd = graph(
             )}
           </section>
         ))}
+        {post.figures?.map((figure) => (
+          <figure class="article-figure">
+            <img src={figure.src} alt={figure.alt} width="1600" height="900" loading="lazy" decoding="async" />
+            <figcaption>{figure.caption}</figcaption>
+          </figure>
+        ))}
         <div class="ad-slot ad-slot-incontent ad-slot-compact"><!-- AD SLOT 3: In-Content Native --></div>
         <h3>Official Source Check</h3>
         <p>Before making a life-safety decision, check weather.gov, your local emergency management agency, and current NHC advisories.</p>
