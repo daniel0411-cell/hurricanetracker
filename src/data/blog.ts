@@ -25,23 +25,23 @@ export const blogPosts: BlogPost[] = [
     description: "Learn how El Niño can change Atlantic and Pacific hurricane patterns, why it does not control one storm, and how to use official forecasts safely.",
     datePublished: "2026-09-09",
     dateModified: "2026-09-09",
-    image: "/images/blog/el-nino-hurricane-climate-background.svg",
-    imageAlt: "Educational diagram showing warm equatorial Pacific water, atmospheric circulation, and the separate role of a single hurricane.",
+    image: "/images/blog/external/noaa-el-nino-sst.jpg",
+    imageAlt: "NOAA satellite image showing El Niño sea-surface temperature departure from normal across the Pacific Ocean.",
     figures: [
       {
-        src: "/images/blog/el-nino-hurricane-climate-background.svg",
-        alt: "Diagram of El Niño warm water in the equatorial Pacific and the broader climate background it can create.",
-        caption: "El Niño is a large-scale climate pattern. It changes the background environment; it is not a named storm."
+        src: "/images/blog/external/noaa-el-nino-sst.jpg",
+        alt: "NOAA satellite image showing the El Niño sea-surface temperature departure from normal across the Pacific Ocean.",
+        caption: "NOAA/NESDIS satellite imagery shows the ocean temperature background associated with an El Niño episode. Public domain."
       },
       {
         src: "/images/blog/el-nino-wind-shear.svg",
         alt: "Diagram showing vertical wind shear tilting a tropical cyclone circulation and disrupting thunderstorm organization.",
-        caption: "Strong vertical wind shear can make it harder for a tropical cyclone to organize, but the effect is statistical rather than absolute."
+        caption: "Strong vertical wind shear can make it harder for a tropical cyclone to organize, but the effect is statistical rather than absolute. HurricaneHub original explanatory graphic."
       },
       {
-        src: "/images/blog/climate-background-vs-storm.svg",
-        alt: "Decision diagram separating seasonal climate signals from the observations and warnings used for one active hurricane.",
-        caption: "Use climate signals for context, then use NHC advisories and local alerts for decisions about a specific storm."
+        src: "/images/blog/external/nasa-el-nino-ocean.jpg",
+        alt: "NASA Earth Observatory visualization of ocean conditions during an El Niño event.",
+        caption: "NASA Earth Observatory visualization of El Niño ocean conditions. Public domain; image courtesy of NASA/JPL-Caltech."
       }
     ],
     sections: [
