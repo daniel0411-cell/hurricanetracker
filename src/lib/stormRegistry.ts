@@ -42,6 +42,8 @@ export async function recordActiveStorms(storms: NhcStorm[], observedAt: string)
     });
   }
   const records = [...bySlug.values()].sort((a, b) => b.lastSeen.localeCompare(a.lastSeen)).slice(0, 120);
+  const previousValue = JSON.stringify(existing);
+  if (JSON.stringify(records) === previousValue) return;
   try {
     await cache.put(REGISTRY_KEY, JSON.stringify(records));
   } catch (error) {
