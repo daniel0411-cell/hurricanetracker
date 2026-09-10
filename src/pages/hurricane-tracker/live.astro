@@ -186,8 +186,8 @@ const jsonLd = graph(
     <div class="inner live-hero-grid">
       <div>
         <p class="eyebrow">Current NHC storm data</p>
-        <h1 id="live-title">Live Hurricane Tracker and NHC Tracking Map</h1>
-        <p class="answer">{storms.length ? `The latest NHC feed lists ${stormSummary}: ${storms.map((storm) => `${storm.name ?? storm.id ?? "unnamed system"} (${classificationLabel(storm.classification)})`).join(", ")}.` : "No active tropical cyclone is listed in the latest NHC feed right now."} Last checked {updatedLabel} UTC. Use this live hurricane tracker to see current storm positions, forecast paths, NHC advisories, radar, satellite imagery, and local NWS alerts in one place.</p>
+        <h1 id="live-title">Live Hurricane Tracker: Current NHC Storms and Map</h1>
+        <p class="answer">{storms.length ? `The latest NHC feed lists ${stormSummary}: ${storms.map((storm) => `${storm.name ?? storm.id ?? "unnamed system"} (${classificationLabel(storm.classification)})`).join(", ")}.` : "No active tropical cyclone is listed in the latest NHC feed right now."} Last checked {updatedLabel} UTC. Use this live tracker to see current storm positions, forecast paths, NHC advisories, radar, satellite imagery, and local NWS alerts in one place.</p>
         <p class="section-actions">
           <a class="action-link" href="#current-hurricanes">View current storms</a>
           <a class="action-link secondary-action" href="#live-map-heading">Open live map</a>
