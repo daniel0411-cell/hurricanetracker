@@ -11,7 +11,6 @@ const params = Astro.url.searchParams;
 const layer = params.get("layer") || "radar";
 const theme = params.get("theme") || "dark";
 const view = params.get("view") || "atlantic";
-const loc = params.get("loc");
 const showControls = params.get("controls") !== "0";
 const satelliteBand = params.get("sat") || "geocolor";
 ---

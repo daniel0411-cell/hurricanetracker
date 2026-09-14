@@ -32,7 +32,7 @@ async function run(env) {
 
 export default {
   async scheduled(_event, env, ctx) { ctx.waitUntil(run(env)); },
-  async fetch(request, env) {
+  async fetch(request, _env) {
     const url = new URL(request.url);
     if (url.pathname !== "/health") return new Response("Not found", { status: 404 });
     return Response.json({ ok: true, monitor: "storm-advisories" });
