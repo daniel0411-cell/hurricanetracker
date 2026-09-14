@@ -20,6 +20,52 @@ export type BlogPost = {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "hurricane-eyewall-replacement-cycle-explained",
+    title: "Eyewall Replacement Cycle Explained: Why Hurricane Winds Can Change",
+    description: "Learn what an eyewall replacement cycle is, why hurricane winds can weaken then rebound, and how to read the signal in NHC forecasts and satellite imagery.",
+    datePublished: "2026-09-14",
+    dateModified: "2026-09-14",
+    image: "/images/blog/hurricane-rapid-intensification.png",
+    imageAlt: "A coastal resident checks hurricane satellite imagery and forecast information on a phone before a storm.",
+    sections: [
+      { heading: "Direct Answer", body: "An eyewall replacement cycle happens when a hurricane's original eyewall is surrounded by a new outer ring of thunderstorms. The inner eyewall can weaken, the wind field can expand, and maximum winds may later strengthen again after the outer eyewall contracts. It is a structural change, not a reliable sign that the storm is becoming safe." },
+      { heading: "What the Eyewall Does", body: "The eyewall is the ring of intense thunderstorms around a hurricane's eye. It usually contains the strongest sustained winds and the most violent convection. When the inner ring is disrupted, pressure, wind speed, rainfall placement, and the storm's area of damaging wind can all change at once.", bullets: ["The eye can become larger or less distinct.", "Peak winds may temporarily decrease.", "The wind field can spread over a wider area.", "Rain bands and surge risk do not disappear during a weakening phase."] },
+      { heading: "How a Replacement Cycle Forms", body: "Powerful hurricanes often generate an outer band of thunderstorms at the edge of their wind field. That band can organize into a second eyewall and begin drawing energy and angular momentum away from the original core. Aircraft reconnaissance, microwave satellite imagery, radar, and forecaster analysis help identify the process, but timing the next intensity change remains difficult." },
+      { heading: "Why Wind Speed Can Drop Then Rebound", body: "During the transition, the inner eyewall may collapse before the outer eyewall becomes dominant. Maximum sustained wind can fall even while the storm grows larger. Once the outer ring contracts, the pressure gradient can tighten again and the peak wind can recover. Do not interpret a short-term category change as a complete reset of the hazard.", bullets: ["A weaker peak wind can coexist with a broader wind field.", "Storm surge depends on size, track, speed, and coastline shape as well as intensity.", "Rainfall and tornado threats can continue outside the eyewall."] },
+      { heading: "How to Read the Signal Safely", body: "Look for the latest NHC discussion and advisory, not only a colored category label. Compare the official intensity forecast with satellite structure, radar where available, wind radii, storm surge products, and local NWS alerts. HurricaneHub's live tracker can help you find those layers, but local watches, warnings, and evacuation instructions control household action.", bullets: ["Check the advisory timestamp before comparing two images.", "Watch the wind field and hazard products, not only the eye.", "Keep monitoring after a temporary weakening.", "Follow local emergency management instructions first."] }
+    ],
+    faqs: [
+      { question: "What is an eyewall replacement cycle?", answer: "It is a hurricane structural change in which a new outer eyewall forms around the original eyewall, often causing a temporary wind decrease followed by possible reintensification as the outer ring contracts." },
+      { question: "Does an eyewall replacement cycle make a hurricane safer?", answer: "No. Peak winds may temporarily fall, but the storm can expand, surge risk can remain high, and the outer wind field and rain bands can still produce dangerous impacts." },
+      { question: "Can an eyewall replacement cycle make a hurricane bigger?", answer: "Yes. The wind field often expands during the transition, so more locations may experience tropical-storm-force or hurricane-force winds even if the maximum wind briefly decreases." },
+      { question: "How do forecasters detect an eyewall replacement cycle?", answer: "Forecasters combine aircraft reconnaissance, radar, microwave and infrared satellite imagery, pressure and wind observations, and the storm's evolving structure." },
+      { question: "What should I check during an eyewall replacement cycle?", answer: "Use the latest NHC advisory and discussion, local NWS alerts, storm surge and wind products, and official evacuation instructions. Do not rely on one category update or a single satellite image." }
+    ]
+  },
+  {
+    slug: "official-hurricane-information-sources-rumor-verification",
+    title: "Official Hurricane Information Sources: How to Verify Storm Updates",
+    description: "Find reliable hurricane information from the NHC, local NWS office, emergency management, evacuation officials, and NOAA backups while avoiding storm rumors.",
+    datePublished: "2026-09-14",
+    dateModified: "2026-09-14",
+    image: "/images/blog/nws-hurricane-alert-meanings.png",
+    imageAlt: "A smartphone displays official hurricane alert information beside a weather radio and emergency planning notes.",
+    sections: [
+      { heading: "Direct Answer", body: "Start with the National Hurricane Center for a tropical cyclone's official position, intensity, forecast track, and advisory. Use your local National Weather Service office for watches, warnings, rainfall, tornado, wind, and flood details. Use county, city, and state emergency management for evacuation orders, shelters, routes, and local instructions. Social posts and crowd-sourced maps can provide clues, but they should never outrank those official sources." },
+      { heading: "Use Each Source for Its Own Question", body: "Reliable hurricane monitoring is a chain of sources rather than one perfect website.", bullets: ["NHC: Where is the tropical cyclone and where might its center go?", "Local NWS office: What hazards and alerts apply to my county or zone?", "County or city emergency management: Do I need to evacuate, shelter, or avoid roads?", "State agencies: What shelters, transportation, highway, and coastal instructions are active?", "NOAA Weather Radio and Wireless Emergency Alerts: What is the backup if internet or power fails?"] },
+      { heading: "How to Verify a Storm Post or Screenshot", body: "Check the original source, issue time, basin, and location before sharing a storm update. A screenshot without an advisory timestamp may be several hours old, use a different basin, or show a model projection rather than an official forecast. Open the NHC advisory and your local weather.gov alert page directly instead of trusting a cropped image." },
+      { heading: "Common Rumor Patterns", body: "Storm rumors often turn uncertainty into certainty. Be cautious when a post claims an exact landfall days ahead, treats the forecast cone as a damage boundary, calls an Invest a named storm, or says a category alone proves local risk.", bullets: ["Exact landfall claims before the official forecast narrows.", "Old advisories reposted as current news.", "Model spaghetti lines described as the official track.", "A storm name or Invest number used without an NHC advisory.", "Unverified evacuation, shelter, school, or bridge information."] },
+      { heading: "Build a Trusted Source List Before the Storm", body: "Save the NHC, your local weather.gov office, county emergency management, state emergency management, utility outage page, and local transportation agency before a storm threatens. HurricaneHub can serve as a navigation layer for the current tracker, radar, alerts, state pages, and preparedness tools, but official agencies remain the authority for warnings and life-safety instructions.", bullets: ["Open the live tracker for current NHC storm context.", "Use the alerts page for state-level NWS products.", "Check your city or state tracker for local planning context.", "Follow evacuation orders from local officials, not a map screenshot."] }
+    ],
+    faqs: [
+      { question: "What is the most reliable source for a hurricane forecast?", answer: "For Atlantic, Caribbean, Gulf, and eastern Pacific tropical cyclones, start with the National Hurricane Center's current advisory and forecast products. Use your local NWS office for location-specific hazards." },
+      { question: "How do I verify a hurricane screenshot?", answer: "Find the original NHC or weather.gov URL, check the issue time and basin, and compare the current advisory with local alerts. Do not treat an undated screenshot as current." },
+      { question: "Is social media reliable for evacuation information?", answer: "Use social media only as a pointer to a possible update. Verify evacuation orders, shelters, road closures, and school decisions with the responsible official agency." },
+      { question: "What should I do if official sources disagree?", answer: "Check timestamps and geographic scope first. Follow the most local official warning or order for immediate action, while using the NHC for the storm's basin-scale forecast context." },
+      { question: "Can HurricaneHub replace official hurricane sources?", answer: "No. HurricaneHub organizes current NHC and NWS context and links users to local planning pages, but official agencies control forecasts, warnings, evacuation orders, and emergency instructions." }
+    ]
+  },
+  {
     slug: "how-el-nino-affects-hurricanes",
     title: "How El Niño Affects Atlantic Hurricane Activity",
     description: "Learn how El Niño can change Atlantic and Pacific hurricane patterns, why it does not control one storm, and how to use official forecasts safely.",
