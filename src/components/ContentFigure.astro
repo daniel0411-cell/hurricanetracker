@@ -1,8 +1,13 @@
 ---
-const { src, alt, caption, width = 1200, height = 675 } = Astro.props;
+const { src, mobileSrc, alt, caption, width = 1200, height = 675, mobileWidth = 750, mobileHeight = 800 } = Astro.props;
 ---
 <figure class="content-figure">
-  <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+  {mobileSrc ? (
+    <picture>
+      <source media="(max-width: 767px)" srcset={mobileSrc} width={mobileWidth} height={mobileHeight} />
+      <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+    </picture>
+  ) : <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />}
   <figcaption>{caption}</figcaption>
 </figure>
 
