@@ -16,8 +16,8 @@ import type { NhcStorm, NwsAlert } from "../lib/weather";
 import { getNhcForecast } from "../lib/nhcForecast";
 import { relevantLocations } from "../lib/stormRelevance";
 
-const title = "Hurricane Tracker Live Map | Current Storms & NHC Alerts";
-const description = "Check current hurricanes on a live map with NHC storm positions, forecast paths, radar, satellite imagery, NWS alerts, and local preparedness tools.";
+const title = "Hurricane Tracker | Current Storms, NHC Map & Alerts";
+const description = "Track current hurricanes with NHC positions and forecast paths, then open the live map, radar, state NWS alerts, and local preparedness tools.";
 
 type StormFeed = {
   storms?: Array<NhcStorm & { summary?: string }>;

@@ -22,7 +22,7 @@ const canonical = `${site.url}/tracker/${state.slug}/`;
 const lastModified = site.contentLastModified;
 const currentStatus = await getStateCurrentStatus(code);
 
-const intro = `Virginia's hurricane exposure centers on the Chesapeake Bay and the Hampton Roads region, with about 110 miles of tidal shoreline opening to the Atlantic. Systems usually reach Virginia after recurving up the Mid-Atlantic coast, arriving as hurricanes or strong tropical storms that drive tidal flooding through the bay, spin up tornadoes, and topple trees onto power lines. Bridge-tunnels become critical constraints during evacuations. In 2003, Hurricane Isabel struck as a major hurricane and caused widespread wind damage, tidal flooding, and long outages across the Chesapeake region, the most damaging storm in recent Virginia memory. The 2026 Atlantic hurricane season runs June 1 through November 30, and late August is within the peak-season window, so bay communities should monitor tropical threats and plan for tidal and river flooding, not just wind.`;
+const intro = `Virginia's hurricane exposure centers on the Chesapeake Bay and the Hampton Roads region, with about 110 miles of tidal shoreline opening to the Atlantic. Systems usually reach Virginia after recurving up the Mid-Atlantic coast, arriving as hurricanes or strong tropical storms that drive tidal flooding through the bay, spin up tornadoes, and topple trees onto power lines. Bridge-tunnels become critical constraints during evacuations. In 2003, Hurricane Isabel struck as a major hurricane and caused widespread wind damage, tidal flooding, and long outages across the Chesapeake region, the most damaging storm in recent Virginia memory. The 2026 Atlantic hurricane season runs June 1 through November 30, with elevated Mid-Atlantic risk from August into October, so bay communities should monitor current tropical threats and plan for tidal and river flooding, not just wind.`;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const stateActionPaths = [
@@ -52,7 +52,7 @@ const adjacent = ["north-carolina"];
 const faqs = [
   {
     question: `When is hurricane season in ${name}?`,
-    answer: `Virginia's season runs June 1 through November 30, with risk highest from August through October as systems recurve up the Mid-Atlantic coast. Late August is within the peak-season window, so Chesapeake Bay communities should monitor tropical threats.`
+    answer: `Virginia's season runs June 1 through November 30, with risk highest from August through October as systems recurve up the Mid-Atlantic coast. Chesapeake Bay communities should monitor current tropical outlooks and local alerts during that period.`
   },
   {
     question: `What was the worst hurricane to hit ${name}?`,
@@ -86,9 +86,9 @@ const jsonLd = graph(
       <p class="answer">{intro}</p>
       <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
       <section class="intent-answer" aria-labelledby="virginia-intent-heading">
-        <h2 id="virginia-intent-heading">Is There a Hurricane Coming to Virginia Today?</h2>
-        <p>Use the live status above for the latest NHC answer, then check Mid-Atlantic storm timing, Virginia NWS alerts, Chesapeake Bay flooding, and local evacuation guidance. Bridge and tunnel restrictions can change quickly.</p>
-        <p><a href="/hurricane-tracker/live/">Check the live hurricane tracker</a> · <a href="/alerts/">View Virginia alerts</a> · <a href="/hurricane-tracker/path/">Read the forecast path</a></p>
+        <h2 id="virginia-intent-heading">Check Virginia Hurricane Risk Now</h2>
+        <p>Start with the live status above, then compare the current NHC track with Virginia NWS alerts and local context for Hampton Roads, Norfolk, Virginia Beach, and the Chesapeake Bay. Bridge and tunnel restrictions can change quickly.</p>
+        <p><a href="/hurricane-tracker/live/">Open the live NHC hurricane map</a> · <a href="#alerts-heading">Check Virginia NWS alerts</a> · <a href="/hurricane-tracker/path/">Read the forecast path</a></p>
       </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
@@ -110,6 +110,7 @@ const jsonLd = graph(
       <StateActionPaths state={state} />
 
       <StateTrackerSeoLinks state={state} cities={stateCities} />
+      <p class="region-link"><a href="/hurricane-tracker/live/">Check the live NHC hurricane tracker</a> · <a href="/2026-hurricane-season/">Review the 2026 hurricane season tracker</a> · <a href="/hurricane-tracker/southeast/">Compare Virginia with the Southeast and East Coast Hurricane Tracker</a></p>
 
       <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
       <ul class="check-list">
@@ -126,4 +127,5 @@ const jsonLd = graph(
 .answer { font-size: 1.05rem; line-height: 1.75; }
 .intent-answer { margin: 24px 0; padding: 18px 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface, #f3f7fa); }
 .intent-answer h2 { margin-top: 0; }
+.region-link { margin: 24px 0; font-weight: 800; }
 </style>
