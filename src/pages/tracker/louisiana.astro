@@ -22,7 +22,7 @@ const canonical = `${site.url}/tracker/${state.slug}/`;
 const lastModified = site.contentLastModified;
 const currentStatus = await getStateCurrentStatus(code);
 
-const intro = `Louisiana's Gulf coastline stretches nearly 400 miles, but its true exposure lies in thousands of miles of bayous, estuaries, and low-lying parishes that sit at or below sea level behind a fragile levee system. Storms usually organize in the central or eastern Gulf and track northwest toward New Orleans, the River Parishes, and the Cajun coast. Shallow, warm water lets systems rapidly intensify only hours before landfall. In 2005, Hurricane Katrina breached levees and flooded New Orleans, and Hurricane Rita struck weeks later, reshaping state evacuation policy. The 2026 Atlantic hurricane season runs June 1 through November 30, and late August is within the peak-season window, when Gulf heat content peaks. Because many Louisiana routes flood before peak wind, officials urge residents of low-lying parishes and mobile homes to decide early and keep documents, medications, and evacuation plans staged.`;
+const intro = `Louisiana's Gulf coastline stretches nearly 400 miles, but its true exposure lies in thousands of miles of bayous, estuaries, and low-lying parishes that sit at or below sea level behind a fragile levee system. Storms usually organize in the central or eastern Gulf and track northwest toward New Orleans, the River Parishes, and the Cajun coast. Shallow, warm water lets systems rapidly intensify only hours before landfall. In 2005, Hurricane Katrina breached levees and flooded New Orleans, and Hurricane Rita struck weeks later, reshaping state evacuation policy. The 2026 Atlantic hurricane season runs June 1 through November 30, with Gulf risk highest from August through September. Because many Louisiana routes flood before peak wind, officials urge residents of low-lying parishes and mobile homes to decide early and keep documents, medications, and evacuation plans staged.`;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const stateActionPaths = [
@@ -52,7 +52,7 @@ const adjacent = ["texas", "mississippi"];
 const faqs = [
   {
     question: `When is hurricane season in ${name}?`,
-    answer: `Louisiana's hurricane season follows the June 1–November 30 window, with the highest threat from August through September as Gulf heat content peaks. Late August is within the peak-season window, so low-lying parishes should pre-stage plans and documents.`
+    answer: `Louisiana's hurricane season follows the June 1–November 30 window, with the highest threat from August through September as Gulf heat content peaks. Low-lying parishes should pre-stage plans and documents throughout that period.`
   },
   {
     question: `What was the worst hurricane to hit ${name}?`,
@@ -85,11 +85,6 @@ const jsonLd = graph(
       <h1 id="tracker-state-title">{name} Hurricane Tracker – Live Updates</h1>
       <p class="answer">{intro}</p>
       <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
-      <section class="intent-answer" aria-labelledby="louisiana-outlook-heading">
-        <h2 id="louisiana-outlook-heading">Tropical Storm Edouard: Louisiana Watch</h2>
-        <p>NHC named Tropical Storm Edouard in the northwestern Gulf on August 31. A Tropical Storm Warning reaches the Vermilion/Iberia Parish Line, and a Storm Surge Watch covers the southwest Louisiana coast to the Vermilion/Cameron Parish Line. Monitor parish guidance for wind, surge, rainfall, and route changes.</p>
-        <p><a href="/hurricane-tracker/storm/edouard/">Track Tropical Storm Edouard and the latest NHC path</a></p>
-      </section>
       <section class="intent-answer" aria-labelledby="louisiana-intent-heading">
         <h2 id="louisiana-intent-heading">Is There a Hurricane Coming to Louisiana Today?</h2>
         <p>Use the live status above for the latest NHC answer, then check Gulf storm tracks, Louisiana NWS alerts, storm surge, and parish evacuation instructions. A storm center track does not show every flood or surge impact.</p>

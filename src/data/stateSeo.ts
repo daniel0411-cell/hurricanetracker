@@ -16,17 +16,17 @@ const profiles: Record<string, Omit<StateSeoProfile, "title" | "headline"> & { t
     queryFocus: ["florida hurricane tracker", "hurricane tracker florida", "fl hurricane tracker", "florida hurricane alerts"]
   },
   texas: {
-    titleTail: "Today | Live NHC Track & Texas Alerts",
+    titleTail: "Current NHC Track & Texas Alerts",
     headlineTail: "Live Gulf Track, Alerts, and Evacuation Routes",
     description:
-      "Is a hurricane coming to Texas? Check today's live NHC track, nearest active storm, Texas NWS alerts, Gulf flooding risk, and Houston and Galveston trackers.",
+      "Is a hurricane coming to Texas? Check the current NHC track, nearest active storm, Texas NWS alerts, Gulf flooding risk, and Houston and Galveston trackers.",
     queryFocus: ["hurricane tracker texas", "texas hurricane tracker", "texas hurricane alerts", "gulf hurricane tracker texas"]
   },
   "north-carolina": {
-    titleTail: "Today | Live NHC & NWS Updates",
+    titleTail: "Current NHC & NWS Updates",
     headlineTail: "Live Outer Banks Track, Alerts, and Evacuation Zones",
     description:
-      "Is a hurricane near North Carolina today? Check the live NHC track, nearest active storm, NWS alerts, Outer Banks risk, and Wilmington and Morehead City updates.",
+      "Is a hurricane near North Carolina? Check the current NHC track, nearest active storm, NWS alerts, Outer Banks risk, and Wilmington and Morehead City updates.",
     queryFocus: ["hurricane tracker north carolina", "hurricane nc tracker", "hurricane tracker nc", "north carolina hurricane tracker"]
   },
   georgia: {
@@ -37,17 +37,17 @@ const profiles: Record<string, Omit<StateSeoProfile, "title" | "headline"> & { t
     queryFocus: ["hurricane tracker georgia", "georgia hurricane tracker", "georgia hurricane alerts", "savannah hurricane tracker"]
   },
   louisiana: {
-    titleTail: "Today | Live NHC Track & Alerts",
+    titleTail: "Current NHC Track & Alerts",
     headlineTail: "Live Gulf Track, Alerts, and New Orleans Risk",
     description:
-      "Check Louisiana hurricanes today with the live NHC track, nearest active storm, NWS alerts, Gulf surge risk, and New Orleans, Baton Rouge, and Lake Charles updates.",
+      "Check Louisiana hurricanes with the current NHC track, nearest active storm, NWS alerts, Gulf surge risk, and New Orleans, Baton Rouge, and Lake Charles updates.",
     queryFocus: ["louisiana hurricane tracker", "hurricane tracker louisiana", "new orleans hurricane tracker", "louisiana hurricane alerts"]
   },
   "south-carolina": {
-    titleTail: "Today | Live NHC & NWS Updates",
+    titleTail: "Current NHC & NWS Updates",
     headlineTail: "Live NHC Track, Alerts, Charleston, and Myrtle Beach Risk",
     description:
-      "Is a hurricane near South Carolina today? Check the live NHC track, nearest active storm, NWS alerts, Lowcountry risk, Charleston, and Myrtle Beach updates.",
+      "Is a hurricane near South Carolina? Check the current NHC track, nearest active storm, NWS alerts, Lowcountry risk, Charleston, and Myrtle Beach updates.",
     queryFocus: ["south carolina hurricane tracker", "hurricane tracker south carolina", "charleston hurricane tracker", "myrtle beach hurricane tracker"]
   },
   alabama: {
@@ -65,10 +65,10 @@ const profiles: Record<string, Omit<StateSeoProfile, "title" | "headline"> & { t
     queryFocus: ["hurricane tracker mississippi", "mississippi hurricane tracker", "gulfport hurricane tracker", "biloxi hurricane tracker"]
   },
   virginia: {
-    titleTail: "Today | Live NHC & NWS Updates",
+    titleTail: "Current NHC & NWS Updates",
     headlineTail: "Live NHC Track, Alerts, and Hampton Roads Risk",
     description:
-      "Is a hurricane near Virginia today? Check the live NHC track, nearest active storm, NWS alerts, Chesapeake Bay risk, Virginia Beach, and Norfolk updates.",
+      "Is a hurricane near Virginia? Check the current NHC track, nearest active storm, NWS alerts, Chesapeake Bay risk, Virginia Beach, and Norfolk updates.",
     queryFocus: ["virginia hurricane tracker", "hurricane tracker virginia", "hampton roads hurricane tracker", "virginia beach hurricane tracker"]
   }
 };

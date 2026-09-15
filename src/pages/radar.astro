@@ -6,8 +6,8 @@ import Layout from "../layouts/Layout.astro";
 import { faqs, site, states } from "../data/site";
 import { articleSchema, faqSchema, graph, howToSchema, itemListSchema, websiteSchema } from "../lib/schema";
 
-const title = "Hurricane Map: Live Radar, Satellite & NHC Tracks";
-const description = "Use the live hurricane map to compare NHC storm tracks, radar, GOES satellite loops, cloud structure, and forecast layers with official advisory updates.";
+const title = "Live Hurricane Radar & Satellite Map | NHC Tracks";
+const description = "Open the live hurricane radar and satellite map to compare rain bands, NOAA GOES loops, NHC storm tracks, forecast layers, and local NWS alerts.";
 const url = `${site.url}/radar/`;
 const lastModified = site.contentLastModified;
 const radarNextPaths = [
@@ -140,7 +140,7 @@ const jsonLd = graph(
 
     <div class="radar-intro">
       <p class="eyebrow">Live radar and satellite</p>
-      <h1 id="radar-title">Hurricane Radar</h1>
+      <h1 id="radar-title">Live Hurricane Radar and Satellite Map</h1>
       <p class="answer">Compare live hurricane radar with NOAA GOES-East GeoColor, infrared, water-vapor, and official satellite-loop views for the Atlantic, Gulf, East Coast, and Caribbean. Use cloud structure for observation, then check NHC and NWS sources for forecasts and local decisions.</p>
     </div>
 

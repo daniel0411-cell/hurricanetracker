@@ -126,7 +126,7 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="storm-title">
     <div class="inner">
       <p class="eyebrow">{basin} storm tracker</p>
-      <h1 id="storm-title">{stormName} {classification} Tracker: Live Map, Path and NHC Updates</h1>
+      <h1 id="storm-title">{activeStorm ? `${stormName} ${classification} Tracker: Live Map, Path and NHC Updates` : `${stormName} Storm Archive: Final Track and NHC History`}</h1>
       {isArchived && <p class="archive-notice"><strong>{stormName} is not active in the current NHC feed.</strong> This stable archive page preserves the last observed advisory context; use the live tracker for current storms.</p>}
       <p class="answer">{activeStorm ? `${stormName} is currently classified as a ${classification}. ${forecastCenter} last reported the system at ${activeStorm.latitude ?? "a pending latitude"}, ${activeStorm.longitude ?? "a pending longitude"}, moving ${activeStorm.movementDir != null ? `${activeStorm.movementDir}°` : "in a direction pending confirmation"} at ${activeStorm.movementSpeed != null ? `${activeStorm.movementSpeed} kt` : "a speed pending confirmation"}. Updated ${activeStorm.lastUpdate ?? lastModified}. Use the tracker and official forecast path below for current details.` : overview}</p>
       <p class="answer">{searchDemandNote}</p>
