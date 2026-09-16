@@ -9,6 +9,7 @@
     "seo:audit": "node scripts/seo-audit.mjs",
     "metadata:audit": "node scripts/metadata-audit.mjs",
     "seo:opportunities": "node scripts/seo-opportunity-report.mjs",
+    "geo:weekly": "node scripts/geo-weekly-report.mjs",
     "seo:keywords": "node scripts/keyword-coverage-report.mjs",
     "links:audit": "node scripts/internal-link-audit.mjs",
     "rss:audit": "node scripts/rss-audit.mjs",

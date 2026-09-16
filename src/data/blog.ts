@@ -1765,15 +1765,25 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "hurricane-insurance-claim-guide-documentation",
     title: "Hurricane Insurance Claims: Documentation and Step-by-Step Process",
-    description: "How to file a hurricane insurance claim that pays: document damage correctly, avoid the mistakes that delay payouts, and navigate the adjuster, estimate, and appeal process.",
+    description: "How to document hurricane damage, contact the insurer, organize receipts, prepare for the adjuster, review an estimate, and ask about dispute options.",
     datePublished: "2026-08-13",
-    dateModified: "2026-08-13",
+    dateModified: "2026-09-16",
     image: "/images/blog/hurricane-insurance-claim-guide-documentation.png",
     imageAlt: "A homeowner documents storm damage with a smartphone in a living room where rain water has soaked the floor and furniture is pushed aside.",
     sections: [
       {
-        heading: "Direct Answer: Your Claim Is Won With Paperwork, Not Phone Calls",
-        body: "A hurricane insurance claim is a documentation exercise. The policyholder who photographs everything, keeps every receipt, and files a detailed inventory gets paid faster and more completely than the one who calls, waits, and cleans up first. Report your claim as soon as it is safe—insurers pay in the order claims arrive—then document every piece of damage before touching anything. Keep a claim log with dates, names, and what was said. If the settlement feels low, you have the right to appeal it, but only if you have the evidence to back you up."
+        heading: "Direct Answer: Document Damage and Contact the Insurer",
+        body: "Start a hurricane insurance claim by contacting the insurer as soon as it is safe and following its reporting instructions. Photograph and video damage before cleanup, keep receipts, make a detailed inventory, and record dates, contacts, and requested documents. Take reasonable temporary steps to prevent further damage, but ask the insurer before permanent repairs when possible. If an estimate appears incomplete, request a written explanation and ask the insurer or state insurance department about available review or dispute options."
+      },
+      {
+        heading: "Hurricane Claim Help for Older Homeowners and Caregivers",
+        body: "An older homeowner can ask a trusted family member, caregiver, or authorized representative to help photograph damage, organize receipts, join insurer calls, and track requested documents. Confirm with the insurer how authorization should be recorded before sharing policy details. Keep damaged medical equipment, accessibility modifications, temporary housing needs, transportation, and additional living expenses clearly documented. FEMA and NAIC consumer guidance both emphasize contacting the insurer, preserving evidence, keeping receipts, preventing further damage safely, and avoiding contractor scams.",
+        bullets: [
+          "Keep the claim number, insurer contacts, requested documents, and call notes in one paper and digital log.",
+          "Ask the insurer for accessible communication or printed documents when online forms, hearing, vision, language, or mobility create a barrier.",
+          "Photograph damaged medical equipment and accessibility modifications, and record model numbers when available.",
+          "Do not give policy, banking, or identity information to unsolicited callers or contractors promising faster payment."
+        ]
       },
       {
         heading: "Before the Storm: Build Your Pre-Storm Proof",

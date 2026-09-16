@@ -32,7 +32,7 @@ const updatedLabel = new Date(status.checkedAt).toLocaleString("en-US", {
   {status.feedAvailable ? (
     nearest ? (
       <>
-        <p class="direct-answer"><strong>{nearest.name} is the nearest active NHC system to monitor for {stateName}.</strong> Its current or official forecast center path comes within approximately {nearest.distance} miles of an established {stateName} city tracker.</p>
+        <p class="direct-answer"><strong>Yes, {nearest.name} is the nearest active NHC system to monitor for {stateName}.</strong> Its current or official forecast center path comes within approximately {nearest.distance} miles of an established {stateName} city tracker. This does not mean landfall is forecast.</p>
         <div class="answer-grid">
           <div><span>Active NHC systems</span><strong>{status.activeStormCount}</strong></div>
           <div><span>Nearest system</span><strong>{nearest.name}</strong></div>
@@ -43,7 +43,7 @@ const updatedLabel = new Date(status.checkedAt).toLocaleString("en-US", {
       </>
     ) : (
       <>
-        <p class="direct-answer"><strong>No active NHC system currently has a center position or official forecast path within 500 miles of this site's established {stateName} city trackers.</strong> That means there is no nearby tracked center path in this check, but conditions and forecasts can change.</p>
+        <p class="direct-answer"><strong>No, the latest NHC check shows no active system with a center position or official forecast path within 500 miles of this site's established {stateName} city trackers.</strong> That means there is no nearby tracked center path in this check, but conditions and forecasts can change.</p>
         <div class="answer-grid">
           <div><span>Active NHC systems</span><strong>{status.activeStormCount}</strong></div>
           <div><span>{stateName} path matches</span><strong>0</strong></div>
@@ -55,7 +55,7 @@ const updatedLabel = new Date(status.checkedAt).toLocaleString("en-US", {
     <p class="direct-answer"><strong>The live NHC check is temporarily unavailable.</strong> Use the official state alerts below and the National Hurricane Center before making weather or travel decisions.</p>
   )}
 
-  <p class="source-note">NHC data checked {updatedLabel} UTC. A nearby center path is not a landfall prediction, an impact boundary, or an evacuation decision. Follow NWS alerts and local emergency management instructions.</p>
+  <p class="source-note">Answer verified from National Hurricane Center data at {updatedLabel} UTC. A nearby center path is not a landfall prediction, an impact boundary, or an evacuation decision. Follow NWS alerts and local emergency management instructions.</p>
   <OfficialUpdateStamp updatedAt={status.checkedAt} label="Official current check" />
 
   <div class="current-questions" aria-labelledby="current-questions-heading">

@@ -10,6 +10,7 @@ const endpoints = [
   { path: "/robots.txt", contentType: "text/plain", marker: "Sitemap:" },
   { path: "/sitemap-index.xml", contentType: "xml", marker: "<sitemapindex" },
   { path: "/sitemap.xml", contentType: "xml", marker: "<urlset" },
+  { path: "/sitemap-locations.xml", contentType: "xml", marker: "/hurricane-tracker/storm/" },
 ];
 
 async function verify({ path, contentType, marker }) {

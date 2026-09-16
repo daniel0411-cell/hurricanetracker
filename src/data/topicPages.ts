@@ -609,7 +609,7 @@ export const topicPages: TopicPage[] = [
       "Learn how hurricane spaghetti models, GFS, ECMWF, ICON, AI guidance, and model spread fit with the official NHC forecast and local alerts.",
     eyebrow: "Forecast model hub",
     intro:
-      "Spaghetti models are useful for seeing forecast spread, but they are not a single answer. Use this hub to understand model guidance, compare it with official NHC forecasts, and then move toward local alerts, city trackers, and household decisions.",
+      "Hurricane spaghetti models plot many forecast tracks together to show where guidance agrees and where uncertainty remains. They are not one forecast and should not replace the official NHC cone. Start with the newest model initialization time, compare the cluster instead of one line, then use the NHC forecast and local alerts for decisions.",
     primaryAction: { label: "Open live tracker", href: "/hurricane-tracker/live/" },
     secondaryAction: { label: "Read model guide", href: "/blog/how-to-read-hurricane-spaghetti-models/" },
     intent: "hurricane spaghetti models, GFS vs Euro hurricane model, hurricane model tracks",
@@ -622,7 +622,7 @@ export const topicPages: TopicPage[] = [
       },
       {
         title: "Compare Model Spread",
-        body: "Wide spread means uncertainty is high. Tight clustering can still miss local hazards such as surge, rain bands, tornadoes, and outages.",
+        body: "Check that model lines use the same initialization time. Wide spread means track uncertainty is high; a tight cluster shows agreement about the center path, but it can still miss surge, rain bands, tornadoes, and outages.",
         href: "/blog/how-to-read-hurricane-spaghetti-models/",
         label: "Learn model spread"
       },
@@ -715,6 +715,16 @@ export const topicPages: TopicPage[] = [
         question: "What does an ensemble hurricane forecast show?",
         answer:
           "An ensemble combines many model runs to show a range of plausible outcomes. It helps describe uncertainty, but it is not a direct local-impact or evacuation forecast."
+      },
+      {
+        question: "What time are hurricane spaghetti models updated?",
+        answer:
+          "Update times vary by model and product. Check the initialization time and valid forecast time on the chart, avoid mixing runs from different cycles, and compare the newest guidance with the latest NHC advisory."
+      },
+      {
+        question: "What does one outlier line in a spaghetti model mean?",
+        answer:
+          "One outlier shows a possible model solution, not a forecast by itself. Give more weight to the overall cluster, consistency across later runs, ensemble spread, and the official NHC forecast discussion."
       }
     ]
   },
