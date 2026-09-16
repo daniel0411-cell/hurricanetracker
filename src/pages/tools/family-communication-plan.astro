@@ -47,6 +47,9 @@ const jsonLd = graph(
         <label>Local contact<input name="localContact" placeholder="Name and phone" /></label>
         <label>Meeting place<input name="meetingPlace" placeholder="School, shelter, relative, or landmark" /></label>
         <label>Evacuation destination<input name="destination" placeholder="Address or town" /></label>
+        <label>Backup destination<input name="backupDestination" placeholder="Second safe address, shelter, or town" /></label>
+        <label>Transport and pickup plan<textarea name="transport" placeholder="Driver, vehicle, transit, school pickup, accessible transport, or neighbor plan"></textarea></label>
+        <label>Check-in times<input name="checkIn" placeholder="For example: 8 a.m., before leaving, and on arrival" /></label>
         <label>Important needs<textarea name="needs" placeholder="Medication, pets, mobility, pickup, school, work, or equipment notes"></textarea></label>
         <button type="submit">Generate plan</button>
       </form>
@@ -76,6 +79,9 @@ const jsonLd = graph(
     const localContact = String(data.get("localContact") || "Not set");
     const meetingPlace = String(data.get("meetingPlace") || "Not set");
     const destination = String(data.get("destination") || "Not set");
+    const backupDestination = String(data.get("backupDestination") || "Not set");
+    const transport = String(data.get("transport") || "Not set");
+    const checkIn = String(data.get("checkIn") || "At watch, before leaving, and after arrival");
     const needs = String(data.get("needs") || "No special notes added");
     if (!output) return;
     output.innerHTML = `
@@ -87,14 +93,17 @@ const jsonLd = graph(
           <tr><th>Local contact</th><td>${escapeHtml(localContact)}</td></tr>
           <tr><th>Meeting place</th><td>${escapeHtml(meetingPlace)}</td></tr>
           <tr><th>Evacuation destination</th><td>${escapeHtml(destination)}</td></tr>
+          <tr><th>Backup destination</th><td>${escapeHtml(backupDestination)}</td></tr>
+          <tr><th>Transport and pickup</th><td>${escapeHtml(transport)}</td></tr>
+          <tr><th>Check-in times</th><td>${escapeHtml(checkIn)}</td></tr>
           <tr><th>Important needs</th><td>${escapeHtml(needs)}</td></tr>
         </tbody>
       </table>
-      <h3 style="margin-top: 18px;">Check-in schedule</h3>
+      <h3 style="margin-top: 18px;">Check-in rules</h3>
       <ul class="check-list">
-        <li>Check in when a watch is issued.</li>
-        <li>Check in before leaving or sheltering.</li>
-        <li>Text after arrival or after conditions improve.</li>
+        <li>Use text first when calls are congested, and tell the out-of-area contact if plans change.</li>
+        <li>Do not make an unplanned pickup or return trip during unsafe conditions.</li>
+        <li>Leave a paper copy with each household member and emergency documents.</li>
       </ul>
       <p class="source-note">Print this plan and keep a copy with emergency documents. Follow official evacuation and shelter instructions.</p>
       <p><button type="button" id="family-plan-print">Print plan</button></p>

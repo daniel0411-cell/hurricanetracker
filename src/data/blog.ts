@@ -332,7 +332,7 @@ export const blogPosts: BlogPost[] = [
     datePublished: "2026-08-04",
     dateModified: "2026-08-04",
     image: "/images/blog/hurricane-power-outage-food-medicine-plan.png",
-    imageAlt: "A man operates a portable generator on a covered porch beside a refrigerator and a flashlight during a power outage.",
+    imageAlt: "A portable generator operates outdoors away from a home while emergency lights and supplies are ready for a power outage.",
     sections: [
       {
         heading: "Direct Answer",
@@ -1496,7 +1496,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Know Your Pet-Friendly Evacuation Options",
-        body: "Do not assume your regular shelter accepts animals. County emergency shelters sometimes take pets in a separate area, but many do not. Identify pet-friendly hotels along your route in advance, and keep a list of boarding facilities outside the evacuation zone. Never leave pets behind if you evacuate - they are unlikely to survive a hurricane alone."
+        body: "Do not assume your regular shelter accepts household pets. Local shelter arrangements vary by event and may use separate co-located areas or designated facilities. Confirm current pet, service-animal, carrier, vaccination, and supply rules with local emergency management, and identify backup pet-friendly lodging or boarding outside the evacuation zone. Take pets with you when evacuating unless officials provide another safe arrangement."
       },
       {
         heading: "During the Storm: Keep Pets Indoors and Calm",

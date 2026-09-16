@@ -35,7 +35,7 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">Power and continuity planning</p>
       <h1 id="outage-title">Hurricane Power Outage Planner</h1>
-      <p class="answer">Answer four household questions to generate a practical outage plan for water, food, medicine, charging, generator safety, pets, and communication.</p>
+      <p class="answer">Answer six household questions to generate a practical outage plan for water, food, medicine, charging, generator safety, pets, and communication.</p>
     </div>
   </section>
 
@@ -44,6 +44,8 @@ const jsonLd = graph(
       <form class="panel outage-form" id="outage-form">
         <h2 id="outage-form-heading">Build Outage Plan</h2>
         <label>People in household<select name="people"><option value="1">1 person</option><option value="2">2 people</option><option value="3">3 people</option><option value="4">4 people</option><option value="5">5+ people</option></select></label>
+        <label>Outage planning window<select name="duration"><option value="3">3 days</option><option value="5">5 days</option><option value="7">7 days</option></select></label>
+        <label>Cold food storage<select name="coldFood"><option value="both">Refrigerator and freezer</option><option value="fridge">Refrigerator only</option><option value="freezer">Freezer only</option><option value="none">No refrigerated or frozen food</option></select></label>
         <label>Medical or refrigerated needs<select name="medical"><option value="no">No</option><option value="yes">Yes, plan needs carefully</option></select></label>
         <label>Backup power<select name="power"><option value="none">No generator or battery system</option><option value="battery">Battery packs or power station</option><option value="generator">Fuel-burning generator</option></select></label>
         <label>Pets<select name="pets"><option value="no">No pets</option><option value="yes">Pets need food, water, or transport</option></select></label>
@@ -74,22 +76,24 @@ const jsonLd = graph(
     event.preventDefault();
     const data = new FormData(form);
     const people = Number(data.get("people") ?? 1);
+    const duration = Number(data.get("duration") ?? 3);
+    const coldFood = String(data.get("coldFood") ?? "both");
     const medical = data.get("medical") === "yes";
     const power = String(data.get("power") ?? "none");
     const pets = data.get("pets") === "yes";
-    const water = people * 3;
+    const water = people * duration;
     const items = [
-      `Store at least ${water} gallons of drinking water for a 3-day baseline.`,
+      `Store at least ${water} gallons of water for ${people} ${people === 1 ? "person" : "people"} across a ${duration}-day planning window.`,
       "Keep flashlights, batteries, phone chargers, a battery radio, cash, and paper contacts together.",
-      "Use coolers and a food thermometer plan; discard food that is unsafe after an outage rather than tasting it.",
       "Write down utility outage numbers, your destination, and one out-of-area contact."
     ];
+    if (coldFood !== "none") items.splice(2, 0, "Keep refrigerator and freezer doors closed, use appliance thermometers when available, and follow USDA or local food-safety guidance before keeping or discarding food; never taste food to judge safety.");
     if (medical) items.unshift("Call your clinician or equipment provider about backup power, refrigerated medicine, oxygen, and a safe care location before the storm.");
-    if (power === "generator") items.push("Use the generator only outdoors and follow its manual; never connect it to home wiring without a qualified transfer-switch setup.");
+    if (power === "generator") items.push("Use the generator only outdoors and away from doors, windows, and vents. Follow its manual, store fuel in approved containers away from living areas, and never backfeed home wiring.");
     if (power === "battery") items.push("Charge power stations before conditions worsen and reserve capacity for phones, radios, lights, and essential devices.");
     if (power === "none") items.push("Identify a public cooling or charging location and a backup destination before an outage starts.");
     if (pets) items.push("Pack pet food and water, a carrier or leash, records, waste bags, and a pet-friendly destination.");
-    if (resultTitle) resultTitle.textContent = `${people} ${people === 1 ? "person" : "people"} · outage priorities`;
+    if (resultTitle) resultTitle.textContent = `${people} ${people === 1 ? "person" : "people"} · ${duration}-day outage priorities`;
     if (result) result.innerHTML = `<ol class="check-list">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ol><p class="source-note">Recheck your utility, county emergency management, weather.gov, and care-provider instructions as conditions change.</p>`;
   });
 </script>

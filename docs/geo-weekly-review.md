@@ -34,3 +34,17 @@ npm run geo:weekly -- "/path/to/AISearchQueriesReport.csv" "/path/to/AIPageStats
 - Existing URLs to update
 - New URLs justified by persistent distinct intent
 - Topics to defer because they are temporary, duplicated, unsafe, or unsupported
+
+## Monthly Evergreen Review
+
+Run this review once a month after the weekly GEO report:
+
+1. Run `npm run seo:full` and `npm run verify:official-resources`.
+2. Check preparedness, insurance, recovery, forecast education, and tool pages for outdated dates, broken official links, or claims that need a newer FEMA, Ready.gov, CDC, NHC/NWS, NAIC, or state source.
+3. Compare page titles, descriptions, headings, and search intents for overlap. Strengthen the best existing URL when two pages answer the same query.
+4. Review tools on mobile and desktop, including empty, generated, print, and error states.
+5. Approve a new URL only when a distinct query appears in two consecutive weekly reports and cannot fit naturally on an existing page.
+
+## Active-Storm Mode
+
+When NHC begins advisories for a new system, prioritize the live tracker, season page, affected state and city pages, and the storm page. Show the official advisory time and source. After dissipation, mark the storm page as archived and preserve the final NHC status, track, and source links.

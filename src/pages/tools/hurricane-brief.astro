@@ -51,6 +51,8 @@ const jsonLd = graph(
           <option value="medical">Medical equipment or refrigerated medicine</option>
           <option value="mobility">Limited mobility or transportation</option>
           <option value="pets">Pets or livestock need transport planning</option>
+          <option value="renter">Apartment or rental housing</option>
+          <option value="no-vehicle">No household vehicle</option>
         </select>
         <button type="submit">Build live brief</button>
         <p id="brief-status" class="small" role="status">The brief calls the HurricaneHub data proxies when you submit.</p>
@@ -121,7 +123,9 @@ const jsonLd = graph(
     const priority: Record<string, string> = {
       medical: "Call your provider about backup power, refrigerated medicine, and safe care arrangements.",
       mobility: "Choose a destination and route that can support mobility needs before traffic worsens.",
-      pets: "Confirm a pet-friendly destination, carrier, food, records, and transport plan."
+      pets: "Confirm a pet-friendly destination, carrier, food, records, and transport plan.",
+      renter: "Confirm building access, landlord communication, renters insurance records, and what you must secure or take.",
+      "no-vehicle": "Confirm county evacuation transport, pickup location, registration rules, and a backup ride before an order is issued."
     };
     return [...(actions[level] ?? actions.Monitor), ...(priority[needs] ? [priority[needs]] : [])];
   }

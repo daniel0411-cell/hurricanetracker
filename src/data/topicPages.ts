@@ -16,6 +16,72 @@ export type TopicPage = {
 
 export const topicPages: TopicPage[] = [
   {
+    slug: "why-hurricane-forecasts-change",
+    title: "Why Hurricane Forecasts Change",
+    shortTitle: "Why Forecasts Change",
+    description: "Learn why hurricane paths, intensity forecasts, cones, and arrival times change as observations and forecast guidance update.",
+    eyebrow: "Forecast uncertainty guide",
+    intro: "Hurricane forecasts change because each advisory starts with newer observations and updated model guidance. A shifted track does not mean the earlier forecast was careless; it means the estimated future path changed as the storm and surrounding atmosphere were measured again. Uncertainty is usually larger farther into the future, so compare advisory times and trends instead of treating one map as permanent.",
+    primaryAction: { label: "Check the latest forecast", href: "/hurricane-tracker/live/" },
+    secondaryAction: { label: "Understand the forecast cone", href: "/blog/how-to-read-the-hurricane-cone-of-uncertainty/" },
+    intent: "why hurricane forecast changed, hurricane path shift, forecast error over time",
+    steps: [
+      { title: "Check the Advisory Time", body: "Compare forecasts from their issue times. An old screenshot can show a path that newer observations and guidance have replaced.", href: "/hurricane-tracker/live/", label: "Open current advisory" },
+      { title: "Compare the Cone and Discussion", body: "Use the cone for center-track uncertainty and the forecast discussion for the reasons forecasters changed track, intensity, or confidence.", href: "/hurricane-tracker/path/", label: "Read path guidance" },
+      { title: "Keep Local Hazards Separate", body: "A track adjustment can change local timing, but surge, rainfall, tornado, wind, and evacuation decisions still require their own official products.", href: "/alerts/", label: "Check local alerts" }
+    ],
+    sections: [
+      { eyebrow: "New evidence", title: "Observations Reset the Starting Point", body: "Satellite, aircraft reconnaissance, radar, buoys, ships, weather stations, and atmospheric observations help estimate the storm and its environment. When the estimated center, structure, steering flow, or intensity changes, the next forecast begins from a different analysis.", bullets: ["Updated storm center and motion", "Changes in surrounding winds and pressure", "Ocean and atmospheric conditions", "New aircraft or satellite measurements"] },
+      { eyebrow: "Forecast horizon", title: "Uncertainty Grows With Time", body: "Small differences in the starting analysis or future steering pattern can produce larger track differences several days later. This is why the cone widens with forecast time and why one exact five-day point should not drive a local decision.", bullets: ["Near-term positions usually carry less track uncertainty", "Longer-range paths have a wider range of outcomes", "Intensity and storm size have separate uncertainty", "Local hazards can extend outside the center-track cone"] },
+      { eyebrow: "Model guidance", title: "Models Can Converge, Diverge, or Trend", body: "Forecasters compare deterministic models, ensembles, recent performance, observations, and continuity from the previous advisory. One dramatic model run is less useful than a persistent shift supported by several guidance sources and new evidence.", bullets: ["Compare runs from the same initialization cycle", "Watch trends across multiple advisories", "Treat outliers as possibilities, not answers", "Use the NHC forecast as the public baseline"] }
+    ],
+    nextLinks: [
+      { name: "Hurricane Spaghetti Models", href: "/hurricane-tracker/spaghetti-models/", description: "Understand clusters, ensembles, and outlier tracks." },
+      { name: "Hurricane Path Tracker", href: "/hurricane-tracker/path/", description: "Read the official path, cone, timing, and local limits." },
+      { name: "Hurricane Landfall Forecast", href: "/hurricane-tracker/hurricane-landfall-forecast/", description: "Connect shifting track guidance with coastal timing and impacts." },
+      { name: "Live Hurricane Tracker", href: "/hurricane-tracker/live/", description: "Check current advisory times before comparing forecasts." }
+    ],
+    faqs: [
+      { question: "Why did the hurricane path change?", answer: "The path can change when newer observations alter the estimated storm position or when updated guidance changes the expected steering pattern. Compare advisory times and use the latest NHC forecast." },
+      { question: "Does a changed forecast mean the earlier forecast was wrong?", answer: "A forecast is an estimate made with the information available at that time. New observations and guidance can narrow or shift the range of likely outcomes, especially several days ahead." },
+      { question: "Why does the hurricane cone get wider?", answer: "Track uncertainty generally increases farther into the future. The wider cone represents a broader range of probable storm-center positions, not the size of the storm or every hazard." },
+      { question: "Should I wait for the forecast to stop changing before preparing?", answer: "No. Follow official watches, warnings, evacuation orders, and local guidance. Preparation often needs to begin while some forecast uncertainty remains." }
+    ]
+  },
+  {
+    slug: "nhc-hurricane-basins-and-names",
+    title: "NHC Hurricane Basins and Storm Names",
+    shortTitle: "Basins and Storm Names",
+    description: "Compare Atlantic, Eastern Pacific, and Central Pacific hurricane basins, storm-name lists, forecast centers, and active-system tracking.",
+    eyebrow: "Basin and naming guide",
+    intro: "The National Hurricane Center tracks tropical cyclones in the Atlantic and Eastern North Pacific, while the Central Pacific Hurricane Center handles the Central North Pacific. Each basin uses its own naming sequence and seasonal context. A storm name is assigned after a system reaches tropical-storm strength; a name appearing on a list does not mean that storm exists.",
+    primaryAction: { label: "Check all active NHC systems", href: "/hurricane-tracker/live/" },
+    secondaryAction: { label: "Review the 2026 Atlantic season", href: "/2026-hurricane-season/" },
+    intent: "Atlantic vs Pacific hurricane basin, hurricane name lists, who names hurricanes",
+    steps: [
+      { title: "Identify the Basin", body: "Use the storm identifier, position, and official advisory source to distinguish Atlantic, Eastern Pacific, and Central Pacific systems.", href: "/hurricane-tracker/live/", label: "Open all-basin tracker" },
+      { title: "Check the Official Forecast Center", body: "NHC issues Atlantic and Eastern Pacific advisories; CPHC handles Central Pacific systems within its area of responsibility.", href: "https://www.nhc.noaa.gov/", label: "Open NHC" },
+      { title: "Separate a Name List From an Active Storm", body: "Names are prepared in advance and used in sequence. Confirm the current advisory before treating a listed name as an active cyclone.", href: "/2026-hurricane-season/", label: "Check season status" }
+    ],
+    sections: [
+      { eyebrow: "Atlantic basin", title: "Atlantic, Caribbean, and Gulf Systems", body: "The Atlantic basin includes the North Atlantic Ocean, Caribbean Sea, and Gulf. Atlantic advisories use the basin's name list and can affect the Americas, Caribbean, Atlantic shipping, and nearby islands.", bullets: ["North Atlantic Ocean", "Caribbean Sea", "Gulf", "NHC official advisories"] },
+      { eyebrow: "Pacific basins", title: "Eastern and Central Pacific Systems", body: "Eastern Pacific and Central Pacific systems use separate name lists and forecast responsibilities. A cyclone can cross a basin boundary, so the responsible forecast center and advisory source may change while the storm remains the same system.", bullets: ["Eastern North Pacific advisories from NHC", "Central North Pacific advisories from CPHC", "Separate naming sequences", "All-basin status belongs on the live tracker"] },
+      { eyebrow: "Naming", title: "A Name Does Not Show Strength or Risk", body: "Names make communication easier after tropical-storm strength is reached. They do not describe category, forecast confidence, size, surge, rainfall, or whether a location is threatened.", bullets: ["Check classification and advisory time", "Use the forecast path and hazard products", "Verify local alerts separately", "Retired names are replaced after especially destructive storms"] }
+    ],
+    nextLinks: [
+      { name: "Live Hurricane Tracker", href: "/hurricane-tracker/live/", description: "See active Atlantic, Eastern Pacific, and Central Pacific systems." },
+      { name: "2026 Hurricane Season", href: "/2026-hurricane-season/", description: "Review the Atlantic name list and observed season status." },
+      { name: "Tropical Storm vs Hurricane", href: "/hurricane-tracker/tropical-storm-vs-hurricane/", description: "Separate naming from wind-based classification." },
+      { name: "Hurricane vs Typhoon vs Cyclone", href: "/blog/hurricane-vs-typhoon-vs-cyclone/", description: "Understand regional terminology outside NHC basins." }
+    ],
+    faqs: [
+      { question: "Which hurricane basins does the NHC track?", answer: "NHC issues forecasts for the Atlantic and Eastern North Pacific. The Central Pacific Hurricane Center handles the Central North Pacific within its area of responsibility." },
+      { question: "Do Atlantic and Pacific hurricanes use the same name list?", answer: "No. Atlantic, Eastern Pacific, and Central Pacific systems use separate naming sequences." },
+      { question: "When does a tropical system receive a name?", answer: "A tropical cyclone receives a name when it reaches tropical-storm strength in its basin. A name on a seasonal list does not mean a storm has formed." },
+      { question: "Can a hurricane keep its name after crossing basins?", answer: "A cyclone can retain its identity when crossing a basin boundary, while forecast responsibility and advisory products may change. Check the latest official advisory source." }
+    ]
+  },
+  {
     slug: "hurricane-landfall-forecast",
     title: "Hurricane Landfall Forecast: Track & Timing",
     shortTitle: "Landfall Forecast",

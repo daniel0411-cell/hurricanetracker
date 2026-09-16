@@ -78,6 +78,8 @@ export const contentClusters: ContentCluster[] = [
       topicLink("tropical-storm-vs-hurricane"),
       topicLink("hurricane-categories"),
       topicLink("spaghetti-models"),
+      topicLink("why-hurricane-forecasts-change"),
+      topicLink("nhc-hurricane-basins-and-names"),
       topicLink("radar"),
       { title: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Active storm checks, radar shortcuts, alerts, city pages, and decision tools." },
       { title: "Interactive Hurricane Radar", href: "/radar/", description: "Radar, satellite, wind, and alert map layers for tropical weather monitoring." },
@@ -127,7 +129,10 @@ export const contentClusters: ContentCluster[] = [
       blogLink("hurricane-home-preparedness-room-by-room-checklist"),
       blogLink("hurricane-home-hardening-checklist"),
       blogLink("hurricane-pet-safety"),
-      blogLink("hurricane-medical-needs-registry-preparedness")
+      blogLink("hurricane-medical-needs-registry-preparedness"),
+      blogLink("apartment-hurricane-preparedness-renters-checklist"),
+      blogLink("hurricane-school-daycare-emergency-plan"),
+      blogLink("hurricane-small-business-preparedness-plan")
     ])
   },
   {
