@@ -1,0 +1,32 @@
+---
+type Props = {
+  placement: "top" | "bottom" | "in-content";
+  enabled?: boolean;
+};
+
+const { placement, enabled = false } = Astro.props;
+---
+{enabled && (
+  <aside class:list={["ad-placement", `ad-placement-${placement}`]} aria-label="Advertisement">
+    <span>Advertisement</span>
+  </aside>
+)}
+
+<style>
+  .ad-placement {
+    width: min(100%, 728px);
+    min-height: 100px;
+    margin: 20px auto;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+  .ad-placement-bottom,
+  .ad-placement-in-content {
+    width: min(100%, 320px);
+    min-height: 250px;
+  }
+</style>

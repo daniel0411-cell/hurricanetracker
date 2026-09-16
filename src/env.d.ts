@@ -3,6 +3,11 @@
 
 interface ImportMetaEnv {
   readonly PUBLIC_SITE_URL?: string;
+  readonly PUBLIC_ADS_ENABLED?: string;
+}
+
+interface Window {
+  dataLayer?: Array<Record<string, unknown>>;
 }
 
 interface RuntimeEnv {

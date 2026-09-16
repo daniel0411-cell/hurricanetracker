@@ -8,6 +8,12 @@ const { source = "HurricaneHub newsletter form" } = Astro.props;
 <form class="panel newsletter-form" data-source={source}>
   <label for="newsletter-email">Email address</label>
   <input id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+  <fieldset>
+    <legend>Email preferences</legend>
+    <label><input type="checkbox" name="preferences" value="seasonal-preparedness" checked /> Seasonal preparedness</label>
+    <label><input type="checkbox" name="preferences" value="local-readiness" /> Local readiness reminders</label>
+    <label><input type="checkbox" name="preferences" value="active-storm-summary" /> Active storm summaries</label>
+  </fieldset>
   <button type="submit">Subscribe</button>
   <p class="newsletter-status small" role="status">Get hurricane-season readiness emails. No spam, unsubscribe anytime.</p>
 </form>
@@ -24,11 +30,12 @@ const { source = "HurricaneHub newsletter form" } = Astro.props;
         const response = await fetch("/api/subscribe", {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ email: data.get("email"), source: form.dataset.source })
+          body: JSON.stringify({ email: data.get("email"), source: form.dataset.source, preferences: data.getAll("preferences"), page: window.location.pathname })
         });
         const body = await response.json() as { message?: string; error?: string };
         if (!response.ok) throw new Error(body.error ?? "Request failed");
         if (statusEl) statusEl.textContent = body.message ?? "You're subscribed.";
+        window.dataLayer?.push({ event: "newsletter_signup", signup_source: form.dataset.source, page_path: window.location.pathname });
         form.reset();
       } catch (error) {
         console.error("HurricaneHub newsletter form failed", error);
@@ -47,6 +54,10 @@ const { source = "HurricaneHub newsletter form" } = Astro.props;
   .newsletter-form label {
     font-weight: 800;
   }
+  .newsletter-form fieldset { display: grid; gap: 8px; margin: 0; padding: 12px; border: 1px solid var(--line); border-radius: 6px; }
+  .newsletter-form legend { font-weight: 800; }
+  .newsletter-form fieldset label { display: flex; gap: 8px; align-items: center; font-weight: 600; }
+  .newsletter-form fieldset input { width: auto; }
   .newsletter-form .newsletter-status {
     color: var(--muted);
     margin: 0;

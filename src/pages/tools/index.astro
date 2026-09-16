@@ -251,6 +251,37 @@ const jsonLd = graph(
     </div>
   </section>
 
+  <section class="band" aria-labelledby="inventory-heading">
+    <div class="inner grid-2">
+      <form class="panel embedded-tool" id="inventory-tool">
+        <p class="eyebrow">Free household tool</p>
+        <h2 id="inventory-heading">Home Inventory Generator</h2>
+        <p>Create a private room-by-room documentation checklist before a storm or insurance claim. Entries stay in this browser page and are not uploaded.</p>
+        <label>Home type<select name="homeType"><option>House</option><option>Apartment or condo</option><option>Mobile or manufactured home</option></select></label>
+        <label>Rooms and areas<textarea name="rooms" placeholder="Kitchen, living room, bedrooms, garage, patio" required></textarea></label>
+        <button type="submit">Generate inventory checklist</button>
+      </form>
+      <article class="panel embedded-output" id="inventory-output" aria-live="polite"><h2>Your checklist will appear here</h2><p>Use photos, serial numbers, receipts, and policy records where available. Store copies somewhere you can access after an evacuation.</p></article>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="property-heading">
+    <div class="inner grid-2">
+      <form class="panel embedded-tool" id="property-tool">
+        <p class="eyebrow">Planning review</p>
+        <h2 id="property-heading">Property Risk Review</h2>
+        <p>Organize questions to verify with official maps, local authorities, your insurer, landlord, or qualified contractor. This is not a property risk score.</p>
+        <label>Housing situation<select name="housing"><option value="owner">Homeowner</option><option value="renter">Renter</option><option value="manager">Property manager</option></select></label>
+        <label><input type="checkbox" name="concerns" value="flood" /> Flood or storm surge concern</label>
+        <label><input type="checkbox" name="concerns" value="wind" /> Roof, window, tree, or wind concern</label>
+        <label><input type="checkbox" name="concerns" value="evacuation" /> Evacuation or transportation concern</label>
+        <label><input type="checkbox" name="concerns" value="power" /> Extended power outage concern</label>
+        <button type="submit">Build review checklist</button>
+      </form>
+      <article class="panel embedded-output" id="property-output" aria-live="polite"><h2>Start with known concerns</h2><p>The result links risk questions to FEMA, local evacuation guidance, insurance records, home condition, and outage planning.</p></article>
+    </div>
+  </section>
+
   <section class="band" aria-labelledby="tool-context-heading">
     <div class="inner grid-2">
       <article>
@@ -273,6 +304,47 @@ const jsonLd = graph(
   <FaqBlock faqs={faqs} />
 </Layout>
 
+<script>
+  const escapeHtml = (value: unknown) => String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char] ?? char);
+  const track = (event: string, tool: string) => window.dataLayer?.push({ event, tool_name: tool, page_path: window.location.pathname });
+
+  const inventoryForm = document.querySelector<HTMLFormElement>("#inventory-tool");
+  inventoryForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    track("tool_start", "home_inventory");
+    const data = new FormData(inventoryForm);
+    const homeType = String(data.get("homeType") ?? "Home");
+    const rooms = String(data.get("rooms") ?? "").split(/[,\n]/).map((room) => room.trim()).filter(Boolean).slice(0, 20);
+    const output = document.querySelector<HTMLElement>("#inventory-output");
+    if (!output || !rooms.length) return;
+    output.innerHTML = `<h2>${escapeHtml(homeType)} inventory checklist</h2><ol class="check-list">${rooms.map((room) => `<li><strong>${escapeHtml(room)}</strong>: take wide and close photos; record major items, model and serial numbers, approximate purchase date, receipts, and visible condition.</li>`).join("")}</ol><p class="source-note">Keep policy, lease, receipts, and inventory copies outside the property or in secure cloud storage. Follow your insurer's documentation instructions.</p><button type="button" id="inventory-print">Print checklist</button>`;
+    document.querySelector("#inventory-print")?.addEventListener("click", () => window.print());
+    track("tool_complete", "home_inventory");
+  });
+
+  const propertyForm = document.querySelector<HTMLFormElement>("#property-tool");
+  propertyForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    track("tool_start", "property_risk_review");
+    const data = new FormData(propertyForm);
+    const housing = String(data.get("housing") ?? "owner");
+    const concerns = data.getAll("concerns").map(String);
+    const items = ["Check the address in the FEMA Flood Map Service Center and compare it with the local hurricane evacuation zone; they answer different questions."];
+    if (housing === "renter") items.push("Ask the landlord or property manager about shutters, elevators, backup power, building access, reentry, and which damage belongs to the building versus your belongings.");
+    if (housing === "owner") items.push("Review homeowners, windstorm, flood, deductible, and additional living expense terms with the insurer before a storm threatens.");
+    if (housing === "manager") items.push("Document decision owners, resident communication, accessible evacuation support, building shutdown, vendors, insurance contacts, and reentry rules for each property.");
+    if (concerns.includes("flood")) items.push("Check drainage, lowest-floor contents, flood policy records, storm surge products, and local evacuation guidance.");
+    if (concerns.includes("wind")) items.push("Record roof age and condition, window and door protection, loose outdoor items, tree hazards, permits, warranties, and qualified inspection contacts.");
+    if (concerns.includes("evacuation")) items.push("Confirm the official evacuation zone, two routes, transportation or pickup options, shelter rules, pets, and a backup destination.");
+    if (concerns.includes("power")) items.push("Plan safe backup power, food and medicine storage, cooling, communication, fuel, carbon-monoxide protection, and a backup care location.");
+    const output = document.querySelector<HTMLElement>("#property-output");
+    if (!output) return;
+    output.innerHTML = `<h2>Property review checklist</h2><ol class="check-list">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ol><p class="source-note">This checklist does not calculate flood, wind, insurance, structural, or evacuation risk. Verify each item with the responsible official source or qualified professional.</p><button type="button" id="property-print">Print checklist</button>`;
+    document.querySelector("#property-print")?.addEventListener("click", () => window.print());
+    track("tool_complete", "property_risk_review");
+  });
+</script>
+
 <style>
   .workflow-list {
     display: grid;
@@ -291,4 +363,11 @@ const jsonLd = graph(
   .tool-path-links a {
     font-weight: 800;
   }
+  .embedded-tool { display: grid; gap: 12px; align-content: start; }
+  .embedded-tool label { display: grid; gap: 7px; font-weight: 800; }
+  .embedded-tool label:has(input[type="checkbox"]) { grid-template-columns: auto 1fr; align-items: center; }
+  .embedded-tool input[type="checkbox"] { width: auto; }
+  .embedded-tool textarea { min-height: 110px; }
+  .embedded-output button { width: auto; margin-top: 12px; }
+  @media print { .site-header, .disclaimer, form, .site-footer, .ad-placement, #inventory-print, #property-print { display: none !important; } }
 </style>

@@ -24,11 +24,15 @@ export const OPTIONS: APIRoute = () =>
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const payload = (await request.json()) as { email?: string; source?: string };
+    const payload = (await request.json()) as { email?: string; source?: string; preferences?: unknown; page?: string };
     const email = (payload.email ?? "").trim().toLowerCase();
     if (!EMAIL_PATTERN.test(email)) {
       return jsonResponse({ error: "Enter a valid email address." }, { status: 400 });
     }
+    const allowedPreferences = new Set(["seasonal-preparedness", "local-readiness", "active-storm-summary"]);
+    const preferences = Array.isArray(payload.preferences)
+      ? payload.preferences.filter((value): value is string => typeof value === "string" && allowedPreferences.has(value))
+      : ["seasonal-preparedness"];
     const cache = env.HURRICANEHUB_CACHE;
     const now = new Date().toISOString();
     await cache?.put(
@@ -36,6 +40,8 @@ export const POST: APIRoute = async ({ request }) => {
       JSON.stringify({
         email,
         source: payload.source ?? "HurricaneHub newsletter",
+        page: typeof payload.page === "string" ? payload.page.slice(0, 200) : undefined,
+        preferences: preferences.length ? preferences : ["seasonal-preparedness"],
         subscribedAt: now
       }),
       { expirationTtl: 60 * 60 * 24 * 365 * 3 }

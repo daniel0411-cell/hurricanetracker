@@ -67,6 +67,7 @@ const { source = "HurricaneHub reminder form" } = Astro.props;
       const body = await response.json() as { message?: string; error?: string };
       if (!response.ok) throw new Error(body.error ?? "Request failed");
       if (statusEl) statusEl.textContent = body.message ?? "Reminder request saved.";
+      window.dataLayer?.push({ event: "reminder_signup", signup_source: form.dataset.source, page_path: window.location.pathname });
       form.reset();
     } catch (error) {
       console.error("HurricaneHub reminder form failed", error);
@@ -117,6 +118,7 @@ const { source = "HurricaneHub reminder form" } = Astro.props;
       const body = await response.json() as { message?: string; error?: string };
       if (!response.ok) throw new Error(body.error ?? "Subscription failed");
       if (statusEl) statusEl.textContent = body.message ?? "Device alerts enabled.";
+      window.dataLayer?.push({ event: "device_alert_enabled", signup_source: form?.dataset.source, page_path: window.location.pathname });
 
       // Store the monitor location in the SW so it can check NWS directly from
       // the browser (no server egress needed) and show local notifications.

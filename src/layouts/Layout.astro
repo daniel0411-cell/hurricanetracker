@@ -2,6 +2,7 @@
 import Disclaimer from "../components/Disclaimer.astro";
 import Footer from "../components/Footer.astro";
 import GoogleTag from "../components/GoogleTag.astro";
+import AdPlacement from "../components/AdPlacement.astro";
 import Header from "../components/Header.astro";
 import SEO from "../components/SEO.astro";
 import { site } from "../data/site";
@@ -36,6 +37,7 @@ const {
   showTopAd = false,
   showBottomAd = false
 } = Astro.props;
+const adsEnabled = import.meta.env.PUBLIC_ADS_ENABLED === "true";
 const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
 ---
 <!doctype html>
@@ -78,10 +80,10 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
   <body class="site-body flex flex-col min-h-screen">
     <Header lang={lang} />
     <Disclaimer lang={lang} />
-    {showTopAd && <div class="ad-slot ad-slot-top"><!-- AD SLOT 1: 728x90 Desktop / 320x100 Mobile --></div>}
+    <AdPlacement placement="top" enabled={showTopAd && adsEnabled} />
     <main class="flex-grow">
       <slot />
-      {showBottomAd && <div class="ad-slot ad-slot-bottom"><!-- AD SLOT 2: 300x250 Rectangle --></div>}
+      <AdPlacement placement="bottom" enabled={showBottomAd && adsEnabled} />
     </main>
     <Footer lang={lang} />
     <script is:inline>
