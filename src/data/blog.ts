@@ -70,7 +70,7 @@ export const blogPosts: BlogPost[] = [
     title: "How El Niño Affects Atlantic Hurricane Activity",
     description: "Learn how El Niño can change Atlantic and Pacific hurricane patterns, why it does not control one storm, and how to use official forecasts safely.",
     datePublished: "2026-09-09",
-    dateModified: "2026-09-09",
+    dateModified: "2026-09-17",
     image: "/images/blog/external/noaa-el-nino-sst.jpg",
     imageAlt: "NOAA satellite image showing El Niño sea-surface temperature departure from normal across the Pacific Ocean.",
     figures: [
@@ -106,7 +106,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "How to Use This Information Safely",
-        body: "Use El Niño information to understand seasonal context and finish low-regret preparation early. Once a system is active, switch to the current NHC advisory, forecast track, watches or warnings, and local NWS and emergency-management guidance. The live hurricane tracker can help you find the current official update, but no climate pattern or map should replace a local evacuation order."
+        body: "Use El Niño information to understand seasonal context, then check HurricaneHub's 2026 hurricane season tracker for observed Atlantic activity. Once a system is active, switch to the live hurricane tracker, current NHC advisory, forecast track, watches or warnings, and local NWS and emergency-management guidance. No climate pattern or map should replace a local evacuation order."
       },
       {
         heading: "What El Niño Cannot Tell You",

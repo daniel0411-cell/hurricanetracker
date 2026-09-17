@@ -57,7 +57,7 @@ export const cristobal: StormArchive = {
     {
       title: "Season context",
       body:
-        "Cristobal formed during a below-normal 2026 season shaped by a strong El Niño. By mid-August the Atlantic had produced only three named storms — Arthur, Bertha, and Cristobal — all tropical storms, with no hurricanes yet. The season's traditional peak was just beginning."
+        "Cristobal formed during a quiet opening to the 2026 Atlantic season. By mid-August the basin had produced only three named storms — Arthur, Bertha, and Cristobal — all tropical storms, with no hurricanes yet. The season's traditional peak was just beginning."
     },
     {
       title: "How 2026 Cristobal compares with past Cristobal storms",
