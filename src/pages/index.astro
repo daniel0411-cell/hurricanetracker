@@ -149,15 +149,15 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
           <a class="action-link secondary-action" href="/local-hurricane-risk/">Check local risk</a>
         </p>
       </div>
-      <div class="decision-card" aria-label="Atlantic activity and Florida alert example">
+      <div class="decision-card" aria-label="Atlantic activity and featured state alerts">
         <p class="eyebrow">Atlantic operations snapshot</p>
         <h2>{storms.length ? `${storms.length} active system${storms.length === 1 ? "" : "s"}` : "No active systems"}</h2>
-        <p><strong>{featuredStateName} example: {featuredDecisionLevel}.</strong> {nextAction}</p>
+        <p><strong>{featuredStateName}: {featuredDecisionLevel}.</strong> {nextAction}</p>
         <div class="dashboard compact-dashboard" aria-label="Current official feed metrics">
           <div class="metric"><strong>{storms.length}</strong><span>active NHC systems</span></div>
-          <div class="metric"><strong>{floridaAlerts.length}</strong><span>{featuredStateName} alert example</span></div>
+          <div class="metric"><strong>{floridaAlerts.length}</strong><span>{featuredStateName} alerts</span></div>
         </div>
-        <p class="source-note">NHC basin status plus an example {featuredStateName} NWS feed. Check your local page for decisions. Updated {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC.</p>
+        <p class="source-note">NHC basin status plus the {featuredStateName} NWS feed. Check your local page for decisions. Updated {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC.</p>
       </div>
     </div>
   </section>
