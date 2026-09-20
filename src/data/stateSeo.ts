@@ -9,10 +9,10 @@ export type StateSeoProfile = {
 
 const profiles: Record<string, Omit<StateSeoProfile, "title" | "headline"> & { titleTail: string; headlineTail: string }> = {
   florida: {
-    titleTail: "Is a Hurricane Coming? Live NHC & NWS Alerts",
+    titleTail: "Is a Hurricane Coming to Florida?",
     headlineTail: "Live NHC Track, Alerts, and Evacuation Zones",
     description:
-      "Check Florida hurricane conditions today: NHC track, nearby storm path, NWS alerts, evacuation zones, plus Miami, Tampa, Orlando, and Gulf Coast updates.",
+      "Is a hurricane coming to Florida? Check today's NHC track, nearby storm path, Florida NWS alerts, evacuation zones, and Miami, Tampa, Orlando, and Gulf updates.",
     queryFocus: ["florida hurricane tracker", "hurricane tracker florida", "fl hurricane tracker", "florida hurricane alerts"]
   },
   texas: {

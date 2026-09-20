@@ -339,10 +339,10 @@ export const topicPages: TopicPage[] = [
   },
   {
     slug: "map",
-    title: "Hurricane Map: Live NHC Track, Radar & Satellite",
+    title: "How to Read a Hurricane Map: NHC, Radar & Satellite",
     shortTitle: "Map Guide",
     description:
-      "Open the live hurricane map and learn how NHC tracks, forecast cones, radar, satellite, and local alert layers answer different storm questions.",
+      "Learn how NHC tracks, forecast cones, radar, satellite, and local alert layers answer different storm questions, then open the current live map.",
     eyebrow: "Hurricane map guide",
     intro:
       "Use this guide to choose the right hurricane map layer. The live tracker is the canonical page for current storm position and NHC status; this page explains when to use radar, satellite, the forecast track, and local alerts.",
@@ -977,10 +977,10 @@ export const topicPages: TopicPage[] = [
   },
   {
     slug: "live-tracker",
-    title: "Live Hurricane Tracker",
-    shortTitle: "Live Tracker",
+    title: "How to Use a Live Hurricane Tracker",
+    shortTitle: "Live Tracker Guide",
     description:
-      "Open a live hurricane tracker workflow for current storms, NHC advisories, radar, alerts, city pages, and practical local decision tools.",
+      "Learn how to use a live hurricane tracker with NHC advisories, radar, alerts, city pages, and local decision tools, then open the current storm map.",
     eyebrow: "Live tracker hub",
     intro:
       "Use the live hurricane tracker when you want current storm status and the next useful action. The goal is not only watching the map; it is moving from official storm context to local risk and household planning.",

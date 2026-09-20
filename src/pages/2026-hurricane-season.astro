@@ -47,8 +47,8 @@ const hurricanes = hurricaneRecords.length;
 const majorHurricanes = hurricaneRecords.filter((storm) => /major|category\s*[3-5]/i.test(`${storm.classification ?? ""} ${storm.intensity ?? ""}`)).length;
 const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
 const activeStormNames = storms.map((storm) => storm.name).filter(Boolean);
-const title = "2026 Hurricane Season Tracker: Storms, Names & NHC Updates";
-const description = `${storms.length ? `${storms.length} active Atlantic system${storms.length === 1 ? "" : "s"}${activeStormNames.length ? `: ${activeStormNames.join(", ")}` : ""}.` : "No active Atlantic systems."} Track 2026 NHC advisories, the storm list and next name${nextName ? ` ${nextName}` : ""}. Updated ${new Date(lastModified).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}.`;
+const title = "2026 Hurricane Season: Dates, Storms & Live Tracker";
+const description = `The 2026 Atlantic hurricane season runs June 1-November 30. ${storms.length ? `${storms.length} active system${storms.length === 1 ? "" : "s"}${activeStormNames.length ? `: ${activeStormNames.join(", ")}` : ""}.` : "No active Atlantic systems."} Track NHC updates, storms and names. Updated ${new Date(lastModified).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}.`;
 const verifiedLabel = new Date(lastModified).toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit", timeZone: "UTC" });
 const faqs = [
   { question: "When is the 2026 hurricane season?", answer: "The Atlantic hurricane season runs from June 1 through November 30. Tropical cyclones can occur outside those dates, so official outlooks remain the source for current conditions." },
