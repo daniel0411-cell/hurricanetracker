@@ -93,12 +93,12 @@ const riSignal = advisoryHistory.length ? detectRapidIntensification(advisoryHis
 const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
 const title = activeStorm
   ? `${stormName} ${classification} Tracker: Current Position & NHC Update`
-  : knownPage?.title ?? `${stormName} ${isArchived ? "Storm Archive" : "Hurricane Tracker: Live Path, Map & NHC Updates"}`;
+  : isArchived ? `${stormName} Storm Archive: Final Track & NHC History` : knownPage?.title ?? `${stormName} Hurricane Tracker: Live Path, Map & NHC Updates`;
 const description = activeStorm
   ? `${stormName} is a ${classification} at ${activeStorm.latitude ?? "a pending position"}, ${activeStorm.longitude ?? ""}, with ${activeStorm.intensity ? formatWind(Number(activeStorm.intensity)) : "intensity pending"}. See its current path, live map and NHC update from ${activeStorm.lastUpdate ?? lastModified}.`
-  : knownPage?.description ?? (isArchived
-  ? `Review the archived ${stormName} hurricane tracker with the last known NHC position, advisory context, forecast path history, and official source links.`
-  : `Track ${stormName} live with the latest NHC position, hurricane path, live map, advisory update, radar, satellite imagery and local alerts.`);
+  : isArchived
+    ? `Review the archived ${stormName} storm with its final NHC status, last observed track, advisory history, and official source links.`
+    : knownPage?.description ?? `Track ${stormName} live with the latest NHC position, hurricane path, live map, advisory update, radar, satellite imagery and local alerts.`;
 const url = `${site.url}/hurricane-tracker/storm/${slug}/`;
 const pageFaqs = [
   ...(knownPage?.faqs ?? [
@@ -128,8 +128,8 @@ const jsonLd = graph(
       <p class="eyebrow">{basin} storm tracker</p>
       <h1 id="storm-title">{activeStorm ? `${stormName} ${classification} Tracker: Live Map, Path and NHC Updates` : `${stormName} Storm Archive: Final Track and NHC History`}</h1>
       {isArchived && <p class="archive-notice"><strong>{stormName} is not active in the current NHC feed.</strong> This stable archive page preserves the last observed advisory context; use the live tracker for current storms.</p>}
-      <p class="answer">{activeStorm ? `${stormName} is currently classified as a ${classification}. ${forecastCenter} last reported the system at ${activeStorm.latitude ?? "a pending latitude"}, ${activeStorm.longitude ?? "a pending longitude"}, moving ${activeStorm.movementDir != null ? `${activeStorm.movementDir}°` : "in a direction pending confirmation"} at ${activeStorm.movementSpeed != null ? `${activeStorm.movementSpeed} kt` : "a speed pending confirmation"}. Updated ${activeStorm.lastUpdate ?? lastModified}. Use the tracker and official forecast path below for current details.` : overview}</p>
-      <p class="answer">{searchDemandNote}</p>
+      <p class="answer">{activeStorm ? `${stormName} is currently classified as a ${classification}. ${forecastCenter} last reported the system at ${activeStorm.latitude ?? "a pending latitude"}, ${activeStorm.longitude ?? "a pending longitude"}, moving ${activeStorm.movementDir != null ? `${activeStorm.movementDir}°` : "in a direction pending confirmation"} at ${activeStorm.movementSpeed != null ? `${activeStorm.movementSpeed} kt` : "a speed pending confirmation"}. Updated ${activeStorm.lastUpdate ?? lastModified}. Use the tracker and official forecast path below for current details.` : isArchived ? `${stormName} is no longer active. Review its final observed NHC status, track history, advisory context, and official source links below.` : overview}</p>
+      <p class="answer">{isArchived ? `This archive answers past ${stormName} track, path, and advisory searches. For current tropical cyclones, use the live hurricane tracker.` : searchDemandNote}</p>
       <p class="section-actions">
         <a class="action-link" href="/hurricane-tracker/live/">Open live hurricane tracker</a>
         <a class="action-link secondary-action" href={`/embed/radar?layer=radar&theme=dark&view=${mapView}`}>Open ${basin} radar and satellite map</a>

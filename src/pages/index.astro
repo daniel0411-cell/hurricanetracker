@@ -142,7 +142,7 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
       <div>
         <p class="eyebrow">{primaryStorm ? "Active hurricane-season operations" : "North America hurricane operations"}</p>
         <h1 id="home-title">HurricaneHub Live Hurricane Tracker</h1>
-        <p class="answer">HurricaneHub shows live hurricanes approaching North America, official NHC storm context, state NWS warnings, and emergency decision tools so coastal households can monitor, prepare, act, or leave with fewer tabs open.</p>
+        <p class="answer">{storms.length ? `The latest NHC feed lists ${storms.length} active system${storms.length === 1 ? "" : "s"}${storms.map((storm) => storm.name).filter(Boolean).length ? `: ${storms.map((storm) => storm.name).filter(Boolean).join(", ")}` : ""}.` : "The latest NHC feed lists no active tropical cyclones."} Updated {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })} UTC. Open the live hurricane tracker map for current positions, forecast paths, radar, satellite imagery, and local NWS alerts.</p>
         <p class="section-actions">
           <a class="action-link" href="/hurricane-tracker/live/">Open live hurricane tracker map</a>
           {primaryStorm && <a class="action-link secondary-action" href={`/hurricane-tracker/storm/${primaryStormSlug}/`}>Track {primaryStorm.name ?? "active storm"}</a>}
