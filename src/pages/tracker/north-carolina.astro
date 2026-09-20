@@ -83,13 +83,13 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">{region} hurricane operations</p>
       <h1 id="tracker-state-title">{seo.headline}</h1>
-      <p class="answer">{intro}</p>
       <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
+      <p class="answer">{intro}</p>
 
       <section class="intent-answer" aria-labelledby="north-carolina-intent-heading">
         <h2 id="north-carolina-intent-heading">Check North Carolina Hurricane Risk Now</h2>
         <p>Start with the live status above, then compare the current NHC track with North Carolina NWS alerts and local context for the Outer Banks, Wilmington, and Morehead City.</p>
-        <p><a href="/hurricane-tracker/live/">Open the live NHC hurricane map</a>, save NC locations in the <a href="/tools/my-hurricane-dashboard/">hurricane tracking dashboard</a>, or use the <a href="/tools/evacuation-decision-helper/">evacuation assessment tool</a> before bridge, ferry, or coastal route conditions deteriorate.</p>
+        <p><a href="/hurricane-tracker/live/">Open the live NHC hurricane map</a> · <a href="#alerts-heading">Check North Carolina NWS alerts</a> · <a href="#city-trackers">Open Outer Banks, Wilmington, and Morehead City trackers</a></p>
       </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>

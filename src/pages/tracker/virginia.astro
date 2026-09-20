@@ -83,12 +83,12 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">{region} hurricane operations</p>
       <h1 id="tracker-state-title">{name} Hurricane Tracker – Live Updates</h1>
-      <p class="answer">{intro}</p>
       <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
+      <p class="answer">{intro}</p>
       <section class="intent-answer" aria-labelledby="virginia-intent-heading">
         <h2 id="virginia-intent-heading">Check Virginia Hurricane Risk Now</h2>
         <p>Start with the live status above, then compare the current NHC track with Virginia NWS alerts and local context for Hampton Roads, Norfolk, Virginia Beach, and the Chesapeake Bay. Bridge and tunnel restrictions can change quickly.</p>
-        <p><a href="/hurricane-tracker/live/">Open the live NHC hurricane map</a> · <a href="#alerts-heading">Check Virginia NWS alerts</a> · <a href="/hurricane-tracker/path/">Read the forecast path</a></p>
+        <p><a href="/hurricane-tracker/live/">Open the live NHC hurricane map</a> · <a href="#alerts-heading">Check Virginia NWS alerts</a> · <a href="#city-trackers">Open Norfolk and Virginia Beach trackers</a></p>
       </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>

@@ -88,13 +88,13 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">{region} hurricane operations</p>
       <h1 id="tracker-state-title">{seo.headline}</h1>
-      <p class="answer">{intro}</p>
       <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
+      <p class="answer">{intro}</p>
 
       <section class="intent-answer" aria-labelledby="texas-intent-heading">
         <h2 id="texas-intent-heading">Check Texas Hurricane Risk Now</h2>
         <p>Start with the live status above, then compare the current NHC Gulf track with Texas NWS alerts and local context for Houston, Galveston, Corpus Christi, and the Upper Texas coast.</p>
-        <p><a href="/hurricane-tracker/gulf/">Open the Gulf hurricane tracker</a> · <a href="/hurricane-tracker/live/">Open the live NHC map</a> · <a href="#alerts-heading">Check Texas NWS alerts</a></p>
+        <p><a href="/hurricane-tracker/gulf/">Open the Gulf hurricane tracker</a> · <a href="#alerts-heading">Check Texas NWS alerts</a> · <a href="#city-trackers">Open Houston, Galveston, and Corpus Christi trackers</a></p>
       </section>
 
       <section class="intent-answer" aria-labelledby="texas-season-heading">

@@ -84,6 +84,10 @@ const floridaAlerts = floridaAlertFeed?.alerts ?? [];
 const featuredStateName = "Florida";
 const featuredDecisionLevel = floridaAlertFeed?.decisionLevel ?? (storms.length ? "Prepare" : "Monitor");
 const lastModified = floridaAlertFeed?.updatedAt ?? stormFeed?.updatedAt ?? site.contentLastModified;
+const parsedLastModified = new Date(lastModified);
+const updatedLabel = Number.isNaN(parsedLastModified.getTime())
+  ? "the latest available feed"
+  : `${parsedLastModified.toLocaleString("en-US", { timeZone: "UTC", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })} UTC`;
 const nextAction =
   featuredDecisionLevel === "Leave"
     ? "Follow local evacuation orders now."
@@ -142,7 +146,7 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
       <div>
         <p class="eyebrow">{primaryStorm ? "Active hurricane-season operations" : "North America hurricane operations"}</p>
         <h1 id="home-title">HurricaneHub Live Hurricane Tracker</h1>
-        <p class="answer">{storms.length ? `The latest NHC feed lists ${storms.length} active system${storms.length === 1 ? "" : "s"}${storms.map((storm) => storm.name).filter(Boolean).length ? `: ${storms.map((storm) => storm.name).filter(Boolean).join(", ")}` : ""}.` : "The latest NHC feed lists no active tropical cyclones."} Updated {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })} UTC. Open the live hurricane tracker map for current positions, forecast paths, radar, satellite imagery, and local NWS alerts.</p>
+        <p class="answer">{storms.length ? `The latest NHC feed lists ${storms.length} active system${storms.length === 1 ? "" : "s"}${storms.map((storm) => storm.name).filter(Boolean).length ? `: ${storms.map((storm) => storm.name).filter(Boolean).join(", ")}` : ""}.` : "The latest NHC feed lists no active tropical cyclones."} Updated {updatedLabel}. Open the live hurricane tracker map for current positions, forecast paths, radar, satellite imagery, and local NWS alerts.</p>
         <p class="section-actions">
           <a class="action-link" href="/hurricane-tracker/live/">Open live hurricane tracker map</a>
           {primaryStorm && <a class="action-link secondary-action" href={`/hurricane-tracker/storm/${primaryStormSlug}/`}>Track {primaryStorm.name ?? "active storm"}</a>}
@@ -157,7 +161,7 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
           <div class="metric"><strong>{storms.length}</strong><span>active NHC systems</span></div>
           <div class="metric"><strong>{floridaAlerts.length}</strong><span>{featuredStateName} alerts</span></div>
         </div>
-        <p class="source-note">NHC basin status plus the {featuredStateName} NWS feed. Check your local page for decisions. Updated {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC.</p>
+        <p class="source-note">NHC basin status plus the {featuredStateName} NWS feed. Check your local page for decisions. Updated {updatedLabel}.</p>
       </div>
     </div>
   </section>

@@ -100,11 +100,15 @@ const description = activeStorm
     ? `Review the archived ${stormName} storm with its final NHC status, last observed track, advisory history, and official source links.`
     : knownPage?.description ?? `Track ${stormName} live with the latest NHC position, hurricane path, live map, advisory update, radar, satellite imagery and local alerts.`;
 const url = `${site.url}/hurricane-tracker/storm/${slug}/`;
+const statusFaqs = isArchived ? [
+  { question: `What was the final status of ${stormName}?`, answer: `This archive preserves the last observed NHC status and advisory context for ${stormName}. It is not a current threat signal.` },
+  { question: `Where can I review the historical track of ${stormName}?`, answer: `Use this archive for ${stormName}'s last observed track and advisory history, then use the live hurricane tracker for current tropical cyclones.` }
+] : knownPage?.faqs ?? [
+  { question: `Where is ${stormName} now?`, answer: `The current NHC position, movement, intensity, and advisory time appear on this page while ${stormName} is active.` },
+  { question: `Where can I see the ${stormName} forecast path?`, answer: "Open the live tracker on this page to compare the official NHC forecast path and cone with radar and satellite imagery." }
+];
 const pageFaqs = [
-  ...(knownPage?.faqs ?? [
-    { question: `Where is ${stormName} now?`, answer: `The current NHC position, movement, intensity, and advisory time appear on this page while ${stormName} is active.` },
-    { question: `Where can I see the ${stormName} forecast path?`, answer: "Open the live tracker on this page to compare the official NHC forecast path and cone with radar and satellite imagery." }
-  ]),
+  ...statusFaqs,
   {
     question: `Is HurricaneHub an official ${stormName} advisory source?`,
     answer:
