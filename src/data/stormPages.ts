@@ -158,33 +158,33 @@ export const stormTrackerPages: StormTrackerPage[] = [
     name: "Fay",
     basin: "Atlantic",
     title: "Tropical Storm Fay 2026 Tracker: NHC Path, Map & Updates",
-    description: "Fay 2026 tracker with current NHC status, forecast path, live map, radar and advisory links. If inactive, review official outlook and history.",
+    description: "Track Tropical Storm Fay 2026 with current NHC position, forecast path, live map, radar, advisory links, and Atlantic storm context.",
     primaryKeywords: ["tropical storm fay tracker", "hurricane fay path", "fay live tracker map", "where is storm fay now"],
     searchDemandNote:
-      "Fay is the sixth name on the 2026 Atlantic list. Because the name has produced memorable landfalling storms before, Fay tracker searches can arrive quickly once a system is named; this page is prepared in advance as a stable hub.",
+      "Fay is the sixth named storm of the 2026 Atlantic season. Use the live NHC status, advisory time, forecast path, radar, and satellite links on this page for current storm context.",
     overview:
-      "Use this Hurricane Fay tracker page as a standing hub for current NHC status, official advisory links, radar and satellite shortcuts, and local decision tools. The live status section confirms whether Fay is active; when it is not, use the official tropical outlook and historical context without inferring that a storm has formed.",
+      "Use this Tropical Storm Fay tracker as a standing hub for current NHC status, official advisory links, radar and satellite shortcuts, and local decision tools. Current position, intensity, movement, and advisory time come from the live NHC feed.",
     trackerFocus: [
-      "Wait for an NHC designation before treating any system as Fay; tropical waves and invests are not named storms and their model output is not a forecast.",
-      "If Fay becomes active, compare the NHC forecast track with the cone, wind field, and surge products — and remember that past Fay storms showed impacts well outside the center line.",
+      "Check the NHC advisory timestamp before comparing Fay positions, intensity, or forecast tracks.",
+      "Compare the NHC forecast track with the cone and wind field, and remember that hazards can extend outside the center line.",
       "Use local NWS alerts and emergency management guidance for any evacuation, shelter, or travel decision; HurricaneHub is a navigation layer, not an official warning source.",
-      "Historical Fay storms include 2008 (Tropical Storm Fay, which made multiple Florida landfalls and produced historic flooding) and 2020 (Tropical Storm Fay, which made landfall in New Jersey, the first New Jersey landfall since 1903). The 2026 Fay, if it forms, should be assessed on its own data."
+      "Historical Fay storms include 2008, which made multiple Florida landfalls, and 2020, which made landfall in New Jersey. Assess the 2026 storm only from its own official data."
     ],
     faqs: [
       {
         question: "Is Tropical Storm Fay active right now?",
         answer:
-          "Check the live status section and NHC advisory links on this page. Fay is the sixth name on the 2026 Atlantic list; if no active Fay record appears, NHC has not yet designated a 2026 system with that name."
+          "Yes. NHC designated Fay as the sixth named storm of the 2026 Atlantic season. Check the live status section and official advisory links for its latest position, intensity, movement, and forecast."
       },
       {
         question: "Did Fay ever make landfall in the United States?",
         answer:
-          "Yes. 2008 Tropical Storm Fay made multiple Florida landfalls and produced record flooding, and 2020 Tropical Storm Fay made landfall in New Jersey near Atlantic City — the first New Jersey tropical storm landfall since 1903. A 2026 Fay, if it forms, would be tracked on its own NHC data, not these past tracks."
+          "Yes. Tropical Storm Fay made multiple Florida landfalls in 2008, and Tropical Storm Fay made landfall in New Jersey in 2020. Those historical tracks do not predict the path or impacts of the 2026 storm."
       },
       {
-        question: "Why does the name Fay get attention even before formation?",
+        question: "Where should I follow Tropical Storm Fay updates?",
         answer:
-          "Because past Fay storms have repeatedly made U.S. landfalls with notable flooding, search demand for Fay can spike quickly once a system is named. This standing page captures those searches with official-source links and preparedness tools rather than speculation."
+          "Start with the current NHC advisory and forecast discussion, then use local NWS alerts and emergency management guidance if Fay becomes relevant to your location. HurricaneHub links those official sources with the live map and storm context."
       }
     ]
   }
