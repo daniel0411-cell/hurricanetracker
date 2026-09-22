@@ -186,11 +186,11 @@ export const topicPages: TopicPage[] = [
     eyebrow: "Southeast and East Coast tracker",
     intro: "Use this Southeast hurricane tracker to check active Atlantic systems that may approach Florida, Georgia, South Carolina, North Carolina, or Virginia, then move into state and city alerts for local decisions.",
     primaryAction: { label: "Open live hurricane map", href: "/hurricane-tracker/live/" },
-    secondaryAction: { label: "Check Southeast states", href: "/tracker/" },
+    secondaryAction: { label: "Check North Carolina", href: "/tracker/north-carolina/" },
     intent: "southeast hurricane tracker, east coast hurricane tracker, hurricane near Georgia and Carolinas",
     steps: [
       { title: "Check the Atlantic Track", body: "Start with current NHC systems and the official forecast path before focusing on one state or model run.", href: "/hurricane-tracker/live/", label: "Check current storms" },
-      { title: "Compare Southeast States", body: "A track near the coast can affect several states through surge, rain, wind, tornadoes, and travel disruption.", href: "/tracker/", label: "Choose a state" },
+      { title: "Compare the Carolinas and Virginia", body: "Open North Carolina for Outer Banks timing, South Carolina for Lowcountry surge, and Virginia for Hampton Roads and Chesapeake Bay alerts.", href: "/tracker/north-carolina/", label: "Check North Carolina" },
       { title: "Verify Local Alerts", body: "Use NWS watches and warnings plus county emergency management for location-specific timing and instructions.", href: "/alerts/", label: "Check active alerts" }
     ],
     sections: [
@@ -200,9 +200,9 @@ export const topicPages: TopicPage[] = [
     nextLinks: [
       { name: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Current NHC systems, forecast paths, radar, and satellite context." },
       { name: "Georgia Hurricane Tracker", href: "/tracker/georgia/", description: "Savannah, Brunswick, coastal alerts, flooding, and routes." },
-      { name: "South Carolina Hurricane Tracker", href: "/tracker/south-carolina/", description: "Charleston, Myrtle Beach, Lowcountry alerts, and surge context." },
-      { name: "North Carolina Hurricane Tracker", href: "/tracker/north-carolina/", description: "Outer Banks, Wilmington, river flooding, and NWS updates." },
-      { name: "Virginia Hurricane Tracker", href: "/tracker/virginia/", description: "Hampton Roads, Chesapeake Bay, bridge, and tidal flooding context." }
+      { name: "South Carolina Hurricane Tracker", href: "/tracker/south-carolina/", description: "Check current NHC context, Charleston and Myrtle Beach trackers, Lowcountry NWS alerts, and surge risk." },
+      { name: "North Carolina Hurricane Tracker", href: "/tracker/north-carolina/", description: "Check current NHC context, Outer Banks and Wilmington trackers, river flooding, and NWS alerts." },
+      { name: "Virginia Hurricane Tracker", href: "/tracker/virginia/", description: "Check current NHC context, Norfolk and Virginia Beach trackers, Hampton Roads alerts, and tidal flooding." }
     ],
     faqs: [
       { question: "Is a hurricane heading toward the East Coast?", answer: "Check the live NHC systems and forecast path, then open the relevant state tracker. Forecasts can shift, and impacts can occur outside the cone." },
@@ -223,7 +223,7 @@ export const topicPages: TopicPage[] = [
     steps: [
       { title: "Check Active Gulf Systems", body: "Start with the live NHC feed to see whether a named hurricane, tropical storm, or disturbance is currently in or approaching the Gulf.", href: "/hurricane-tracker/live/", label: "Check current storms" },
       { title: "Compare Track and Radar", body: "Use the official forecast path for broad timing, then compare radar and satellite for rain bands and local weather changes.", href: "/radar/", label: "Open radar" },
-      { title: "Move to Local Alerts", body: "Gulf risk differs by coastline, bay, river, and county. Start with Florida, Texas, or Louisiana, then verify county alerts before making a household decision.", href: "/tracker/florida/", label: "Check Florida alerts" }
+      { title: "Move to Local Gulf Alerts", body: "Open Louisiana for surge and evacuation context, Mississippi for Gulfport and Biloxi flooding, or Texas for Houston, Galveston, and Corpus Christi alerts.", href: "/tracker/louisiana/", label: "Check Louisiana alerts" }
     ],
     sections: [
       { eyebrow: "Gulf questions", title: "Is There a Hurricane in the Gulf Right Now?", body: "The Gulf can change quickly when a system enters warm water. Use current NHC advisories and local NWS alerts rather than social media screenshots or a single storm-center position.", bullets: ["Active NHC hurricane and tropical-storm status", "Forecast path and advisory time", "Radar and satellite context", "Florida, Texas, Louisiana, Mississippi, and Alabama links"] },
@@ -233,9 +233,9 @@ export const topicPages: TopicPage[] = [
       { name: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Current NHC systems, radar, satellite, and forecast context." },
       { name: "Atlantic Tropical Disturbance Outlook", href: "/hurricane-tracker/tropical-disturbances/", description: "Current NHC formation areas before a system becomes a named storm." },
       { name: "Florida Hurricane Tracker", href: "/tracker/florida/", description: "Florida Atlantic and Gulf risk with live alerts." },
-      { name: "Texas Hurricane Tracker", href: "/tracker/texas/", description: "Texas Gulf track, rainfall, surge, and alerts." },
-      { name: "Louisiana Hurricane Tracker", href: "/tracker/louisiana/", description: "Louisiana surge, levee, and evacuation context." },
-      { name: "Mississippi Hurricane Tracker", href: "/tracker/mississippi/", description: "Mississippi Gulf Coast surge, flooding, and local alerts." },
+      { name: "Texas Hurricane Tracker", href: "/tracker/texas/", description: "Check the current Gulf track, Houston and Galveston context, rainfall, surge, and Texas NWS alerts." },
+      { name: "Louisiana Hurricane Tracker", href: "/tracker/louisiana/", description: "Check current NHC context, New Orleans and Lake Charles trackers, surge, levee, and evacuation guidance." },
+      { name: "Mississippi Hurricane Tracker", href: "/tracker/mississippi/", description: "Check current NHC context, Gulfport and Biloxi trackers, coastal surge, flooding, and local alerts." },
       { name: "Alabama Hurricane Tracker", href: "/tracker/alabama/", description: "Alabama Gulf Coast storm status, Mobile Bay risk, and alerts." },
       { name: "Storm Surge Map", href: "/hurricane-tracker/storm-surge-map/", description: "Understand why surge risk differs from storm category." }
     ],
