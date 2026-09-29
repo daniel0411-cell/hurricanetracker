@@ -25,7 +25,7 @@ type AlertFeed = {
 };
 
 const title = "Live Hurricane Tracker";
-const description = "Track live hurricanes approaching North America with NHC storm advisories, Alabama NWS alerts, and emergency decision context.";
+const description = "Track current NHC tropical systems across monitored basins with an Alabama NWS alert snapshot and links to local emergency decision context.";
 const url = `${site.url}/tracker/`;
 
 async function loadJson<T>(path: string): Promise<T | null> {
@@ -49,7 +49,7 @@ const [stormFeed, alertFeed] = await Promise.all([
 
 const storms = stormFeed?.storms ?? [];
 const alerts = alertFeed?.alerts ?? [];
-const decisionLevel = alertFeed?.decisionLevel ?? (storms.length ? "Prepare" : "Monitor");
+const decisionLevel = alertFeed?.decisionLevel ?? "Monitor";
 const lastModified = stormFeed?.updatedAt ?? alertFeed?.updatedAt ?? site.contentLastModified;
 const featuredCities = hurricaneCities.slice(0, 12);
 const stateDemandOrder = ["georgia", "north-carolina", "texas", "florida", "virginia", "south-carolina", "louisiana", "mississippi", "alabama"];
@@ -73,7 +73,7 @@ const jsonLd = graph(
       <article class="section-intro">
         <p class="eyebrow">NHC + NWS live data</p>
         <h1 id="tracker-title">Live Hurricane Tracker</h1>
-        <p class="answer">This page shows live hurricanes approaching North America, current NHC storm summaries, state NWS alerts, and decision-focused links for coastal households preparing for severe tropical weather.</p>
+        <p class="answer">This page shows current NHC tropical systems across monitored basins, an Alabama NWS alert snapshot, and links to local state and city guidance for coastal households.</p>
         <p class="section-actions">
           <a class="action-link" href="/tools/my-hurricane-dashboard/">Build my dashboard</a>
           <a class="action-link tracker-secondary" href="/hurricane-tracker/storm/">Browse named storms</a>
@@ -82,9 +82,9 @@ const jsonLd = graph(
 
       <aside class="panel tracker-summary" aria-label="Current tracker summary">
         <p class="eyebrow">Current snapshot</p>
-        <h2>{decisionLevel}</h2>
+        <h2>Alabama: {decisionLevel}</h2>
         <div class="tracker-metrics">
-          <div class="metric"><strong>{storms.length}</strong><span>active NHC systems</span></div>
+          <div class="metric"><strong>{storms.length}</strong><span>all NHC systems</span></div>
           <div class="metric"><strong>{alerts.length}</strong><span>Alabama NWS alerts</span></div>
         </div>
         <p class="source-note">Updated {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC.</p>
@@ -186,7 +186,7 @@ const jsonLd = graph(
         <h2>Emergency Decision</h2>
         <div class="metric">
           <strong>{decisionLevel}</strong>
-          <span>current Alabama decision level from NWS alerts and NHC storm context</span>
+          <span>current Alabama decision level from the NWS alert feed</span>
         </div>
         <h3>How to Use This</h3>
         <p>Start with your local warning, compare active storm movement, then choose whether to monitor, prepare, act, or leave before road and shelter options narrow.</p>

@@ -27,6 +27,7 @@ const basinLabel = (storm: NhcStorm) => storm.id?.toUpperCase().startsWith("AL")
 const classificationLabel = (classification?: string) => ({ HU: "Hurricane", TS: "Tropical Storm", TD: "Tropical Depression", PTC: "Post-Tropical Cyclone" }[classification ?? ""] ?? classification ?? "NHC tropical system");
 const tropicalStorms = storms.filter((storm) => storm.classification !== "PTC");
 const postTropicalStorms = storms.filter((storm) => storm.classification === "PTC");
+const hurricanes = storms.filter((storm) => storm.classification === "HU");
 const stormSummary = storms.length ? `${tropicalStorms.length} active tropical system${tropicalStorms.length === 1 ? "" : "s"}${postTropicalStorms.length ? ` and ${postTropicalStorms.length} post-tropical system${postTropicalStorms.length === 1 ? "" : "s"}` : ""}` : "No active NHC systems listed";
 const activeStormNames = tropicalStorms.map((storm) => storm.name).filter(Boolean).slice(0, 2);
 const activeContext = storms.length ? ` Track ${storms.map((storm) => storm.name).filter(Boolean).join(", ")} now.` : "";
@@ -106,7 +107,7 @@ const trackerTopicHubs = topicPages.map((page) => ({
 const faqs = [
   {
     question: "Are there any hurricanes right now?",
-    answer: storms.length ? `The latest NHC feed lists ${storms.length} active system${storms.length === 1 ? "" : "s"}. Open the current storm list and verify the advisory time before making decisions.` : "The latest NHC feed does not list an active named hurricane right now. Tropical outlooks and local NWS alerts can change, so keep monitoring official updates."
+    answer: hurricanes.length ? `The latest NHC feed lists ${hurricanes.length} hurricane${hurricanes.length === 1 ? "" : "s"}${storms.length > hurricanes.length ? ` plus ${storms.length - hurricanes.length} other tropical or post-tropical system${storms.length - hurricanes.length === 1 ? "" : "s"}` : ""}. Open the current system list and verify each advisory time before making decisions.` : storms.length ? `The latest NHC feed lists no systems currently classified as hurricanes, but it does list ${storms.length} other tropical or post-tropical system${storms.length === 1 ? "" : "s"}.` : "The latest NHC feed does not list an active tropical cyclone right now. Tropical outlooks and local NWS alerts can change, so keep monitoring official updates."
   },
   {
     question: "Where is the hurricane now?",
@@ -261,8 +262,8 @@ const jsonLd = graph(
 
   <section class="band" id="current-hurricanes" aria-labelledby="current-hurricanes-heading">
     <div class="inner">
-      <p class="eyebrow">Hurricanes right now</p>
-      <h2 id="current-hurricanes-heading">Current Hurricanes and NHC Tracks</h2>
+      <p class="eyebrow">Active systems right now</p>
+      <h2 id="current-hurricanes-heading">Current NHC Tropical Cyclones and Tracks</h2>
       <p class="answer">This list reflects the latest available NHC feed and advisory update time. Open the interactive tracker for current-map context, forecast paths, radar, and local NWS alerts before making urgent decisions.</p>
       <p class="source-note">Looking for the latest hurricanes or tropical storms right now? This live list includes named systems currently reported by the NHC; disturbances are tracked separately in the outlook below.</p>
       <div class="stack current-storm-list" data-live-storm-list>

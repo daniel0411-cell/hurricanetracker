@@ -83,7 +83,7 @@ const pacificStorms = storms.filter((storm) => /^(EP|CP)/i.test(storm.id ?? ""))
 const atlanticNames = atlanticStorms.map((storm) => storm.name).filter(Boolean);
 const floridaAlerts = floridaAlertFeed?.alerts ?? [];
 const featuredStateName = "Florida";
-const featuredDecisionLevel = floridaAlertFeed?.decisionLevel ?? (storms.length ? "Prepare" : "Monitor");
+const featuredDecisionLevel = floridaAlertFeed?.decisionLevel ?? "Monitor";
 const lastModified = floridaAlertFeed?.updatedAt ?? stormFeed?.updatedAt ?? site.contentLastModified;
 const parsedLastModified = new Date(lastModified);
 const updatedLabel = Number.isNaN(parsedLastModified.getTime())

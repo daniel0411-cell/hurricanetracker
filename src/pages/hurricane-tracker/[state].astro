@@ -55,7 +55,7 @@ const [stormFeed, alertFeed] = await Promise.all([
 ]);
 
 const storms = stormFeed?.storms ?? [];
-const decisionLevel = alertFeed?.decisionLevel ?? (storms.length ? "Prepare" : "Monitor");
+const decisionLevel = alertFeed?.decisionLevel ?? "Monitor";
 const lastModified = alertFeed?.updatedAt ?? stormFeed?.updatedAt ?? site.contentLastModified;
 const title = `${state.name} Hurricane Tracker – Live NHC Data & Alerts`;
 const description = `Get ${state.name} real-time hurricane tracking with NOAA data, NWS alerts, evacuation info, and live updates for ${state.region}.`;

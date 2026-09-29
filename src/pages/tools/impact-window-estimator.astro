@@ -132,7 +132,7 @@ const jsonLd = graph(
       const storms = await stormResponse.json() as StormFeed;
       const alertCount = alerts.alerts?.length ?? 0;
       const stormCount = storms.storms?.length ?? 0;
-      const level = alerts.decisionLevel ?? (stormCount ? "Prepare" : "Monitor");
+      const level = alerts.decisionLevel ?? "Monitor";
       const expires = alerts.alerts?.map((alert) => Date.parse(alert.expires ?? "")).filter(Number.isFinite).sort((a, b) => a - b)[0];
       const expireText = expires ? ` Next listed alert expiration: ${new Date(expires).toLocaleString([], { dateStyle: "medium", timeStyle: "short" })}.` : "";
       if (levelEl) levelEl.textContent = level;

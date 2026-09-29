@@ -196,7 +196,7 @@ const jsonLd = graph(
         location,
         alertsData.alerts ?? [],
         stormsData.storms ?? [],
-        alertsData.decisionLevel ?? ((stormsData.storms ?? []).length ? "Prepare" : "Monitor"),
+        alertsData.decisionLevel ?? "Monitor",
         alertsData.updatedAt ?? alertsData.fetchedAt ?? stormsData.updatedAt ?? stormsData.fetchedAt,
         needs
       );

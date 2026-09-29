@@ -436,7 +436,7 @@ const jsonLd = graph(
       const storms = await stormsResponse.json() as StormFeed;
       const alertItems = alerts.alerts ?? [];
       const stormItems = storms.storms ?? [];
-      const level = alerts.decisionLevel ?? (stormItems.length ? "Prepare" : "Monitor");
+      const level = alerts.decisionLevel ?? "Monitor";
       const preview = alertItems.slice(0, 2);
 
       const levelEl = card.querySelector<HTMLElement>('[data-field="level"]');
