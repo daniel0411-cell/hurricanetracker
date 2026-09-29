@@ -78,8 +78,9 @@ const orderedStates = [...coastalStates].sort((a, b) => {
   }
   return stateDemandOrder.indexOf(a.slug) - stateDemandOrder.indexOf(b.slug);
 });
-const primaryStorm = storms[0];
-const primaryStormSlug = String(primaryStorm?.name ?? primaryStorm?.id ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const atlanticStorms = storms.filter((storm) => /^AL/i.test(storm.id ?? ""));
+const pacificStorms = storms.filter((storm) => /^(EP|CP)/i.test(storm.id ?? ""));
+const atlanticNames = atlanticStorms.map((storm) => storm.name).filter(Boolean);
 const floridaAlerts = floridaAlertFeed?.alerts ?? [];
 const featuredStateName = "Florida";
 const featuredDecisionLevel = floridaAlertFeed?.decisionLevel ?? (storms.length ? "Prepare" : "Monitor");
@@ -144,24 +145,24 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
   <section class="hero band" aria-labelledby="home-title">
     <div class="inner hero-grid">
       <div>
-        <p class="eyebrow">{primaryStorm ? "Active hurricane-season operations" : "North America hurricane operations"}</p>
-        <h1 id="home-title">HurricaneHub Live Hurricane Tracker</h1>
-        <p class="answer">{storms.length ? `The latest NHC feed lists ${storms.length} active system${storms.length === 1 ? "" : "s"}${storms.map((storm) => storm.name).filter(Boolean).length ? `: ${storms.map((storm) => storm.name).filter(Boolean).join(", ")}` : ""}.` : "The latest NHC feed lists no active tropical cyclones."} Updated {updatedLabel}. Open the live hurricane tracker map for current positions, forecast paths, radar, satellite imagery, and local NWS alerts.</p>
+        <p class="eyebrow">HurricaneHub · Live NHC Data</p>
+        <h1 id="home-title">Live Hurricane Tracker</h1>
+        <p class="answer">{atlanticStorms.length ? `The latest NHC feed lists ${atlanticStorms.length} active Atlantic system${atlanticStorms.length === 1 ? "" : "s"}${atlanticNames.length ? `: ${atlanticNames.join(", ")}` : ""}.` : "The latest NHC feed lists no active Atlantic tropical cyclones."}{pacificStorms.length ? ` ${pacificStorms.length} additional NHC system${pacificStorms.length === 1 ? " is" : "s are"} active in the Eastern or Central Pacific.` : ""} Updated {updatedLabel}. Open the live hurricane tracker map for current positions, forecast paths, radar, satellite imagery, and local NWS alerts.</p>
         <p class="section-actions">
           <a class="action-link" href="/hurricane-tracker/live/">Open live hurricane tracker map</a>
-          {primaryStorm && <a class="action-link secondary-action" href={`/hurricane-tracker/storm/${primaryStormSlug}/`}>Track {primaryStorm.name ?? "active storm"}</a>}
+          {atlanticStorms.length > 0 && <a class="action-link secondary-action" href="#active-season-heading">Track Atlantic storms</a>}
           <a class="action-link secondary-action" href="/local-hurricane-risk/">Check local risk</a>
         </p>
       </div>
       <div class="decision-card" aria-label="Atlantic activity and featured state alerts">
         <p class="eyebrow">Atlantic operations snapshot</p>
-        <h2>{storms.length ? `${storms.length} active system${storms.length === 1 ? "" : "s"}` : "No active systems"}</h2>
+        <h2>{atlanticStorms.length ? `${atlanticStorms.length} active Atlantic system${atlanticStorms.length === 1 ? "" : "s"}` : "No active Atlantic systems"}</h2>
         <p><strong>{featuredStateName}: {featuredDecisionLevel}.</strong> {nextAction}</p>
         <div class="dashboard compact-dashboard" aria-label="Current official feed metrics">
-          <div class="metric"><strong>{storms.length}</strong><span>active NHC systems</span></div>
+          <div class="metric"><strong>{atlanticStorms.length}</strong><span>Atlantic systems</span></div>
           <div class="metric"><strong>{floridaAlerts.length}</strong><span>{featuredStateName} alerts</span></div>
         </div>
-        <p class="source-note">NHC basin status plus the {featuredStateName} NWS feed. Check your local page for decisions. Updated {updatedLabel}.</p>
+        <p class="source-note">NHC Atlantic status plus the {featuredStateName} NWS feed. {pacificStorms.length ? `${pacificStorms.length} additional Pacific system${pacificStorms.length === 1 ? " is" : "s are"} shown in the live tracker. ` : ""}Check your local page for decisions. Updated {updatedLabel}.</p>
       </div>
     </div>
   </section>
