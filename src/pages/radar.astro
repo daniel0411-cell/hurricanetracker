@@ -41,12 +41,6 @@ const radarNextPaths = [
     href: "/blog/hurricane-radar-vs-satellite/",
     description: "Learn when radar, satellite, forecast, and wind layers answer different hurricane tracking questions."
   }
-  ,
-  {
-    name: "Open the live hurricane tracker",
-    href: "/hurricane-tracker/live/",
-    description: "Move from the GOES hurricane loop to current NHC systems, advisories, tropical outlooks, and local alert paths."
-  }
 ];
 const pageFaqs = [
   {
@@ -957,6 +951,9 @@ const jsonLd = graph(
           if (stormCountEl) stormCountEl.textContent = String(storms.length);
           const stormItems = [];
           storms.forEach((storm) => {
+            const stormName = String(storm.name || "").trim();
+            const stormSlug = stormName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+            const stormPage = stormSlug ? `/hurricane-tracker/storm/${stormSlug}/` : "";
             const lat = coordinate(storm.latitude);
             const lon = coordinate(storm.longitude);
             if (lat !== null && lon !== null) {
@@ -979,6 +976,7 @@ const jsonLd = graph(
                 <header><h3>${escapeHtml(storm.name || storm.id || "Active storm")}</h3><span class="badge warn">${escapeHtml(storm.classification || "NHC")}</span></header>
                 <p>${escapeHtml(storm.summary || "Current NHC storm data loaded.")}</p>
                 <p class="small">Position: ${escapeHtml(storm.latitude || "pending")}, ${escapeHtml(storm.longitude || "pending")} · ${escapeHtml(storm.lastUpdate || data.updatedAt || "time pending")}</p>
+                ${stormPage ? `<a href="${stormPage}">Track ${escapeHtml(stormName)} on HurricaneHub</a>` : ""}
                 ${storm.publicAdvisory ? `<a href="${escapeHtml(storm.publicAdvisory)}" rel="nofollow">Official NHC advisory</a>` : ""}
               </article>
             `);
