@@ -58,9 +58,11 @@ const jsonLd = graph(
         <div id="outage-result">
           <p class="source-note">This tool gives planning prompts, not medical or electrical engineering instructions. Follow product manuals and official safety guidance.</p>
         </div>
+        <button type="button" id="outage-print" hidden>Print outage plan</button>
       </article>
     </div>
   </section>
+  <section class="band" aria-labelledby="outage-safety-heading"><div class="inner grid-2"><article class="panel"><h2 id="outage-safety-heading">Official Safety Checks</h2><ul class="check-list"><li><a href="https://www.ready.gov/power-outages" rel="noopener nofollow">Ready.gov power outage guidance</a></li><li><a href="https://www.cdc.gov/carbon-monoxide/about/" rel="noopener nofollow">CDC carbon monoxide safety</a></li><li><a href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/keeping-food-safe-during" rel="noopener nofollow">USDA food safety during an outage</a></li></ul></article><article class="panel"><h2>Recovery Priorities</h2><ol class="check-list"><li>Wait for official reentry and utility instructions.</li><li>Keep generators outdoors and carbon-monoxide alarms active.</li><li>Confirm medicine and food temperatures before use.</li><li>Photograph damage before non-emergency cleanup.</li><li>Continue monitoring local heat, flood, and boil-water alerts.</li></ol></article></div></section>
   <FaqBlock faqs={pageFaqs} />
 </Layout>
 
@@ -68,6 +70,7 @@ const jsonLd = graph(
   const form = document.querySelector<HTMLFormElement>("#outage-form");
   const resultTitle = document.querySelector<HTMLElement>("#outage-result-title");
   const result = document.querySelector<HTMLElement>("#outage-result");
+  const printButton = document.querySelector<HTMLButtonElement>("#outage-print");
   function escapeHtml(value: unknown) {
     const replacements: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
     return String(value ?? "").replace(/[&<>"']/g, (char) => replacements[char] ?? char);
@@ -95,12 +98,15 @@ const jsonLd = graph(
     if (pets) items.push("Pack pet food and water, a carrier or leash, records, waste bags, and a pet-friendly destination.");
     if (resultTitle) resultTitle.textContent = `${people} ${people === 1 ? "person" : "people"} · ${duration}-day outage priorities`;
     if (result) result.innerHTML = `<ol class="check-list">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ol><p class="source-note">Recheck your utility, county emergency management, weather.gov, and care-provider instructions as conditions change.</p>`;
+    if (printButton) printButton.hidden = false;
   });
+  printButton?.addEventListener("click", () => window.print());
 </script>
 
 <style>
   .outage-form { display: grid; gap: 14px; align-content: start; }
   .outage-form label { display: grid; gap: 7px; font-weight: 800; }
   #outage-result { margin-top: 18px; }
-  @media print { .site-header, .disclaimer, .outage-form, .site-footer, .ad-slot { display: none !important; } }
+  #outage-print { width: auto; margin-top: 12px; }
+  @media print { .site-header, .disclaimer, .outage-form, .site-footer, .ad-slot, #outage-print { display: none !important; } }
 </style>

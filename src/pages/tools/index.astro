@@ -25,6 +25,11 @@ const tools = [
     url: `${site.url}/tools/local-risk-plan/`
   },
   {
+    name: "County Hurricane Risk Lookup",
+    description: "Use a ZIP code to screen point-based NWS alerts, open the matching state tracker, and verify county evacuation and emergency sources.",
+    url: `${site.url}/tools/county-hurricane-risk/`
+  },
+  {
     name: "Local Hurricane Risk Hub",
     description: "Choose the right ZIP, city, state, storm surge, evacuation-zone, and household planning path for local hurricane risk.",
     url: `${site.url}/local-hurricane-risk/`
@@ -89,6 +94,7 @@ const workflows = [
     steps: [
       { label: "Open My Hurricane Dashboard", href: "/tools/my-hurricane-dashboard/" },
       { label: "Check Local Hurricane Risk", href: "/local-hurricane-risk/" },
+      { label: "Verify County Sources", href: "/tools/county-hurricane-risk/" },
       { label: "Check City Hurricane Trackers", href: "/hurricane-tracker/city/" },
       { label: "Review Live Alerts", href: "/alerts/" }
     ]

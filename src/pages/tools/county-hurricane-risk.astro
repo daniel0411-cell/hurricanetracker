@@ -1,0 +1,82 @@
+---
+import FaqBlock from "../../components/FaqBlock.astro";
+import Layout from "../../layouts/Layout.astro";
+import { faqs, site } from "../../data/site";
+import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
+
+const title = "County Hurricane Risk Lookup by ZIP Code";
+const description = "Use a ZIP code to open point-based NWS alerts, the matching state hurricane tracker, weather.gov forecast, and county emergency planning checks.";
+const url = `${site.url}/tools/county-hurricane-risk/`;
+const pageFaqs = [
+  { question: "Can a ZIP code identify my exact county or evacuation zone?", answer: "Not reliably. ZIP codes can cross county, parish, borough, and evacuation-zone boundaries. This tool uses the ZIP centroid for NWS alert screening, then sends you to official address-level county and evacuation resources." },
+  { question: "Which source issues hurricane evacuation orders?", answer: "County, parish, city, state, or territorial emergency officials issue local evacuation instructions. The NHC issues tropical cyclone forecasts, while local NWS offices issue hazard alerts for affected areas." },
+  { question: "Does no active NWS alert mean there is no hurricane risk?", answer: "No. It means the point-based NWS request returned no active alert at that check time. Forecasts, outlooks, evacuation instructions, road conditions, and later alerts can still change." },
+  ...faqs
+];
+const jsonLd = graph(
+  websiteSchema(),
+  articleSchema({ title, description, url, dateModified: site.contentLastModified }),
+  webApplicationSchema({
+    name: title,
+    description,
+    url,
+    featureList: ["ZIP-based NWS point alerts", "State hurricane tracker link", "Weather.gov point forecast", "County emergency management verification checklist"]
+  }),
+  faqSchema(pageFaqs)
+);
+---
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified} showBottomAd={true}>
+  <section class="band" aria-labelledby="county-title"><div class="inner"><p class="eyebrow">Location-first official sources</p><h1 id="county-title">County Hurricane Risk Lookup by ZIP Code</h1><p class="answer">Enter a ZIP code to screen active NWS alerts at that point, open the matching state tracker, and organize the county-level checks that control evacuation, shelters, roads, and local instructions.</p></div></section>
+
+  <section class="band" aria-labelledby="county-form-heading"><div class="inner grid-2">
+    <form class="panel county-form" id="county-form"><h2 id="county-form-heading">Check a ZIP Code</h2><label for="county-zip">US ZIP code</label><input id="county-zip" name="zip" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" maxlength="5" placeholder="33101" required /><button type="submit">Check official local paths</button><p class="source-note" id="county-status" role="status">The ZIP centroid is a screening point, not a parcel, county, flood-zone, or evacuation-zone determination.</p></form>
+    <article class="panel" aria-live="polite"><p class="eyebrow">Local result</p><h2 id="county-result-title">Enter a ZIP code</h2><div id="county-result"><p>Results will show the resolved city and state, point-based NWS alerts, and links for official county-level verification.</p></div></article>
+  </div></section>
+
+  <section class="band" aria-labelledby="county-method"><div class="inner grid-2"><article class="panel"><h2 id="county-method">What This Tool Can Confirm</h2><ul class="check-list"><li>ZIP centroid, city, and state returned by the location service.</li><li>Active NWS alerts that apply to the resolved point.</li><li>The correct HurricaneHub state tracker and weather.gov point forecast.</li><li>The next official checks for county emergency management and evacuation zones.</li></ul></article><article class="panel"><h2>What Still Requires an Address</h2><ul class="check-list"><li>Exact county or parish when a ZIP crosses boundaries.</li><li>Local hurricane evacuation zone or shelter assignment.</li><li>FEMA flood-zone and parcel elevation questions.</li><li>Road closures, transport pickup, reentry, and local orders.</li></ul></article></div></section>
+  <FaqBlock faqs={pageFaqs} />
+</Layout>
+
+<script>
+  type LocationResult = { zip?: string; city?: string; state?: string; stateName?: string; latitude?: string | null; longitude?: string | null; error?: string };
+  type Alert = { event?: string; headline?: string; severity?: string; expires?: string };
+  type AlertResult = { alerts?: Alert[]; error?: string };
+  const form = document.querySelector<HTMLFormElement>("#county-form");
+  const input = document.querySelector<HTMLInputElement>("#county-zip");
+  const status = document.querySelector<HTMLElement>("#county-status");
+  const titleEl = document.querySelector<HTMLElement>("#county-result-title");
+  const result = document.querySelector<HTMLElement>("#county-result");
+  const escapeHtml = (value: unknown) => String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char] ?? char);
+  const stateSlug = (value: string) => value.toLowerCase().replace(/\s+/g, "-");
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const zip = input?.value.trim() ?? "";
+    if (!/^\d{5}$/.test(zip)) { if (status) status.textContent = "Enter a valid five-digit US ZIP code."; return; }
+    try {
+      if (status) status.textContent = "Checking location and official NWS alerts...";
+      const locationResponse = await fetch(`/api/location/zip?zip=${encodeURIComponent(zip)}`);
+      const location = await locationResponse.json() as LocationResult;
+      if (!locationResponse.ok || location.error || !location.state || !location.latitude || !location.longitude) throw new Error(location.error ?? "Location unavailable");
+      const alertsResponse = await fetch(`/api/nws/alerts.json?point=${encodeURIComponent(`${location.latitude},${location.longitude}`)}`);
+      const alerts = await alertsResponse.json() as AlertResult;
+      if (!alertsResponse.ok || alerts.error) throw new Error(alerts.error ?? "Alerts unavailable");
+      const alertItems = alerts.alerts ?? [];
+      const place = `${location.city || zip}, ${location.state}`;
+      const weatherUrl = `https://forecast.weather.gov/MapClick.php?lat=${encodeURIComponent(location.latitude)}&lon=${encodeURIComponent(location.longitude)}`;
+      if (titleEl) titleEl.textContent = place;
+      if (result) result.innerHTML = `<p><strong>${alertItems.length} active point-based NWS alert${alertItems.length === 1 ? "" : "s"}</strong> returned for the ZIP centroid. This is not an all-clear or an exact county result.</p>${alertItems.length ? `<ul class="check-list">${alertItems.slice(0, 5).map((alert) => `<li><strong>${escapeHtml(alert.event || "Weather alert")}</strong>: ${escapeHtml(alert.headline || "Open weather.gov for details")}${alert.expires ? ` · expires ${escapeHtml(new Date(alert.expires).toLocaleString())}` : ""}</li>`).join("")}</ul>` : ""}<p class="result-links"><a href="/tracker/${stateSlug(location.stateName || location.state)}/">Open ${escapeHtml(location.stateName || location.state)} tracker</a><a href="${weatherUrl}" rel="noopener nofollow">Open weather.gov for this point</a><a href="https://www.google.com/search?q=${encodeURIComponent(`${location.city || zip} ${location.state} county emergency management evacuation zone`)}" rel="noopener nofollow">Find county emergency management</a></p><ol class="check-list"><li>Confirm the street address with county or parish emergency management.</li><li>Check the official evacuation-zone and shelter lookup.</li><li>Read each NWS alert's affected area and expiration.</li><li>Verify roads, transport, and reentry with local officials.</li></ol>`;
+      if (status) status.textContent = "Official-source paths loaded. Verify the street address with local emergency management.";
+    } catch (error) {
+      console.error("County hurricane risk lookup failed", error);
+      if (status) status.textContent = "Local lookup unavailable. Use weather.gov and your county emergency management site.";
+    }
+  });
+</script>
+
+<style>
+  .county-form { display: grid; gap: 12px; align-content: start; }
+  .county-form label { font-weight: 800; }
+  .result-links { display: flex; flex-wrap: wrap; gap: 10px 18px; }
+  .result-links a { font-weight: 800; }
+</style>

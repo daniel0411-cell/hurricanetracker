@@ -61,6 +61,7 @@ const toolRoutes: SitemapRoute[] = [
   { path: "tools/my-hurricane-dashboard/", lastmod: updated, priority: "0.9", changefreq: "daily", section: "tools" },
   { path: "tools/impact-window-estimator/", lastmod: updated, priority: "0.9", changefreq: "daily", section: "tools" },
   { path: "tools/local-risk-plan/", lastmod: updated, priority: "0.9", changefreq: "daily", section: "tools" },
+  { path: "tools/county-hurricane-risk/", lastmod: updated, priority: "0.9", changefreq: "daily", section: "tools" },
   { path: "tools/preparedness-checklist/", lastmod: updated, priority: "0.8", changefreq: "weekly", section: "tools" },
   { path: "tools/evacuation-decision-helper/", lastmod: updated, priority: "0.8", changefreq: "weekly", section: "tools" },
   { path: "tools/hurricane-brief/", lastmod: updated, priority: "0.9", changefreq: "daily", section: "tools" },
