@@ -157,13 +157,13 @@ export const stormTrackerPages: StormTrackerPage[] = [
     slug: "fay",
     name: "Fay",
     basin: "Atlantic",
-    title: "Tropical Storm Fay 2026 Tracker: NHC Path, Map & Updates",
-    description: "Track Tropical Storm Fay 2026 with current NHC position, forecast path, live map, radar, advisory links, and Atlantic storm context.",
+    title: "Tropical Storm Fay 2026: Final Track & NHC Update",
+    description: "Review Tropical Storm Fay's 2026 final NHC status, post-tropical transition, last observed track, advisory context, and official source links.",
     primaryKeywords: ["tropical storm fay tracker", "hurricane fay path", "fay live tracker map", "where is storm fay now"],
     searchDemandNote:
-      "Fay is the sixth named storm of the 2026 Atlantic season. Use the live NHC status, advisory time, forecast path, radar, and satellite links on this page for current storm context.",
+      "Fay was the sixth named storm of the 2026 Atlantic season. Use this page for its final NHC status, post-tropical transition, observed track, and advisory context.",
     overview:
-      "Use this Tropical Storm Fay tracker as a standing hub for current NHC status, official advisory links, radar and satellite shortcuts, and local decision tools. Current position, intensity, movement, and advisory time come from the live NHC feed.",
+      "Tropical Storm Fay became post-tropical and received its final NHC advisory on September 29, 2026. This page preserves its final observed position, track, advisory context, and official source links as a stable storm reference.",
     trackerFocus: [
       "Check the NHC advisory timestamp before comparing Fay positions, intensity, or forecast tracks.",
       "Compare the NHC forecast track with the cone and wind field, and remember that hazards can extend outside the center line.",
@@ -172,9 +172,9 @@ export const stormTrackerPages: StormTrackerPage[] = [
     ],
     faqs: [
       {
-        question: "Is Tropical Storm Fay active right now?",
+        question: "Is Tropical Storm Fay still active?",
         answer:
-          "Yes. NHC designated Fay as the sixth named storm of the 2026 Atlantic season. Check the live status section and official advisory links for its latest position, intensity, movement, and forecast."
+          "No. Fay became post-tropical, and the NHC issued its final advisory on September 29, 2026. This page preserves the final observed status and official advisory context."
       },
       {
         question: "Did Fay ever make landfall in the United States?",
@@ -184,7 +184,7 @@ export const stormTrackerPages: StormTrackerPage[] = [
       {
         question: "Where should I follow Tropical Storm Fay updates?",
         answer:
-          "Start with the current NHC advisory and forecast discussion, then use local NWS alerts and emergency management guidance if Fay becomes relevant to your location. HurricaneHub links those official sources with the live map and storm context."
+          "Review Fay's final NHC advisory and archived storm context on this page. For current tropical cyclones and local hazards, use the live tracker, NWS alerts, and local emergency management guidance."
       }
     ]
   }

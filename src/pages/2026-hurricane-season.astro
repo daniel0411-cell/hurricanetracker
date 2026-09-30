@@ -26,7 +26,7 @@ try {
   console.error("HurricaneHub season hub feed failed", { error });
 }
 
-const storms = (feed?.storms ?? []).filter((storm) => storm.id?.toUpperCase().startsWith("AL"));
+const storms = (feed?.storms ?? []).filter((storm) => storm.id?.toUpperCase().startsWith("AL") && storm.classification !== "PTC");
 const otherBasinStorms = (feed?.storms ?? []).filter((storm) => !storm.id?.toUpperCase().startsWith("AL"));
 const registryStorms = await readStormRegistry();
 const seasonRegistry = registryStorms.filter((storm) => storm.id?.toUpperCase().startsWith("AL") && (storm.id.toUpperCase().endsWith("2026") || storm.firstSeen.startsWith("2026-")));

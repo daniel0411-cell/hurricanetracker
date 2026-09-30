@@ -78,7 +78,7 @@ const orderedStates = [...coastalStates].sort((a, b) => {
   }
   return stateDemandOrder.indexOf(a.slug) - stateDemandOrder.indexOf(b.slug);
 });
-const atlanticStorms = storms.filter((storm) => /^AL/i.test(storm.id ?? ""));
+const atlanticStorms = storms.filter((storm) => /^AL/i.test(storm.id ?? "") && storm.classification !== "PTC");
 const pacificStorms = storms.filter((storm) => /^(EP|CP)/i.test(storm.id ?? ""));
 const atlanticNames = atlanticStorms.map((storm) => storm.name).filter(Boolean);
 const floridaAlerts = floridaAlertFeed?.alerts ?? [];
