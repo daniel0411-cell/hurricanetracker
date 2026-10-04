@@ -14,6 +14,7 @@ import { topicPages } from "../data/topicPages";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
 import type { NhcStorm, NwsAlert } from "../lib/weather";
 import { getNhcForecast } from "../lib/nhcForecast";
+import { getAtlanticOutlook } from "../lib/nhcOutlook";
 import { relevantLocations } from "../lib/stormRelevance";
 
 const title = "Hurricane Tracker | Current Storms, NHC Map & Alerts";
@@ -50,6 +51,7 @@ const [stormFeed, floridaAlertFeed] = await Promise.all([
   loadJson<StormFeed>("/api/nhc/current.json"),
   loadJson<AlertFeed>("/api/nws/alerts.json?area=FL")
 ]);
+const atlanticOutlook = await getAtlanticOutlook();
 
 const storms = stormFeed?.storms ?? [];
 const stateDemandOrder = ["georgia", "north-carolina", "texas", "florida", "virginia", "south-carolina", "louisiana", "mississippi", "alabama"];
@@ -166,6 +168,21 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
       </div>
     </div>
   </section>
+
+  {atlanticOutlook && (
+    <section class="band" aria-labelledby="atlantic-outlook-heading">
+      <div class="inner">
+        <p class="eyebrow">NHC Atlantic outlook · {atlanticOutlook.issued}</p>
+        <h2 id="atlantic-outlook-heading">Atlantic Development Areas to Watch</h2>
+        <p class="answer">{atlanticOutlook.text}</p>
+        <p class="section-actions">
+          <a class="action-link" href="/hurricane-tracker/tropical-disturbances/">Open Atlantic disturbance tracker</a>
+          <a class="action-link secondary-action" href="/hurricane-tracker/gulf/">Check Gulf hurricane status</a>
+        </p>
+        <p class="source-note">An NHC formation area is not a named storm, forecast track, warning area, or landfall prediction.</p>
+      </div>
+    </section>
+  )}
 
   <section class="band" aria-labelledby="decision-path-heading">
     <div class="inner">

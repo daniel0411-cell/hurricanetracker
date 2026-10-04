@@ -5,6 +5,8 @@ import ContentFigure from "../../components/ContentFigure.astro";
 import { faqs, site } from "../../data/site";
 import { getTopicPage, topicPages } from "../../data/topicPages";
 import { articleSchema, breadcrumbSchema, faqSchema, graph, howToSchema, itemListSchema, websiteSchema } from "../../lib/schema";
+import { getAtlanticOutlook } from "../../lib/nhcOutlook";
+import { getNhcCurrentFeed } from "../../lib/nhcCurrent";
 
 export const prerender = true;
 
@@ -19,6 +21,13 @@ if (!page) {
 
 const url = `${site.url}/hurricane-tracker/${page.slug}/`;
 const lastModified = site.contentLastModified;
+const gulfStatus = page.slug === "gulf" ? await getNhcCurrentFeed() : null;
+const gulfStorms = gulfStatus?.feed.storms.filter((storm) => {
+  const longitude = storm.longitudeNumeric;
+  const latitude = storm.latitudeNumeric;
+  return /^AL/i.test(storm.id ?? "") && typeof longitude === "number" && typeof latitude === "number" && longitude >= -98 && longitude <= -80 && latitude >= 18 && latitude <= 31;
+}) ?? [];
+const atlanticOutlook = page.slug === "gulf" ? await getAtlanticOutlook() : null;
 const pageFaqs = [...page.faqs, ...faqs];
 const jsonLd = graph(
   websiteSchema(),
@@ -54,6 +63,8 @@ const jsonLd = graph(
       </p>
     </div>
   </section>
+
+  {page.slug === "gulf" && <section class="band" aria-labelledby="gulf-status-heading" data-gulf-status><div class="inner"><p class="eyebrow">Current NHC Gulf check</p><h2 id="gulf-status-heading" data-gulf-heading>{gulfStorms.length ? `${gulfStorms.length} Active Gulf Tropical System${gulfStorms.length === 1 ? "" : "s"}` : "No Active Gulf Tropical Cyclone"}</h2><p class="answer" data-gulf-answer>{gulfStorms.length ? `The latest NHC feed lists ${gulfStorms.map((storm) => storm.name ?? storm.id ?? "an unnamed system").join(", ")} in the Gulf region. Open the live tracker and official advisory for current position, forecast, and warnings.` : "The latest NHC feed does not list an active tropical cyclone in the Gulf region. A disturbance can still be monitored before it becomes a depression or named storm."}</p>{atlanticOutlook && <><p class="eyebrow">NHC Atlantic outlook · {atlanticOutlook.issued}</p><p>{atlanticOutlook.text}</p></>}<p class="section-actions"><a class="action-link" href="/hurricane-tracker/tropical-disturbances/">Open current disturbance outlook</a><a class="action-link secondary-action" href="/tracker/texas/">Texas hurricane tracker</a><a class="action-link secondary-action" href="/tracker/louisiana/">Louisiana hurricane tracker</a></p><p class="source-note" data-gulf-updated>A formation probability is not a forecast track, warning area, or landfall prediction. Verify the issue time with the official NHC outlook.</p></div></section>}
 
   {page.slug === "hurricane-categories" && <section class="band" aria-labelledby="category-visual"><div class="inner"><h2 id="category-visual">Hurricane Category Wind Thresholds</h2><ContentFigure src="/images/guides/hurricane-category-wind-scale.svg" alt="Saffir-Simpson hurricane wind scale showing Category 1 through 5 wind speed thresholds in miles per hour" caption="The Saffir-Simpson scale measures maximum sustained wind only. It does not measure storm surge, rainfall flooding, tornadoes, storm size, or duration." /></div></section>}
   {page.slug === "map" && <section class="band" aria-labelledby="map-visual"><div class="inner"><h2 id="map-visual">The Forecast Cone Is Not an Impact Boundary</h2><ContentFigure src="/images/guides/forecast-cone-impact-boundary.svg" alt="Diagram showing an NHC forecast cone for probable storm-center positions with hazards extending outside it" caption="Use the cone for storm-center uncertainty, then check NHC hazard products, NWS alerts, and local evacuation guidance for impacts." /></div></section>}
@@ -133,3 +144,16 @@ const jsonLd = graph(
 
   <FaqBlock faqs={pageFaqs} />
 </Layout>
+
+{page.slug === "gulf" && <script>
+  const heading = document.querySelector("[data-gulf-heading]");
+  const answer = document.querySelector("[data-gulf-answer]");
+  const updated = document.querySelector("[data-gulf-updated]");
+  fetch("/api/nhc/current.json", { cache: "no-store" }).then((response) => response.ok ? response.json() : null).then((feed) => {
+    if (!feed) return;
+    const storms = (Array.isArray(feed.storms) ? feed.storms : []).filter((storm) => /^AL/i.test(String(storm.id ?? "")) && Number(storm.longitudeNumeric) >= -98 && Number(storm.longitudeNumeric) <= -80 && Number(storm.latitudeNumeric) >= 18 && Number(storm.latitudeNumeric) <= 31);
+    if (heading) heading.textContent = storms.length ? `${storms.length} Active Gulf Tropical System${storms.length === 1 ? "" : "s"}` : "No Active Gulf Tropical Cyclone";
+    if (answer) answer.textContent = storms.length ? `The latest NHC feed lists ${storms.map((storm) => storm.name ?? storm.id ?? "an unnamed system").join(", ")} in the Gulf region. Open the live tracker and official advisory for current position, forecast, and warnings.` : "The latest NHC feed does not list an active tropical cyclone in the Gulf region. A disturbance can still be monitored before it becomes a depression or named storm.";
+    if (updated) updated.textContent = `Current-storm feed checked ${new Date(feed.updatedAt ?? feed.fetchedAt ?? Date.now()).toLocaleString("en-US", { timeZone: "UTC" })} UTC. A formation probability is not a forecast track, warning area, or landfall prediction.`;
+  }).catch(() => {});
+</script>}
