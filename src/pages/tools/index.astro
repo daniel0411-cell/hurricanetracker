@@ -10,6 +10,11 @@ const url = `${site.url}/tools/`;
 const lastModified = site.contentLastModified;
 const tools = [
   {
+    name: "Hurricane Screenshot Timestamp Check",
+    description: "Compare the time shown on a social post or forecast screenshot with the latest official NHC Gulf outlook.",
+    url: `${site.url}/hurricane-tracker/gulf/#outlook-history-heading`
+  },
+  {
     name: "My Hurricane Dashboard",
     description: "Build a ZIP-based dashboard with state alerts, active storms, radar shortcuts, and next decision tools.",
     url: `${site.url}/tools/my-hurricane-dashboard/`
@@ -86,7 +91,7 @@ const tools = [
   }
 ];
 
-const popularTools = [tools[0], tools[3], tools[4], tools[2]];
+const popularTools = [tools[0], tools[1], tools[4], tools[5]];
 const workflows = [
   {
     name: "I need to know what is happening near me",

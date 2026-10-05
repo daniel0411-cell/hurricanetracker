@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { getNhcCurrentFeed, NHC_CURRENT_STORMS } from "../../../lib/nhcCurrent";
+import { getAtlanticOutlook } from "../../../lib/nhcOutlook";
 const CORS_HEADERS = {
   "access-control-allow-origin": "*",
   "access-control-allow-methods": "GET, OPTIONS",
@@ -25,8 +26,8 @@ export const OPTIONS: APIRoute = () =>
 
 export const GET: APIRoute = async () => {
   try {
-    const { feed, cacheStatus } = await getNhcCurrentFeed();
-    return new Response(JSON.stringify(feed), {
+    const [{ feed, cacheStatus }, atlanticOutlook] = await Promise.all([getNhcCurrentFeed(), getAtlanticOutlook()]);
+    return new Response(JSON.stringify({ ...feed, atlanticOutlook }), {
       headers: {
         ...CORS_HEADERS,
         "content-type": "application/json; charset=utf-8",
