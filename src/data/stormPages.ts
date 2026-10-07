@@ -83,6 +83,53 @@ export const stormTrackerPages: StormTrackerPage[] = [
     ]
   },
   {
+    slug: "isaias",
+    name: "Isaias",
+    basin: "Atlantic",
+    title: "Tropical Storm Isaias Tracker: NHC Path & Gulf Updates",
+    description: "Track Tropical Storm Isaias with the latest NHC position, Gulf forecast path, intensity, watches, warnings, rainfall, radar and local alerts.",
+    primaryKeywords: ["tropical storm isaias tracker", "hurricane isaias path", "isaias live tracker", "where is tropical storm isaias now"],
+    searchDemandNote:
+      "Use this page for Tropical Storm Isaias live position, Gulf path, intensity, forecast, watches, warnings, rainfall, radar, and NHC advisory searches.",
+    overview:
+      "Tropical Storm Isaias formed from Tropical Depression Nine in the southwestern Gulf on October 7, 2026. This tracker combines the current NHC feed, official forecast path, radar, satellite imagery, local alerts, and preparedness links while Isaias is active, then remains available as a stable storm reference.",
+    trackerFocus: [
+      "Check the current NHC position, movement, intensity, and advisory time before relying on an older map, screenshot, or social post.",
+      "NHC Advisory 3, issued at 4:00 a.m. CDT on October 7, forecast rapid strengthening during the next day or two, a possible hurricane by Thursday, and an approach toward the northern Gulf Coast on Friday. Treat that as a timestamped forecast and verify the latest advisory for changes.",
+      "At Advisory 3, no coastal watches or warnings were in effect, but NHC said hurricane watches would likely be required for part of the northern Gulf Coast later that day. Use current NHC and NWS products for the live watch and warning status.",
+      "The same advisory forecast 3 to 6 inches of rain, with localized totals to 10 inches, from far southeastern Louisiana to the Florida Panhandle from Friday through the weekend, with flash, urban, and isolated river flooding possible.",
+      "Swells can create life-threatening surf and rip currents far from the center. Compare the forecast track with the cone, wind field, rainfall, surge, surf, and local-alert products rather than using the center line as an impact boundary.",
+      "Historical Isaias storms include Hurricane Isaias in 2020, which affected the Caribbean and the U.S. East Coast. That track does not predict the path, strength, or impacts of the 2026 storm."
+    ],
+    faqs: [
+      {
+        question: "Where is Tropical Storm Isaias now?",
+        answer:
+          "The live status section on this page uses the current NHC feed for Isaias's latest position, movement, intensity, and advisory time. Confirm urgent decisions with the linked NHC advisory and local NWS alerts."
+      },
+      {
+        question: "Will Isaias become a hurricane?",
+        answer:
+          "NHC Advisory 3 forecast rapid strengthening and expected Isaias to become a hurricane by Thursday, October 8. Forecast intensity can change, so check the newest advisory rather than treating that forecast as a confirmed classification."
+      },
+      {
+        question: "Are watches or warnings in effect for Isaias?",
+        answer:
+          "No coastal watches or warnings were in effect at NHC Advisory 3, but hurricane watches were described as likely for part of the northern Gulf Coast later on October 7. Use the latest NHC advisory and local NWS alerts for current status."
+      },
+      {
+        question: "Which U.S. areas could receive heavy rain from Isaias?",
+        answer:
+          "At Advisory 3, NHC forecast 3 to 6 inches with localized totals to 10 inches from far southeastern Louisiana to the Florida Panhandle, plus lower totals extending through parts of the Southeast, Tennessee Valley, and Carolinas. Local forecasts and flood alerts will refine those amounts."
+      },
+      {
+        question: "Does Isaias have the same path as the 2020 storm?",
+        answer:
+          "No. The 2020 Hurricane Isaias track does not predict the 2026 storm. Use only the current 2026 NHC forecast, cone, hazard products, and local alerts for decisions."
+      }
+    ]
+  },
+  {
     slug: "dolly",
     name: "Dolly",
     basin: "Atlantic",
