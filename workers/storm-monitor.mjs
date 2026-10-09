@@ -13,22 +13,38 @@ async function run(env) {
   const previous = (await env.HURRICANEHUB_CACHE.get(STATE_KEY, "json")) || {};
   const next = {};
   const changedUrls = [];
+  const warmupFailures = [];
   for (const storm of storms) {
     if (!storm.id || !storm.name) continue;
     const advisory = storm.forecastTrack?.advNum || storm.lastUpdate || "current";
     next[storm.id] = advisory;
     const stormUrl = `${SITE}/hurricane-tracker/storm/${slugify(storm.name)}/`;
     if (previous[storm.id] !== advisory) changedUrls.push(stormUrl, `${SITE}/hurricane-tracker/live/`, `${SITE}/`);
-    const forecast = await fetch(`${SITE}/api/nhc/forecast/${String(storm.id).toLowerCase()}.json`, { headers: { accept: "application/json" } });
-    if (!forecast.ok) throw new Error(`Forecast warmup for ${storm.id} returned HTTP ${forecast.status}`);
+    try {
+      const forecast = await fetch(`${SITE}/api/nhc/forecast/${String(storm.id).toLowerCase()}.json`, { headers: { accept: "application/json" } });
+      if (!forecast.ok) {
+        warmupFailures.push({ stormId: storm.id, status: forecast.status, body: (await forecast.text()).slice(0, 200) });
+      }
+    } catch (error) {
+      warmupFailures.push({ stormId: storm.id, error: error instanceof Error ? error.message : String(error) });
+    }
   }
-  await env.HURRICANEHUB_CACHE.put(STATE_KEY, JSON.stringify(next));
   const uniqueUrls = [...new Set(changedUrls)];
+  let indexNow = { status: null, submitted: 0 };
   if (uniqueUrls.length) {
-    const indexNow = await fetch("https://api.indexnow.org/IndexNow", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ host: "www.hurricanetracker.cc", key: KEY, keyLocation: `${SITE}/${KEY}.txt`, urlList: uniqueUrls }) });
-    if (!indexNow.ok) throw new Error(`IndexNow returned HTTP ${indexNow.status}`);
+    try {
+      const response = await fetch("https://api.indexnow.org/IndexNow", { method: "POST", headers: { "content-type": "application/json; charset=utf-8" }, body: JSON.stringify({ host: "www.hurricanetracker.cc", key: KEY, keyLocation: `${SITE}/${KEY}.txt`, urlList: uniqueUrls }) });
+      indexNow = { status: response.status, submitted: response.ok ? uniqueUrls.length : 0 };
+      if (!response.ok) {
+        console.error(JSON.stringify({ event: "storm-monitor-indexnow-failed", status: response.status, body: (await response.text()).slice(0, 300), urls: uniqueUrls }));
+      }
+    } catch (error) {
+      console.error(JSON.stringify({ event: "storm-monitor-indexnow-failed", error: error instanceof Error ? error.message : String(error), urls: uniqueUrls }));
+    }
   }
-  return { storms: storms.length, submitted: uniqueUrls.length };
+  if (!uniqueUrls.length || indexNow.submitted) await env.HURRICANEHUB_CACHE.put(STATE_KEY, JSON.stringify(next));
+  if (warmupFailures.length) console.error(JSON.stringify({ event: "storm-monitor-warmup-failed", failures: warmupFailures }));
+  return { storms: storms.length, submitted: indexNow.submitted, indexNowStatus: indexNow.status, warmupFailures: warmupFailures.length };
 }
 
 export default {
@@ -37,7 +53,6 @@ export default {
       .then((result) => console.log(JSON.stringify({ event: "storm-monitor-ok", scheduledTime: event.scheduledTime, ...result })))
       .catch((error) => {
         console.error(JSON.stringify({ event: "storm-monitor-error", scheduledTime: event.scheduledTime, message: error instanceof Error ? error.message : String(error) }));
-        throw error;
       }));
   },
   async fetch(request, _env) {
