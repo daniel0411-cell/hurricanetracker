@@ -4,7 +4,7 @@ compatibility_date = "2026-07-28"
 workers_dev = true
 
 [triggers]
-crons = ["*/15 * * * *"]
+crons = ["0 * * * *"]
 
 [[kv_namespaces]]
 binding = "HURRICANEHUB_CACHE"
