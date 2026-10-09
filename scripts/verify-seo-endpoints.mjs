@@ -7,6 +7,11 @@
 
 const site = process.env.SITE_URL || "https://www.hurricanetracker.cc";
 const publisherId = "ca-pub-7504167844948264";
+const crawlerUserAgents = [
+  "Mediapartners-Google",
+  "AdsBot-Google (+http://www.google.com/adsbot.html)",
+  "Googlebot/2.1 (+http://www.google.com/bot.html)",
+];
 const endpoints = [
   { path: "/", contentType: "text/html", marker: publisherId, userAgent: "Mediapartners-Google" },
   { path: "/robots.txt", contentType: "text/plain", marker: "Sitemap:" },
@@ -43,17 +48,54 @@ async function verify({ path, contentType, marker, userAgent = "HurricaneHub SEO
 }
 
 async function verifyAdSenseEntry() {
-  const entry = "http://hurricanetracker.cc/";
-  const response = await fetch(entry, {
-    headers: { "user-agent": "Mediapartners-Google" },
-    redirect: "follow",
-    signal: AbortSignal.timeout(15_000),
-  });
+  const entries = [
+    "http://hurricanetracker.cc/",
+    "https://hurricanetracker.cc/",
+    "http://www.hurricanetracker.cc/",
+    "https://www.hurricanetracker.cc/",
+  ];
 
-  if (!response.ok || response.url !== `${site}/`) {
-    throw new Error(`${entry} resolved to ${response.status} ${response.url}`);
+  for (const entry of entries) {
+    for (const userAgent of crawlerUserAgents) {
+      for (const method of ["GET", "HEAD"]) {
+        let current = entry;
+        const hops = [];
+
+        for (let hop = 0; hop < 4; hop += 1) {
+          const response = await fetch(current, {
+            method,
+            headers: { "user-agent": userAgent },
+            redirect: "manual",
+            signal: AbortSignal.timeout(15_000),
+          });
+          hops.push(`${response.status} ${current}`);
+
+          if (response.status >= 300 && response.status < 400) {
+            const location = response.headers.get("location");
+            if (!location) throw new Error(`${current} returned ${response.status} without Location`);
+            current = new URL(location, current).toString();
+            continue;
+          }
+
+          if (!response.ok || current !== `${site}/`) {
+            throw new Error(`${entry} failed for ${userAgent} ${method}: ${hops.join(" -> ")}`);
+          }
+
+          const body = method === "GET" ? await response.text() : "";
+          if (method === "GET" && (!body.includes(publisherId) || /Just a moment|cf-chl-/i.test(body))) {
+            throw new Error(`${entry} returned a challenge or omitted ${publisherId} for ${userAgent}`);
+          }
+
+          console.log(`[seo-check] OK ${userAgent} ${method} ${hops.join(" -> ")}`);
+          break;
+        }
+
+        if (hops.length === 4 && !hops.at(-1)?.startsWith("200 ")) {
+          throw new Error(`${entry} exceeded three redirects for ${userAgent} ${method}`);
+        }
+      }
+    }
   }
-  console.log(`[seo-check] OK ${response.status} ${entry} -> ${response.url}`);
 }
 
 try {
