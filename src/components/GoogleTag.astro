@@ -9,4 +9,14 @@ const measurementId = "G-3FWT0XXYP2";
   gtag('js', new Date());
 
   gtag('config', 'G-3FWT0XXYP2');
+
+  document.addEventListener('click', (event) => {
+    const link = event.target instanceof Element ? event.target.closest('[data-track-event]') : null;
+    if (!(link instanceof HTMLAnchorElement)) return;
+    gtag('event', link.dataset.trackEvent, {
+      link_text: link.textContent?.trim(),
+      link_url: link.href,
+      page_path: location.pathname
+    });
+  });
 </script>
