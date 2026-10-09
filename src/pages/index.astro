@@ -17,9 +17,6 @@ import { getNhcForecast } from "../lib/nhcForecast";
 import { getAtlanticOutlook } from "../lib/nhcOutlook";
 import { relevantLocations } from "../lib/stormRelevance";
 
-const title = "Hurricane Tracker | Current Storms, NHC Map & Alerts";
-const description = "Track current hurricanes with NHC positions and forecast paths, then open the live map, radar, state NWS alerts, and local preparedness tools.";
-
 type StormFeed = {
   storms?: Array<NhcStorm & { summary?: string }>;
   fetchedAt?: string;
@@ -83,6 +80,12 @@ const orderedStates = [...coastalStates].sort((a, b) => {
 const atlanticStorms = storms.filter((storm) => /^AL/i.test(storm.id ?? "") && storm.classification !== "PTC");
 const pacificStorms = storms.filter((storm) => /^(EP|CP)/i.test(storm.id ?? ""));
 const atlanticNames = atlanticStorms.map((storm) => storm.name).filter(Boolean);
+const title = atlanticNames.length
+  ? `Hurricane Tracker: ${atlanticNames.slice(0, 2).join(", ")} & NHC Map`
+  : "Hurricane Tracker | Current Storms, NHC Map & Alerts";
+const description = atlanticNames.length
+  ? `Track ${atlanticNames.slice(0, 2).join(", ")} and current Atlantic hurricanes with NHC positions, forecast paths, live map, radar, Gulf status, state alerts, and local preparedness tools.`
+  : "Track current hurricanes with NHC positions and forecast paths, then open the live map, radar, state NWS alerts, and local preparedness tools.";
 const floridaAlerts = floridaAlertFeed?.alerts ?? [];
 const featuredStateName = "Florida";
 const featuredDecisionLevel = floridaAlertFeed?.decisionLevel ?? "Monitor";
@@ -152,7 +155,8 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
         <p class="answer">{atlanticStorms.length ? `The latest NHC feed lists ${atlanticStorms.length} active Atlantic system${atlanticStorms.length === 1 ? "" : "s"}${atlanticNames.length ? `: ${atlanticNames.join(", ")}` : ""}.` : "The latest NHC feed lists no active Atlantic tropical cyclones."}{pacificStorms.length ? ` ${pacificStorms.length} additional NHC system${pacificStorms.length === 1 ? " is" : "s are"} active in the Eastern or Central Pacific.` : ""} Updated {updatedLabel}. Open the live hurricane tracker map for current positions, forecast paths, radar, satellite imagery, and local NWS alerts.</p>
         <p class="section-actions">
           <a class="action-link" href="/hurricane-tracker/live/">Open live hurricane tracker map</a>
-          {atlanticStorms.length > 0 && <a class="action-link secondary-action" href="#active-season-heading">Track Atlantic storms</a>}
+          {atlanticStorms.length > 0 && <a class="action-link secondary-action" href={`/hurricane-tracker/storm/${String(atlanticStorms[0].name ?? atlanticStorms[0].id ?? "storm").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}/`}>Track {atlanticStorms[0].name ?? "Atlantic storm"}</a>}
+          {atlanticStorms.length > 0 && <a class="action-link secondary-action" href="/hurricane-tracker/gulf/">Check Gulf status</a>}
           <a class="action-link secondary-action" href="/local-hurricane-risk/">Check local risk</a>
         </p>
       </div>

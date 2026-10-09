@@ -31,7 +31,6 @@ const hurricanes = storms.filter((storm) => storm.classification === "HU");
 const stormSummary = storms.length ? `${tropicalStorms.length} active tropical system${tropicalStorms.length === 1 ? "" : "s"}${postTropicalStorms.length ? ` and ${postTropicalStorms.length} post-tropical system${postTropicalStorms.length === 1 ? "" : "s"}` : ""}` : "No active NHC systems listed";
 const activeStormNames = tropicalStorms.map((storm) => storm.name).filter(Boolean).slice(0, 2);
 const activeContext = storms.length ? ` Track ${storms.map((storm) => storm.name).filter(Boolean).join(", ")} now.` : "";
-const title = "Live Hurricane Tracker | Current Storms & NHC Map";
 const lastModified = stormFeed?.updatedAt ?? stormFeed?.fetchedAt ?? site.contentLastModified;
 const updatedLabel = new Date(lastModified).toLocaleString("en-US", {
   timeZone: "UTC",
@@ -41,7 +40,13 @@ const updatedLabel = new Date(lastModified).toLocaleString("en-US", {
   hour: "numeric",
   minute: "2-digit"
 });
-const description = `${stormSummary}. Track current hurricanes on the live NHC map with storm paths, advisories, radar, satellite and local alerts. Updated ${updatedLabel} UTC.${activeContext}`;
+const atlanticStormNames = tropicalStorms.filter((storm) => /^AL/i.test(storm.id ?? "")).map((storm) => storm.name).filter(Boolean).slice(0, 2);
+const title = atlanticStormNames.length
+  ? `Live Hurricane Tracker: ${atlanticStormNames.join(", ")} & NHC Map`
+  : "Live Hurricane Tracker | Current Storms & NHC Map";
+const description = atlanticStormNames.length
+  ? `Track ${atlanticStormNames.join(", ")} and current NHC storms on the live map with forecast paths, Gulf status, advisories, radar, satellite and local alerts. Updated ${updatedLabel} UTC.`
+  : `${stormSummary}. Track current hurricanes on the live NHC map with storm paths, advisories, radar, satellite and local alerts. Updated ${updatedLabel} UTC.${activeContext}`;
 const liveTrackerPaths = [
   {
     name: "Check active storms",
