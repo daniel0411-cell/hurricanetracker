@@ -19,7 +19,8 @@ async function run(env) {
     next[storm.id] = advisory;
     const stormUrl = `${SITE}/hurricane-tracker/storm/${slugify(storm.name)}/`;
     if (previous[storm.id] !== advisory) changedUrls.push(stormUrl, `${SITE}/hurricane-tracker/live/`, `${SITE}/`);
-    await fetch(`${SITE}/api/nhc/forecast/${String(storm.id).toLowerCase()}.json`, { headers: { accept: "application/json" } });
+    const forecast = await fetch(`${SITE}/api/nhc/forecast/${String(storm.id).toLowerCase()}.json`, { headers: { accept: "application/json" } });
+    if (!forecast.ok) throw new Error(`Forecast warmup for ${storm.id} returned HTTP ${forecast.status}`);
   }
   await env.HURRICANEHUB_CACHE.put(STATE_KEY, JSON.stringify(next));
   const uniqueUrls = [...new Set(changedUrls)];
@@ -31,7 +32,14 @@ async function run(env) {
 }
 
 export default {
-  async scheduled(_event, env, ctx) { ctx.waitUntil(run(env)); },
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(run(env)
+      .then((result) => console.log(JSON.stringify({ event: "storm-monitor-ok", scheduledTime: event.scheduledTime, ...result })))
+      .catch((error) => {
+        console.error(JSON.stringify({ event: "storm-monitor-error", scheduledTime: event.scheduledTime, message: error instanceof Error ? error.message : String(error) }));
+        throw error;
+      }));
+  },
   async fetch(request, _env) {
     const url = new URL(request.url);
     if (url.pathname !== "/health") return new Response("Not found", { status: 404 });
