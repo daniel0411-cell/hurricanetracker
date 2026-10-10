@@ -19,6 +19,7 @@ type StormFeed = {
 
 const slug = String(Astro.params.storm ?? "").toLowerCase();
 if (!/^[a-z][a-z0-9-]{1,48}$/.test(slug)) return Astro.redirect("/storm-archive/");
+const stormSlug = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const retired2026StormSlugs = new Set(["danielle", "earl", "fiona", "gordon", "hermine", "ian", "julia", "karl", "lisa", "martin", "nicole", "owen", "paula", "richard", "shary", "tobias", "virginie", "walter"]);
 if (retired2026StormSlugs.has(slug)) return Astro.redirect("/2026-hurricane-season/", 301);
 
@@ -40,7 +41,16 @@ const activeStorm = (feed?.storms ?? []).find((item) => {
   return values.some((value) => value === slug || value.includes(slug));
 });
 const knownPage = getStormPageBySlug(slug);
-const archivedStorm = (await readStormRegistry()).find((item) => item.slug === slug);
+const registry = await readStormRegistry();
+const archivedStorm = registry.find((item) => item.slug === slug);
+const currentSuccessor = archivedStorm?.id
+  ? (feed?.storms ?? []).find((item) => item.id?.toLowerCase() === archivedStorm.id?.toLowerCase())
+  : undefined;
+const aliasTarget = registry.find((item) => item.aliases?.includes(slug));
+const successorSlug = currentSuccessor?.name ? stormSlug(currentSuccessor.name) : aliasTarget?.slug;
+if (!knownPage && !activeStorm && successorSlug && successorSlug !== slug) {
+  return Astro.redirect(`/hurricane-tracker/storm/${successorSlug}/`, 301);
+}
 if (!knownPage && !activeStorm && !archivedStorm) return Astro.redirect("/storm-archive/", 302);
 const stormRecord = activeStorm ?? archivedStorm;
 const isArchived = !activeStorm && Boolean(archivedStorm);
@@ -53,7 +63,6 @@ const isPostTropical = activeStorm?.classification === "PTC";
 const isCphc = basin === "Central Pacific" || /\/text\/HFO/i.test(advisoryUrl(activeStorm?.publicAdvisory) || advisoryUrl(activeStorm?.forecastAdvisory));
 const forecastCenter = isCphc ? "Central Pacific Hurricane Center" : "National Hurricane Center";
 const forecastCenterUrl = isCphc ? "https://www.nhc.noaa.gov/?cpac" : "https://www.nhc.noaa.gov/";
-const primaryKeywords = knownPage?.primaryKeywords ?? [`hurricane ${stormName.toLowerCase()} tracker`, `hurricane ${stormName.toLowerCase()} path`, `hurricane ${stormName.toLowerCase()} live map`, `where is hurricane ${stormName.toLowerCase()} now`];
 const overview = knownPage?.overview ?? `Track ${stormName} with the latest NHC position, official advisory time, forecast path, radar, satellite imagery, and local-alert context. This page updates from official NHC data while the system is active and remains available as a stable storm reference.`;
 const searchDemandNote = knownPage?.searchDemandNote ?? `Use this page for live ${stormName} tracker, path, map, forecast, and current-position searches.`;
 const trackerFocus = knownPage?.trackerFocus ?? [
@@ -182,12 +191,15 @@ const jsonLd = graph(
         )}
       </article>
       <article class="panel">
-        <p class="eyebrow">Keyword cluster</p>
-        <h2>Common {stormName} Searches</h2>
-        <ul>
-          {primaryKeywords.map((keyword) => <li>{keyword}</li>)}
-        </ul>
-        <p>These searches usually mean the user wants live position, forecast path, map context, and official advisory links in one place.</p>
+        <p class="eyebrow">Local decisions</p>
+        <h2>Check {stormName} Impacts Near You</h2>
+        <p>Storm position alone cannot show local surge, wind, flooding, tornado, road, or evacuation risk. Check the nearest state or city tracker, then verify current NWS and emergency-management instructions.</p>
+        {locationRelevance.states.length > 0 && <ul>{locationRelevance.states.slice(0, 4).map((state) => <li><a href={`/tracker/${state.slug}/`} data-track-event="open_state_tracker">{state.name} hurricane tracker</a></li>)}</ul>}
+        <p class="section-actions">
+          <a class="action-link" href="/tools/storm-distance-calculator/" data-track-event="open_storm_distance">Check distance by ZIP code</a>
+          <a class="action-link secondary-action" href="/tools/storm-surge-checker/" data-track-event="open_storm_surge">Check storm surge alerts</a>
+          <a class="action-link secondary-action" href="/local-hurricane-risk/" data-track-event="open_local_risk">Check local hurricane risk</a>
+        </p>
       </article>
     </div>
   </section>

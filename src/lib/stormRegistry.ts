@@ -1,10 +1,12 @@
 import { env } from "cloudflare:workers";
 import type { NhcStorm } from "./weather";
+import { consolidateStormRecords, stormIdentity } from "./stormRegistryIdentity";
 
 const REGISTRY_KEY = "nhc:storm-registry:v1";
 
 export type ArchivedStorm = NhcStorm & {
   slug: string;
+  aliases?: string[];
   firstSeen: string;
   lastSeen: string;
   active: boolean;
@@ -27,21 +29,27 @@ export async function recordActiveStorms(storms: NhcStorm[], observedAt: string)
   const cache = env.HURRICANEHUB_CACHE;
   if (!cache) return;
   const existing = await readStormRegistry();
-  const bySlug = new Map(existing.map((storm) => [storm.slug, { ...storm, active: false }]));
+  const byIdentity = new Map(consolidateStormRecords(existing).map((storm) => [stormIdentity(storm), storm]));
   for (const storm of storms) {
     if (!storm.name) continue;
     const slug = slugify(storm.name);
-    const previous = bySlug.get(slug);
-    bySlug.set(slug, {
+    const key = stormIdentity({ id: storm.id, slug });
+    const previous = byIdentity.get(key);
+    const aliases = [...new Set([
+      ...(previous?.aliases ?? []),
+      ...(previous?.slug && previous.slug !== slug ? [previous.slug] : [])
+    ])];
+    byIdentity.set(key, {
       ...previous,
       ...storm,
       slug,
+      aliases,
       firstSeen: previous?.firstSeen ?? observedAt,
       lastSeen: storm.lastUpdate ?? observedAt,
       active: true
     });
   }
-  const records = [...bySlug.values()].sort((a, b) => b.lastSeen.localeCompare(a.lastSeen)).slice(0, 120);
+  const records = [...byIdentity.values()].sort((a, b) => b.lastSeen.localeCompare(a.lastSeen)).slice(0, 120);
   const previousValue = JSON.stringify(existing);
   if (JSON.stringify(records) === previousValue) return;
   try {
