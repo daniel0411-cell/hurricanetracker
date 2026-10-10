@@ -412,6 +412,7 @@ const jsonLd = graph(
 
   <script>
     // @ts-nocheck
+    import { startVisiblePolling } from "../lib/visiblePolling";
     import L from "leaflet";
     import "leaflet/dist/leaflet.css";
     import { alertRisk } from "../lib/weather";
@@ -685,7 +686,7 @@ const jsonLd = graph(
 
       async function createRainViewerLayer() {
         try {
-          const response = await fetch("/api/radar/rainviewer.json", { cache: "no-store" });
+          const response = await fetch("/api/radar/rainviewer.json");
           if (!response.ok) throw new Error("RainViewer timeline unavailable");
 
           const data = await response.json();
@@ -995,7 +996,7 @@ const jsonLd = graph(
 
       async function updateHeatmap() {
         try {
-          const response = await fetch("/api/nws/states.json", { cache: "no-store" });
+          const response = await fetch("/api/nws/states.json");
           if (!response.ok) throw new Error("heatmap feed failed");
           const data = await response.json();
           const counts = {};
@@ -1245,20 +1246,14 @@ const jsonLd = graph(
         setStatus(added ? "Alert area added to map." : "Alert area removed from map.");
       });
 
-      let refreshTimer = null;
       function refreshIntervalMs() {
         const urgent = (lastAlerts || []).some((alert) => /Tornado Warning|Flash Flood Warning/i.test(alert.event || ""));
         return urgent ? 2 * 60 * 1000 : 10 * 60 * 1000;
       }
-      function scheduleRefresh() {
-        if (refreshTimer) clearTimeout(refreshTimer);
-        refreshTimer = window.setTimeout(async () => {
+      startVisiblePolling(async () => {
           const scope = currentScope && currentScope.point ? currentScope : { state: stateSelect?.value || "FL" };
           await Promise.all([loadAlerts(scope), loadStorms(), updateHeatmap()]);
-          scheduleRefresh();
-        }, refreshIntervalMs());
-      }
-      scheduleRefresh();
+      }, refreshIntervalMs);
 
       window.setInterval(() => {
         document.querySelectorAll(".alert-countdown").forEach((el) => {

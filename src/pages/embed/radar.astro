@@ -181,6 +181,7 @@ const satelliteBand = params.get("sat") || "geocolor";
 
     <script>
       // @ts-nocheck
+      import { startVisiblePolling } from "../../lib/visiblePolling";
       import L from "leaflet";
       import "leaflet/dist/leaflet.css";
       import { dirtySideQuadrants, movementBearingDeg } from "../../lib/dirtySide";
@@ -312,8 +313,6 @@ const satelliteBand = params.get("sat") || "geocolor";
         let forecastVisible = true;
         let radarFetchedAt = null;
         let nhcFetchedAt = null;
-        let radarRefreshTimer = null;
-        let stormRefreshTimer = null;
         let satOpacity = 0.85;
 
         function stopAnimation() {
@@ -389,7 +388,7 @@ const satelliteBand = params.get("sat") || "geocolor";
         }
 
         async function loadRadarTimeline() {
-          const response = await fetch("/api/radar/rainviewer.json", { cache: "no-store" });
+          const response = await fetch("/api/radar/rainviewer.json");
           if (!response.ok) throw new Error("RainViewer unavailable");
           const data = await response.json();
           radarFetchedAt = data.fetchedAt ?? new Date().toISOString();
@@ -437,7 +436,7 @@ const satelliteBand = params.get("sat") || "geocolor";
         async function loadForecast(storm) {
           if (!storm?.id) return;
           try {
-            const response = await fetch(`/api/nhc/forecast/${encodeURIComponent(storm.id)}.json`, { cache: "no-store" });
+            const response = await fetch(`/api/nhc/forecast/${encodeURIComponent(storm.id)}.json`);
             if (!response.ok) return;
             const data = await response.json();
             const track = Array.isArray(data.track) ? data.track.map(([lon, lat]) => [lat, lon]) : [];
@@ -478,7 +477,7 @@ const satelliteBand = params.get("sat") || "geocolor";
 
         async function loadStormMarkers() {
           try {
-            const response = await fetch("/api/nhc/current.json", { cache: "no-store" });
+            const response = await fetch("/api/nhc/current.json");
             if (!response.ok) return;
             const data = await response.json();
             nhcFetchedAt = data.fetchedAt ?? data.updatedAt ?? null;
@@ -530,7 +529,7 @@ const satelliteBand = params.get("sat") || "geocolor";
         // Initial layer
         showLayer(qLayer === "satellite" ? "satellite" : "radar");
         loadStormMarkers();
-        radarRefreshTimer = window.setInterval(async () => {
+        const stopRadarRefresh = startVisiblePolling(async () => {
           try {
             radarFrames = [];
             await loadRadarTimeline();
@@ -540,8 +539,10 @@ const satelliteBand = params.get("sat") || "geocolor";
             console.error("embed radar refresh failed", error);
             refreshStatus();
           }
-        }, 5 * 60 * 1000);
-        stormRefreshTimer = window.setInterval(loadStormMarkers, 10 * 60 * 1000);
+        }, () => 5 * 60 * 1000);
+        const stopStormRefresh = startVisiblePolling(loadStormMarkers, () => 10 * 60 * 1000);
+        const pauseAnimation = () => { if (document.hidden) stopAnimation(); };
+        document.addEventListener("visibilitychange", pauseAnimation);
         const freshnessTimer = window.setInterval(refreshStatus, 60 * 1000);
 
         toggleButtons.forEach((btn) => {
@@ -642,8 +643,9 @@ const satelliteBand = params.get("sat") || "geocolor";
         window.addEventListener("resize", () => map.invalidateSize());
         window.addEventListener("load", () => map.invalidateSize());
         window.addEventListener("pagehide", () => {
-          if (radarRefreshTimer) window.clearInterval(radarRefreshTimer);
-          if (stormRefreshTimer) window.clearInterval(stormRefreshTimer);
+          stopRadarRefresh();
+          stopStormRefresh();
+          document.removeEventListener("visibilitychange", pauseAnimation);
           window.clearInterval(freshnessTimer);
           removeWeatherLayers();
           map.remove();

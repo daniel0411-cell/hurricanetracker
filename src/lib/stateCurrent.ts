@@ -33,7 +33,7 @@ export async function getStateCurrentStatus(stateCode: string): Promise<StateCur
 
     for (const storm of feed.storms) {
       if (!storm.id || !storm.name) continue;
-      const forecast = await getNhcForecast(storm.id);
+      const forecast = await getNhcForecast(storm.id, storm);
       const current = Number.isFinite(storm.latitudeNumeric) && Number.isFinite(storm.longitudeNumeric)
         ? [storm.longitudeNumeric!, storm.latitudeNumeric!] as [number, number]
         : undefined;

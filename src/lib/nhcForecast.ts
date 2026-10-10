@@ -2,13 +2,20 @@ import { env } from "cloudflare:workers";
 import { unzipSync, strFromU8 } from "fflate";
 import { getNhcCurrentFeed } from "./nhcCurrent";
 import { knotsToMph } from "./wind-speed";
+import type { NhcStorm } from "./weather";
+import { cachedWeather } from "./weatherCache";
 
 type Coordinate = [number, number];
 export type NhcForecastFeed = { stormId: string; advisoryNumber: string; advisory?: string; fetchedAt: string; source: string; track: Coordinate[]; points: Array<{ coordinates: Coordinate; hour: number | null; windMph: number | null }>; cone: Coordinate[] };
 export type AdvisoryHistoryItem = { advisoryNumber: string; time: string; classification?: string; intensity?: string; pressure?: string; windSpeedMph?: number | null; pressureMb?: number | null; latitude?: string; longitude?: string; movementDir?: number | string; movementSpeed?: number | string };
 
 export async function getAdvisoryHistory(id: string): Promise<AdvisoryHistoryItem[]> {
-  return (await env.HURRICANEHUB_CACHE?.get(`nhc:advisory-history:${id.toLowerCase()}`, "json") as AdvisoryHistoryItem[] | null) ?? [];
+  try {
+    return (await env.HURRICANEHUB_CACHE?.get(`nhc:advisory-history:${id.toLowerCase()}`, "json") as AdvisoryHistoryItem[] | null) ?? [];
+  } catch (error) {
+    console.error("NHC advisory history read failed", { id, error: String(error) });
+    return [];
+  }
 }
 
 function coordinates(text: string): Coordinate[] {
@@ -55,25 +62,32 @@ async function readKml(url: string) {
   return strFromU8(entry[1]);
 }
 
-export async function getNhcForecast(id: string): Promise<NhcForecastFeed | null> {
-  const { feed } = await getNhcCurrentFeed();
-  const storm = feed.storms.find((item) => item.id?.toLowerCase() === id.toLowerCase());
+export async function getNhcForecast(id: string, knownStorm?: NhcStorm): Promise<NhcForecastFeed | null> {
+  const storm = knownStorm?.id?.toLowerCase() === id.toLowerCase()
+    ? knownStorm
+    : (await getNhcCurrentFeed()).feed.storms.find((item) => item.id?.toLowerCase() === id.toLowerCase());
   if (!storm) return null;
   const advisoryNumber = storm.forecastTrack?.advNum ?? "current";
   const cacheKey = `nhc:forecast:${id.toLowerCase()}:${advisoryNumber}`;
-  const cached = await env.HURRICANEHUB_CACHE?.get(cacheKey, "json") as NhcForecastFeed | null;
-  if (cached) return cached;
   if (!storm.forecastTrack?.kmzFile || !storm.trackCone?.kmzFile) return null;
-  const [trackKml, coneKml] = await Promise.all([readKml(storm.forecastTrack.kmzFile), readKml(storm.trackCone.kmzFile)]);
-  const parsed = parseTrack(trackKml);
-  const result: NhcForecastFeed = { stormId: id.toLowerCase(), advisoryNumber, advisory: storm.forecastTrack.issuance ?? storm.lastUpdate, fetchedAt: new Date().toISOString(), source: "National Hurricane Center", track: parsed.line, points: parsed.points, cone: parseCone(coneKml) };
-  await env.HURRICANEHUB_CACHE?.put(cacheKey, JSON.stringify(result), { expirationTtl: 600 });
-  const historyKey = `nhc:advisory-history:${id.toLowerCase()}`;
-  const history = await getAdvisoryHistory(id);
-  if (!history.some((item) => item.advisoryNumber === advisoryNumber)) {
-    const windKnots = numeric(storm.intensity);
-    history.unshift({ advisoryNumber, time: storm.lastUpdate ?? result.fetchedAt, classification: storm.classification, intensity: storm.intensity ?? storm.windSpeed, pressure: storm.pressure, windSpeedMph: windKnots == null ? numeric(storm.windSpeed) : knotsToMph(windKnots), pressureMb: numeric(storm.pressure), latitude: storm.latitude, longitude: storm.longitude, movementDir: storm.movementDir, movementSpeed: storm.movementSpeed });
-    await env.HURRICANEHUB_CACHE?.put(historyKey, JSON.stringify(history.slice(0, 12)));
-  }
-  return result;
+  const trackUrl = storm.forecastTrack.kmzFile;
+  const coneUrl = storm.trackCone.kmzFile;
+  const { value } = await cachedWeather(cacheKey, 600, async () => {
+    const [trackKml, coneKml] = await Promise.all([readKml(trackUrl), readKml(coneUrl)]);
+    const parsed = parseTrack(trackKml);
+    const result: NhcForecastFeed = { stormId: id.toLowerCase(), advisoryNumber, advisory: storm.forecastTrack?.issuance ?? storm.lastUpdate, fetchedAt: new Date().toISOString(), source: "National Hurricane Center", track: parsed.line, points: parsed.points, cone: parseCone(coneKml) };
+    const historyKey = `nhc:advisory-history:${id.toLowerCase()}`;
+    try {
+      const history = (await env.HURRICANEHUB_CACHE?.get(historyKey, "json") as AdvisoryHistoryItem[] | null) ?? [];
+      if (!history.some((item) => item.advisoryNumber === advisoryNumber)) {
+        const windKnots = numeric(storm.intensity);
+        history.unshift({ advisoryNumber, time: storm.lastUpdate ?? result.fetchedAt, classification: storm.classification, intensity: storm.intensity ?? storm.windSpeed, pressure: storm.pressure, windSpeedMph: windKnots == null ? numeric(storm.windSpeed) : knotsToMph(windKnots), pressureMb: numeric(storm.pressure), latitude: storm.latitude, longitude: storm.longitude, movementDir: storm.movementDir, movementSpeed: storm.movementSpeed });
+        await env.HURRICANEHUB_CACHE?.put(historyKey, JSON.stringify(history.slice(0, 12)));
+      }
+    } catch (error) {
+      console.error("NHC advisory history persistence failed", { id, error: String(error) });
+    }
+    return result;
+  });
+  return value;
 }

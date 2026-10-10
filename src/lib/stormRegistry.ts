@@ -28,7 +28,13 @@ export async function readStormRegistry(): Promise<ArchivedStorm[]> {
 export async function recordActiveStorms(storms: NhcStorm[], observedAt: string) {
   const cache = env.HURRICANEHUB_CACHE;
   if (!cache) return;
-  const existing = await readStormRegistry();
+  let existing: ArchivedStorm[];
+  try {
+    existing = (await cache.get(REGISTRY_KEY, "json") as ArchivedStorm[] | null) ?? [];
+  } catch (error) {
+    console.error("Storm registry refresh skipped after failed read", { error: String(error) });
+    return;
+  }
   const byIdentity = new Map(consolidateStormRecords(existing).map((storm) => [stormIdentity(storm), storm]));
   for (const storm of storms) {
     if (!storm.name) continue;

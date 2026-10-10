@@ -10,7 +10,7 @@ try {
   const { feed } = await getNhcCurrentFeed();
   for (const storm of feed.storms) {
     if (!storm.id || !storm.name) continue;
-    const forecast = await getNhcForecast(storm.id);
+    const forecast = await getNhcForecast(storm.id, storm);
     const relevance = relevantLocations(forecast?.track ?? [], Number.isFinite(storm.latitudeNumeric) && Number.isFinite(storm.longitudeNumeric) ? [storm.longitudeNumeric!, storm.latitudeNumeric!] : undefined);
     const cities = relevance.cities.filter((city) => city.slug === citySlug || city.stateCode === stateCode);
     if (cities.length) matches.push({ name: storm.name, slug: storm.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""), distance: Math.min(...cities.map((city) => city.distanceMiles)), advisory: forecast?.advisoryNumber });

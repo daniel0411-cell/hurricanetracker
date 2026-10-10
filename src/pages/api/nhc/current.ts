@@ -12,7 +12,7 @@ function jsonResponse(body: unknown, init: ResponseInit = {}) {
     ...init,
     headers: {
       ...CORS_HEADERS,
-      "cache-control": "public, max-age=120",
+      "cache-control": (init.status ?? 200) >= 400 ? "no-store" : "public, max-age=120",
       ...(init.headers ?? {})
     }
   });
@@ -33,6 +33,7 @@ export const GET: APIRoute = async () => {
         "content-type": "application/json; charset=utf-8",
         "cache-control": "public, max-age=120",
         "x-hurricanehub-cache": cacheStatus,
+        "x-hurricanehub-cache-store": "edge",
         ...(cacheStatus === "stale" ? { "x-hurricanehub-data-status": "stale" } : {})
       }
     });

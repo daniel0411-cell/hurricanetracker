@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { env } from "cloudflare:workers";
+import { cachedWeather } from "../../../lib/weatherCache";
 import { decisionLevel, type NwsAlert } from "../../../lib/weather";
 
 const VALID_AREA = /^[A-Z]{2}$/;
@@ -11,16 +11,12 @@ const CORS_HEADERS = {
   "access-control-allow-headers": "content-type"
 };
 
-function getCache() {
-  return env.HURRICANEHUB_CACHE;
-}
-
 function jsonResponse(body: unknown, init: ResponseInit = {}) {
   return Response.json(body, {
     ...init,
     headers: {
       ...CORS_HEADERS,
-      "cache-control": "public, max-age=120",
+      "cache-control": (init.status ?? 200) >= 400 ? "no-store" : "public, max-age=120",
       ...(init.headers ?? {})
     }
   });
@@ -68,7 +64,7 @@ export const GET: APIRoute = async ({ url }) => {
   let scope: Record<string, string>;
   if (point) {
     source = `https://api.weather.gov/alerts/active?point=${point.lat},${point.lon}`;
-    cacheKey = `nws:alerts:point:${point.lat.toFixed(3)},${point.lon.toFixed(3)}`;
+    cacheKey = `nws:alerts:point:${point.lat},${point.lon}`;
     scope = { point: `${point.lat},${point.lon}`, state: "" };
   } else {
     if (!VALID_AREA.test(area)) {
@@ -79,59 +75,43 @@ export const GET: APIRoute = async ({ url }) => {
     scope = { area, state: area, point: "" };
   }
 
-  const cache = getCache();
-  let cached: string | null = null;
   try {
-    cached = (await cache?.get(cacheKey)) ?? null;
-  } catch (kvError) {
-    console.error("NWS alerts cache read failed, skipping cache", { cacheKey, error: kvError });
-  }
-  if (cached) {
-    return new Response(cached, {
-      headers: {
-        ...CORS_HEADERS,
-        "content-type": "application/json; charset=utf-8",
-        "cache-control": "public, max-age=120",
-        "x-hurricanehub-cache": "hit"
+    const { value: body, cacheStatus } = await cachedWeather(cacheKey, CACHE_TTL_SECONDS, async () => {
+      const response = await fetch(source, {
+        signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
+        headers: {
+          accept: "application/geo+json",
+          "user-agent": "HurricaneHub/0.1 (https://www.hurricanetracker.cc; weather-data@hurricanetracker.cc)",
+        },
+      });
+
+      if (!response.ok) {
+        console.error("NWS alert feed returned an error", { source, status: response.status });
+        throw new Error(`NWS alert feed returned HTTP ${response.status}`);
       }
+
+      const raw = (await response.json()) as { features?: any[]; updated?: string };
+      if (!Array.isArray(raw.features)) throw new Error("NWS alert feed is missing features");
+      const alerts = raw.features.map(normalizeAlert);
+      const fetchedAt = new Date().toISOString();
+      return JSON.stringify({
+        source,
+        ...scope,
+        fetchedAt,
+        updatedAt: raw.updated ?? fetchedAt,
+        cacheTtlSeconds: CACHE_TTL_SECONDS,
+        decisionLevel: decisionLevel(alerts, []),
+        alerts,
+      });
     });
-  }
-
-  try {
-    const response = await fetch(source, {
-      signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
-      headers: {
-        accept: "application/geo+json",
-        "user-agent": "HurricaneHub/0.1 (https://www.hurricanetracker.cc; weather-data@hurricanetracker.cc)"
-      }
-    });
-
-    if (!response.ok) {
-      console.error("NWS alert feed returned an error", { source, status: response.status });
-      return jsonResponse({ error: "NWS alert feed unavailable", status: response.status, source }, { status: 502 });
-    }
-
-    const raw = await response.json() as { features?: any[]; updated?: string };
-    const alerts = (raw.features ?? []).map(normalizeAlert);
-    const fetchedAt = new Date().toISOString();
-    const body = JSON.stringify({
-      source,
-      ...scope,
-      fetchedAt,
-      updatedAt: raw.updated ?? fetchedAt,
-      cacheTtlSeconds: CACHE_TTL_SECONDS,
-      decisionLevel: decisionLevel(alerts, []),
-      alerts
-    });
-
-    await cache?.put(cacheKey, body, { expirationTtl: CACHE_TTL_SECONDS });
 
     return new Response(body, {
       headers: {
         ...CORS_HEADERS,
         "content-type": "application/json; charset=utf-8",
         "cache-control": "public, max-age=120",
-        "x-hurricanehub-cache": "miss"
+        "x-hurricanehub-cache": cacheStatus,
+        "x-hurricanehub-cache-store": "edge"
       }
     });
   } catch (error) {

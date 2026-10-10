@@ -56,7 +56,7 @@ const activeStateCodes: string[] = [];
 for (const storm of storms) {
   if (!storm.id) continue;
   try {
-    const forecast = await getNhcForecast(storm.id);
+    const forecast = await getNhcForecast(storm.id, storm);
     const current = Number.isFinite(storm.latitudeNumeric) && Number.isFinite(storm.longitudeNumeric)
       ? [storm.longitudeNumeric!, storm.latitudeNumeric!] as [number, number]
       : undefined;

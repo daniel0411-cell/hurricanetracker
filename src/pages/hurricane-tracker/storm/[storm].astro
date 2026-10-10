@@ -77,7 +77,7 @@ type ForecastFeed = { advisoryNumber?: string; track?: Array<[number, number]>; 
 let forecast: ForecastFeed | null = null;
 if (activeStorm?.id) {
   try {
-    forecast = await getNhcForecast(activeStorm.id.toLowerCase()) as ForecastFeed | null;
+    forecast = await getNhcForecast(activeStorm.id.toLowerCase(), activeStorm) as ForecastFeed | null;
   } catch (error) {
     console.error("Storm forecast relevance feed failed", { storm: slug, error });
   }
