@@ -19,7 +19,7 @@ const seo = getStateSeoProfile(state);
 const title = seo.title;
 const description = seo.description;
 const canonical = `${site.url}/tracker/${state.slug}/`;
-const lastModified = site.contentLastModified;
+const lastModified = "2026-10-12";
 const currentStatus = await getStateCurrentStatus(code);
 
 const intro = `Florida faces the Atlantic and Gulf of Mexico at once, giving it more than 1,300 miles of tidal coastline—the longest of any hurricane-prone state. Storms typically organize near the Bahamas or in the Caribbean and track west across South Florida, or curve north into the Panhandle and Big Bend, while others develop in the Gulf and threaten Tampa Bay or the central coast. Because the peninsula is low and surrounded by warm water, rapid intensification just before landfall is common. In recent memory, Hurricane Michael (2018) struck the Panhandle as a catastrophic Category 5, and Hurricane Ian (2022) produced deadly storm surge and flooding across southwest Florida. The 2026 Atlantic hurricane season runs June 1 through November 30, with the climatological peak around September 10. Residents should confirm evacuation zones and keep a ready-to-go plan before any system forms, because bridge and causeway closures often arrive well ahead of landfall.`;
@@ -99,13 +99,15 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">{region} hurricane operations</p>
       <h1 id="tracker-state-title">{seo.headline}</h1>
-      <p class="answer">{intro}</p>
       <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
 
       <section class="intent-answer" aria-labelledby="florida-intent-heading">
         <h2 id="florida-intent-heading">Florida Hurricane Questions Today</h2>
-        <p>Users searching “is there a hurricane coming to Florida,” “is Florida getting a hurricane,” and “will the hurricane hit Florida” should start here. Check the live NHC answer above, then compare the <a href="/hurricane-tracker/gulf/">current Gulf hurricane tracker</a>, Florida NWS alerts, evacuation zones, and city trackers for Miami, Tampa, Orlando, Jacksonville, and the Panhandle.</p>
+        <p>Check the NHC status above, then read warnings for your county. A nearby storm center does not establish a Florida landfall, and an offshore track does not rule out surge, flooding, or dangerous surf.</p>
+        <p><a href="/hurricane-tracker/gulf/">Check the current Gulf hurricane tracker</a> · <a href="#alerts-heading">Read Florida NWS alerts</a> · <a href="#city-trackers">Find your Florida city tracker</a> · <a href="https://www.floridadisaster.org/knowyourzone/" rel="noopener">Find your official county evacuation zone</a></p>
       </section>
+
+      <p class="answer">{intro}</p>
 
       <section class="intent-answer" aria-labelledby="florida-preparedness-heading">
         <h2 id="florida-preparedness-heading">How to Prepare for a Hurricane in Florida</h2>
@@ -129,7 +131,7 @@ const jsonLd = graph(
           <article class="panel">
             <h3>{city.name} Hurricane Tracker</h3>
             <p>{city.planningNote}</p>
-            <a href={`/hurricane-tracker/city/${city.slug}/`}>Open {city.name}</a>
+            <a href={`/hurricane-tracker/city/${city.slug}/`} data-track-event="open_city_tracker">Open {city.name}</a>
           </article>
         ))}
       </div>

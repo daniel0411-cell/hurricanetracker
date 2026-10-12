@@ -19,7 +19,7 @@ const seo = getStateSeoProfile(state);
 const title = seo.title;
 const description = seo.description;
 const canonical = `${site.url}/tracker/${state.slug}/`;
-const lastModified = site.contentLastModified;
+const lastModified = "2026-10-12";
 const currentStatus = await getStateCurrentStatus(code);
 
 const intro = `North Carolina's coastline runs about 300 miles from the Virginia line to the South Carolina border, but its hurricane identity is defined by Cape Hatteras and the Outer Banks—a string of narrow barrier islands in the Atlantic's busy recurvature lane. Storms riding the Gulf Stream often curve ashore here, slamming the islands before pushing into the sounds and inland rivers, producing both wind damage on the coast and catastrophic river flooding hundreds of miles inland. In 2018, Hurricane Florence stalled near the coast and unleashed historic rainfall that flooded communities from Wilmington to the Piedmont. The 2026 Atlantic hurricane season runs June 1 through November 30, with its climatological peak in September, so Outer Banks and coastal residents should monitor current outlooks and plan ferry and bridge timing before access closes.`;
@@ -60,7 +60,7 @@ const faqs = [
   },
   {
     question: `Does ${name} have hurricane evacuation routes?`,
-    answer: `Yes. North Carolina uses lettered evacuation zones for coastal counties and reverses lanes on routes such as US-64 and NC-12 for the Outer Banks. Island residents must plan ferry and bridge timing because access closes before the worst wind arrives.`
+    answer: `North Carolina's Know Your Zone program identifies evacuation zones in participating coastal counties. Follow county evacuation orders and check DriveNC and ferry service notices for current access. Do not assume NC-12, US-64, bridges, or ferries will remain open, or that any road will use reversed lanes unless officials announce it.`
   }
 ];
 
@@ -84,13 +84,14 @@ const jsonLd = graph(
       <p class="eyebrow">{region} hurricane operations</p>
       <h1 id="tracker-state-title">{seo.headline}</h1>
       <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
-      <p class="answer">{intro}</p>
-
       <section class="intent-answer" aria-labelledby="north-carolina-intent-heading">
         <h2 id="north-carolina-intent-heading">Check North Carolina Hurricane Risk Now</h2>
         <p>Start with the live status above, then compare the current NHC track with North Carolina NWS alerts and local context for the Outer Banks, Wilmington, and Morehead City.</p>
         <p><a href="/hurricane-tracker/live/">Open the live NHC hurricane map</a> · <a href="#alerts-heading">Check North Carolina NWS alerts</a> · <a href="#city-trackers">Open Outer Banks, Wilmington, and Morehead City trackers</a></p>
+        <p>For the Outer Banks, verify ferry and NC-12 access before travel. For Wilmington and inland communities, check river and flash-flood warnings even when the storm center is offshore. Use <a href="https://www.weather.gov/mhx/" rel="noopener">NWS Newport/Morehead City</a>, <a href="https://www.weather.gov/ilm/" rel="noopener">NWS Wilmington</a>, <a href="https://www.ncdps.gov/our-organization/emergency-management/emergency-preparedness/know-your-zone" rel="noopener">North Carolina's official evacuation-zone lookup</a>, and <a href="https://drivenc.gov/" rel="noopener">DriveNC road conditions</a>.</p>
       </section>
+
+      <p class="answer">{intro}</p>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
@@ -103,7 +104,7 @@ const jsonLd = graph(
           <article class="panel">
             <h3>{city.name} Hurricane Tracker</h3>
             <p>{city.planningNote}</p>
-            <a href={`/hurricane-tracker/city/${city.slug}/`}>Open {city.name}</a>
+            <a href={`/hurricane-tracker/city/${city.slug}/`} data-track-event="open_city_tracker">Open {city.name}</a>
           </article>
         ))}
       </div>

@@ -36,7 +36,7 @@ const paths = [
   <div class="grid-2 section-grid">
     {paths.map((path) => (
       <article class="panel">
-        <h3><a href={path.href}>{path.title}</a></h3>
+        <h3><a href={path.href} data-track-event="open_action_tool">{path.title}</a></h3>
         <p>{path.body}</p>
       </article>
     ))}
