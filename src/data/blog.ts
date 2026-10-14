@@ -839,15 +839,15 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "hurricane-tracking-after-landfall-inland-flooding-tornadoes",
     title: "Hurricane Tracking After Landfall: Why Inland Flooding and Tornado Alerts Matter Most",
-    description: "Most hurricane deaths happen after landfall from inland flooding and tornadoes. Learn how real-time hurricane tracking and extreme weather alerts keep inland residents safe.",
+    description: "Track inland hurricane flooding, tornado warnings and post-tropical hazards. Learn when to follow NHC, WPC and local NWS alerts after landfall.",
     datePublished: "2026-08-07",
-    dateModified: "2026-08-07",
+    dateModified: "2026-10-14",
     image: "/images/blog/hurricane-tracking-after-landfall-inland-flooding-tornadoes.jpg",
     imageAlt: "A resident wades through a flooded inland street after a hurricane, a downed tree across the road and a distant funnel cloud on the horizon.",
     sections: [
       {
         heading: "Direct Answer",
-        body: "Water, not wind, causes roughly 90 percent of hurricane-related deaths. After a hurricane makes landfall, inland flooding and tornado outbreaks in rain bands continue to threaten communities hundreds of miles from the coast. Real-time hurricane tracking and extreme weather alerts are just as critical inland as they are on the shoreline."
+        body: "Danger does not end at landfall or when a storm becomes post-tropical. Heavy rainfall, flash and river flooding, damaging winds, and possible tornadoes can threaten communities far inland. Check current local National Weather Service warnings and Weather Prediction Center rainfall outlooks rather than treating a weaker classification or an empty tropical-storm list as an all-clear."
       },
       {
         heading: "The Hidden Killer After Landfall: Inland Flooding",
@@ -859,7 +859,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Tornado Outbreaks Inside Hurricane Rain Bands",
-        body: "Every major hurricane that makes landfall in the United States spawns tornadoes. The right-front quadrant—where wind shear and low-level spin are maximized—can produce dozens of tornado warnings across a 48-hour window. Hurricane Ivan in 2004 generated 120 tornadoes across nine states, from Florida to Pennsylvania. Hurricane Katrina produced 57 confirmed tornadoes. These are not weak spin-ups; hurricane-spawned tornadoes can reach EF2 intensity and develop with almost no visual warning because they are wrapped in heavy rain."
+        body: "Landfalling tropical cyclones can produce tornadoes, but tornadoes are not guaranteed with every storm. In the Northern Hemisphere, the right-front quadrant is often favorable, although risk is not limited to that area. Tornadoes may be embedded in rain bands and difficult to see. Follow local NWS tornado watches and warnings rather than using hurricane category or distance from the center to rule out danger."
       },
       {
         heading: "Reading Hurricane-Spawned Tornado Alerts",
@@ -867,7 +867,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Why Real-Time Hurricane Tracking Continues Inland",
-        body: "A common misconception is that a hurricane 'ends' at landfall. In reality, the National Hurricane Center continues issuing advisories until the system dissipates or transitions to post-tropical. These advisories include inland rainfall forecasts, tornado risk areas, and wind field maps extending hundreds of miles from the center. Modern real-time hurricane tracking tools use ground-based NEXRAD radar to track rain band rotation and tornado circulations, satellite infrared imagery to monitor remaining convection, and surface weather station networks to report actual wind gusts, pressure falls, and rainfall totals. For inland residents, watching the storm's track after landfall is as important as watching the approach. A hurricane that slows down over Tennessee can produce more local rainfall in 24 hours than a fast-moving Category 3 that crosses Florida in six hours."
+        body: "A post-tropical classification does not by itself mean NHC advisories have ended. Read the latest official bulletin and its next-advisory instructions. NHC may continue advisories or hand continuing inland updates to the Weather Prediction Center; local NWS offices remain the source for flood, tornado, and wind warnings. Isaias's final NHC Advisory 15 on October 10, 2026, directed readers to WPC for continuing updates. Use that handoff as historical context, not as a current flood forecast."
       },
       {
         heading: "Tools for Inland Extreme Weather Alerts",
@@ -881,8 +881,8 @@ export const blogPosts: BlogPost[] = [
           "Move vehicles to higher ground if your neighborhood has drainage history.",
           "Charge backup batteries and medical devices before power lines start failing.",
           "Pack a go-bag with the same urgency as coastal residents. Inland flash floods can force evacuations with little notice.",
-          "Identify interior rooms on the lowest floor for tornado warnings—typically a windowless bathroom or closet.",
-          "Monitor upstream rainfall. If a storm drops 10 inches of rain in the mountains above your town, the river may not crest for 12 to 24 hours."
+          "For tornado warnings, identify a sturdy interior shelter away from windows. Do not use a basement or lowest-floor room that is flooding or threatened by rising water; plan a safer shelter before conditions deteriorate and follow local NWS and emergency-management instructions when flood and tornado threats overlap.",
+          "Monitor upstream rainfall and official river forecasts. River flooding may continue or worsen after local rain ends; crest timing depends on the watershed, not a fixed waiting period."
         ]
       },
       {
@@ -897,7 +897,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         question: "What is the most dangerous inland hurricane hazard?",
-        answer: "Inland flooding, including flash floods and river flooding, causes the majority of hurricane-related fatalities. Tornadoes spawned by hurricane rain bands are the second most dangerous inland threat."
+        answer: "Flash flooding and river flooding can be life-threatening far inland. Tornadoes and damaging winds may also occur. There is no single ranking that establishes the greatest danger at your location; follow current local NWS warnings and emergency-management instructions."
       },
       {
         question: "How long should I keep monitoring extreme weather alerts after a hurricane passes?",
