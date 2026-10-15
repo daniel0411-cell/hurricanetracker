@@ -6,26 +6,29 @@ import { site } from "../data/site";
 import { coastalStates } from "../data/states";
 import { articleSchema, breadcrumbSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
 import { readStormRegistry } from "../lib/stormRegistry";
-import { advisoryUrl, type NhcStorm } from "../lib/weather";
+import { getNhcCurrentFeed, NHC_CURRENT_CACHE_TTL_SECONDS, type NhcCurrentFeed } from "../lib/nhcCurrent";
+import { advisoryUrl } from "../lib/weather";
 import { formatWind } from "../lib/wind-speed";
 
-type StormFeed = {
-  storms?: Array<NhcStorm & { summary?: string }>;
-  updatedAt?: string;
-  fetchedAt?: string;
-};
-
 const url = `${site.url}/2026-hurricane-season/`;
-const names2026 = ["Arthur", "Bertha", "Cristobal", "Dolly", "Edouard", "Fay", "Gonzalo", "Hanna", "Isaac", "Josephine", "Kyle", "Leah", "Marco", "Nana", "Omar", "Paulette", "Rene", "Sally", "Teddy", "Vicky", "Wilfred"];
+const names2026 = ["Arthur", "Bertha", "Cristobal", "Dolly", "Edouard", "Fay", "Gonzalo", "Hanna", "Isaias", "Josephine", "Kyle", "Leah", "Marco", "Nana", "Omar", "Paulette", "Rene", "Sally", "Teddy", "Vicky", "Wilfred"];
 
-let feed: StormFeed | null = null;
+let feed: NhcCurrentFeed | null = null;
 try {
-  const response = await fetch(new URL("/api/nhc/current.json", Astro.url));
-  if (response.ok) feed = await response.json() as StormFeed;
+  const current = await getNhcCurrentFeed();
+  const fetchedAt = Date.parse(current.feed.fetchedAt);
+  if (current.cacheStatus === "stale" || !Number.isFinite(fetchedAt) || Date.now() - fetchedAt > NHC_CURRENT_CACHE_TTL_SECONDS * 1000) {
+    throw new Error("NHC season feed is stale or has no valid timestamp");
+  }
+  if (!Array.isArray(current.feed.storms) || current.feed.storms.some((storm) => typeof storm?.id !== "string" || !storm.id)) {
+    throw new Error("NHC season feed is missing storm data");
+  }
+  feed = current.feed;
 } catch (error) {
   console.error("HurricaneHub season hub feed failed", { error });
 }
 
+const feedAvailable = feed !== null;
 const storms = (feed?.storms ?? []).filter((storm) => storm.id?.toUpperCase().startsWith("AL") && storm.classification !== "PTC");
 const otherBasinStorms = (feed?.storms ?? []).filter((storm) => !storm.id?.toUpperCase().startsWith("AL"));
 const registryStorms = await readStormRegistry();
@@ -33,20 +36,30 @@ const seasonRegistry = registryStorms.filter((storm) => storm.id?.toUpperCase().
 const endedStorms = seasonRegistry.filter((storm) => !storm.active).sort((a, b) => b.lastSeen.localeCompare(a.lastSeen));
 const activeNames = new Set(storms.map((storm) => storm.name?.toLowerCase()).filter(Boolean));
 const archivedNames = new Set([...seasonRegistry.map((storm) => storm.name?.toLowerCase()).filter(Boolean), "arthur", "bertha", "cristobal", "dolly"]);
-const nextName = names2026.find((name) => !activeNames.has(name.toLowerCase()) && !archivedNames.has(name.toLowerCase()));
+const lastUsedIndex = names2026.reduce((last, name, index) => activeNames.has(name.toLowerCase()) || archivedNames.has(name.toLowerCase()) ? index : last, -1);
+const nextName = feedAvailable && seasonRegistry.length > 0 ? names2026[lastUsedIndex + 1] : undefined;
+const nextNameAnswer = !feedAvailable || seasonRegistry.length === 0
+  ? "The next unused Atlantic name could not be verified from the available records."
+  : nextName ? `The next name after the latest recorded 2026 Atlantic system is ${nextName}.` : "The standard 2026 name list has been used.";
 const nameRows = names2026.map((name) => ({
   name,
-  status: activeNames.has(name.toLowerCase()) ? "active" : archivedNames.has(name.toLowerCase()) ? "dissipated" : name === nextName ? "next" : "scheduled"
+  status: activeNames.has(name.toLowerCase()) ? "active" : archivedNames.has(name.toLowerCase()) ? "recorded" : name === nextName ? "next" : "not recorded"
 }));
 const stormNameLinks: Record<string, string> = {
   Arthur: "/storm/2026-arthur/", Bertha: "/storm/2026-bertha/", Cristobal: "/storm/2026-cristobal/",
-  Dolly: "/hurricane-tracker/storm/dolly/", Edouard: "/hurricane-tracker/storm/edouard/", Fay: "/hurricane-tracker/storm/fay/"
+  Dolly: "/hurricane-tracker/storm/dolly/", Edouard: "/hurricane-tracker/storm/edouard/", Fay: "/hurricane-tracker/storm/fay/",
+  Isaias: "/hurricane-tracker/storm/isaias/"
 };
 const namedStorms = new Set([...activeNames, ...archivedNames]).size;
-const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
+const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? "2026-10-15T00:00:00.000Z";
 const activeStormNames = storms.map((storm) => storm.name).filter(Boolean);
+const currentAnswer = !feedAvailable
+  ? "Current NHC data is temporarily unavailable. Check official NHC advisories and local NWS alerts for current conditions."
+  : storms.length ? `The latest NHC Atlantic feed lists ${storms.length} active system${storms.length === 1 ? "" : "s"}${activeStormNames.length ? `: ${activeStormNames.join(", ")}` : ""}.` : "The latest NHC Atlantic feed lists no active Atlantic tropical cyclones.";
 const title = "2026 Hurricane Season: Dates, Storms & Live Tracker";
-const description = `The 2026 Atlantic hurricane season runs June 1-November 30. ${storms.length ? `${storms.length} active system${storms.length === 1 ? "" : "s"}${activeStormNames.length ? `: ${activeStormNames.join(", ")}` : ""}.` : "No active Atlantic systems."} Track NHC updates, storms and names. Updated ${new Date(lastModified).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}.`;
+const description = feedAvailable
+  ? `The 2026 Atlantic hurricane season runs June 1-November 30. ${storms.length ? `${storms.length} active system${storms.length === 1 ? "" : "s"}${activeStormNames.length ? `: ${activeStormNames.join(", ")}` : ""}.` : "No active Atlantic systems."} Track NHC updates, storms and names. Updated ${new Date(lastModified).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}.`
+  : "The 2026 Atlantic hurricane season runs June 1-November 30. Current NHC data is temporarily unavailable; check official advisories, storm names and local alerts.";
 const verifiedLabel = new Date(lastModified).toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit", timeZone: "UTC" });
 const faqs = [
   { question: "When is the 2026 hurricane season?", answer: "The Atlantic hurricane season runs from June 1 through November 30. Tropical cyclones can occur outside those dates, so official outlooks remain the source for current conditions." },
@@ -69,17 +82,17 @@ const jsonLd = graph(
       <div>
         <p class="eyebrow">Atlantic hurricane season</p>
         <h1 id="season-title">2026 Hurricane Season Live Tracker</h1>
-        <p class="answer">{storms.length ? `The latest NHC Atlantic feed lists ${storms.length} active system${storms.length === 1 ? "" : "s"}${activeStormNames.length ? `: ${activeStormNames.join(", ")}` : ""}.` : "The latest NHC Atlantic feed lists no active Atlantic tropical cyclones."} {nextName ? `The next unused 2026 Atlantic name is ${nextName}.` : "The standard 2026 name list has been used."} Updated {new Date(lastModified).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" })} UTC; open the active Atlantic storm card for its latest advisory and local planning links.</p>
+        <p class="answer">{currentAnswer} {nextNameAnswer} {feedAvailable && <>Feed checked {verifiedLabel} UTC; use each storm's advisory timestamp for the official observation time.</>}</p>
         <p class="section-actions"><a class="action-link" href="/hurricane-tracker/live/">Are there any hurricanes right now?</a><a class="action-link secondary-action" href="https://www.nhc.noaa.gov/" rel="noopener nofollow">Official NHC advisories</a></p>
       </div>
-      <aside class="status-panel" aria-label="Current 2026 Atlantic season status"><strong>{storms.length}</strong><span>active Atlantic NHC system{storms.length === 1 ? "" : "s"}</span><small>Updated {new Date(lastModified).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" })} UTC</small></aside>
+      <aside class="status-panel" aria-label="Current 2026 Atlantic season status"><strong>{feedAvailable ? storms.length : "?"}</strong><span>{feedAvailable ? `active Atlantic NHC system${storms.length === 1 ? "" : "s"}` : "Current status unavailable"}</span><small>{feedAvailable ? `Feed checked ${verifiedLabel} UTC` : "Check official NHC advisories"}</small></aside>
     </div>
   </section>
 
   <section class="band" aria-labelledby="active-storms">
     <div class="inner">
       <p class="eyebrow">Current NHC Atlantic feed</p><h2 id="active-storms">Active Atlantic Tropical Cyclones</h2>
-      {storms.length ? <div class="grid-2 section-grid">{storms.map((storm) => <article class="season-card"><span class="status active">Active</span><h3>{storm.name ?? storm.id ?? "NHC system"}</h3><p>{storm.classification ?? "Tropical cyclone"} · {storm.intensity ? formatWind(Number(storm.intensity)) : storm.windSpeed ?? "Intensity pending"}</p><p>Position {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"}</p><p class="source-note">Updated {storm.lastUpdate ?? lastModified}</p><p class="card-links"><a href={`/hurricane-tracker/storm/${(storm.name ?? storm.id ?? "storm").toLowerCase().replace(/[^a-z0-9]+/g, "-")}/`}>Open storm tracker</a>{advisoryUrl(storm.publicAdvisory) && <a href={advisoryUrl(storm.publicAdvisory)} rel="noopener nofollow">NHC advisory</a>}</p></article>)}</div> : <div class="empty-state"><strong>No active Atlantic tropical cyclones at this time.</strong><p>{nextName ? <>The next available name on the 2026 Atlantic list is <strong>{nextName}</strong>.</> : "The standard 2026 Atlantic name list has been used."}</p><p>Other NHC basins may have active systems. <a href="/hurricane-tracker/live/">Open the live tracker for all current NHC systems.</a></p></div>}
+      {!feedAvailable ? <div class="empty-state"><strong>Current Atlantic status could not be verified.</strong><p>{currentAnswer}</p><a href="https://www.nhc.noaa.gov/" rel="noopener nofollow">Check official NHC advisories</a></div> : storms.length ? <div class="grid-2 section-grid">{storms.map((storm) => <article class="season-card"><span class="status active">Active</span><h3>{storm.name ?? storm.id ?? "NHC system"}</h3><p>{storm.classification ?? "Tropical cyclone"} · {storm.intensity ? formatWind(Number(storm.intensity)) : storm.windSpeed ?? "Intensity pending"}</p><p>Position {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"}</p><p class="source-note">Updated {storm.lastUpdate ?? lastModified}</p><p class="card-links"><a href={`/hurricane-tracker/storm/${(storm.name ?? storm.id ?? "storm").toLowerCase().replace(/[^a-z0-9]+/g, "-")}/`}>Open storm tracker</a>{advisoryUrl(storm.publicAdvisory) && <a href={advisoryUrl(storm.publicAdvisory)} rel="noopener nofollow">NHC advisory</a>}</p></article>)}</div> : <div class="empty-state"><strong>No active Atlantic tropical cyclones at this time.</strong><p>{nextNameAnswer}</p><p>Other NHC basins may have active systems. <a href="/hurricane-tracker/live/">Open the live tracker for all current NHC systems.</a></p></div>}
     </div>
   </section>
 
@@ -87,15 +100,15 @@ const jsonLd = graph(
 
   {endedStorms.length > 0 && <section class="band" aria-labelledby="ended-storms"><div class="inner"><p class="eyebrow">Recorded 2026 Atlantic systems</p><h2 id="ended-storms">Recently Ended Atlantic Storms</h2><p class="answer">These systems have left the active NHC feed. Their tracker pages preserve the last recorded status and official source context without presenting them as current threats.</p><div class="grid-2 section-grid">{endedStorms.slice(0, 8).map((storm) => <article class="season-card"><span class="status dissipated">Ended</span><h3>{storm.name ?? storm.id ?? "Atlantic system"}</h3><p>{storm.classification ?? "Final classification"}{storm.intensity ? ` · ${formatWind(Number(storm.intensity))}` : ""}</p><p class="source-note">Last recorded {new Date(storm.lastSeen).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" })} UTC</p><p class="card-links"><a href={`/hurricane-tracker/storm/${storm.slug}/`}>Open {storm.name ?? "storm"} archive</a></p></article>)}</div></div></section>}
 
-  <section class="band stats-band" aria-labelledby="season-statistics"><div class="inner"><p class="eyebrow">Recorded season activity</p><h2 id="season-statistics">2026 Season Statistics</h2><p class="answer"><strong>{storms.length ? `${storms.length} active Atlantic system${storms.length === 1 ? " is" : "s are"} listed now${activeStormNames.length ? `: ${activeStormNames.join(", ")}` : ""}.` : "No active Atlantic tropical cyclone is listed in the latest NHC feed."}</strong> This answer was verified at {verifiedLabel} UTC; check the advisory timestamp again before acting.</p><div class="stats"><div><strong>{namedStorms}</strong><span>Named storms recorded</span></div><div><strong>Not verified</strong><span>Season hurricane total</span></div><div><strong>Not verified</strong><span>Season major hurricane total</span></div></div><p class="source-note">Named storms reflect HurricaneHub's observed registry, not a complete official season tally. Hurricane and major hurricane totals require each storm's historical peak intensity. The registry preserves latest status, not complete peak-intensity history; a post-tropical or ended storm may previously have been a hurricane. Consult <a href="https://www.nhc.noaa.gov/data/tcr/" rel="noopener nofollow">NHC Tropical Cyclone Reports</a> for official historical records as they become available.</p></div></section>
+  <section class="band stats-band" aria-labelledby="season-statistics"><div class="inner"><p class="eyebrow">Recorded season activity</p><h2 id="season-statistics">2026 Season Statistics</h2><p class="answer"><strong>{currentAnswer}</strong> {feedAvailable && <>Feed checked {verifiedLabel} UTC; check the advisory timestamp again before acting.</>}</p><div class="stats"><div><strong>{namedStorms}</strong><span>Named storms recorded</span></div><div><strong>Not verified</strong><span>Season hurricane total</span></div><div><strong>Not verified</strong><span>Season major hurricane total</span></div></div><p class="source-note">Named storms reflect HurricaneHub's observed registry, not a complete official season tally. Hurricane and major hurricane totals require each storm's historical peak intensity. The registry preserves latest status, not complete peak-intensity history; a post-tropical or ended storm may previously have been a hurricane. Consult <a href="https://www.nhc.noaa.gov/data/tcr/" rel="noopener nofollow">NHC Tropical Cyclone Reports</a> for official historical records as they become available.</p></div></section>
 
   <section class="band" aria-labelledby="season-timeline"><div class="inner"><p class="eyebrow">Season timing</p><h2 id="season-timeline">When Atlantic Hurricane Activity Usually Peaks</h2><ContentFigure src="/images/guides/atlantic-hurricane-season-timeline.svg" alt="Atlantic hurricane season timeline from June through November with the historical activity peak near September 10" caption="NOAA and NHC climatology place the historical peak near September 10. The curve provides seasonal context, not a forecast for 2026 or any individual storm." /></div></section>
 
-  <section class="band" aria-labelledby="name-list"><div class="inner"><p class="eyebrow">Official sequence</p><h2 id="name-list">2026 Atlantic Storm Name List</h2><p class="answer">A standing page does not mean a storm has formed. Active and dissipated labels reflect observed feed or registry records; “next” marks the first unused name.</p><ol class="name-grid">{nameRows.map((item) => <li>{stormNameLinks[item.name] ? <a href={stormNameLinks[item.name]}><span>{item.name}</span><small class:list={["status", item.status]}>{item.status}</small></a> : <span class="name-row"><span>{item.name}</span><small class:list={["status", item.status]}>{item.status}</small></span>}</li>)}</ol></div></section>
+  <section class="band" aria-labelledby="name-list"><div class="inner"><p class="eyebrow">Official sequence</p><h2 id="name-list">2026 Atlantic Storm Name List</h2><p class="answer">Names follow the <a href="https://www.nhc.noaa.gov/aboutnames.shtml" rel="noopener nofollow">official NHC 2026 Atlantic list</a>. Active and recorded labels reflect observed feed or registry records; “next” follows the latest recorded name. An unrecorded name does not prove that a storm has never formed. {nextNameAnswer}</p><ol class="name-grid">{nameRows.map((item) => <li>{stormNameLinks[item.name] ? <a href={stormNameLinks[item.name]}><span>{item.name}</span><small class:list={["status", item.status]}>{item.status}</small></a> : <span class="name-row"><span>{item.name}</span><small class:list={["status", item.status]}>{item.status}</small></span>}</li>)}</ol></div></section>
 
   <section class="band" aria-labelledby="state-impact"><div class="inner"><p class="eyebrow">Local planning</p><h2 id="state-impact">State-by-State Hurricane Impact</h2><p class="answer">Pair the season outlook with local NWS alerts, evacuation zones, surge risk, and county emergency instructions.</p><div class="state-grid">{coastalStates.map((state) => <article class="season-card"><h3>{state.name}</h3><p>{state.risks.slice(0, 3).join(" · ")}</p><a href={`/tracker/${state.slug}/`}>Open {state.name} tracker</a></article>)}</div></div></section>
 
-  <section class="band prep-band" aria-labelledby="prepare-now"><div class="inner prep-grid"><div><p class="eyebrow">Before the next advisory</p><h2 id="prepare-now">Prepare While Conditions Are Quiet</h2><p>Build your supply plan, confirm evacuation triggers, and save official alert sources before watches or warnings begin.</p></div><p class="section-actions"><a class="action-link" href="/preparedness/">Preparedness guide</a><a class="action-link secondary-action" href="/tools/">Hurricane tools</a></p></div></section>
+  <section class="band prep-band" aria-labelledby="prepare-now"><div class="inner prep-grid"><div><p class="eyebrow">Household planning</p><h2 id="prepare-now">Prepare Before the Next Threat</h2><p>Build your supply plan, confirm evacuation triggers, and save official alert sources. Follow any current local warnings and evacuation orders.</p></div><p class="section-actions"><a class="action-link" href="/preparedness/">Preparedness guide</a><a class="action-link secondary-action" href="/tools/">Hurricane tools</a></p></div></section>
 
   <FaqBlock faqs={faqs} />
 
