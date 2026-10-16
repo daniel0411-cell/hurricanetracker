@@ -1,4 +1,4 @@
-type ToolName = "storm_distance" | "local_risk" | "evacuation_decision";
+type ToolName = "storm_distance" | "local_risk" | "evacuation_decision" | "wind_mitigation";
 type ToolOutcome = "success" | "no_data" | "error";
 
 export function trackToolResult(tool: ToolName, outcome: ToolOutcome) {

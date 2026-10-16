@@ -1,55 +1,44 @@
 ---
 import FaqBlock from "../../components/FaqBlock.astro";
 import Layout from "../../layouts/Layout.astro";
-import { faqs, site } from "../../data/site";
+import { site } from "../../data/site";
 import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema, breadcrumbSchema } from "../../lib/schema";
 
-const title = "Wind Mitigation Insurance Savings Calculator | Florida & Coastal Homeowners";
-const description = "Calculate your estimated home insurance savings from wind mitigation features like hurricane clips, hip roofs, secondary water resistance, and impact shutters.";
+const title = "Florida Wind Mitigation Savings Scenario Calculator";
+const description = "Compare Florida wind mitigation savings using your actual wind premium and insurer-confirmed additional discount. Calculate annual savings and inspection payback.";
 const url = `${site.url}/tools/wind-mitigation-calculator/`;
-const lastModified = site.contentLastModified;
-
+const lastModified = "2026-10-16";
 const toolFaqs = [
   {
-    question: "How much does a wind mitigation inspection save on homeowners insurance?",
-    answer: "In coastal states like Florida, wind mitigation credits typically save homeowners between 20% and 55% on the wind portion of their annual insurance premium. On an average $3,500 annual coastal policy where wind makes up 60% of the cost, documented features like hurricane clips, a hip roof, and impact shutters can save between $420 and $1,150 every year."
+    question: "Does a wind mitigation inspection guarantee insurance savings?",
+    answer: "No. Savings depend on verified construction features, your insurer's rating rules, and credits already applied to your policy. An inspection documents features; it does not establish a universal discount or guarantee a lower renewal premium. Ask your insurer for a written comparison before paying for improvements."
   },
   {
-    question: "Why does a hip roof get a larger insurance discount than a gable roof?",
-    answer: "A hip roof slopes downward on all four sides toward the walls without high vertical triangular wall ends. Wind tunnel tests and storm damage evaluations prove hip roofs create aerodynamic downforce rather than uplift pressure. Under Florida Office of Insurance Regulation Form OIR-B1-1802, a qualifying hip roof (where hip perimeters exceed 90% of the total roof perimeter) qualifies for one of the single largest structural insurance discounts available."
+    question: "Which premium should I enter?",
+    answer: "Enter the annual wind portion confirmed by your insurer, not your total homeowners premium. For an incremental savings scenario, ask for the wind premium before the proposed additional credit and the additional percentage that applies to that same amount. Do not apply a total credit again if it is already included in your bill."
   },
   {
-    question: "Do hurricane shutters qualify for a discount if the garage door is not impact-rated?",
-    answer: "Generally, no. For Category 7 Opening Protection on Florida Form OIR-B1-1802, credit is strictly all-or-nothing for the highest tier. Every exterior glazed opening—including all windows, entry doors with glass inserts, skylights, and glazed garage door panels—must meet verified impact-rated standards (like Miami-Dade NOA or ASTM E1886/E1996). If a single window or garage door is unrated, the entire opening protection rating drops to unrated or basic."
+    question: "How long is a Florida mitigation report valid?",
+    answer: "Florida OIR states that Form OIR-B1-1802 is valid for up to five years provided there are no material changes to the structure or inaccuracies in the form. Ask your insurer whether a change such as a new roof requires updated documentation."
   },
   {
-    question: "How long is a Florida wind mitigation inspection report valid?",
-    answer: "A certified wind mitigation inspection report (Form OIR-B1-1802) signed by a licensed home inspector, general contractor, architect, or professional engineer is valid for five years from the inspection date. If you re-roof your home, add storm shutters, or install impact windows within those five years, you should commission a new inspection immediately to claim the updated, higher credits."
+    question: "Which Florida inspection form is current?",
+    answer: "OIR lists an updated Uniform Mitigation Verification Inspection Form, OIR-B1-1802, effective April 1, 2026. Use the current form and an inspector authorized under Florida law. The inspection form records construction features; it is not a universal percentage discount schedule."
   },
   {
-    question: "Can wind mitigation reduce Citizens Property Insurance rates?",
-    answer: "Yes. Florida's insurer of last resort, Citizens Property Insurance Corporation, is required under Florida Statute § 627.711 to apply uniform mitigation credits. Documented wind mitigation features are often the most effective legal method to prevent Citizens policy non-renewals and mitigate steep annual rate increases."
+    question: "Does this calculator support Texas or other coastal states?",
+    answer: "No. The guidance here is limited to Florida. Other states and windstorm insurance programs have different certification and rating requirements. This calculator performs scenario arithmetic only and does not determine eligibility, quote insurance, or predict renewal rates."
   }
 ];
-
-const pageFaqs = [...toolFaqs, ...faqs];
-
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
-  webApplicationSchema({
-    name: title,
-    description,
-    url,
-    featureList: [
-      "Florida Form OIR-B1-1802 discount calculations",
-      "Roof geometry hip vs gable savings estimator",
-      "Hurricane clip and roof-to-wall connection credits",
-      "Impact shutter and opening protection rating analysis",
-      "Annual dollar savings and inspection ROI estimator"
-    ]
-  }),
-  faqSchema(pageFaqs),
+  webApplicationSchema({ name: title, description, url, featureList: [
+    "User-supplied annual wind premium",
+    "Insurer-confirmed additional discount scenario",
+    "Annual savings and inspection cost payback"
+  ] }),
+  faqSchema(toolFaqs),
   breadcrumbSchema([
     { name: "Home", url: site.canonicalUrl },
     { name: "Tools", url: `${site.url}/tools/` },
@@ -61,203 +50,84 @@ const jsonLd = graph(
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified} showBottomAd={true}>
   <section class="band" aria-labelledby="calc-heading">
     <div class="inner">
-      <p class="eyebrow">Coastal Homeowner Savings & Risk Reduction</p>
-      <h1 id="calc-heading">Wind Mitigation Insurance Savings Calculator</h1>
-      <p class="answer">
-        Estimate how much you can lower your coastal property insurance premiums by documenting wind-resistant construction features. Based on Florida Office of Insurance Regulation (OIR-B1-1802) guidelines and coastal building mitigation standards.
-      </p>
+      <p class="eyebrow">Florida homeowner planning</p>
+      <h1 id="calc-heading">Florida Wind Mitigation Savings Calculator</h1>
+      <p class="answer">Compare a potential additional wind mitigation credit using figures confirmed by your insurer. Construction features alone cannot establish your discount. This is a savings scenario, not an insurance quote or a promise of a lower bill.</p>
     </div>
   </section>
 
   <section class="band" aria-labelledby="calc-tool-section">
     <div class="inner grid-2">
       <form class="panel decision-tool" id="wind-tool">
-        <h2 id="calc-tool-section">Configure Your Home Features</h2>
-
-        <label for="state-select">
-          Coastal State / Jurisdiction
-          <select id="state-select" name="state">
-            <option value="FL" selected>Florida (Mandated OIR-B1-1802 Credit Schedule)</option>
-            <option value="TX">Texas (TWIA / Coastal Windstorm District)</option>
-            <option value="LA">Louisiana (FORTIFIED / Coastal Code Standard)</option>
-            <option value="NC">North Carolina (Outer Banks & Coastal Zone)</option>
-            <option value="SC">South Carolina (Coastal Property Zone)</option>
-            <option value="AL">Alabama (FORTIFIED Home Credit Schedule)</option>
-            <option value="OTHER">Other Atlantic / Gulf Coastal Area</option>
-          </select>
+        <h2 id="calc-tool-section">Your Florida Policy Scenario</h2>
+        <label for="wind-premium">Annual wind premium before the additional credit ($)
+          <input type="number" id="wind-premium" name="windPremium" min="0" max="1000000" step="0.01" required />
         </label>
-
-        <label for="year-built">
-          Construction Era / Building Code
-          <select id="year-built" name="yearBuilt">
-            <option value="post2002" selected>2002 or Newer (Built under 2001 Florida Building Code or newer)</option>
-            <option value="1994to2001">1994 to 2001 (Post-Hurricane Andrew coastal standard)</option>
-            <option value="pre1994">Pre-1994 (Older standard; highest retrofitting savings potential)</option>
-          </select>
+        <label for="additional-discount">Insurer-confirmed additional discount (%)
+          <input type="number" id="additional-discount" name="discount" min="0" max="100" step="0.01" required />
         </label>
-
-        <label for="roof-shape">
-          Roof Geometry (Shape)
-          <select id="roof-shape" name="roofShape">
-            <option value="hip" selected>Hip Roof (Slopes down on all sides; aerodynamic, &ge;90% perimeter)</option>
-            <option value="gable">Gable / Mansard / Flat Roof (High vertical walls, &lt;90% hip)</option>
-          </select>
+        <label for="inspection-cost">Inspection cost ($)
+          <input type="number" id="inspection-cost" name="inspectionCost" min="0" max="1000000" step="0.01" required />
         </label>
-
-        <label for="roof-wall">
-          Roof-to-Wall Connection
-          <select id="roof-wall" name="roofWall">
-            <option value="wraps" selected>Single or Double Metal Wraps (Over the top of truss with 3+ nails)</option>
-            <option value="clips">Hurricane Clips (Metal bracket nailed to truss and wall plate)</option>
-            <option value="toenails">Toenails Only (No metal clips; framed with angled framing nails)</option>
-          </select>
-        </label>
-
-        <label for="roof-deck">
-          Roof Deck Attachment &amp; Decking
-          <select id="roof-deck" name="roofDeck">
-            <option value="c" selected>Level C (8d nails spaced at 6" along seams into 19/32" plywood)</option>
-            <option value="b">Level B (8d nails or 6d spaced at 6" along seams)</option>
-            <option value="a">Level A (Staples or 6d nails with 12" spacing)</option>
-          </select>
-        </label>
-
-        <label for="opening-protection">
-          Opening Protection (Windows, Doors, Skylights, Garage)
-          <select id="opening-protection" name="openingProtection">
-            <option value="a" selected>Class A: Impact Windows / Engineered Shutters on ALL Openings</option>
-            <option value="b">Basic: Plywood panels or partial unrated shutter coverage</option>
-            <option value="none">None: Standard unrated windows without storm shutters</option>
-          </select>
-        </label>
-
-        <label for="swr-checkbox" style="display: flex; align-items: center; gap: 8px; margin-top: 10px; cursor: pointer;">
-          <input type="checkbox" id="swr-checkbox" name="swr" checked style="width: auto; margin: 0;" />
-          <span>Secondary Water Resistance (SWR self-adhering barrier under shingles)</span>
-        </label>
-
-        <label for="annual-premium" style="margin-top: 14px;">
-          Estimated Total Annual Homeowners Insurance Premium ($)
-          <input type="number" id="annual-premium" name="premium" value="3500" min="500" max="25000" step="100" />
-        </label>
-
-        <button type="submit" style="margin-top: 16px;">Calculate Estimated Savings</button>
+        <button type="submit">Calculate Savings Scenario</button>
       </form>
-
-      <article class="panel" aria-live="polite">
-        <h2>Your Estimated Mitigation Credits</h2>
-
-        <div class="metric" style="margin-top: 14px; background: rgba(14, 111, 143, 0.15); border: 1px solid rgba(14, 111, 143, 0.3); border-radius: 8px; padding: 16px;">
-          <strong id="discount-pct" style="font-size: 2.2rem; color: #38bdf8;">45% - 62%</strong>
-          <span id="discount-desc" style="display: block; margin-top: 4px; font-weight: 600;">Estimated discount on the wind portion of your policy.</span>
-        </div>
-
-        <div style="margin-top: 16px; padding: 14px; background: rgba(22, 101, 52, 0.15); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 8px;">
-          <span style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: #86efac; font-weight: 700;">Estimated Annual Dollar Savings</span>
-          <p id="savings-amount" style="font-size: 1.8rem; font-weight: 800; color: #f0fdf4; margin: 4px 0 0;">$1,050 - $1,470 / year</p>
-          <span id="payback-period" style="font-size: 0.84rem; color: #bbf7d0;">A typical $150 wind mitigation inspection pays for itself in less than 2 months.</span>
-        </div>
-
-        <h3 style="margin-top: 20px;">Key Factors Driving Your Discount</h3>
-        <ul class="check-list" id="factor-list">
-          <li><strong>Hip Roof:</strong> Provides superior aerodynamic airflow, unlocking the single largest structural credit.</li>
-          <li><strong>Metal Straps/Clips:</strong> Prevents roof uplift under hurricane-force gusts.</li>
-          <li><strong>Opening Protection:</strong> Complete envelope protection stops internal air pressurization.</li>
-          <li><strong>Secondary Water Resistance (SWR):</strong> Keeps rain out even if top shingles tear off.</li>
-        </ul>
-
-        <div style="margin-top: 20px; padding: 12px; background: rgba(234, 179, 8, 0.1); border-left: 4px solid #eab308; border-radius: 4px;">
-          <p class="source-note" style="margin: 0; color: #fef08a;">
-            <strong>Important Legal Notice:</strong> Insurance savings vary by specific insurance carrier (e.g., Citizens, Universal, State Farm), hurricane rating territory, and construction verification. Florida Statute &sect; 627.711 requires insurers to file wind mitigation credit tables with the state. An official discount requires a signed inspection report on Form OIR-B1-1802 from a licensed inspector.
-          </p>
-        </div>
+      <article class="panel" aria-live="polite" aria-atomic="true">
+        <h2>Your Savings Scenario</h2>
+        <p id="savings-amount">No scenario calculated yet.</p>
+        <p id="payback-period"></p>
+        <p id="calculation-detail"></p>
+        <p class="source-note">Discounts already included in your premium must not be counted again. Other rate changes, fees, coverage changes, and retrofit costs are excluded. A zero additional discount means zero additional savings.</p>
       </article>
     </div>
   </section>
 
   <section class="band" aria-labelledby="understanding-mitigation">
     <div class="inner">
-      <h2 id="understanding-mitigation">How Florida Wind Mitigation Inspections Lower Insurance Costs</h2>
-      <p class="answer">
-        In high-risk hurricane zones along the Atlantic and Gulf coasts, wind damage coverage typically accounts for 50% to 70% of a homeowner's total annual property insurance bill. Wind mitigation is the documentation or installation of certified construction elements that reinforce a home against catastrophic windstorms, flying debris, and structural roof failure.
-      </p>
+      <h2 id="understanding-mitigation">Start With Your Insurer, Not a Percentage Estimate</h2>
+      <p>Wind mitigation means reducing a building's vulnerability to wind damage and documenting its construction features. In Florida, an authorized inspector uses the Uniform Mitigation Verification Inspection Form, OIR-B1-1802, to record relevant features. The insurer then evaluates the documentation under its rating rules. A roof shape, window label, or construction year by itself is not enough to calculate a reliable dollar saving. This page deliberately does not assign percentages to those features or assume that wind coverage makes up a fixed share of your total premium.</p>
+      <p>Before arranging an inspection, ask your agent which mitigation credits are already on your policy, which report is on file, and whether new documentation could change the rating. Request the annual wind premium separately from the total homeowners premium. Then ask for the additional credit, if any, that would apply to that same premium basis. If the insurer cannot confirm an additional percentage, use its written before-and-after premium amounts instead of treating an online estimate as an offer.</p>
 
-      <div class="grid-3" style="margin-top: 24px;">
-        <article class="panel">
-          <h3>1. Aerodynamic Roof Geometry</h3>
-          <p>
-            The shape of your roof plays a decisive role in wind resistance. A <strong>hip roof</strong> slopes down to the walls on all four sides like a pyramid. When hurricane-force winds hit a hip roof, the wind is deflected upward across all planes, creating aerodynamic downward pressure that holds the structure down. By contrast, a <strong>gable roof</strong> presents a flat, vertical wall at the ends of the house that acts like a sail, catching wind and subjecting the roof trusses to violent uplift forces. In Florida, qualifying hip roofs qualify for up to a 40% reduction on wind premiums.
-          </p>
-        </article>
-        <article class="panel">
-          <h3>2. Engineered Roof-to-Wall Ties</h3>
-          <p>
-            During severe storms, the most common point of total structural failure occurs where roof trusses connect to the exterior walls. In homes built prior to modern building codes, trusses were often secured using only "toenails" (framing nails driven at an angle). Modern mitigation codes mandate <strong>hurricane clips</strong> or <strong>single/double metal wraps</strong> that wrap around the truss and anchor into the concrete tie-beam or reinforced wall studs with multiple heavy-gauge nails, multiplying uplift resistance tenfold.
-          </p>
-        </article>
-        <article class="panel">
-          <h3>3. Complete Envelope Protection</h3>
-          <p>
-            If high winds shatter a single standard window or blow in an unrated garage door, massive volumes of turbulent air rush into the house. This causes immediate internal pressurization while external suction pulls upward on the roof, often resulting in explosive roof separation. To earn the highest <strong>Class A Opening Protection</strong> discount, all windows, entry doors, glass sliders, skylights, and garage doors must be protected by rated impact glass or engineered storm shutters.
-          </p>
-        </article>
-      </div>
+      <h2>What the Savings Scenario Includes</h2>
+      <p>The annual savings calculation is the wind premium you enter multiplied by the additional discount divided by 100. For example, a hypothetical $1,000 wind premium with a confirmed additional 10% credit produces $100 in annual savings. If the inspection costs $150, the simple payback is 18 months. These numbers are an arithmetic example only, not typical Florida premiums, expected credits, or a suggested inspection price. The form starts blank so that an illustrative value cannot be mistaken for a personalized estimate.</p>
+      <p>Payback divides the inspection cost by annual savings and converts years to months, rounded upward. It assumes the additional saving remains constant. It does not include the cost of a new roof, shutters, windows, engineering work, financing, or future inspections. If you are comparing a retrofit, include those expenses separately in your household budget. When savings are zero, there is no payback from the credit. A zero-cost inspection has no inspection expense to recover, but that does not make later construction work free.</p>
+      <p>An insurance renewal can increase even when a mitigation credit is added. Base rates, coverage limits, deductibles, policy terms, and other factors may change at the same time. Compare equivalent coverage and ask the insurer to separate the effect of the new credit from other renewal changes. Do not subtract this scenario result from your current bill and assume that the remainder is a future quote.</p>
 
-      <div style="margin-top: 32px;">
-        <h2>The 7 Sections of Florida Form OIR-B1-1802</h2>
-        <p>
-          Every licensed wind mitigation inspection conducted in Florida evaluates the same standardized state form. Understanding these 7 sections helps homeowners prioritize home improvements with the highest return on investment:
-        </p>
-        <ol style="margin-top: 14px; padding-left: 20px; line-height: 1.8;">
-          <li><strong>Building Code Compliance:</strong> Verifies whether the home was constructed under the 2001 Florida Building Code (effective March 1, 2002) or post-Andrew standards.</li>
-          <li><strong>Roof Covering:</strong> Assesses shingles, tile, metal, or modified bitumen to verify compliance with FBC standards and installation permits.</li>
-          <li><strong>Roof Deck Attachment:</strong> Documents the thickness of roof sheathing plywood and whether it is fastened with 6d nails, 8d nails, or staples, and their nail spacing (6 inches vs 12 inches).</li>
-          <li><strong>Roof to Wall Connection:</strong> Verifies toe-nails, clips, single wraps, or double wraps securing the rafters to structural walls.</li>
-          <li><strong>Roof Geometry:</strong> Verifies whether the roof meets the mathematical definition of a hip roof (greater than 90% hip perimeter).</li>
-          <li><strong>Secondary Water Resistance (SWR):</strong> Inspects the attic to identify self-adhering polymer underlayment (peel-and-stick) covering the plywood seams.</li>
-          <li><strong>Opening Protection:</strong> Evaluates every single glazed exterior opening for Miami-Dade Notice of Acceptance (NOA) or Florida Product Approval ratings.</li>
-        </ol>
-      </div>
+      <h2>Prepare for a Florida Wind Mitigation Inspection</h2>
+      <p>The Florida Office of Insurance Regulation lists a revised OIR-B1-1802 form effective April 1, 2026. Its resource page links the current form, inspector authorization requirements, and mitigation programs. Check the current official material before relying on an older report or an online checklist. OIR says a report may remain valid for up to five years if there are no material changes to the structure or inaccuracies in the form. Your insurer can explain whether your existing report is acceptable and what updates are needed after work on the home.</p>
+      <ul class="check-list">
+        <li><strong>Collect records:</strong> Gather the current mitigation report, roof permits, installation invoices, product approvals, and policy documents. Give copies to the inspector and insurer rather than trying to infer eligibility from a product name.</li>
+        <li><strong>Verify the inspector:</strong> Confirm that the person is authorized to perform Florida mitigation inspections. Ask about scope, price, access requirements, photographs, and delivery of the signed report before booking.</li>
+        <li><strong>Document roof features:</strong> Roof covering, roof deck attachment, roof-to-wall connections, roof geometry, and water resistance may require records or an on-site inspection. Do not enter an attic or climb a roof to self-certify them.</li>
+        <li><strong>Check opening protection:</strong> Keep approval and installation records for windows, doors, shutters, and other openings. Partial protection should not be assumed to qualify for a particular credit; the inspector and insurer must evaluate the applicable requirements.</li>
+        <li><strong>Request a written comparison:</strong> After submitting the report, ask which credits were accepted, their effective date, and the resulting premium. Keep the response with your renewal records.</li>
+      </ul>
 
-      <div class="panel" style="margin-top: 32px; background: rgba(14, 111, 143, 0.1);">
-        <h3>State Assistance &amp; Retrofit Grants</h3>
-        <p>
-          If you live in Florida, explore the <strong>My Safe Florida Home (MSFH)</strong> program. When funded by the state legislature, this program provides eligible homeowners with free hurricane mitigation home inspections and matching state grants of up to $10,000 to harden roofs, strengthen roof-to-wall connections, and install impact-rated windows and doors.
-        </p>
-        <p style="margin-top: 10px;">
-          For Texas coastal homeowners, the <strong>Texas Windstorm Insurance Association (TWIA)</strong> enforces comparable WPI-8 certification standards. Homeowners in Alabama and Louisiana can leverage the <strong>FORTIFIED Home</strong> program to receive certified insurance discounts.
-        </p>
-      </div>
+      <h2>Plan Improvements Beyond an Insurance Credit</h2>
+      <p>A project can improve resilience without producing the insurance saving you expected. Discuss structural work with qualified professionals, verify permits and contractor credentials, and compare written scopes of work. Do not choose a roof or opening-protection project solely because an online tool suggests a high discount. Consider the home's condition, local building requirements, maintenance, water intrusion, and what your household can afford. No mitigation measure makes a home hurricane-proof or replaces evacuation instructions.</p>
+      <p>Florida homeowners can check the My Safe Florida Home program through the official resources below. Funding, application periods, eligibility, inspections, and grant terms can change. Confirm current availability and whether approval is required before signing contracts or starting work. This calculator does not determine program eligibility and does not include a grant in its results. For homes outside Florida, consult your state's insurance department and relevant windstorm program instead of applying Florida report requirements to another jurisdiction.</p>
+      <p>Keep insurance planning alongside practical household preparation. Maintain a property inventory, back up policy and inspection documents, review your deductible, and plan for outages. Insurance credits concern a policy's rating; they do not describe today's weather or the safety of staying in a particular building. Use official NHC, NWS, and local emergency management guidance when a storm threatens.</p>
+      <h3>Official Florida Resources</h3>
+      <ul>
+        <li><a href="https://floir.gov/consumers/wind-mitigation-resources">Florida OIR wind mitigation forms, inspector requirements, and program links</a></li>
+        <li><a href="https://mysafeflhome.com/">My Safe Florida Home program eligibility and current availability</a></li>
+      </ul>
     </div>
   </section>
 
   <section class="band" aria-labelledby="faq-section">
     <div class="inner">
-      <h2 id="faq-section">Frequently Asked Questions: Wind Mitigation &amp; Insurance</h2>
+      <h2 id="faq-section">Wind Mitigation and Insurance Questions</h2>
       <FaqBlock faqs={toolFaqs} />
     </div>
   </section>
-
   <section class="band" aria-labelledby="related-tools">
     <div class="inner">
-      <h2 id="related-tools">Related Household Hurricane Planning Tools</h2>
-      <div class="grid-3" style="margin-top: 16px;">
-        <article class="panel">
-          <h3>Evacuation Decision Helper</h3>
-          <p>Sort storm watches, surge risk, and household vulnerabilities into clear action levels.</p>
-          <a class="action-link" href="/tools/evacuation-decision-helper/">Open Evacuation Helper</a>
-        </article>
-        <article class="panel">
-          <h3>County Hurricane Risk Lookup</h3>
-          <p>Check Point-based NWS alerts, coastal surge risk, and official county emergency managers.</p>
-          <a class="action-link" href="/tools/county-hurricane-risk/">Open County Risk Lookup</a>
-        </article>
-        <article class="panel">
-          <h3>Storm Distance Calculator</h3>
-          <p>Calculate live distance from active NHC tropical cyclones to your ZIP code coordinates.</p>
-          <a class="action-link" href="/tools/storm-distance-calculator/">Open Distance Calculator</a>
-        </article>
-      </div>
+      <h2 id="related-tools">Related Household Planning</h2>
+      <ul>
+        <li><a href="/tools/power-outage-planner/">Plan household needs during a power outage</a></li>
+        <li><a href="/tools/#inventory-heading">Prepare a home inventory checklist</a></li>
+        <li><a href="/tools/evacuation-decision-helper/">Review household evacuation considerations</a></li>
+      </ul>
     </div>
   </section>
 </Layout>
@@ -266,118 +136,39 @@ const jsonLd = graph(
   import { trackToolResult } from "../../lib/toolAnalytics";
 
   const form = document.querySelector<HTMLFormElement>("#wind-tool");
-  const discountPctEl = document.querySelector<HTMLElement>("#discount-pct");
-  const discountDescEl = document.querySelector<HTMLElement>("#discount-desc");
-  const savingsAmountEl = document.querySelector<HTMLElement>("#savings-amount");
-  const factorListEl = document.querySelector<HTMLElement>("#factor-list");
+  const savings = document.querySelector<HTMLElement>("#savings-amount");
+  const payback = document.querySelector<HTMLElement>("#payback-period");
+  const detail = document.querySelector<HTMLElement>("#calculation-detail");
+  const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
 
-  function calculateDiscount() {
-    if (!form || !discountPctEl || !discountDescEl || !savingsAmountEl || !factorListEl) {
+  form?.addEventListener("input", () => {
+    if (savings) savings.textContent = "Inputs changed. Recalculate to update your scenario.";
+    if (payback) payback.textContent = "";
+    if (detail) detail.textContent = "";
+  });
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!savings || !payback || !detail) {
       trackToolResult("wind_mitigation", "error");
       return;
     }
-
     const data = new FormData(form);
-    const yearBuilt = String(data.get("yearBuilt") ?? "post2002");
-    const roofShape = String(data.get("roofShape") ?? "hip");
-    const roofWall = String(data.get("roofWall") ?? "wraps");
-    const roofDeck = String(data.get("roofDeck") ?? "c");
-    const openingProtection = String(data.get("openingProtection") ?? "a");
-    const swr = data.get("swr") === "on";
-    const totalPremium = Math.max(500, Number(data.get("premium") || 3500));
-
-    // Base wind portion of coastal premium is typically 55% - 70% (we use 60% standard baseline)
-    const windPortionRatio = 0.60;
-    const windPremium = totalPremium * windPortionRatio;
-
-    let minDiscount = 0;
-    let maxDiscount = 0;
-    const drivers: string[] = [];
-
-    // 1. Building Code / Construction Era
-    if (yearBuilt === "post2002") {
-      minDiscount += 12;
-      maxDiscount += 18;
-      drivers.push("<strong>2001+ Florida Building Code:</strong> Base construction meets stringent modern wind load codes (+12-18%).");
-    } else if (yearBuilt === "1994to2001") {
-      minDiscount += 6;
-      maxDiscount += 10;
-      drivers.push("<strong>Post-Andrew Construction:</strong> Baseline wind resistance improvements (+6-10%).");
+    const raw = ["windPremium", "discount", "inspectionCost"].map((key) => String(data.get(key) ?? "").trim());
+    const [premium, discount, cost] = raw.map(Number);
+    if (!form.reportValidity() || raw.some((value) => !value) || ![premium, discount, cost].every(Number.isFinite)
+      || premium < 0 || premium > 1000000 || discount < 0 || discount > 100 || cost < 0 || cost > 1000000) {
+      savings.textContent = "Enter valid non-negative amounts and a discount from 0% to 100%.";
+      payback.textContent = "";
+      detail.textContent = "";
+      trackToolResult("wind_mitigation", "error");
+      return;
     }
-
-    // 2. Roof Shape (Hip roof is massive)
-    if (roofShape === "hip") {
-      minDiscount += 25;
-      maxDiscount += 35;
-      drivers.push("<strong>Aerodynamic Hip Roof:</strong> 4-sided pyramid geometry deflects wind and qualifies for top structural credits (+25-35%).");
-    } else {
-      drivers.push("<strong>Gable/Other Roof:</strong> Standard wind uplift exposure; upgrading to hip or adding gable bracing can recover lost credits.");
-    }
-
-    // 3. Roof to Wall Connection
-    if (roofWall === "wraps") {
-      minDiscount += 15;
-      maxDiscount += 22;
-      drivers.push("<strong>Single/Double Metal Wraps:</strong> Heavy steel straps securely anchor trusses directly into tie-beams (+15-22%).");
-    } else if (roofWall === "clips") {
-      minDiscount += 10;
-      maxDiscount += 16;
-      drivers.push("<strong>Hurricane Clips:</strong> Engineered metal brackets nailed to trusses prevent roof uplift (+10-16%).");
-    } else {
-      drivers.push("<strong>Toenails Only:</strong> Highest risk of roof detachment under Category 3+ winds. Installing hurricane clips yields immediate savings.");
-    }
-
-    // 4. Roof Deck Attachment
-    if (roofDeck === "c") {
-      minDiscount += 5;
-      maxDiscount += 8;
-      drivers.push("<strong>Level C Sheathing Attachment:</strong> 8d nails at 6\" edge spacing provide superior plywood hold-down (+5-8%).");
-    }
-
-    // 5. Secondary Water Resistance (SWR)
-    if (swr) {
-      minDiscount += 4;
-      maxDiscount += 7;
-      drivers.push("<strong>Secondary Water Resistance (SWR):</strong> Self-adhering sealed barrier prevents catastrophic water intrusion if shingles tear (+4-7%).");
-    }
-
-    // 6. Opening Protection
-    if (openingProtection === "a") {
-      minDiscount += 18;
-      maxDiscount += 25;
-      drivers.push("<strong>Class A Opening Protection:</strong> Full impact windows or rated shutters on 100% of openings eliminate internal pressurization (+18-25%).");
-    } else if (openingProtection === "b") {
-      minDiscount += 4;
-      maxDiscount += 8;
-      drivers.push("<strong>Basic Protection:</strong> Partial or unrated protection grants limited base credit (+4-8%).");
-    } else {
-      drivers.push("<strong>Unprotected Glazed Openings:</strong> Upgrading all windows and garage doors to impact standards can add 18-25% in additional premium savings.");
-    }
-
-    // Cap cumulative discount between 5% and 75% (state maximum statutory ceiling)
-    minDiscount = Math.min(75, Math.max(5, minDiscount));
-    maxDiscount = Math.min(75, Math.max(minDiscount + 5, maxDiscount));
-
-    const minSavings = Math.round(windPremium * (minDiscount / 100));
-    const maxSavings = Math.round(windPremium * (maxDiscount / 100));
-
-    discountPctEl.textContent = `${minDiscount}% - ${maxDiscount}%`;
-    discountDescEl.textContent = `Estimated statutory discount on the wind portion (~$${Math.round(windPremium)}/yr) of your policy.`;
-    savingsAmountEl.textContent = `$${minSavings.toLocaleString()} - $${maxSavings.toLocaleString()} / year`;
-
-    factorListEl.innerHTML = drivers.map((d) => `<li>${d}</li>`).join("");
+    const annualSavings = premium * discount / 100;
+    savings.textContent = `${currency.format(annualSavings)} per year in this scenario.`;
+    payback.textContent = cost === 0 ? "No inspection cost to recover."
+      : annualSavings === 0 ? "No inspection payback from this credit: additional savings are zero."
+      : `Simple inspection payback: ${Math.ceil(cost / annualSavings * 12)} months, assuming unchanged annual savings.`;
+    detail.textContent = `${currency.format(premium)} annual wind premium × ${discount}% additional credit. Inspection cost: ${currency.format(cost)}. Not a quote or a renewal prediction.`;
     trackToolResult("wind_mitigation", "success");
-  }
-
-  form?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    calculateDiscount();
   });
-
-  form?.addEventListener("change", () => {
-    calculateDiscount();
-  });
-
-  // Initial calculation on load
-  calculateDiscount();
 </script>

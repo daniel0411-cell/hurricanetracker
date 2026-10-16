@@ -39,6 +39,9 @@ const updatedLabel = new Date(status.checkedAt).toLocaleString("en-US", {
           <div><span>Nearest center-path point</span><strong>About {nearest.distance} mi</strong></div>
         </div>
         <p class="source-note">{nearest.advisory ? `NHC advisory #${nearest.advisory}. ` : ""}{nearest.updatedAt ? `Storm update ${nearest.updatedAt}.` : ""}</p>
+        {nearest.riSignal?.riActive && (
+          <p class="source-note ri-observation"><strong>Rapid intensification observed:</strong> {nearest.name}'s sustained wind increased by approximately {Math.round(nearest.riSignal.windIncrease24hMph!)} mph over about 24 hours, ending {nearest.riSignal.observedAt}. Calculated from NHC advisory history; not an official watch or a prediction of local impacts. <a href="https://www.nhc.noaa.gov/">Check the latest NHC advisory.</a></p>
+        )}
         <p class="answer-link"><a href={`/hurricane-tracker/storm/${nearest.slug}/`}>Track {nearest.name} and view NHC advisory context</a></p>
       </>
     ) : (
@@ -109,6 +112,7 @@ const updatedLabel = new Date(status.checkedAt).toLocaleString("en-US", {
   .answer-grid strong { display: block; margin-top: 3px; overflow-wrap: anywhere; }
   .answer-link { margin: 14px 0 0; font-weight: 800; }
   .source-note { margin: 14px 0 0; }
+  .ri-observation { padding: 12px; border-left: 4px solid #b45309; background: #fff7ed; color: #7c2d12; overflow-wrap: anywhere; }
   .current-questions { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line, #d7e0ea); }
   .current-questions h3 { margin: 0 0 8px; }
   .current-questions details { border-top: 1px solid var(--line, #d7e0ea); }

@@ -49,7 +49,7 @@ try {
         {matches.map((storm) => (
           <article class="state-card">
             <span class="badge warn">NHC {storm.advisory ? `#${storm.advisory}` : "active"}</span>
-            {storm.riActive && <span class="badge" style="background: #dc2626; color: #fff; margin-left: 6px;">RI Watch {storm.windIncrease ? `(+${Math.round(storm.windIncrease)}mph)` : ""}</span>}
+            {storm.riActive && <span class="badge warn">Observed RI {storm.windIncrease ? `(+${Math.round(storm.windIncrease)} mph / ~24h)` : ""}; not an official watch</span>}
             <h3>{storm.name}</h3>
             <p>Nearest forecast center point is approximately {storm.distance} miles away.</p>
             <a href={`/hurricane-tracker/storm/${storm.slug}/`}>Track {storm.name}</a>

@@ -1,5 +1,6 @@
 import { getNhcCurrentFeed } from "./nhcCurrent";
-import { getNhcForecast } from "./nhcForecast";
+import { getNhcForecast, getAdvisoryHistory } from "./nhcForecast";
+import { detectRapidIntensification, type RiSignal } from "./riDetection";
 import { relevantLocations } from "./stormRelevance";
 
 export type StateStormMatch = {
@@ -8,6 +9,7 @@ export type StateStormMatch = {
   distance: number;
   advisory?: string;
   updatedAt?: string;
+  riSignal?: RiSignal;
 };
 
 export type StateCurrentStatus = {
@@ -45,12 +47,20 @@ export async function getStateCurrentStatus(stateCode: string): Promise<StateCur
       const stateCities = relevance.cities.filter((city) => city.stateCode === stateCode);
       if (!stateCities.length) continue;
 
+      let riSignal: RiSignal | undefined;
+      try {
+        riSignal = detectRapidIntensification(await getAdvisoryHistory(storm.id));
+      } catch (error) {
+        console.error("State RI history unavailable", { stormId: storm.id, error: String(error) });
+      }
+
       status.matches.push({
         name: storm.name,
         slug: storm.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
         distance: Math.min(...stateCities.map((city) => city.distanceMiles)),
         advisory: forecast?.advisoryNumber,
-        updatedAt: forecast?.advisory ?? storm.lastUpdate
+        updatedAt: forecast?.advisory ?? storm.lastUpdate,
+        riSignal
       });
     }
     status.feedAvailable = true;
