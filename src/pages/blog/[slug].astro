@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import FaqBlock from "../../components/FaqBlock.astro";
+import AdPlacement from "../../components/AdPlacement.astro";
 import { blogPosts, getCategory, getRelatedPosts } from "../../data/blog";
 import { faqs, site } from "../../data/site";
 import { blogPostingSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
@@ -21,6 +22,7 @@ const clusterPosts = blogPosts
   .sort((a, b) => b.dateModified.localeCompare(a.dateModified))
   .slice(0, 5);
 const postFaqs = post.faqs?.length ? post.faqs : faqs;
+const adsEnabled = import.meta.env.PUBLIC_ADS_ENABLED === "true";
 const textSignal = [
   post.slug,
   post.title,
@@ -141,7 +143,7 @@ const jsonLd = graph(
             <figcaption>{figure.caption}</figcaption>
           </figure>
         ))}
-        <div class="ad-slot ad-slot-incontent ad-slot-compact"><!-- AD SLOT 3: In-Content Native --></div>
+        <AdPlacement placement="in-content" enabled={adsEnabled} />
         <h3>Official Source Check</h3>
         <p>Before making a life-safety decision, check weather.gov, your local emergency management agency, and current NHC advisories. NOAA/NESDIS and NASA images in this article are public-domain source visuals.</p>
         <section aria-labelledby="next-actions-heading">

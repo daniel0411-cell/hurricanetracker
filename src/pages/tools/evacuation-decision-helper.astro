@@ -121,6 +121,7 @@ const jsonLd = graph(
 </Layout>
 
 <script>
+  import { trackToolResult } from "../../lib/toolAnalytics";
   const form = document.querySelector<HTMLFormElement>("#evacuation-tool");
   const levelEl = document.querySelector<HTMLElement>("#decision-level");
   const summaryEl = document.querySelector<HTMLElement>("#decision-summary");
@@ -155,10 +156,14 @@ const jsonLd = graph(
 
   function render(score: number) {
     const recommendation = recommendations.find((item) => score <= item.max) ?? recommendations[0];
-    if (!levelEl || !summaryEl || !actionsEl || !recommendation) return;
+    if (!levelEl || !summaryEl || !actionsEl || !recommendation) {
+      trackToolResult("evacuation_decision", "error");
+      return;
+    }
     levelEl.textContent = recommendation.level;
     summaryEl.textContent = recommendation.summary;
     actionsEl.innerHTML = recommendation.actions.map((action) => `<li>${action}</li>`).join("");
+    trackToolResult("evacuation_decision", "success");
   }
 
   form?.addEventListener("submit", (event) => {

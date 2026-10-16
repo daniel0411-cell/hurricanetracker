@@ -103,6 +103,7 @@ const jsonLd = graph(
 </Layout>
 
 <script>
+  import { trackToolResult } from "../../lib/toolAnalytics";
   type LocationResult = {
     zip: string;
     city?: string;
@@ -170,6 +171,7 @@ const jsonLd = graph(
       if (!locationResponse.ok || !stormResponse.ok) throw new Error("Feed unavailable");
       const location = await locationResponse.json() as LocationResult;
       const stormFeed = await stormResponse.json() as StormFeed;
+      if (!Array.isArray(stormFeed.storms)) throw new Error("NHC storm list unavailable");
       const userLat = coordinate(location.latitude);
       const userLon = coordinate(location.longitude);
       if (userLat === null || userLon === null) throw new Error("ZIP coordinates unavailable");
@@ -206,7 +208,9 @@ const jsonLd = graph(
         `;
       }
       if (statusEl) statusEl.textContent = "Storm distance updated from current NHC data.";
+      trackToolResult("storm_distance", rows.length ? "success" : "no_data");
     } catch (error) {
+      trackToolResult("storm_distance", "error");
       console.error("HurricaneHub storm distance failed", error);
       if (statusEl) statusEl.textContent = "Storm distance could not load right now. Try again shortly.";
     }

@@ -5,28 +5,59 @@ type Props = {
 };
 
 const { placement, enabled = false } = Astro.props;
+const isNative = placement === "in-content";
+const isRectangle = placement === "bottom";
 ---
-{enabled && (
+{enabled && (isNative || isRectangle) && (
   <aside class:list={["ad-placement", `ad-placement-${placement}`]} aria-label="Advertisement">
-    <span>Advertisement</span>
+    <span class="ad-label">Advertisement</span>
+    {isNative ? (
+      <div class="ad-content ad-content-native">
+        <script is:inline async="async" data-cfasync="false" src="https://bicea.org/21/ccd5895056df0eea83904a04dfd8fef0"></script>
+        <div id="container-ccd5895056df0eea83904a04dfd8fef0"></div>
+      </div>
+    ) : (
+      <div class="ad-content ad-content-rectangle">
+        <script is:inline>
+          Object.assign(window, { atOptions: {
+            key: "1f2c96be021fc96b643773fdf72d67e7",
+            format: "iframe",
+            height: 250,
+            width: 300,
+            params: {}
+          }});
+        </script>
+        <script is:inline src="https://bicea.org/22/1f2c96be021fc96b643773fdf72d67e7"></script>
+      </div>
+    )}
   </aside>
 )}
 
 <style>
   .ad-placement {
-    width: min(100%, 728px);
-    min-height: 100px;
-    margin: 20px auto;
-    display: grid;
-    place-items: center;
+    width: min(100%, 760px);
+    min-height: 160px;
+    margin: 24px auto;
+    padding: 8px;
     border: 1px solid var(--line);
     background: var(--panel);
     color: var(--muted);
     font-size: 0.75rem;
   }
-  .ad-placement-bottom,
-  .ad-placement-in-content {
+  .ad-placement-bottom {
     width: min(100%, 320px);
+    min-height: 250px;
+  }
+  .ad-label {
+    display: block;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+  .ad-content {
+    display: grid;
+    place-items: center;
+  }
+  .ad-content-rectangle {
     min-height: 250px;
   }
 </style>

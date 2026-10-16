@@ -62,6 +62,7 @@ const { initialState = "FL" } = Astro.props;
 </section>
 
 <script>
+  import { trackToolResult } from "../lib/toolAnalytics";
   type Alert = {
     event?: string;
     headline?: string;
@@ -206,6 +207,7 @@ const { initialState = "FL" } = Astro.props;
     const response = await fetch(`/api/nws/alerts.json?area=${encodeURIComponent(state)}`);
     if (!response.ok) throw new Error("NWS alert feed failed");
     const data = await response.json() as AlertFeed;
+    if (!Array.isArray(data.alerts)) throw new Error("NWS alert list unavailable");
     const alerts = data.alerts ?? [];
     const level = data.decisionLevel ?? (alerts.length ? "Prepare" : "Monitor");
     const hazards = riskTypes(alerts);
@@ -227,11 +229,13 @@ const { initialState = "FL" } = Astro.props;
     sourceEl.textContent = `Source: National Weather Service active alerts · ${updated ? `checked ${new Date(updated).toLocaleString()}` : "check time unavailable"} · Verify county instructions at weather.gov.`;
     resultEl.hidden = false;
     setStatus("Risk screen updated from the official NWS alert proxy.");
+    trackToolResult("local_risk", "success");
   }
 
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
     loadRisk().catch((error) => {
+      trackToolResult("local_risk", "error");
       console.error("HurricaneHub location risk planner failed", error);
       setStatus("We could not load this location right now. Try the state selector or retry shortly.", true);
     });

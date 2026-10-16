@@ -1,11 +1,12 @@
 ---
 import { getNhcCurrentFeed } from "../lib/nhcCurrent";
-import { getNhcForecast } from "../lib/nhcForecast";
+import { getNhcForecast, getAdvisoryHistory } from "../lib/nhcForecast";
 import { relevantLocations } from "../lib/stormRelevance";
+import { detectRapidIntensification } from "../lib/riDetection";
 
 type Props = { citySlug?: string; stateCode?: string };
 const { citySlug, stateCode } = Astro.props;
-const matches: Array<{ name: string; slug: string; distance: number; advisory?: string }> = [];
+const matches: Array<{ name: string; slug: string; distance: number; advisory?: string; riActive?: boolean; windIncrease?: number | null }> = [];
 try {
   const { feed } = await getNhcCurrentFeed();
   for (const storm of feed.storms) {
@@ -13,7 +14,26 @@ try {
     const forecast = await getNhcForecast(storm.id, storm);
     const relevance = relevantLocations(forecast?.track ?? [], Number.isFinite(storm.latitudeNumeric) && Number.isFinite(storm.longitudeNumeric) ? [storm.longitudeNumeric!, storm.latitudeNumeric!] : undefined);
     const cities = relevance.cities.filter((city) => city.slug === citySlug || city.stateCode === stateCode);
-    if (cities.length) matches.push({ name: storm.name, slug: storm.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""), distance: Math.min(...cities.map((city) => city.distanceMiles)), advisory: forecast?.advisoryNumber });
+    if (cities.length) {
+      let riActive = false;
+      let windIncrease: number | null = null;
+      try {
+        const history = await getAdvisoryHistory(storm.id);
+        if (history.length) {
+          const signal = detectRapidIntensification(history);
+          riActive = signal.riActive;
+          windIncrease = signal.windIncrease24hMph;
+        }
+      } catch {}
+      matches.push({
+        name: storm.name,
+        slug: storm.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+        distance: Math.min(...cities.map((city) => city.distanceMiles)),
+        advisory: forecast?.advisoryNumber,
+        riActive,
+        windIncrease
+      });
+    }
   }
 } catch (error) {
   console.error("Active local storm relevance failed", { citySlug, stateCode, error });
@@ -27,7 +47,13 @@ try {
       <p class="answer">These systems have an official NHC center position within 500 miles of this area's established city trackers. This does not mean landfall, warning conditions, or impacts are forecast here.</p>
       <div class="grid-3 section-grid">
         {matches.map((storm) => (
-          <article class="state-card"><span class="badge warn">NHC {storm.advisory ? `#${storm.advisory}` : "active"}</span><h3>{storm.name}</h3><p>Nearest forecast center point is approximately {storm.distance} miles away.</p><a href={`/hurricane-tracker/storm/${storm.slug}/`}>Track {storm.name}</a></article>
+          <article class="state-card">
+            <span class="badge warn">NHC {storm.advisory ? `#${storm.advisory}` : "active"}</span>
+            {storm.riActive && <span class="badge" style="background: #dc2626; color: #fff; margin-left: 6px;">RI Watch {storm.windIncrease ? `(+${Math.round(storm.windIncrease)}mph)` : ""}</span>}
+            <h3>{storm.name}</h3>
+            <p>Nearest forecast center point is approximately {storm.distance} miles away.</p>
+            <a href={`/hurricane-tracker/storm/${storm.slug}/`}>Track {storm.name}</a>
+          </article>
         ))}
       </div>
     </div>

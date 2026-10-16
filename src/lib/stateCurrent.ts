@@ -26,14 +26,18 @@ export async function getStateCurrentStatus(stateCode: string): Promise<StateCur
   };
 
   try {
-    const { feed } = await getNhcCurrentFeed();
-    status.feedAvailable = true;
+    const { feed, cacheStatus } = await getNhcCurrentFeed();
+    if (cacheStatus === "stale") throw new Error("NHC current feed is stale");
     status.activeStormCount = feed.storms.length;
     status.checkedAt = feed.updatedAt ?? feed.fetchedAt;
 
     for (const storm of feed.storms) {
-      if (!storm.id || !storm.name) continue;
+      if (!storm.id || !storm.name) throw new Error("NHC storm identity unavailable");
       const forecast = await getNhcForecast(storm.id, storm);
+      if (!forecast?.track?.length) throw new Error("NHC forecast track unavailable");
+      if (!forecast.track.every(([lon, lat]) => Number.isFinite(lon) && Number.isFinite(lat) && Math.abs(lon) <= 180 && Math.abs(lat) <= 90)) {
+        throw new Error("NHC forecast track coordinates invalid");
+      }
       const current = Number.isFinite(storm.latitudeNumeric) && Number.isFinite(storm.longitudeNumeric)
         ? [storm.longitudeNumeric!, storm.latitudeNumeric!] as [number, number]
         : undefined;
@@ -49,6 +53,7 @@ export async function getStateCurrentStatus(stateCode: string): Promise<StateCur
         updatedAt: forecast?.advisory ?? storm.lastUpdate
       });
     }
+    status.feedAvailable = true;
   } catch (error) {
     console.error("State current hurricane status failed", { stateCode, error });
   }

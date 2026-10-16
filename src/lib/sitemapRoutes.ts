@@ -70,7 +70,8 @@ const toolRoutes: SitemapRoute[] = [
   { path: "tools/alert-action-decoder/", lastmod: updated, priority: "0.8", changefreq: "weekly", section: "tools" },
   { path: "tools/storm-surge-checker/", lastmod: updated, priority: "0.9", changefreq: "daily", section: "tools" },
   { path: "tools/family-communication-plan/", lastmod: updated, priority: "0.8", changefreq: "weekly", section: "tools" },
-  { path: "tools/business-preparedness/", lastmod: updated, priority: "0.8", changefreq: "weekly", section: "tools" }
+  { path: "tools/business-preparedness/", lastmod: updated, priority: "0.8", changefreq: "weekly", section: "tools" },
+  { path: "tools/wind-mitigation-calculator/", lastmod: updated, priority: "0.8", changefreq: "weekly", section: "tools" }
 ];
 
 const locationRoutes: SitemapRoute[] = [
