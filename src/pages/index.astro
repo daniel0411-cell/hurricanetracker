@@ -16,6 +16,7 @@ import type { NhcStorm, NwsAlert } from "../lib/weather";
 import { getNhcForecast } from "../lib/nhcForecast";
 import { getAtlanticOutlook } from "../lib/nhcOutlook";
 import { relevantLocations } from "../lib/stormRelevance";
+import { isStormFeedAvailable, isAlertFeedAvailable } from "../lib/weatherFeedStatus";
 
 type StormFeed = {
   storms?: Array<NhcStorm & { summary?: string }>;
@@ -32,7 +33,7 @@ type AlertFeed = {
 
 async function loadJson<T>(path: string): Promise<T | null> {
   try {
-    const response = await fetch(new URL(path, Astro.url));
+    const response = await fetch(new URL(path, Astro.url), { signal: AbortSignal.timeout(8_000) });
     if (!response.ok) {
       console.error("HurricaneHub home feed error", { path, status: response.status });
       return null;
@@ -50,7 +51,15 @@ const [stormFeed, floridaAlertFeed] = await Promise.all([
 ]);
 const atlanticOutlook = await getAtlanticOutlook();
 
-const storms = stormFeed?.storms ?? [];
+function checkedLabel(fetchedAt: string | undefined) {
+  return new Date(fetchedAt!).toLocaleString("en-US", {
+    timeZone: "UTC", month: "short", day: "numeric", hour: "numeric", minute: "2-digit"
+  }) + " UTC";
+}
+
+const stormFeedAvailable = isStormFeedAvailable(stormFeed);
+const alertFeedAvailable = isAlertFeedAvailable(floridaAlertFeed);
+const storms = stormFeedAvailable ? stormFeed?.storms ?? [] : [];
 const stateDemandOrder = ["georgia", "north-carolina", "texas", "florida", "virginia", "south-carolina", "louisiana", "mississippi", "alabama"];
 const activeStateCodes: string[] = [];
 for (const storm of storms) {
@@ -86,16 +95,28 @@ const title = atlanticNames.length
 const description = atlanticNames.length
   ? `Track ${atlanticNames.slice(0, 2).join(", ")} and current Atlantic hurricanes with NHC positions, forecast paths, live map, radar, Gulf status, state alerts, and local preparedness tools.`
   : "Track current hurricanes with NHC positions and forecast paths, then open the live map, radar, state NWS alerts, and local preparedness tools.";
-const floridaAlerts = floridaAlertFeed?.alerts ?? [];
+const floridaAlerts = alertFeedAvailable ? floridaAlertFeed?.alerts ?? [] : [];
 const featuredStateName = "Florida";
-const featuredDecisionLevel = floridaAlertFeed?.decisionLevel ?? "Monitor";
-const lastModified = floridaAlertFeed?.updatedAt ?? stormFeed?.updatedAt ?? site.contentLastModified;
-const parsedLastModified = new Date(lastModified);
-const updatedLabel = Number.isNaN(parsedLastModified.getTime())
-  ? "the latest available feed"
-  : `${parsedLastModified.toLocaleString("en-US", { timeZone: "UTC", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })} UTC`;
+const featuredDecisionLevel = alertFeedAvailable ? floridaAlertFeed!.decisionLevel! : "Status unavailable";
+const lastModified = new Date(Math.max(
+  Date.parse("2026-10-17T00:00:00.000Z"),
+  stormFeedAvailable ? Date.parse(stormFeed!.fetchedAt!) : 0,
+  alertFeedAvailable ? Date.parse(floridaAlertFeed!.fetchedAt!) : 0
+)).toISOString();
+const stormStatus = !stormFeedAvailable
+  ? "Current NHC storm data is temporarily unavailable. Check official NHC advisories for current activity."
+  : atlanticStorms.length
+    ? `The latest NHC feed lists ${atlanticStorms.length} active Atlantic system${atlanticStorms.length === 1 ? "" : "s"}${atlanticNames.length ? `: ${atlanticNames.join(", ")}` : ""}.`
+    : "The latest NHC feed lists no active Atlantic tropical cyclones.";
+const stormHeading = !stormFeedAvailable
+  ? "Atlantic status unavailable"
+  : atlanticStorms.length ? `${atlanticStorms.length} active Atlantic system${atlanticStorms.length === 1 ? "" : "s"}` : "No active Atlantic systems";
+const stormChecked = stormFeedAvailable ? `NHC feed checked ${checkedLabel(stormFeed?.fetchedAt)}.` : "Current NHC status could not be verified.";
+const alertsChecked = alertFeedAvailable ? `${featuredStateName} NWS feed checked ${checkedLabel(floridaAlertFeed?.fetchedAt)}.` : `${featuredStateName} NWS alerts could not be verified.`;
 const nextAction =
-  featuredDecisionLevel === "Leave"
+  !alertFeedAvailable
+    ? "Check official local NWS alerts and emergency management instructions."
+    : featuredDecisionLevel === "Leave"
     ? "Follow local evacuation orders now."
     : featuredDecisionLevel === "Act"
       ? "Move vulnerable people and finish protective actions."
@@ -152,7 +173,7 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
       <div>
         <p class="eyebrow">HurricaneHub · Live NHC Data</p>
         <h1 id="home-title">Live Hurricane Tracker</h1>
-        <p class="answer">{atlanticStorms.length ? `The latest NHC feed lists ${atlanticStorms.length} active Atlantic system${atlanticStorms.length === 1 ? "" : "s"}${atlanticNames.length ? `: ${atlanticNames.join(", ")}` : ""}.` : "The latest NHC feed lists no active Atlantic tropical cyclones."}{pacificStorms.length ? ` ${pacificStorms.length} additional NHC system${pacificStorms.length === 1 ? " is" : "s are"} active in the Eastern or Central Pacific.` : ""} Updated {updatedLabel}. Open the live hurricane tracker map for current positions, forecast paths, radar, satellite imagery, and local NWS alerts.</p>
+        <p class="answer">{stormStatus}{pacificStorms.length ? ` ${pacificStorms.length} additional NHC system${pacificStorms.length === 1 ? " is" : "s are"} active in the Eastern or Central Pacific.` : ""} {stormChecked} Open the live hurricane tracker map for current positions, forecast paths, radar, satellite imagery, and local NWS alerts.</p>
         <p class="section-actions">
           <a class="action-link" href="/hurricane-tracker/live/" data-track-event="open_live_tracker">Open live hurricane tracker map</a>
           {atlanticStorms.length > 0 && <a class="action-link secondary-action" href={`/hurricane-tracker/storm/${String(atlanticStorms[0].name ?? atlanticStorms[0].id ?? "storm").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}/`} data-track-event="open_active_storm">Track {atlanticStorms[0].name ?? "Atlantic storm"}</a>}
@@ -162,13 +183,13 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
       </div>
       <div class="decision-card" aria-label="Atlantic activity and featured state alerts">
         <p class="eyebrow">Atlantic operations snapshot</p>
-        <h2>{atlanticStorms.length ? `${atlanticStorms.length} active Atlantic system${atlanticStorms.length === 1 ? "" : "s"}` : "No active Atlantic systems"}</h2>
+        <h2>{stormHeading}</h2>
         <p><strong>{featuredStateName}: {featuredDecisionLevel}.</strong> {nextAction}</p>
         <div class="dashboard compact-dashboard" aria-label="Current official feed metrics">
-          <div class="metric"><strong>{atlanticStorms.length}</strong><span>Atlantic systems</span></div>
-          <div class="metric"><strong>{floridaAlerts.length}</strong><span>{featuredStateName} alerts</span></div>
+          <div class="metric"><strong class:list={{ "unavailable-metric": !stormFeedAvailable }}>{stormFeedAvailable ? atlanticStorms.length : "Unavailable"}</strong><span>Atlantic systems</span></div>
+          <div class="metric"><strong class:list={{ "unavailable-metric": !alertFeedAvailable }}>{alertFeedAvailable ? floridaAlerts.length : "Unavailable"}</strong><span>{featuredStateName} alerts</span></div>
         </div>
-        <p class="source-note">NHC Atlantic status plus the {featuredStateName} NWS feed. {pacificStorms.length ? `${pacificStorms.length} additional Pacific system${pacificStorms.length === 1 ? " is" : "s are"} shown in the live tracker. ` : ""}Check your local page for decisions. Updated {updatedLabel}.</p>
+        <p class="source-note">{stormChecked} {alertsChecked} Check your local page for decisions. <a href="https://www.nhc.noaa.gov/">Official NHC advisories</a> · <a href="https://www.weather.gov/">Official NWS alerts</a></p>
       </div>
     </div>
   </section>
@@ -520,6 +541,17 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
 
   .decision-card .metric span {
     color: rgba(255, 255, 255, 0.82);
+  }
+
+  .decision-card .metric strong.unavailable-metric {
+    font-size: 0.875rem;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  .decision-card .source-note a {
+    color: inherit;
+    text-decoration: underline;
   }
 
   .decision-card .source-note {

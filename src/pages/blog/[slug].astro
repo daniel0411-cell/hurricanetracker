@@ -135,6 +135,11 @@ const jsonLd = graph(
                 {section.bullets.map((bullet) => <li>{bullet}</li>)}
               </ul>
             )}
+            {section.links && (
+              <ul class="check-list">
+                {section.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+              </ul>
+            )}
           </section>
         ))}
         {post.figures?.map((figure) => (

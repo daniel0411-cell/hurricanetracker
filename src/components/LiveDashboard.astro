@@ -70,11 +70,12 @@ import { states } from "../data/site";
       </article>
     </div>
 
-    <p class="source-note dashboard-note">Official feeds are fetched through Cloudflare API routes and cached in KV when a binding is available.</p>
+    <p class="source-note dashboard-note">Check each source's timestamp and your local warnings. <a href="https://www.nhc.noaa.gov/">Official NHC advisories</a> · <a href="https://www.weather.gov/">Official NWS alerts</a></p>
   </div>
 </section>
 
 <script>
+  import { isStormFeedAvailable, isAlertFeedAvailable } from "../lib/weatherFeedStatus";
   type Storm = {
     name?: string;
     id?: string;
@@ -111,6 +112,7 @@ import { states } from "../data/site";
   const stormList = document.querySelector("#storm-list");
   const alertList = document.querySelector("#alert-list");
   const DEFAULT_STATE = "FL";
+  let requestNumber = 0;
 
   function severityClass(text: string) {
     if (/Extreme|Severe|Warning|Leave|Evacuation/i.test(text)) return "severity-leave";
@@ -138,27 +140,47 @@ import { states } from "../data/site";
 
   async function loadFeeds(state = DEFAULT_STATE) {
     if (!statusEl || !stormCount || !alertCount || !decisionEl || !stormList || !alertList) return;
+    const request = ++requestNumber;
     statusEl.textContent = "Loading...";
-    const [stormsResponse, alertsResponse] = await Promise.all([
-      fetch("/api/nhc/current.json"),
-      fetch(`/api/nws/alerts.json?state=${encodeURIComponent(state)}`)
+    stormCount.textContent = "--";
+    alertCount.textContent = "--";
+    decisionEl.textContent = "Loading";
+    decisionEl.className = "";
+    stormList.textContent = "Loading storms...";
+    alertList.textContent = `Loading ${state} alerts...`;
+    async function load<T>(path: string): Promise<T | null> {
+      try {
+        const response = await fetch(path, { signal: AbortSignal.timeout(8_000) });
+        return response.ok ? await response.json() as T : null;
+      } catch {
+        return null;
+      }
+    }
+    const [stormsData, alertsData] = await Promise.all([
+      load<StormFeed>("/api/nhc/current.json"),
+      load<AlertFeed>(`/api/nws/alerts.json?state=${encodeURIComponent(state)}`)
     ]);
-    const stormsData = await stormsResponse.json() as StormFeed;
-    const alertsData = await alertsResponse.json() as AlertFeed;
-    const storms = stormsData.storms ?? [];
-    const alerts = alertsData.alerts ?? [];
-    stormCount.textContent = String(storms.length);
-    alertCount.textContent = String(alerts.length);
-    const decision = alertsData.decisionLevel ?? "Monitor";
+    if (request !== requestNumber) return;
+    const stormsAvailable = isStormFeedAvailable(stormsData);
+    const alertsAvailable = isAlertFeedAvailable(alertsData);
+    const storms = stormsAvailable ? stormsData?.storms ?? [] : [];
+    const alerts = alertsAvailable ? alertsData?.alerts ?? [] : [];
+    stormCount.textContent = stormsAvailable ? String(storms.length) : "N/A";
+    alertCount.textContent = alertsAvailable ? String(alerts.length) : "N/A";
+    const decision = alertsAvailable ? alertsData!.decisionLevel! : "Unavailable";
     decisionEl.textContent = decision;
-    decisionEl.className = decisionClass(decision);
-    const updatedAt = alertsData.updatedAt ?? alertsData.fetchedAt ?? stormsData.updatedAt ?? stormsData.fetchedAt;
-    const updatedLabel = updatedAt
-      ? new Date(updatedAt).toLocaleString([], { dateStyle: "medium", timeStyle: "short" })
-      : "time unavailable";
-    statusEl.textContent = `Checked ${updatedLabel}`;
+    decisionEl.className = alertsAvailable ? decisionClass(decision) : "";
+    function checkedAt(value: string | undefined) {
+      return new Date(value!).toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
+    }
+    statusEl.textContent = [
+      stormsAvailable ? `NHC checked ${checkedAt(stormsData?.fetchedAt)}` : "NHC feed unavailable",
+      alertsAvailable ? `${state} NWS checked ${checkedAt(alertsData?.fetchedAt)}` : `${state} NWS feed unavailable`
+    ].join(" · ");
 
-    stormList.innerHTML = storms.length
+    stormList.innerHTML = !stormsAvailable
+      ? '<p class="source-note">Current NHC data is unavailable. Check <a href="https://www.nhc.noaa.gov/">official NHC advisories</a>.</p>'
+      : storms.length
       ? storms.slice(0, 5).map((storm) => {
         const severity = severityClass(storm.classification ?? "");
         return `
@@ -171,7 +193,9 @@ import { states } from "../data/site";
       }).join("")
       : '<p class="source-note">No active NHC tropical cyclone in the current feed.</p>';
 
-    alertList.innerHTML = alerts.length
+    alertList.innerHTML = !alertsAvailable
+      ? '<p class="source-note">Current state alerts are unavailable. Check <a href="https://www.weather.gov/">official NWS alerts</a>.</p>'
+      : alerts.length
       ? alerts.slice(0, 6).map((alert) => {
         const severity = severityClass(alert.severity ?? alert.event ?? "");
         return `
@@ -203,3 +227,14 @@ import { states } from "../data/site";
     if (statusEl) statusEl.textContent = "Feed unavailable; retry shortly.";
   });
 </script>
+
+<style>
+  .metric-strip .metric > div {
+    min-width: 0;
+  }
+
+  #decision-level {
+    font-size: 1rem;
+    overflow-wrap: anywhere;
+  }
+</style>

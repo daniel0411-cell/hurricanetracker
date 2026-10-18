@@ -11,6 +11,7 @@ export type BlogPost = {
     heading: string;
     body: string;
     bullets?: string[];
+    links?: Array<{ href: string; label: string }>;
   }>;
   faqs?: Array<{
     question: string;
@@ -157,7 +158,7 @@ export const blogPosts: BlogPost[] = [
     title: "How to Prepare Your Home for a Hurricane",
     description: "A homeowner checklist for shutters, drainage, documents, supplies, and evacuation timing before hurricane watches become warnings.",
     datePublished: "2025-06-03",
-    dateModified: "2026-07-28",
+    dateModified: "2026-10-17",
     image: "/images/blog/how-to-prepare-your-home-for-a-hurricane.jpg",
     imageAlt: "Homeowners install storm shutters and stack sandbags while preparing a coastal home for an approaching hurricane.",
     sections: [
@@ -175,6 +176,12 @@ export const blogPosts: BlogPost[] = [
         heading: "Inside the Home",
         body:
           "Move valuables away from windows and low floors, freeze water containers to help preserve food, and keep shoes, flashlights, and a battery radio where you can reach them in darkness."
+      },
+      {
+        heading: "Plan Florida Wind Mitigation Before a Storm",
+        body:
+          "Schedule structural improvements and inspection paperwork while conditions are calm. Florida homeowners considering a wind mitigation inspection should ask their insurer which credits are already applied, the annual wind premium before any proposed additional credit, and the additional discount the insurer can confirm. Use those figures to compare annual savings and inspection payback. A savings scenario does not establish eligibility, guarantee a lower renewal bill, or cover the cost of roof or shutter improvements. Home improvements also do not replace local evacuation instructions.",
+        links: [{ href: "/tools/wind-mitigation-calculator/", label: "Compare a Florida wind mitigation savings scenario" }]
       },
       {
         heading: "When to Stop Preparing",
@@ -786,7 +793,7 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Insurance Deductibles: What Coastal Homeowners Should Know",
     description: "Understand percentage hurricane deductibles, named-storm versus windstorm deductibles, flood coverage gaps, and how to review your policy before a storm.",
     datePublished: "2026-08-07",
-    dateModified: "2026-08-07",
+    dateModified: "2026-10-17",
     image: "/images/blog/hurricane-insurance-deductibles-guide.png",
     imageAlt: "A homeowner reviews an insurance policy document with a calculator and pen at a dining table, coastal house visible through the window.",
     sections: [
@@ -814,6 +821,12 @@ export const blogPosts: BlogPost[] = [
         heading: "Prepare Before Storm Season",
         body:
           "Review your declarations page, update your home inventory, photograph rooms and valuables, and store policy numbers and adjuster contacts in a waterproof, portable format. Confirm your deductible amount and whether it is a percentage or flat dollar value."
+      },
+      {
+        heading: "Keep Mitigation Credits Separate From Deductibles",
+        body:
+          "A wind mitigation credit concerns the premium; it does not by itself tell you what deductible will apply to a claim. Florida homeowners can compare a proposed additional credit with the wind mitigation savings calculator using the wind portion of their premium and an additional percentage confirmed by their insurer. Do not apply a credit already included in your bill a second time. The result is scenario arithmetic, not an insurance quote, eligibility decision, or promise that renewal costs will fall. Confirm coverage and deductible terms separately with the insurer.",
+        links: [{ href: "/tools/wind-mitigation-calculator/", label: "Calculate Florida wind premium savings and inspection payback" }]
       },
       {
         heading: "After a Storm: Document and Claim",
@@ -907,60 +920,70 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-rapid-intensification",
-    title: "Rapid Intensification: Why Hurricanes Suddenly Explode in Strength",
-    description: "Rapid intensification catches coastal communities off guard. Learn what fuels sudden hurricane strengthening, recent storm examples, and how real-time tracking saves lives in 2026.",
+    title: "Hurricane Rapid Intensification: Observations and Forecasts",
+    description: "Understand hurricane rapid intensification, how observed wind changes differ from forecasts, and what HurricaneHub's state monitoring can and cannot tell you.",
     datePublished: "2026-08-10",
-    dateModified: "2026-08-10",
+    dateModified: "2026-10-17",
     image: "/images/blog/hurricane-rapid-intensification.png",
     imageAlt: "A coastal resident holds a smartphone showing a hurricane tracker alert while standing on a wooden porch at sunset with storm clouds gathering over the Atlantic Ocean.",
     sections: [
       {
         heading: "Direct Answer",
-        body: "Rapid intensification is when a tropical cyclone's maximum sustained winds increase by at least 35 mph (30 knots) in 24 hours. It is the single most dangerous forecasting problem in modern meteorology because it can turn a manageable tropical storm into a major hurricane overnight, shrinking the evacuation window to a few hours. During the 2026 Atlantic hurricane season, a real-time hurricane tracker is the fastest way to catch the early pressure-drop and cloud-organization signals that precede a sudden power surge."
+        body: "The National Hurricane Center defines rapid intensification as an increase in a tropical cyclone's maximum sustained winds of at least 30 knots in 24 hours, approximately 35 mph. This describes a measured change over a period of time. It does not mean that a tracker can predict the next increase, identify an exact landfall, or decide whether a household should evacuate. Use the latest NHC advisory and discussion for the official intensity forecast, local NWS products for hazards near you, and emergency management instructions for evacuation decisions. HurricaneHub's state pages can add context from recent wind observations when a suitable history is available.",
+        links: [{ href: "https://www.nhc.noaa.gov/aboutgloss.shtml#RDEEP", label: "Read the NHC definition of rapid intensification" }]
       },
       {
         heading: "What Is Rapid Intensification?",
-        body: "The National Hurricane Center formally defines rapid intensification as a wind-speed increase of 35 mph or more in 24 hours. A storm does not need to be a hurricane to undergo it; tropical storms can rapidly intensify into hurricanes, and Category 1 hurricanes can jump to Category 4 in a single day. The phenomenon is not rare; it happens in roughly one-third of Atlantic hurricanes that reach major status, and it is becoming more frequent as ocean heat content rises. The 2026 Atlantic hurricane season outlook specifically flagged elevated rapid-intensification risk because Main Development Region sea-surface temperatures are running 1 to 2 degrees Celsius above the long-term average."
+        body: "Read a rapid-intensification statement together with its start time, end time, wind units, and source. A change between two observations around 24 hours apart is different from a forecast showing stronger winds tomorrow. It is also different from a storm crossing a category boundary: a category describes its maximum sustained wind at one time, while rapid intensification describes how much that wind changed. Tropical storms as well as hurricanes can strengthen rapidly. A storm that does not meet the threshold can still create dangerous wind, surge, rain, or tornado hazards. Avoid treating the presence or absence of an RI label as a complete local risk assessment."
       },
       {
-        heading: "The Science: What Fuels a Sudden Power Surge",
-        body: "Three conditions must align for a hurricane to rapidly intensify, and when they do, the storm behaves like an engine suddenly finding premium fuel.",
-        bullets: ["Warm ocean heat content: Sea-surface temperatures above 28 degrees Celsius (82 degrees Fahrenheit) supply the thermal energy that powers convection. Deep warm water matters more than a thin warm layer because mixing does not cool the surface.", "Low vertical wind shear: When upper-level winds blow in the same direction and speed as the storm, the hurricane's exhaust chimney stays intact. Shear above 20 knots tears the structure apart.", "Moist mid-level air: Dry Saharan Air Layer intrusions evaporate cloud droplets and choke development. A humid environment lets thunderstorms build vertically without interruption."]
+        heading: "Environmental Clues Are Not a Forecast",
+        body: "Ocean conditions, atmospheric moisture, wind shear, and the storm's internal structure all matter to intensity forecasts. Those factors must be interpreted together by forecasters using observations and models. A warm-water map, a clearer eye, or a falling pressure value on its own cannot establish that a storm will rapidly intensify. Nor can a fixed temperature or pressure cutoff give every household the same action deadline. Satellite pictures are useful for seeing structure, but a change in cloud appearance is not a direct measurement of maximum sustained surface wind. Read the official NHC discussion to understand the forecast reasoning and uncertainty instead of inferring an intensity prediction from one map layer."
       },
       {
-        heading: "Recent Storms That Defied Forecasts",
-        body: "Hurricane Ian in 2022 intensified from a Category 3 to a Category 4 in just two hours before devastating southwest Florida. Hurricane Idalia in 2023 jumped from a Category 1 to a Category 4 in less than 24 hours while crossing record-warm Gulf waters. Hurricane Helene in 2024 underwent rapid intensification to Category 4 before its catastrophic Florida landfall, and Hurricane Milton exploded from a tropical storm to a Category 5 in under 48 hours, one of the fastest intensification rates ever recorded in the Gulf of Mexico. In every case, the official forecast cone underestimated peak intensity by a full category or more. This is why learning how to track hurricanes means understanding the limits of intensity forecasting, not just reading the track line."
+        heading: "Use Official Records for Historical Comparisons",
+        body: "When comparing a current system with an earlier hurricane, use the NHC Tropical Cyclone Report for that storm. The report separates the observed intensity history, landfall details, and forecast evaluation. A headline about a category jump may refer to different start and end times from the 24-hour RI definition. Avoid copying a dramatic historical comparison without checking those timestamps. The forecast cone describes uncertainty in the future center track; it is not an intensity forecast or a map of every place that can be affected. Compare track, intensity, and local hazard products separately rather than saying that a cone predicted a specific peak wind speed.",
+        links: [{ href: "https://www.nhc.noaa.gov/data/tcr/", label: "Find official NHC Tropical Cyclone Reports" }]
       },
       {
-        heading: "Why Rapid Intensification Makes Hurricane Tracking Harder",
-        body: "Track forecasts have improved dramatically over the past 30 years; the 72-hour track error has been cut nearly in half. Intensity forecasts, however, have improved far more slowly. The atmosphere inside a hurricane core operates on scales too small for most computer models to resolve directly. A storm's inner eyewall can contract and reform in a process called eyewall replacement, which can either temporarily weaken or suddenly boost intensity with almost no warning. When rapid intensification occurs 36 hours before landfall, evacuation zones may need to expand, shelters may fill faster, and the time available to leave can shrink from a full day to a single afternoon."
+        heading: "What HurricaneHub's State Monitoring Measures",
+        body: "For an active system relevant to a state page, HurricaneHub compares the latest available NHC wind observation with an observation approximately 24 hours earlier. The current implementation uses a 35 mph increase for the displayed RI observation signal. It accepts the older observation only when the interval is between 23.5 and 24.5 hours. It also rejects a latest observation more than eight hours old or more than fifteen minutes in the future. These checks reduce misleading comparisons when the local history is incomplete or stale. The displayed pressure change adds context, but pressure alone does not activate the wind-based RI signal. This is an observation summary, not an official NHC warning or a forecast of further strengthening."
       },
       {
-        heading: "How to Spot the Warning Signs on a Real-Time Hurricane Tracker",
-        body: "You do not need to be a meteorologist to recognize the early signals. A real-time hurricane tracker like HurricaneHub overlays the data you need on a single map.",
-        bullets: ["Falling central pressure: A pressure drop of 10 millibars or more in six hours signals the storm is spinning up. Watch for readings below 980 millibars in a strengthening system.", "Satellite cloud-top cooling: Infrared satellite imagery showing colder, brighter cloud tops near the center means thunderstorms are building taller and the storm is organizing.", "Eyewall formation: When a ring of intense convection closes around a clearing eye on satellite, rapid intensification often follows within hours.", "Warm water path: If the forecast track crosses sea-surface temperatures above 29 degrees Celsius with low shear, the environment supports explosive growth."]
+        heading: "A Missing Signal Does Not Mean No Risk",
+        body: "The state monitoring feature depends on observations collected by this site. A newly tracked storm may not yet have a comparable observation from a day earlier. Missing wind values, stale records, a gap in collection, or an unavailable history can prevent the comparison. In those cases, a missing RI label is not evidence that the storm is steady, weakening, or safe. Even with a valid comparison below the threshold, the official forecast may call for future strengthening. Keep reading the NHC advisory and discussion, compare their issue times, and check local warnings. Do not wait for HurricaneHub to display a signal before following an existing evacuation order."
       },
       {
         heading: "What Households Should Do Differently",
-        body: "If a storm in your region is showing rapid-intensification signals, shift your timeline earlier. A Category 1 forecast can become a Category 4 reality before the next advisory. Complete your evacuation packing, fuel your vehicle, and confirm your route the moment you see pressure dropping, not when the upgrade is officially announced. Review your local evacuation zone and leave early if your household includes anyone with medical, mobility, or transportation constraints. Extreme weather alerts on your phone should be enabled for hurricane warnings, storm surge warnings, and evacuation orders. The window between a rapid-intensification event and landfall can be too short to start from scratch."
+        body: "Prepare while there is time to make decisions calmly: confirm your evacuation zone, transportation, destination, medicines, documents, and communication plan. Households with medical, mobility, or transport needs should discuss extra lead time with local officials and care providers. During an active threat, follow the current NWS hazards and emergency management instructions for your location. Do not turn a pressure change, satellite image, or RI signal into your own evacuation trigger. Distance from the center and a lower category do not rule out other hazards. Use planning tools to organize your household's constraints, then confirm the route and deadline with the responsible local agency.",
+        links: [{ href: "/tools/evacuation-decision-helper/", label: "Review household evacuation planning factors" }, { href: "/tools/alert-action-decoder/", label: "Understand current watch and warning language" }]
       },
       {
-        heading: "Use HurricaneHub to Catch Rapid Intensification Early",
-        body: "HurricaneHub is built to surface the rapid-intensification signals that matter. Our real-time hurricane tracker combines GOES-East true-color satellite imagery refreshed every ten minutes, live Doppler radar for rain-band rotation, NWS active alerts by state, and NHC forecast cones on one map. When a storm's pressure drops and cloud tops brighten, you see it on the satellite layer before the next advisory headline. Bookmark HurricaneHub for the rest of the 2026 Atlantic hurricane season, keep the radar page open when a named storm enters your basin, and pair what you see with official NHC advisories at hurricanes.gov and local NWS alerts at weather.gov. Rapid intensification rewards households that watch the data early and act on it fast."
+        heading: "Move From Storm Context to Your State",
+        body: "Open the live tracker for current NHC systems and the official forecast context, then use the state tracker for nearby-system relevance and local NWS alert pathways. Where enough recent observations exist, the state page can show an observed RI summary for a relevant system. That relevance check uses the storm center and forecast path near this site's established city trackers; it is not a prediction that the state will be hit. Check your exact county or location for warning coverage and evacuation instructions. If either source is unavailable, open the official agency directly instead of interpreting a blank display as an all-clear.",
+        links: [{ href: "/hurricane-tracker/live/", label: "Open current NHC storm tracking" }, { href: "/tracker/florida/", label: "Check Florida storm context and NWS alerts" }, { href: "/tracker/texas/", label: "Check Texas storm context and NWS alerts" }, { href: "/tracker/", label: "Find your state hurricane tracker" }]
       }
     ],
     faqs: [
       {
         question: "What is the definition of rapid intensification in hurricanes?",
-        answer: "Rapid intensification is defined as a tropical cyclone's maximum sustained winds increasing by at least 35 mph (30 knots) within 24 hours. It can happen with tropical storms as well as existing hurricanes."
+        answer: "NHC defines rapid intensification as a maximum sustained wind increase of at least 30 knots in 24 hours, approximately 35 mph. The term describes a change over time, not a category or a landfall forecast."
       },
       {
         question: "Can a hurricane rapidly intensify right before landfall?",
-        answer: "Yes. Several recent hurricanes, including Ian, Idalia, Helene, and Milton, rapidly intensified within 24 to 48 hours of landfall. This is why households should prepare early and not wait for the peak intensity forecast to be finalized."
+        answer: "Rapid strengthening can occur near land. Use the current official NHC intensity forecast and discussion, local NWS warnings, and emergency management instructions. Do not wait for a tracker label before following a local evacuation order."
       },
       {
         question: "How can I tell if a hurricane is about to rapidly intensify?",
-        answer: "Watch for rapidly falling central pressure, cooling and brightening cloud tops on infrared satellite, eyewall formation, and a forecast track over warm water with low wind shear. A real-time hurricane tracker like HurricaneHub displays these signals on one map."
+        answer: "Use the official NHC forecast and discussion. Warm water, pressure changes, or satellite appearance alone cannot establish that a storm will rapidly intensify. HurricaneHub's RI observation summary describes recent wind change; it does not predict the next change."
+      },
+      {
+        question: "Does a missing HurricaneHub RI label mean the storm is not strengthening?",
+        answer: "No. The comparison may be unavailable because observations are missing, too old, or not approximately 24 hours apart. A missing label is not an all-clear and does not replace current official forecasts or warnings."
+      },
+      {
+        question: "Can a pressure drop alone trigger the HurricaneHub RI signal?",
+        answer: "No. The current signal requires a valid observed wind increase. Pressure change is supplementary context and does not by itself establish rapid intensification."
       }
     ]
   },
