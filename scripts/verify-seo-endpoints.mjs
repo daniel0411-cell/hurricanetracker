@@ -6,16 +6,17 @@
  */
 
 const site = process.env.SITE_URL || "https://www.hurricanetracker.cc";
-const publisherId = "ca-pub-7504167844948264";
+const publisherId = "pub-2321309842883439";
+const adsTxtEntry = `google.com, ${publisherId}, DIRECT, f08c47fec0942fa0`;
 const crawlerUserAgents = [
   "Mediapartners-Google",
   "AdsBot-Google (+http://www.google.com/adsbot.html)",
   "Googlebot/2.1 (+http://www.google.com/bot.html)",
 ];
 const endpoints = [
-  { path: "/", contentType: "text/html", marker: publisherId, userAgent: "Mediapartners-Google" },
+  { path: "/", contentType: "text/html", marker: "<main", userAgent: "Mediapartners-Google" },
   { path: "/robots.txt", contentType: "text/plain", marker: "Sitemap:" },
-  { path: "/ads.txt", contentType: "text/plain", marker: "pub-7504167844948264" },
+  { path: "/ads.txt", contentType: "text/plain", marker: adsTxtEntry },
   { path: "/favicon.ico", contentType: "image/", marker: null },
   { path: "/privacy/", contentType: "text/html", marker: "Privacy Policy" },
   { path: "/about/", contentType: "text/html", marker: "About HurricaneHub" },
@@ -43,19 +44,25 @@ async function verify({ path, contentType, marker, userAgent = "HurricaneHub SEO
   if (marker && !body.includes(marker)) {
     throw new Error(`${url} did not contain ${marker}`);
   }
+  if (path === "/ads.txt" && body.trim() !== adsTxtEntry) {
+    throw new Error(`${url} did not match the configured ads.txt publisher entry`);
+  }
 
   console.log(`[seo-check] OK ${response.status} ${url}`);
 }
 
 async function verifyAdSenseEntry() {
-  const entries = [
+  const origins = [
     "http://hurricanetracker.cc/",
     "https://hurricanetracker.cc/",
     "http://www.hurricanetracker.cc/",
     "https://www.hurricanetracker.cc/",
   ];
+  const entries = origins.flatMap((origin) => [origin, new URL("/ads.txt", origin).toString()]);
 
   for (const entry of entries) {
+    const path = new URL(entry).pathname;
+    const expectedUrl = new URL(path, `${site}/`).toString();
     for (const userAgent of crawlerUserAgents) {
       for (const method of ["GET", "HEAD"]) {
         let current = entry;
@@ -77,13 +84,19 @@ async function verifyAdSenseEntry() {
             continue;
           }
 
-          if (!response.ok || current !== `${site}/`) {
+          if (!response.ok || current !== expectedUrl) {
             throw new Error(`${entry} failed for ${userAgent} ${method}: ${hops.join(" -> ")}`);
           }
 
           const body = method === "GET" ? await response.text() : "";
-          if (method === "GET" && (!body.includes(publisherId) || /Just a moment|cf-chl-/i.test(body))) {
-            throw new Error(`${entry} returned a challenge or omitted ${publisherId} for ${userAgent}`);
+          if (method === "GET") {
+            const isAdsTxt = path === "/ads.txt";
+            const validContent = isAdsTxt ? body.trim() === adsTxtEntry : body.includes("<main");
+            const expectedType = isAdsTxt ? "text/plain" : "text/html";
+            const type = response.headers.get("content-type") || "";
+            if (!validContent || !type.includes(expectedType) || /Just a moment|cf-chl-/i.test(body)) {
+              throw new Error(`${entry} returned a challenge or invalid ${isAdsTxt ? "ads.txt publisher entry" : "homepage"} for ${userAgent}`);
+            }
           }
 
           console.log(`[seo-check] OK ${userAgent} ${method} ${hops.join(" -> ")}`);
