@@ -75,13 +75,14 @@ import { states } from "../data/site";
 </section>
 
 <script>
+  import { advisoryUrl, type AdvisoryLink } from "../lib/weather";
   import { isStormFeedAvailable, isAlertFeedAvailable } from "../lib/weatherFeedStatus";
   type Storm = {
     name?: string;
     id?: string;
     classification?: string;
     summary?: string;
-    publicAdvisory?: string;
+    publicAdvisory?: AdvisoryLink;
   };
   type Alert = {
     event?: string;
@@ -183,11 +184,12 @@ import { states } from "../data/site";
       : storms.length
       ? storms.slice(0, 5).map((storm) => {
         const severity = severityClass(storm.classification ?? "");
+        const officialAdvisory = advisoryUrl(storm.publicAdvisory);
         return `
         <article class="storm-chip ${severity}">
           <span class="storm-name">${escapeHtml(storm.name ?? storm.id ?? "Active system")}</span>
           <span class="storm-class">${escapeHtml(storm.classification ?? "NHC")}</span>
-          ${storm.publicAdvisory ? `<a href="${escapeHtml(storm.publicAdvisory)}" rel="nofollow" aria-label="NHC advisory">NHC</a>` : ""}
+          ${officialAdvisory ? `<a href="${escapeHtml(officialAdvisory)}" rel="nofollow" aria-label="NHC advisory">NHC</a>` : ""}
         </article>
       `;
       }).join("")

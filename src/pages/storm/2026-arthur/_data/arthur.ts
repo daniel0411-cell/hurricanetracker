@@ -64,64 +64,64 @@ export const arthur: StormArchive = {
   code: "AL012026",
   year: 2026,
   classification: "Tropical Storm",
-  status: "Dissipated (June 18, 2026)",
+  status: "Post-tropical at final NHC advisory (0300 UTC June 18)",
   basin: "Atlantic",
   pronunciation: "AR-thur",
   summary:
-    "Tropical Storm Arthur became the first named storm of the 2026 Atlantic hurricane season when the National Hurricane Center upgraded Potential Tropical Cyclone One near the middle Texas coast on June 17, 2026. Arthur made landfall near Freeport, Texas, and produced life-threatening flooding well inland across the Gulf Coast and Southeast.",
+    "Arthur was the first named storm of the 2026 Atlantic hurricane season. NHC's season summary, checked October 23, lists a peak intensity of 40 kt (about 45 mph) and a minimum pressure of 999 mb. Its June 17 advisories documented a short-lived tropical storm near the Texas coast and warned of dangerous inland rainfall. This archive separates those operational forecasts from observed positions; it does not present unverified casualty totals, damage estimates, or forecast rainfall as final observed impacts.",
   heroStats: [
-    { label: "Peak winds", value: "40 mph (35 kt)" },
+    { label: "Peak winds (season summary)", value: "45 mph (40 kt)" },
     { label: "Min pressure", value: "999 mb" },
     { label: "ACE", value: "0.4 x10⁴ kt²" },
     { label: "Dates", value: "Jun 17–18, 2026" },
-    { label: "Landfall", value: "Freeport, Texas" },
+    { label: "Final NHC area", value: "Upper Texas coast" },
     { label: "NHC code", value: "AL012026" }
   ],
   live: {
     bulletin:
-      "Final NHC record (archived): Arthur was a short-lived, flood-driven tropical storm. It organized in the northwestern Gulf of Mexico, moved northeast along the Texas coast, and made landfall near Freeport, Texas, on June 17 before weakening rapidly inland and dissipating on June 18.",
+      "NHC's final public advisory was Advisory 8, issued at 10:00 PM CDT June 17 (0300 UTC June 18). It classified Arthur as post-tropical near 29.7N, 94.5W, about 35 miles north-northeast of Galveston, with 35 mph winds and 1000 mb pressure. NHC discontinued coastal watches and warnings but continued to warn of inland flooding. The season-summary figures below are separate from this final operational snapshot and may be revised; no storm-specific final Tropical Cyclone Report is linked in the reviewed October 23 summary.",
     rows: [
-      { label: "Classification", value: "Tropical Storm (post-season)" },
-      { label: "Peak intensity", value: "40 mph (35 kt), 999 mb" },
-      { label: "Final position", value: "Inland over southeast Texas" },
-      { label: "Movement", value: "Northeast 9 mph, then rapid weakening" },
-      { label: "Peak rainfall", value: "Up to 20 in (508 mm) isolated" },
-      { label: "Storm surge", value: "2–4 ft, Port Bolivar to Morgan City" },
-      { label: "Direct deaths", value: "2 (NHC Tropical Cyclone Report)" },
-      { label: "U.S. damage", value: "Minimal (flood-driven)" }
+      { label: "Final advisory classification", value: "Post-Tropical Cyclone" },
+      { label: "Season-summary peak", value: "40 kt (about 45 mph), minimum pressure 999 mb" },
+      { label: "Final advisory position", value: "29.7N, 94.5W (Upper Texas coast)" },
+      { label: "Final advisory wind / pressure", value: "35 mph / 1000 mb" },
+      { label: "Final advisory movement", value: "Northeast at 9 mph" },
+      { label: "Rainfall forecast in Advisory 8", value: "5-10 in; isolated totals near 20 in through early Friday" },
+      { label: "Observed rainfall / surge totals", value: "Not established by the cited advisories" },
+      { label: "Casualties / damage", value: "No storm-specific verified totals presented here" }
     ],
-    advisoryNumber: "Final public advisory",
-    advisoryTime: "June 18, 2026",
-    nhcAdvisoryUrl: "https://www.nhc.noaa.gov/text/refresh/MIATCPAT2+shtml/171500.shtml",
+    advisoryNumber: "8 - final public advisory",
+    advisoryTime: "0300 UTC June 18, 2026 (10 PM CDT June 17)",
+    nhcAdvisoryUrl: "https://www.nhc.noaa.gov/archive/2026/al01/al012026.public.008.shtml",
     nhcSourceUrl: "https://www.nhc.noaa.gov/data/tcr/index.php?text"
   },
   timeline: [
     { date: "Jun 16, 2026", event: "System designated Potential Tropical Cyclone One while organizing in the northwestern Gulf of Mexico." },
-    { date: "Jun 17, 2026 (AM)", event: "NHC upgrades PTC One to Tropical Storm Arthur — the first named storm of the 2026 Atlantic season — near the middle Texas coast." },
-    { date: "Jun 17, 2026 (PM)", event: "Arthur makes landfall near Freeport, Texas, with tropical-storm-force winds and a dangerous rainfall threat." },
-    { date: "Jun 17–19, 2026", event: "Torrential rain spreads northeast into Louisiana, Mississippi, Alabama, Georgia, and the Florida Panhandle." },
-    { date: "Jun 18, 2026", event: "Arthur weakens to a remnant low over southeast Texas and dissipates; flood threat continues inland." }
+    { date: "Jun 17, 2026, 1630 UTC", event: "Special Advisory 6 reports Tropical Storm Arthur with maximum sustained winds of 45 mph." },
+    { date: "Jun 17, 2026, 2100 UTC", event: "Advisory 7 locates Arthur about 20 miles north-northwest of Matagorda, Texas, with 45 mph winds, moving north-northeast at 7 mph." },
+    { date: "Jun 18, 2026, 0300 UTC", event: "Final Advisory 8 classifies Arthur as post-tropical near the Upper Texas coast with 35 mph winds. Coastal watches and warnings end; the inland rainfall threat continues." },
+    { date: "Oct 23, 2026 source check", event: "NHC's season summary lists Arthur for June 17-18, with 40 kt peak winds, 999 mb minimum pressure, and ACE of 0.4. These summary values are not a substitute for a final storm-specific report." }
   ],
   impact: [
     {
-      title: "Life-threatening rainfall was the primary threat",
+      title: "The rainfall forecast remained dangerous after weakening",
       body:
-        "Although Arthur was only a 40 mph tropical storm, its rainfall footprint was the headline hazard. The NHC warned of 5–10 inches of rain from the mid and upper Texas coast into Louisiana, Mississippi, and Alabama, with isolated totals near 20 inches (508 mm). Saturated soils and repeated rain bands pushed urban, low-lying, and riverine communities into flash-flood territory from the Texas Coastal Bend to the Florida Panhandle."
+        "Final Advisory 8 forecast 5-10 inches of rain, with isolated totals near 20 inches, through early Friday from the Mid and Upper Texas coast into portions of Louisiana, Mississippi, Alabama, western Georgia, and the Florida Panhandle. NHC described the potential for dangerous to life-threatening flash flooding. Those numbers describe forecast storm totals and geographic possibilities, not a verified maximum at a rain gauge. Observed rainfall requires a dated WPC storm summary or station report. A storm losing its tropical classification does not end a local flood warning or make a flooded road safe."
     },
     {
       title: "Storm surge and coastal flooding",
       body:
-        "The combination of surge and tide raised water levels 2–4 feet above normally dry ground from Port Bolivar, Texas, to Morgan City, Louisiana. The deepest water occurred along the immediate coast and just east of the landfall point, where surge aligned with high tide and large, dangerous waves."
+        "Advisory 7 forecast the possibility of 1-3 feet of above-ground inundation somewhere from Matagorda, Texas, to the mouth of the Mississippi River if peak surge coincided with high tide. It emphasized that local water levels depend on timing and vary over short distances. Advisory 8 later reported elevated water along the Upper Texas coast and expected it to subside overnight. Neither statement establishes a measured peak depth at a particular location. Waves, rip currents, and rainfall flooding are separate hazards that require their own observations and official products."
     },
     {
-      title: "Energy-sector disruption",
+      title: "Limits of the available impact record",
       body:
-        "Arthur's track clipped the heart of the Gulf refining corridor between Corpus Christi and Pascagoula, Mississippi. Operators monitored offshore platforms and coastal facilities, and model estimates flagged potential production shut-ins, a reminder that even weak landfalling storms can ripple into fuel markets."
+        "This page does not assign fatalities, financial losses, refinery shutdowns, or a precise landfall point from assumptions about the forecast track. The reviewed NHC season table does not provide storm-specific casualty or damage totals for Arthur, and no linked final Arthur report was available there at the October 23 check. A blank table entry is not evidence that no harm occurred. Readers researching a particular impact should use the storm-specific report when available and dated local emergency, rainfall, and coastal observations, keeping their measurement periods and locations attached to each number."
     },
     {
       title: "How 2026 Arthur compares with past Arthur storms",
       body:
-        "The name Arthur has now produced three very different systems. The 2026 storm was a Gulf-landfalling, flood-dominated tropical storm. That is a different animal from 2014's North Carolina hurricane and 2020's open-Atlantic brush, summarized below."
+        "Storm names are reused, so a name alone is not an identifier for a track or impact. Arthur in 2014 was a North Carolina hurricane; Arthur in 2020 was an offshore tropical storm; the 2026 record concerns AL012026 near the Texas coast. Keep the year and basin identifier with any archived map. A historical comparison can explain the range of hazards associated with a name, but cannot predict the path, strength, rainfall, or evacuation requirements of a later storm."
     }
   ],
   historical: [
@@ -129,41 +129,39 @@ export const arthur: StormArchive = {
       year: 2014,
       classification: "Category 2 Hurricane",
       summary:
-        "Arthur became the earliest hurricane to make landfall in North Carolina since records began in 1851, striking the Outer Banks on July 3–4, 2014.",
+        "The 2014 Arthur was a Category 2 hurricane affecting the North Carolina Outer Banks. It is a separate storm from the 2026 Texas-coast system.",
       stats: [
         { label: "Peak winds", value: "100 mph (Category 2)" },
         { label: "Min pressure", value: "973 mb" },
         { label: "Landfall", value: "Shackleford Banks, NC" },
-        { label: "Notable", value: "No direct fatalities; 4–5 ft surge" }
+        { label: "NHC identifier", value: "AL012014" }
       ],
       comparison:
-        "2014 Arthur was a wind-and-surge hurricane hitting the Outer Banks, the opposite profile from the 2026 flood storm that landed on the Texas coast."
+        "Compare the 2014 NHC report with the 2026 advisories rather than transferring wind, surge, or casualty figures between years."
     },
     {
       year: 2020,
       classification: "Tropical Storm",
       summary:
-        "The 2020 Arthur formed in mid-May and tracked just west of Cape Hatteras, North Carolina, without making a U.S. landfall.",
+        "The 2020 Arthur was a May tropical storm near the U.S. Southeast coast. Its offshore track is a different record from Arthur's 2026 Texas-coast advisory history.",
       stats: [
-        { label: "Peak winds", value: "45 mph" },
-        { label: "Min pressure", value: "1003 mb" },
-        { label: "Landfall", value: "None (brushed NC)" },
-        { label: "Notable", value: "Rip-current rescues along the coast" }
+        { label: "NHC identifier", value: "AL012020" },
+        { label: "Season", value: "2020 - separate historical storm" }
       ],
       comparison:
-        "2020 Arthur stayed mostly offshore and was a wind/rip-current event, whereas 2026 Arthur came ashore and was defined by inland flooding."
+        "Use the 2020 NHC archive for that storm's observations; none of its measurements establish conditions or impacts in 2026."
     }
   ],
   forecast: [
     {
       title: "NHC track and intensity forecast",
       body:
-        "Forecasters expected little strengthening. Satellite, buoy, ship, and Hurricane Hunter data confirmed tropical-storm-force winds, but Arthur moved over land within roughly 24 hours. The official forecast called for continued northeast motion along or near the Texas coast, then rapid weakening and dissipation after moving inland."
+        "Advisory 7 reported 45 mph maximum sustained winds and 1001 mb pressure, and expected weakening as Arthur moved farther inland. At that time the center was north-northwest of Matagorda, moving north-northeast at 7 mph. Six hours later, Advisory 8 placed the post-tropical center north-northeast of Galveston, moving northeast at 9 mph. These are dated operational estimates, not an interpolation of the center's exact path between observations. For detailed track research, read the complete advisory archive and later best-track analysis rather than drawing a landfall conclusion from a single plotted point."
     },
     {
       title: "Why the rainfall forecast mattered most",
       body:
-        "Because wind was never the main story, the NWS rainfall graphics and Flash Flood Risk products were the operational centerpieces. The heaviest rain shifted from the upper Texas coast and Louisiana toward Georgia and the Carolinas, meaning the risk area moved even after the center weakened."
+        "NHC's final advisory expected the remnants to cross the southeastern United States Thursday through Friday. It retained the heavy-rain forecast after all coastal watches and warnings were discontinued, and also described possible tornadoes and dangerous surf. This illustrates why tropical cyclone status and local hazard status must be checked separately. Forecast rainfall totals cover a stated time window; they should not be added to earlier forecasts as though every issuance predicts a new storm-total amount. For present-day decisions, historical advisories provide context only: use current WPC rainfall guidance, local NWS warnings, and local road and emergency information."
     }
   ],
   preparedness: [
@@ -180,7 +178,7 @@ export const arthur: StormArchive = {
     {
       title: "Pre-stage before landfall",
       body:
-        "Charge devices, fill containers with water, and review your evacuation zone before a tropical storm approaches. Arthur moved fast, leaving little time once warnings were issued."
+        "Charge devices, fill containers with water, and review your evacuation zone before a tropical storm approaches. Finish preparations while conditions and official instructions permit safe action."
     }
   ],
   faqs: [
@@ -189,8 +187,8 @@ export const arthur: StormArchive = {
       answer: "Yes. The National Hurricane Center upgraded Potential Tropical Cyclone One to Tropical Storm Arthur on June 17, 2026, making it the season's first named system."
     },
     {
-      question: "Where did Arthur make landfall in 2026?",
-      answer: "Arthur made landfall near Freeport, Texas, on June 17, 2026, then weakened rapidly after moving inland over southeast Texas."
+      question: "Where was Arthur in its last 2026 NHC advisory?",
+      answer: "At 0300 UTC June 18, Advisory 8 located post-tropical Arthur near 29.7N, 94.5W, about 35 miles north-northeast of Galveston. This operational position does not establish a precise final landfall location."
     },
     {
       question: "Why was Arthur dangerous if it was only a tropical storm?",
@@ -198,14 +196,17 @@ export const arthur: StormArchive = {
     },
     {
       question: "How does 2026 Arthur differ from 2014 Arthur?",
-      answer: "2014 Arthur was a Category 2 hurricane that hit North Carolina's Outer Banks with wind and surge, while 2026 Arthur was a Texas-landfalling tropical storm defined by inland flooding."
+      answer: "2014 Arthur was a Category 2 North Carolina hurricane. The 2026 Arthur was a short-lived tropical storm near Texas whose advisories emphasized inland flooding. Their years, tracks, and observations must be kept separate."
     },
     {
       question: "Where can I verify Arthur's official data?",
-      answer: "Use the National Hurricane Center Tropical Cyclone Report archive and the NHC public advisories linked on this page for the authoritative record."
+      answer: "Use NHC's 2026 season summary and the persistent Arthur advisory archive. Advisory 8 is the final operational public advisory, not a post-season Tropical Cyclone Report. The season summary and any later report may revise operational estimates."
     }
   ],
   related: [
+    { title: "Arthur 2026 advisory archive", href: "https://www.nhc.noaa.gov/archive/2026/ARTHUR.shtml", body: "Read the original dated NHC public advisories and forecast discussions." },
+    { title: "Arthur 2014 advisory archive", href: "https://www.nhc.noaa.gov/archive/2014/ARTHUR.shtml", body: "Check the separate North Carolina hurricane record." },
+    { title: "Arthur 2020 advisory archive", href: "https://www.nhc.noaa.gov/archive/2020/ARTHUR.shtml", body: "Check the separate May 2020 storm record." },
     { title: "Named storm trackers", href: "/hurricane-tracker/storm/", body: "Open live and archived trackers for active and past named storms." },
     { title: "Live hurricane tracker", href: "/hurricane-tracker/live/", body: "See all active NHC systems, radar, and current advisory links." },
     { title: "Texas hurricane tracker", href: "/tracker/texas/", body: "Texas-specific NWS alerts, surge, and local risk context." },

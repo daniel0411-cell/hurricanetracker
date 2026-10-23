@@ -24,7 +24,7 @@ export const stormTrackerPages: StormTrackerPage[] = [
     searchDemandNote:
       "Erin tracker queries often spike around active Atlantic advisories, path-map searches, and forecast-update checks.",
     overview:
-      "Use this Hurricane Erin tracker page as a standing search hub for NHC status checks, official advisory links, radar and satellite context, and local decision tools. If an active NHC storm named Erin is present, HurricaneHub can connect the live feed with this page; if Erin is not active, use the page as a preparation and source-checking guide.",
+      "Check whether Erin is present in the current NHC feed and find official storm records and local safety resources. Storm names can refer to different years; confirm the year and basin identifier before using an archived advisory or map. When no current record is available, this page provides source guidance rather than a historical track.",
     trackerFocus: [
       "Check whether the current NHC feed lists Erin as an active tropical cyclone.",
       "Use the live tracker and radar pages for current position, satellite, and alert context.",
@@ -57,7 +57,7 @@ export const stormTrackerPages: StormTrackerPage[] = [
     searchDemandNote:
       "Melissa searches show strong live-tracker intent, especially for live maps, satellite context, and rapid status checks.",
     overview:
-      "Use this Hurricane Melissa tracker page for NHC status checks, advisory links, satellite and radar shortcuts, and local preparedness tools. The page is designed for users searching for Melissa live tracker updates during active advisory cycles and for general preparedness when no active Melissa record is listed.",
+      "Check Melissa's current-feed status and verify dated advisories with NHC. Confirm the storm year before comparing maps or reports. When no active Melissa record is available, use the official archive for historical observations and current local alerts for present-day safety decisions.",
     trackerFocus: [
       "Look for active NHC Melissa records in the current storm feed.",
       "Open radar and satellite views to compare storm structure with official advisories.",

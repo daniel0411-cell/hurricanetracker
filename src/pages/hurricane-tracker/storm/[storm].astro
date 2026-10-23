@@ -64,7 +64,9 @@ const isCphc = basin === "Central Pacific" || /\/text\/HFO/i.test(advisoryUrl(ac
 const forecastCenter = isCphc ? "Central Pacific Hurricane Center" : "National Hurricane Center";
 const forecastCenterUrl = isCphc ? "https://www.nhc.noaa.gov/?cpac" : "https://www.nhc.noaa.gov/";
 const overview = knownPage?.overview ?? `Track ${stormName} with the latest NHC position, official advisory time, forecast path, radar, satellite imagery, and local-alert context. This page updates from official NHC data while the system is active and remains available as a stable storm reference.`;
-const searchDemandNote = knownPage?.searchDemandNote ?? `Use this page for live ${stormName} tracker, path, map, forecast, and current-position searches.`;
+const inactiveOverview = isArchived
+  ? `${stormName} is absent from the current feed. Review the last recorded observation below and check NHC for the complete archived record.`
+  : overview;
 const trackerFocus = knownPage?.trackerFocus ?? [
   `Check the latest NHC position and advisory time for ${stormName}.`,
   "Compare the official forecast path with radar and satellite imagery.",
@@ -102,19 +104,19 @@ const riSignal = advisoryHistory.length ? detectRapidIntensification(advisoryHis
 const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
 const title = activeStorm
   ? isPostTropical ? `${stormName} Post-Tropical Cyclone: Latest Advisory & Track` : `${stormName} ${classification} Tracker: Current Position & NHC Update`
-  : isArchived ? `${stormName} Storm Archive: Final Track & NHC History` : knownPage?.title ?? `${stormName} Hurricane Tracker: Live Path, Map & NHC Updates`;
+  : isArchived ? `${stormName}: Last Recorded Status & Official Sources` : `${stormName}: NHC Status & Official Sources`;
 const description = activeStorm
   ? isPostTropical ? `${stormName} is post-tropical. Review its latest reported position, advisory time, rainfall and local alerts; follow official updates for ongoing hazards.` : `${stormName} is a ${classification} at ${activeStorm.latitude ?? "a pending position"}, ${activeStorm.longitude ?? ""}, with ${activeStorm.intensity ? formatWind(Number(activeStorm.intensity)) : "intensity pending"}. See its current path, live map and NHC update from ${activeStorm.lastUpdate ?? lastModified}.`
   : isArchived
-    ? `Review the archived ${stormName} storm with its final NHC status, last observed track, advisory history, and official source links.`
-    : knownPage?.description ?? `Track ${stormName} live with the latest NHC position, hurricane path, live map, advisory update, radar, satellite imagery and local alerts.`;
+    ? `Review source links and the last recorded status for ${stormName}. Check official archives for a complete track and current alerts for local hazards.`
+    : `Check whether ${stormName} appears in the current NHC feed, find official storm records, and review local alerts and preparedness resources.`;
 const url = `${site.url}/hurricane-tracker/storm/${slug}/`;
 const statusFaqs = isPostTropical ? [
   { question: `Is ${stormName} still a tropical cyclone?`, answer: `The current feed classifies ${stormName} as post-tropical. This classification does not mean advisories have ended or hazards have passed. Follow the linked official advisory and local NWS alerts for rain, flooding, wind and surf risks.` },
   { question: `Where can I review the latest ${stormName} track?`, answer: `Use this page for ${stormName}'s latest reported position and advisory time. Follow official NHC or Weather Prediction Center updates for the continuing forecast; a post-tropical classification alone does not establish a final advisory.` }
 ] : isArchived ? [
-  { question: `What was the final status of ${stormName}?`, answer: `This archive preserves the last observed NHC status and advisory context for ${stormName}. It is not a current threat signal.` },
-  { question: `Where can I review the historical track of ${stormName}?`, answer: `Use this archive for ${stormName}'s last observed track and advisory history, then use the live hurricane tracker for current tropical cyclones.` }
+  { question: `What status is recorded for ${stormName}?`, answer: `This page preserves HurricaneHub's last recorded NHC observation for ${stormName}. It may precede the final advisory or post-season analysis and is not a current threat signal.` },
+  { question: `Where can I review the historical track of ${stormName}?`, answer: `Use the NHC past-season archive for a complete historical track. This page's last recorded status is not a complete track or final post-season report.` }
 ] : knownPage?.faqs ?? [
   { question: `Where is ${stormName} now?`, answer: `The current NHC position, movement, intensity, and advisory time appear on this page while ${stormName} is active.` },
   { question: `Where can I see the ${stormName} forecast path?`, answer: "Open the live tracker on this page to compare the official NHC forecast path and cone with radar and satellite imagery." }
@@ -142,13 +144,13 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="storm-title">
     <div class="inner">
       <p class="eyebrow">{basin} storm tracker</p>
-      <h1 id="storm-title">{activeStorm ? isPostTropical ? `${stormName} Post-Tropical Cyclone: Latest Track and Advisory` : `${stormName} ${classification} Tracker: Live Map, Path and NHC Updates` : `${stormName} Storm Archive: Final Track and NHC History`}</h1>
+      <h1 id="storm-title">{activeStorm ? isPostTropical ? `${stormName} Post-Tropical Cyclone: Latest Track and Advisory` : `${stormName} ${classification} Tracker: Live Map, Path and NHC Updates` : title}</h1>
       {isArchived && <p class="archive-notice"><strong>{stormName} is not active in the current NHC feed.</strong> This stable archive page preserves the last observed advisory context; use the live tracker for current storms.</p>}
-      <p class="answer">{activeStorm ? isPostTropical ? `${stormName} is post-tropical. The current feed reports ${activeStorm.latitude ?? "pending"}, ${activeStorm.longitude ?? "pending"}, with ${activeStorm.intensity ? formatWind(Number(activeStorm.intensity)) : "intensity pending"}, updated ${activeStorm.lastUpdate ?? lastModified}. Follow the official advisory and local alerts for continuing rainfall, flooding, wind and surf hazards.` : `${stormName} is currently classified as a ${classification}. ${forecastCenter} last reported the system at ${activeStorm.latitude ?? "a pending latitude"}, ${activeStorm.longitude ?? "a pending longitude"}, moving ${activeStorm.movementDir != null ? `${activeStorm.movementDir}°` : "in a direction pending confirmation"} at ${activeStorm.movementSpeed != null ? `${activeStorm.movementSpeed} kt` : "a speed pending confirmation"}. Updated ${activeStorm.lastUpdate ?? lastModified}. Use the tracker and official forecast path below for current details.` : isArchived ? `${stormName} is no longer active. Review its final observed NHC status, track history, advisory context, and official source links below.` : overview}</p>
-      <p class="answer">{isArchived ? `This archive answers past ${stormName} track, path, and advisory searches. For current tropical cyclones, use the live hurricane tracker.` : searchDemandNote}</p>
+      <p class="answer">{activeStorm ? isPostTropical ? `${stormName} is post-tropical. The current feed reports ${activeStorm.latitude ?? "pending"}, ${activeStorm.longitude ?? "pending"}, with ${activeStorm.intensity ? formatWind(Number(activeStorm.intensity)) : "intensity pending"}, updated ${activeStorm.lastUpdate ?? lastModified}. Follow the official advisory and local alerts for continuing rainfall, flooding, wind and surf hazards.` : `${stormName} is currently classified as a ${classification}. ${forecastCenter} last reported the system at ${activeStorm.latitude ?? "a pending latitude"}, ${activeStorm.longitude ?? "a pending longitude"}, moving ${activeStorm.movementDir != null ? `${activeStorm.movementDir}°` : "in a direction pending confirmation"} at ${activeStorm.movementSpeed != null ? `${activeStorm.movementSpeed} kt` : "a speed pending confirmation"}. Updated ${activeStorm.lastUpdate ?? lastModified}. Use the tracker and official forecast path below for current details.` : inactiveOverview}</p>
+      {!activeStorm && <p class="answer">A missing current-feed record is not an all-clear. For historical storms, confirm the year in the <a href="https://www.nhc.noaa.gov/data/">NHC past-season archive</a>; this page does not provide a complete historical track or final report.</p>}
       <p class="section-actions">
         <a class="action-link" href="/hurricane-tracker/live/">Open live hurricane tracker</a>
-        <a class="action-link secondary-action" href={`/embed/radar?layer=radar&theme=dark&view=${mapView}`}>Open ${basin} radar and satellite map</a>
+        <a class="action-link secondary-action" href={`/embed/radar?layer=radar&theme=dark&view=${mapView}`}>Open {basin} radar and satellite map</a>
       </p>
     </div>
   </section>
@@ -187,7 +189,15 @@ const jsonLd = graph(
             </p>
           </>
         ) : (
-          <p>{isArchived ? `The last observed ${stormName} record remains available for historical context and advisory links. It is not a current threat signal.` : `No active NHC tropical cyclone named ${stormName} appears in HurricaneHub's current feed. Keep using this page for storm history, official links, and preparedness context.`}</p>
+          <>
+            <p>{isArchived ? `The last recorded ${stormName} observation below is historical context, not a final report or current threat signal.` : `No active NHC tropical cyclone named ${stormName} appears in HurricaneHub's current feed. Verify with NHC; an unavailable or delayed feed cannot establish that hazards have ended.`}</p>
+            {archivedStorm && <table><tbody>
+              <tr><th>Storm identifier</th><td>{archivedStorm.id ?? "Unavailable"}</td></tr>
+              <tr><th>Recorded classification</th><td>{archivedStorm.classification ?? "Unavailable"}</td></tr>
+              <tr><th>Recorded position</th><td>{archivedStorm.latitude ?? "Unavailable"}, {archivedStorm.longitude ?? "Unavailable"}</td></tr>
+              <tr><th>Recorded update</th><td>{archivedStorm.lastSeen}</td></tr>
+            </tbody></table>}
+          </>
         )}
       </article>
       <article class="panel">
@@ -305,7 +315,7 @@ const jsonLd = graph(
         </article>
         {basin === "Atlantic" ? <article class="state-card">
           <h3>Florida Hurricane Tracker</h3>
-          <p>High-demand local page for Florida storm watches, warnings, and risk context.</p>
+          <p>Florida storm watches, warnings, and local risk resources.</p>
           <a href="/tracker/florida/">Open Florida</a>
         </article> : <article class="state-card">
           <h3>{basin} Satellite and Radar</h3>

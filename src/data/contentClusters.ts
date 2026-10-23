@@ -66,9 +66,9 @@ export const contentClusters: ContentCluster[] = [
   {
     id: "tracking",
     title: "Hurricane Tracking and Map Reading",
-    intent: "live hurricane tracker, hurricane tracker map, hurricane path tracker, radar, cone",
+    intent: "Maps and forecasts",
     description:
-      "Use this cluster when the searcher wants to understand where a storm is, where it may go, and how to compare official forecast products with radar and satellite.",
+      "Check where a storm is, where it may go, and how official forecasts compare with radar and satellite imagery.",
     primaryHref: "/hurricane-tracker/live/",
     links: compact([
       topicLink("live-tracker"),
@@ -92,9 +92,9 @@ export const contentClusters: ContentCluster[] = [
   {
     id: "local-risk",
     title: "Local Hurricane Risk and Evacuation",
-    intent: "hurricane evacuation zones, city hurricane tracker, storm surge map, local alerts",
+    intent: "Local safety and evacuation",
     description:
-      "Use this cluster when a searcher needs city, state, storm surge, evacuation-zone, and alert context for a real place.",
+      "Find city and state resources, storm surge alerts, evacuation zones, and local instructions for your address.",
     primaryHref: "/hurricane-tracker/city/",
     links: compact([
       topicLink("evacuation-zones"),
@@ -114,9 +114,9 @@ export const contentClusters: ContentCluster[] = [
   {
     id: "preparedness",
     title: "Hurricane Preparedness and Household Planning",
-    intent: "hurricane preparedness checklist, emergency kit, home preparation, family plan",
+    intent: "Household planning",
     description:
-      "Use this cluster before a storm threatens or when a watch gives the household time to finish supplies, documents, communication, and outage planning.",
+      "Prepare supplies, documents, communication plans, and outage arrangements before conditions deteriorate.",
     primaryHref: "/preparedness/",
     links: compact([
       topicLink("preparedness-checklist"),
@@ -138,9 +138,9 @@ export const contentClusters: ContentCluster[] = [
   {
     id: "alerts",
     title: "Warnings, Watches, and Official Alert Language",
-    intent: "hurricane watch vs warning, NWS alerts, storm surge warning, flood warning",
+    intent: "Official warnings and next steps",
     description:
-      "Use this cluster when the searcher sees an official watch, warning, advisory, or evacuation phrase and needs a plain-language next step.",
+      "Understand an official watch, warning, advisory, or evacuation instruction and identify the next protective action.",
     primaryHref: "/alerts/",
     links: compact([
       { title: "Active NWS Alerts", href: "/alerts/", description: "Browse active National Weather Service alerts by state." },
@@ -155,9 +155,9 @@ export const contentClusters: ContentCluster[] = [
   {
     id: "recovery",
     title: "Flooding, Insurance, and Recovery After Landfall",
-    intent: "hurricane flood insurance, insurance claim, cleanup, mold prevention",
+    intent: "Insurance and recovery",
     description:
-      "Use this cluster when the immediate tracking question turns into property documentation, flood insurance, power, cleanup, and recovery planning.",
+      "Document damage, review flood insurance, and plan safe power restoration, cleanup, and recovery.",
     primaryHref: "/blog/category/insurance-recovery/",
     links: compact([
       { title: "Insurance and Recovery Articles", href: "/blog/category/insurance-recovery/", description: "Guides for flood insurance, claims, documentation, cleanup, and recovery." },

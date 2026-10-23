@@ -22,8 +22,7 @@ const satelliteBand = params.get("sat") || "geocolor";
     <title>HurricaneHub Live Radar</title>
     <meta name="robots" content="noindex" />
     <link rel="preconnect" href="https://cdn.star.nesdis.noaa.gov" crossorigin />
-    <link rel="preconnect" href="https://{s}.tile.openstreetmap.org" />
-    <link rel="preconnect" href="https://{s}.basemaps.cartocdn.com" />
+    <link rel="preconnect" href="https://tile.openstreetmap.org" />
     <link rel="preconnect" href="https://api.rainviewer.com" crossorigin />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
@@ -47,6 +46,7 @@ const satelliteBand = params.get("sat") || "geocolor";
         background: rgba(7, 17, 25, 0.88); border: 1px solid rgba(176, 210, 222, 0.3);
         box-shadow: 0 12px 32px rgba(0, 0, 0, 0.34); backdrop-filter: blur(14px); pointer-events: auto;
       }
+      .control-surface[hidden] { display: none; }
       .control-surface button {
         width: auto; min-height: 36px; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
         border: 0; border-radius: 6px; padding: 0 12px; background: transparent;
@@ -117,20 +117,25 @@ const satelliteBand = params.get("sat") || "geocolor";
       #map .leaflet-control-attribution a { color: #95d9ea; }
       #map .leaflet-control-zoom { margin-left: 14px; margin-top: 76px; }
       @media (max-width: 680px) {
-        .embed-bar { left: 8px; right: 8px; top: 8px; gap: 6px; }
-        .view-toggle { order: 3; width: 100%; overflow-x: auto; justify-content: flex-start; scrollbar-width: none; }
+        .embed-bar { left: 8px; right: 8px; top: 8px; gap: 6px; display: grid; grid-template-columns: minmax(0, 1fr) auto; }
+        .embed-toggle { justify-self: start; }
+        .map-actions { grid-column: 2; grid-row: 1; }
+        .satellite-toggle { grid-column: 1 / -1; grid-row: 3; justify-self: start; }
+        .view-toggle { grid-column: 1 / -1; grid-row: 2; width: 100%; overflow-x: auto; justify-content: flex-start; scrollbar-width: none; }
         .view-toggle::-webkit-scrollbar { display: none; }
         .control-surface { padding: 4px; }
         .control-surface button { min-height: 34px; padding: 0 10px; font-size: 0.72rem; }
         .map-actions button { width: 34px; padding: 0; }
-        #map .leaflet-control-zoom { margin-left: 8px; margin-top: 103px; }
-        .embed-status { left: 8px; bottom: 8px; }
-        .radar-legend { right: 8px; bottom: 8px; width: 150px; }
+        #map .leaflet-control-zoom { margin-left: 8px; margin-top: 158px; }
+        .embed-status { left: 8px; right: 8px; bottom: 24px; max-width: none; font-size: 0.65rem; }
+        .radar-legend { right: 8px; bottom: 84px; width: 150px; }
         .legend-head span:first-child { display: none; }
         .storm-picker { left: 8px; top: 108px; }
         .storm-picker select { max-width: 210px; }
+        .embed-bar:has(.satellite-toggle:not([hidden])) ~ .storm-picker { top: 158px; }
+        body:has(.satellite-toggle:not([hidden])) #map .leaflet-control-zoom { margin-top: 208px; }
         .forecast-legend { display: none; }
-        .radar-timeline { left: 8px; right: 8px; bottom: 58px; transform: none; width: auto; min-width: 0; grid-template-columns: 34px minmax(0, 1fr) 66px; }
+        .radar-timeline { left: 8px; right: 8px; bottom: 134px; transform: none; width: auto; min-width: 0; grid-template-columns: 34px minmax(0, 1fr) 66px; }
         .gesture-lock { display: grid; }
         .gesture-lock.unlocked { display: none; }
       }
@@ -183,6 +188,7 @@ const satelliteBand = params.get("sat") || "geocolor";
       // @ts-nocheck
       import { startVisiblePolling } from "../../lib/visiblePolling";
       import L from "leaflet";
+      import { basemapUrl, basemapOptions, watchBasemap } from "../../lib/mapBasemap";
       import "leaflet/dist/leaflet.css";
       import { dirtySideQuadrants, movementBearingDeg } from "../../lib/dirtySide";
 
@@ -291,9 +297,10 @@ const satelliteBand = params.get("sat") || "geocolor";
         });
 
         const bases = {
-          light: L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 8, attribution: '&copy; OpenStreetMap' }),
-          dark: L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", { maxZoom: 8, attribution: '&copy; CARTO &copy; OpenStreetMap' })
+          light: L.tileLayer(basemapUrl, basemapOptions("light")),
+          dark: L.tileLayer(basemapUrl, basemapOptions("dark"))
         };
+        Object.values(bases).forEach((layer) => watchBasemap(layer, mapEl));
         let activeBase = (bases[qTheme] || bases.dark).addTo(map);
 
         const stormLayer = L.layerGroup().addTo(map);

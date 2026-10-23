@@ -8,8 +8,8 @@ import { arthur } from "./_data/arthur";
 const s = arthur;
 const url = `${site.url}/storm/2026-${s.name.toLowerCase()}/`;
 const title = `Tropical Storm Arthur 2026: NHC Data & History`;
-const description = `Tropical Storm Arthur 2026 made landfall on the Texas coast with life-threatening flooding. Review NHC data, timeline, impacts, and past Arthur storms.`;
-const lastModified = "2026-08-20T00:00:00.000Z";
+const description = `Review Arthur's 2026 NHC advisories, 45 mph peak winds, Texas-coast positions and rainfall forecasts, with clear distinctions between forecasts and observations.`;
+const lastModified = "2026-10-23T00:00:00.000Z";
 const datePublished = "2026-06-18T00:00:00.000Z";
 const jsonLd = graph(
   websiteSchema(),
@@ -19,7 +19,7 @@ const jsonLd = graph(
     { name: "Storm Archive", url: `${site.url}/storm-archive/` },
     { name: `${s.name} 2026`, url }
   ]),
-  itemListSchema(s.related.map((l) => ({ name: l.title, description: l.body, url: `${site.url}${l.href}` }))),
+  itemListSchema(s.related.map((l) => ({ name: l.title, description: l.body, url: new URL(l.href, site.url).href }))),
   faqSchema(s.faqs)
 );
 ---
@@ -56,13 +56,13 @@ const jsonLd = graph(
         </table>
         <p class="storm-links">
           <a href={s.live.nhcAdvisoryUrl} rel="noopener nofollow">NHC public advisory ({s.live.advisoryNumber})</a>
-          <a href={s.live.nhcSourceUrl} rel="noopener nofollow">NHC Tropical Cyclone Report</a>
+          <a href={s.live.nhcSourceUrl} rel="noopener nofollow">NHC 2026 season summary and report availability</a>
         </p>
       </article>
       <article class="panel">
         <p class="eyebrow">Why it mattered</p>
         <h2>More Than a Number on the Scale</h2>
-        <p>{s.classification} {s.name} {s.year} is a reminder that Saffir-Simpson category measures wind, not total risk. Its flood footprint reached far beyond the Texas coast into the Southeast.</p>
+        <p>{s.classification} {s.name} {s.year} is a reminder that Saffir-Simpson category measures wind, not total risk. Its final NHC advisory continued to warn of inland flooding across portions of the Southeast after the tropical phase ended.</p>
         <p>Use the official trackers and local alerts to turn this history into action for the next system.</p>
         <p class="section-actions">
           <a class="action-link" href="/hurricane-tracker/storm/">Named storm trackers</a>
@@ -86,8 +86,8 @@ const jsonLd = graph(
 
   <section class="band" aria-labelledby="impact-title">
     <div class="inner">
-      <p class="eyebrow">Impacts</p>
-      <h2 id="impact-title">What {s.name} {s.year} Did</h2>
+      <p class="eyebrow">Hazards and evidence</p>
+      <h2 id="impact-title">{s.name} {s.year}: Forecast Hazards and Record Limits</h2>
       <div class="stack section-grid">
         {s.impact.map((section) => (
           <article class="panel"><h3>{section.title}</h3><p>{section.body}</p></article>

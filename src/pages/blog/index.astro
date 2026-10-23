@@ -10,7 +10,7 @@ const sortedPosts = [...blogPosts].sort((a, b) => b.datePublished.localeCompare(
 const clusterDefinitions = [
   {
     title: "Prepare Before a Storm Forms",
-    intent: "preparedness checklist, hurricane kit, home preparation",
+    intent: "Supplies and home preparation",
     description: "Use these guides when you are building supplies, protecting the home, organizing documents, and preparing pets or vulnerable household members.",
     slugs: [
       "hurricane-emergency-kit-checklist",
@@ -23,7 +23,7 @@ const clusterDefinitions = [
   },
   {
     title: "Understand Watches, Warnings, and Evacuation",
-    intent: "hurricane warning meaning, evacuation checklist, storm surge warning",
+    intent: "Warnings and evacuation",
     description: "Start here when an alert appears and you need to translate official wording into household action without guessing.",
     slugs: [
       "what-hurricane-watch-warning-means",
@@ -36,7 +36,7 @@ const clusterDefinitions = [
   },
   {
     title: "Read Tracker Maps and Forecast Products",
-    intent: "live hurricane tracker, cone of uncertainty, spaghetti models",
+    intent: "Maps and forecast uncertainty",
     description: "Learn how to interpret the cone, models, radar, satellite, category, and distance before relying on a single map signal.",
     slugs: [
       "real-time-hurricane-tracking-2026",
@@ -50,7 +50,7 @@ const clusterDefinitions = [
   },
   {
     title: "Plan for Flooding, Outages, and Recovery",
-    intent: "flood insurance, hurricane claims, power outage planning",
+    intent: "Insurance and outages",
     description: "Use these articles for the problems that continue after landfall: flooding, food safety, medicine, insurance records, and recovery documentation.",
     slugs: [
       "hurricane-power-outage-food-medicine-plan",
@@ -63,7 +63,7 @@ const clusterDefinitions = [
   },
   {
     title: "Learn Hurricane Basics",
-    intent: "hurricane category, typhoon vs cyclone, storm surge forecast",
+    intent: "Storm science and hazards",
     description: "Use these explainers when you want the science and vocabulary behind hurricane products before a storm is threatening your area.",
     slugs: [
       "saffir-simpson-hurricane-wind-scale-explained",
@@ -168,8 +168,8 @@ const jsonLd = graph(
 
   <section class="band" aria-labelledby="cluster-heading">
     <div class="inner">
-      <p class="eyebrow">Topic clusters</p>
-      <h2 id="cluster-heading">Browse Hurricane Guides by Search Intent</h2>
+      <p class="eyebrow">Readiness guides</p>
+      <h2 id="cluster-heading">Browse Hurricane Guides by Topic</h2>
       <div class="grid-2 section-grid">
         {clusters.map((cluster) => (
           <article class="panel">
@@ -193,7 +193,7 @@ const jsonLd = graph(
 
   <section class="band" aria-labelledby="category-hubs-heading">
     <div class="inner">
-      <p class="eyebrow">Indexable category hubs</p>
+      <p class="eyebrow">Article categories</p>
       <h2 id="category-hubs-heading">Browse Articles by Hurricane Topic</h2>
       <div class="link-list">
         {categoryLinks.map((category) => (
@@ -209,8 +209,8 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="content-clusters-heading">
     <div class="inner">
       <p class="eyebrow">Full topic map</p>
-      <h2 id="content-clusters-heading">Hurricane Content Clusters</h2>
-      <p class="answer">Use these clusters to move from blog reading into the best live tracker, local page, tool, or recovery guide.</p>
+      <h2 id="content-clusters-heading">Related Tools and Guides</h2>
+      <p class="answer">Check current storms, find local resources, prepare your household, or plan recovery.</p>
       <div class="grid-2 section-grid">
         {topicClusterLinks.map((cluster) => (
           <article class="panel">

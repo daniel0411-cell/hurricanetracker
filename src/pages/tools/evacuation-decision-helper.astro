@@ -7,7 +7,7 @@ import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } 
 const title = "Hurricane Evacuation Assessment Tool & Decision Helper";
 const description = "Use this hurricane evacuation assessment tool to sort risk into Monitor, Prepare, Act, or Leave using orders, surge zone, housing, pets, transport and medical needs.";
 const url = `${site.url}/tools/evacuation-decision-helper/`;
-const lastModified = site.contentLastModified;
+const lastModified = "2026-10-23T00:00:00.000Z";
 const pageFaqs = [
   {
     question: "Should I evacuate for a hurricane watch?",
@@ -43,17 +43,20 @@ const jsonLd = graph(
   </section>
 
   <section class="band" aria-labelledby="helper-form">
-    <div class="inner grid-2">
+    <div class="inner grid-2 helper-layout">
       <form class="panel decision-tool" id="evacuation-tool">
         <h2 id="helper-form">Check Your Decision Level</h2>
 
         <label>
           Official local status
           <select name="officialStatus">
-            <option value="0">No watch, warning, or evacuation order</option>
-            <option value="1">Hurricane or tropical storm watch</option>
-            <option value="2">Hurricane, storm surge, flood, or tornado warning</option>
-            <option value="3">Mandatory evacuation order</option>
+            <option value="none">No watch, warning, or evacuation order</option>
+            <option value="watch">Hurricane or tropical storm watch</option>
+            <option value="hurricane">Hurricane warning</option>
+            <option value="surge">Storm surge warning</option>
+            <option value="flood">Flood or flash flood warning</option>
+            <option value="tornado">Tornado warning - take shelter now</option>
+            <option value="evacuation">Mandatory evacuation order</option>
           </select>
         </label>
 
@@ -105,13 +108,15 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="method-heading">
     <div class="inner">
       <h2 id="method-heading">How the Decision Helper Works</h2>
+      <p>Mandatory evacuation orders take precedence over the household score. Tornado warnings require immediate shelter; flood, storm surge, and hurricane warnings require prompt action specific to the warning. Follow the full official warning and local instructions when several hazards overlap.</p>
       <table style="margin-top: 18px;">
-        <thead><tr><th>Score</th><th>Level</th><th>Meaning</th></tr></thead>
+        <thead><tr><th>Situation</th><th>Level</th><th>Meaning</th></tr></thead>
         <tbody>
-          <tr><td>0-1</td><td>Monitor</td><td>Stay aware and keep supplies ready.</td></tr>
-          <tr><td>2-3</td><td>Prepare</td><td>Finish supplies, fuel, documents, and route planning.</td></tr>
-          <tr><td>4-5</td><td>Act</td><td>Move vulnerable people early and follow local instructions.</td></tr>
-          <tr><td>6+</td><td>Leave</td><td>Use official evacuation routes if officials order or your household risk is high.</td></tr>
+          <tr><td>Mandatory evacuation order</td><td>Leave</td><td>Follow local evacuation instructions regardless of score.</td></tr>
+          <tr><td>Tornado, flood, surge, or hurricane warning</td><td>Act</td><td>Take the protective action required for that hazard.</td></tr>
+          <tr><td>Watch, or household score 2-3</td><td>Prepare</td><td>Prepare transport, supplies, and a destination.</td></tr>
+          <tr><td>Household score 4+</td><td>Act</td><td>Arrange assistance early; the score alone is not an evacuation order.</td></tr>
+          <tr><td>No official alert and household score 0-1</td><td>Monitor</td><td>Keep checking official alerts; this is not an all-clear.</td></tr>
         </tbody>
       </table>
     </div>
@@ -120,42 +125,25 @@ const jsonLd = graph(
   <FaqBlock faqs={pageFaqs} />
 </Layout>
 
+<style>
+  .helper-layout > * { min-width: 0; }
+  .decision-tool { min-width: 0; }
+  .decision-tool select { width: 100%; min-width: 0; max-width: 100%; }
+  .decision-tool fieldset { min-width: 0; }
+  .decision-tool fieldset label { display: flex; align-items: flex-start; }
+  .decision-tool input[type="checkbox"] { width: 18px; height: 18px; min-height: 18px; padding: 0; margin: 3px 0 0; flex: 0 0 18px; }
+  table { table-layout: fixed; overflow-wrap: anywhere; }
+</style>
+
 <script>
+  import { evacuationDecision, type OfficialStatus, type EvacuationRecommendation } from "../../lib/evacuationDecision";
   import { trackToolResult } from "../../lib/toolAnalytics";
   const form = document.querySelector<HTMLFormElement>("#evacuation-tool");
   const levelEl = document.querySelector<HTMLElement>("#decision-level");
   const summaryEl = document.querySelector<HTMLElement>("#decision-summary");
   const actionsEl = document.querySelector<HTMLElement>("#decision-actions");
 
-  const recommendations = [
-    {
-      max: 1,
-      level: "Monitor",
-      summary: "Keep checking official alerts and make sure your hurricane kit is ready.",
-      actions: ["Check NHC and NWS updates twice daily.", "Confirm your county evacuation zone.", "Charge phones and battery packs."]
-    },
-    {
-      max: 3,
-      level: "Prepare",
-      summary: "Finish household preparations now, before watches become warnings or roads become crowded.",
-      actions: ["Fuel your vehicle.", "Pack documents, medicine, water, food, and pet supplies.", "Confirm where you would go if conditions worsen."]
-    },
-    {
-      max: 5,
-      level: "Act",
-      summary: "Your risk profile needs early action, especially for vulnerable people, pets, or low-lying housing.",
-      actions: ["Move medically vulnerable people early.", "Secure windows, outdoor items, and vehicles.", "Follow county alerts and be ready to leave before conditions deteriorate."]
-    },
-    {
-      max: 99,
-      level: "Leave",
-      summary: "Follow official evacuation orders immediately if you can do so safely. Do not wait for peak wind or flooding.",
-      actions: ["Use official evacuation routes.", "Bring medication, IDs, documents, chargers, pets, and cash.", "Tell a contact where you are going and avoid flooded roads."]
-    }
-  ];
-
-  function render(score: number) {
-    const recommendation = recommendations.find((item) => score <= item.max) ?? recommendations[0];
+  function render(recommendation: EvacuationRecommendation) {
     if (!levelEl || !summaryEl || !actionsEl || !recommendation) {
       trackToolResult("evacuation_decision", "error");
       return;
@@ -170,10 +158,9 @@ const jsonLd = graph(
     event.preventDefault();
     const data = new FormData(form);
     const baseScore =
-      Number(data.get("officialStatus") ?? 0) +
       Number(data.get("locationRisk") ?? 0) +
       Number(data.get("housingRisk") ?? 0);
     const needsScore = ["medical", "pets", "transport"].reduce((total, key) => total + (data.get(key) ? 1 : 0), 0);
-    render(baseScore + needsScore);
+    render(evacuationDecision(data.get("officialStatus") as OfficialStatus, baseScore + needsScore));
   });
 </script>

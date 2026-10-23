@@ -114,8 +114,7 @@ const jsonLd = graph(
   <Fragment slot="head">
     <link rel="preconnect" href="https://cdn.star.nesdis.noaa.gov" crossorigin />
     <link rel="preconnect" href="https://gibs.earthdata.nasa.gov" crossorigin />
-    <link rel="preconnect" href="https://{s}.tile.openstreetmap.org" />
-    <link rel="preconnect" href="https://{s}.basemaps.cartocdn.com" />
+    <link rel="preconnect" href="https://tile.openstreetmap.org" />
     <link rel="preconnect" href="https://mesonet.agron.iastate.edu" crossorigin />
     <link rel="preconnect" href="https://tile.openweathermap.org" crossorigin />
     <link rel="preconnect" href="https://api.weather.gov" crossorigin />
@@ -414,6 +413,7 @@ const jsonLd = graph(
     // @ts-nocheck
     import { startVisiblePolling } from "../lib/visiblePolling";
     import L from "leaflet";
+    import { basemapUrl, basemapOptions, watchBasemap } from "../lib/mapBasemap";
     import "leaflet/dist/leaflet.css";
     import { alertRisk } from "../lib/weather";
 
@@ -588,15 +588,10 @@ const jsonLd = graph(
 
       let activeBase = null;
       const baseLayers = {
-        light: L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          maxZoom: 8,
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }),
-        dark: L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-          maxZoom: 8,
-          attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a> &copy; OpenStreetMap'
-        })
+        light: L.tileLayer(basemapUrl, basemapOptions("light")),
+        dark: L.tileLayer(basemapUrl, basemapOptions("dark"))
       };
+      Object.values(baseLayers).forEach((layer) => watchBasemap(layer, mapEl));
 
       function showTheme(name) {
         const nextBase = baseLayers[name] ?? baseLayers.light;
