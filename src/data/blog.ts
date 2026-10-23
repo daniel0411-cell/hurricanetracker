@@ -680,48 +680,80 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "real-time-hurricane-tracking-2026",
-    title: "Real-Time Hurricane Tracking: 2026 Atlantic Season Mid-Year Update",
-    description: "Live 2026 Atlantic hurricane season update, real-time tracking tools, and a step-by-step extreme weather alert playbook for coastal households.",
+    title: "Real-Time Hurricane Tracking: 2026 Late-Season Guide",
+    description: "Track late-season hurricane risks with NHC outlooks, radar, satellite imagery, and local alerts. Learn why low formation odds can still mean coastal danger.",
     datePublished: "2026-08-06",
-    dateModified: "2026-08-06",
+    dateModified: "2026-10-23",
     image: "/images/blog/real-time-hurricane-tracking-2026.png",
     imageAlt: "A person views a live hurricane tracking dashboard on a large monitor showing satellite, radar, and a forecast cone.",
     sections: [
       {
         heading: "Direct Answer",
-        body: "Real-time hurricane tracking combines NOAA satellite imagery, NWS Doppler radar, and Hurricane Hunter aircraft data into a single live picture of each storm. During the 2026 Atlantic hurricane season, households can use a real-time hurricane tracker like HurricaneHub to watch storm cones, radar, and extreme weather alerts on one map, then pair that context with official weather.gov advisories."
+        body: "Real-time hurricane tracking starts with the latest National Hurricane Center outlook or advisory, then adds radar, satellite imagery, and local National Weather Service alerts. The Atlantic season continues through November 30. Late in the season, check coastal flooding and marine warnings even when no named tropical cyclone appears on the tracker. A low chance of tropical or subtropical development does not mean a low chance of strong winds, dangerous surf, or coastal flooding. Use HurricaneHub to organize the available observations and planning links, and follow official warnings and local evacuation instructions for action."
       },
       {
-        heading: "2026 Atlantic Hurricane Season: Where We Are in August",
-        body: "By early August, the Atlantic basin is running at full stride. The statistical peak of activity falls around September 10, but August already produces more named storms than June and July combined. The 2026 seasonal outlook called for above-normal activity, largely driven by warm sea-surface temperatures across the Main Development Region and a likely La Nina transition in autumn."
+        heading: "October 18, 2026 Outlook: East Coast Impacts Without a Named Storm",
+        body: "In its 2:00 a.m. EDT October 18 outlook (06:00 UTC), NHC expected a storm-force non-tropical low to form later that day or night off the southeastern United States. It forecast slow, erratic movement through the middle of the following week, with some subtropical development possible. Formation chances were near 0 percent through 48 hours and 30 percent through seven days. NHC also warned of high winds, coastal flooding, and dangerous surf along portions of the East Coast regardless of development. Those percentages describe classification potential during that bulletin's forecast windows, not the probability of flooding at a particular address. This is a dated outlook example, not a continuously updated forecast or a named-storm designation. Open the newest NHC outlook, local NWS statements, WPC guidance, and Ocean Prediction Center marine forecasts before making plans.",
+        links: [
+          { href: "https://www.nhc.noaa.gov/text/MIATWOAT.shtml", label: "Read the latest official Atlantic Tropical Weather Outlook" },
+          { href: "https://www.nhc.noaa.gov/archive/xgtwo/gtwo_archive.php?basin=atl&fdays=7&current_issuance=202610180600", label: "Read the October 18, 2026, 06:00 UTC NHC outlook used in this example" },
+          { href: "https://www.weather.gov/", label: "Find your local NWS coastal flood, wind, and surf alerts" },
+          { href: "https://www.wpc.ncep.noaa.gov/", label: "Check Weather Prediction Center rainfall and weather guidance" },
+          { href: "https://ocean.weather.gov/", label: "Check Ocean Prediction Center marine forecasts" },
+          { href: "/tracker/north-carolina/", label: "North Carolina coastal planning and official resources" },
+          { href: "/tracker/south-carolina/", label: "South Carolina coastal planning and official resources" },
+          { href: "/tracker/virginia/", label: "Virginia coastal planning and official resources" }
+        ]
       },
       {
         heading: "How Real-Time Hurricane Tracking Works",
-        body: "A modern real-time hurricane tracker layers three sensor systems: geostationary satellites (GOES-East) that image the Western Hemisphere every 5 to 10 minutes, land-based NEXRAD Doppler radar that detects rainband rotation and tornado-scale circulations, and Hurricane Hunter aircraft that drop instruments directly through the storm to measure pressure, wind, and temperature.",
-        bullets: ["Satellite GeoColor imagery reveals cloud-top temperatures as a proxy for storm intensity.", "Doppler radar covers rain bands and tornado circulations within range of land.", "Hurricane Hunter recon flights provide the most reliable intensity data over open ocean.", "Buoys and Argo floats report sea-surface temperature and wave height as fuel indicators."]
+        body: "Different observations answer different questions. GOES satellite imagery shows cloud structure over broad areas, including locations beyond coastal radar coverage. Land-based Doppler radar shows precipitation and measured motion within its coverage. When available, aircraft reconnaissance samples wind, pressure, and the storm environment. Forecasters combine these observations rather than reading storm strength from a single image. Compare valid times before putting two products side by side; a newly loaded page can still contain an older observation.",
+        bullets: ["GeoColor helps show cloud patterns; it is not a quantitative cloud-top-temperature map.", "Infrared imagery can show cloud-top brightness temperatures, but those temperatures alone do not determine surface wind speed.", "Radar coverage, beam height, and range limit what a coastal radar can observe over the ocean.", "Aircraft, buoy, and other ocean observations supplement satellite estimates when available."]
       },
       {
         heading: "Reading Extreme Weather Alerts",
-        body: "NWS and NHC warnings follow a spectrum: a tropical storm watch means winds of 39 to 73 mph are possible within 48 hours, while a hurricane warning means sustained winds of 74 mph or higher are expected within 36 hours. The Saffir-Simpson scale rates hurricanes by wind only and does not capture storm surge, rainfall flooding, or tornado risk, which are the three deadliest hurricane hazards.",
-        bullets: ["Tropical storm watch: review your plan and fuel vehicles.", "Hurricane watch: prepare evacuation bags and secure property.", "Hurricane warning: complete protective action or evacuate if ordered.", "Wireless Emergency Alerts on your phone are authoritative until verified on weather.gov."]
+        body: "A tropical storm watch generally means tropical storm conditions are possible within 48 hours. A hurricane warning means hurricane conditions are expected, with the warning generally issued 36 hours before the anticipated onset of tropical-storm-force winds because preparation becomes dangerous after those winds arrive. These lead times are planning guidance, not a countdown you can safely wait out. Read the bulletin for its exact area, timing, and actions. The Saffir-Simpson category describes maximum sustained wind, not storm surge, rainfall flooding, or tornado risk.",
+        bullets: ["Watch: review your evacuation zone, transport, medications, and destination.", "Warning: complete protective actions promptly and follow evacuation orders.", "Coastal flood, high surf, and marine warnings can matter even without a tropical cyclone advisory.", "Act on official Wireless Emergency Alert instructions immediately; use weather.gov for additional details when safe."]
       },
       {
         heading: "How to Track Hurricanes at Home",
-        body: "You do not need a meteorology degree to act like one. Pick one official source and one mapping tool, save the NHC cone every six hours to track drift direction, watch central pressure drops below 980 mb as a strengthening signal, and monitor your local NWS office feed for county-level tornado and flash flood warnings."
+        body: "Start by matching your location with an official alert area, then note the advisory number, issue time, and forecast valid time. Read the NHC discussion for intensity changes and uncertainty. A pressure reading below 980 mb is not a universal strengthening threshold; pressure trends must be interpreted alongside wind observations, storm size, structure, and the official analysis. The forecast cone describes uncertainty in the center's track, not the full area of dangerous weather. Review rainfall, coastal flooding, and wind products separately, and check local bridge, road, shelter, and evacuation information before travel.",
+        links: [
+          { href: "/blog/how-to-read-the-hurricane-cone-of-uncertainty/", label: "Understand what the forecast cone does and does not show" },
+          { href: "/blog/hurricane-storm-surge-forecasting/", label: "Read storm surge forecasts and inundation maps" },
+          { href: "/tools/alert-action-decoder/", label: "Review actions associated with official alert language" }
+        ]
+      },
+      {
+        heading: "A Repeatable Late-Season Coastal Check",
+        body: "Before a coastal trip or a change in household plans, check the same information in the same order. First, open the current outlook and identify whether it describes a disturbance, a non-tropical low, or an established tropical cyclone. Next, read your local forecast office's hazard statements for the shoreline and time period you care about. Then check local road, bridge, and emergency management notices. Write down the next expected official update and keep phone alerts enabled between checks. Repeat the check sooner when a warning or local instruction changes. A quiet active-storm list cannot answer whether a beach, causeway, harbor, or neighborhood is safe that day."
       },
       {
         heading: "Use HurricaneHub for the Live Picture",
-        body: "When NHC advisories update every three to six hours, HurricaneHub aggregates them onto one map: forecast cones, real-time radar for the contiguous U.S., NWS active alerts per state, and a true-color satellite loop refreshed every ten minutes. Bookmark HurricaneHub for the rest of the 2026 Atlantic hurricane season."
+        body: "HurricaneHub provides storm information, radar and satellite views, and state-level NWS alert summaries across its tracking pages. Use the source timestamps displayed with those feeds, and open the official product when you need its full warning text or forecast. A feed error or missing storm marker does not establish that conditions are safe. The radar page offers GeoColor, infrared, water-vapor, and official NOAA loop views, while local planning pages link to emergency resources. Check the basin as well as the storm name: an eastern Pacific system listed in an all-NHC feed is not automatically an Atlantic or U.S. landfall threat.",
+        links: [
+          { href: "/hurricane-tracker/live/", label: "Open the live hurricane tracker" },
+          { href: "/radar/", label: "Compare radar with NOAA satellite views" },
+          { href: "https://www.nhc.noaa.gov/aboutnhcprod.shtml", label: "Read official NHC product definitions and update schedules" }
+        ]
       }
     ],
     faqs: [
       {
-        question: "What is the best real-time hurricane tracker for 2026?",
-        answer: "Use HurricaneHub for a combined view of NHC cones, radar, satellite, and NWS alerts on one map. Always cross-reference with the official NHC advisory at hurricanes.gov and your local NWS office at weather.gov."
+        question: "Which sources should I use for real-time hurricane tracking?",
+        answer: "Use NHC for outlooks and tropical cyclone advisories, your local NWS office for local hazards, and emergency management for evacuation orders. HurricaneHub helps organize storm information, radar, satellite views, alerts, and planning links."
       },
       {
         question: "How often do hurricane trackers update?",
-        answer: "NHC advisories typically update every six hours, then every three hours when a storm is within 48 hours of landfall. HurricaneHub caches public feeds for short windows to reduce latency without hiding official updates."
+        answer: "Regular NHC public advisories are generally issued every six hours. Intermediate public advisories are issued every three hours when coastal watches or warnings are in effect; special advisories can be issued at other times. Check the bulletin's next-advisory instructions and the observation timestamp, not only when a tracker page refreshed."
+      },
+      {
+        question: "Does a low formation probability mean the coast is safe?",
+        answer: "No. Formation probability describes the chance of tropical or subtropical development within a specified period. A non-tropical low can still bring strong winds, coastal flooding, and dangerous surf. Check local NWS and marine warnings regardless of whether a system receives a name."
+      },
+      {
+        question: "Are the October 18 formation percentages a live forecast?",
+        answer: "No. They describe the NHC outlook issued at 2:00 a.m. EDT on October 18, 2026. They illustrate why development probability and coastal impacts are different questions. Open the latest official outlook and local warnings for current conditions."
       },
       {
         question: "Does the Saffir-Simpson scale measure storm surge?",
@@ -1169,24 +1201,32 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-storm-surge-forecasting",
-    title: "Hurricane Storm Surge Forecasting: How to Track Deadly Coastal Flooding in Real Time",
-    description: "Storm surge causes half of all hurricane deaths. Learn how forecasters predict coastal flooding and how to track surge warnings in real time.",
+    title: "Hurricane Storm Surge Forecasts: Read Flood Maps and Alerts",
+    description: "Learn how to read NHC storm surge forecasts, water depth above ground, watches and warnings, and local evacuation zones before coastal flooding arrives.",
     datePublished: "2026-08-11",
-    dateModified: "2026-08-11",
-    image: "/images/blog/hurricane-storm-surge-forecasting.jpg",
+    dateModified: "2026-10-23",
+    image: "/images/blog/hurricane-storm-surge-forecasting.png",
     imageAlt: "A resident stands on a porch watching storm surge seawater rising over a coastal residential street while dark hurricane clouds gather over the ocean.",
     sections: [
       {
         heading: "Direct Answer",
-        body: "Storm surge is the abnormal rise in ocean water pushed ashore by a hurricane. It is caused by wind and low atmospheric pressure, amplified by coastline shape, shelf slope, and tide timing. Forecasters predict surge using the SLOSH and P-Surge models, and the National Hurricane Center issues storm surge watches and warnings based on the results. A real-time hurricane tracker that overlays surge zones, radar, and satellite imagery is the fastest way to monitor coastal flooding risk during the 2026 Atlantic hurricane season."
+        body: "Storm surge is the abnormal rise in water above the predicted astronomical tide caused by a storm. For a threatened coast, read the latest NHC storm surge watch or warning and Potential Storm Surge Flooding Map, then check local evacuation instructions. The flooding map expresses potential water depth above normally dry ground; it does not show hurricane category, offshore wave height, or a guaranteed water level at your home. Use radar and satellite imagery for storm context, and official surge and local flood products for the water hazard."
       },
       {
         heading: "What Is Storm Surge and Why Is It So Deadly",
-        body: "A hurricane's wind speed grabs headlines, but water—not wind—has historically caused roughly half of all hurricane-related fatalities in the United States. Storm surge is the abnormal rise in sea level generated by a storm, above and beyond the normal astronomical tide. It is driven primarily by wind pushing water onshore and by the drop in atmospheric pressure, which allows the ocean surface to bulge slightly beneath the storm's center. The shape of the coastline, the slope of the continental shelf, and the timing relative to high tide all amplify or reduce the final flood depth. A surge of 3 feet can make low-lying roads impassable and overwhelm storm drains. A surge of 9 feet or more can destroy the lower floors of buildings and carry vehicles away. Hurricane Katrina in 2005 produced a storm surge of more than 25 feet along parts of the Mississippi coast. Hurricane Ian in 2022 pushed 10 to 15 feet of water into Fort Myers Beach. Hurricane Helene in 2024 generated a deadly surge along Florida's Big Bend despite being a large, sprawling storm rather than a compact major hurricane."
+        body: "Wind pushes seawater toward the coast, while low atmospheric pressure also contributes to elevated water levels. A broad continental shelf, bays, river mouths, and the shape of the coast can amplify the rise. Moving water and waves can damage buildings, cut off roads, and prevent escape before a storm's center arrives. Category alone cannot tell you how much water a particular neighborhood will receive. A lower-category or weakening storm can still cause dangerous inundation, and rain falling at the same time can create additional flooding. For household decisions, check the latest local water forecasts, warning text, and evacuation instructions."
+      },
+      {
+        heading: "Storm Surge, Storm Tide, and Depth Above Ground",
+        body: "Storm surge is the storm-driven increase above the predicted astronomical tide. Storm tide is the combined water level from that surge and the astronomical tide. Inundation depth above ground describes how far water may rise over the land at a location after accounting for terrain. These quantities are not interchangeable. For example, a water level expressed relative to a tidal datum is not automatically the depth inside a house. The NHC flooding map accounts for tide and land elevation when depicting potential inundation. Read the legend and units on each product, especially when comparing a tide gauge, an advisory, and an above-ground flooding map."
       },
       {
         heading: "How Forecasters Predict Storm Surge",
-        body: "The National Hurricane Center does not guess at surge height. It runs a specialized model called SLOSH—Sea, Lake, and Overland Surges from Hurricanes—on thousands of hypothetical storm scenarios. SLOSH simulates how water would move across a specific coastal basin given a storm's track, size, intensity, and forward speed. The output helps emergency managers define evacuation zones long before a storm arrives. For real-time forecasts, the NHC uses P-Surge, a probabilistic surge product that combines official NHC track and intensity forecasts with historical forecast errors. P-Surge tells forecasters the chance that surge will exceed certain heights—2 feet, 4 feet, 6 feet, and so on—at specific locations. This is the data behind the color-coded maps you see on a real-time hurricane tracker when a storm threatens the coast."
+        body: "NHC uses the Sea, Lake, and Overland Surges from Hurricanes model, known as SLOSH, to simulate coastal water movement. Probabilistic storm surge guidance, or P-Surge, accounts for uncertainty in storm conditions rather than assuming one exact track and intensity. The Potential Storm Surge Flooding Map uses levels with a 10 percent chance of being exceeded at each location. That is a reasonable worst-case planning depiction, not the single most likely outcome and not a 10 percent chance that the whole coast will flood. Its colors describe potential above-ground water depth. Check the current map's issue time, legend, geographic coverage, and accompanying advisory.",
+        links: [
+          { href: "https://www.nhc.noaa.gov/surge/inundation/", label: "Read NHC's Potential Storm Surge Flooding Map explanation" },
+          { href: "https://www.nhc.noaa.gov/surge/", label: "Find official NHC storm surge products and guidance" }
+        ]
       },
       {
         heading: "Why the Same Hurricane Produces Different Surge Heights",
@@ -1194,11 +1234,16 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Reading Storm Surge Watches and Warnings",
-        body: "The NHC issues two main surge alerts. A Storm Surge Watch means there is a possibility of life-threatening inundation from rising water moving inland from the coastline, generally within 48 hours. A Storm Surge Warning means that life-threatening inundation is imminent or already occurring, generally within 36 hours. These alerts are zone-based, not county-based. They follow specific coastal geographies and evacuation zones rather than political boundaries. This is why your zip code may be under a warning while a neighboring zip code is not. The alerts also account for tide: a storm arriving at high tide can produce significantly more flooding than the same storm arriving at low tide. Always read the full warning text, not just the color on a map."
+        body: "A Storm Surge Watch means life-threatening inundation from water moving inland from the shoreline is possible, generally within 48 hours. A Storm Surge Warning means it is expected, generally within 36 hours. Either can be issued earlier when other conditions would limit preparation time. A warning is not a statement that flooding has already begun or that you can wait another 36 hours to act. The official watch or warning area and a locally designated evacuation zone serve different purposes and may have different boundaries. Read the complete warning and your local emergency management instructions rather than inferring an evacuation order from a ZIP code or map color."
       },
       {
         heading: "How to Track Storm Surge in Real Time",
-        body: "A good real-time hurricane tracker displays more than the forecast cone. It shows storm surge watch and warning zones, rainfall forecasts, wind-field maps, and live radar. Start with the NHC Potential Storm Surge Flooding Map, which shows geographical areas where inundation could occur above ground level. The map uses color-coded depth contours and accounts for the range of possible storm tracks. It does not show exact street-level flooding, but it is the authoritative starting point for understanding regional risk. Next, overlay your local evacuation zones. Evacuation zones are designed around surge risk, not distance from the beach. Zone A typically faces the highest surge risk and is evacuated first. When your local emergency manager orders an evacuation for your zone, the decision is based on surge modeling, not on whether the storm currently looks scary on satellite."
+        body: "Open the official NHC inundation product when it is available for the storm, then check your county or city's evacuation zone lookup separately. The NHC map includes storm surge, astronomical tides, and land elevation, but excludes wave action, freshwater flooding from rainfall, river discharge, and flooding caused by levee failures. Some leveed areas are specially marked rather than assigned an inundation depth; consult local officials about risk inside those areas. A location outside the shaded area can therefore still face other flood hazards. It is not a parcel-level guarantee for a particular building, floor, road, or route. Review local NWS flood products and official road conditions as well. If no NHC inundation map is available, that absence is not an all-clear; coastal flooding from a non-tropical low may instead be covered by local NWS coastal flood products.",
+        links: [
+          { href: "/blog/how-to-check-your-hurricane-evacuation-zone/", label: "Find and verify your local hurricane evacuation zone" },
+          { href: "/blog/storm-surge-warning-vs-hurricane-warning/", label: "Compare storm surge warnings with hurricane wind warnings" },
+          { href: "https://www.weather.gov/", label: "Check local NWS coastal and inland flood warnings" }
+        ]
       },
       {
         heading: "Watch the Clock, Not Just the Track",
@@ -1206,27 +1251,32 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Prepare for Storm Surge by Evacuation Zone",
-        body: "Your surge preparation should match your evacuation zone and the specific warnings issued for your area.",
+        body: "Use the zone definitions and instructions published by your own jurisdiction. Zone letters, numbers, boundaries, and evacuation sequencing vary by location; do not apply another county's Zone A or Zone B guidance to your address.",
         bullets: [
-          "Zone A and surge warning areas: Leave as soon as evacuation is recommended. Boarding windows will not protect against several feet of standing water. Take your go-bag, medications, pets, and important documents.",
-          "Zone B and watch areas: Prepare to leave on short notice. Move vehicles to higher ground. Secure outdoor items that could float and become projectiles. Charge devices and fill your vehicle's tank.",
+          "If officials order or recommend evacuation for your zone: Follow their timing and destination instructions. Take essential medications, pets, and important documents, and allow time for transport needs.",
+          "If your zone is not yet under an evacuation instruction: Prepare transport, a destination, charged devices, and essential supplies while monitoring official updates. Do not assume a zone label guarantees safety.",
           "Outside mapped zones but near rivers or bays: Do not assume you are safe. Surge can travel up rivers, estuaries, and drainage canals. Check local flood maps and monitor real-time river gauges.",
           "All coastal residents: Know at least two evacuation routes in case your primary route floods. Identify a destination outside the surge zone and confirm it accepts pets if needed."
         ]
       },
       {
-        heading: "Why Real-Time Tracking Matters More Than Ever",
-        body: "The 2026 Atlantic hurricane season is unfolding against a backdrop of record-warm sea-surface temperatures in the Main Development Region and Gulf of Mexico. Warm water does not just fuel stronger winds; it provides the energy that helps storms expand their wind field, which in turn pushes more water toward the coast. Larger storms, even those that are not Category 5, can produce historic surge because the wind field has more time and area to move water. Recent seasons have made this clear. Hurricane Idalia in 2023 produced a 7- to 12-foot surge along Florida's Big Bend as a Category 3. Hurricane Helene in 2024 produced catastrophic surge and inland flooding across the Southeast. Hurricane Milton in 2024 threatened the Tampa Bay region with surge forecasts that prompted some of the largest evacuations in Florida history. In each case, real-time surge forecasts gave officials and residents the lead time they needed to act."
+        heading: "Why Updated Water Forecasts Matter",
+        body: "Surge forecasts can change as forecasters refine a storm's track, size, intensity, and timing. An offshore track adjustment can shift where winds push water toward the coast, and a different arrival time can change the overlap with high tide. Local water forecasts account for these storm details and coastal conditions. Compare the latest official water products and warning text with the previous issuance, then check whether your local evacuation instructions have changed. Do not use a falling hurricane category, a weaker-looking satellite image, or a low formation probability as a reason to disregard coastal flooding guidance."
       },
       {
         heading: "Stay Ahead of the Water with HurricaneHub",
-        body: "HurricaneHub is built to turn complex surge forecasts into actionable information. Our real-time hurricane tracker overlays NHC storm surge watches and warnings, live GOES-East satellite imagery, RainViewer Doppler radar, and NWS active alerts on one interactive map. When a named storm enters your basin, you can see the surge risk zones, track the forecast cone, and monitor local extreme weather alerts without switching between multiple websites. Bookmark HurricaneHub for the rest of the 2026 Atlantic hurricane season. Whether you live on the coast or track storms from inland, understanding storm surge forecasting is one of the most important skills you can have. Do not wait for the headline to tell you a storm is dangerous—watch the surge forecast, know your evacuation zone, and leave early when officials say it is time."
+        body: "Use HurricaneHub's tracker for storm context, its radar page for precipitation and satellite views, and its alert summaries and state pages to find official local resources. Open NHC directly for inundation maps and surge forecasts, and your local authority for evacuation boundaries and orders. Radar rain colors and cloud imagery do not measure surge depth. Keep the official water product and local instructions alongside your tracking view so an attractive storm image does not distract from a changing coastal hazard.",
+        links: [
+          { href: "/hurricane-tracker/live/", label: "Check storm context on the live hurricane tracker" },
+          { href: "/radar/", label: "View precipitation radar and NOAA satellite imagery" },
+          { href: "/tools/evacuation-decision-helper/", label: "Organize evacuation planning around official instructions" }
+        ]
       }
     ],
     faqs: [
       {
         question: "What is the difference between a storm surge watch and a storm surge warning?",
-        answer: "A Storm Surge Watch means life-threatening inundation is possible within 48 hours. A Storm Surge Warning means life-threatening inundation is imminent or occurring within 36 hours. Both require preparation, but a warning signals that action is urgently needed."
+        answer: "A watch means life-threatening coastal inundation is possible, generally within 48 hours. A warning means it is expected, generally within 36 hours. Both may be issued earlier when preparation could become difficult. Follow the warning text and local evacuation instructions promptly."
       },
       {
         question: "Can a Category 1 hurricane produce dangerous storm surge?",
@@ -1234,7 +1284,15 @@ export const blogPosts: BlogPost[] = [
       },
       {
         question: "Where can I see real-time storm surge forecasts?",
-        answer: "The National Hurricane Center publishes the Potential Storm Surge Flooding Map at hurricanes.gov. You can also use HurricaneHub's real-time hurricane tracker, which overlays NHC surge zones with radar, satellite, and active NWS alerts on a single map."
+        answer: "Use the NHC's current storm page and Potential Storm Surge Flooding Map when available. Check local NWS coastal flood products and emergency management instructions as well. HurricaneHub provides storm, radar, satellite, and alert context; open official NHC products for inundation depth."
+      },
+      {
+        question: "Does the NHC inundation map include rain flooding and waves?",
+        answer: "No. The Potential Storm Surge Flooding Map accounts for storm surge, astronomical tides, and land elevation, but does not include wave action, freshwater flooding from rainfall, or river discharge. Use separate official products for those hazards."
+      },
+      {
+        question: "Is storm surge height the same as water depth above ground?",
+        answer: "No. Storm surge is the rise above the predicted astronomical tide. Storm tide includes the astronomical tide. Depth above ground describes potential inundation over the local land surface. Read each product's units, reference level, and legend before comparing numbers."
       }
     ]
   },
