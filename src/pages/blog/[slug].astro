@@ -2,8 +2,9 @@
 import Layout from "../../layouts/Layout.astro";
 import FaqBlock from "../../components/FaqBlock.astro";
 import AdPlacement from "../../components/AdPlacement.astro";
-import { blogPosts, getCategory, getRelatedPosts } from "../../data/blog";
-import { faqs, site } from "../../data/site";
+import ReferenceText from "../../components/ReferenceText.astro";
+import { blogPosts, getBlogOgImage, getCategory, getRelatedPosts } from "../../data/blog";
+import { site } from "../../data/site";
 import { blogPostingSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 
 const slug = Astro.params.slug ?? "";
@@ -17,11 +18,7 @@ const url = `${site.url}/blog/${post.slug}/`;
 const lastModified = new Date(post.dateModified).toISOString();
 const relatedPosts = getRelatedPosts(post.slug, 3);
 const category = getCategory(post.slug);
-const clusterPosts = blogPosts
-  .filter((item) => item.slug !== post.slug && getCategory(item.slug) === category)
-  .sort((a, b) => b.dateModified.localeCompare(a.dateModified))
-  .slice(0, 5);
-const postFaqs = post.faqs?.length ? post.faqs : faqs;
+const postFaqs = post.faqs ?? [];
 const adsEnabled = import.meta.env.PUBLIC_ADS_ENABLED === "true";
 const textSignal = [
   post.slug,
@@ -69,8 +66,8 @@ const actionLibrary = [
   },
   {
     name: "Review insurance and recovery steps",
-    href: "/storm-archive/",
-    description: "Use archive, comparison, documentation, and recovery paths after reading insurance or damage guidance.",
+    href: "/blog/hurricane-insurance-claim-guide-documentation/",
+    description: "Organize damage evidence, insurer contacts, receipts, and questions about a claim.",
     match: /insurance|claim|deductible|nfip|damage|recovery|after|document/
   }
 ];
@@ -82,12 +79,9 @@ const defaultActions = [
   actionLibrary[3]
 ];
 const nextActions = [...matchedActions, ...defaultActions]
-  .filter((action, index, arr) => arr.findIndex((item) => item.href === action.href) === index)
-  .slice(0, 4);
-// Blog posts are SSR, so we cannot statically assert asset existence at request time.
-// The gen-og prebuild step guarantees an OG PNG exists for every cover SVG referenced
-// by blog.ts, so the specific card is always safe to reference.
-const ogImage = post.image.replace(/\.svg$/i, ".png").replace("/images/blog/", "/images/blog/og/");
+  .filter((action, index, arr) => action.href !== `/blog/${post.slug}/` && arr.findIndex((item) => item.href === action.href) === index)
+  .slice(0, 2);
+const ogImage = getBlogOgImage(post);
 const jsonLd = graph(
   websiteSchema(),
   blogPostingSchema({ title, description, url, datePublished: new Date(post.datePublished).toISOString(), dateModified: lastModified, image: new URL(ogImage, site.url).href }),
@@ -101,14 +95,9 @@ const jsonLd = graph(
       name: item.title,
       description: item.description,
       url: `${site.url}/blog/${item.slug}/`
-    })),
-    ...clusterPosts.map((item) => ({
-      name: item.title,
-      description: item.description,
-      url: `${site.url}/blog/${item.slug}/`
     }))
   ]),
-  faqSchema(postFaqs)
+  ...(postFaqs.length ? [faqSchema(postFaqs)] : [])
 );
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified} image={post.image} ogImage={ogImage} imageAlt={post.imageAlt} publishedTime={new Date(post.datePublished).toISOString()}>
@@ -117,22 +106,26 @@ const jsonLd = graph(
       <p class="eyebrow">HurricaneHub blog</p>
       <h1 id="post-title">{post.title}</h1>
       <p class="answer">{post.description}</p>
-      <p class="small">Published {post.datePublished} · Last modified {post.dateModified}</p>
-      <img class="article-hero-image" src={post.image} alt={post.imageAlt} width="1600" height="900" decoding="async" fetchpriority="high" />
+      <p class="small">By <a href="/about/">HurricaneHub</a> · Published {post.datePublished} · Last modified {post.dateModified}</p>
+      <figure>
+        <img class="article-hero-image" src={post.image} alt={post.imageAlt} width="1600" height="900" decoding="async" fetchpriority="high" />
+        <figcaption class="small">{post.imageCaption ?? "Editorial cover illustration, not an official forecast graphic or an observed image of the event described."}</figcaption>
+      </figure>
+      {post.review && <p class="small">Correction check {post.review.date} · {post.review.scope}. {post.review.correction}</p>}
     </div>
   </article>
 
   <section class="band" aria-labelledby="article-body">
     <div class="inner grid-2 article-grid">
       <div class="stack">
-        <h2 id="article-body">Key Takeaways</h2>
+        <h2 id="article-body">{post.title}</h2>
         {post.sections.map((section, index) => (
           <section aria-labelledby={`section-${index}`}>
             <h3 id={`section-${index}`}>{section.heading}</h3>
-            <p>{section.body}</p>
+            {section.body && <p><ReferenceText text={section.body} /></p>}
             {section.bullets && (
               <ul class="check-list">
-                {section.bullets.map((bullet) => <li>{bullet}</li>)}
+                {section.bullets.map((bullet) => <li><ReferenceText text={bullet} /></li>)}
               </ul>
             )}
             {section.links && (
@@ -149,11 +142,13 @@ const jsonLd = graph(
           </figure>
         ))}
         <AdPlacement placement="in-content" enabled={adsEnabled} />
-        <h3>Official Source Check</h3>
-        <p>Before making a life-safety decision, check weather.gov, your local emergency management agency, and current NHC advisories. NOAA/NESDIS and NASA images in this article are public-domain source visuals.</p>
+        <section aria-labelledby="article-sources">
+          <h2 id="article-sources">References</h2>
+          <ul class="check-list">{post.sources.map((source) => <li><a href={source.href}>{source.label}</a></li>)}</ul>
+          <p class="small">References provide background; they are not an endorsement of HurricaneHub. Current warnings and local evacuation orders take priority over this article.</p>
+        </section>
         <section aria-labelledby="next-actions-heading">
           <h2 id="next-actions-heading">Next Actions After Reading</h2>
-          <p>Use the article for background, then move to the tracker, alert, city, or planning page that matches your current situation.</p>
           <div class="article-action-grid">
             {nextActions.map((action) => (
               <article class="article-action">
@@ -165,34 +160,6 @@ const jsonLd = graph(
         </section>
       </div>
       <aside class="stack">
-        <section class="panel">
-          <h2>NOAA/NHC Source Note</h2>
-          <p>This article is informational and uses official weather agencies as source context. It is not an official forecast, evacuation order, or emergency instruction.</p>
-        </section>
-        <section class="panel">
-          <h2>Decision Tools</h2>
-          <ul class="check-list">
-            {nextActions.map((action) => <li><a href={action.href}>{action.name}</a></li>)}
-          </ul>
-        </section>
-        <section class="panel">
-          <h2>Topic Cluster</h2>
-          <p>This article is part of the {category} cluster. Use the blog index to compare related hurricane preparedness, warning, tracking, and recovery guides.</p>
-          <a href="/blog/">Browse blog clusters</a>
-        </section>
-        {clusterPosts.length ? (
-          <section class="panel">
-            <h2>More in {category}</h2>
-            <ul class="related-list">
-              {clusterPosts.map((item) => (
-                <li>
-                  <a href={`/blog/${item.slug}/`} class="related-link">{item.title}</a>
-                  <p class="related-desc">{item.description}</p>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ) : null}
         <section class="panel">
           <h2>Related Articles</h2>
           <ul class="related-list">
@@ -207,7 +174,7 @@ const jsonLd = graph(
       </aside>
     </div>
   </section>
-  <FaqBlock faqs={postFaqs} />
+  {postFaqs.length > 0 && <FaqBlock faqs={postFaqs} />}
 </Layout>
 
 <style>

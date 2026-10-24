@@ -37,13 +37,19 @@ function htmlFileFor(pathname) {
 }
 
 const findings = [];
-const { blogPosts } = await loadTsModule(path.join(root, "src/data/blog.ts"));
+const { blogPosts, getBlogOgImage } = await loadTsModule(path.join(root, "src/data/blog.ts"));
 const sitemapXml = fs.readFileSync(path.join(distDir, "sitemap.xml"), "utf8");
 const sitemapHtmlFiles = extractSitemapPaths(sitemapXml)
   .map(htmlFileFor)
   .filter((file) => fs.existsSync(file));
 
 for (const post of blogPosts) {
+  const ogFile = localPublicFile(getBlogOgImage(post));
+  if (!ogFile || !fs.existsSync(ogFile)) findings.push(`blog ${post.slug} missing SSR OG image`);
+  else {
+    const png = fs.readFileSync(ogFile);
+    if (png.toString("hex", 0, 8) !== "89504e470d0a1a0a" || png.readUInt32BE(16) !== 1200 || png.readUInt32BE(20) !== 630) findings.push(`blog ${post.slug} OG must be a 1200x630 PNG`);
+  }
   if (!post.image) findings.push(`blog ${post.slug} missing image`);
   if (!post.imageAlt || post.imageAlt.length < 35) findings.push(`blog ${post.slug} imageAlt too short or missing`);
   const imageFile = localPublicFile(post.image);

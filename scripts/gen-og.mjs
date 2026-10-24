@@ -4,6 +4,7 @@
 import { Resvg } from "@resvg/resvg-js";
 import { existsSync, readFileSync, writeFileSync, readdirSync, mkdirSync } from "node:fs";
 import { join, basename } from "node:path";
+import ts from "typescript";
 
 const SRC_DIR = "public/images/blog";
 const OUT_DIR = "public/images/blog/og";
@@ -60,4 +61,31 @@ for (const file of files) {
   console.log(`  ${file} -> og/${outName} (${png.length} bytes)`);
 }
 
-console.log(`\nGenerated ${count} OG images into ${OUT_DIR}`);
+const moduleText = ts.transpileModule(readFileSync("src/data/blog.ts", "utf8"), {
+  compilerOptions: { module: ts.ModuleKind.ES2022, target: ts.ScriptTarget.ES2022 }
+}).outputText;
+const { blogPosts, getBlogOgImage } = await import(`data:text/javascript;base64,${Buffer.from(moduleText).toString("base64")}`);
+const escapeXml = (value) => value.replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&apos;" })[char]);
+
+for (const post of blogPosts) {
+  const outPath = join("public", getBlogOgImage(post));
+  // Existing SVG covers are rendered above; missing covers get a title card,
+  // never a guessed JPEG path or an unrelated photograph.
+  if (existsSync(join(SRC_DIR, `${post.slug}.svg`))) continue;
+  if (existsSync(outPath)) {
+    const existing = readFileSync(outPath);
+    if (existing.toString("hex", 0, 8) === "89504e470d0a1a0a" && existing.readUInt32BE(16) === W && existing.readUInt32BE(20) === H) continue;
+  }
+  const lines = [];
+  for (const word of post.title.split(/\s+/)) {
+    if (!lines.length || `${lines.at(-1)} ${word}`.length > 36) lines.push(word);
+    else lines[lines.length - 1] += ` ${word}`;
+  }
+  if (lines.length > 6) throw new Error(`OG title exceeds card capacity: ${post.slug}`);
+  const titleLines = lines.map((line, index) => `<text x="64" y="${174 + index * 64}" font-size="48" font-weight="700">${escapeXml(line)}</text>`).join("");
+  const card = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" fill="#123644"/><rect x="64" y="64" width="84" height="8" fill="#55cfba"/><g fill="#ffffff" font-family="Arial, Helvetica, sans-serif">${titleLines}<text x="64" y="574" font-size="30">HurricaneHub | Weather and preparedness</text></g></svg>`;
+  const png = new Resvg(card, { font: { loadSystemFonts: true, defaultFontFamily: "Arial" } }).render().asPng();
+  if (!existsSync(outPath) || !readFileSync(outPath).equals(png)) writeFileSync(outPath, png);
+}
+
+console.log(`\nGenerated ${count} SVG cards and verified ${blogPosts.length} article OG images in ${OUT_DIR}`);

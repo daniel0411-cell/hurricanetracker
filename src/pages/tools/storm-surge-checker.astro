@@ -5,7 +5,7 @@ import { faqs, site } from "../../data/site";
 import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
 
 const title = "Storm Surge ZIP Checker";
-const description = "Check whether your ZIP code is inside an active NWS storm surge watch or warning, plus nearby hurricane alerts from official National Weather Service data.";
+const description = "Screen active NWS storm surge alerts at a ZIP representative point. Check local address-based evacuation guidance; results do not cover the whole ZIP.";
 const url = `${site.url}/tools/storm-surge-checker/`;
 const pageFaqs = [
   {
@@ -17,8 +17,8 @@ const pageFaqs = [
     answer: "A storm surge warning means life-threatening inundation is expected in the listed areas, generally within 36 hours. Follow local evacuation orders immediately if you are in a warned zone."
   },
   {
-    question: "My ZIP is outside any surge alert. Am I safe from flooding?",
-    answer: "No. Storm surge alerts cover coastal inundation, but heavy rain, river flooding, and tornadoes from a tropical system can affect inland areas with no surge alert. Continue to check all official warnings for your area."
+    question: "No alert was returned for the ZIP point. Is my address safe?",
+    answer: "No. This tool queries one representative place coordinate, not your street address or the entire ZIP area. Other parts of the ZIP may be under a warning. Rainfall and river flooding also need separate checks. Use the official warning text and local address-based evacuation map."
   },
   ...faqs
 ];
@@ -29,7 +29,7 @@ const jsonLd = graph(
     name: title,
     description,
     url,
-    featureList: ["ZIP-based storm surge watch and warning check", "Nearby hurricane and tropical storm alerts", "Official NWS alert language and expiration times"]
+    featureList: ["ZIP representative-point storm surge alert screening", "Tropical alerts returned for the query point", "Official NWS alert language and expiration times"]
   }),
   faqSchema(pageFaqs)
 );
@@ -40,8 +40,8 @@ const jsonLd = graph(
       <p class="eyebrow">Official NWS alert check</p>
       <h1 id="surge-title">Storm Surge ZIP Checker</h1>
       <p class="answer">
-        Enter a five-digit ZIP code to check whether your area is inside an active storm surge
-        watch or warning, and see nearby hurricane alerts from the National Weather Service.
+        Enter a five-digit ZIP code to screen active NWS storm surge and tropical alerts at
+        one representative point. This does not check every address or the whole ZIP area.
       </p>
     </div>
   </section>
@@ -62,6 +62,7 @@ const jsonLd = graph(
           required
         />
         <button type="submit">Check storm surge</button>
+        <p class="small">A ZIP can cross alert boundaries. Confirm your exact address and evacuation zone with <a href="/hurricane-tracker/city/">local emergency-management resources</a> and read the <a href="https://www.weather.gov/">official NWS warning</a>.</p>
         <p id="surge-status" class="small" role="status">
           Results come from the National Weather Service active alerts feed.
         </p>
@@ -70,7 +71,7 @@ const jsonLd = graph(
       <article class="panel" aria-live="polite">
         <p class="eyebrow">Result</p>
         <h2 id="surge-level">Waiting for ZIP</h2>
-        <p id="surge-summary">Enter your ZIP code to check active storm surge alerts.</p>
+        <p id="surge-summary">Enter a ZIP to screen its representative point. No result here can establish that your address is safe.</p>
         <ul id="surge-alerts" class="check-list"></ul>
       </article>
     </div>
@@ -83,12 +84,12 @@ const jsonLd = graph(
       <div class="grid-3 section-grid">
         <article class="panel">
           <span class="badge warn">Watch</span>
-          <h3>Possible — act within 48 hours</h3>
+          <h3>Possible, generally within 48 hours</h3>
           <p>Life-threatening inundation is possible. Review evacuation zone, fuel up, and prepare to move.</p>
         </article>
         <article class="panel">
           <span class="badge danger">Warning</span>
-          <h3>Expected — act within 36 hours</h3>
+          <h3>Expected, generally within 36 hours</h3>
           <p>Life-threatening inundation is expected. Follow local evacuation orders immediately.</p>
         </article>
         <article class="panel">
@@ -157,7 +158,7 @@ const jsonLd = graph(
   function renderAlerts(alerts: SurgeAlert[]) {
     if (!alertsEl) return;
     if (!alerts.length) {
-      alertsEl.innerHTML = "<li>No active storm surge or hurricane alert was returned for this area.</li>";
+      alertsEl.innerHTML = "<li>No tropical alert was returned for this representative point. Other locations in the ZIP may have alerts; this is not an all-clear.</li>";
       return;
     }
     alertsEl.innerHTML = alerts
@@ -194,7 +195,7 @@ const jsonLd = graph(
         headline = "Storm Surge Watch";
         if (levelEl) levelEl.className = "badge warn";
       } else {
-        headline = "No active surge alert";
+        headline = "No surge alert returned for query point";
         if (levelEl) levelEl.className = "badge";
       }
       if (levelEl) {
@@ -202,10 +203,10 @@ const jsonLd = graph(
         levelEl.classList.add("badge");
       }
       if (summaryEl) {
-        summaryEl.textContent = `${place}: the National Weather Service returned ${data.relevantAlerts?.length ?? 0} active tropical alert${(data.relevantAlerts?.length ?? 0) === 1 ? "" : "s"} for this point. Verify official local instructions before acting.`;
+        summaryEl.textContent = `${place}, ZIP ${data.zip || zip}: the National Weather Service returned ${data.relevantAlerts?.length ?? 0} tropical alert${(data.relevantAlerts?.length ?? 0) === 1 ? "" : "s"} for the ZIP representative point, not all addresses. Read official warning boundaries and local evacuation instructions.`;
       }
       renderAlerts(data.relevantAlerts ?? []);
-      if (statusEl) statusEl.textContent = "Surge check updated. Follow local emergency management instructions.";
+      if (statusEl) statusEl.textContent = `Response received ${new Date().toLocaleString()}. Feed results may be cached; check each warning's issue and expiry times. Follow local emergency management instructions.`;
     } catch (error) {
       console.error("HurricaneHub surge checker failed", error);
       if (statusEl) statusEl.textContent = "Surge check unavailable. Check weather.gov and retry shortly.";

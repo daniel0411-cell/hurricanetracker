@@ -6,6 +6,9 @@ export type BlogPost = {
   dateModified: string;
   image: string;
   imageAlt: string;
+  imageCaption?: string;
+  sources: Array<{ href: string; label: string }>;
+  review?: { date: string; scope: string; correction: string };
   figures?: Array<{ src: string; alt: string; caption: string }>;
   sections: Array<{
     heading: string;
@@ -22,10 +25,11 @@ export type BlogPost = {
 export const blogPosts: BlogPost[] = [
   {
     slug: "hurricane-eyewall-replacement-cycle-explained",
+    sources: [{ href: "https://www.aoml.noaa.gov/hrd-faq/", label: "NOAA Hurricane Research Division: hurricane structure and eyewall FAQ" }],
     title: "Eyewall Replacement Cycle Explained: Why Hurricane Winds Can Change",
     description: "Learn what an eyewall replacement cycle is, why hurricane winds can weaken then rebound, and how to read the signal in NHC forecasts and satellite imagery.",
     datePublished: "2026-09-14",
-    dateModified: "2026-09-14",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-rapid-intensification.png",
     imageAlt: "A coastal resident checks hurricane satellite imagery and forecast information on a phone before a storm.",
     sections: [
@@ -45,10 +49,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "official-hurricane-information-sources-rumor-verification",
+    sources: [{ href: "https://www.nhc.noaa.gov/", label: "NHC current advisories" }, { href: "https://www.weather.gov/", label: "NWS local forecasts and warnings" }, { href: "https://www.ready.gov/alerts", label: "Ready.gov emergency alerts" }],
     title: "Official Hurricane Information Sources: How to Verify Storm Updates",
     description: "Find reliable hurricane information from the NHC, local NWS office, emergency management, evacuation officials, and NOAA backups while avoiding storm rumors.",
     datePublished: "2026-09-14",
-    dateModified: "2026-09-14",
+    dateModified: "2026-10-24",
     image: "/images/blog/nws-hurricane-alert-meanings.png",
     imageAlt: "A smartphone displays official hurricane alert information beside a weather radio and emergency planning notes.",
     sections: [
@@ -68,10 +73,12 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "how-el-nino-affects-hurricanes",
+    sources: [{ href: "https://www.climate.gov/enso", label: "NOAA: ENSO information and explanations" }, { href: "https://www.cpc.ncep.noaa.gov/products/outlooks/hurricane.shtml", label: "NOAA Climate Prediction Center: hurricane outlook" }],
+    imageCaption: "NOAA/NESDIS ocean-temperature illustration of an El Nino episode; historical background, not a current hurricane or current ENSO analysis.",
     title: "How El Niño Affects Atlantic Hurricane Activity",
     description: "Learn how El Niño can change Atlantic and Pacific hurricane patterns, why it does not control one storm, and how to use official forecasts safely.",
     datePublished: "2026-09-09",
-    dateModified: "2026-09-17",
+    dateModified: "2026-10-24",
     image: "/images/blog/external/noaa-el-nino-sst.jpg",
     imageAlt: "NOAA satellite image showing El Niño sea-surface temperature departure from normal across the Pacific Ocean.",
     figures: [
@@ -124,48 +131,50 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "2025-atlantic-hurricane-season-outlook",
+    sources: [{ href: "https://www.noaa.gov/news-release/noaa-predicts-above-normal-2025-atlantic-hurricane-season", label: "NOAA May 22, 2025 outlook: original probabilities and ranges" }, { href: "https://www.nhc.noaa.gov/data/tcr/index.php?season=2025&basin=atl", label: "NHC 2025 season archive: observed activity and storm reports" }],
+    review: { date: "2026-10-24", scope: "May 2025 forecast figures and historical framing", correction: "Added the dated NOAA outlook; this archived forecast is not the current season forecast or a count of observed storms." },
     title: "2025 Atlantic Hurricane Season Outlook",
-    description: "A practical overview of seasonal hurricane risk signals and how households should interpret outlooks before storms form.",
+    description: "Archived NOAA May 2025 Atlantic outlook: 13-19 named storms, forecast probabilities, climate assumptions, and why basin forecasts cannot predict a local landfall.",
     datePublished: "2025-05-20",
-    dateModified: "2026-07-28",
+    dateModified: "2026-10-24",
     image: "/images/blog/2025-atlantic-hurricane-season-outlook.png",
     imageAlt: "A meteorologist reviews a large Atlantic hurricane season outlook display in a weather operations center.",
     sections: [
       {
-        heading: "What the Outlook Means",
-        body:
-          "A seasonal outlook is a planning signal, not a landfall forecast. Use it to prepare supplies, insurance records, evacuation routes, and family communication before a named storm targets your area."
+        heading: "Archived Forecast: NOAA's May 22, 2025 Release",
+        body: "This page explains the forecast issued before the 2025 Atlantic season, not current conditions or the final 2025 storm count. NOAA's May 22 release assigned a 60% chance of above-normal activity, 30% near-normal, and 10% below-normal for the June 1-November 30 season. The original version of this article predated that release; these historical figures were added in the October 24, 2026 correction. Forecast probabilities should retain their issue date rather than being silently carried into a new year.",
+        links: [{ href: "https://www.noaa.gov/news-release/noaa-predicts-above-normal-2025-atlantic-hurricane-season", label: "Read NOAA's original May 22, 2025 outlook" }]
       },
       {
-        heading: "Household Actions",
-        body: "The most useful response is to finish low-regret actions before peak season.",
-        bullets: ["Check insurance documents.", "Photograph property and important papers.", "Test flashlights, chargers, and weather radios.", "Review evacuation zones and shelter rules."]
+        heading: "The Forecast Ranges and What They Counted",
+        body: "NOAA forecast 13-19 named storms, including 6-10 hurricanes and 3-5 major hurricanes. Hurricanes are a subset of named storms; major hurricanes are a subset of hurricanes. Adding all three ranges together would double-count storms. NOAA stated 70% confidence in the ranges. That confidence is different from the 60% probability of an above-normal season and is not a probability that any particular city will be struck.",
+        bullets: ["Named storms: sustained winds of at least 39 mph.", "Hurricanes: sustained winds of at least 74 mph.", "Major hurricanes: Category 3-5, sustained winds of at least 111 mph."]
       },
       {
-        heading: "How to Use the Forecast",
-        body:
-          "Do not use a seasonal forecast to decide whether one specific city will be hit. Use it to decide how early your household should finish kit building, tree trimming, insurance review, and evacuation planning."
+        heading: "Why NOAA Expected Elevated Activity",
+        body: "The May release cited continued ENSO-neutral conditions, warmer-than-average Atlantic waters, forecasts of weak wind shear, and a potentially active West African monsoon. These describe an environment that can favor development across a basin. They cannot identify the track, intensity, or rainfall of a storm that has not formed. A household should use seasonal context to complete preparation, then switch to current official forecasts when a system develops."
       },
       {
-        heading: "Decision Threshold",
-        body:
-          "If an active storm forms near your basin, move from seasonal planning to daily NHC advisory checks and local NWS alert monitoring. Households with medical or transportation constraints should shift earlier."
+        heading: "Compare Forecasts With the Right Historical Record",
+        body: "Use the NHC 2025 season archive for observed storms and post-season analyses. The May forecast, any August update, operational advisories, and final reports are different records; a comparison must identify which forecast date and which later observations it uses. This article does not treat predicted ranges as observed totals or claim a forecast score without that comparison. For an active storm now, open the current tracker rather than using a 2025 outlook to make a safety decision.",
+        links: [{ href: "https://www.nhc.noaa.gov/data/tcr/index.php?season=2025&basin=atl", label: "NHC 2025 season reports" }, { href: "/hurricane-tracker/live/", label: "Current storm positions and advisory links" }]
       }
     ]
   },
   {
     slug: "how-to-prepare-your-home-for-a-hurricane",
+    sources: [{ href: "https://www.ready.gov/hurricanes", label: "Ready.gov: hurricane preparation and protective actions" }],
     title: "How to Prepare Your Home for a Hurricane",
     description: "A homeowner checklist for shutters, drainage, documents, supplies, and evacuation timing before hurricane watches become warnings.",
     datePublished: "2025-06-03",
-    dateModified: "2026-10-17",
+    dateModified: "2026-10-24",
     image: "/images/blog/how-to-prepare-your-home-for-a-hurricane.jpg",
     imageAlt: "Homeowners install storm shutters and stack sandbags while preparing a coastal home for an approaching hurricane.",
     sections: [
       {
         heading: "Start Outside",
         body:
-          "Secure outdoor items, clean drains, trim weak branches when conditions are calm, and protect windows before wind makes work unsafe."
+          "Use this guide for the near-term decision about securing the property or leaving. Structural retrofit projects belong in the separate home-hardening guide, and the room-by-room checklist covers an interior inventory. Walk the property in calm weather and list loose furniture, bins, toys, and tools that can be moved without climbing. Clear accessible drainage only when safe, and arrange qualified help for roof, electrical, or large-tree work rather than beginning those jobs as a storm approaches."
       },
       {
         heading: "Protect Records and Utilities",
@@ -184,6 +193,11 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "/tools/wind-mitigation-calculator/", label: "Compare a Florida wind mitigation savings scenario" }]
       },
       {
+        heading: "Assign the Work Before the Departure Deadline",
+        body: "Write a short job list with an owner, required equipment, and stop time. For example: one adult brings patio furniture indoors; another packs medicines and records while confirming the destination. If shutters require a contractor or missing fasteners, solve that ahead of season. Tape on glass is not an alternative to rated protection. Keep the exit route clear and do not leave a ladder, extension cord, or heavy panel blocking the door.",
+        bullets: ["Confirm which openings already have approved protection and where the hardware is stored.", "Ask a landlord or association which exterior work residents may perform.", "Keep vehicle keys, shoes, and go-bags accessible after furniture is moved.", "If an evacuation order leaves no safe work window, leave rather than finishing property tasks."]
+      },
+      {
         heading: "When to Stop Preparing",
         body:
           "Stop outdoor work when winds increase, watches turn into warnings, or local officials tell residents to shelter or leave. No object outside is worth working around flying debris."
@@ -192,17 +206,18 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "what-hurricane-watch-warning-means",
+    sources: [{ href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC glossary: watch and warning definitions and timing" }],
     title: "What a Hurricane Watch or Warning Means",
     description: "A plain-language guide to hurricane watches, warnings, storm surge alerts, and when to shift from monitoring to action.",
     datePublished: "2025-06-18",
-    dateModified: "2026-07-28",
+    dateModified: "2026-10-24",
     image: "/images/blog/what-hurricane-watch-warning-means.png",
     imageAlt: "A kitchen counter with a smartphone showing weather alerts, a NOAA weather radio, flashlight, batteries, and an evacuation map.",
     sections: [
       {
         heading: "Watch vs Warning",
         body:
-          "A hurricane watch means hurricane conditions are possible; a hurricane warning means they are expected. The safe planning move is to finish preparations during the watch, not after roads and stores are already stressed."
+          "A hurricane watch means hurricane conditions are possible in the specified area, generally issued 48 hours before the anticipated onset of tropical-storm-force winds. A hurricane warning means hurricane conditions are expected, generally issued 36 hours before that onset. The timing is measured from tropical-storm-force winds because preparation becomes dangerous before hurricane-force winds arrive. It is not a countdown to landfall, and an individual warning may be issued with less lead time."
       },
       {
         heading: "When to Escalate",
@@ -215,6 +230,11 @@ export const blogPosts: BlogPost[] = [
           "Storm surge alerts deserve separate attention from wind alerts because water can make roads unusable before peak wind arrives. If your zone floods easily, plan around the water hazard first."
       },
       {
+        heading: "Read the Message's Location and Timing",
+        body: "Open the full official product and identify the named locations, issue time, expected wind-arrival window, and instructions. A phone notification or state-wide summary may omit the boundaries. If you live near a boundary, check the official map and local office rather than assuming a ZIP-wide answer. Watches and warnings can coexist for different hazards, and a hurricane warning can continue while dangerous high water remains even after winds fall below hurricane force.",
+        links: [{ href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC definitions and timing exceptions" }]
+      },
+      {
         heading: "Common Mistake",
         body:
           "Many households wait for the word hurricane and miss other dangerous alerts. Tropical storm warnings, flash flood warnings, tornado warnings, and storm surge warnings can all require immediate action."
@@ -223,10 +243,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-emergency-kit-checklist",
+    sources: [{ href: "https://www.ready.gov/kit", label: "Ready.gov: basic disaster supplies kit" }, { href: "https://www.ready.gov/water", label: "Ready.gov: emergency water supply" }],
     title: "Hurricane Emergency Kit Checklist",
     description: "A decision-focused hurricane emergency kit checklist covering water, food, medicine, documents, power, pets, and evacuation bags.",
     datePublished: "2026-07-29",
-    dateModified: "2026-07-29",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-emergency-kit-checklist.png",
     imageAlt: "A family in a kitchen checks a hurricane emergency kit laid out on a table with water, food, first aid, flashlight, and pet supplies.",
     sections: [
@@ -251,25 +272,31 @@ export const blogPosts: BlogPost[] = [
         bullets: ["Pet food, leash, carrier, vaccine records, and waste bags.", "Formula, diapers, wipes, and infant medication.", "Comfort items for children or older adults.", "Copies of prescriptions and medical device instructions."]
       },
       {
+        heading: "A Water Calculation You Can Check",
+        body: "At the baseline of one gallon per person per day, four people need 12 gallons for three days or 28 gallons for seven days, before extra water for pets, heat, illness, or medical needs. This arithmetic is a planning example, not a guarantee that the supply is sufficient for every household. Store manageable containers so one person can carry the go-bag; do not assume you can carry the entire home supply during evacuation.",
+        bullets: ["Count the people and days, then add household-specific needs.", "Write quantity on hand and expiry or rotation date beside each supply.", "Choose food that can be eaten without fuel or mains power.", "Ask the pharmacist about prescriptions and the clinician about equipment needs; never ration essential treatment to fit a generic kit."]
+      },
+      {
         heading: "Where to Store It",
         body:
-          "Keep home supplies in a dry, reachable place and keep evacuation supplies in bags that can leave quickly. Do not bury critical medication, IDs, or keys at the bottom of a large storage bin."
+          "Keep home supplies in a dry, reachable place and evacuation supplies in bags that can leave quickly. Put medication, IDs, contacts, and keys where they are accessible in darkness. Set a household reminder to check batteries, food dates, container condition, prescriptions, and children's changing needs. Repack after using any item; a purchased kit is not necessarily a complete or maintained kit."
       }
     ]
   },
   {
     slug: "hurricane-evacuation-checklist",
+    sources: [{ href: "https://www.ready.gov/evacuation", label: "Ready.gov: before, during, and after evacuation" }],
     title: "Hurricane Evacuation Checklist",
     description: "A practical hurricane evacuation checklist for when to leave, what to pack, how to choose routes, and how to protect vulnerable household members.",
     datePublished: "2026-07-29",
-    dateModified: "2026-07-29",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-evacuation-checklist.png",
     imageAlt: "A family loads go-bags and a pet carrier into an SUV while preparing to evacuate before a hurricane.",
     sections: [
       {
         heading: "Direct Answer",
         body:
-          "Evacuate when local officials order it, when you are in a storm surge or flood zone, or when your household needs extra time because of medical, mobility, pet, vehicle, or long-distance travel needs."
+          "Follow an evacuation order that applies to your area. Before an order, discuss earlier departure if medical needs, a mobile home, transportation, or route constraints make waiting unsafe. Being in a mapped flood or surge zone is a reason to plan and check the current order, not proof that every resident must leave for every storm. Use this checklist for the departure itself; the zone-lookup guide explains how to find the applicable area."
       },
       {
         heading: "Before You Leave",
@@ -287,6 +314,11 @@ export const blogPosts: BlogPost[] = [
           "Choose a primary route and a backup route before local traffic builds. Avoid routes that cross low bridges, flood-prone roads, or areas that frequently lose power at intersections."
       },
       {
+        heading: "Confirm the Destination Before Loading the Car",
+        body: "Call the host or read the current official shelter announcement. Confirm opening time, accessibility, pet arrangements, medical-equipment support, parking, and whether the destination is itself under an order. A remembered shelter address may not be open for this event. Households without a vehicle should request help through local emergency management while transport programs are accepting requests, rather than waiting for emergency rescue after winds rise.",
+        bullets: ["Departure trigger: record the official order or agreed earlier safety trigger.", "Driver and passengers: list who is collecting each person and pet.", "Route: check current road closures and save an offline alternative.", "Arrival contact: text the destination and the out-of-area contact when safely parked."]
+      },
+      {
         heading: "After You Arrive",
         body: "Your evacuation plan should include communication and return rules.",
         bullets: ["Text a contact when you leave and when you arrive.", "Keep receipts for possible insurance or assistance records.", "Do not return until local officials say roads and utilities are safe.", "Avoid floodwater, downed lines, and generator exhaust."]
@@ -295,10 +327,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "what-to-do-during-a-hurricane-warning",
-    title: "What to Do During a Hurricane Warning: 24-Hour Checklist",
-    description: "A 24-hour hurricane warning checklist for protecting people, medication, documents, vehicles, pets, and evacuation options before conditions deteriorate.",
+    sources: [{ href: "https://www.ready.gov/hurricanes", label: "Ready.gov: actions during a hurricane threat" }, { href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC warning definitions" }],
+    title: "What to Do During a Hurricane Warning: Immediate Actions",
+    description: "Prioritize people, transport, medicines, pets, and safe shelter during a hurricane warning. Follow local deadlines instead of assuming 24 hours remain.",
     datePublished: "2026-08-04",
-    dateModified: "2026-08-04",
+    dateModified: "2026-10-24",
     image: "/images/blog/what-to-do-during-a-hurricane-warning.png",
     imageAlt: "A couple sits in a living room during a hurricane warning, listening to a weather radio and checking a smartphone as rain streaks the window.",
     sections: [
@@ -308,13 +341,18 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "First Hour Priorities",
-        body: "Start with people, transport, and official instructions rather than errands.",
+        body: "A warning does not guarantee another 24 hours of safe travel. Read the local order and expected onset of hazardous conditions before assigning jobs. If officials say to leave now, go; do not complete this list first. If safe time remains, prioritize people, transport, and essential records rather than shopping or property improvements.",
         bullets: ["Read the full NWS alert and county emergency guidance.", "Contact anyone who needs help with transport, mobility, medication, or pets.", "Fuel the vehicle and choose a safe destination or shelter option.", "Pack IDs, prescriptions, insurance records, chargers, water, and pet supplies."]
       },
       {
         heading: "Before Winds Increase",
         body: "Complete outside work early and do not take risks to finish low-value tasks.",
         bullets: ["Bring in loose furniture, trash bins, tools, and decorations.", "Move vehicles away from trees and flood-prone streets when possible.", "Charge phones, battery packs, and essential devices.", "Set a family communication check-in time and an out-of-area contact."]
+      },
+      {
+        heading: "If You Are Sheltering in Place",
+        body: "Shelter only where appropriate under local instructions. Choose an interior room away from windows and potential flooding, bring shoes, a flashlight, medicines, and a way to receive warnings, and keep pets contained. A surge-threatened home is not made safe by moving to an interior room. If a tornado warning arrives, follow its immediate shelter instructions; do not start an evacuation drive through a tornado warning to reach a previously chosen destination.",
+        bullets: ["Keep phones charged and a battery radio available in case mobile data fails.", "Avoid candles, floodwater, fallen lines, and all indoor generator use.", "Do not go outside during a lull that could be the eye.", "If your situation becomes life-threatening, contact emergency services and give the exact location."]
       },
       {
         heading: "When To Leave",
@@ -334,10 +372,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-power-outage-food-medicine-plan",
+    sources: [{ href: "https://www.ready.gov/power-outages", label: "Ready.gov: power outages, refrigeration, and medical planning" }, { href: "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage", label: "FoodSafety.gov: food safety during a power outage" }],
     title: "Hurricane Power Outage Plan for Food, Medicine, and Devices",
     description: "Prepare for a hurricane power outage with a practical plan for food safety, refrigerated medicine, medical equipment, charging, water, generators, and communication.",
     datePublished: "2026-08-04",
-    dateModified: "2026-08-04",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-power-outage-food-medicine-plan.png",
     imageAlt: "A portable generator operates outdoors away from a home while emergency lights and supplies are ready for a power outage.",
     sections: [
@@ -354,6 +393,15 @@ export const blogPosts: BlogPost[] = [
         heading: "Food and Water Plan",
         body: "Keep water ready for drinking and sanitation, and make a food-safety plan before a storm.",
         bullets: ["Use coolers and ice to protect essential food if the outage lasts.", "Keep a food thermometer if available and discard food that is unsafe rather than tasting it.", "Store shelf-stable food that does not require cooking.", "Open refrigerator and freezer doors as little as possible."]
+      },
+      {
+        heading: "Keep a Time-and-Temperature Record",
+        body: "Write down when power failed and use appliance thermometers if available. Federal food-safety guidance says an unopened refrigerator keeps food safe for about four hours; a full unopened freezer holds temperature for about 48 hours, or 24 hours when half full. These are estimates under closed-door conditions, not permission to keep food that has warmed beyond safe limits. Use the official food chart for each item, never taste food to test it, and follow local boil-water notices separately.",
+        links: [{ href: "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage", label: "FoodSafety.gov: which foods to keep or discard" }]
+      },
+      {
+        heading: "Write a Separate Plan for Each Medicine or Device",
+        body: "Record the item, normal storage range, provider phone number, backup supply, and destination with reliable power. Food-refrigeration rules do not determine whether a medicine remains usable. Ask the pharmacist for product-specific instructions and the equipment supplier for approved battery runtime and charging. A battery estimate is not a reason to wait for equipment failure before moving to appropriate care."
       },
       {
         heading: "Generator and Charging Safety",
@@ -373,21 +421,27 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-documents-insurance-checklist",
+    sources: [{ href: "https://www.ready.gov/financial-preparedness", label: "Ready.gov: financial preparedness and important records" }],
     title: "Hurricane Documents and Insurance Checklist",
     description: "Prepare a hurricane documents checklist with IDs, insurance details, property photos, prescriptions, contacts, and records needed before evacuation or damage.",
     datePublished: "2026-08-04",
-    dateModified: "2026-08-04",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-documents-insurance-checklist.png",
     imageAlt: "A person photographs home belongings with a smartphone for insurance while an insurance folder and ID cards sit on the table.",
     sections: [
       {
         heading: "Direct Answer",
-        body: "Before a hurricane, gather identification, insurance information, property photos, prescriptions, emergency contacts, banking access details, and copies of key records in a waterproof, portable folder."
+        body: "Before a hurricane, gather identification, insurance information, property photos, prescriptions, emergency contacts, and copies of key records in a waterproof, portable folder. This is a pre-storm records checklist; the claims guide covers reporting damage after a loss. Protect account access with your normal secure password manager rather than putting passwords, PINs, or recovery codes on a shared checklist."
       },
       {
         heading: "What To Photograph",
         body: "Create a dated visual record before conditions change.",
         bullets: ["Exterior walls, roof, windows, doors, and outdoor equipment.", "Each room, major appliances, electronics, and valuable items.", "Vehicle condition and serial numbers when practical.", "Receipts, inventory lists, and repairs that are already in progress."]
+      },
+      {
+        heading: "Make a Records Index That Works Offline",
+        body: "Use one line for each record: document name, person responsible, secure copy location, date checked, and contact number. Include separate entries for home, flood, auto, and renters policies if applicable; a single insurer logo does not establish that all hazards are covered. Keep a portable copy and an off-site backup, and test that you can open needed files without a mobile signal. Share sensitive copies only with the responsible household member or authorized representative.",
+        bullets: ["Identification and prescriptions: confirm names, expiry dates, and refill contacts.", "Insurance: save declarations, policy numbers, deductibles, and official claims contacts.", "Inventory: pair room photos with serial numbers and available receipts.", "Lease or ownership records: include a landlord, association, or mortgage contact where relevant."]
       },
       {
         heading: "What To Take If You Evacuate",
@@ -412,16 +466,21 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-preparation-timeline-72-48-24-hours",
+    sources: [{ href: "https://www.ready.gov/hurricanes", label: "Ready.gov: hurricane preparation" }, { href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC: wind arrival and warning terminology" }],
     title: "Hurricane Preparation Timeline: 72, 48, and 24 Hours",
     description: "Use a 72-, 48-, and 24-hour hurricane preparation timeline for supplies, evacuation routes, pets, documents, home protection, and final safety decisions.",
     datePublished: "2026-08-04",
-    dateModified: "2026-08-04",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-preparation-timeline-72-48-24-hours.png",
     imageAlt: "A homeowner nails plywood storm shutters over windows while a neighbor helps, staged 48 hours before a storm.",
     sections: [
       {
         heading: "Direct Answer",
-        body: "Use the 72-hour window for planning and supplies, the 48-hour window for fuel, routes, documents, pets, and home protection, and the 24-hour window for final safety actions and official evacuation decisions."
+        body: "Use 72, 48, and 24 hours as household planning checkpoints before the expected onset of hazardous conditions, especially tropical-storm-force winds, not as guaranteed time remaining until landfall. Local orders and earlier flood or travel hazards override this example. Finish tasks sooner when practical; if a storm develops quickly, skip nonessential jobs and act on the current instructions."
+      },
+      {
+        heading: "Move Your Personal Deadline Earlier",
+        body: "Begin with the earliest relevant official wind-arrival or local departure deadline, then work backward for travel, pickup, and loading time. Suppose officials require your zone to leave by noon and you need two hours to collect a relative: that collection cannot start at noon. Do not convert a storm's distance into an arrival time by dividing by its present speed; tracks and motion change. Recheck the forecast and confirm the destination before committing to a departure time."
       },
       {
         heading: "72 Hours: Remove Friction",
@@ -451,16 +510,23 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "how-far-is-a-hurricane-from-me",
+    sources: [{ href: "https://www.nhc.noaa.gov/aboutcone.shtml", label: "NHC: cone and center-track limitations" }, { href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC glossary: wind radii and storm structure" }],
     title: "How Far Is a Hurricane From Me?",
     description: "Learn what a hurricane's current distance from your location can tell you, what it cannot predict, and how to pair distance with official alerts.",
     datePublished: "2026-08-04",
-    dateModified: "2026-08-04",
+    dateModified: "2026-10-24",
     image: "/images/blog/how-far-is-a-hurricane-from-me.png",
     imageAlt: "A resident stands on a porch looking at a distant hurricane spiral on the ocean horizon while holding a phone with a map.",
     sections: [
       {
         heading: "Direct Answer",
         body: "A hurricane's distance from you shows only how far the current storm center is from your approximate location. It does not predict whether you will experience wind, surge, flooding, tornadoes, or evacuation conditions."
+      },
+      {
+        heading: "Read a Distance Result Without Turning It Into a Forecast",
+        body: "Record the storm name, basin, advisory time, your selected location, and the distance units. A ZIP-based location is approximate, so it is not the exact distance from a particular front door. Compare results using the same advisory time. If the tool returns no current storm, fails to load, or uses an old timestamp, treat that as a data limitation and open NHC directly.",
+        bullets: ["A center 200 miles away can still have hazards extending toward you.", "A nearer storm moving away may be less relevant than a farther approaching system; read both official forecasts.", "Distance divided by current speed is not a reliable time-to-impact calculation.", "Use the separate wind-arrival, surge, rainfall, and local alert products for protective actions."],
+        links: [{ href: "/tools/storm-distance-calculator/", label: "Calculate distance and check the source time" }]
       },
       {
         heading: "What Distance Can Help With",
@@ -489,16 +555,22 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "storm-surge-warning-vs-hurricane-warning",
+    sources: [{ href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC glossary: storm surge and hurricane warnings" }, { href: "https://www.nhc.noaa.gov/surge/", label: "NHC storm surge products and explanation" }],
     title: "Storm Surge Warning vs. Hurricane Warning",
     description: "Understand the difference between storm surge and hurricane warnings, why water hazards can arrive before peak wind, and when to leave.",
     datePublished: "2026-08-04",
-    dateModified: "2026-08-04",
+    dateModified: "2026-10-24",
     image: "/images/blog/storm-surge-warning-vs-hurricane-warning.png",
     imageAlt: "A coastal homeowner studies an evacuation route sign while seawater begins lapping at the yard.",
     sections: [
       {
         heading: "Direct Answer",
         body: "A hurricane warning addresses expected hurricane conditions, while a storm surge warning focuses on life-threatening water rising inland from the coast. Both require attention, but surge can make evacuation routes unsafe before peak winds arrive."
+      },
+      {
+        heading: "Compare the Hazard and the Clock",
+        body: "A hurricane warning concerns expected hurricane-force winds, with lead time generally measured from tropical-storm-force wind onset. A storm surge warning concerns life-threatening coastal inundation, generally within 36 hours, and may be issued earlier when other hazards could limit protective action. Neither clock guarantees that a road remains open until that time. A surge warning can cover places outside the forecast cone or with lower local winds.",
+        bullets: ["Read the water warning's named area and inundation guidance, not only the storm category.", "Compare the local evacuation order with your exact zone and travel needs.", "Do not substitute a FEMA insurance-zone label for the local evacuation-zone system.", "Treat the two warnings as separate information; the absence of one does not cancel the other."]
       },
       {
         heading: "Why Storm Surge Needs Its Own Decision",
@@ -527,16 +599,26 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-family-communication-plan",
+    sources: [{ href: "https://www.ready.gov/plan", label: "Ready.gov: household emergency plan" }],
     title: "Hurricane Family Communication Plan",
     description: "Build a hurricane family communication plan with contacts, meeting places, evacuation destinations, medication notes, pets, and check-in times.",
     datePublished: "2026-08-04",
-    dateModified: "2026-08-04",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-family-communication-plan.png",
     imageAlt: "A multigenerational family plans communication together, smartphones and a handwritten contact list on the table.",
     sections: [
       {
         heading: "Direct Answer",
         body: "A hurricane family communication plan should name an out-of-area contact, local contact, meeting place, evacuation destination, pet and medical needs, and clear check-in times for before and after travel."
+      },
+      {
+        heading: "Copy These Fields Onto a Family Contact Card",
+        body: "Make one card per person and keep a protected copy with the go-bag. Fill the fields together and test the numbers before a storm. Avoid posting addresses, medical details, or children's pickup information publicly.",
+        bullets: ["Out-of-area contact: name, phone, and a backup way to reach them.", "Local contact: name, phone, and who can help if the main caregiver is unavailable.", "Primary meeting place and an alternative outside the threatened area.", "School or care pickup: authorized adult and the provider's actual release procedure.", "Departure and arrival check-in: who sends the message, who receives it, and what to do if it is missed.", "Pet carrier, mobility equipment, and essential-medicine responsibility."]
+      },
+      {
+        heading: "Agree What a Missed Check-In Means",
+        body: "Choose a reasonable interval for retrying short texts and a backup contact route. A delayed message may mean a network outage, not proof that someone needs rescue. If there is a known immediate danger, use emergency services and give the last known exact location. Do not send a relative onto a flooded road to investigate. Review the card after changes in school, caregiving, phone numbers, or living arrangements."
       },
       {
         heading: "Choose Two Contacts",
@@ -565,16 +647,23 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "how-to-check-your-hurricane-evacuation-zone",
+    sources: [{ href: "https://www.ready.gov/evacuation", label: "Ready.gov: evacuation planning and local orders" }, { href: "https://msc.fema.gov/portal/home", label: "FEMA Flood Map Service Center (insurance mapping, not an evacuation-zone lookup)" }],
     title: "How to Check Your Hurricane Evacuation Zone",
     description: "Learn how to check your hurricane evacuation zone, why ZIP codes are not enough, and what to do when local officials issue evacuation instructions.",
     datePublished: "2026-08-05",
-    dateModified: "2026-08-05",
+    dateModified: "2026-10-24",
     image: "/images/blog/how-to-check-your-hurricane-evacuation-zone.png",
     imageAlt: "A person views a color-coded coastal hurricane evacuation zone map on a laptop and points at the screen.",
     sections: [
       {
         heading: "Direct Answer",
         body: "Check your hurricane evacuation zone through your county, city, parish, or state emergency management website. A ZIP code can identify your general area, but evacuation zones often follow flood, surge, road, and neighborhood boundaries."
+      },
+      {
+        heading: "An Address-Based Lookup Sequence",
+        body: "Open the responsible local emergency-management site from the official city resources, select its evacuation-zone map, and enter the full street address. Check that the marker lands on the correct property, read the legend, and record the zone label and lookup date. Then open the current event's order and compare the exact labels. Some jurisdictions issue neighborhood or mobile-home orders instead of using lettered zones; use their terminology rather than inventing a conversion.",
+        bullets: ["A blank map result can be a lookup failure; ask the local agency instead of assuming no risk.", "FEMA flood zones describe insurance mapping and are not local evacuation orders.", "Save the agency's phone number and a screenshot for offline use, then recheck the live order.", "Confirm where the order directs residents to go and which transport or shelter assistance is actually available."],
+        links: [{ href: "/hurricane-tracker/city/", label: "Find city-specific official emergency resources" }]
       },
       {
         heading: "Why ZIP Codes Are Not Enough",
@@ -603,10 +692,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-radar-vs-satellite",
+    sources: [{ href: "https://www.weather.gov/radarfaq", label: "NWS: weather radar questions and limitations" }, { href: "https://www.star.nesdis.noaa.gov/GOES/", label: "NOAA GOES imagery and product times" }],
     title: "Hurricane Radar vs. Satellite: What Each View Shows",
     description: "Understand the difference between hurricane radar and satellite views, when each is useful, and why neither replaces official NOAA/NWS alerts.",
     datePublished: "2026-08-05",
-    dateModified: "2026-08-05",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-radar-vs-satellite.png",
     imageAlt: "A meteorologist compares a green Doppler radar display and a satellite cloud spiral on dual monitors.",
     sections: [
@@ -623,6 +713,11 @@ export const blogPosts: BlogPost[] = [
         heading: "When Satellite Helps",
         body: "Satellite imagery is useful for open-water tropical systems and broad cloud organization.",
         bullets: ["View storms before they reach radar range.", "Compare cloud-top cooling and organization.", "Watch the Gulf, Caribbean, Bahamas, and Atlantic at a basin scale.", "Use official NHC advisories for intensity, forecast track, and warnings."]
+      },
+      {
+        heading: "A Three-Frame Check Before Interpreting a Loop",
+        body: "Read the product name and the timestamp on the latest frame, then compare at least a few consecutive frames. A stalled loop or missing tile is a data problem, not evidence that rain has stopped. Radar reflectivity shows returned energy and does not measure the wind at a home. Infrared colors describe cloud-top temperature, not surface temperature or a direct hurricane category. Visible imagery depends on daylight; enhanced night products may combine other channels.",
+        bullets: ["For approaching local rain, compare radar with the current flood or tornado warning text.", "For a system offshore, compare satellite structure with the NHC advisory and discussion.", "For evacuation, use the local order; neither a clear patch of radar nor an eye on satellite is a safety decision."]
       },
       {
         heading: "Best Use on HurricaneHub",
@@ -642,10 +737,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "nws-hurricane-alert-meanings",
+    sources: [{ href: "https://www.weather.gov/safety/hurricane-ww", label: "NWS hurricane watches and warnings" }, { href: "https://www.weather.gov/", label: "NWS: read the complete local warning" }],
     title: "NWS Hurricane Alert Meanings: Watch, Warning, Surge, Flood, Tornado",
     description: "Decode common NWS hurricane-related alerts and learn which ones should trigger monitoring, preparation, action, or evacuation review.",
     datePublished: "2026-08-05",
-    dateModified: "2026-08-05",
+    dateModified: "2026-10-24",
     image: "/images/blog/nws-hurricane-alert-meanings.png",
     imageAlt: "Close-up of hands holding a smartphone showing color-coded NWS alert banners for watch, warning, surge, and advisory.",
     sections: [
@@ -661,6 +757,11 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "What Changes the Action Level",
         body: "A household with medical equipment, mobility limits, pets, no vehicle, mobile-home exposure, or a long route may need to act earlier than a standard household."
+      },
+      {
+        heading: "Read the Full Alert in This Order",
+        body: "First match the listed area to your location. Then check issue time, expiry, hazard, expected timing, and the protective instructions. A continuing hurricane warning, a new tornado warning, and a cancelled flood advisory may appear together; the newest headline does not cancel a different hazard. Follow any update or cancellation link for the same event rather than relying on a saved screenshot.",
+        bullets: ["Hurricane or tropical-storm watch/warning: read the wind-arrival timing and preparation instructions.", "Storm surge warning: check the coastal area and local evacuation order.", "Flash flood warning: avoid flooded roads and follow instructions for higher ground.", "Tornado warning: take shelter immediately; do not continue routine errands.", "Evacuation order: issued by the responsible local authority, separate from the NWS weather alert."]
       },
       {
         heading: "Use the Alert Decoder",
@@ -680,10 +781,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "real-time-hurricane-tracking-2026",
+    sources: [{ href: "https://www.nhc.noaa.gov/", label: "NHC current tropical cyclone advisories" }, { href: "https://www.weather.gov/", label: "NWS local hazard warnings" }],
     title: "Real-Time Hurricane Tracking: 2026 Late-Season Guide",
     description: "Track late-season hurricane risks with NHC outlooks, radar, satellite imagery, and local alerts. Learn why low formation odds can still mean coastal danger.",
     datePublished: "2026-08-06",
-    dateModified: "2026-10-23",
+    dateModified: "2026-10-24",
     image: "/images/blog/real-time-hurricane-tracking-2026.png",
     imageAlt: "A person views a live hurricane tracking dashboard on a large monitor showing satellite, radar, and a forecast cone.",
     sections: [
@@ -763,10 +865,12 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "how-to-read-the-hurricane-cone-of-uncertainty",
+    sources: [{ href: "https://www.nhc.noaa.gov/aboutcone.shtml", label: "NHC operational cone definition" }, { href: "https://www.noaa.gov/news-release/national-hurricane-center-to-issue-new-forecast-cone-graphics-for-2026-hurricane-season", label: "NOAA March 24, 2026: operational cone changes and experimental ellipses" }],
+    review: { date: "2026-10-24", scope: "2026 cone product changes and track-uncertainty explanation", correction: "Removed the incorrect all-hazards impact-map claim and distinguished the operational cone from the experimental ellipse cone." },
     title: "How to Read the Hurricane Cone of Uncertainty",
-    description: "Learn what the National Hurricane Center cone really represents, how the new NHC impact map changes the picture, and how to use both with watches, warnings, and storm surge maps.",
+    description: "Read the NHC forecast cone, distinguish 2026 inland wind warnings from track uncertainty, and find separate storm surge and rainfall guidance.",
     datePublished: "2026-08-07",
-    dateModified: "2026-08-13",
+    dateModified: "2026-10-24",
     image: "/images/blog/how-to-read-the-hurricane-cone-of-uncertainty.png",
     imageAlt: "A resident holds a tablet showing a hurricane forecast cone map, standing by a window with a coastal view behind.",
     sections: [
@@ -791,9 +895,10 @@ export const blogPosts: BlogPost[] = [
           "Use the cone as one input among several. If your location is inside or near the cone, begin monitoring NHC advisories and local NWS alerts closely. If the cone shifts toward your area, move from preparation to action. If the cone shifts away, continue watching until the storm has passed, because cones can move back."
       },
       {
-        heading: "The NHC Impact Map (2026)",
+        heading: "The 2026 Operational Cone and the Separate Experimental Cone",
         body:
-          "Starting May 15, 2026, the National Hurricane Center pairs the cone with an experimental-to-official impact map (also called the cone of concern). The impact map keeps the track cone but overlays color-coded watches and warnings for inland wind, storm surge, and flooding. It answers a different question than the cone: not just where the center may go, but where dangerous conditions are expected. Read the impact map first for safety decisions, then use the cone to understand how much the track can still shift."
+          "NOAA's March 24, 2026 announcement describes two different changes. The operational forecast cone adds inland tropical storm and hurricane watches and warnings for the continental United States, following earlier testing. Those colored areas are wind alerts, not storm surge or rainfall-flooding zones. NHC is separately testing an experimental cone that uses forecast-specific ellipses. An experimental product should not be described as an official all-hazards impact map. Read each graphic's legend, issue time, and experimental label before comparing it with an older screenshot.",
+        links: [{ href: "https://www.noaa.gov/news-release/national-hurricane-center-to-issue-new-forecast-cone-graphics-for-2026-hurricane-season", label: "NOAA: 2026 operational and experimental forecast cone changes (March 24, 2026)" }]
       },
       {
         heading: "Pair the Cone With Other NHC Products",
@@ -808,38 +913,39 @@ export const blogPosts: BlogPost[] = [
       },
       {
         question: "Why does the cone get wider over time?",
-        answer: "Forecast uncertainty increases with time. The National Hurricane Center bases the cone width on the average track error of past forecasts at 12, 24, 36, 48, 72, 96, and 120 hours. Later forecast periods have larger possible errors, so the cone widens."
+        answer: "For the traditional operational cone, NHC uses circles sized to contain two-thirds of historical official track errors over the preceding five years at each forecast time. Errors generally grow farther into the forecast, so later circles are larger. The separate 2026 experimental ellipse cone uses a different, forecast-specific approach."
       },
       {
-        question: "What is the difference between the cone and the NHC impact map?",
-        answer: "The cone shows where the storm center is likely to track. The NHC impact map (official since May 15, 2026) overlays watches and warnings for wind, storm surge, and flooding, so it shows where dangerous conditions are expected rather than just where the center might go. Use the impact map to make safety decisions and the cone to understand track uncertainty."
+        question: "Does the 2026 cone include storm surge and flood warnings?",
+        answer: "No. The operational cone adds inland tropical storm and hurricane wind watches and warnings. The cone still describes uncertainty in the center track. Use separate storm surge, rainfall, flood, and local alert products for water hazards. The forecast-specific experimental ellipse cone is a separate test product."
       },
       {
         question: "Is the center line the most likely path?",
-        answer: "The center line represents the single best estimate of where the storm center will go, but it is not more likely than nearby points inside the cone. Impacts can occur on either side of the line."
+        answer: "The center line connects official forecast positions. It is a forecast estimate, not a guaranteed route or a boundary of damage. The operational cone does not assign equal probabilities to every point inside it; hazards can occur on either side and outside the cone."
       }
     ]
   },
   {
     slug: "hurricane-insurance-deductibles-guide",
+    sources: [{ href: "https://content.naic.org/state-insurance-departments", label: "NAIC: find your state insurance department for local policy rules" }, { href: "https://www.floodsmart.gov/", label: "NFIP: separate flood coverage" }],
     title: "Hurricane Insurance Deductibles: What Coastal Homeowners Should Know",
     description: "Understand percentage hurricane deductibles, named-storm versus windstorm deductibles, flood coverage gaps, and how to review your policy before a storm.",
     datePublished: "2026-08-07",
-    dateModified: "2026-10-17",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-insurance-deductibles-guide.png",
     imageAlt: "A homeowner reviews an insurance policy document with a calculator and pen at a dining table, coastal house visible through the window.",
     sections: [
       {
         heading: "Hurricane Deductible vs Standard Deductible",
         body:
-          "A standard homeowners deductible is usually a flat dollar amount, such as $1,000. A hurricane deductible is often a percentage of your dwelling coverage, commonly 1%, 2%, or even 5%. On a $400,000 policy, a 2% deductible means you pay $8,000 out of pocket before insurance covers the rest."
+          "A standard homeowners deductible may be a flat dollar amount; a hurricane deductible may be a percentage of the dwelling coverage limit. For example, 2% of a $400,000 limit is $8,000, not 2% of the repair bill. If an eligible covered loss is $20,000 and that deductible applies, simple subtraction leaves $12,000 before other policy conditions. This is an arithmetic example, not a settlement promise: exclusions, limits, depreciation, and other terms affect payment. Ask whether the deductible applies per event or by another policy period."
       },
       {
         heading: "Named-Storm, Windstorm, and Hurricane Deductibles",
         body: "Coastal states use different triggers for these special deductibles. Know which one applies in your policy and when it is activated.",
         bullets: [
-          "Named-storm deductible applies once a tropical storm or hurricane is named.",
-          "Hurricane deductible applies only when the storm reaches hurricane strength.",
+          "Named-storm deductibles use a defined named-storm trigger; naming alone does not establish how your policy applies at your location.",
+          "Hurricane deductibles use policy and state definitions that may include an official warning, location, and specified time window.",
           "Windstorm deductible may apply to any damaging wind, named or not.",
           "Trigger rules vary by state and insurer, so read the declarations page carefully."
         ]
@@ -847,7 +953,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Flood Coverage Is Separate",
         body:
-          "Standard homeowners insurance does not cover storm surge or inland flooding. You need a separate flood insurance policy, typically through the National Flood Insurance Program or a private carrier. Flood policies often have a 30-day waiting period, so waiting until a storm is named is usually too late."
+          "Standard homeowners insurance generally excludes storm surge and other flooding. Separate flood coverage is available through NFIP or private insurers. NFIP generally has a 30-day waiting period with exceptions; private policy waiting periods vary. Confirm the effective date and the building and contents coverages in writing before relying on a policy."
       },
       {
         heading: "Prepare Before Storm Season",
@@ -883,10 +989,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-tracking-after-landfall-inland-flooding-tornadoes",
+    sources: [{ href: "https://www.nhc.noaa.gov/", label: "NHC advisories and handoff instructions" }, { href: "https://www.wpc.ncep.noaa.gov/", label: "NOAA Weather Prediction Center: rainfall and inland updates" }, { href: "https://www.weather.gov/", label: "NWS local flood and tornado warnings" }],
     title: "Hurricane Tracking After Landfall: Why Inland Flooding and Tornado Alerts Matter Most",
     description: "Track inland hurricane flooding, tornado warnings and post-tropical hazards. Learn when to follow NHC, WPC and local NWS alerts after landfall.",
     datePublished: "2026-08-07",
-    dateModified: "2026-10-14",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-tracking-after-landfall-inland-flooding-tornadoes.jpg",
     imageAlt: "A resident wades through a flooded inland street after a hurricane, a downed tree across the road and a distant funnel cloud on the horizon.",
     sections: [
@@ -896,11 +1003,11 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "The Hidden Killer After Landfall: Inland Flooding",
-        body: "Storm surge dominates coastal headlines, but inland flooding—driven by extreme rainfall on saturated ground—causes more fatalities in most hurricane seasons. When a hurricane moves inland, it often slows down. Warm, moisture-laden air continues to feed the system even after the eye collapses. Orographic lifting along mountains and frontal boundaries can squeeze out rainfall totals that double or triple the original coastal forecast. Hurricane Harvey dropped over 60 inches of rain in Texas after stalling inland. Hurricane Helene in 2024 caused catastrophic Appalachian flooding hundreds of miles from landfall."
+        body: "Heavy rainfall can cause dangerous flooding far from the coast. A slow-moving system may prolong rainfall, while mountains, fronts, saturated ground, and local drainage can worsen impacts. A weakening wind classification does not measure these hazards. Monitor WPC rainfall outlooks, local NWS flood warnings, and official river forecasts, including upstream rainfall when local weather improves."
       },
       {
         heading: "How Inland Flood Warnings Differ from Coastal Surge Alerts",
-        body: "Coastal residents watch storm surge warnings and evacuation zones. Inland residents need a different alert vocabulary. A Flash Flood Warning means life-threatening flooding is imminent or already occurring—the most dangerous inland alert. A River Flood Warning means rivers and streams are expected to exceed flood stage, often hours or days after the heaviest rain. The Weather Prediction Center also issues Excessive Rainfall Outlooks for areas where rainfall rates could overwhelm drainage systems. Unlike surge, which arrives in hours, inland flooding can build over days. A real-time hurricane tracker that shows rainfall accumulation forecasts—not just the storm center—is essential for inland safety."
+        body: "A Flash Flood Warning means flash flooding is imminent or occurring; follow the warning's protective instructions immediately. River flood warnings concern forecast or observed river flooding, which can persist after rainfall ends. WPC Excessive Rainfall Outlooks describe rainfall-related flash-flood risk rather than an evacuation order. Surge and inland floods have different mechanisms, but neither gives a fixed safe travel window. Check the affected area and valid times in each local product."
       },
       {
         heading: "Tornado Outbreaks Inside Hurricane Rain Bands",
@@ -908,7 +1015,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Reading Hurricane-Spawned Tornado Alerts",
-        body: "The tornado warning system works the same way during a hurricane as it does during a spring outbreak, but the context is different. Tornado warnings inside hurricane rain bands often have shorter lead times—sometimes five to ten minutes. Doppler radar can detect rotation inside rain bands, but debris signatures are harder to confirm when rain clutter is intense. Nighttime tornadoes during hurricanes are especially dangerous because people have lost power and cannot see or hear warnings. This is why extreme weather alerts must remain active on your phone even after the hurricane 'passes' your location. The storm may be 100 miles away, but its outer rain bands can still trigger tornado warnings in your county."
+        body: "Read the warning's affected area, expiration, source, and protective action immediately. A radar-indicated tornado warning does not require you to see a funnel before taking shelter. Lead time varies, and power or cellular outages can interrupt delivery, so keep more than one warning method. Use an identified sturdy interior shelter away from windows; if flooding threatens the lowest floor, follow local instructions and plan an alternative before hazardous conditions arrive."
       },
       {
         heading: "Why Real-Time Hurricane Tracking Continues Inland",
@@ -916,7 +1023,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Tools for Inland Extreme Weather Alerts",
-        body: "Inland households should configure multiple alert layers. Wireless Emergency Alerts (WEA) on every smartphone provide tornado and flash flood warnings. NOAA Weather Radio with battery backup works when cell towers fail. Local NWS office feeds deliver county-specific warning language. A real-time hurricane tracker like HurricaneHub overlays NWS active alerts, radar, and satellite on a single map. Do not rely on coastal landfall as your 'all clear.' Wait for your local National Weather Service office to confirm that all warnings have expired for your county."
+        body: "Enable emergency alerts on compatible phones and check device settings; delivery depends on the alert, network, and location. Keep a battery-backed NOAA Weather Radio and know the local NWS office and emergency-management channels. HurricaneHub offers storm tracking, radar, satellite, and state alert pages for context. Read the official warning area, timing, and instructions directly; landfall or the absence of an alert in one view is not an all-clear."
       },
       {
         heading: "Inland Safety Checklist During Hurricane Remnants",
@@ -932,7 +1039,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Track the Full Storm Lifecycle with HurricaneHub",
-        body: "HurricaneHub is built to track hurricanes from first advisory to final dissipation. Our real-time hurricane tracker overlays GOES-East satellite imagery, RainViewer Doppler radar, NWS active alerts by state, and a live alert heat map so you can see inland tornado and flood warnings as they appear—not just coastal wind forecasts. During the 2026 Atlantic hurricane season, bookmark HurricaneHub and keep the radar page open even after a storm makes landfall. The deadliest phase of a hurricane often happens where the cameras have stopped rolling. Use real-time hurricane tracking and extreme weather alerts to stay ahead of inland flooding, tornadoes, and power outages until the final warning expires."
+        body: "Use the tracker for storm position and forecast context, the radar page for precipitation imagery, and state alert pages to find warning information. Check timestamps separately because products update on different schedules. Follow local NWS, WPC, and emergency-management updates after tropical advisories end. These pages do not establish an address-level evacuation status or predict when your power will return."
       }
     ],
     faqs: [
@@ -952,10 +1059,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-rapid-intensification",
+    sources: [{ href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC glossary: rapid intensification" }],
     title: "Hurricane Rapid Intensification: Observations and Forecasts",
     description: "Understand hurricane rapid intensification, how observed wind changes differ from forecasts, and what HurricaneHub's state monitoring can and cannot tell you.",
     datePublished: "2026-08-10",
-    dateModified: "2026-10-17",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-rapid-intensification.png",
     imageAlt: "A coastal resident holds a smartphone showing a hurricane tracker alert while standing on a wooden porch at sunset with storm clouds gathering over the Atlantic Ocean.",
     sections: [
@@ -1021,10 +1129,12 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "saffir-simpson-hurricane-wind-scale-explained",
+    sources: [{ href: "https://www.nhc.noaa.gov/aboutsshws.php", label: "NHC Saffir-Simpson Hurricane Wind Scale" }, { href: "https://www.nhc.noaa.gov/data/tcr/index.php?season=2020&basin=atl", label: "NHC 2020 archive: Sally intensity" }],
+    review: { date: "2026-10-24", scope: "Sally peak intensity and separation of wind categories from water hazards", correction: "Corrected Sally to Category 2 and removed generic surge heights from category descriptions." },
     title: "Saffir-Simpson Hurricane Wind Scale Explained: What Each Category Really Means",
     description: "A clear breakdown of hurricane Categories 1 through 5, their wind speeds, storm surge potential, and real-world damage so you can gauge risk during the 2026 Atlantic season.",
     datePublished: "2026-08-10",
-    dateModified: "2026-08-10",
+    dateModified: "2026-10-24",
     image: "/images/blog/saffir-simpson-scale.png",
     imageAlt: "A woman in a safety vest surveys hurricane damage in a residential neighborhood with a fallen oak tree, damaged roof, and emergency vehicles in the background.",
     sections: [
@@ -1038,7 +1148,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Category 1: 74 to 95 mph",
-        body: "Category 1 hurricanes produce very dangerous winds that will damage roofs, shingles, vinyl siding, and gutters. Large branches will snap, and shallowly rooted trees may topple, especially in saturated soil. Power outages typically last a few hours to several days. Hurricane Beryl in 2024 made landfall in Texas as a Category 1 and left over 2 million customers without power. Storm surge of 4 to 5 feet above normal tide levels is possible."
+        body: "Category 1 hurricanes have maximum sustained winds of 74 to 95 mph. Very dangerous winds can damage roofs, shingles, siding, and gutters, break large branches, and topple shallow-rooted trees. Power lines can be damaged and outages can last days. This wind category does not imply a particular surge height. Read the separate NHC storm surge products and local evacuation instructions for water risk."
       },
       {
         heading: "Category 2: 96 to 110 mph",
@@ -1046,11 +1156,12 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Category 3: 111 to 129 mph (Major Hurricane)",
-        body: "Category 3 is the threshold for a major hurricane. Devastating damage will occur: well-built framed homes may incur major damage or removal of roof decking and gable ends. Many trees will be snapped or uprooted. Electricity and water may be unavailable for days to weeks after the storm passes. Hurricane Sally in 2020 made landfall as a Category 2 but was a Category 3 just offshore, and its slow forward speed compounded rainfall flooding far beyond what the wind category alone suggested."
+        body: "Category 3 is the threshold for a major hurricane. Devastating wind damage is possible: well-built framed homes may lose roof decking or gable ends, and many trees can be snapped or uprooted. Electricity and water may be unavailable for days to weeks. Do not use Sally 2020 as a Category 3 example: NHC's 2020 season record lists its peak at 95 kt, Category 2. The distinction matters when comparing wind intensity with rainfall or flood consequences.",
+        links: [{ href: "https://www.nhc.noaa.gov/data/tcr/index.php?season=2020&basin=atl", label: "NHC 2020 season record: Sally peak intensity" }]
       },
       {
         heading: "Category 4: 130 to 156 mph",
-        body: "Category 4 hurricanes produce catastrophic damage. Well-built framed homes can lose most of the roof structure and exterior walls. Most trees and power poles will be downed. Power outages can last weeks to months, and the affected area may be uninhabitable for an extended period. Hurricane Ian in 2022 struck Fort Myers Beach, Florida, as a high-end Category 4 with 150 mph winds, destroying entire neighborhoods. Storm surge of 10 to 15 feet or more can sweep well inland."
+        body: "Category 4 hurricanes have maximum sustained winds of 130 to 156 mph and can produce catastrophic wind damage. Well-built framed homes can lose much of the roof structure and exterior walls. Fallen trees and power poles can isolate neighborhoods; outages can last weeks to months. Water depth cannot be inferred from this category. A surge forecast must retain its location, tide assumptions, time, and reference level rather than being presented as a generic Category 4 height."
       },
       {
         heading: "Category 5: 157 mph or Higher",
@@ -1083,16 +1194,17 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "how-to-read-hurricane-spaghetti-models",
+    sources: [{ href: "https://www.nhc.noaa.gov/modelsummary.shtml", label: "NHC tropical cyclone forecast model guidance" }],
     title: "How to Read Hurricane Spaghetti Models: A Practical Guide",
     description: "Spaghetti models show multiple forecast tracks at once. Learn what each model line means, why they diverge, and how to use them with a real-time hurricane tracker to judge storm risk.",
     datePublished: "2026-08-10",
-    dateModified: "2026-08-10",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-spaghetti-models.png",
     imageAlt: "A meteorologist points at a computer monitor showing colorful spaghetti model forecast tracks radiating from a hurricane position in a NOAA operations center.",
     sections: [
       {
         heading: "Direct Answer",
-        body: "Spaghetti models are a chart that overlays the forecast tracks from many different computer models onto a single map, so the lines look like strands of spaghetti. When the lines stay tightly clustered, confidence in the track is high. When they fan out, forecast uncertainty is large. A real-time hurricane tracker uses this ensemble information to build the official forecast cone, but reading the raw spaghetti plot yourself helps you understand the range of possibilities days in advance."
+        body: "Spaghetti plots display model tracks or ensemble members together. Spread helps show disagreement, but closely grouped tracks can share errors and do not guarantee accuracy. NHC forecasters consider models alongside observations and other evidence. The official cone is centered on the NHC forecast and uses historical official track forecast errors to set circle sizes; it is not calculated by drawing an envelope around the displayed spaghetti lines. Check model initialization times before comparing tracks."
       },
       {
         heading: "What Spaghetti Models Actually Are",
@@ -1142,10 +1254,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-vs-typhoon-vs-cyclone",
+    sources: [{ href: "https://oceanservice.noaa.gov/facts/cyclone.html", label: "NOAA: hurricane, typhoon, and tropical cyclone terminology" }],
     title: "Hurricane vs Typhoon vs Cyclone: What Is the Difference?",
     description: "Hurricanes, typhoons, and cyclones are the same type of storm with different names. Learn which ocean each name applies to, why the seasons differ, and how to track them.",
     datePublished: "2026-08-10",
-    dateModified: "2026-08-10",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-typhoon-vs-cyclone.png",
     imageAlt: "A child stands in a museum in front of a large illuminated globe showing glowing hurricane symbols over different ocean basins.",
     sections: [
@@ -1201,10 +1314,12 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-storm-surge-forecasting",
+    sources: [{ href: "https://www.nhc.noaa.gov/surge/", label: "NHC storm surge overview" }, { href: "https://www.nhc.noaa.gov/surge/inundation/", label: "NHC potential storm surge flooding map and limitations" }],
+    imageCaption: "AI-generated editorial illustration. Not a NOAA product, observed storm image, or flood-depth forecast.",
     title: "Hurricane Storm Surge Forecasts: Read Flood Maps and Alerts",
     description: "Learn how to read NHC storm surge forecasts, water depth above ground, watches and warnings, and local evacuation zones before coastal flooding arrives.",
     datePublished: "2026-08-11",
-    dateModified: "2026-10-23",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-storm-surge-forecasting.png",
     imageAlt: "A resident stands on a porch watching storm surge seawater rising over a coastal residential street while dark hurricane clouds gather over the ocean.",
     sections: [
@@ -1298,10 +1413,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "below-normal-hurricane-season-2026-real-time-tracker",
+    sources: [{ href: "https://www.cpc.ncep.noaa.gov/products/outlooks/hurricane.shtml", label: "NOAA Climate Prediction Center: dated seasonal outlook" }, { href: "https://www.nhc.noaa.gov/data/tcr/index.php?season=2026&basin=atl", label: "NHC 2026 season summary, subject to revision" }],
     title: "Below-Normal Hurricane Season 2026: Why You Still Need a Real-Time Tracker",
     description: "Understand what a below-normal Atlantic hurricane outlook means, how El Nino can affect activity, and why current NHC forecasts still guide local preparation.",
     datePublished: "2026-08-12",
-    dateModified: "2026-10-15",
+    dateModified: "2026-10-24",
     image: "/images/blog/below-normal-hurricane-season-2026-tracker.png",
     imageAlt: "A coastal resident in a plaid shirt checks a hurricane alert on his smartphone while standing on a wooden deck overlooking an overcast Atlantic coastline, grey storm clouds gathering on the horizon.",
     sections: [
@@ -1376,10 +1492,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "what-to-do-after-a-hurricane",
+    sources: [{ href: "https://www.ready.gov/hurricanes", label: "Ready.gov: after a hurricane" }, { href: "https://www.disasterassistance.gov/", label: "Official federal disaster-assistance applications" }, { href: "https://www.cdc.gov/floods/safety/", label: "CDC: flood safety and recovery" }],
     title: "What to Do After a Hurricane: A Step-by-Step Recovery Guide",
     description: "Returning home after a hurricane? Follow this step-by-step recovery guide: safety checks, insurance claims, FEMA help, and safe flood cleanup.",
     datePublished: "2026-08-12",
-    dateModified: "2026-08-19",
+    dateModified: "2026-10-24",
     image: "/images/blog/what-to-do-after-a-hurricane.jpg",
     imageAlt: "A homeowner carries water-damaged belongings out of a flood-damaged house after a hurricane while a neighbor stacks storm debris.",
     sections: [
@@ -1553,10 +1670,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-pet-safety",
+    sources: [{ href: "https://www.ready.gov/pets", label: "Ready.gov: pets and animals in an emergency" }],
     title: "Hurricane Pet Safety: A Complete Preparedness Guide for Dogs, Cats, and Livestock",
     description: "How to prepare dogs, cats, and backyard livestock for a hurricane: pet go-bags, ID and microchips, pet-friendly evacuation, and post-storm hazards to avoid.",
     datePublished: "2026-08-12",
-    dateModified: "2026-08-12",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-pet-safety.png",
     imageAlt: "A family secures a dog in a crate while packing an emergency pet bag during hurricane preparations at home.",
     sections: [
@@ -1613,10 +1731,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-home-preparedness-room-by-room-checklist",
+    sources: [{ href: "https://www.ready.gov/kit", label: "Ready.gov: supplies checklist" }, { href: "https://www.ready.gov/hurricanes", label: "Ready.gov: hurricane preparation" }],
     title: "Hurricane Home Preparedness: Room-by-Room Checklist",
     description: "Walk through your home room by room with this hurricane preparedness checklist: kitchen, bathroom, bedroom, garage, attic, and yard—and know exactly what to secure before the storm arrives.",
     datePublished: "2026-08-13",
-    dateModified: "2026-08-13",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-home-preparedness-room-by-room-checklist.png",
     imageAlt: "A homeowner walks through a bright living room with a clipboard, checking hurricane preparedness items while an emergency kit stands ready by the door.",
     sections: [
@@ -1718,7 +1837,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Stay Informed With HurricaneHub",
-        body: "Preparation ends where information begins. HurricaneHub puts the NHC forecast cone, GOES-East satellite, RainViewer Doppler radar, NWS active alerts, storm surge zones, and evacuation overlays on one interactive map. When a storm forms, track its path hour by hour, check live warnings for your neighborhood, and see exactly what is heading toward your home at hurricanetracker.cc."
+        body: "Use HurricaneHub's tracker, radar, and state alert pages for storm context. Check the product timestamps, then use your local emergency-management agency's address lookup and current orders for evacuation decisions. A storm map cannot determine whether a particular home or road will be safe."
       }
     ],
     faqs: [
@@ -1727,8 +1846,8 @@ export const blogPosts: BlogPost[] = [
         answer: "Start the big tasks—shopping, trimming, repairs, and yard work—a week before a storm is forecast to approach. Finish outdoor work and final inside tasks within the last 48 hours. Once a hurricane warning is issued, stop outdoor work and shelter in place."
       },
       {
-        question: "What is the most commonly forgotten room when preparing for a hurricane?",
-        answer: "The garage and utility room are the most commonly skipped. Garage doors that fail can let wind under the roof, and gasoline or propane stored at floor level can be knocked over by floodwater. Both are easy to secure once you remember them."
+        question: "What should I check in the garage and utility room?",
+        answer: "Include the garage door, loose tools, stored fuels, and utility equipment in your inspection. Ask a qualified professional about rated doors and approved reinforcement. Store fuels according to manufacturer and local fire-safety rules, away from occupied spaces; do not attempt structural work as hazardous conditions arrive."
       },
       {
         question: "Do I need to prepare every room if I plan to evacuate?",
@@ -1738,10 +1857,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-safety-seniors-children-disability",
+    sources: [{ href: "https://www.ready.gov/disability", label: "Ready.gov: disability-inclusive preparedness" }, { href: "https://www.ready.gov/older-adults", label: "Ready.gov: older adult preparedness" }],
     title: "Hurricane Safety for Seniors, Children, and People With Disabilities",
     description: "Practical hurricane planning for vulnerable household members: medication and medical-equipment plans, accessible evacuation, and how to prepare children and older adults before a storm.",
     datePublished: "2026-08-13",
-    dateModified: "2026-08-13",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-safety-seniors-children-disability.png",
     imageAlt: "A family with an older adult in a wheelchair and a young child packs an emergency go-bag together in a bright living room before a hurricane.",
     sections: [
@@ -1764,11 +1884,11 @@ export const blogPosts: BlogPost[] = [
         heading: "Plan for Medications and Medical Equipment",
         body: "Power loss and pharmacy closures are the two biggest threats to people who depend on regular medical care. Plan for both before the storm reaches your area.",
         bullets: [
-          "Fill every prescription at least a week early; ask for a 30-day supply when possible.",
+          "Ask your pharmacist and clinician about an emergency medication supply, refill rules, and a written plan for interruptions.",
           "Store medications in a waterproof, labeled container you can grab quickly.",
           "For insulin and other temperature-sensitive drugs, pack a cooler with a thermometer.",
           "Get a backup power source for CPAP, ventilators, or oxygen concentrators and test it.",
-          "Call the power company and register as a medical-needs household for priority restoration.",
+          "Ask the utility about medical-needs registration, but do not assume it guarantees power or priority restoration. Arrange an alternate care location and transport.",
           "Ask about oxygen delivery, dialysis, or home-care services in your county's emergency plan."
         ]
       },
@@ -1829,7 +1949,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Stay Informed With HurricaneHub",
-        body: "The best hurricane plan starts with reliable information. HurricaneHub brings together the NHC forecast cone, GOES-East satellite, RainViewer Doppler radar, NWS active alerts, storm surge zones, and evacuation overlays on a single interactive map. Check current warnings for your neighborhood, see which areas are under evacuation orders, and plan your family's move with confidence at hurricanetracker.cc."
+        body: "Use HurricaneHub for storm context and links to alerts. Obtain evacuation orders, accessible shelter status, transport availability, and medical-support arrangements directly from your local emergency-management agency and care providers. Confirm these arrangements before hazardous conditions; the site cannot verify an individual's shelter or medical needs."
       }
     ],
     faqs: [
@@ -1849,10 +1969,12 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-insurance-claim-guide-documentation",
+    sources: [{ href: "https://www.floodsmart.gov/how-do-i-start-my-flood-claim", label: "NFIP: starting and documenting a flood claim" }, { href: "https://content.naic.org/state-insurance-departments", label: "NAIC: state insurance department contacts" }],
+    review: { date: "2026-10-24", scope: "Claim evidence, reporting priority, and safe cleanup wording", correction: "Removed unsupported claims about the most common underpayment cause and adjuster assignment order; urgent health measures take priority over preserving damaged items." },
     title: "Hurricane Insurance Claims: Documentation and Step-by-Step Process",
     description: "How to document hurricane damage, contact the insurer, organize receipts, prepare for the adjuster, review an estimate, and ask about dispute options.",
     datePublished: "2026-08-13",
-    dateModified: "2026-09-16",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-insurance-claim-guide-documentation.png",
     imageAlt: "A homeowner documents storm damage with a smartphone in a living room where rain water has soaked the floor and furniture is pushed aside.",
     sections: [
@@ -1883,7 +2005,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Immediately After the Storm: Report Early and Report Right",
-        body: "Insurers triage claims after a disaster, and the order you file often determines how fast an adjuster is assigned. Report as soon as it is safe, but be ready with your policy number and a rough list of damage.",
+        body: "Report damage as soon as it is safe and follow your insurer's reporting instructions. Have the policy number, contact details, and an initial description ready. Ask how the claim will be assigned and when to expect the next contact; filing order alone does not establish an adjuster schedule or payment priority.",
         bullets: [
           "Call your insurer or use their app within the first 24-48 hours after it is safe.",
           "Write down the claim number, the adjuster's name, and every phone number you are given.",
@@ -1894,13 +2016,13 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Document the Damage Before You Clean Anything",
-        body: "Cleanup destroys evidence. The single most common reason claims are underpaid is that homeowners threw away damaged items before the adjuster saw them. Document first, clean second.",
+        body: "Photographs, item lists, and receipts help document a claim when damaged property must be removed. Record conditions before cleanup when safe, but do not delay urgent health measures, enter an unsafe building, or keep contaminated material solely for an adjuster. Ask the insurer what evidence it needs and record necessary disposal.",
         bullets: [
-          "Photograph and video every room from multiple angles before moving a single item.",
+          "When safe, photograph each affected room from several angles before cleanup.",
           "Capture the roof and exterior from the ground—do not climb onto a damaged roof.",
-          "Leave damaged items in place; if you must remove them for safety, photograph them first.",
+          "Ask about inspection requirements; remove immediate health hazards safely and document disposal when possible.",
           "Take close-up shots of water lines on walls, broken windows, and lifted flooring.",
-          "Save a sample of damaged carpet, insulation, or drywall in a labeled bag if the claim is large."
+          "Ask the adjuster whether material samples are needed; do not handle moldy or contaminated material without appropriate professional guidance."
         ]
       },
       {
@@ -1916,7 +2038,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Make Emergency Repairs—But Save Every Receipt",
-        body: "You are required to prevent further damage, and most policies reimburse reasonable emergency repairs. Just document everything you spend and take photos before and after.",
+        body: "Policies commonly require reasonable steps to prevent further damage when safe. Ask your insurer which temporary measures and expenses may be covered, retain receipts, and photograph work before and after. Coverage, limits, and authorization depend on the policy; reimbursement is not guaranteed.",
         bullets: [
           "Tarp a damaged roof and board broken windows to keep rain out.",
           "Turn off water at the main valve if pipes are broken.",
@@ -1951,16 +2073,16 @@ export const blogPosts: BlogPost[] = [
         heading: "Avoid Claim Mistakes That Delay or Reduce Payouts",
         body: "Some errors cost real money. Knowing the common ones lets you steer around them before they happen.",
         bullets: [
-          "Never throw away damaged property before the adjuster sees it or approves disposal.",
+          "Photograph damaged items before disposal when safe; follow health instructions for contaminated or dangerous materials and tell the insurer what was discarded.",
           "Do not agree to a lowball offer without reviewing the estimate and asking questions.",
           "Do not sign anything that releases the insurer from liability without reading it.",
-          "Do not forget to file for FEMA assistance even with insurance—it covers gaps like deductibles.",
+          "If assistance is available for a declared disaster, check FEMA eligibility directly. Assistance cannot duplicate insurance and FEMA does not pay an insurance deductible as such.",
           "Do not delay. Most policies and state rules have strict deadlines for filing claims."
         ]
       },
       {
         heading: "Stay Informed With HurricaneHub",
-        body: "A good claim starts with knowing exactly what hit your property. HurricaneHub layers the NHC forecast cone, GOES-East satellite, RainViewer Doppler radar, NWS active alerts, storm surge zones, and evacuation overlays on one map. When the next storm forms, see the forecast path, monitor the warnings for your exact location, and get to the recovery phase with everything you need at hurricanetracker.cc."
+        body: "HurricaneHub's storm and alert pages provide context, not proof of a property's damage cause or coverage. Preserve dated property photographs, receipts, official local weather reports, and insurer correspondence. Ask the adjuster to explain how wind, flood, and other causes were assessed under the policy."
       }
     ],
     faqs: [
@@ -1980,10 +2102,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     "slug": "hurricane-home-hardening-checklist",
+    sources: [{ href: "https://www.ready.gov/hurricanes", label: "Ready.gov: home protection and hurricane preparation" }],
     "title": "Hurricane Home Hardening: A Room-by-Room Protection Checklist for Windows, Doors, and Roof",
     "description": "A practical hurricane home hardening checklist for windows, doors, garage, and roof—plus a room-by-room interior inspection and the 48-hour timeline to protect your house.",
     "datePublished": "2026-08-14",
-    "dateModified": "2026-08-14",
+    "dateModified": "2026-10-24",
     "image": "/images/blog/hurricane-home-hardening-checklist.png",
     "imageAlt": "A homeowner securing plywood storm panels over windows and bracing a garage door while preparing a coastal house for an approaching hurricane.",
     "sections": [
@@ -2011,7 +2134,7 @@ export const blogPosts: BlogPost[] = [
           "Attic and roof: Check for loose or missing shingles, deteriorated flashing, and water stains that signal an existing leak. Trim overhanging branches that could puncture the roof.",
           "Windows: Confirm each opens, closes, and locks. Note which need panels or shutters; measure and pre-fit them now.",
           "Exterior doors: Tighten hinges and strike plates; add a deadbolt or barrel bolt at the top and bottom for double doors.",
-          "Garage: This is the most common structural failure point. Install a vertical bracing kit or retrofit kit so the door cannot flex inward under pressure.",
+          "Garage: Ask a qualified installer whether the door is wind-rated and whether an approved reinforcement system is suitable for the opening and local code. An improvised brace is not a guarantee against failure.",
           "Utility room: Know where the main water, gas, and electrical shutoffs are, and keep a wrench nearby.",
           "Yard and patio: Anything loose becomes a missile. Secure or store furniture, grills, planters, and trash cans.",
           "Interior: Move valuables, electronics, and documents to an upper floor or a sealed plastic container off the ground."
@@ -2089,7 +2212,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         "question": "Does hurricane insurance cover flood damage from storm surge?",
-        "answer": "Generally no. Standard homeowners policies exclude flood. You need a separate National Flood Insurance Program or private flood policy, which typically has a 30-day waiting period. See our flood insurance guide."
+        "answer": "Standard homeowners policies generally exclude flood, including storm surge. Separate NFIP coverage generally has a 30-day waiting period with exceptions; private flood policy waiting periods vary. Confirm the effective date and coverage with the insurer."
       },
       {
         "question": "What is the most overlooked part of home hardening?",
@@ -2103,10 +2226,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     "slug": "hurricane-medical-needs-registry-preparedness",
+    sources: [{ href: "https://www.ready.gov/disability", label: "Ready.gov: medical equipment and assistance planning" }, { href: "https://www.ready.gov/power-outages", label: "Ready.gov: power-dependent medical needs" }],
     "title": "Hurricane Preparedness for People With Medical Needs and Disabilities: A Registry and Equipment Guide",
     "description": "How people with medical needs or disabilities prepare for a hurricane: functional-needs registries, durable medical equipment, refrigerated medicine, and a support plan.",
     "datePublished": "2026-08-14",
-    "dateModified": "2026-08-14",
+    "dateModified": "2026-10-24",
     "image": "/images/blog/hurricane-medical-needs-registry-preparedness.png",
     "imageAlt": "A person using a mobility aid reviews a medical go-bag with prescription medicines and durable medical equipment during hurricane planning at home.",
     "sections": [
@@ -2224,16 +2348,18 @@ export const blogPosts: BlogPost[] = [
   },
   {
     "slug": "hurricane-flood-insurance-guide-nfip",
+    sources: [{ href: "https://agents.floodsmart.gov/topics/flood-loss-avoidance", label: "NFIP loss avoidance: eligibility and receipts" }, { href: "https://www.floodsmart.gov/how-do-i-start-my-flood-claim", label: "NFIP: start a flood claim and confirm required documents" }, { href: "https://www.floodsmart.gov/", label: "NFIP flood coverage and policy limits" }],
+    review: { date: "2026-10-24", scope: "Loss-avoidance evidence requirements and policy-dependent coverage wording", correction: "Removed the no-proof reimbursement claim. Waiting periods, settlement, and Proof of Loss requirements now identify policy conditions and possible exceptions or FEMA extensions." },
     "title": "Hurricane Flood Insurance: What NFIP and Private Policies Cover, and How to File a Claim",
-    "description": "Hurricane flood insurance explained: how NFIP differs from wind coverage, what policies pay, the 30-day wait, and the steps to file a flood claim fast.",
+    "description": "Separate flood from wind coverage, check NFIP waiting-period exceptions and loss-avoidance requirements, and prepare evidence for a flood claim.",
     "datePublished": "2026-08-14",
-    "dateModified": "2026-08-14",
+    "dateModified": "2026-10-24",
     "image": "/images/blog/hurricane-flood-insurance-guide-nfip.png",
     "imageAlt": "A homeowner photographs flood damage and insurance documents with a tablet after a hurricane flooded the ground floor of a house.",
     "sections": [
       {
         "heading": "Direct Answer",
-        "body": "Most hurricane damage along the coast is caused by water, yet standard homeowners insurance excludes flood entirely. To be covered you need a separate policy—usually through the National Flood Insurance Program (NFIP) or a private flood insurer—and NFIP has a 30-day waiting period, so you must buy it before hurricane season, not during a watch. A flood policy pays to rebuild or repair the structure and replace contents up to the limits you choose; wind and surge are billed separately from wind damage. Document everything with photos before and after, and file the claim as soon as it is safe. Track incoming threats with the HurricaneHub tracker tool so you are not deciding coverage mid-storm."
+        "body": "Standard homeowners policies generally exclude flooding, including storm surge. Flood coverage is usually purchased separately through NFIP or a private insurer; wind coverage has its own terms. NFIP generally has a 30-day waiting period, with exceptions, so confirm the actual effective date with the agent rather than assuming an approaching storm is covered. A flood policy does not pay every loss: building and contents coverage, limits, deductibles, exclusions, and settlement conditions matter. This guide helps organize questions and evidence; the applicable policy and insurer determine coverage."
       },
       {
         "heading": "Hurricane Preparedness Checklist: Insurance Documents",
@@ -2264,15 +2390,16 @@ export const blogPosts: BlogPost[] = [
       },
       {
         "heading": "Pet Safety and Flood Claims",
-        "body": "Pets and livestock are not covered by flood policies, and wet, stressed animals complicate recovery. Evacuate with pets early and keep their records with your insurance file. The hurricane pet safety guide explains go-bags and pet-friendly lodging so you are not choosing between your animals and your claim."
+        "body": "Keep evacuation and animal-care planning separate from coverage assumptions. Do not delay leaving an unsafe area to preserve claim evidence. Confirm any boarding or temporary-housing expense with the insurer rather than assuming a flood policy pays it. Plan pet-friendly transport and accommodation before a storm, and keep veterinary records available offline."
       },
       {
         "heading": "Insurance: Documents and Coverage",
-        "body": "NFIP covers two things you can buy separately: building property (up to $250,000 for residences) and personal contents (up to $100,000), each with its own limit and deductible. It pays actual cash value for contents and, for primary residences, replacement cost on the structure if you carry adequate limits. Private flood policies may offer higher limits and lower wait times but vary widely—read the exclusions. Critically, flood insurance is separate from your hurricane wind deductible; a single storm can generate two claims. Our claim documentation guide explains the wind-versus-water divide (the line adjusters use)."
+        "body": "For eligible one-to-four-family residential properties, NFIP offers up to $250,000 in building coverage and $100,000 in contents coverage, purchased separately. Other building and policy types have different limits. Contents generally settle at actual cash value; qualifying primary-residence buildings may receive replacement-cost settlement subject to policy conditions. Basement restrictions, deductibles, and excluded property can change a claim. Private policies vary. Ask the agent to identify the form, limits, effective date, and settlement basis in writing; vehicles and many living expenses need separate coverage."
       },
       {
         "heading": "Recovery After the Storm",
-        "body": "Once safe, document before you clean. Photograph standing water levels on walls, damaged items in place, and removed contents stacked outside. Do not discard anything until the adjuster approves; if you must dispose of spoiled items for health, photograph and list them. Make only reasonable, documented mitigation repairs (pump-out, board-up) and keep every receipt—NFIP reimburses up to $1,000 of reasonable expenses without further proof. The post-hurricane recovery guide sets the safe order of operations."
+        "body": "When safe, photograph water lines and damaged items and keep an inventory, receipts, and contact log. Remove immediate health hazards safely rather than waiting in an unsafe building for an adjuster. NFIP flood-loss-avoidance coverage can reimburse up to $1,000 for qualifying reasonable expenses to protect insured property from flooding or imminent flooding, subject to the policy. It is not a blanket allowance for any disaster repair. FloodSmart specifically instructs policyholders to retain receipts and work-time records for the adjuster; separate coverage may apply to moving insured property. Ask which provision applies before assuming reimbursement.",
+        "links": [{ "href": "https://agents.floodsmart.gov/topics/flood-loss-avoidance", "label": "NFIP: eligible loss-avoidance expenses and required records" }]
       },
       {
         "heading": "The 48-Hour Preparedness Timeline",
@@ -2281,7 +2408,7 @@ export const blogPosts: BlogPost[] = [
           "48 hours out: Confirm policy is active (not in a wait period), move contents upstairs, and stage sandbags or barriers.",
           "24 hours out: Back up photos and the inventory to cloud; charge your phone for claim-day documentation.",
           "Immediately after: Photograph flood lines and damage; contact the insurer to open the claim; request an adjuster.",
-          "Within 60 days: Submit your Proof of Loss for NFIP (the strict statutory deadline—miss it and the claim can be denied)."
+          "Ask the insurer immediately for the applicable Proof of Loss requirements and deadline. The standard NFIP form generally requires it within 60 days of loss, but FEMA may issue event-specific extensions or waivers; confirm any applicable written notice."
         ]
       },
       {
@@ -2293,10 +2420,10 @@ export const blogPosts: BlogPost[] = [
         "body": "",
         "bullets": [
           "Assuming homeowners insurance covers flood. It does not. You need a separate policy.",
-          "Buying flood insurance during a watch. NFIP's 30-day wait means it will not be active in time.",
+          "Assuming a newly purchased policy is already effective. NFIP generally has a 30-day wait with exceptions; confirm the effective date and terms.",
           "Skipping contents coverage. Structure-only policies leave your furniture and appliances unprotected.",
-          "Throwing away damaged items. Adjusters need to see them; document first.",
-          "Missing the Proof of Loss deadline. NFIP requires it within 60 days; lateness can void payment."
+          "Discarding evidence unnecessarily, or keeping dangerous contaminated material solely for a claim. Document safely and ask about required records.",
+          "Missing the applicable Proof of Loss deadline. Ask the insurer about the policy requirement and any FEMA event-specific extension."
         ]
       },
       {
@@ -2312,7 +2439,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         "heading": "Final Checklist and Take Action",
-        "body": "Buy flood insurance before June 1, not when a storm is named. This week: confirm your zone at floodsmart.gov, choose building and contents limits that match your rebuild cost, and photograph your home inventory. This storm: move valuables up, document the waterline, and file within days. Open the HurricaneHub tracker tool to time your actions against the real forecast. Flood is the most expensive hurricane damage and the most commonly uninsured—close that gap now."
+        "body": "Review coverage before a flood threatens, including outside hurricane season. This week, confirm the effective date, building and contents limits, deductibles, basement limitations, and claims contact. Photograph an inventory and keep an offline copy of the policy. After a loss, report it promptly when safe, save evidence and expense records, and obtain the applicable document deadlines in writing. Keep questions about wind, flood, temporary housing, and vehicles separate so each insurer can explain the relevant coverage."
       },
       {
         "heading": "Avoiding Contractor Fraud During Recovery",
@@ -2322,15 +2449,15 @@ export const blogPosts: BlogPost[] = [
     "faqs": [
       {
         "question": "Does my homeowners insurance cover hurricane flood damage?",
-        "answer": "No. Standard homeowners and wind policies exclude flood, including storm surge. You need a separate NFIP or private flood policy, and NFIP requires a 30-day waiting period before it takes effect."
+        "answer": "Standard homeowners policies generally exclude flood, including storm surge. Separate NFIP or private flood coverage is usually needed. NFIP generally has a 30-day waiting period with exceptions; confirm the actual effective date and policy terms with the agent."
       },
       {
         "question": "What does NFIP actually pay for?",
-        "answer": "NFIP sells building coverage (up to $250,000 for homes) and contents coverage (up to $100,000) separately. It pays replacement cost on the structure for primary residences with adequate limits, and actual cash value for contents. Personal belongings and vehicles need their own protection."
+        "answer": "Eligible one-to-four-family residential properties can purchase up to $250,000 building coverage and $100,000 contents coverage separately. Settlement depends on the property, form, limits, deductibles, and exclusions. Contents generally settle at actual cash value; qualifying primary-residence buildings may qualify for replacement cost. Vehicles are not covered under NFIP."
       },
       {
         "question": "How soon must I file an NFIP flood claim?",
-        "answer": "Notify the insurer as soon as it is safe, and submit the required Proof of Loss within 60 days of the flood. Missing that statutory deadline can result in denial, so document and file early."
+        "answer": "Notify the insurer promptly when safe. Standard NFIP policy forms generally require a signed Proof of Loss within 60 days of loss, but FEMA can issue event-specific extensions or waivers. Ask the insurer for the applicable requirement and written deadline; do not assume either an extension or an exemption applies."
       },
       {
         "question": "Is wind damage billed on the same claim as flood?",
@@ -2338,16 +2465,17 @@ export const blogPosts: BlogPost[] = [
       },
       {
         "question": "Can I buy flood insurance after a hurricane is forecast?",
-        "answer": "You can apply, but NFIP coverage will not start for 30 days, so it will not help for the approaching storm. Private policies may have shorter waits but vary—read the terms before relying on them."
+        "answer": "Ask an agent, but do not assume coverage for an approaching storm. NFIP generally has a 30-day waiting period with specific exceptions; private insurers have their own waiting periods and binding restrictions. Confirm the written effective date, exclusions, and loss-in-progress provisions before relying on a policy."
       }
     ]
   },
   {
     slug: "hurricane-generator-safety-carbon-monoxide",
+    sources: [{ href: "https://www.cpsc.gov/Safety-Education/Safety-Education-Centers/Carbon-Monoxide-Information-Center", label: "CPSC carbon monoxide and portable generator safety" }, { href: "https://www.ready.gov/power-outages", label: "Ready.gov: generator placement and outage safety" }],
     title: "Hurricane Generator Safety: How to Avoid Carbon Monoxide Poisoning",
     description: "Use portable generators safely during hurricane outages: outdoor placement, CO alarms, fuel handling, extension cords, and medical-device planning.",
     datePublished: "2026-08-16",
-    dateModified: "2026-08-17",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-power-outage-food-medicine-plan.png",
     imageAlt: "A portable generator runs outdoors after a hurricane power outage while a home stays safely in the background.",
     sections: [
@@ -2413,10 +2541,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-additional-living-expenses-ale-coverage",
+    sources: [{ href: "https://content.naic.org/state-insurance-departments", label: "NAIC: state insurance department consumer help" }, { href: "https://www.floodsmart.gov/", label: "NFIP: coverage and exclusions" }],
     title: "Hurricane Additional Living Expenses Coverage After Displacement",
     description: "Learn how additional living expenses coverage may help after hurricane displacement, what receipts to keep, and why policy terms control the claim.",
     datePublished: "2026-08-16",
-    dateModified: "2026-08-17",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-insurance-claim-guide-documentation.png",
     imageAlt: "A family reviews hurricane insurance documents and temporary lodging receipts after an evacuation.",
     sections: [
@@ -2482,10 +2611,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "how-to-use-hurricane-tracker-live-tools",
+    sources: [{ href: "https://www.nhc.noaa.gov/", label: "NHC advisories: verify tracker context" }, { href: "https://www.weather.gov/", label: "NWS: verify local warnings" }],
     title: "How to Use a Live Hurricane Tracker for Your Location",
     description: "Learn how to use a live hurricane tracker: set your location, read the cone, compare alerts, check surge context, and know when official orders matter most.",
     datePublished: "2026-08-16",
-    dateModified: "2026-08-17",
+    dateModified: "2026-10-24",
     image: "/images/blog/real-time-hurricane-tracking-2026.png",
     imageAlt: "A person uses a live hurricane tracker map on a laptop while checking weather alerts on a phone.",
     sections: [
@@ -2551,10 +2681,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-mold-prevention-after-flood",
+    sources: [{ href: "https://www.epa.gov/mold", label: "EPA: mold cleanup and professional help" }, { href: "https://www.cdc.gov/floods/safety/", label: "CDC: floodwater and cleanup hazards" }],
     title: "How to Prevent Mold After a Hurricane Flood",
     description: "A cautious, official-source-oriented guide to reducing mold risk after hurricane flooding, including safe reentry, drying, cleanup, documentation, and when to call professionals.",
     datePublished: "2026-08-17",
-    dateModified: "2026-08-17",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-mold-prevention-after-flood.jpg",
     imageAlt: "A homeowner wearing protective gear checks flood-damaged flooring and ventilation after a hurricane.",
     sections: [
@@ -2635,10 +2766,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-flood-zone-map-fema-understanding",
+    sources: [{ href: "https://msc.fema.gov/portal/home", label: "FEMA Flood Map Service Center: address and map-panel search" }],
     title: "How to Read a FEMA Flood Zone Map Before Hurricane Season",
     description: "Learn what FEMA flood zone letters, base flood elevation, and map updates mean for hurricane preparedness, flood insurance questions, and local evacuation planning.",
     datePublished: "2026-08-17",
-    dateModified: "2026-08-17",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-flood-zone-map-fema-understanding.png",
     imageAlt: "A coastal homeowner reviews a digital flood zone map with property documents on a desk.",
     sections: [
@@ -2713,10 +2845,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-small-business-preparedness-plan",
+    sources: [{ href: "https://www.ready.gov/business", label: "Ready.gov business preparedness" }, { href: "https://www.sba.gov/funding-programs/disaster-assistance", label: "SBA disaster assistance and eligibility" }],
     title: "Hurricane Preparedness Plan for Small Businesses",
     description: "A practical hurricane planning guide for small businesses covering staff communication, records backup, building checks, closure triggers, insurance, and reopening.",
     datePublished: "2026-08-17",
-    dateModified: "2026-08-17",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-small-business-preparedness-plan.png",
     imageAlt: "A small business team reviews a hurricane preparedness checklist beside a laptop and printed records.",
     sections: [
@@ -2796,14 +2929,16 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "apartment-hurricane-preparedness-renters-checklist",
+    sources: [{ href: "https://www.ready.gov/hurricanes", label: "Ready.gov: hurricane protective actions" }, { href: "https://www.ready.gov/evacuation", label: "Ready.gov: evacuation planning" }],
     title: "Apartment Hurricane Preparedness Checklist for Renters",
     description: "A renter-focused hurricane checklist for apartment go-bags, renters insurance, building rules, pets, documents, outages, and safe evacuation decisions.",
     datePublished: "2026-08-17",
-    dateModified: "2026-08-17",
+    dateModified: "2026-10-24",
     image: "/images/blog/apartment-hurricane-preparedness-renters-checklist.png",
     imageAlt: "Apartment renters organize hurricane supplies, documents, and a go-bag on a kitchen table.",
     sections: [
       { heading: "Why Renters Need a Different Hurricane Plan", body: "Apartment renters cannot control the roof, exterior shutters, elevators, drainage, or building repairs, so the plan should focus on people, documents, communication, insurance, pets, and knowing when official guidance says to leave. Use property-manager instructions, local emergency management, NWS alerts, and NHC advisories as the decision sources." },
+      { heading: "Write Down Who Handles Each Building Task", body: "Keep a dated building contact sheet: management's emergency number, after-hours maintenance, the unit address, and your household's backup contact. Ask management who installs approved window protection, how emergency notices reach tenants, whether access gates work without power, and how to report a leak. Record the answer and any unresolved question. For example, a resident who depends on an elevator needs a confirmed transport and accessible destination plan before outages, rather than assuming a neighbor can carry them downstairs. Written permission for a modification does not establish that the installation meets local code." },
       { heading: "Build a Renter Go-Bag", body: "Keep a bag where each household member can grab it quickly if your building loses power, floods, or receives an evacuation order.", bullets: ["Photo ID, lease copy, renters insurance information, medications, chargers, and emergency contacts.", "Water, no-cook food, flashlight, batteries, radio, basic first aid, and cash in small bills.", "Pet food, carriers, vaccination records, leashes, and a pet-friendly destination plan.", "Comfort items for children and written care notes for seniors, disabled household members, or medical needs."] },
       { heading: "Room-by-Room Apartment Checks", body: "Move valuables and electronics away from windows and low floors when safe. Bring balcony items indoors, keep shoes and flashlights near beds, know two stairwell routes, and photograph every room before storm season or before damage cleanup when safe." },
       { heading: "Elevators, Upper Floors, and Shared Buildings", body: "Power outages can stop elevators, card access, water pumps, and air conditioning. Upper floors may avoid some flooding but can face stronger wind, broken glass, stairwell access issues, and heat after outages. Ask property management about emergency procedures before a storm threatens." },
@@ -2821,16 +2956,18 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-school-daycare-emergency-plan",
+    sources: [{ href: "https://www.ready.gov/kids", label: "Ready.gov: family and child preparedness" }, { href: "https://www.ready.gov/plan", label: "Ready.gov: communication and reunification planning" }],
     title: "Hurricane School and Daycare Emergency Plan for Families",
     description: "A family-focused hurricane guide for school closures, daycare pickup, child go-bags, communication plans, documents, pets, and post-storm routines.",
     datePublished: "2026-08-17",
-    dateModified: "2026-08-17",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-school-daycare-emergency-plan.png",
     imageAlt: "A parent reviews a hurricane family communication plan and school pickup contacts with a child.",
     sections: [
       { heading: "Plan Before Closures Begin", body: "Schools and daycares may close, release early, or change pickup procedures as a hurricane threat changes. Families should keep pickup authorizations current, know district alert channels, and write a reunification plan before watches or warnings create time pressure." },
       { heading: "Child-Focused Go-Bag", body: "Children need basic supplies plus familiar items that reduce stress during sheltering, evacuation, or extended closures.", bullets: ["Medications, written care notes, allergy information, insurance cards, and copies of school or daycare contacts.", "Comfort items, simple games, books, chargers, headphones, and child-friendly no-cook food.", "Diapers, formula, wipes, special foods, mobility supplies, or device chargers when needed.", "A paper contact card with authorized pickup adults and an out-of-area family contact."] },
       { heading: "Pickup and Reunification", body: "Confirm who can pick up each child, what ID the school requires, where students are moved if campus closes, and how the district communicates changes. Keep a backup adult on the list in case traffic, work, or evacuation routes prevent one caregiver from arriving." },
+      { heading: "Complete a Pickup Record for Each Child", body: "Record the child's campus, classroom or program, official notification channel, primary pickup adult, authorized backup adult, required ID, and the school's published reunification procedure. Keep sensitive custody and medical records private. Confirm the backup adult is actually authorized in the school's system, not just listed on your household sheet. After an early-release notice, have one caregiver confirm the assignment with the other before traveling; record who collected the child and where they are going. If a phone fails or a route closes, contact the school through its published channel rather than arriving at an assumed alternate campus." },
       { heading: "Children With Medical, Disability, or Sensory Needs", body: "Coordinate with the school nurse, daycare director, medical provider, or support team before hurricane season. Written instructions should cover medication, mobility, device power, communication needs, and backup care locations. See /blog/hurricane-safety-seniors-children-disability/ for broader household planning." },
       { heading: "Pets and Service Animals", body: "If a child depends on a service animal or household pet, include food, medications, records, carriers, and a pet-friendly destination. Check shelter and hotel rules early, because animal policies differ. Related planning: /blog/hurricane-pet-safety/." },
       { heading: "After the Storm", body: "Return children to routine when roads, homes, and school buildings are safe. Expect schedule changes, transport disruption, stress reactions, or temporary childcare gaps. Limit repeated storm footage, keep communication calm, and watch official school district updates." },
@@ -2846,16 +2983,18 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-contractor-scams-insurance-claim",
+    sources: [{ href: "https://consumer.ftc.gov/features/dealing-weather-emergencies", label: "FTC: weather emergencies, repair scams, and recovery" }, { href: "https://content.naic.org/state-insurance-departments", label: "NAIC: contact the state insurance department" }],
     title: "Hurricane Contractor Scams: Protect Your Insurance Claim",
     description: "How to reduce post-hurricane contractor fraud risk with damage documentation, license checks, written estimates, claim logs, and official reporting channels.",
     datePublished: "2026-08-17",
-    dateModified: "2026-08-17",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-contractor-scams-insurance-claim.png",
     imageAlt: "A homeowner reviews contractor paperwork, insurance documents, and storm damage photos after a hurricane.",
     sections: [
       { heading: "Slow Down Before You Sign", body: "After hurricanes, homeowners may face legitimate repair needs alongside aggressive sales tactics, fake inspectors, unlicensed contractors, and confusing claim paperwork. Protect the home and the claim by documenting damage, contacting your insurer directly, checking licenses, and getting written estimates before signing anything." },
       { heading: "Document Damage First", body: "When it is safe, create a room-by-room record before cleanup or permanent repairs begin. Follow insurer instructions if they give specific documentation rules.", bullets: ["Photograph exterior, roof, windows, ceilings, floors, furniture, appliances, and utilities from multiple angles.", "Keep a dated written inventory with approximate values and notes about when damage was found.", "Save receipts for tarps, drying equipment, cleanup supplies, lodging, and temporary repairs.", "Keep claim numbers, adjuster names, contractor estimates, and call notes in one folder."] },
       { heading: "Verify Contractors Through Official Channels", body: "Check state licensing boards, local permit offices, proof of insurance, references, and written estimates. Be cautious with door-to-door pressure, large upfront cash or wire demands, vague contracts, refusal to pull permits, or promises that sound too easy." },
+      { heading: "Keep a Verification and Contract Record", body: "Start at your state government's licensing agency or local building department, using a phone number you find independently. Record the business's legal name, license number where required, permitted work category, status, and check date. Match those details to the written estimate and independently confirm insurance with the carrier or agent. An active license does not guarantee workmanship. Compare bids with the same scope: materials, demolition, disposal, permits, schedule, payment milestones, and warranty. A demand for immediate full payment before a written scope is a reason to pause and contact your insurer or consumer-protection office. Keep signed changes and payment receipts with the original agreement." },
       { heading: "Assignment of Benefits and Claim Paperwork", body: "Some documents can transfer claim payment rights or control to a contractor or third party. Rules vary by state and policy, so do not sign claim-rights paperwork under pressure. Ask your insurer, state insurance department, or a qualified professional if you do not understand a form." },
       { heading: "Temporary Repairs and Permits", body: "Reasonable temporary measures may help prevent further damage, but permanent work should follow local permit and inspection rules. Coordinate tarping, drying, demolition, mold remediation, and rebuild steps with your insurer and local building department when required." },
       { heading: "Protect Seniors and Vulnerable Neighbors", body: "Older adults, non-English speakers, disabled residents, and people under severe stress may be targeted after disasters. Offer to help review written estimates, verify licenses, call the insurer, or report suspicious activity through official channels." },
@@ -2871,10 +3010,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-water-storage-purification-emergency",
+    sources: [{ href: "https://www.ready.gov/water", label: "Ready.gov: water supplies" }, { href: "https://www.cdc.gov/water-emergency/about/", label: "CDC: emergency water storage and treatment" }, { href: "https://www.epa.gov/ground-water-and-drinking-water/emergency-disinfection-drinking-water", label: "EPA: emergency drinking-water disinfection" }],
     title: "Emergency Water Storage and Purification for Hurricanes",
     description: "How much emergency water to store for a hurricane, which containers to use, how to follow boil-water notices, and when boiling or filtering is not enough.",
     datePublished: "2026-08-18",
-    dateModified: "2026-08-18",
+    dateModified: "2026-10-24",
     image: "/images/blog/hurricane-emergency-kit-checklist.png",
     imageAlt: "Household hurricane emergency supplies with sealed drinking-water containers ready for an outage.",
     sections: [
@@ -3133,6 +3273,10 @@ function buildRelatedIndex() {
     }
     return { slug, vec, norm: Math.sqrt(sumSq) || 1 };
   });
+}
+
+export function getBlogOgImage(post: Pick<BlogPost, "slug">): string {
+  return `/images/blog/og/${post.slug}.png`;
 }
 
 export function getRelatedPosts(slug: string, limit = 3): BlogPost[] {

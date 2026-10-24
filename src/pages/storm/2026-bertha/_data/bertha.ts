@@ -11,7 +11,7 @@ export const bertha: StormArchive = {
   summary:
     "Tropical Storm Bertha was the second named storm of the 2026 Atlantic hurricane season and one of its more unusual trackers. Instead of recurving out to sea, Bertha spent days grinding westward along the northern Gulf Coast — from the Florida Panhandle to the upper Texas coast — before weakening inland over eastern Texas on July 23, 2026.",
   heroStats: [
-    { label: "Peak winds", value: "50 mph (45 kt)" },
+    { label: "Peak winds", value: "60 mph (50 kt; season summary)" },
     { label: "Min pressure", value: "995 mb" },
     { label: "ACE", value: "2.2 x10⁴ kt²" },
     { label: "Dates", value: "Jul 19–23, 2026" },
@@ -20,28 +20,28 @@ export const bertha: StormArchive = {
   ],
   live: {
     bulletin:
-      "Final NHC record (archived): Bertha was a tropical storm that moved generally westward near or along the northern Gulf Coast for several days. It produced tropical-storm-force winds, coastal flooding, and locally heavy rain from the Florida Panhandle to the upper Texas coast before dissipating inland over eastern Texas.",
+      "Historical planning archive, source check October 24, 2026: NHC's 2026 season summary lists Bertha with peak winds of 50 kt (about 60 mph) and minimum pressure of 995 mb. These season-summary values can be revised. The linked advisory archive contains the operational forecasts; no final storm-specific Tropical Cyclone Report or verified casualty total is presented here. Forecast rainfall and surge are not measured impacts.",
     rows: [
-      { label: "Classification", value: "Tropical Storm (post-season)" },
-      { label: "Peak intensity", value: "50 mph (45 kt), 995 mb" },
+      { label: "Classification", value: "Tropical Storm (season summary; provisional)" },
+      { label: "Peak intensity", value: "60 mph (50 kt), 995 mb; season summary" },
       { label: "Final position", value: "Inland over eastern Texas" },
-      { label: "Movement", value: "West to west-northwest, 6–13 mph" },
-      { label: "Peak rainfall", value: "1–4 in, isolated 6 in" },
-      { label: "Storm surge", value: "1–4 ft along the coast" },
-      { label: "Direct deaths", value: "3 (NHC Tropical Cyclone Report)" },
-      { label: "U.S. damage", value: "Minor (coastal flooding)" }
+      { label: "Final advisory movement", value: "West at 14 mph; 0300 UTC Jul 24" },
+      { label: "Rainfall observations", value: "No verified event maximum presented here" },
+      { label: "Surge observations", value: "No verified event maximum presented here" },
+      { label: "Direct deaths", value: "Not verified here; blank source fields do not mean zero" },
+      { label: "U.S. damage", value: "No verified loss estimate presented here" }
     ],
-    advisoryNumber: "Advisory 18",
-    advisoryTime: "July 23, 2026",
-    nhcAdvisoryUrl: "https://www.nhc.noaa.gov/text/refresh/MIATCPAT2+shtml/232035.shtml",
-    nhcSourceUrl: "https://www.nhc.noaa.gov/data/tcr/index.php?text"
+    advisoryNumber: "Archived advisories and season summary",
+    advisoryTime: "Sources checked October 24, 2026",
+    nhcAdvisoryUrl: "https://www.nhc.noaa.gov/archive/2026/al02/al022026.public.019.shtml",
+    nhcSourceUrl: "https://www.nhc.noaa.gov/data/tcr/index.php?season=2026&basin=atl"
   },
   timeline: [
     { date: "Jul 19, 2026", event: "System organizes in the northeastern Gulf of Mexico and is designated the season's second named storm, Bertha." },
     { date: "Jul 21, 2026", event: "Bertha sits beneath strong shear near the Florida Panhandle; recon places the center near Panama City, Florida." },
-    { date: "Jul 22, 2026", event: "Bertha reaches peak intensity near 50 mph and wobbles just south of the Mississippi coast, spreading tropical-storm conditions westward." },
+    { date: "2026 season summary", event: "NHC lists peak winds of 50 kt (about 60 mph), distinct from individual operational advisory estimates. This summary is subject to later analysis." },
     { date: "Jul 23, 2026 (AM)", event: "Center nears the Louisiana and upper Texas coasts at 45 mph as the system turns west-northwest." },
-    { date: "Jul 23, 2026 (PM)", event: "Bertha moves inland over eastern Texas at 40 mph and dissipates, ending a slow coastal grind." }
+    { date: "Jul 23, 2026, 10 PM CDT (Jul 24, 0300 UTC)", event: "NHC final public advisory 19 identifies a trough with 35 mph maximum sustained winds, about 40 miles west-northwest of Houston. Local rainfall and surf hazards can continue after NHC advisories end." }
   ],
   impact: [
     {
@@ -57,7 +57,7 @@ export const bertha: StormArchive = {
     {
       title: "Rain and a few tornadoes",
       body:
-        "Bertha produced 1–4 inches of rain with isolated 6-inch totals along the Texas and South Texas coast, enough for isolated urban flash flooding. A few tornadoes were possible from the upper Texas coast into southern Louisiana, Mississippi, Alabama, and the western Florida Panhandle as the system tracked west."
+        "Rainfall forecasts and tornado outlooks describe possible hazards, not confirmed event totals. This archive does not assign an observed rainfall maximum or tornado count without a dated local NWS observation or event report. When researching a particular community, keep the station, measurement interval, and report time attached to any rainfall amount."
     },
     {
       title: "How 2026 Bertha compares with past Bertha storms",
@@ -75,18 +75,18 @@ export const bertha: StormArchive = {
         { label: "Peak winds", value: "50 mph" },
         { label: "Min pressure", value: "1005 mb" },
         { label: "Landfall", value: "Isle of Palms, SC" },
-        { label: "Notable", value: "1 death; ~$133k damage" }
+        { label: "Source", value: "NHC 2020 season archive; impact totals not reproduced" }
       ],
       comparison:
         "2020 Bertha was a quick South Carolina landfall; 2026 Bertha was a multi-day Gulf Coast grinder with no single concentrated landfall."
     },
     {
       year: 2008,
-      classification: "Category 1 Hurricane",
+      classification: "Category 3 Hurricane",
       summary:
         "Bertha 2008 was a long-lived July Cape Verde hurricane that became the longest-lived July Atlantic storm on record, remaining mostly over open water.",
       stats: [
-        { label: "Peak winds", value: "80 mph (Cat 1)" },
+        { label: "Peak winds", value: "125 mph (110 kt; Cat 3)" },
         { label: "Track", value: "Open Atlantic" },
         { label: "Landfall", value: "None" },
         { label: "Notable", value: "Record-long July lifetime" }
@@ -116,7 +116,7 @@ export const bertha: StormArchive = {
     {
       title: "Watch the surge timing, not just height",
       body:
-        "Coastal flooding from Bertha varied sharply with tide. Learn your evacuation zone and heed NWS coastal flood warnings even when winds are only tropical-storm force."
+        "Storm surge and the astronomical tide combine to affect water levels; a forecast surge range is not an observed flood depth at a home. Learn your evacuation zone and follow local coastal flood and evacuation instructions even when winds are only tropical-storm force."
     },
     {
       title: "Don't ignore the tornado threat",
@@ -143,7 +143,7 @@ export const bertha: StormArchive = {
     },
     {
       question: "Where can I verify Bertha's official data?",
-      answer: "The NHC public advisories and the Tropical Cyclone Report archive linked on this page provide the authoritative record for Bertha."
+      answer: "Use the fixed 2026 Bertha advisory archive and NHC season-summary link. Historical comparisons can be checked in NHC's 2008 and 2020 report archives. Operational advisories and provisional season statistics are not a final Tropical Cyclone Report; this page does not claim verified casualty or loss totals."
     }
   ],
   related: [

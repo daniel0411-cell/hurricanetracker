@@ -168,11 +168,12 @@ const jsonLd = graph(
         </ul>
       </article>
       <article>
-        <h2>Common Local Searches</h2>
-        <p>These are the practical questions this page is built to answer during hurricane season.</p>
+        <h2>Verify Local Instructions Before Leaving</h2>
+        <p>{city.planningNote} Save the responsible local agency's update before travel, and check the order's area, issue time, and departure instructions against your exact address.</p>
         <ul class="check-list">
-          {city.localSearches.map((query) => <li>{query}</li>)}
+          {(city.officialResources ?? []).filter((resource) => !resource.url.includes("nhc.noaa.gov")).map((resource) => <li><a href={resource.url}>{resource.name}</a>: {resource.description}</li>)}
         </ul>
+        <p>Write down the applicable zone or neighborhood, destination, transport contact, and next official update time. A nearby storm, state-level alert, or ZIP representative point cannot establish that a particular road or property is safe.</p>
       </article>
     </div>
   </section>

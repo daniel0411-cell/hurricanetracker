@@ -8,8 +8,8 @@ import { cristobal } from "./_data/cristobal";
 const s = cristobal;
 const url = `${site.url}/storm/2026-${s.name.toLowerCase()}/`;
 const title = `Tropical Storm Cristobal 2026: NHC Data & History`;
-const description = `Tropical Storm Cristobal 2026 formed in the open Atlantic and dissipated quickly. Review NHC data, timeline, and how it compares with past Cristobal storms.`;
-const lastModified = "2026-08-20T00:00:00.000Z";
+const description = `Review Cristobal 2026's provisional NHC statistics, final post-tropical advisory, timeline, and comparisons with historical storms of the same name.`;
+const lastModified = "2026-10-24T00:00:00.000Z";
 const datePublished = "2026-08-13T00:00:00.000Z";
 const jsonLd = graph(
   websiteSchema(),
@@ -56,13 +56,13 @@ const jsonLd = graph(
         </table>
         <p class="storm-links">
           <a href={s.live.nhcAdvisoryUrl} rel="noopener nofollow">NHC public advisory ({s.live.advisoryNumber})</a>
-          <a href={s.live.nhcSourceUrl} rel="noopener nofollow">NHC Tropical Cyclone Report</a>
+          <a href={s.live.nhcSourceUrl} rel="noopener nofollow">NHC season summary and report availability</a>
         </p>
       </article>
       <article class="panel">
         <p class="eyebrow">Why it mattered</p>
-        <h2>A Fish Storm With a Lesson</h2>
-        <p>{s.classification} {s.name} {s.year} never threatened land, but its formation reshuffled the naming order and signaled the season's peak was arriving.</p>
+        <h2>Read the Final Advisory Carefully</h2>
+        <p>The final public advisory described {s.name} as post-tropical and listed no coastal watches or warnings. Dissipation later that night was a forecast, not an observation recorded in that advisory.</p>
         <p>Use the live trackers and tropical-disturbance page to watch the next system before it is named.</p>
         <p class="section-actions">
           <a class="action-link" href="/hurricane-tracker/storm/">Named storm trackers</a>

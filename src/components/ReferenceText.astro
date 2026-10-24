@@ -1,0 +1,14 @@
+---
+const { text } = Astro.props as { text: string };
+const parts = text.split(/(https?:\/\/[^\s<>"']+|\/(?:blog|tools|hurricane-tracker|alerts)\/[^\s<>"']*)/g);
+---
+{parts.map((part) => {
+  if (!/^(https?:\/\/|\/(?:blog|tools|hurricane-tracker|alerts)\/)/.test(part)) return part;
+  const address = part.replace(/[.;,)]+$/, "");
+  try {
+    const url = new URL(address, "https://www.hurricanetracker.cc");
+    return <><a href={address.startsWith("/") ? url.pathname : url.href}>{address}</a>{part.slice(address.length)}</>;
+  } catch {
+    return part;
+  }
+})}
