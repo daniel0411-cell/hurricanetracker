@@ -40,7 +40,7 @@ Some official domains returned HTTP 403 or connection failures to automated reac
 ## Validation
 
 - Build passed; Astro check: 0 errors, 0 warnings, 4 existing hints.
-- Content audit: 91/91 target pages checked, including 46 rendered article references and OG paths.
+- Content audit: initial 91/91 target pages passed; final 94/94 coverage passed after adding About and both corrected storm archives, with all 46 rendered article references and OG paths still required.
 - Media audit: all 46 article social images and existing static page checks passed.
 - Internal links, schema and metadata audit checks passed within their reported static/source coverage.
 - Desktop browser inspection covered a corrected blog and the surge tool. Mobile viewport inspection was not performed in this run.
@@ -53,6 +53,8 @@ CONTENT_AUDIT_BASE_URL=http://127.0.0.1:8794 npm run content:audit
 ```
 
 ## Remaining editorial work
+
+Production read-through also found repeated legacy wording in Cristobal's FAQ and forecast explanation after the first deployment. The follow-up correction removes unsupported claims of verified dissipation, forecast accuracy, environmental specifics and disturbance naming implications. Bertha's forecast explanation now distinguishes operational advisories from formal verification as well.
 
 - References on all posts do not establish a full sentence-by-sentence review of all 46 articles or all archive timeline claims. Only explicitly scoped correction records claim that work.
 - Local pages still merit individual expansion with verified local procedures and clearer differentiation of preparedness versus live tracking tasks. This change removes shared quality defects; it does not claim every local page meets the project's original-content length target.

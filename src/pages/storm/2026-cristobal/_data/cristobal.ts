@@ -50,9 +50,9 @@ export const cristobal: StormArchive = {
         "Cristobal remained an open-ocean system in the reviewed archive. That describes its track, not a verified total of all possible marine or remote impacts. Naming order follows the development of individual systems, rather than the amount of attention an earlier disturbance receives. Check advisory times and basin identifiers when comparing simultaneous disturbances."
     },
     {
-      title: "Why it was short-lived",
+      title: "What the final advisory establishes",
       body:
-        "Cristobal formed over marginal sea-surface temperatures near 77°F and quickly encountered progressively cooler water, dry air, and increasing wind shear. That hostile trio is the standard recipe for a quick demise in the subtropical Atlantic, and the NHC forecast correctly called dissipation within about a day."
+        "At 1500 UTC August 13, the final advisory identified a post-tropical remnant low with 30 mph winds. It forecast dissipation later that night. Use the archived forecast discussions to examine the expected environment; the final public advisory alone does not verify the later dissipation time or a forecast accuracy claim."
     },
     {
       title: "Season context",
@@ -92,7 +92,7 @@ export const cristobal: StormArchive = {
         { label: "Source", value: "NHC 2014 storm report archive" }
       ],
       comparison:
-        "2014 Cristobal briefly became a hurricane in the open Atlantic; 2026 Cristobal stayed a weak tropical storm and dissipated even faster."
+        "2014 Cristobal reached hurricane strength; the provisional 2026 season summary lists a tropical-storm peak of 40 kt. The final 2026 advisory identified a post-tropical remnant low, a different milestone from complete dissipation."
     }
   ],
   forecast: [
@@ -102,9 +102,9 @@ export const cristobal: StormArchive = {
         "The final public advisory forecast continued northeastward movement and dissipation later that night. That is an operational prediction, not a post-season verification score. Use the dated forecast discussions for the reasoning at each advisory time and a later storm report, when available, for best-track analysis."
     },
     {
-      title: "What a fish storm still teaches",
+      title: "Keep the advisory and storm identifier together",
       body:
-        "Even systems that never threaten land reinforce why we watch the whole basin: Cristobal's formation reshuffled the naming order and reminded forecasters that the peak of season was arriving even in a quiet year."
+        "Use the basin identifier AL032026 and the advisory timestamp when reading this archive. A storm's naming order does not measure local danger or predict the next system's impacts. Check the current NHC outlook separately from this historical account."
     }
   ],
   preparedness: [
@@ -116,7 +116,7 @@ export const cristobal: StormArchive = {
     {
       title: "Follow the right source for your area",
       body:
-        "When a storm is far out, NHC issues the advisories; when it nears you, your local NWS office issues the alerts that matter. Know both pathways and use the live tracker to bridge them."
+        "Read NHC advisories together with local NWS warnings and local emergency management instructions. NHC information remains relevant near land, while local products add detail for your community. Use the live tracker to find the current sources."
     },
     {
       title: "Treat El Niño seasons as still dangerous",
@@ -127,19 +127,19 @@ export const cristobal: StormArchive = {
   faqs: [
     {
       question: "Was Cristobal a threat to the United States in 2026?",
-      answer: "No. Cristobal formed over the open subtropical Atlantic and dissipated over cooler water. The NHC issued no coastal watches or warnings for it."
+      answer: "The final advisory located the post-tropical remnant low west-northwest of the Azores and listed no coastal watches or warnings. It forecast later dissipation. That bulletin does not provide a complete accounting of every marine or remote impact."
     },
     {
       question: "Why was Cristobal short-lived?",
-      answer: "It formed over marginal ocean temperatures and quickly encountered cooler water, dry air, and wind shear, the standard ingredients for rapid weakening in the subtropical Atlantic."
+      answer: "The reviewed season summary and final advisory document a short tropical-storm phase ending with a post-tropical remnant low on August 13. For the environmental explanation, consult the dated NHC forecast discussions; do not treat a forecast dissipation time as an observed outcome."
     },
     {
       question: "How was Cristobal different from 2020 Cristobal?",
       answer: "2020 Cristobal made landfall in Louisiana and reached 50 kt. The 2026 season summary lists 40 kt and its final advisory describes an open-ocean remnant low. These track and intensity comparisons do not establish casualty or damage totals."
     },
     {
-      question: "What was Invest 92L in the Cristobal story?",
-      answer: "Invest 92L was a separate, more-watched disturbance farther south. Because Cristobal (Invest 93L) reached named status first, the southern system later became Tropical Storm Dolly instead."
+      question: "How do I distinguish Cristobal from other disturbances?",
+      answer: "Match the basin identifier AL032026 and advisory timestamp. Invest numbers identify monitored disturbances and can be reused; naming order alone is not enough to establish the history of a separate system."
     },
     {
       question: "Where can I verify Cristobal's official data?",

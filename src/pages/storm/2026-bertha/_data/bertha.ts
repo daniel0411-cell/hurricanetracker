@@ -99,7 +99,7 @@ export const bertha: StormArchive = {
     {
       title: "NHC track and intensity forecast",
       body:
-        "Forecasters expected Bertha to stay in a hostile environment of strong shear and dry mid-level air, limiting intensification. The official track kept the center near or along the northern Gulf coast, then inland over Texas — a forecast verified as the storm moved west instead of recurving."
+        "The final public advisory identified a trough inland near Houston moving west at 14 mph. Earlier advisories describe the forecasts issued at their own timestamps. Compare those predictions with later best-track analysis when available; this archive does not present a formal verification of forecast accuracy."
     },
     {
       title: "Why a weak storm still needed warnings",
@@ -151,7 +151,7 @@ export const bertha: StormArchive = {
     { title: "Live hurricane tracker", href: "/hurricane-tracker/live/", body: "See all active NHC systems, radar, and current advisory links." },
     { title: "Louisiana hurricane tracker", href: "/tracker/louisiana/", body: "Louisiana coastal alerts and planning context." },
     { title: "Florida hurricane tracker", href: "/tracker/florida/", body: "Florida-specific NWS alerts, surge, and local risk context." },
-    { title: "Storm surge checker", href: "/tools/storm-surge-checker/", body: "Estimate surge risk for your coast." },
+    { title: "Storm surge checker", href: "/tools/storm-surge-checker/", body: "Screen NWS alerts at a ZIP representative point; verify your address with official local resources." },
     { title: "Saffir-Simpson scale", href: "/blog/saffir-simpson-hurricane-wind-scale-explained/", body: "Why wind category is only part of the risk picture." },
     { title: "Storm distance calculator", href: "/tools/storm-distance-calculator/", body: "Compare your location with current NHC storm positions." },
     { title: "Storm archive", href: "/storm-archive/", body: "Browse current and historical storm records in one place." }

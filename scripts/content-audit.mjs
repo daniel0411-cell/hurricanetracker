@@ -17,6 +17,7 @@ const findings = [];
 const routes = [...new Set([
   "/hurricane-tracker/live/", "/learn/", "/blog/", "/radar/", "/compare/",
   "/tools/preparedness-checklist/", "/tools/storm-surge-checker/",
+  "/about/", "/storm/2026-bertha/", "/storm/2026-cristobal/",
   ...hurricaneCities.map((city) => `/hurricane-tracker/city/${city.slug}/`),
   ...BLOG_CATEGORY_PAGES.map((category) => `/blog/category/${category.slug}/`),
   ...blogPosts.map((post) => `/blog/${post.slug}/`)
@@ -51,6 +52,12 @@ for (const route of routes) {
       ["title", /<title>[^<]+<\/title>/i], ["canonical", /<link\b[^>]*rel="canonical"/i],
       ["main content", /<main\b/i], ["heading", /<h1\b/i]
     ]) if (!pattern.test(html)) findings.push(`${route}: missing ${name}`);
+    if (route === "/storm/2026-cristobal/" && /forecast correctly called dissipation|reshuffled the naming order|dissipated over cooler water|dissipated even faster/i.test(html)) {
+      findings.push(`${route}: unsupported outcome or naming claim reintroduced`);
+    }
+    if (route === "/storm/2026-bertha/" && /a forecast verified as the storm/i.test(html)) {
+      findings.push(`${route}: unsupported forecast verification reintroduced`);
+    }
     const post = blogPosts.find((item) => route === `/blog/${item.slug}/`);
     if (post) {
       if (!html.includes('id="article-sources"')) findings.push(`${route}: references not rendered`);
