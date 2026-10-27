@@ -26,6 +26,28 @@ const cities = new Map([
   ["houston", "Separate Coastal Evacuation From Inland Flood Decisions"]
 ]);
 const routes = new Map();
+for (const post of blogPosts) {
+  for (const figure of post.figures ?? []) {
+    if (!figure.afterSection) continue;
+    assert.equal(post.sections.filter((section) => section.heading === figure.afterSection).length, 1,
+      `${post.slug}: an inline figure must belong to exactly one section`);
+    assert(figure.width > 0 && figure.height > 0, "Inline figures reserve their intrinsic aspect ratio");
+    assert(figure.sourceUrl?.startsWith("https://"), "Inline official examples need an original source");
+    await fs.access(`public${figure.src}`);
+  }
+}
+for (const slug of ["official-hurricane-information-sources-rumor-verification", "hurricane-storm-surge-forecasting", "how-to-read-the-hurricane-cone-of-uncertainty"]) {
+  const post = blogPosts.find((post) => post.slug === slug);
+  assert.equal(post.sourceCheck?.date, "2026-10-27");
+  assert(post.sourceCheck.scope.length > 30, "Disclose what the check covered");
+  assert(post.figures.some((figure) => figure.afterSection));
+  routes.set(`/blog/${slug}/`, post.figures[0].afterSection);
+}
+for (const slug of ["miami", "tampa", "houston"]) {
+  const city = hurricaneCities.find((city) => city.slug === slug);
+  assert.equal(city.dateModified, "2026-10-27");
+  assert.equal(city.sourceCheck?.date, "2026-10-27");
+}
 for (const [slug, heading] of articles) {
   const post = blogPosts.find((post) => post.slug === slug);
   assert(post, `Missing existing article ${slug}`);
@@ -58,10 +80,14 @@ if (base) {
     assert(html.includes(heading.replaceAll("'", "&#39;")) || html.includes(heading), `${route}: new content missing`);
     assert(html.includes(`https://www.hurricanetracker.cc${route}`), `${route}: canonical missing`);
     assert.match(html, /application\/ld\+json/);
+    if (route.startsWith("/blog/")) {
+      assert(html.includes('aria-label="Article contents"'), `${route}: contents navigation missing`);
+      assert(html.includes('href="#section-0"'), `${route}: section navigation missing`);
+    }
   }
   const response = await fetch(new URL(figure.src, base));
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type"), /image\/png/);
   assert.deepEqual(Buffer.from(await response.arrayBuffer()), png, "Serve the unchanged official image");
 }
-console.log(`Content pilot: six articles, three cities and official image passed${base ? " (including nine rendered pages)" : " (data only; set CONTENT_AUDIT_BASE_URL for rendered checks)"}.`);
+console.log(`Content and editorial media checks passed: ${routes.size} routes, inline figure ownership, source scopes, city dates and official image${base ? " (including rendered pages)" : " (data only; set CONTENT_AUDIT_BASE_URL for rendered checks)"}.`);

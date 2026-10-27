@@ -23,7 +23,7 @@ if (!city) {
 const title = `${city.name} Hurricane Tracker & Alerts`;
 const description = `Track ${city.name} hurricane risk with local NWS alerts, NHC storm context, storm surge, flooding, evacuation planning, and household decision tools.`;
 const url = `${site.url}/hurricane-tracker/city/${city.slug}/`;
-const lastModified = site.contentLastModified;
+const lastModified = city.dateModified ?? site.contentLastModified;
 const state = getStateByCode(city.stateCode);
 const stateSlug = state?.slug ?? city.stateName.toLowerCase().replaceAll(" ", "-");
 const stateCities = hurricaneCities
@@ -97,6 +97,8 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">{city.region}</p>
       <h1 id="city-title">{city.name} Hurricane Tracker and Local Risk Guide</h1>
+      {city.dateModified && <p class="small">Guide updated {city.dateModified}. This date does not describe live weather conditions.</p>}
+      {city.sourceCheck && <p class="small">Source check {city.sourceCheck.date} · {city.sourceCheck.scope}</p>}
       <p class="answer">This page helps {city.name} residents connect state NWS alerts, NHC storm context, evacuation-zone checks, and household planning tools before wind, surge, flooding, or road constraints reduce options.</p>
       <p class="answer">{city.overview}</p>
     </div>

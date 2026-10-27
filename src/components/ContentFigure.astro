@@ -1,5 +1,5 @@
 ---
-const { src, mobileSrc, alt, caption, width = 1200, height = 675, mobileWidth = 750, mobileHeight = 800 } = Astro.props;
+const { src, mobileSrc, alt, caption, width = 1200, height = 675, mobileWidth = 750, mobileHeight = 800, sourceUrl, sourceLabel, fullSize = false } = Astro.props;
 ---
 <figure class="content-figure">
   {mobileSrc ? (
@@ -9,10 +9,15 @@ const { src, mobileSrc, alt, caption, width = 1200, height = 675, mobileWidth = 
     </picture>
   ) : <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />}
   <figcaption>{caption}</figcaption>
+  {(fullSize || sourceUrl) && <p class="figure-links">
+    {fullSize && <a href={src}>Open full-size image</a>}
+    {sourceUrl && <a href={sourceUrl}>{sourceLabel ?? "Original source"}</a>}
+  </p>}
 </figure>
 
 <style>
   .content-figure { margin: 28px 0 0; }
   .content-figure img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; background: #f4f8fa; }
   .content-figure figcaption { margin-top: 10px; color: var(--muted); font-size: .9rem; line-height: 1.5; }
+  .figure-links { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 10px 0 0; font-size: .9rem; }
 </style>

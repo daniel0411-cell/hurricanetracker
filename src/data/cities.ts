@@ -8,6 +8,8 @@ export type HurricaneCity = {
   planningNote: string;
   nearbyCounties: string[];
   overview: string;
+  dateModified?: string;
+  sourceCheck?: { date: string; scope: string };
   localHazards: Array<{
     heading: string;
     body: string;
@@ -65,6 +67,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "miami",
+    dateModified: "2026-10-27",
+    sourceCheck: { date: "2026-10-27", scope: "Miami-Dade hurricane hub and linked planning-zone entry. No address result, assistance eligibility or current order was verified." },
     name: "Miami",
     stateCode: "FL",
     stateName: "Florida",
@@ -157,6 +161,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "tampa",
+    dateModified: "2026-10-27",
+    sourceCheck: { date: "2026-10-27", scope: "Hillsborough evacuation-information page and its lookup, map-version and transport navigation. No address result, shelter activation or current order was verified." },
     name: "Tampa",
     stateCode: "FL",
     stateName: "Florida",
@@ -249,6 +255,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "houston",
+    dateModified: "2026-10-27",
+    sourceCheck: { date: "2026-10-27", scope: "Houston OEM planning entry and Harris County Flood Warning System. No live gauge value, road condition or current order was verified." },
     name: "Houston",
     stateCode: "TX",
     stateName: "Texas",

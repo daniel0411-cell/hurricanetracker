@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import FaqBlock from "../../components/FaqBlock.astro";
 import AdPlacement from "../../components/AdPlacement.astro";
 import ReferenceText from "../../components/ReferenceText.astro";
+import ContentFigure from "../../components/ContentFigure.astro";
 import { blogPosts, getBlogOgImage, getCategory, getRelatedPosts } from "../../data/blog";
 import { site } from "../../data/site";
 import { blogPostingSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
@@ -101,27 +102,33 @@ const jsonLd = graph(
 );
 ---
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified} image={post.image} ogImage={ogImage} imageAlt={post.imageAlt} publishedTime={new Date(post.datePublished).toISOString()}>
-  <article class="band" aria-labelledby="post-title">
+  <article class="band article-intro" aria-labelledby="post-title">
     <div class="inner">
       <p class="eyebrow">HurricaneHub blog</p>
       <h1 id="post-title">{post.title}</h1>
       <p class="answer">{post.description}</p>
       <p class="small">By <a href="/about/">HurricaneHub</a> · Published {post.datePublished} · Last modified {post.dateModified}</p>
-      <figure>
+      {post.sourceCheck && <details class="source-check small"><summary>Source check {post.sourceCheck.date}</summary><p>{post.sourceCheck.scope}</p></details>}
+      {!post.figures?.some((figure) => figure.afterSection) && <figure>
         <img class="article-hero-image" src={post.image} alt={post.imageAlt} width="1600" height="900" decoding="async" fetchpriority="high" />
         <figcaption class="small">{post.imageCaption ?? "Editorial cover illustration, not an official forecast graphic or an observed image of the event described."}</figcaption>
-      </figure>
+      </figure>}
       {post.review && <p class="small">Correction check {post.review.date} · {post.review.scope}. {post.review.correction}</p>}
     </div>
   </article>
 
-  <section class="band" aria-labelledby="article-body">
+  <section class="band article-body" aria-labelledby="post-title">
     <div class="inner grid-2 article-grid">
       <div class="stack">
-        <h2 id="article-body">{post.title}</h2>
+        <nav class="article-contents" aria-label="Article contents">
+          <details>
+            <summary>On This Page</summary>
+            <ol>{post.sections.map((section, index) => <li><a href={`#section-${index}`}>{section.heading}</a></li>)}</ol>
+          </details>
+        </nav>
         {post.sections.map((section, index) => (
           <section aria-labelledby={`section-${index}`}>
-            <h3 id={`section-${index}`}>{section.heading}</h3>
+            <h2 id={`section-${index}`}>{section.heading}</h2>
             {section.body && <p><ReferenceText text={section.body} /></p>}
             {section.bullets && (
               <ul class="check-list">
@@ -133,13 +140,13 @@ const jsonLd = graph(
                 {section.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
               </ul>
             )}
+            {post.figures?.filter((figure) => figure.afterSection === section.heading).map((figure) => (
+              <ContentFigure {...figure} fullSize={true} />
+            ))}
           </section>
         ))}
-        {post.figures?.map((figure) => (
-          <figure class="article-figure">
-            <img src={figure.src} alt={figure.alt} width="1600" height="900" loading="lazy" decoding="async" />
-            <figcaption>{figure.caption}</figcaption>
-          </figure>
+        {post.figures?.filter((figure) => !post.sections.some((section) => section.heading === figure.afterSection)).map((figure) => (
+          <ContentFigure {...figure} width={figure.width ?? 1600} height={figure.height ?? 900} fullSize={true} />
         ))}
         <AdPlacement placement="in-content" enabled={adsEnabled} />
         <section aria-labelledby="article-sources">
@@ -178,6 +185,16 @@ const jsonLd = graph(
 </Layout>
 
 <style>
+  .article-intro, .article-body { padding-block: 32px; }
+  .article-intro h1 { font-size: 2.5rem; line-height: 1.15; max-width: 30ch; }
+  .article-intro p { margin-block: 16px; }
+  .article-grid h2 { font-size: 1.5rem; line-height: 1.3; }
+  .source-check summary { cursor: pointer; padding-block: 6px; }
+  .source-check p { margin-top: 8px; }
+  .article-contents { border-block: 1px solid var(--line); padding-block: 16px; }
+  .article-contents summary { cursor: pointer; font-weight: 700; padding-block: 6px; }
+  .article-contents ol { padding-left: 24px; margin-bottom: 0; }
+  .article-contents li + li { margin-top: 8px; }
   .related-list {
     list-style: none;
     margin: 0;
@@ -215,5 +232,9 @@ const jsonLd = graph(
   }
   .article-action h3 {
     margin-top: 0;
+  }
+  @media (max-width: 767px) {
+    .article-intro h1 { font-size: 2rem; }
+    .article-grid h2 { font-size: 1.35rem; }
   }
 </style>

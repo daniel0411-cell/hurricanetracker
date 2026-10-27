@@ -8,8 +8,9 @@ export type BlogPost = {
   imageAlt: string;
   imageCaption?: string;
   sources: Array<{ href: string; label: string }>;
+  sourceCheck?: { date: string; scope: string };
   review?: { date: string; scope: string; correction: string };
-  figures?: Array<{ src: string; alt: string; caption: string }>;
+  figures?: Array<{ src: string; alt: string; caption: string; afterSection?: string; width?: number; height?: number; sourceUrl?: string; sourceLabel?: string }>;
   sections: Array<{
     heading: string;
     body: string;
@@ -53,13 +54,17 @@ export const blogPosts: BlogPost[] = [
     title: "Official Hurricane Information Sources: How to Verify Storm Updates",
     description: "Find reliable hurricane information from the NHC, local NWS office, emergency management, evacuation officials, and NOAA backups while avoiding storm rumors.",
     datePublished: "2026-09-14",
-    dateModified: "2026-10-24",
+    dateModified: "2026-10-27",
+    sourceCheck: { date: "2026-10-27", scope: "Historical Helene image labels and NHC product explanation; not a check of current local orders or every linked website." },
     image: "/images/blog/nws-hurricane-alert-meanings.png",
     imageAlt: "A smartphone displays official hurricane alert information beside a weather radio and emergency planning notes.",
+    figures: [{ src: "/images/blog/external/nhc-cone-helene-2024-example.png", width: 897, height: 736, afterSection: "Test a Screenshot Against Its Own Labels", alt: "Historical NHC Helene advisory 9 with September 25, 2024 issue label at lower left, used to check a screenshot's age.", caption: "A real NHC historical image, not evidence of a current threat. Its lower-left date identifies September 25, 2024. The social-media claim in this exercise is hypothetical, not a quotation from a real user.", sourceUrl: "https://www.nhc.noaa.gov/aboutcone.shtml", sourceLabel: "NHC cone explanation and historical example" }],
     sections: [
       { heading: "Direct Answer", body: "Start with the National Hurricane Center for a tropical cyclone's official position, intensity, forecast track, and advisory. Use your local National Weather Service office for watches, warnings, rainfall, tornado, wind, and flood details. Use county, city, and state emergency management for evacuation orders, shelters, routes, and local instructions. Social posts and crowd-sourced maps can provide clues, but they should never outrank those official sources." },
       { heading: "Use Each Source for Its Own Question", body: "Reliable hurricane monitoring is a chain of sources rather than one perfect website.", bullets: ["NHC: Where is the tropical cyclone and where might its center go?", "Local NWS office: What hazards and alerts apply to my county or zone?", "County or city emergency management: Do I need to evacuate, shelter, or avoid roads?", "State agencies: What shelters, transportation, highway, and coastal instructions are active?", "NOAA Weather Radio and Wireless Emergency Alerts: What is the backup if internet or power fails?"] },
       { heading: "How to Verify a Storm Post or Screenshot", body: "Check the original source, issue time, basin, and location before sharing a storm update. A screenshot without an advisory timestamp may be several hours old, use a different basin, or show a model projection rather than an official forecast. Open the NHC advisory and your local weather.gov alert page directly instead of trusting a cropped image." },
+      { heading: "Test a Screenshot Against Its Own Labels", body: "Suppose a post says this image shows a hurricane approaching today. That claim is invented for this exercise; the image itself is a genuine historical NHC example. Read the lower-left box: Hurricane Helene, Wednesday September 25, 2024, 10 AM CDT, advisory 9. That is enough to reject its use as today's forecast, even if it was uploaded today by an account with many followers. It does not establish today's storm activity either way. Open the current NHC page separately before drawing that conclusion.", bullets: ["Compare the graphic's issue date with the post's upload date; reposting does not refresh a forecast.", "Read the product name and legend. A model run, an observed image and an official forecast answer different questions.", "Keep the full image and source URL. A crop that removes the issue label cannot establish freshness.", "If the original source cannot be reached, describe the claim as unverified rather than treating it as confirmed or disproved."], links: [{ href: "https://www.nhc.noaa.gov/aboutcone.shtml", label: "Inspect the historical example on its NHC source page" }, { href: "https://www.nhc.noaa.gov/", label: "Start a separate check of current NHC advisories" }] },
+      { heading: "Use YouTube and Reddit for Context, Not Orders", body: "A video can explain how to read a product, and a community discussion can reveal a useful question such as whether a shelter accepts a particular medical device. Neither establishes current shelter capacity, a safe route or an evacuation order. For a YouTube explainer, check the publisher through an official agency website, the publication date and which version of the forecast product it describes. For Reddit, follow any original agency link and check the jurisdiction and timestamp there; votes, moderator labels and firsthand-sounding language are not verification.", bullets: ["Illustrative report: a commenter says a nearby shelter is full. Verify the exact facility and current status with the shelter operator or emergency management; do not send readers to an alternative based only on comments.", "For videos, preserve the title, publisher and original link. Do not quote a transcript you have not checked or present older footage as a current observation.", "A useful correction names the claim, the original source, its issue time and the unresolved part. Avoid reproducing private addresses or medical details from community posts."], links: [{ href: "https://www.nhc.noaa.gov/TCvideos.shtml", label: "Find educational videos through the NHC's own video catalog" }, { href: "/hurricane-tracker/city/", label: "Find local agency resources in an existing city guide" }] },
       { heading: "Common Rumor Patterns", body: "Storm rumors often turn uncertainty into certainty. Be cautious when a post claims an exact landfall days ahead, treats the forecast cone as a damage boundary, calls an Invest a named storm, or says a category alone proves local risk.", bullets: ["Exact landfall claims before the official forecast narrows.", "Old advisories reposted as current news.", "Model spaghetti lines described as the official track.", "A storm name or Invest number used without an NHC advisory.", "Unverified evacuation, shelter, school, or bridge information."] },
       { heading: "Build a Trusted Source List Before the Storm", body: "Save the NHC, your local weather.gov office, county emergency management, state emergency management, utility outage page, and local transportation agency before a storm threatens. HurricaneHub can serve as a navigation layer for the current tracker, radar, alerts, state pages, and preparedness tools, but official agencies remain the authority for warnings and life-safety instructions.", bullets: ["Open the live tracker for current NHC storm context.", "Use the alerts page for state-level NWS products.", "Check your city or state tracker for local planning context.", "Follow evacuation orders from local officials, not a map screenshot."] }
     ],
@@ -910,6 +915,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "how-to-read-the-hurricane-cone-of-uncertainty",
+    sourceCheck: { date: "2026-10-27", scope: "NHC cone definition and the historical Helene example; the separate 2026 correction retains its own review date below." },
     sources: [{ href: "https://www.nhc.noaa.gov/aboutcone.shtml", label: "NHC operational cone definition" }, { href: "https://www.noaa.gov/news-release/national-hurricane-center-to-issue-new-forecast-cone-graphics-for-2026-hurricane-season", label: "NOAA March 24, 2026: operational cone changes and experimental ellipses" }],
     review: { date: "2026-10-24", scope: "2026 cone product changes and track-uncertainty explanation", correction: "Removed the incorrect all-hazards impact-map claim and distinguished the operational cone from the experimental ellipse cone." },
     title: "How to Read the Hurricane Cone of Uncertainty",
@@ -918,7 +924,7 @@ export const blogPosts: BlogPost[] = [
     dateModified: "2026-10-27",
     image: "/images/blog/how-to-read-the-hurricane-cone-of-uncertainty.png",
     imageAlt: "A resident holds a tablet showing a hurricane forecast cone map, standing by a window with a coastal view behind.",
-    figures: [{ src: "/images/blog/external/nhc-cone-helene-2024-example.png", alt: "NHC Helene advisory 9 example, September 25, 2024: forecast center points and white cone, wind watch and warning areas, and a separate current wind-field estimate.", caption: "Historical teaching example from NHC's cone explanation: Hurricane Helene advisory 9, September 25, 2024, 10 AM CDT. Not a current forecast or a demonstration of the 2026 product changes. Source: NOAA/NHC; original graphic linked in the reading steps above. Accessed October 27, 2026." }],
+    figures: [{ src: "/images/blog/external/nhc-cone-helene-2024-example.png", width: 897, height: 736, afterSection: "Read the Historical Example From Label to Legend", alt: "NHC Helene advisory 9 example, September 25, 2024: forecast center points and white cone, wind watch and warning areas, and a separate current wind-field estimate.", caption: "Historical teaching example from NHC's cone explanation: Hurricane Helene advisory 9, September 25, 2024, 10 AM CDT. Not a current forecast or a demonstration of the 2026 product changes. Source: NOAA/NHC; original graphic linked in the reading steps above. Accessed October 27, 2026.", sourceUrl: "https://www.nhc.noaa.gov/aboutcone.shtml", sourceLabel: "NHC cone explanation" }],
     sections: [
       {
         heading: "What the Cone Actually Shows",
@@ -942,7 +948,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Read the Historical Example From Label to Legend",
-        body: "The NHC example reproduced below is Helene advisory 9 from September 25, 2024, not today's weather. Begin at the lower-left issue label, then follow the forecast positions and their valid times. Read the legend rather than guessing from color: the white cone concerns the center track, red and blue areas denote hurricane and tropical-storm warnings, and the separate current wind-field shading is not the future impact footprint. The H, M, S and D labels describe forecast intensity at those points, not risk at every nearby address.",
+        body: "The NHC example reproduced below is Helene advisory 9 from September 25, 2024, not today's weather. Begin at the lower-left issue label, then follow the forecast positions and their valid times. Read the legend rather than guessing from color: the white cone concerns the center track, red and blue areas denote hurricane and tropical-storm warnings, and the separate current wind-field shading is not the future impact footprint. In this image, M means a major hurricane above 110 mph, H a hurricane at 74-110 mph, S a tropical storm at 39-73 mph and D a tropical depression below 39 mph. Those labels apply to forecast intensity at the points, not risk at every nearby address.",
         bullets: ["1. Identify the name, year, advisory number, issue time and time zone before interpreting the map.", "2. Read each forecast position's valid time; spacing between points alone is not an arrival-time forecast for a home.", "3. Separate center-track uncertainty from colored wind alerts and the current wind field.", "4. Open the separate surge, rainfall and local warning products before making a household decision."],
         links: [{ href: "https://www.nhc.noaa.gov/aboutcone.shtml", label: "NHC cone definition and annual error radii" }, { href: "https://www.nhc.noaa.gov/images/cone_5day_with_ww.png", label: "Open the original NHC historical example at full size" }]
       },
@@ -1366,14 +1372,19 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-storm-surge-forecasting",
+    sourceCheck: { date: "2026-10-27", scope: "NHC inundation-map explanation, legend and fictional Charleston example; not a current surge forecast or local evacuation-order check." },
     sources: [{ href: "https://www.nhc.noaa.gov/surge/", label: "NHC storm surge overview" }, { href: "https://www.nhc.noaa.gov/surge/inundation/", label: "NHC potential storm surge flooding map and limitations" }],
     imageCaption: "AI-generated editorial illustration. Not a NOAA product, observed storm image, or flood-depth forecast.",
     title: "Hurricane Storm Surge Forecasts: Read Flood Maps and Alerts",
     description: "Learn how to read NHC storm surge forecasts, water depth above ground, watches and warnings, and local evacuation zones before coastal flooding arrives.",
     datePublished: "2026-08-11",
-    dateModified: "2026-10-24",
+    dateModified: "2026-10-27",
     image: "/images/blog/hurricane-storm-surge-forecasting.png",
     imageAlt: "A resident stands on a porch watching storm surge seawater rising over a coastal residential street while dark hurricane clouds gather over the ocean.",
+    figures: [
+      { src: "/images/blog/external/nhc-surge-charleston-teaching-example.jpg", width: 1650, height: 1275, afterSection: "Read the Hurricane X Teaching Map", alt: "NHC fictional Hurricane X storm surge teaching map around Charleston, with an above-ground depth legend and gray intertidal areas.", caption: "Fictional NHC teaching example labeled Hurricane X, not an observed event, a current Charleston forecast or an evacuation map. Resized and compressed for this page, without changing the map labels. The original publication date is not printed on this graphic; source accessed October 27, 2026. NOAA/NHC Storm Surge Unit.", sourceUrl: "https://www.nhc.noaa.gov/surge/inundation/images/inundation-charleston-example.jpg", sourceLabel: "Original NHC high-resolution map" },
+      { src: "/images/blog/external/nhc-surge-depth-legend.png", width: 580, height: 202, afterSection: "Read the Hurricane X Teaching Map", alt: "NHC depth legend: blue greater than 1 foot, yellow greater than 3 feet, orange greater than 6 feet and red greater than 9 feet above ground.", caption: "The NHC example's legend uses threshold labels, not exact depths. Gray on the Charleston example represents intertidal zone or estuarine wetland; it is not another depth category.", sourceUrl: "https://www.nhc.noaa.gov/surge/inundation/images/legend_surge_bins.png", sourceLabel: "Original NHC depth legend" }
+    ],
     sections: [
       {
         heading: "Direct Answer",
@@ -1398,6 +1409,16 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Why the Same Hurricane Produces Different Surge Heights",
         body: "Two identical hurricanes hitting slightly different coastlines can produce dramatically different surge. A broad, gently sloping continental shelf, like the northern Gulf Coast, allows wind to pile water up over a large area, producing higher surge. A steep shelf, like parts of the Atlantic coast, tends to limit surge height. Concave bays, inlets, and river mouths can funnel water inland and amplify flooding. The angle of approach matters too: a storm moving onshore perpendicular to the coast typically pushes more water directly inland than one skirting parallel to the shore. Even the shape of the storm matters. A large, slow-moving hurricane with a wide wind field can push more total water than a compact but intense hurricane, because the wind has more time and surface area to act on the ocean."
+      },
+      {
+        heading: "Read the Hurricane X Teaching Map",
+        body: "Use the fictional Charleston example below to practice before interpreting an active product. Start with the Hurricane X label: this is a teaching scenario, not a storm that is threatening Charleston now. Find Charleston, Mount Pleasant and Johns Island to orient the map, then read the lower-left legend. Blue means greater than 1 foot above ground, yellow greater than 3 feet, orange greater than 6 feet and red greater than 9 feet. Yellow does not mean exactly 3 feet, and these colors are not hurricane categories. Open the full-size image to read street labels without guessing from a mobile thumbnail.",
+        bullets: ["Read the gray separately: the example identifies it as intertidal zone or estuarine wetland, not a promise of dry or safe ground.", "The footnote describes a roughly 1-in-10 chance of exceeding the displayed level at a location. It is not a 10 percent chance of any flooding anywhere on the map.", "Road labels are for orientation. A road drawn across a shaded area is not a verified evacuation route; NHC explicitly says the map does not identify which roads will flood.", "Before applying an active map, record its storm, issue time, coverage and units, then check the official local evacuation order for the exact address. Do not choose a destination from this teaching example."],
+        links: [{ href: "https://www.nhc.noaa.gov/surge/inundation/", label: "Read the NHC map definition, exclusions and example captions" }, { href: "https://www.nhc.noaa.gov/surge/inundation/interactive_example", label: "Explore the NHC interactive teaching example, not a current forecast" }, { href: "https://www.nhc.noaa.gov/TCvideos.shtml", label: "NHC video catalog: find Storm Surge Fast Draw for background explanation" }]
+      },
+      {
+        heading: "What a Yellow Patch Cannot Tell a Household",
+        body: "Illustrative decision exercise: a household sees its neighborhood near yellow shading and a road on the base map. The supported reading is that this product shows potential water greater than 3 feet above ground in the yellow area under the product's planning assumptions. It does not establish the flood depth inside that home, when the access road becomes impassable, whether rain will flood another road, or whether a shelter is open. Resolve those questions with the current local warning and order, transportation notices and the shelter operator. If the map and order seem inconsistent, recheck the issue time, boundary and product type; do not use the illustration to override an order."
       },
       {
         heading: "Reading Storm Surge Watches and Warnings",
