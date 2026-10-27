@@ -354,6 +354,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "new-orleans",
+    dateModified: "2026-10-27",
+    sourceCheck: { date: "2026-10-27", scope: "NOLA Ready hurricane plan, city-assisted evacuation instructions and flooding guidance. Planning links are not confirmation of an activated service, open shelter, pickup location or current parish order." },
     name: "New Orleans",
     stateCode: "LA",
     stateName: "Louisiana",
@@ -379,6 +381,22 @@ export const hurricaneCities: HurricaneCity[] = [
         heading: "Long Evacuation Timing",
         body:
           "Evacuating from southeast Louisiana can mean long drives, fuel planning, pets, medical equipment, and hotel or shelter decisions. Waiting for certainty can leave too little time for households that need assistance."
+      },
+      {
+        heading: "Plan City-Assisted Evacuation Before Activation",
+        body: "If you cannot leave without help, read NOLA Ready's City-Assisted Evacuation section before a storm threatens. Its plan describes transport when the city activates assistance during a mandatory evacuation; it is not a standing ride service. Text EVACNOLA to 77295 for evacuation information as described by the city, and use current official announcements to confirm what has actually opened. Do not travel to a historical Evacuspot or a planned transportation hub based on an old screenshot. Pickup arrangements, operating times and destinations must come from the current city instructions, not this planning page."
+      },
+      {
+        heading: "Confirm Medical and Mobility Transport Separately",
+        body: "NOLA Ready directs people with medical or mobility needs to add relevant details to a Smart911 profile and seek help through 311 if needed. Some residents may qualify for home pickup; creating a profile does not guarantee an immediate ride or establish that a shelter can support every device. Record the phone used for callbacks, caregiver, mobility equipment, provider instructions and backup destination. Ask how pets and necessary supplies can travel under the activated plan. If routine assistance is not confirmed, keep that gap visible rather than writing transportation complete; call 911 for a life-threatening emergency."
+      },
+      {
+        heading: "Read Street Flood Reports Without Assuming a Clear Route",
+        body: "NOLA Ready links Streetwise for reported street flooding and traffic incidents. Compare a report's location and time with your intended route, then check city closures and current NWS flood warnings. An unmarked street is not certified passable, and a route saved yesterday may not work today. Do not drive into floodwater to test depth. Report non-emergency drainage problems or clogged drains through 311; use 911 for immediate threats to life. Parking restrictions may change during an event, but a preparedness page does not mean they are currently suspended."
+      },
+      {
+        heading: "Make an Orleans Parish Decision Record",
+        body: "Write the address and parish, official instruction and issue time, who is leaving, transport confirmation, destination contact and next check time. For a family split between Orleans and Jefferson, St. Bernard or Plaquemines, keep a separate instruction line for each parish. A mandatory city evacuation means residents and visitors must leave; do not substitute a neighboring parish's announcement or a forecast category for the applicable order. Recheck the record if transport fails, medical needs change or the destination becomes unavailable. The unresolved item should identify a responsible caller and fallback rather than an assumed service."
       }
     ],
     evacuationFocus: [
@@ -412,6 +430,8 @@ export const hurricaneCities: HurricaneCity[] = [
       }
     ],
     officialResources: [
+      { name: "NOLA Ready city-assisted evacuation plan", description: "Read the CAE section, assistance and transport planning; confirm activation and pickup instructions in current city announcements.", url: "https://ready.nola.gov/plan/hurricane/#cae" },
+      { name: "NOLA Ready flooding guidance and Streetwise", description: "Official flooding instructions with the city's Streetwise incident-map link and reporting guidance.", url: "https://ready.nola.gov/plan/flooding/" },
       {
         name: "NOLA Ready",
         description: "Official New Orleans emergency alerts, evacuation, shelter, and hurricane preparedness information.",
@@ -670,6 +690,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "jacksonville",
+    dateModified: "2026-10-27",
+    sourceCheck: { date: "2026-10-27", scope: "JaxReady evacuation-zone lookup entry, JTA evacuation transport and special-medical-needs registration guidance. No address result, current order, bridge status, active shuttle or shelter availability verified." },
     name: "Jacksonville",
     stateCode: "FL",
     stateName: "Florida",
@@ -695,6 +717,22 @@ export const hurricaneCities: HurricaneCity[] = [
         heading: "Bridge and Power Disruption",
         body:
           "Jacksonville's bridges and tree canopy can turn wind and flooding into transportation and outage problems. Households should prepare for route changes and multi-day power interruptions."
+      },
+      {
+        heading: "Look Up the Duval Address Before Reading an Order",
+        body: "Use the Jacksonville evacuation-zone address search linked below for the actual home, workplace or care address. Save the returned zone, exact address and date checked, then match it against the zones named in current Duval instructions. A zone lookup is a planning classification, not an active order or a guarantee that nearby streets are dry. Repeat the lookup for a proposed destination rather than assuming another Jacksonville address has the same exposure. If the result is ambiguous, resolve it with local emergency management before the storm; do not guess from a neighboring map pin."
+      },
+      {
+        heading: "Check JTA Shelter Transport and Its Cutoff",
+        body: "JaxReady's JTA evacuation plan describes free transportation to open public shelters during an evacuation order, not a general-purpose ride to a hotel or another city. Read current announcements for open shelters, service activation and the announced cutoff before using a bus marked Evacuation Shuttle. A normal route listing does not prove evacuation service is running. Write down your route or pickup method, the current cutoff, essential supplies and what to do if the first option fails. Confirm accessibility and caregiver needs separately; do not wait at a stop after service ends expecting an automatic pickup."
+      },
+      {
+        heading: "Renew Special Medical Needs Registration Each Year",
+        body: "JaxReady directs eligible residents with electricity, oxygen or other qualifying needs to the Florida special-needs registry. Registration must be renewed annually and should be completed well before a storm. Keep the acceptance or eligibility communication and a working callback number; an application is not an instant pickup reservation. The published process describes health-department contact when the registrant's zone is evacuated to confirm intentions and transport needs. A caregiver or family member must accompany the registrant under the local instructions. Confirm device, medicine and care arrangements with providers instead of assuming a shelter supplies everything."
+      },
+      {
+        heading: "Keep River Risk Separate From Route Availability",
+        body: "For a riverfront household, save the relevant NWS flood statement's location, issue time, forecast period and instructions as well as the Duval evacuation-zone result. Tide, rainfall and flow can sustain St. Johns River impacts after the cyclone center moves away. Do not treat a weakening wind category or an expired coastal warning as proof river flooding has ended. Check current local bridge and road announcements before departure; no address-zone result establishes bridge access. Keep a backup destination and transport contact that do not depend on an unverified crossing, and never drive through standing water to test a route."
       }
     ],
     evacuationFocus: [
@@ -728,6 +766,9 @@ export const hurricaneCities: HurricaneCity[] = [
       }
     ],
     officialResources: [
+      { name: "Jacksonville evacuation-zone address search", description: "Look up the actual Duval address, save the planning zone and compare it with current local orders; not a road-status map.", url: "https://maps.coj.net/evsearch/" },
+      { name: "JaxReady JTA evacuation information", description: "Official shelter transport planning, service conditions and cutoff instructions; check current activation announcements.", url: "https://www.jaxready.com/preparedness/evacuation-information/jta-evacuation-information" },
+      { name: "JaxReady special medical needs registration", description: "Eligibility, annual renewal, caregiver and coordination guidance with the official registry entry.", url: "https://www.jaxready.com/preparedness/special-medical-needs-registration" },
       {
         name: "JaxReady",
         description: "Official Jacksonville and Duval County emergency preparedness, evacuation, shelter, and alert information.",

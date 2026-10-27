@@ -26,6 +26,34 @@ const cities = new Map([
   ["houston", "Separate Coastal Evacuation From Inland Flood Decisions"]
 ]);
 const routes = new Map();
+for (const [slug, heading] of [
+  ["hurricane-power-outage-food-medicine-plan", "Calculate the Household Base, Then Record the Exceptions"],
+  ["hurricane-generator-safety-carbon-monoxide", "Read the Official Placement Diagram"]
+]) {
+  const post = blogPosts.find((post) => post.slug === slug);
+  assert.equal(post.dateModified, "2026-10-27");
+  assert.equal(post.sourceCheck.date, "2026-10-27");
+  assert(post.sections.some((section) => section.heading === heading));
+  routes.set(`/blog/${slug}/`, heading);
+}
+const outage = blogPosts.find((post) => post.slug === "hurricane-power-outage-food-medicine-plan");
+assert.match(outage.sourceCheck.scope, /HTTP 403/);
+assert(outage.sections.some((section) => section.body.includes("56 gallons")));
+const generator = blogPosts.find((post) => post.slug === "hurricane-generator-safety-carbon-monoxide");
+assert.match(generator.figures[0].sourceUrl, /^https:\/\/www\.cdc\.gov\//);
+assert.match(generator.figures[0].caption, /not to scale/);
+assert(generator.sections.some((section) => section.body.includes("fresh air immediately, then call 911")));
+for (const [slug, heading, source] of [
+  ["jacksonville", "Renew Special Medical Needs Registration Each Year", "https://maps.coj.net/evsearch/"],
+  ["new-orleans", "Plan City-Assisted Evacuation Before Activation", "https://ready.nola.gov/plan/hurricane/#cae"]
+]) {
+  const city = hurricaneCities.find((city) => city.slug === slug);
+  assert.equal(city.dateModified, "2026-10-27");
+  assert.equal(city.sourceCheck.date, "2026-10-27");
+  assert(city.localHazards.some((hazard) => hazard.heading === heading));
+  assert(city.officialResources.some((resource) => resource.url === source));
+  routes.set(`/hurricane-tracker/city/${slug}/`, heading);
+}
 for (const [slug, heading, expectedFigures] of [
   ["hurricane-radar-vs-satellite", "Read the Ian Example: Clouds and Echoes Are Different Layers", 2],
   ["hurricane-flood-zone-map-fema-understanding", "Read FEMA's Zone AE Teaching Example", 1]

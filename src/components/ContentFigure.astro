@@ -7,7 +7,7 @@ const { src, mobileSrc, alt, caption, width = 1200, height = 675, mobileWidth = 
       <source media="(max-width: 767px)" srcset={mobileSrc} width={mobileWidth} height={mobileHeight} />
       <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
     </picture>
-  ) : <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />}
+  ) : <img src={src} alt={alt} width={width} height={height} style={`max-width: ${width}px`} loading="lazy" decoding="async" />}
   <figcaption>{caption}</figcaption>
   {(fullSize || sourceUrl) && <p class="figure-links">
     {fullSize && <a href={src}>Open full-size image</a>}

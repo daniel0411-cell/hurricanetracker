@@ -7,6 +7,7 @@ import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } 
 const title = "Hurricane Power Outage Planner";
 const description = "Build a hurricane power outage plan for food, water, medical equipment, refrigerated medicine, generators, pets, and communication.";
 const url = `${site.url}/tools/power-outage-planner/`;
+const lastModified = "2026-10-27";
 const pageFaqs = [
   {
     question: "What should I plan first for a hurricane power outage?",
@@ -20,7 +21,7 @@ const pageFaqs = [
 ];
 const jsonLd = graph(
   websiteSchema(),
-  articleSchema({ title, description, url, dateModified: site.contentLastModified }),
+  articleSchema({ title, description, url, dateModified: lastModified }),
   webApplicationSchema({
     name: title,
     description,
@@ -30,7 +31,7 @@ const jsonLd = graph(
   faqSchema(pageFaqs)
 );
 ---
-<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified} showBottomAd={true}>
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified} showBottomAd={true}>
   <section class="band" aria-labelledby="outage-title">
     <div class="inner">
       <p class="eyebrow">Power and continuity planning</p>
@@ -43,7 +44,7 @@ const jsonLd = graph(
     <div class="inner grid-2">
       <form class="panel outage-form" id="outage-form">
         <h2 id="outage-form-heading">Build Outage Plan</h2>
-        <label>People in household<select name="people"><option value="1">1 person</option><option value="2">2 people</option><option value="3">3 people</option><option value="4">4 people</option><option value="5">5+ people</option></select></label>
+        <label>People in household<input name="people" type="number" min="1" step="1" value="1" required inputmode="numeric" /></label>
         <label>Outage planning window<select name="duration"><option value="3">3 days</option><option value="5">5 days</option><option value="7">7 days</option></select></label>
         <label>Cold food storage<select name="coldFood"><option value="both">Refrigerator and freezer</option><option value="fridge">Refrigerator only</option><option value="freezer">Freezer only</option><option value="none">No refrigerated or frozen food</option></select></label>
         <label>Medical or refrigerated needs<select name="medical"><option value="no">No</option><option value="yes">Yes, plan needs carefully</option></select></label>
@@ -62,6 +63,21 @@ const jsonLd = graph(
       </article>
     </div>
   </section>
+  <section class="band outage-record" aria-labelledby="outage-record-heading"><div class="inner">
+    <h2 id="outage-record-heading">Household Outage Record</h2>
+    <p>Keep this record with your paper contacts. Entries stay in this page only; they are not sent or saved and disappear when you reload or leave. Protect printed health details.</p>
+    <div class="record-grid">
+      {[
+        ["outage-time", "Power failure and restoration", "Date, time, time zone; unknown start time if applicable; restoration time and later interruptions"],
+        ["outage-temperatures", "Food time and temperature observations", "Time, refrigerator/freezer or cooler, thermometer reading and unit, doors opened, action taken; do not taste-test"],
+        ["outage-care", "Pharmacist and device supplier instructions", "Item, provider phone, product-specific storage or approved backup instructions, date confirmed, replacement or care destination"],
+        ["outage-contacts", "Contacts, destination and transport", "Utility outage number, out-of-area contact, destination phone, driver and backup route; confirm availability"],
+        ["outage-extra", "Additional water and supplies", "Extra needs for heat, illness, nursing, pets or care; quantities confirmed separately from the base calculation"],
+        ["outage-decisions", "Unresolved decisions and next check", "What is not confirmed, who will call, next check time, and the provider/local instruction that means leaving sooner"]
+      ].map(([id, label, placeholder]) => <label class="record-field" for={id}>{label}<textarea id={id} rows="4" placeholder={placeholder}></textarea><span class="print-record" aria-hidden="true"></span></label>)}
+    </div>
+    <p class="source-note">Blank fields mean not confirmed, not safe. This record cannot determine food or medicine safety, medical-device runtime, or whether a destination has power. For urgent medical danger call 911. Follow local evacuation orders.</p>
+  </div></section>
   <section class="band" aria-labelledby="outage-safety-heading"><div class="inner grid-2"><article class="panel"><h2 id="outage-safety-heading">Official Safety Checks</h2><ul class="check-list"><li><a href="https://www.ready.gov/power-outages" rel="noopener nofollow">Ready.gov power outage guidance</a></li><li><a href="https://www.cdc.gov/carbon-monoxide/about/" rel="noopener nofollow">CDC carbon monoxide safety</a></li><li><a href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/keeping-food-safe-during" rel="noopener nofollow">USDA food safety during an outage</a></li></ul></article><article class="panel"><h2>Recovery Priorities</h2><ol class="check-list"><li>Wait for official reentry and utility instructions.</li><li>Keep generators outdoors and carbon-monoxide alarms active.</li><li>Confirm medicine and food temperatures before use.</li><li>Photograph damage before non-emergency cleanup.</li><li>Continue monitoring local heat, flood, and boil-water alerts.</li></ol></article></div></section>
   <FaqBlock faqs={pageFaqs} />
 </Layout>
@@ -75,29 +91,47 @@ const jsonLd = graph(
     const replacements: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
     return String(value ?? "").replace(/[&<>"']/g, (char) => replacements[char] ?? char);
   }
+  form?.addEventListener("input", () => {
+    if (resultTitle) resultTitle.textContent = "Household changed: generate an updated plan";
+    if (result) result.textContent = "Your written record below has been kept. Recalculate the household priorities before printing.";
+    if (printButton) printButton.hidden = true;
+  });
+  document.querySelectorAll<HTMLTextAreaElement>(".record-field textarea").forEach((field) => {
+    field.addEventListener("input", () => {
+      const mirror = field.nextElementSibling;
+      if (mirror) mirror.textContent = field.value;
+    });
+  });
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
+    if (!form.reportValidity()) return;
     const data = new FormData(form);
-    const people = Number(data.get("people") ?? 1);
+    const people = Number(data.get("people"));
     const duration = Number(data.get("duration") ?? 3);
     const coldFood = String(data.get("coldFood") ?? "both");
     const medical = data.get("medical") === "yes";
     const power = String(data.get("power") ?? "none");
     const pets = data.get("pets") === "yes";
     const water = people * duration;
+    if (!Number.isSafeInteger(people) || people < 1 || ![3, 5, 7].includes(duration) || !Number.isSafeInteger(water)) {
+      if (resultTitle) resultTitle.textContent = "Enter a valid whole number of people";
+      if (result) result.textContent = "The household count and water total must be positive, safely representable whole numbers.";
+      if (printButton) printButton.hidden = true;
+      return;
+    }
     const items = [
-      `Store at least ${water} gallons of water for ${people} ${people === 1 ? "person" : "people"} across a ${duration}-day planning window.`,
+      `Base water: at least ${water} gallons for ${people} ${people === 1 ? "person" : "people"} across ${duration} days (1 gallon per person per day for drinking and sanitation). Add extra for heat, illness, nursing, pets, and individual care needs; this base is not your complete supply.`,
       "Keep flashlights, batteries, phone chargers, a battery radio, cash, and paper contacts together.",
       "Write down utility outage numbers, your destination, and one out-of-area contact."
     ];
     if (coldFood !== "none") items.splice(2, 0, "Keep refrigerator and freezer doors closed, use appliance thermometers when available, and follow USDA or local food-safety guidance before keeping or discarding food; never taste food to judge safety.");
     if (medical) items.unshift("Call your clinician or equipment provider about backup power, refrigerated medicine, oxygen, and a safe care location before the storm.");
-    if (power === "generator") items.push("Use the generator only outdoors and away from doors, windows, and vents. Follow its manual, store fuel in approved containers away from living areas, and never backfeed home wiring.");
+    if (power === "generator") items.push("Use the generator only outdoors, more than 20 feet from doors, windows, and vents, with exhaust directed away from homes. Keep working battery or battery-backup CO alarms. Never use a garage or carport, even open. Follow the manual and never backfeed home wiring.");
     if (power === "battery") items.push("Charge power stations before conditions worsen and reserve capacity for phones, radios, lights, and essential devices.");
     if (power === "none") items.push("Identify a public cooling or charging location and a backup destination before an outage starts.");
     if (pets) items.push("Pack pet food and water, a carrier or leash, records, waste bags, and a pet-friendly destination.");
     if (resultTitle) resultTitle.textContent = `${people} ${people === 1 ? "person" : "people"} · ${duration}-day outage priorities`;
-    if (result) result.innerHTML = `<ol class="check-list">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ol><p class="source-note">Recheck your utility, county emergency management, weather.gov, and care-provider instructions as conditions change.</p>`;
+    if (result) result.innerHTML = `<p>Cold food: ${escapeHtml(coldFood)}; medical/refrigerated needs: ${medical ? "yes" : "no"}; backup power: ${escapeHtml(power)}; pets: ${pets ? "yes" : "no"}.</p><ol class="check-list">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ol><p class="source-note">Water basis: <a href="https://www.ready.gov/water">Ready.gov water guidance</a>. Recheck your utility, county emergency management, weather.gov, and care-provider instructions as conditions change.</p>`;
     if (printButton) printButton.hidden = false;
   });
   printButton?.addEventListener("click", () => window.print());
@@ -108,5 +142,25 @@ const jsonLd = graph(
   .outage-form label { display: grid; gap: 7px; font-weight: 800; }
   #outage-result { margin-top: 18px; }
   #outage-print { width: auto; margin-top: 12px; }
-  @media print { .site-header, .disclaimer, .outage-form, .site-footer, .ad-slot, #outage-print { display: none !important; } }
+  .record-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .record-field { display: grid; gap: 8px; font-weight: 700; min-width: 0; }
+  .record-field textarea { width: 100%; box-sizing: border-box; min-height: 120px; resize: vertical; font: inherit; font-weight: 400; }
+  .print-record { display: none; }
+  @media (max-width: 640px) { .record-grid { grid-template-columns: 1fr; } }
+  @media print {
+    :global(.site-header), :global(.disclaimer), :global(.site-footer), :global(.footer-newsletter), :global(.ad-slot), :global(section[aria-labelledby="faq-heading"]),
+    .outage-form, #outage-print, section[aria-labelledby="outage-safety-heading"] { display: none !important; }
+    :global(body) { background: white !important; color: black !important; font-size: 11pt; }
+    .band { padding: 12px 0; background: white; }
+    .inner { width: 100%; max-width: none; padding: 0; }
+    .panel { padding: 0; border: 0; box-shadow: none; background: white; }
+    h1 { font-size: 20pt; }
+    h2 { font-size: 15pt; }
+    .grid-2, .record-grid { display: block !important; }
+    .outage-record { break-before: page; }
+    .record-field { margin: 16px 0; }
+    .record-field textarea { display: none; }
+    .print-record { display: block; white-space: pre-wrap; overflow-wrap: anywhere; min-height: 48px; border-bottom: 1px solid #777; font-weight: 400; }
+    .band, .panel, .record-field { overflow: visible !important; }
+  }
 </style>

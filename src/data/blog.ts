@@ -400,11 +400,12 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-power-outage-food-medicine-plan",
-    sources: [{ href: "https://www.ready.gov/power-outages", label: "Ready.gov: power outages, refrigeration, and medical planning" }, { href: "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage", label: "FoodSafety.gov: food safety during a power outage" }],
+    sources: [{ href: "https://www.ready.gov/power-outages", label: "Ready.gov: power outages, refrigeration, and medical planning" }, { href: "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage", label: "FoodSafety.gov: food safety during a power outage" }, { href: "https://www.ready.gov/water", label: "Ready.gov: household water quantities and additional needs" }],
     title: "Hurricane Power Outage Plan for Food, Medicine, and Devices",
     description: "Prepare for a hurricane power outage with a practical plan for food safety, refrigerated medicine, medical equipment, charging, water, generators, and communication.",
     datePublished: "2026-08-04",
-    dateModified: "2026-10-24",
+    dateModified: "2026-10-27",
+    sourceCheck: { date: "2026-10-27", scope: "Ready.gov water quantities and CDC/CPSC generator precautions checked for this revision. FoodSafety.gov and USDA food-chart requests returned HTTP 403; existing food timing guidance was retained, not independently reverified. No product-specific medicine instructions or current service availability verified." },
     image: "/images/blog/hurricane-power-outage-food-medicine-plan.png",
     imageAlt: "A portable generator operates outdoors away from a home while emergency lights and supplies are ready for a power outage.",
     sections: [
@@ -432,8 +433,27 @@ export const blogPosts: BlogPost[] = [
         body: "Record the item, normal storage range, provider phone number, backup supply, and destination with reliable power. Food-refrigeration rules do not determine whether a medicine remains usable. Ask the pharmacist for product-specific instructions and the equipment supplier for approved battery runtime and charging. A battery estimate is not a reason to wait for equipment failure before moving to appropriate care."
       },
       {
+        heading: "Calculate the Household Base, Then Record the Exceptions",
+        body: "Count actual people rather than selecting a household-size band. Ready.gov recommends at least one gallon per person per day for several days, covering drinking and sanitation. For example, eight people planning for seven days need a base of 56 gallons, not the 35 gallons produced by treating every household larger than four as five people. This is a planning example, not a prediction that your outage will last seven days. Add water separately for pets and individual needs; heat, illness and nursing can increase requirements. Decide who will obtain and safely store the extra supply before roads or shops become unavailable.",
+        links: [{ href: "/tools/power-outage-planner/", label: "Calculate exact household water and prepare a printable outage record" }, { href: "https://www.ready.gov/water", label: "Read Ready.gov's water guidance and exceptions" }]
+      },
+      {
+        heading: "Use Observations, Not a Timer Alone",
+        body: "At the start of an outage, record the date, local time and time zone, then note appliance or cooler readings with their units and the time observed. If you discover the outage on returning home, write that the start time is unknown instead of resetting a food-safety clock to your arrival. Avoid repeatedly opening doors just to fill the log. Keep food decisions separate from medicine decisions: a refrigerator reading is useful information for a pharmacist but is not a medicine-specific release criterion. Unknown temperatures, uncertain outage duration or repeated interruptions are reasons to seek appropriate guidance, not assume a safe interval.",
+        bullets: ["Record facts: power lost at 6:10 PM; cooler checked at 8:00 PM; actual reading and unit; action taken.", "Record uncertainty: appliance thermometer missing, outage start unknown, or cooler opened repeatedly.", "Record the decision source: food chart for the specific item, pharmacist for a named medicine, supplier for an essential device. Do not taste-test food."]
+      },
+      {
+        heading: "Rehearse the First Unconfirmed Step",
+        body: "Suppose a household has water and phone batteries but has not confirmed whether a care destination can support an essential device. The next useful action is a call to that destination and the equipment provider, not buying more phone chargers. Write who will call, the number, what must be confirmed, a backup destination and the next check time. Confirm transport and caregiver arrangements as well as electricity. If local officials order evacuation, follow that order; a worksheet or remaining battery estimate does not extend the deadline. For immediate medical danger, call 911 rather than waiting for a routine callback."
+      },
+      {
+        heading: "Keep a Paper Copy Without Creating a Shared Medical File",
+        body: "The outage planner's record fields hold observations, care-provider instructions, contacts, additional supplies and unresolved decisions. They remain in the open page only, without submission or saved browser storage; leaving or reloading loses them. Print a copy before connectivity fails and protect it as you would other household health information. Keep enough detail to act offline, but do not add account passwords or unnecessary diagnoses. Update the paper record when power returns, when it fails again or when a provider changes instructions. A restored light does not by itself confirm safe food, usable medicine or a cleared evacuation route."
+      },
+      {
         heading: "Generator and Charging Safety",
-        body: "Fuel-burning generators can create deadly carbon monoxide and electrical hazards. Use them only according to the manual and official safety guidance, outdoors and away from enclosed spaces. Never improvise a connection to home wiring."
+        body: "Fuel-burning generators can create deadly carbon monoxide and electrical hazards. CDC says to operate outdoors more than 20 feet from doors, windows and vents; CPSC also calls for exhaust directed away from homes and working battery or battery-backup CO alarms. Never improvise a connection to home wiring. If a CO alarm sounds or poisoning is suspected, get outside into fresh air immediately, then call 911.",
+        links: [{ href: "/blog/hurricane-generator-safety-carbon-monoxide/", label: "Review the official generator diagram and placement checklist" }]
       }
     ],
     faqs: [
@@ -2560,13 +2580,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-generator-safety-carbon-monoxide",
-    sources: [{ href: "https://www.cpsc.gov/Safety-Education/Safety-Education-Centers/Carbon-Monoxide-Information-Center", label: "CPSC carbon monoxide and portable generator safety" }, { href: "https://www.ready.gov/power-outages", label: "Ready.gov: generator placement and outage safety" }],
+    sources: [{ href: "https://www.cpsc.gov/Safety-Education/Safety-Education-Centers/Carbon-Monoxide-Information-Center", label: "CPSC carbon monoxide and portable generator safety" }, { href: "https://www.cdc.gov/carbon-monoxide/about/", label: "CDC: carbon monoxide prevention and official generator illustration" }, { href: "https://www.ready.gov/power-outages", label: "Ready.gov: generator placement and outage safety" }],
     title: "Hurricane Generator Safety: How to Avoid Carbon Monoxide Poisoning",
     description: "Use portable generators safely during hurricane outages: outdoor placement, CO alarms, fuel handling, extension cords, and medical-device planning.",
     datePublished: "2026-08-16",
-    dateModified: "2026-10-24",
+    dateModified: "2026-10-27",
+    sourceCheck: { date: "2026-10-27", scope: "CDC and CPSC generator placement, CO alarms and emergency response, plus the unaltered CDC illustration. Not a product-manual, site-specific electrical or current local emergency-order review." },
     image: "/images/blog/hurricane-power-outage-food-medicine-plan.png",
     imageAlt: "A portable generator runs outdoors after a hurricane power outage while a home stays safely in the background.",
+    figures: [{ src: "/images/blog/external/cdc-generator-placement.jpg", width: 326, height: 276, afterSection: "Read the Official Placement Diagram", alt: "CDC diagram prohibits generators indoors, in garages and carports, and shows outdoor placement far from windows, doors and vents.", caption: "CDC generator safety illustration, reproduced without alteration. It shows prohibited spaces and the outdoor-placement principle; it is not to scale and does not label a numerical distance. Use the CDC distance guidance in the adjacent checklist. Source accessed October 27, 2026; illustration publication date not stated.", sourceUrl: "https://www.cdc.gov/carbon-monoxide/media/images/generators_factsheet.jpg", sourceLabel: "Open the original CDC illustration" }],
     sections: [
       {
         heading: "Direct Answer",
@@ -2578,11 +2600,16 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Choose the Outdoor Generator Location Before the Storm",
-        body: "Pick a dry, stable outdoor location where exhaust is directed away from the home and nearby openings. Do not run the generator in a garage, carport, shed, enclosed porch, balcony, or any partly enclosed space. If homes are close together, consider where exhaust could drift toward neighbors as well as your own windows."
+        body: "CDC says generators must be outdoors more than 20 feet from windows, doors and vents. CPSC says at least 20 feet away from homes, with exhaust facing away. Apply both precautions rather than choosing whichever is easier. Pick a dry, stable outdoor location and consider neighboring homes as well as your own. Do not run the generator in a garage, carport, shed, enclosed porch, balcony, or any partly enclosed space. Distance alone is not a guarantee against drifting exhaust; follow the manual and keep working CO alarms."
+      },
+      {
+        heading: "Read the Official Placement Diagram",
+        body: "Start with the crossed-out locations: an open garage or carport is not converted into an outdoor generator site by opening doors. The lower drawing shows exhaust-producing equipment separated from the house and its openings. It does not establish a measured safe zone, a rain shelter design or permission to put equipment just outside a door. Measure the distance at the actual site, check openings on nearby homes, and ensure the chosen spot still works without moving the generator into an enclosure when rain starts.",
+        bullets: ["Before starting: identify doors, windows and vents, measure more than 20 feet from those openings, and direct exhaust away from homes.", "Test battery or battery-backup CO alarms; CPSC recommends alarms on every level and outside sleeping areas. Follow alarm installation instructions.", "Keep the unit dry using only a safe setup consistent with the manual; do not trade an electrical hazard for an enclosed exhaust hazard.", "If a small lot or apartment offers no suitable location, arrange another power or care destination. A balcony, hallway or open carport is not a workaround."]
       },
       {
         heading: "Carbon Monoxide Alarms Are a Required Layer",
-        body: "Install working carbon monoxide alarms according to the manufacturer's instructions and local code. Battery or battery-backup alarms are important during outages because plug-in alarms may lose power. If an alarm sounds or people feel sick while a generator is running nearby, move to fresh air and call emergency services."
+        body: "Install working carbon monoxide alarms according to the manufacturer's instructions and local code. Battery or battery-backup alarms are important during outages because plug-in alarms may lose power. Headache, dizziness, weakness, nausea, vomiting, sleepiness or confusion can be signs of CO poisoning. If an alarm sounds or poisoning is suspected, get outside into fresh air immediately, then call 911. Do not stay inside to look for the cause or shut down equipment, and do not reenter until emergency responders say it is safe."
       },
       {
         heading: "Fuel Storage and Refueling",
@@ -2594,11 +2621,12 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Plan Critical Loads Before the Outage",
-        body: "A portable generator has limited capacity. Decide which appliances or devices matter most, check the manual, and avoid overloading the unit. For medical equipment, refrigerated medicine, oxygen, CPAP, or similar needs, ask the clinician, equipment provider, or pharmacist for a power continuity plan before a storm is close."
+        body: "A portable generator has limited capacity. Decide which appliances or devices matter most, check the manual, and avoid overloading the unit. For medical equipment, refrigerated medicine, oxygen, CPAP, or similar needs, ask the clinician, equipment provider, or pharmacist for a power continuity plan before a storm is close. Write down approved power requirements, who can provide a replacement supply, and where care can continue if fuel, charging or the generator fails. Do not estimate a life-support runtime from a phone power-bank rating or assume a shelter can meet needs without confirmation."
       },
       {
         heading: "Use HurricaneHub Tools With Generator Planning",
-        body: "Generator safety is one part of a broader outage plan. Use the power outage planner for charging, food, medicine, and communication prompts. Pair it with the preparedness checklist and live hurricane tracker so the generator is not your only readiness step."
+        body: "Generator safety is one part of a broader outage plan. Use the power outage planner for charging, food, medicine, and communication prompts. Record the intended outdoor location, alarm check, fuel responsibility and alternate destination before an outage. Recheck the plan if flooding blocks the location or changes access; do not relocate the unit into a prohibited space. Pair household preparation with official evacuation instructions rather than using generator ownership as a reason to remain in an unsafe home.",
+        links: [{ href: "/tools/power-outage-planner/", label: "Build and print the household outage record" }, { href: "/blog/hurricane-power-outage-food-medicine-plan/", label: "Separate food, medicine and medical-device outage decisions" }]
       },
       {
         heading: "Official Source Check",
