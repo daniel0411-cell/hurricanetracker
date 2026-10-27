@@ -147,6 +147,7 @@
 
 <script>
   // @ts-nocheck
+  import { formatStormMotion } from "../lib/weather";
   const SITE = "https://www.hurricanetracker.cc";
   const trigger = document.querySelector("#storm-card-trigger");
   const modal = document.querySelector("#storm-card-modal");
@@ -227,9 +228,7 @@
     const intensity = storm?.intensity || "";
     const wind = storm?.windSpeed || "—";
     const pressure = storm?.pressure ? `${storm.pressure} mb` : "—";
-    const movement = (storm?.movementDir && storm?.movementSpeed)
-      ? `${storm.movementDir} at ${storm.movementSpeed}`
-      : "Motion pending";
+    const movement = formatStormMotion(storm ?? {});
     const updated = storm?.lastUpdate ? new Date(storm.lastUpdate).toUTCString() : "—";
     const [badgeBg, badgeFg] = catColor(intensity, classification);
 

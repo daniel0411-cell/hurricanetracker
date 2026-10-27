@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import StormLocationCompare from "../../components/StormLocationCompare.astro";
 import { faqs, site } from "../../data/site";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
-import { advisoryUrl, type NhcStorm } from "../../lib/weather";
+import { advisoryUrl, formatStormMotion, type NhcStorm } from "../../lib/weather";
 import { formatWind } from "../../lib/wind-speed";
 
 type StormFeed = {
@@ -65,7 +65,7 @@ const jsonLd = graph(
                 <tr><th>Intensity</th><td>{storm.intensity ? formatWind(Number(storm.intensity)) : storm.windSpeed ?? "pending"}</td></tr>
                 <tr><th>Pressure</th><td>{storm.pressure ?? "pending"}</td></tr>
                 <tr><th>Position</th><td>{storm.latitude ?? "pending"}, {storm.longitude ?? "pending"}</td></tr>
-                <tr><th>Movement</th><td>{storm.movementDir != null ? `${storm.movementDir}°` : "pending"} at {storm.movementSpeed != null ? `${storm.movementSpeed} kt` : "pending"}</td></tr>
+                <tr><th>Movement</th><td>{formatStormMotion(storm)}</td></tr>
                 <tr><th>NHC update</th><td>{storm.lastUpdate ?? feed?.updatedAt ?? "pending"}</td></tr>
               </tbody>
             </table>

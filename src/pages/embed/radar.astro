@@ -187,6 +187,7 @@ const satelliteBand = params.get("sat") || "geocolor";
     <script>
       // @ts-nocheck
       import { startVisiblePolling } from "../../lib/visiblePolling";
+      import { formatStormMotion } from "../../lib/weather";
       import L from "leaflet";
       import { basemapUrl, basemapOptions, watchBasemap } from "../../lib/mapBasemap";
       import "leaflet/dist/leaflet.css";
@@ -507,7 +508,7 @@ const satelliteBand = params.get("sat") || "geocolor";
               const name = escapeHtml(storm.name || storm.id || "Active tropical system");
               const classification = escapeHtml(storm.classification || "NHC tropical system");
               const intensity = escapeHtml(storm.intensity ? `${storm.intensity} kt` : storm.windSpeed || "Intensity pending");
-              const motion = storm.movementDir && storm.movementSpeed ? `${escapeHtml(storm.movementDir)}° at ${escapeHtml(storm.movementSpeed)} kt` : "Motion pending";
+              const motion = escapeHtml(formatStormMotion(storm));
               const updated = escapeHtml(storm.lastUpdate || "Update time pending");
               const marker = L.marker([lat, lon], { icon })
                 .bindPopup(`<div class="storm-popup"><strong>${name}</strong>${classification}<br>${intensity}<br>${motion}<br>Position ${lat.toFixed(1)}, ${lon.toFixed(1)}<br>Updated ${updated}</div>`)

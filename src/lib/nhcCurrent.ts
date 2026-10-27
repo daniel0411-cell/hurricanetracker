@@ -4,7 +4,7 @@ import { cachedWeather } from "./weatherCache";
 
 export const NHC_CURRENT_STORMS = "https://www.nhc.noaa.gov/CurrentStorms.json";
 export const NHC_CURRENT_CACHE_TTL_SECONDS = 600;
-const CACHE_KEY = "nhc:current-storms";
+const CACHE_KEY = "nhc:current-storms:motion-mph-v2";
 
 export type NhcCurrentFeed = {
   source: string;
@@ -33,7 +33,7 @@ export async function getNhcCurrentFeed(): Promise<{ feed: NhcCurrentFeed; cache
       fetchedAt,
       updatedAt: fetchedAt,
       cacheTtlSeconds: NHC_CURRENT_CACHE_TTL_SECONDS,
-      storms: raw.activeStorms.map((storm) => ({ ...storm, summary: summarizeStorm(storm) }))
+      storms: raw.activeStorms.map((storm) => ({ ...storm, movementSpeedUnit: "mph", summary: summarizeStorm(storm) }))
     };
     await recordActiveStorms(result.storms, fetchedAt);
     return result;

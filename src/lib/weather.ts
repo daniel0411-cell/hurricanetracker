@@ -20,6 +20,7 @@ export type NhcStorm = {
   longitudeNumeric?: number;
   movementDir?: number | string;
   movementSpeed?: number | string;
+  movementSpeedUnit?: "mph";
   lastUpdate?: string;
   publicAdvisory?: AdvisoryLink;
   forecastAdvisory?: AdvisoryLink;
@@ -76,9 +77,18 @@ export function priorityRisks(alerts: NwsAlert[]) {
   return [...new Set(alerts.map(alertRisk).filter((risk) => risk !== "Other"))];
 }
 
+export function formatStormMotion(storm: Pick<NhcStorm, "movementDir" | "movementSpeed">) {
+  // CurrentStorms.json and existing advisory history store motion in mph, unlike wind intensity.
+  const speed = storm.movementSpeed == null || String(storm.movementSpeed).trim() === "" ? NaN : Number(storm.movementSpeed);
+  const direction = storm.movementDir == null || String(storm.movementDir).trim() === "" ? NaN : Number(storm.movementDir);
+  if (!Number.isFinite(speed) || speed < 0) return "motion pending";
+  if (speed === 0) return "stationary (0 mph)";
+  return `${Number.isFinite(direction) && direction >= 0 && direction <= 360 ? `${direction}°` : "direction pending"} at ${speed} mph`;
+}
+
 export function summarizeStorm(storm: NhcStorm) {
   const name = storm.name ?? storm.id ?? "Active disturbance";
   const type = storm.classification ?? "Tropical cyclone";
-  const motion = storm.movementDir && storm.movementSpeed ? `${storm.movementDir}° at ${storm.movementSpeed} kt` : "motion pending";
+  const motion = formatStormMotion(storm);
   return `${type} ${name}: ${storm.intensity ? `${storm.intensity} kt` : storm.windSpeed ?? "intensity pending"}, ${motion}.`;
 }

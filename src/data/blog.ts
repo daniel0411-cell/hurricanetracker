@@ -1287,62 +1287,140 @@ export const blogPosts: BlogPost[] = [
     ]
   },
   {
-    slug: "how-to-read-hurricane-spaghetti-models",
-    sources: [{ href: "https://www.nhc.noaa.gov/modelsummary.shtml", label: "NHC tropical cyclone forecast model guidance" }],
-    title: "How to Read Hurricane Spaghetti Models: A Practical Guide",
-    description: "Spaghetti models show multiple forecast tracks at once. Learn what each model line means, why they diverge, and how to use them with a real-time hurricane tracker to judge storm risk.",
-    datePublished: "2026-08-10",
-    dateModified: "2026-10-24",
-    image: "/images/blog/hurricane-spaghetti-models.png",
-    imageAlt: "A meteorologist points at a computer monitor showing colorful spaghetti model forecast tracks radiating from a hurricane position in a NOAA operations center.",
-    sections: [
+    "slug": "how-to-read-hurricane-spaghetti-models",
+    "sources": [
       {
-        heading: "Direct Answer",
-        body: "Spaghetti plots display model tracks or ensemble members together. Spread helps show disagreement, but closely grouped tracks can share errors and do not guarantee accuracy. NHC forecasters consider models alongside observations and other evidence. The official cone is centered on the NHC forecast and uses historical official track forecast errors to set circle sizes; it is not calculated by drawing an envelope around the displayed spaghetti lines. Check model initialization times before comparing tracks."
+        "href": "https://www.nhc.noaa.gov/modelsummary.shtml",
+        "label": "NHC: model types, identifiers, early/late guidance and interpretation"
       },
       {
-        heading: "What Spaghetti Models Actually Are",
-        body: "Each line on a spaghetti plot represents the predicted center path of a tropical cyclone from a single computer forecast model. Global models like the American GFS and the European ECMWF simulate the entire planet's atmosphere and run every six hours. Regional hurricane-specific models like HWRF and HMON zoom in on the storm with higher resolution. Statistical and consensus models blend multiple inputs for a smoothed best guess. The National Hurricane Center does not use any single spaghetti line as its official forecast; a human forecaster synthesizes all of them, along with satellite and aircraft reconnaissance data, to draw the forecast cone."
+        "href": "https://www.weather.gov/media/tbw/workouts/2021feb09_ww_models.pdf#page=7",
+        "label": "NWS Tampa Bay: February 9, 2021 teaching slide 7 (historical Danny plot)"
       },
       {
-        heading: "The Key Models You Will See",
-        body: "Not every line on a spaghetti plot carries the same weight. Here are the ones that matter most for the Atlantic hurricane season.",
-        bullets: ["GFS (Global Forecast System): NOAA's flagship American global model. Runs four times daily. Good general track guidance but can over-intensify storms in warm water.", "ECMWF (European Centre model): Widely regarded as the most accurate global model for hurricane tracks. Runs every 12 hours. Often the line forecasters trust most at long ranges.", "HWRF (Hurricane Weather Research and Forecasting): A high-resolution regional model specialized for hurricane core structure. Better at intensity forecasting than global models.", "HMON (Hurricanes in a Multi-scale Ocean-coupled Non-hydrostatic): NOAA's newer regional hurricane model, run alongside HWRF for comparison.", "NVGM / TVCA (consensus models): These average several models together. Consensus tracks are often the most reliable single line to follow."]
-      },
-      {
-        heading: "Why the Lines Diverge",
-        body: "Spaghetti lines fan apart when the atmosphere is in a transition pattern and the models disagree about the steering currents. The most common scenario is a storm approaching a weakness in a subtropical ridge: one model may rebuild the ridge and push the storm west, while another erodes it and sends the storm recurving north. Small differences in the storm's initial position, size, or intensity can cascade into large track differences at five days. When lines split into two distinct clusters, forecasters call it a bimodal solution, and the official cone may not capture the full risk to both regions."
-      },
-      {
-        heading: "How to Read a Spaghetti Plot Like a Forecaster",
-        body: "Follow these steps when you see a spaghetti plot on your real-time hurricane tracker.",
-        bullets: ["Look at the clustering first: If all lines agree for the first 72 hours, short-term track confidence is high. If they diverge early, the storm is in an uncertain steering environment.", "Watch for outliers: A single line going in a different direction is usually a model artifact, not a real risk. Two or more independent models agreeing on an alternative track is a signal worth watching.", "Note the forward speed: Lines that bunch up vertically mean the storm may slow down, which increases rainfall flooding risk even if the track is well-defined.", "Check the consensus line: The TVCA or NVGM consensus is the closest thing to a model average and tends to outperform any individual model over time.", "Do not focus on the exact line over your house: Even a tight cluster has a 100-mile margin of error at 3 days and 200 miles at 5 days."]
-      },
-      {
-        heading: "Spaghetti Models vs the Forecast Cone",
-        body: "The forecast cone on the NHC advisory is not a spaghetti plot. It represents the historical track error of all NHC forecasts over the past five years: two-thirds of the time, the storm center stays inside the cone. The cone does not show the full range of possible tracks, and it says nothing about the storm's size. A spaghetti plot shows the raw model spread; the cone summarizes the official forecast uncertainty. Use both: the spaghetti plot to understand the model reasoning and the cone to plan your household timeline."
-      },
-      {
-        heading: "Common Mistakes to Avoid",
-        body: "The biggest mistake is treating the most alarming single line as the forecast. A single GFS run showing a direct hit on your city at 7 days out is not a prediction; it is one possibility among many. Another mistake is ignoring the storm's size. Even if the center track misses your area, hurricane-force winds can extend 50 miles or more from the center, and tropical-storm-force winds can reach 200 miles. Always check the wind-field graphic alongside the spaghetti plot."
-      },
-      {
-        heading: "Using HurricaneHub to Track Model Consensus",
-        body: "HurricaneHub displays the official NHC forecast cone and real-time hurricane tracker data so you can see where the consensus lies without staring at dozens of individual lines. When a named storm forms, open the radar page to watch satellite imagery and the forecast track together. Cross-reference the cone with the NWS active alerts layer to see whether your county is already under a watch or warning. The best use of spaghetti models is to understand why the cone is shaped the way it is, then act on the official advisory, not on a single model line."
+        "href": "https://www.nhc.noaa.gov/verification/verify3.shtml",
+        "label": "NHC annual forecast verification"
       }
     ],
-    faqs: [
+    "title": "How to Read Hurricane Spaghetti Models: A Practical Guide",
+    "description": "Read hurricane spaghetti plots by checking initialization time, model families and forecast hours. Work through a historical Danny example and separate guidance from warnings.",
+    "datePublished": "2026-08-10",
+    "dateModified": "2026-10-27",
+    "image": "/images/blog/hurricane-spaghetti-models.png",
+    "imageAlt": "Editorial illustration of a meteorologist reviewing colorful hurricane model tracks on a monitor.",
+    "imageCaption": "AI-generated editorial illustration, not an observed operations-center photograph or current forecast. The worked example links to an original NWS teaching slide.",
+    "sourceCheck": {
+      "date": "2026-10-27",
+      "scope": "NHC model definitions and verification guidance, plus NWS slide 7 showing Danny guidance initialized August 22, 2015. No current storm/model-run comparison or forecast verification was performed."
+    },
+    "review": {
+      "date": "2026-10-27",
+      "scope": "Model interpretation and historical reading exercise.",
+      "correction": "Removed unqualified model rankings, the misclassification of NVGM as consensus, fixed-mile error claims and the suggestion that an isolated track can be dismissed automatically. HurricaneHub displays NHC guidance, not its own model consensus."
+    },
+    "sections": [
       {
-        question: "Are spaghetti models accurate?",
-        answer: "Individual spaghetti model lines have moderate accuracy at 3 days and low accuracy at 5 days. The consensus of multiple models is more reliable than any single line. The NHC official forecast, which blends model output with human expertise, has cut 72-hour track error nearly in half over the past 30 years."
+        "heading": "Direct Answer",
+        "body": "A spaghetti plot overlays predicted storm-center tracks. It is a comparison of guidance, not a map of evacuation zones, a wind footprint or a set of equally likely outcomes. Before interpreting any cluster, identify the storm and year, initialization time, forecast hours, and the kind of lines shown. Then read the current NHC Tropical Cyclone Discussion for the forecaster's assessment and local warnings for action. Closely grouped tracks can share errors; one distant line is neither a forecast you should follow nor something you can automatically ignore."
       },
       {
-        question: "Which spaghetti model is the most reliable for hurricane tracks?",
-        answer: "The ECMWF (European) global model is generally the most accurate single model for Atlantic hurricane tracks. The GFS (American) model is close behind. Consensus models that average several inputs, such as TVCA, typically outperform any individual model."
+        "heading": "Start With the Plot's Identity, Not Its Most Alarming Line",
+        "body": "A screenshot can circulate long after its run has been replaced. Record the storm name, basin and year before checking the date and time printed on the plot. Initialization time is the starting atmospheric analysis for a model run. Image-generation time tells you when the chart was made; it is not necessarily the same thing. Forecast valid time is the future time a predicted position represents. Compare positions for the same valid time, not simply the ends of two lines that may stop at different forecast hours.",
+        "bullets": [
+          "UTC is also labeled Z: 00Z means 0000 UTC, not midnight in every local time zone.",
+          "A 72-hour point from a 00Z run and a 72-hour point from a 12Z run refer to different valid times.",
+          "If the screenshot cuts off the title, cycle, legend or forecast hours, find the original before sharing a location-specific interpretation."
+        ]
       },
       {
-        question: "What does it mean when spaghetti model lines diverge?",
-        answer: "When spaghetti lines fan apart, it means the computer models disagree about the steering currents that guide the storm. This indicates higher track uncertainty. If two distinct clusters form, there may be two plausible scenarios, and the official forecast cone may not capture the full risk."
+        "heading": "Read the Historical Danny Teaching Example",
+        "body": "Open slide 7 of the NWS Tampa Bay Weather Workouts presentation dated February 9, 2021. Its embedded NCAR plot is headed HURRICANE DANNY (AL04), with early-cycle guidance initialized at 0000 UTC, 22 August 2015. The chart says Current Intensity: 95 kt and Current Basin: North Atlantic; its footer says it was generated at 0120 UTC that day. Those are historical labels, not today's conditions. The original plot remains in the linked teaching document rather than being republished here because it carries UCAR attribution and reuse conditions.",
+        "bullets": [
+          "Read the title first: Danny and 2015 identify a particular past Atlantic system, not any later storm with the same name.",
+          "Locate 24, 48, 72, 96 and 120 labels: these are forecast lead hours from initialization, not wind speeds or probabilities.",
+          "At the longer leads, the plotted tracks separate. Describe that as disagreement in predicted center position, not a percentage chance of landfall.",
+          "Read the legend before naming a line. This historical chart includes identifiers from an older model suite; do not treat it as a list of today's operational models.",
+          "The separate Floyd and Andrew images on the slide illustrate the limitation of a center-track chart: it does not display the full size or distribution of hazards."
+        ],
+        "links": [
+          {
+            "href": "https://www.weather.gov/media/tbw/workouts/2021feb09_ww_models.pdf#page=7",
+            "label": "Open the original NWS teaching slide and Danny plot (PDF, page 7)"
+          }
+        ]
+      },
+      {
+        "heading": "Separate Model Runs, Ensemble Members and Consensus",
+        "body": "A deterministic model produces one solution for a particular initialization. An ensemble produces a family of solutions with varied starting conditions and/or model representation. A consensus combines selected forecasts; it is not another independent observation. NHC's model summary lists global and regional dynamical models, ensembles, consensus aids, statistical models and trajectory models separately. Examples include GFS, ECMWF and the Hurricane Analysis and Forecast System (HAFS). NVGM is the Navy Global Environmental Model, not a consensus identifier. Read the provider's current legend rather than guessing a model's purpose from a four-letter abbreviation.",
+        "bullets": [
+          "Twenty lines from one ensemble are not twenty independent forecasting centers voting on landfall.",
+          "A consensus and its input members can appear on the same graphic, so counting them all as separate votes double-counts information.",
+          "Track guidance, intensity guidance and wind-radii guidance answer different questions. A good-looking track does not establish intensity skill."
+        ],
+        "links": [
+          {
+            "href": "https://www.nhc.noaa.gov/modelsummary.shtml",
+            "label": "Check model identifiers and categories in NHC's current summary"
+          }
+        ]
+      },
+      {
+        "heading": "Why Guidance Can Disagree Even When the Lines Start Together",
+        "body": "Models use different analyses, resolutions, physics and ways of representing the ocean and atmosphere. Differences in steering flow and storm structure can lead to different outcomes. The shared starting point on a track chart does not prove identical atmospheric assumptions. NHC also distinguishes early guidance available during a forecast cycle from late guidance and interpolated versions adjusted from an earlier run. Two similarly named lines may therefore not represent the same underlying run. Check the discussion before concluding that a newer-looking graphic invalidates the official forecast."
+      },
+      {
+        "heading": "What Spread and Clusters Can Actually Tell You",
+        "body": "Increasing separation tells you that displayed center-track predictions disagree at those lead times. Two clusters are a reason to examine the forecaster's explanation of alternative scenarios, not to draw a new warning area yourself. A tight cluster does not prove accuracy: related models can share data or errors, and omitted outcomes are not impossible. Do not turn the fraction of visible lines crossing a state into a landfall probability. Display choices, missing members and unequal model families make that arithmetic misleading. Likewise, do not discard an outlier solely because it is alone."
+      },
+      {
+        "heading": "Read Speed From Time Labels, Not Line Shape",
+        "body": "Geographic distance between positions at equal time intervals can help you understand predicted forward motion. The visual slope of a line, vertical bunching or overlapping colors cannot establish speed without those time labels and the map scale. A curve is not automatically a slowdown. Even if guidance suggests slower movement, rainfall impact also depends on moisture, rain-band placement and terrain. Use official rainfall and flood products instead of estimating household flood depth from track spacing."
+      },
+      {
+        "heading": "The Official Cone Is Not the Outline of the Spaghetti",
+        "body": "NHC constructs the cone around its official forecast using historical official center-track errors; it does not wrap a boundary around every displayed model line. Cone size is not a measure of the current spaghetti spread. The cone is also not the storm's edge: wind, surge, rain and tornado hazards can extend outside it. Avoid fixed claims such as a universal 100-mile three-day safety margin. Check the current cone explanation, forecast wind field, surge products and local alerts for the particular event.",
+        "links": [
+          {
+            "href": "/blog/how-to-read-the-hurricane-cone-of-uncertainty/",
+            "label": "Read the cone's labels and limitations"
+          },
+          {
+            "href": "/blog/hurricane-storm-surge-forecasting/",
+            "label": "Separate center tracks from storm-surge flooding maps"
+          }
+        ]
+      },
+      {
+        "heading": "Use a Repeatable Check Before Changing Your Plan",
+        "body": "Write down the original plot URL, initialization time, the valid time you compared and the uncertainty described in the NHC discussion. On the next advisory, compare like-for-like valid times and note whether the official reasoning changed. HurricaneHub's live tracker provides NHC storm information and official forecast context; it does not calculate an independent multi-model consensus. Use it to reach official advisories and local alerts. Do not wait for every model line to agree before following a warning or evacuation instruction.",
+        "links": [
+          {
+            "href": "/hurricane-tracker/live/",
+            "label": "Open the live tracker and official NHC advisory context"
+          },
+          {
+            "href": "/blog/official-hurricane-information-sources-rumor-verification/",
+            "label": "Verify the source before sharing a forecast claim"
+          }
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Does each spaghetti line have the same chance of being correct?",
+        "answer": "No. A plot can mix deterministic models, related ensemble members, consensus aids and other guidance. Counting visible tracks does not produce a calibrated landfall probability."
+      },
+      {
+        "question": "Which hurricane model should I trust most?",
+        "answer": "There is no unqualified winner for every storm, forecast hour and variable. A defensible comparison specifies the season, basin, lead time, metric and sample. Use NHC verification reports for performance and the current discussion for the event."
+      },
+      {
+        "question": "Does a tight cluster mean my town is safe outside it?",
+        "answer": "No. Models can share errors, and center tracks do not show all wind, surge, rainfall or tornado hazards. Follow official hazard products and local instructions."
+      },
+      {
+        "question": "Is the Danny plot a current forecast?",
+        "answer": "No. It was initialized August 22, 2015 and reproduced in a February 2021 NWS lesson. It is linked here only as a historical reading exercise."
       }
     ]
   },
@@ -3145,13 +3223,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-water-storage-purification-emergency",
-    sources: [{ href: "https://www.ready.gov/water", label: "Ready.gov: water supplies" }, { href: "https://www.cdc.gov/water-emergency/about/", label: "CDC: emergency water storage and treatment" }, { href: "https://www.epa.gov/ground-water-and-drinking-water/emergency-disinfection-drinking-water", label: "EPA: emergency drinking-water disinfection" }],
+    sourceCheck: { date: "2026-10-27", scope: "CDC advisory types and household-use guidance, plus Austin Water's February 11, 2022 retrospective memo. This historical case is not a current water-safety check or a hurricane-caused incident; the memo's wholesale-customer completion estimate is not a verified rescission for those systems." },
+    sources: [{ href: "https://www.ready.gov/water", label: "Ready.gov: water supplies" }, { href: "https://www.cdc.gov/water-emergency/about/", label: "CDC: emergency water storage and treatment" }, { href: "https://www.cdc.gov/water-emergency/about/drinking-water-advisories-an-overview.html", label: "CDC: boil-water, do-not-drink and do-not-use advisories" }, { href: "https://services.austintexas.gov/edims/document.cfm?id=376266", label: "Austin Water: February 11, 2022 official memo and notice timeline (PDF)" }, { href: "https://www.epa.gov/ground-water-and-drinking-water/emergency-disinfection-drinking-water", label: "EPA: emergency drinking-water disinfection" }],
     title: "Emergency Water Storage and Purification for Hurricanes",
     description: "How much emergency water to store for a hurricane, which containers to use, how to follow boil-water notices, and when boiling or filtering is not enough.",
     datePublished: "2026-08-18",
-    dateModified: "2026-10-24",
+    dateModified: "2026-10-27",
     image: "/images/blog/hurricane-emergency-kit-checklist.png",
     imageAlt: "Household hurricane emergency supplies with sealed drinking-water containers ready for an outage.",
+    imageCaption: "AI-generated preparedness illustration, not a photograph of an actual water advisory or distribution site.",
     sections: [
       {
         heading: "Direct Answer",
@@ -3177,11 +3257,39 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Understand Local Water Advisories",
-        body: "A boil-water advisory, do-not-drink advisory, and do-not-use advisory are not interchangeable. During a boil-water advisory, local officials may instruct residents to boil water for drinking, cooking, brushing teeth, and infant formula. A do-not-drink or do-not-use notice may indicate chemical contamination that boiling cannot fix. Use sealed bottled water and follow the utility or health department instructions exactly."
+        body: "A boil-water advisory, do-not-drink advisory, and do-not-use advisory are different instructions, not three interchangeable names. CDC describes the distinctions below. The exact local notice controls permitted activities; do not assume advice for one type applies to another.",
+        bullets: [
+          "Boil water: use commercially bottled water or water boiled as instructed for drinking and food preparation. Boiling kills germs, but is not a treatment for chemical contamination.",
+          "Do not drink: use commercially bottled water for drinking, cooking, brushing teeth, produce washing, formula, ice and pets. Check the notice for bathing, dishes, cleaning and other uses; do not assume boiling makes the water safe.",
+          "Do not use: do not use tap water for any purpose while the advisory remains in effect. Contact with skin, eyes or lungs can also be hazardous. Follow officials' alternative-water instructions.",
+          "During any drinking-water advisory, CDC says not to use water or ice dispensers connected to the water line. A refrigerator or pitcher filter does not automatically make that water safe."
+        ],
+        links: [{ href: "https://www.cdc.gov/water-emergency/about/drinking-water-advisories-an-overview.html", label: "Read CDC's activity-by-activity advisory guidance" }]
+      },
+      {
+        heading: "Read a Real Historical Notice Timeline: Austin, February 2022",
+        body: "Austin Water's official February 11, 2022 memo documents a boil-water event beginning February 5. This was an operational/turbidity incident, not a hurricane case; its value here is showing how to read scope and changing status during any service disruption. The memo is a retrospective Q&A, not an active notice. Attachment A, page 1 records public issuance at 7:30 p.m. on February 5. Attachment A, page 2 records the sampling and review sequence: sampling was authorized February 7; results and compliance documentation were reviewed February 8; TCEQ agreed at 10 p.m. that Austin Water could lift the notice; customer-portal notification began at 10:20 p.m. Later delivery times do not mean each message is a new order.",
+        bullets: [
+          "Check the service scope: the memo explains that interconnected treatment-plant distribution required a city-wide notice even though the initial problem was at one plant. Living far from the plant was not a reason to disregard it.",
+          "Check your actual supplier: Attachment A, page 5 says eight wholesale customers began sampling later. Its expected February 10 completion date is a forecast, not proof that every downstream provider had rescinded its own notice.",
+          "Check the effective status rather than a shared screenshot: the February 8 city announcement and delayed February 9 notifications describe the city's timeline, not a universal all-clear for every nearby water system.",
+          "Keep the document date separate from the event date: the memo is dated February 11, but describes actions on earlier days. A later publication date does not mean a new advisory started that day."
+        ],
+        links: [{ href: "https://services.austintexas.gov/edims/document.cfm?id=376266", label: "Read Austin Water's original February 2022 memo and attachments (PDF)" }]
+      },
+      {
+        heading: "Make a Five-Field Water Notice Record",
+        body: "Before changing household routines, save the official notice URL and record five things: issuing utility or health department; affected service area or addresses; advisory type and effective time; prohibited and permitted activities; and the official place to check for updates or rescission. Use your water bill or property manager to identify the provider if you do not have an individual account. An apartment address, city boundary and water-service boundary are not necessarily the same. If the notice is unclear, ask the supplier rather than borrowing a neighboring city's instructions.",
+        bullets: [
+          "Record drinking, cooking, teeth brushing, ice, infant feeding and pet water separately; do not reduce all restrictions to 'avoid drinking straight from the tap.'",
+          "Record bathing and handwashing instructions from this notice. CDC's general boil-water guidance allows some uses with precautions, but that is not permission during a do-not-use order.",
+          "Write 'not confirmed' beside any missing field. Water pressure returning, clear appearance or a neighbor's message does not fill that gap.",
+          "After an explicit rescission for your provider and area, follow its flushing, filter and ice-maker instructions. Do not invent a universal flushing duration or reuse ice made while the water was unsafe."
+        ]
       },
       {
         heading: "Boiling Questionable Water",
-        body: "CDC guidance generally calls for bringing clear water to a rolling boil for one minute, then cooling it in a clean, covered container; elevation-specific directions may differ. Cloudy water may need filtering through a clean cloth or settling before boiling. Always follow the current local notice, because boiling does not make chemically contaminated water safe."
+        body: "CDC calls for a full rolling boil for one minute, or three minutes above 6,500 feet, then cooling before use. Follow the current local notice. During a boil-water advisory, CDC says to boil even water that has passed through a home filter. Settling or straining cloudy water is not disinfection, and boiling does not make chemically contaminated water safe. If power or fuel is unavailable, use your stored commercially bottled water and the official emergency-water instructions rather than improvising a treatment."
       },
       {
         heading: "Filters, Disinfectants, and Their Limits",
@@ -3193,11 +3301,12 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Connect Water With the Full Hurricane Plan",
-        body: "Water planning works best alongside /blog/hurricane-emergency-kit-checklist/, /blog/hurricane-power-outage-food-medicine-plan/, /blog/hurricane-pet-safety/, /tools/preparedness-checklist/, and /hurricane-tracker/live/. Use the tracker for storm context, but get water-safety orders from the local utility, health department, emergency management, and weather.gov alerts."
+        body: "Keep stored water accessible during a power outage, with a portable supply for evacuation and additional provision for pets and medical needs. The hurricane tracker supplies storm context, not drinking-water clearance. Water-safety orders come from the utility and public-health authority; local emergency management can identify distribution options. Keep an offline copy of the current notice and its contact details in case mobile service fails.",
+        links: [{ href: "/blog/hurricane-power-outage-food-medicine-plan/", label: "Build the household outage and water-supply record" }, { href: "/blog/hurricane-pet-safety/", label: "Add pet water and evacuation needs" }, { href: "/tools/preparedness-checklist/", label: "Review the household preparedness checklist" }]
       },
       {
         heading: "Official Guidance",
-        body: "Sources reviewed for this guide: Ready.gov water preparedness at https://www.ready.gov/water; CDC emergency water storage and treatment at https://www.cdc.gov/water-emergency/about/; and EPA emergency drinking-water disinfection guidance at https://www.epa.gov/ground-water-and-drinking-water/emergency-disinfection-drinking-water. Local notices override general guidance."
+        body: "Use the linked Ready.gov, CDC and EPA sources for general preparation and treatment guidance. The Austin memo is evidence for one historical timeline, not a current notice and not a source of treatment instructions for another city. Local notices override general guidance. This article does not verify whether your tap water is safe today."
       }
     ],
     faqs: [
