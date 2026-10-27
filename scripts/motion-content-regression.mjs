@@ -13,6 +13,7 @@ const { formatStormMotion, summarizeStorm } = await load("src/lib/weather.ts");
 const storm = { name: "Vance", classification: "TS", movementDir: 310, movementSpeed: 8, intensity: "40" };
 assert.equal(formatStormMotion(storm), "310° at 8 mph");
 assert.equal(summarizeStorm(storm), "TS Vance: 40 kt, 310° at 8 mph.");
+assert.equal(summarizeStorm({ ...storm, summary: "TS Vance: 40 kt, 310° at 8 kt." }), "TS Vance: 40 kt, 310° at 8 mph.");
 assert.equal(formatStormMotion({ movementDir: 0, movementSpeed: "8" }), "0° at 8 mph");
 assert.equal(formatStormMotion({ movementSpeed: 0 }), "stationary (0 mph)");
 assert.equal(formatStormMotion({ movementSpeed: 8 }), "direction pending at 8 mph");
@@ -25,6 +26,11 @@ for (const path of ["src/components/StormCard.astro", "src/pages/embed/radar.ast
   assert(!source.includes("movementSpeed"), `${path}: no raw speed rendering without a unit`);
 }
 const current = await fs.readFile("src/lib/nhcCurrent.ts", "utf8");
+for (const path of ["src/pages/tracker/[id].astro", "src/pages/tracker/index.astro", "src/pages/storm-archive.astro", "src/pages/hurricane-tracker/storm/[storm].astro", "src/pages/hurricane-tracker/live.astro"]) {
+  const source = await fs.readFile(path, "utf8");
+  assert(source.includes("summarizeStorm("));
+  assert(!/\b(?:storm|activeStorm)\.summary\b/.test(source), `${path}: regenerate summaries rather than trusting cached prose`);
+}
 assert.match(current, /movementSpeedUnit: "mph"/);
 assert.match(current, /nhc:current-storms:motion-mph-v2/);
 const { blogPosts } = await load("src/data/blog.ts");

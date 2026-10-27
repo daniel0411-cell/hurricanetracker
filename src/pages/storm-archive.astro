@@ -4,7 +4,7 @@ import Layout from "../layouts/Layout.astro";
 import { stormTrackerPages } from "../data/stormPages";
 import { faqs, site } from "../data/site";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../lib/schema";
-import { advisoryUrl, type NhcStorm } from "../lib/weather";
+import { advisoryUrl, summarizeStorm, type NhcStorm } from "../lib/weather";
 import { readStormRegistry } from "../lib/stormRegistry";
 import { formatWind } from "../lib/wind-speed";
 
@@ -204,7 +204,7 @@ const jsonLd = graph(
               <h3>{storm.name ?? storm.id ?? "Active storm"}</h3>
               <span class="badge warn">{storm.classification ?? "NHC"}</span>
             </header>
-            <p>{storm.summary ?? "Current NHC storm data loaded."}</p>
+            <p>{summarizeStorm(storm)}</p>
             <p class="small">Position: {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"} · Updated: {storm.lastUpdate ?? lastModified}</p>
             <p>
               {advisoryUrl(storm.publicAdvisory) && <a href={advisoryUrl(storm.publicAdvisory)} rel="nofollow">NHC public advisory</a>}

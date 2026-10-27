@@ -4,7 +4,7 @@ import Layout from "../../../layouts/Layout.astro";
 import { getStormPageBySlug } from "../../../data/stormPages";
 import { site } from "../../../data/site";
 import { articleSchema, breadcrumbSchema, faqSchema, graph, websiteSchema } from "../../../lib/schema";
-import { advisoryUrl, formatStormMotion, type NhcStorm } from "../../../lib/weather";
+import { advisoryUrl, formatStormMotion, summarizeStorm, type NhcStorm } from "../../../lib/weather";
 import { readStormRegistry } from "../../../lib/stormRegistry";
 import { relevantLocations } from "../../../lib/stormRelevance";
 import { getAdvisoryHistory, getNhcForecast } from "../../../lib/nhcForecast";
@@ -162,7 +162,7 @@ const jsonLd = graph(
         <h2 id="live-status">{activeStorm ? isPostTropical ? `${stormName} is post-tropical in the current NHC feed` : `${stormName} is active in the current NHC feed` : isArchived ? `${stormName} historical status` : `No active ${stormName} record in the current feed`}</h2>
         {activeStorm ? (
           <>
-            <p>{activeStorm.summary ?? "Current NHC storm data loaded for this named system."}</p>
+            <p>{summarizeStorm(activeStorm)}</p>
             {riSignal?.riActive && (
               <p class="ri-badge" role="note">
                 <i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i>

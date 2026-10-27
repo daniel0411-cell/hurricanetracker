@@ -4,7 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import { site } from "../../data/site";
 import { topicPages } from "../../data/topicPages";
 import { articleSchema, breadcrumbSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
-import { advisoryUrl, type NhcStorm } from "../../lib/weather";
+import { advisoryUrl, summarizeStorm, type NhcStorm } from "../../lib/weather";
 import OfficialUpdateStamp from "../../components/OfficialUpdateStamp.astro";
 import ContentFigure from "../../components/ContentFigure.astro";
 
@@ -281,7 +281,7 @@ const jsonLd = graph(
               </div>
               <span class="badge warn">{storm.intensity ? `${storm.intensity} kt` : storm.windSpeed ?? "Advisory active"}</span>
             </header>
-            <p><strong>{basinLabel(storm)}</strong> · {storm.summary ?? `Latest NHC position: ${storm.latitude ?? "pending"}, ${storm.longitude ?? "pending"}.`}</p>
+            <p><strong>{basinLabel(storm)}</strong> · {summarizeStorm(storm)}</p>
             <p class="source-note">Position {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"} · Updated {storm.lastUpdate ?? lastModified}</p>
             <p class="section-actions">
               <a class="action-link" href={`/hurricane-tracker/storm/${String(storm.name ?? storm.id ?? "storm").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}/`}>Open {storm.name ?? "storm"} live tracker</a>
@@ -445,6 +445,7 @@ const jsonLd = graph(
 </Layout>
 
 <script>
+  import { summarizeStorm } from "../../lib/weather";
   const countEl = document.querySelector<HTMLElement>("[data-live-storm-count]");
   const labelEl = document.querySelector<HTMLElement>("[data-live-storm-label]");
   const updatedEl = document.querySelector<HTMLElement>("[data-live-updated]");
@@ -459,7 +460,7 @@ const jsonLd = graph(
     const name = storm.name ?? storm.id ?? "Active tropical system";
     const slug = String(name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
     const advisory = advisoryUrl(storm.publicAdvisory);
-    return `<article class="panel current-storm"><header><div><p class="eyebrow">${escapeHtml(classificationLabel(storm.classification))}</p><h3>${escapeHtml(name)}</h3></div><span class="badge warn">${escapeHtml(storm.intensity ? `${storm.intensity} kt` : storm.windSpeed ?? "Advisory active")}</span></header><p>${escapeHtml(storm.summary ?? `Latest NHC position: ${storm.latitude ?? "pending"}, ${storm.longitude ?? "pending"}.`)}</p><p class="source-note">Position ${escapeHtml(storm.latitude ?? "pending")}, ${escapeHtml(storm.longitude ?? "pending")} · Updated ${escapeHtml(storm.lastUpdate ?? "latest feed")}</p><p class="section-actions"><a class="action-link" href="/hurricane-tracker/storm/${slug}/">Open ${escapeHtml(name)} live tracker</a>${advisory ? `<a class="action-link secondary-action" href="${escapeHtml(advisory)}" rel="noopener nofollow">NHC advisory</a>` : ""}</p></article>`;
+    return `<article class="panel current-storm"><header><div><p class="eyebrow">${escapeHtml(classificationLabel(storm.classification))}</p><h3>${escapeHtml(name)}</h3></div><span class="badge warn">${escapeHtml(storm.intensity ? `${storm.intensity} kt` : storm.windSpeed ?? "Advisory active")}</span></header><p>${escapeHtml(summarizeStorm(storm))}</p><p class="source-note">Position ${escapeHtml(storm.latitude ?? "pending")}, ${escapeHtml(storm.longitude ?? "pending")} · Updated ${escapeHtml(storm.lastUpdate ?? "latest feed")}</p><p class="section-actions"><a class="action-link" href="/hurricane-tracker/storm/${slug}/">Open ${escapeHtml(name)} live tracker</a>${advisory ? `<a class="action-link secondary-action" href="${escapeHtml(advisory)}" rel="noopener nofollow">NHC advisory</a>` : ""}</p></article>`;
   }
   async function refreshStormList() {
     try {

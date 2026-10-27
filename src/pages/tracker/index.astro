@@ -7,7 +7,7 @@ import { hurricaneCities } from "../../data/cities";
 import { coastalStates } from "../../data/states";
 import { topicPages } from "../../data/topicPages";
 import { articleSchema, faqSchema, governmentServiceSchema, graph, websiteSchema } from "../../lib/schema";
-import type { NhcStorm, NwsAlert } from "../../lib/weather";
+import { summarizeStorm, type NhcStorm, type NwsAlert } from "../../lib/weather";
 
 type StormFeed = {
   storms?: Array<NhcStorm & { summary?: string }>;
@@ -205,7 +205,7 @@ const jsonLd = graph(
               <h3>{storm.name ?? storm.id ?? "Active tropical system"}</h3>
               <span class="badge warn">{storm.classification ?? "NHC"}</span>
             </header>
-            <p>{storm.summary ?? "NHC advisory data loaded for this system."}</p>
+            <p>{summarizeStorm(storm)}</p>
             <p class="small">
               Position: {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"} ·
               Pressure: {storm.pressure ?? "pending"} ·

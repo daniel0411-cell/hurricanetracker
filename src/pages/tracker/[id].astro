@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import StormLocationCompare from "../../components/StormLocationCompare.astro";
 import { faqs, site } from "../../data/site";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
-import { advisoryUrl, formatStormMotion, type NhcStorm } from "../../lib/weather";
+import { advisoryUrl, formatStormMotion, summarizeStorm, type NhcStorm } from "../../lib/weather";
 import { formatWind } from "../../lib/wind-speed";
 
 type StormFeed = {
@@ -59,7 +59,7 @@ const jsonLd = graph(
         {storm ? (
           <>
             <h3>{storm.classification ?? "Tropical system"}</h3>
-            <p>{storm.summary ?? "NHC advisory data loaded for this system."}</p>
+            <p>{summarizeStorm(storm)}</p>
             <table>
               <tbody>
                 <tr><th>Intensity</th><td>{storm.intensity ? formatWind(Number(storm.intensity)) : storm.windSpeed ?? "pending"}</td></tr>
