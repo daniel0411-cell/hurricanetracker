@@ -208,9 +208,9 @@ export const blogPosts: BlogPost[] = [
     slug: "what-hurricane-watch-warning-means",
     sources: [{ href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC glossary: watch and warning definitions and timing" }],
     title: "What a Hurricane Watch or Warning Means",
-    description: "A plain-language guide to hurricane watches, warnings, storm surge alerts, and when to shift from monitoring to action.",
+    description: "Understand hurricane watch versus warning timing, read the affected area, and distinguish a wind warning from a local evacuation order.",
     datePublished: "2025-06-18",
-    dateModified: "2026-10-24",
+    dateModified: "2026-10-27",
     image: "/images/blog/what-hurricane-watch-warning-means.png",
     imageAlt: "A kitchen counter with a smartphone showing weather alerts, a NOAA weather radio, flashlight, batteries, and an evacuation map.",
     sections: [
@@ -233,6 +233,19 @@ export const blogPosts: BlogPost[] = [
         heading: "Read the Message's Location and Timing",
         body: "Open the full official product and identify the named locations, issue time, expected wind-arrival window, and instructions. A phone notification or state-wide summary may omit the boundaries. If you live near a boundary, check the official map and local office rather than assuming a ZIP-wide answer. Watches and warnings can coexist for different hazards, and a hurricane warning can continue while dangerous high water remains even after winds fall below hurricane force.",
         links: [{ href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC definitions and timing exceptions" }]
+      },
+      {
+        heading: "Work Through a Warning Without Inventing a Deadline",
+        body: "Illustrative example, not a current alert: a household reads a hurricane warning on Tuesday morning and sees a Wednesday evening forecast center position. Wednesday evening is not its departure deadline. The household must read the expected arrival of tropical-storm-force winds and the local evacuation order, which may require earlier action. Record the issuing agency, issue time and time zone, affected area, expected conditions, and next update. Do not convert the usual 36-hour warning lead time into 36 hours remaining from the moment you read it.",
+        links: [{ href: "https://www.weather.gov/safety/hurricane-ww", label: "NWS: wind-warning timing and local instructions" }]
+      },
+      {
+        heading: "Choose the Next Question",
+        body: "A weather warning describes a hazard in a specified area; a local evacuation order identifies who must leave and when. Neither the hurricane category nor a phone notification determines your exact evacuation zone. Once you understand the warning, use a separate action checklist rather than rereading definitions.",
+        links: [
+          { href: "/blog/what-to-do-during-a-hurricane-warning/", label: "Warning already issued: prioritize immediate household actions" },
+          { href: "/blog/storm-surge-warning-vs-hurricane-warning/", label: "Water and wind warnings: compare the different decisions" }
+        ]
       },
       {
         heading: "Common Mistake",
@@ -331,7 +344,7 @@ export const blogPosts: BlogPost[] = [
     title: "What to Do During a Hurricane Warning: Immediate Actions",
     description: "Prioritize people, transport, medicines, pets, and safe shelter during a hurricane warning. Follow local deadlines instead of assuming 24 hours remain.",
     datePublished: "2026-08-04",
-    dateModified: "2026-10-24",
+    dateModified: "2026-10-27",
     image: "/images/blog/what-to-do-during-a-hurricane-warning.png",
     imageAlt: "A couple sits in a living room during a hurricane warning, listening to a weather radio and checking a smartphone as rain streaks the window.",
     sections: [
@@ -353,6 +366,16 @@ export const blogPosts: BlogPost[] = [
         heading: "If You Are Sheltering in Place",
         body: "Shelter only where appropriate under local instructions. Choose an interior room away from windows and potential flooding, bring shoes, a flashlight, medicines, and a way to receive warnings, and keep pets contained. A surge-threatened home is not made safe by moving to an interior room. If a tornado warning arrives, follow its immediate shelter instructions; do not start an evacuation drive through a tornado warning to reach a previously chosen destination.",
         bullets: ["Keep phones charged and a battery radio available in case mobile data fails.", "Avoid candles, floodwater, fallen lines, and all indoor generator use.", "Do not go outside during a lull that could be the eye.", "If your situation becomes life-threatening, contact emergency services and give the exact location."]
+      },
+      {
+        heading: "Assign People, Not Just Tasks",
+        body: "Use a short handoff: one person checks the current local order and destination, one contacts dependents and the driver, and one collects essential medicines, documents and pet equipment. In a one-person household, handle transport and health needs first. Record who has actually confirmed the destination or pickup; an unanswered message is not a reservation. If an order requires immediate departure, do not delay to finish packing or property work.",
+        links: [{ href: "/tools/family-communication-plan/", label: "Prepare a printable contact and pickup plan before a warning" }]
+      },
+      {
+        heading: "If Your Original Plan Stops Working",
+        body: "A closed shelter, unavailable driver or flooded route means the plan needs new official guidance, not a shortcut through water. Check the local emergency-management update and confirmed transport options while conditions still permit travel. Do not assume an older shelter list means a facility is open or able to support medical equipment or pets. If dangerous conditions have already arrived, follow current shelter instructions; contact emergency services for immediate life-threatening danger.",
+        links: [{ href: "https://www.ready.gov/evacuation", label: "Ready.gov: evacuation instructions and destination planning" }]
       },
       {
         heading: "When To Leave",
@@ -559,7 +582,7 @@ export const blogPosts: BlogPost[] = [
     title: "Storm Surge Warning vs. Hurricane Warning",
     description: "Understand the difference between storm surge and hurricane warnings, why water hazards can arrive before peak wind, and when to leave.",
     datePublished: "2026-08-04",
-    dateModified: "2026-10-24",
+    dateModified: "2026-10-27",
     image: "/images/blog/storm-surge-warning-vs-hurricane-warning.png",
     imageAlt: "A coastal homeowner studies an evacuation route sign while seawater begins lapping at the yard.",
     sections: [
@@ -576,6 +599,12 @@ export const blogPosts: BlogPost[] = [
         heading: "Why Storm Surge Needs Its Own Decision",
         body: "Water changes travel and shelter decisions differently from wind.",
         bullets: ["Flooded roads can become impassable before the storm center arrives.", "Barrier islands, bays, rivers, and low-lying neighborhoods may need earlier decisions.", "Storm surge risk can vary sharply by evacuation zone.", "A wind-safe building may still be inaccessible after water rises."]
+      },
+      {
+        heading: "Two Situations That Need Different Answers",
+        body: "These are planning examples, not current forecasts. A bayfront household outside the cone may still be inside a surge-warning area: checking local zone orders matters more than the center line missing the home. An inland household under a hurricane warning may have no coastal surge exposure, but still needs wind-safe shelter and rainfall-flood and tornado alerts. The two households should not receive the same leave-or-stay answer from the storm's category.",
+        bullets: ["Surge question: can rising coastal water affect this address or its access route? Read the inundation product and local zone instructions.", "Wind question: what conditions and arrival window are expected here? Read the local wind warning and shelter guidance.", "Rainfall question: could flooding affect this property or road independently of surge? Read local flood products.", "Evacuation question: which jurisdiction and order cover this address? A warning alone does not identify the household's zone."],
+        links: [{ href: "https://www.nhc.noaa.gov/surge/inundation/", label: "NHC: what the potential storm surge flooding map includes and excludes" }]
       },
       {
         heading: "What To Do",
@@ -603,7 +632,7 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Family Communication Plan",
     description: "Build a hurricane family communication plan with contacts, meeting places, evacuation destinations, medication notes, pets, and check-in times.",
     datePublished: "2026-08-04",
-    dateModified: "2026-10-24",
+    dateModified: "2026-10-27",
     image: "/images/blog/hurricane-family-communication-plan.png",
     imageAlt: "A multigenerational family plans communication together, smartphones and a handwritten contact list on the table.",
     sections: [
@@ -627,7 +656,13 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Write Down the Plan",
-        body: "Write down the meeting place and destination instead of relying on memory. Include school pickup, work departure, pet transport, medication, mobility, and vehicle needs."
+        body: "Use the existing plan generator to record contacts, destinations, transport, check-in times and essential needs. Print a copy for each person who needs it and keep an offline copy available. Avoid including more medical or identifying information than a helper needs, and do not post the completed plan publicly.",
+        links: [{ href: "/tools/family-communication-plan/", label: "Fill in and print your household communication plan" }, { href: "https://www.ready.gov/plan", label: "Ready.gov: household planning and official fillable resources" }]
+      },
+      {
+        heading: "Rehearse One Failed-Contact Scenario",
+        body: "Practice before an emergency: the primary driver cannot be reached, the usual destination is unavailable, and one household member has only the printed card. Ask that person to identify the backup contact and destination without opening a group chat. Confirm school or care pickup authorization directly with the provider; a family plan cannot override its release rules. Replace missing details, test the backup number and record the review date. This exercise checks the plan, not whether travel is safe during an actual storm.",
+        bullets: ["A useful status text: who is with you, where you are, whether you need help, and your next check-in.", "Agree who will relay messages through the out-of-area contact if the household splits up.", "Never treat an overdue check-in alone as a reason to drive into hazardous conditions."]
       },
       {
         heading: "Practice Before the Storm",
@@ -696,7 +731,7 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Radar vs. Satellite: What Each View Shows",
     description: "Understand the difference between hurricane radar and satellite views, when each is useful, and why neither replaces official NOAA/NWS alerts.",
     datePublished: "2026-08-05",
-    dateModified: "2026-10-24",
+    dateModified: "2026-10-27",
     image: "/images/blog/hurricane-radar-vs-satellite.png",
     imageAlt: "A meteorologist compares a green Doppler radar display and a satellite cloud spiral on dual monitors.",
     sections: [
@@ -718,6 +753,16 @@ export const blogPosts: BlogPost[] = [
         heading: "A Three-Frame Check Before Interpreting a Loop",
         body: "Read the product name and the timestamp on the latest frame, then compare at least a few consecutive frames. A stalled loop or missing tile is a data problem, not evidence that rain has stopped. Radar reflectivity shows returned energy and does not measure the wind at a home. Infrared colors describe cloud-top temperature, not surface temperature or a direct hurricane category. Visible imagery depends on daylight; enhanced night products may combine other channels.",
         bullets: ["For approaching local rain, compare radar with the current flood or tornado warning text.", "For a system offshore, compare satellite structure with the NHC advisory and discussion.", "For evacuation, use the local order; neither a clear patch of radar nor an eye on satellite is a safety decision."]
+      },
+      {
+        heading: "Read Two Views of the Same Period",
+        body: "Start with one location and a matching time window. On radar, identify the coverage area, reflectivity legend and latest frame time before following an approaching rain band. On satellite, identify the channel or composite and frame time before interpreting cloud structure. Different color scales do not describe the same quantity, and a brighter satellite cloud is not a stronger radar echo. A comparison with mismatched times can make ordinary movement look like a sudden structural change.",
+        bullets: ["Radar reflectivity: use the displayed legend for precipitation echoes; do not read its colors as hurricane wind categories.", "Infrared satellite: read cloud-top temperature and cloud patterns; surface wind requires other observations and official analysis.", "Visible or GeoColor: read the product description, including how nighttime imagery differs from daytime.", "For each view, note the source and newest frame time. A webpage refresh time is not necessarily the observation time."],
+        links: [{ href: "https://www.weather.gov/radarfaq", label: "NWS radar display, missing-image and location guidance" }, { href: "https://www.star.nesdis.noaa.gov/GOES/", label: "NOAA GOES image viewer: choose a region and named product" }]
+      },
+      {
+        heading: "If the Two Maps Seem to Disagree",
+        body: "Illustrative example: a satellite loop shows a broad offshore cloud shield while local radar shows little rain at your location. That can reflect clouds without local precipitation, radar coverage limits, different product times or missing data; it is not proof that an approaching system is harmless. Check the product times and coverage first, then the current NHC advisory and local NWS alerts. Do not infer a tornado from a reflectivity screenshot or a hurricane category from the shape of an eye. Those require appropriate observations and official interpretation."
       },
       {
         heading: "Best Use on HurricaneHub",
@@ -870,9 +915,10 @@ export const blogPosts: BlogPost[] = [
     title: "How to Read the Hurricane Cone of Uncertainty",
     description: "Read the NHC forecast cone, distinguish 2026 inland wind warnings from track uncertainty, and find separate storm surge and rainfall guidance.",
     datePublished: "2026-08-07",
-    dateModified: "2026-10-24",
+    dateModified: "2026-10-27",
     image: "/images/blog/how-to-read-the-hurricane-cone-of-uncertainty.png",
     imageAlt: "A resident holds a tablet showing a hurricane forecast cone map, standing by a window with a coastal view behind.",
+    figures: [{ src: "/images/blog/external/nhc-cone-helene-2024-example.png", alt: "NHC Helene advisory 9 example, September 25, 2024: forecast center points and white cone, wind watch and warning areas, and a separate current wind-field estimate.", caption: "Historical teaching example from NHC's cone explanation: Hurricane Helene advisory 9, September 25, 2024, 10 AM CDT. Not a current forecast or a demonstration of the 2026 product changes. Source: NOAA/NHC; original graphic linked in the reading steps above. Accessed October 27, 2026." }],
     sections: [
       {
         heading: "What the Cone Actually Shows",
@@ -892,7 +938,13 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "How to Use the Cone in Decisions",
         body:
-          "Use the cone as one input among several. If your location is inside or near the cone, begin monitoring NHC advisories and local NWS alerts closely. If the cone shifts toward your area, move from preparation to action. If the cone shifts away, continue watching until the storm has passed, because cones can move back."
+          "Use the cone for center-track context, then use the local hazard forecast and instructions for action. Do not wait for your address to enter the cone before following an evacuation order. When comparing two advisories, match their issue times and forecast valid times: the cone can move or change width while the wind field and water hazards follow different patterns. A shift away from your town does not cancel an existing warning or local order."
+      },
+      {
+        heading: "Read the Historical Example From Label to Legend",
+        body: "The NHC example reproduced below is Helene advisory 9 from September 25, 2024, not today's weather. Begin at the lower-left issue label, then follow the forecast positions and their valid times. Read the legend rather than guessing from color: the white cone concerns the center track, red and blue areas denote hurricane and tropical-storm warnings, and the separate current wind-field shading is not the future impact footprint. The H, M, S and D labels describe forecast intensity at those points, not risk at every nearby address.",
+        bullets: ["1. Identify the name, year, advisory number, issue time and time zone before interpreting the map.", "2. Read each forecast position's valid time; spacing between points alone is not an arrival-time forecast for a home.", "3. Separate center-track uncertainty from colored wind alerts and the current wind field.", "4. Open the separate surge, rainfall and local warning products before making a household decision."],
+        links: [{ href: "https://www.nhc.noaa.gov/aboutcone.shtml", label: "NHC cone definition and annual error radii" }, { href: "https://www.nhc.noaa.gov/images/cone_5day_with_ww.png", label: "Open the original NHC historical example at full size" }]
       },
       {
         heading: "The 2026 Operational Cone and the Separate Experimental Cone",
