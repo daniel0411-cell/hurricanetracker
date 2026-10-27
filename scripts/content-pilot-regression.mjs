@@ -26,6 +26,26 @@ const cities = new Map([
   ["houston", "Separate Coastal Evacuation From Inland Flood Decisions"]
 ]);
 const routes = new Map();
+for (const [slug, heading, expectedFigures] of [
+  ["hurricane-radar-vs-satellite", "Read the Ian Example: Clouds and Echoes Are Different Layers", 2],
+  ["hurricane-flood-zone-map-fema-understanding", "Read FEMA's Zone AE Teaching Example", 1]
+]) {
+  const post = blogPosts.find((post) => post.slug === slug);
+  assert.equal(post.figures.length, expectedFigures);
+  assert.equal(post.sourceCheck.date, "2026-10-27");
+  assert.match(post.sourceCheck.scope, /No current/);
+  assert(post.sections.some((section) => section.heading === heading));
+  for (const image of post.figures) assert.match(image.caption, /Historical|historical/);
+  routes.set(`/blog/${slug}/`, heading);
+}
+const radar = blogPosts.find((post) => post.slug === "hurricane-radar-vs-satellite");
+assert.match(radar.figures[0].caption, /13:01Z/);
+assert.match(radar.figures[1].caption, /17:11Z/);
+assert(radar.sections.some((section) => section.body.includes("exact scan synchronization")));
+const floodMap = blogPosts.find((post) => post.slug === "hurricane-flood-zone-map-fema-understanding");
+assert.match(floodMap.figures[0].sourceUrl, /#page=12$/);
+assert(floodMap.sections.some((section) => section.body.includes("not the water depth above your floor")));
+assert(floodMap.sections.some((section) => section.heading === "Make a Record You Can Actually Recheck"));
 for (const post of blogPosts) {
   for (const figure of post.figures ?? []) {
     if (!figure.afterSection) continue;

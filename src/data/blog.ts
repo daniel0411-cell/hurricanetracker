@@ -737,8 +737,13 @@ export const blogPosts: BlogPost[] = [
     description: "Understand the difference between hurricane radar and satellite views, when each is useful, and why neither replaces official NOAA/NWS alerts.",
     datePublished: "2026-08-05",
     dateModified: "2026-10-27",
+    sourceCheck: { date: "2026-10-27", scope: "NWS Wilmington's historical Ian summary, two extracted composite-image frames and NWS reflectivity definitions. No current radar, warning or address-specific conditions verified." },
     image: "/images/blog/hurricane-radar-vs-satellite.png",
     imageAlt: "A meteorologist compares a green Doppler radar display and a satellite cloud spiral on dual monitors.",
+    figures: [
+      { src: "/images/blog/external/nws-ian-2022-radar-visible-1301z.jpg", width: 737, height: 485, afterSection: "Read the Ian Example: Clouds and Echoes Are Different Layers", alt: "Historical NWS Ian composite with grayscale visible clouds, colored radar echoes and a Fri 13:01Z 30-Sep timestamp.", caption: "Historical teaching example: Ian on September 30, 2022, labeled 13:01Z (UTC). A still extracted from NWS Wilmington's visible-satellite and radar animation; not a current observation. The original has partly clipped legend text, so this exercise does not assign numerical values to its colors.", sourceUrl: "https://www.weather.gov/ilm/HurricaneIan", sourceLabel: "NWS Wilmington: Ian summary and original animation" },
+      { src: "/images/blog/external/nws-ian-2022-radar-visible-1711z.jpg", width: 737, height: 485, afterSection: "Compare a Later Frame Without Inventing an Arrival Time", alt: "Later frame of the same NWS Ian composite, labeled Fri 17:11Z 30-Sep, with cloud and radar patterns near Charleston and Wilmington.", caption: "The same historical animation at 17:11Z (UTC), four hours ten minutes after the first still. Both layers are retained as published; these two frames are not enough to calculate a household arrival time or wind speed.", sourceUrl: "https://www.weather.gov/images/ilm/climate/Ian/IanVIS_anim.gif", sourceLabel: "Open the original NWS animation (about 21 MB)" }
+    ],
     sections: [
       {
         heading: "Direct Answer",
@@ -764,6 +769,17 @@ export const blogPosts: BlogPost[] = [
         body: "Start with one location and a matching time window. On radar, identify the coverage area, reflectivity legend and latest frame time before following an approaching rain band. On satellite, identify the channel or composite and frame time before interpreting cloud structure. Different color scales do not describe the same quantity, and a brighter satellite cloud is not a stronger radar echo. A comparison with mismatched times can make ordinary movement look like a sudden structural change.",
         bullets: ["Radar reflectivity: use the displayed legend for precipitation echoes; do not read its colors as hurricane wind categories.", "Infrared satellite: read cloud-top temperature and cloud patterns; surface wind requires other observations and official analysis.", "Visible or GeoColor: read the product description, including how nighttime imagery differs from daytime.", "For each view, note the source and newest frame time. A webpage refresh time is not necessarily the observation time."],
         links: [{ href: "https://www.weather.gov/radarfaq", label: "NWS radar display, missing-image and location guidance" }, { href: "https://www.star.nesdis.noaa.gov/GOES/", label: "NOAA GOES image viewer: choose a region and named product" }]
+      },
+      {
+        heading: "Read the Ian Example: Clouds and Echoes Are Different Layers",
+        body: "NWS Wilmington's Ian summary includes a visible-satellite and radar composite from September 30, 2022. Unlike a pair of unrelated screenshots, this source places both layers in one published sequence. Start with the bottom-right label: the first still reads Fri 13:01Z 30-Sep. Z denotes UTC; the year comes from the historical event page. Next locate Charleston and Wilmington using the yellow place names and coastline. The grayscale background shows cloud structure in visible imagery, while the colored overlay shows radar echoes. They are not two color scales for the same measurement.",
+        bullets: ["Near Charleston, colored echoes extend inland and along the coast. The supported reading is where the displayed echoes are, not a surface wind speed or a flooded-road report.", "Offshore to the southeast, cloud texture remains visible in areas without the same colored echo overlay. That does not establish dry conditions: coverage, sampling and the different things measured must be considered.", "Some legend text is clipped in the source itself. Do not reconstruct a rainfall rate or a dBZ value from this reproduction. Use a fully labeled operational product for numerical interpretation.", "This is a historical daylight visible composite, not the GOES infrared layer on HurricaneHub's radar page. Do not apply an infrared temperature scale to its grayscale clouds."],
+        links: [{ href: "https://www.weather.gov/ilm/HurricaneIan", label: "Read the NWS Ian event summary and image captions" }, { href: "https://www.weather.gov/radarfaq", label: "Check NWS definitions of reflectivity and velocity products" }]
+      },
+      {
+        heading: "Compare a Later Frame Without Inventing an Arrival Time",
+        body: "The second still reads 17:11Z on the same date, four hours ten minutes later. Match Charleston, Wilmington and the coastline again before comparing patterns; a different zoom or region can otherwise look like movement. The cloud structure and colored echo pattern have changed, but a two-frame comparison cannot establish a safe departure window. The image does not supply a street-level forecast, road condition, storm-surge depth or official maximum sustained wind. For movement, open the original sequence and follow several consecutive frames rather than drawing a straight line from one colored patch to your home. A single composite timestamp does not document the acquisition time of every underlying radar and satellite sample; this exercise does not claim exact scan synchronization.",
+        bullets: ["A defensible observation: these published frames show different echo and cloud patterns at two labeled times.", "An unsupported claim: the yellow band means Category 2 winds, or rain will arrive at a particular house in 30 minutes.", "The next check: the matching official advisory and local warning text for the historical exercise; current official products for any present-day decision."]
       },
       {
         heading: "If the Two Maps Seem to Disagree",
@@ -2839,13 +2855,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-flood-zone-map-fema-understanding",
-    sources: [{ href: "https://msc.fema.gov/portal/home", label: "FEMA Flood Map Service Center: address and map-panel search" }],
+    sources: [{ href: "https://msc.fema.gov/portal/home", label: "FEMA Flood Map Service Center: address and map-panel search" }, { href: "https://www.fema.gov/flood-maps/tutorials", label: "FEMA official flood-map tutorials" }, { href: "https://www.fema.gov/sites/default/files/documents/how-to-read-flood-insurance-rate-map-tutorial.pdf", label: "FEMA: How to Read a Flood Map, January 2022 (PDF)" }],
     title: "How to Read a FEMA Flood Zone Map Before Hurricane Season",
     description: "Learn what FEMA flood zone letters, base flood elevation, and map updates mean for hurricane preparedness, flood insurance questions, and local evacuation planning.",
     datePublished: "2026-08-17",
-    dateModified: "2026-10-24",
+    dateModified: "2026-10-27",
+    sourceCheck: { date: "2026-10-27", scope: "FEMA's January 2022 tutorial, its Zone AE teaching screenshot and linked tutorial directory. No current property determination, effective panel, insurance quote or evacuation order verified." },
     image: "/images/blog/hurricane-flood-zone-map-fema-understanding.png",
     imageAlt: "A coastal homeowner reviews a digital flood zone map with property documents on a desk.",
+    figures: [{ src: "/images/blog/external/fema-flood-map-tutorial-zone-ae.jpg", width: 940, height: 716, afterSection: "Read FEMA's Zone AE Teaching Example", alt: "Map detail from FEMA's tutorial: arrow 1 marks an approximate pin, arrow 2 marks the map number and effective date, and arrow 3 marks Zone AE.", caption: "Historical teaching screenshot from FEMA's January 2022 How to Read a Flood Map, printed slide 11 (PDF page 12). Cropped to the map detail for readability, with FEMA's three original arrows and map labels retained. This is not a current property lookup; the screenshot's small map-date text should be checked in the original rather than guessed.", sourceUrl: "https://www.fema.gov/sites/default/files/documents/how-to-read-flood-insurance-rate-map-tutorial.pdf#page=12", sourceLabel: "Open FEMA's original tutorial at PDF page 12" }],
     sections: [
       {
         heading: "What FEMA Flood Maps Are For",
@@ -2856,7 +2874,7 @@ export const blogPosts: BlogPost[] = [
         heading: "Common Flood Zone Letters",
         body: "Flood zone letters can help you understand broad risk, but local map panels and official definitions matter. Use FEMA's Flood Map Service Center or local government map tools for address-level checks.",
         bullets: [
-          "A or AE zones usually indicate high-risk flood areas where detailed elevation information may apply.",
+          "A and AE are high-risk Special Flood Hazard Areas. AE includes base flood elevations; Zone A generally does not show determined BFEs.",
           "V or VE zones usually indicate coastal high-risk areas with wave action risk.",
           "Shaded X often indicates moderate flood risk.",
           "Unshaded X often indicates lower mapped risk, not zero risk."
@@ -2865,7 +2883,18 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Base Flood Elevation",
         body:
-          "Base Flood Elevation is an engineering and insurance reference tied to the mapped one-percent-annual-chance flood. It can affect building requirements, elevation certificates, and insurance pricing, but it does not tell you whether a specific hurricane will flood your home."
+          "Base Flood Elevation (BFE) is the computed water-surface elevation for the mapped one-percent-annual-chance flood, not the water depth above your floor or yard. Before comparing a BFE with a building elevation, confirm units, vertical datum and the applicable location with the local floodplain administrator or a qualified professional. A number in feet is not automatically feet above ground. The reference can matter for building and insurance questions, but does not predict flooding from a specific approaching hurricane."
+      },
+      {
+        heading: "Read FEMA's Zone AE Teaching Example",
+        body: "Use the numbered arrows in FEMA's January 2022 tutorial, not a made-up residential address. Arrow 1 identifies a pin at an approximate location. Arrow 2 points to the map number and effective date. Arrow 3 identifies Zone AE. These are three separate checks: locating a pin does not establish the correct building footprint, the map date is not the date of today's storm, and a zone name does not describe an evacuation order. The screenshot also contains a hatched FLOODWAY area and elevation labels. Consult the complete legend instead of assuming that every blue or hatched area has the same meaning.",
+        bullets: ["First: match the pin to roads, landmarks and the intended building, not merely the nearest address label. FEMA calls the pin approximate.", "Second: copy the map number and effective date from your own readable map result. The tutorial's small date text is not a reason to guess a year or reuse its panel for another location.", "Third: record the zone at the intended structure. In this tutorial the identified zone is AE; that does not establish any reader's current zone.", "Fourth: keep the legend and map notes with the result. A cropped zone color without the panel identification is an incomplete record."],
+        links: [{ href: "https://www.fema.gov/sites/default/files/documents/how-to-read-flood-insurance-rate-map-tutorial.pdf#page=12", label: "Inspect the original example on PDF page 12, printed slide 11" }]
+      },
+      {
+        heading: "Check the Map Version Before Using the Result",
+        body: "FEMA's tutorial distinguishes the map's effective date from later changes to that map. A saved screenshot can miss a Letter of Map Amendment or Letter of Map Revision. Start a fresh search at the Map Service Center and review the available changes for the location; do not assume a newly uploaded image is a newly effective map. If preliminary products appear, do not silently substitute them for the effective map. Ask the local floodplain administrator which effective panel and amendments apply to the structure and retain those identifiers with the answer. The tutorial is from 2022, so current button names and layout may differ.",
+        links: [{ href: "https://msc.fema.gov/portal/home", label: "Start a current FEMA address and map search" }, { href: "https://www.fema.gov/flood-maps/tutorials", label: "Find FEMA's official map and FIRMette instructions" }]
       },
       {
         heading: "Flood Zone vs. Evacuation Zone",
@@ -2875,12 +2904,17 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "How to Check Your Address",
         body:
-          "Search your address in the FEMA Flood Map Service Center, then compare the result with your county's evacuation-zone tool. Save a copy of the map panel or result for insurance review, home projects, and seasonal preparedness."
+          "Search the full address in FEMA's Flood Map Service Center, verify the building's position, then save a FIRMette or the appropriate map result with its legend, panel number and effective date. A FIRMette is an extract of a flood map, not a new storm forecast. Separately open the responsible county's evacuation-zone tool and current instructions. A county planning-zone result belongs in a different field from the FEMA flood-zone result; similarly named letters are not interchangeable. If an address search lands on the wrong road or a boundary runs through the property, stop short of making a property determination and ask the local floodplain administrator for help."
+      },
+      {
+        heading: "Make a Record You Can Actually Recheck",
+        body: "For a practice run, use the tutorial's Zone AE example to fill only the supported entry: 'Teaching example: Zone AE; approximate pin; current property status not checked.' Leave the reader's own address, effective panel and elevation fields blank until those have been verified. For a real lookup, keep the following record privately with your household documents rather than posting an address screenshot in a public discussion.",
+        bullets: ["Property: full address, intended structure and whether the search pin was checked against landmarks.", "Map: panel identifier, effective date, zone at the structure, saved map/legend and date you accessed them.", "Changes: applicable amendment or revision identifiers, or a note that applicability still needs official confirmation.", "Elevation: any BFE, its units and vertical datum, plus the qualified source for the building elevation; do not subtract unlike references.", "Separate evacuation check: county, planning-zone result, lookup date and where current orders will be checked.", "Unresolved question: the exact item to ask the floodplain administrator, lender or insurer, with the response date and contact."]
       },
       {
         heading: "Insurance Planning Questions",
         body:
-          "Flood insurance rules, waiting periods, lender requirements, deductibles, and premiums vary by property and policy. Talk with an insurance agent or your lender before hurricane season. Related guides: /blog/hurricane-flood-insurance-guide-nfip/, /blog/hurricane-insurance-deductibles-guide/, and /blog/hurricane-documents-insurance-checklist/."
+          "The teaching slide's brief insurance footnote is not a complete rule for every property. FEMA's earlier tutorial slide explains the federal mandatory-purchase context for structures in Special Flood Hazard Areas with mortgages from federally regulated or insured lenders in participating communities. Confirm the actual lender requirement and policy terms rather than inferring them from a colored pin. Flood insurance waiting periods, deductibles and premiums depend on the program, property and policy; the map alone is not a quote. Related guides: /blog/hurricane-flood-insurance-guide-nfip/, /blog/hurricane-insurance-deductibles-guide/, and /blog/hurricane-documents-insurance-checklist/."
       },
       {
         heading: "Use Maps With Live Storm Context",
