@@ -4,7 +4,7 @@ import LiveDashboard from "../components/LiveDashboard.astro";
 import LocalRiskWidget from "../components/LocalRiskWidget.astro";
 import ReminderSignup from "../components/ReminderSignup.astro";
 import Layout from "../layouts/Layout.astro";
-import ContentFigure from "../components/ContentFigure.astro";
+import DecisionPathFlow from "../components/DecisionPathFlow.astro";
 import { differentiators, faqs, site, stats } from "../data/site";
 import { coastalStates } from "../data/states";
 import { blogPosts } from "../data/blog";
@@ -211,9 +211,9 @@ const homeClusters = contentClusters.slice(0, 4).map((cluster) => ({
 
   <section class="band" aria-labelledby="decision-path-heading">
     <div class="inner">
-      <p class="eyebrow">Use the right source</p>
+      <p class="eyebrow">Decision framework · Use the right source</p>
       <h2 id="decision-path-heading">From Hurricane Track to Local Action</h2>
-      <ContentFigure src="/images/guides/hurricane-decision-path-desktop.png" mobileSrc="/images/guides/hurricane-decision-path-mobile.png" width={1200} height={675} mobileWidth={750} mobileHeight={800} alt="Illustrative hurricane map showing the path from NHC track to radar, local NWS alerts, and household action" caption="Illustrative map only, not a current forecast. Maps provide context; verify current NHC advisories, local NWS alerts, and official emergency instructions before acting. HurricaneHub does not issue forecasts or evacuation orders." />
+      <DecisionPathFlow />
     </div>
   </section>
 
