@@ -1,0 +1,809 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { site } from "../../data/site";
+import { coastalStates } from "../../data/states";
+import { advisoryUrl, formatStormMotion, type NhcStorm } from "../../lib/weather";
+import { isStormFeedAvailable } from "../../lib/weatherFeedStatus";
+
+Astro.response.headers.set("X-Robots-Tag", "noindex, nofollow");
+
+type StormFeed = {
+  storms?: NhcStorm[];
+  fetchedAt?: string;
+  updatedAt?: string;
+};
+
+let stormFeed: StormFeed | null = null;
+try {
+  const response = await fetch(new URL("/api/nhc/current.json", Astro.url), {
+    signal: AbortSignal.timeout(8_000)
+  });
+  if (response.ok) {
+    stormFeed = (await response.json()) as StormFeed;
+  }
+} catch {
+  stormFeed = null;
+}
+
+const stormsAvailable = isStormFeedAvailable(stormFeed);
+const allStorms = stormsAvailable ? (stormFeed?.storms ?? []) : [];
+const atlanticStorms = allStorms.filter((storm) => /^AL/i.test(storm.id ?? ""));
+const pacificStorms = allStorms.filter((storm) => /^(EP|CP)/i.test(storm.id ?? ""));
+const statusClass = !stormsAvailable ? "status-unavailable" : atlanticStorms.length > 0 ? "status-active" : "status-calm";
+const statusText = !stormsAvailable ? "Feed Alert" : atlanticStorms.length > 0 ? `${atlanticStorms.length} Active System${atlanticStorms.length === 1 ? "" : "s"}` : "Feed Normal";
+const stormHeading = stormsAvailable ? "No Active Atlantic Systems in this Advisory Feed" : "Atlantic Status Unavailable";
+const stormMessage = stormsAvailable
+  ? "No active Atlantic tropical cyclones are listed in this feed. This is not an all-clear for disturbances, flooding, surf, or other local hazards."
+  : "The feed could not be reached, failed validation, or is stale. We cannot determine current Atlantic activity. Check official NHC advisories before drawing a conclusion.";
+
+const checkedTime = stormsAvailable
+  ? new Date(stormFeed!.fetchedAt!).toLocaleString("en-US", {
+      timeZone: "UTC",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit"
+    }) + " UTC"
+  : "Unavailable - no current feed conclusion";
+
+const title = "Live Hurricane Tracker & Basin Monitor (Design Preview)";
+const description = "Real-time Atlantic and Gulf hurricane tracking with official NOAA/NHC coordinates, forecast cones, radar loops, and state emergency alerts.";
+const url = `${site.url}/hurricane-tracker/live/`;
+---
+
+<Layout title={title} description={description} canonical={url}>
+  <Fragment slot="head">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </Fragment>
+
+  <div class="tracker-preview">
+    <!-- Preview Banner -->
+    <div class="preview-notice">
+      <div class="inner">
+        <span class="preview-badge"><i class="fa-solid fa-palette" aria-hidden="true"></i> Tracker Design Preview (Option B)</span>
+        <div class="preview-links">
+          <a href="/design-preview/homepage-v2/">← Homepage Preview</a>
+          <span class="sep">|</span>
+          <a href="/design-preview/blog-article/">Blog Preview →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tracker Command Header -->
+    <header class="tracker-hero-band">
+      <div class="inner tracker-hero-content">
+        <div class="command-top">
+          <span class="command-tag"><i class="fa-solid fa-satellite-dish" aria-hidden="true"></i> NHC-source storm data</span>
+          <span class={`status-pill ${statusClass}`}>{statusText}</span>
+        </div>
+        <h1>Live Hurricane Tracker & Basin Monitor</h1>
+        <p class="hero-desc">
+          Review NHC storm positions for the North Atlantic, Gulf of Mexico, and Caribbean, then open official advisories, radar, or state trackers for local NWS alerts. HurricaneHub is not an official forecast or warning service.
+        </p>
+
+        <!-- Command Quick Action Row -->
+        <div class="hero-actions">
+          <a href="/hurricane-tracker/live/" class="primary-btn">
+            <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
+            <span>Interactive Storm Map</span>
+          </a>
+          <a href="/radar/" class="secondary-btn">
+            <i class="fa-solid fa-satellite" aria-hidden="true"></i>
+            <span>Radar & Satellite</span>
+          </a>
+          <a href="#state-grid-heading" class="secondary-btn">
+            <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+            <span>State Emergency Alerts</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="band tracker-body-band">
+      <div class="inner space-y-10">
+
+        <!-- Active Storms Console Deck -->
+        <section aria-labelledby="active-systems-heading" class="console-section">
+          <div class="section-header">
+            <div>
+              <p class="section-eyebrow">Atlantic NHC advisory feed</p>
+              <h2 id="active-systems-heading">Current Monitored Systems</h2>
+            </div>
+            <span class="feed-timestamp">Feed checked: {checkedTime}</span>
+          </div>
+
+          {atlanticStorms.length > 0 ? (
+            <div class="storm-cards-grid">
+              {atlanticStorms.map((storm) => (
+                <article class="storm-card">
+                  <div class="storm-card-top">
+                    <span class="storm-id-badge">{storm.id?.toUpperCase()}</span>
+                    <span class="storm-class-pill">{storm.classification ?? "Tropical System"}</span>
+                  </div>
+                  <h3>{storm.name ?? "Unnamed System"}</h3>
+                  <div class="storm-metrics">
+                    <div class="metric-item">
+                      <span class="metric-label">Max Winds</span>
+                      <span class="metric-value">{storm.intensity ? `${storm.intensity} kt` : "Observing"}</span>
+                    </div>
+                    <div class="metric-item">
+                      <span class="metric-label">Coordinates</span>
+                      <span class="metric-value">{storm.latitude && storm.longitude ? `${storm.latitude}, ${storm.longitude}` : "Updating"}</span>
+                    </div>
+                    <div class="metric-item">
+                      <span class="metric-label">Movement</span>
+                      <span class="metric-value">{formatStormMotion(storm)}</span>
+                    </div>
+                  </div>
+                  <p class="storm-update-note">Advisory time: {storm.lastUpdate ?? "Check official NHC report"}</p>
+                  <div class="storm-card-actions">
+                    <a href={`/hurricane-tracker/storm/${String(storm.name ?? storm.id).toLowerCase().replace(/[^a-z0-9]+/g, "-")}/`} class="storm-open-btn">
+                      Open Dedicated Storm Page →
+                    </a>
+                    {advisoryUrl(storm.publicAdvisory) && (
+                      <a href={advisoryUrl(storm.publicAdvisory)} target="_blank" rel="noopener noreferrer" class="storm-source-link">
+                        Official NHC Public Advisory
+                      </a>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div class={`calm-status-box ${statusClass}`}>
+              <div class="calm-icon-wrap" aria-hidden="true">
+                <i class={`fa-solid ${stormsAvailable ? "fa-circle-info" : "fa-triangle-exclamation"}`}></i>
+              </div>
+              <div class="calm-text">
+                <h3>{stormHeading}</h3>
+                <p>{stormMessage}</p>
+                {pacificStorms.length > 0 && (
+                  <p class="calm-subnote">
+                    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                    {pacificStorms.length} additional system{pacificStorms.length === 1 ? "" : "s"} actively monitored in Eastern/Central Pacific waters; excluded from this Atlantic count.
+                  </p>
+                )}
+                <div class="calm-actions">
+                  <a href="https://www.nhc.noaa.gov/" target="_blank" rel="noopener noreferrer" class="calm-verify-link">
+                    Verify official NOAA/NHC advisories <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                  </a>
+                  <a href="/hurricane-tracker/tropical-disturbances/" class="calm-verify-link">Check the Atlantic formation outlook</a>
+                </div>
+              </div>
+            </div>
+          )}
+        </section>
+
+        <!-- Coastal States Readiness & Screening Hub -->
+        <section aria-labelledby="state-grid-heading" class="console-section">
+          <div class="section-header">
+            <div>
+              <p class="section-eyebrow">State Evacuation & NWS Coverage</p>
+              <h2 id="state-grid-heading">Coastal State Trackers & Resources</h2>
+            </div>
+            <a href="/tracker/" class="directory-link">Full State Directory →</a>
+          </div>
+
+          <div class="state-grid">
+            {coastalStates.map((st) => (
+              <a href={`/tracker/${st.slug}/`} class="state-card-link">
+                <div class="state-card-header">
+                  <span class="state-code">{st.code}</span>
+                  <span class="state-icon"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+                <h3>{st.name}</h3>
+                <p>Local NWS alert feeds, evacuation zone maps, shelter resources, and coastal city trackers.</p>
+                <div class="state-action-label">Open {st.code} Tracker →</div>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <!-- Official Data Integrity Notice -->
+        <footer class="console-disclaimer-card">
+          <div class="disclaimer-header">
+            <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+            <span>Data Sourced from NOAA, NHC, and National Weather Service</span>
+          </div>
+          <p>
+            HurricaneHub organizes official-source data and links; it is not affiliated with NOAA or NHC. Hurricane paths, wind radii, and alert areas change over time. For life-safety decisions, follow your local emergency management instructions and official warnings at <a href="https://weather.gov" target="_blank" rel="noopener noreferrer">weather.gov</a>.
+          </p>
+        </footer>
+
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .tracker-preview {
+    --preview-link: #0284c7;
+    --preview-border: #e2e8f0;
+    --preview-card-bg: #ffffff;
+    background: #f8fafc;
+    color: #0f172a;
+    min-height: 100vh;
+  }
+
+  /* ── Refined Amber Disclaimer Bar ── */
+  :global(.site-body:has(.tracker-preview) .disclaimer) {
+    background: #fffbeb !important;
+    color: #92400e !important;
+    border-bottom: 1px solid #fde68a !important;
+  }
+  :global(.site-body:has(.tracker-preview) .disclaimer a) {
+    color: #78350f !important;
+    font-weight: 700 !important;
+  }
+  :global(:root[data-theme="dark"] .site-body:has(.tracker-preview) .disclaimer) {
+    background: #18150f !important;
+    color: #fde68a !important;
+    border-bottom: 1px solid #3d351b !important;
+  }
+  :global(:root[data-theme="dark"] .site-body:has(.tracker-preview) .disclaimer a) {
+    color: #fef08a !important;
+  }
+
+  /* ── Preview Navigation Bar ── */
+  .preview-notice {
+    padding: 10px var(--page-x);
+    border-bottom: 1px solid var(--line);
+    background: #0f172a;
+    color: #cbd5e1;
+    font-size: 0.85rem;
+  }
+  .preview-notice .inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px 20px;
+  }
+  .preview-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    color: #38bdf8;
+  }
+  .preview-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .preview-links a {
+    color: #38bdf8;
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  .preview-links .sep {
+    color: #64748b;
+  }
+
+  /* ── Command Hero ── */
+  .tracker-hero-band {
+    background: #ffffff;
+    border-bottom: 1px solid var(--preview-border);
+    padding: clamp(36px, 5vw, 56px) var(--page-x);
+  }
+  .tracker-hero-content {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .command-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .command-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(2, 132, 199, 0.08);
+    color: #0369a1;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0;
+  }
+  .status-pill {
+    font-size: 0.74rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    padding: 3px 8px;
+    border-radius: 6px;
+  }
+  .status-calm {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+  }
+  .status-active {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+  }
+  .status-unavailable {
+    background: #fffbeb;
+    color: #92400e;
+    border: 1px solid #fde68a;
+  }
+  h1 {
+    font-size: 2.75rem;
+    line-height: 1.15;
+    margin: 0 0 16px;
+    color: #0f172a;
+    font-weight: 850;
+    letter-spacing: 0;
+  }
+  .hero-desc {
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: #334155;
+    margin: 0 0 24px;
+    font-weight: 500;
+    max-width: 780px;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .primary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    background: #0f172a;
+    color: #ffffff !important;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.94rem;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    text-decoration: none !important;
+    transition: all 0.15s ease;
+  }
+  .primary-btn:hover {
+    background: #1e293b;
+    transform: translateY(-1px);
+  }
+  .secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: #ffffff;
+    color: #1e293b !important;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    text-decoration: none !important;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    transition: all 0.15s ease;
+  }
+  .secondary-btn:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+    color: #0f172a !important;
+  }
+
+  /* ── Body Sections ── */
+  .tracker-body-band {
+    padding: 40px var(--page-x);
+    background: #f8fafc;
+  }
+  .console-section {
+    margin-bottom: 44px;
+  }
+  .section-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  .section-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    color: #0369a1;
+    margin: 0 0 4px;
+  }
+  .section-header h2 {
+    font-size: 1.65rem;
+    color: #0f172a;
+    font-weight: 800;
+    letter-spacing: 0;
+    margin: 0;
+  }
+  .feed-timestamp {
+    font-size: 0.84rem;
+    color: #475569;
+    font-weight: 500;
+  }
+  .directory-link {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #0284c7;
+    text-decoration: none;
+  }
+  .directory-link:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Calm Status Box (Single Layer, No Deep Nesting) ── */
+  .calm-status-box {
+    display: flex;
+    gap: 20px;
+    padding: 28px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-left: 5px solid #059669;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04), 0 8px 24px -4px rgba(15, 23, 42, 0.06);
+  }
+  .calm-status-box.status-unavailable {
+    border-left-color: #b45309;
+  }
+  .status-unavailable .calm-icon-wrap {
+    background: #fffbeb;
+    color: #92400e;
+  }
+  .calm-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background: #ecfdf5;
+    color: #059669;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .calm-text h3 {
+    margin: 0 0 8px;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  .calm-text p {
+    margin: 0 0 10px;
+    font-size: 0.96rem;
+    line-height: 1.6;
+    color: #334155;
+  }
+  .calm-subnote {
+    font-size: 0.86rem !important;
+    color: #475569 !important;
+    background: #f1f5f9;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-top: 4px !important;
+  }
+  .calm-actions {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+  }
+  .calm-verify-link {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #0369a1;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .calm-verify-link:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Active Storm Cards Grid ── */
+  .storm-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: 20px;
+  }
+  .storm-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-top: 4px solid #dc2626;
+    border-radius: 8px;
+    padding: 22px;
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04), 0 8px 24px -4px rgba(15, 23, 42, 0.06);
+  }
+  .storm-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .storm-id-badge {
+    font-size: 0.74rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #fef2f2;
+    color: #991b1b;
+  }
+  .storm-class-pill {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #475569;
+  }
+  .storm-card h3 {
+    margin: 0 0 14px;
+    font-size: 1.4rem;
+    color: #0f172a;
+    font-weight: 850;
+  }
+  .storm-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+  }
+  .metric-item {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .metric-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+  }
+  .metric-value {
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #0f172a;
+    overflow-wrap: anywhere;
+  }
+  .storm-update-note {
+    font-size: 0.82rem;
+    color: #475569;
+    margin: 0 0 16px;
+  }
+  .storm-card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .storm-open-btn {
+    display: block;
+    text-align: center;
+    padding: 9px 14px;
+    background: #0f172a;
+    color: #ffffff !important;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-decoration: none !important;
+  }
+  .storm-source-link {
+    font-size: 0.82rem;
+    color: #0369a1;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* ── State Portals Grid ── */
+  .state-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .state-card-link {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    text-decoration: none !important;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    transition: all 0.15s ease;
+  }
+  .state-card-link:hover {
+    border-color: #0284c7;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.07);
+  }
+  .state-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .state-code {
+    font-size: 0.74rem;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: #f0f9ff;
+    color: #0284c7;
+  }
+  .state-icon {
+    font-size: 0.8rem;
+    color: #94a3b8;
+  }
+  .state-card-link h3 {
+    margin: 0 0 6px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  .state-card-link p {
+    margin: 0 0 14px;
+    font-size: 0.86rem;
+    color: #475569;
+    line-height: 1.5;
+    flex: 1;
+  }
+  .state-action-label {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #0284c7;
+  }
+
+  /* ── Bottom Disclaimer Card ── */
+  .console-disclaimer-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 22px 26px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  }
+  .disclaimer-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 8px;
+  }
+  .disclaimer-header i {
+    color: #d97706;
+  }
+  .console-disclaimer-card p {
+    margin: 0;
+    font-size: 0.86rem;
+    line-height: 1.6;
+    color: #475569;
+  }
+  .console-disclaimer-card a {
+    color: #0284c7;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  /* ── Dark Mode Contrast & Colors ── */
+  :global(:root[data-theme="dark"]) .tracker-preview {
+    --preview-link: #38bdf8;
+    --preview-border: #1e293b;
+    --preview-card-bg: #111b27;
+    background: #090e15;
+    color: #e2e8f0;
+  }
+  :global(:root[data-theme="dark"]) .tracker-hero-band {
+    background: #0c1520;
+    border-bottom-color: #1e293b;
+  }
+  :global(:root[data-theme="dark"]) .tracker-body-band {
+    background: #090e15;
+  }
+  :global(:root[data-theme="dark"]) .tracker-preview a,
+  :global(:root[data-theme="dark"]) .command-tag,
+  :global(:root[data-theme="dark"]) .section-eyebrow {
+    color: #7dd3fc;
+  }
+  :global(:root[data-theme="dark"]) h1,
+  :global(:root[data-theme="dark"]) .section-header h2,
+  :global(:root[data-theme="dark"]) .calm-text h3,
+  :global(:root[data-theme="dark"]) .storm-card h3,
+  :global(:root[data-theme="dark"]) .state-card-link h3,
+  :global(:root[data-theme="dark"]) .metric-value,
+  :global(:root[data-theme="dark"]) .disclaimer-header {
+    color: #f1f5f9;
+  }
+  :global(:root[data-theme="dark"]) .hero-desc,
+  :global(:root[data-theme="dark"]) .calm-text p,
+  :global(:root[data-theme="dark"]) .storm-update-note,
+  :global(:root[data-theme="dark"]) .state-card-link p,
+  :global(:root[data-theme="dark"]) .console-disclaimer-card p,
+  :global(:root[data-theme="dark"]) .feed-timestamp {
+    color: #94a3b8;
+  }
+  :global(:root[data-theme="dark"]) .section-header {
+    border-bottom-color: #1e293b;
+  }
+  :global(:root[data-theme="dark"]) .calm-status-box,
+  :global(:root[data-theme="dark"]) .storm-card,
+  :global(:root[data-theme="dark"]) .state-card-link,
+  :global(:root[data-theme="dark"]) .console-disclaimer-card {
+    background: #111b27;
+    border-color: #1e293b;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  }
+  :global(:root[data-theme="dark"]) .calm-icon-wrap {
+    background: #064e3b;
+    color: #34d399;
+  }
+  :global(:root[data-theme="dark"]) .status-unavailable .calm-icon-wrap {
+    background: #3d351b;
+    color: #fde68a;
+  }
+  :global(:root[data-theme="dark"]) .calm-subnote {
+    background: #0e1722;
+    color: #cbd5e1 !important;
+  }
+  :global(:root[data-theme="dark"]) .secondary-btn {
+    background: #111b27;
+    color: #e2e8f0 !important;
+    border-color: #1e293b;
+  }
+  :global(:root[data-theme="dark"]) .secondary-btn:hover {
+    background: #1e293b;
+    border-color: #38bdf8;
+  }
+  :global(:root[data-theme="dark"]) .storm-metrics {
+    background: #0a111a;
+    border-color: #1e293b;
+  }
+  :global(:root[data-theme="dark"]) .state-code {
+    background: #0c2033;
+    color: #38bdf8;
+  }
+  :global(:root[data-theme="dark"]) .storm-open-btn {
+    background: #38bdf8;
+    color: #0f172a !important;
+  }
+
+  /* ── Mobile Responsive ── */
+  @media (max-width: 960px) {
+    .state-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 2rem;
+    }
+    .hero-desc {
+      font-size: 0.98rem;
+    }
+    .state-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .calm-status-box {
+      flex-direction: column;
+      padding: 20px;
+    }
+    .hero-actions {
+      flex-direction: column;
+    }
+    .primary-btn, .secondary-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

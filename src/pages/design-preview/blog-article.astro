@@ -1,0 +1,739 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ReferenceText from "../../components/ReferenceText.astro";
+import ContentFigure from "../../components/ContentFigure.astro";
+import FaqBlock from "../../components/FaqBlock.astro";
+import { blogPosts, getBlogOgImage, getCategory, getRelatedPosts } from "../../data/blog";
+import { site } from "../../data/site";
+import { blogPostingSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
+
+Astro.response.headers.set("X-Robots-Tag", "noindex, nofollow");
+
+const targetSlug = "how-to-read-hurricane-spaghetti-models";
+const post = blogPosts.find((item) => item.slug === targetSlug) ?? blogPosts[0];
+const title = `${post.title} (Design Preview)`;
+const description = post.description;
+const url = `${site.url}/blog/${post.slug}/`;
+const lastModified = new Date(post.dateModified).toISOString();
+const relatedPosts = getRelatedPosts(post.slug, 3);
+const category = getCategory(post.slug);
+const ogImage = getBlogOgImage(post);
+const jsonLd = graph(
+  websiteSchema(),
+  blogPostingSchema({
+    title: post.title,
+    description: post.description,
+    url,
+    datePublished: new Date(post.datePublished).toISOString(),
+    dateModified: lastModified,
+    image: new URL(ogImage, site.url).href
+  }),
+  ...(post.faqs?.length ? [faqSchema(post.faqs)] : [])
+);
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonical={url}
+  jsonLd={jsonLd}
+  lastModified={lastModified}
+  image={post.image}
+  ogImage={ogImage}
+  imageAlt={post.imageAlt}
+  publishedTime={new Date(post.datePublished).toISOString()}
+>
+  <Fragment slot="head">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </Fragment>
+
+  <div class="blog-preview">
+    <!-- Preview Banner -->
+    <div class="preview-notice">
+      <div class="inner">
+        <span class="preview-badge"><i class="fa-solid fa-palette" aria-hidden="true"></i> Blog Article Preview (Option B)</span>
+        <div class="preview-links">
+          <a href="/design-preview/homepage-v2/">← Homepage Preview</a>
+          <span class="sep">|</span>
+          <a href="/design-preview/tracker/">Tracker Preview →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Article Header Banner -->
+    <header class="article-hero-band">
+      <div class="inner article-header-content">
+        <div class="meta-row">
+          <span class="category-pill">{category}</span>
+          <span class="date-text">Published {post.datePublished} · Updated {post.dateModified}</span>
+        </div>
+        <h1 id="post-title">{post.title}</h1>
+        <div class="summary-deck">
+          <p class="summary-text">{post.description}</p>
+        </div>
+        <div class="byline-bar">
+          <span class="author">By <a href="/about/">HurricaneHub</a></span>
+          <span class="sep">·</span>
+          <a class="audit-note" href="#article-sources">Sources and guidance linked below</a>
+        </div>
+        {post.sourceCheck && <details class="source-check">
+          <summary>Source check {post.sourceCheck.date}</summary>
+          <p>{post.sourceCheck.scope}</p>
+        </details>}
+        {post.review && <p class="correction-note">Correction check {post.review.date} · {post.review.scope} {post.review.correction}</p>}
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="band article-content-band" aria-labelledby="post-title">
+      <div class="inner article-layout">
+
+        <!-- Primary Article Column -->
+        <article class="article-main">
+
+          <!-- Article Cover Image -->
+          {!post.figures?.some((figure) => figure.afterSection) && (
+            <figure class="featured-figure">
+              <img class="article-hero-image" src={post.image} alt={post.imageAlt} width="1600" height="900" decoding="async" fetchpriority="high" />
+              <figcaption class="caption-note">{post.imageCaption ?? "Editorial cover illustration; refer to official NHC advisories for life-safety planning."}</figcaption>
+            </figure>
+          )}
+
+          <!-- Quick Navigation: On This Page -->
+          <nav class="table-of-contents" aria-label="Table of contents">
+            <div class="toc-header">
+              <i class="fa-solid fa-list-ul" aria-hidden="true"></i>
+              <span>On This Page</span>
+            </div>
+            <ol>
+              {post.sections.map((section, index) => (
+                <li><a href={`#section-${index}`}>{section.heading}</a></li>
+              ))}
+              <li><a href="#article-sources">References & Official Sources</a></li>
+            </ol>
+          </nav>
+
+          <!-- Article Sections -->
+          <div class="article-sections">
+            {post.sections.map((section, index) => (
+              <section class="content-section" aria-labelledby={`section-${index}`}>
+                <h2 id={`section-${index}`}>{section.heading}</h2>
+                {section.body && <p class="body-para"><ReferenceText text={section.body} /></p>}
+
+                {section.bullets && (
+                  <ul class="bullet-list">
+                    {section.bullets.map((bullet) => (
+                      <li><ReferenceText text={bullet} /></li>
+                    ))}
+                  </ul>
+                )}
+
+                {section.links && (
+                  <ul class="link-list">
+                    {section.links.map((link) => (
+                      <li><a href={link.href}>{link.label}</a></li>
+                    ))}
+                  </ul>
+                )}
+
+                {post.figures?.filter((figure) => figure.afterSection === section.heading).map((figure) => (
+                  <ContentFigure {...figure} fullSize={true} />
+                ))}
+              </section>
+            ))}
+          </div>
+          {post.figures?.filter((figure) => !post.sections.some((section) => section.heading === figure.afterSection)).map((figure) => (
+            <ContentFigure {...figure} width={figure.width ?? 1600} height={figure.height ?? 900} fullSize={true} />
+          ))}
+
+          {post.faqs && post.faqs.length > 0 && <div class="article-faq"><FaqBlock faqs={post.faqs} /></div>}
+
+          <!-- Official References -->
+          <section class="content-section sources-section" aria-labelledby="article-sources">
+            <h2 id="article-sources">References & Official Guidance</h2>
+            <ul class="reference-list">
+              {post.sources.map((source) => (
+                <li>
+                  <a href={source.href} target="_blank" rel="noopener noreferrer">
+                    <span>{source.label}</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p class="source-caveat">
+              References provide background methodology. For life-critical decisions, current National Weather Service watches, warnings, and local county evacuation orders take precedence over any article.
+            </p>
+          </section>
+
+          <!-- Next Actions (No deep nesting, clean actionable cards) -->
+          <section class="content-section next-actions-section" aria-labelledby="next-actions-heading">
+            <h2 id="next-actions-heading">Recommended Safety Next Steps</h2>
+            <div class="action-grid">
+              <a href="/tools/preparedness-checklist/" class="action-card">
+                <div class="action-icon"><i class="fa-solid fa-clipboard-check"></i></div>
+                <div class="action-info">
+                  <h3>Build Household Supplies Checklist</h3>
+                  <p>Organize non-perishable food, water, pet essentials, and documents.</p>
+                </div>
+              </a>
+              <a href="/hurricane-tracker/live/" class="action-card">
+                <div class="action-icon"><i class="fa-solid fa-satellite"></i></div>
+                <div class="action-info">
+                  <h3>Open Live Hurricane Tracker</h3>
+                  <p>Check current NHC positions and follow official advisory and local alert links.</p>
+                </div>
+              </a>
+            </div>
+          </section>
+
+        </article>
+
+        <!-- Sidebar Column -->
+        <aside class="article-sidebar">
+
+          <div class="sidebar-card quick-tool-card">
+            <div class="sidebar-header">
+              <i class="fa-solid fa-compass" aria-hidden="true"></i>
+              <span>Live Decision Shortcut</span>
+            </div>
+            <h3>Verify Current Storm Coordinates</h3>
+            <p>Check the latest advisory positions from the National Hurricane Center.</p>
+            <a href="/hurricane-tracker/live/" class="sidebar-cta">Launch Tracker →</a>
+          </div>
+
+          <div class="sidebar-card related-posts-card">
+            <div class="sidebar-header">
+              <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+              <span>Related Guides</span>
+            </div>
+            <ul class="related-post-list">
+              {relatedPosts.map((item) => (
+                <li>
+                  <a href={`/blog/${item.slug}/`} class="related-post-title">{item.title}</a>
+                  <p class="related-post-desc">{item.description}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .blog-preview {
+    --preview-link: #0284c7;
+    --preview-border: #e2e8f0;
+    --preview-card-bg: #ffffff;
+    background: #f8fafc;
+    color: #0f172a;
+    min-height: 100vh;
+  }
+
+  /* ── Refined Amber Disclaimer Bar ── */
+  :global(.site-body:has(.blog-preview) .disclaimer) {
+    background: #fffbeb !important;
+    color: #92400e !important;
+    border-bottom: 1px solid #fde68a !important;
+  }
+  :global(.site-body:has(.blog-preview) .disclaimer a) {
+    color: #78350f !important;
+    font-weight: 700 !important;
+  }
+  :global(:root[data-theme="dark"] .site-body:has(.blog-preview) .disclaimer) {
+    background: #18150f !important;
+    color: #fde68a !important;
+    border-bottom: 1px solid #3d351b !important;
+  }
+  :global(:root[data-theme="dark"] .site-body:has(.blog-preview) .disclaimer a) {
+    color: #fef08a !important;
+  }
+  .source-check, .correction-note {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 16px 0 0;
+  }
+  .source-check summary {
+    cursor: pointer;
+    font-weight: 700;
+  }
+  .article-faq :global(.band) {
+    padding: 0;
+  }
+  .article-faq {
+    margin-bottom: 40px;
+  }
+
+  /* ── Preview Navigation Bar ── */
+  .preview-notice {
+    padding: 10px var(--page-x);
+    border-bottom: 1px solid var(--line);
+    background: #0f172a;
+    color: #cbd5e1;
+    font-size: 0.85rem;
+  }
+  .preview-notice .inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px 20px;
+  }
+  .preview-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    color: #38bdf8;
+  }
+  .preview-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .preview-links a {
+    color: #38bdf8;
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  .preview-links .sep {
+    color: #64748b;
+  }
+
+  /* ── Article Header ── */
+  .article-hero-band {
+    background: #ffffff;
+    border-bottom: 1px solid var(--preview-border);
+    padding: clamp(32px, 4vw, 48px) var(--page-x);
+  }
+  .article-header-content {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .category-pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    background: rgba(2, 132, 199, 0.1);
+    color: #0369a1;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0;
+  }
+  .date-text {
+    font-size: 0.86rem;
+    color: #475569;
+    font-weight: 500;
+  }
+  h1 {
+    font-size: 2.75rem;
+    line-height: 1.2;
+    margin: 0 0 16px;
+    color: #0f172a;
+    font-weight: 850;
+    letter-spacing: 0;
+  }
+  .summary-deck {
+    background: #f8fafc;
+    border-left: 4px solid #0284c7;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+  .summary-text {
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: #334155;
+    margin: 0;
+    font-weight: 500;
+  }
+  .byline-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.86rem;
+    color: #475569;
+  }
+  .byline-bar .author {
+    font-weight: 700;
+    color: #1e293b;
+  }
+  .byline-bar .sep {
+    color: #cbd5e1;
+  }
+
+  /* ── Article Layout ── */
+  .article-content-band {
+    padding: 40px var(--page-x);
+    background: #f8fafc;
+  }
+  .article-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 48px;
+    align-items: start;
+  }
+
+  /* ── Article Main Column ── */
+  .article-main {
+    min-width: 0;
+  }
+  .featured-figure {
+    margin: 0 0 32px;
+  }
+  .article-hero-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--preview-border);
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+  }
+  .caption-note {
+    font-size: 0.84rem;
+    color: #475569;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* ── Table of Contents ── */
+  .table-of-contents {
+    background: #ffffff;
+    border: 1px solid var(--preview-border);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-bottom: 36px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  }
+  .toc-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    margin-bottom: 12px;
+  }
+  .toc-header i {
+    color: #0284c7;
+  }
+  .table-of-contents ol {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .table-of-contents a {
+    color: #0369a1;
+    font-size: 0.94rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .table-of-contents a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Content Sections ── */
+  .content-section {
+    margin-bottom: 40px;
+  }
+  .content-section h2 {
+    font-size: 1.6rem;
+    line-height: 1.3;
+    color: #0f172a;
+    font-weight: 800;
+    letter-spacing: 0;
+    margin: 0 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  .body-para {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: #334155;
+    margin: 0 0 18px;
+  }
+  .bullet-list, .link-list {
+    margin: 0 0 20px;
+    padding-left: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .bullet-list li, .link-list li {
+    font-size: 1.02rem;
+    line-height: 1.65;
+    color: #334155;
+  }
+  .bullet-list li::marker {
+    color: #0284c7;
+  }
+
+  /* ── References ── */
+  .sources-section {
+    background: #ffffff;
+    border: 1px solid var(--preview-border);
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  }
+  .sources-section h2 {
+    border-bottom: none;
+    margin-bottom: 12px;
+    padding-bottom: 0;
+  }
+  .reference-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .reference-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.94rem;
+    color: #0369a1;
+    font-weight: 600;
+  }
+  .source-caveat {
+    font-size: 0.84rem;
+    color: #475569;
+    line-height: 1.55;
+    border-top: 1px dashed var(--preview-border);
+    padding-top: 12px;
+    margin: 0;
+  }
+
+  /* ── Next Actions ── */
+  .action-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .action-card {
+    display: flex;
+    gap: 14px;
+    padding: 18px;
+    background: #ffffff;
+    border: 1px solid var(--preview-border);
+    border-radius: 8px;
+    text-decoration: none !important;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    transition: all 0.15s ease;
+  }
+  .action-card:hover {
+    border-color: #0284c7;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+  }
+  .action-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: #f0f9ff;
+    color: #0284c7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .action-info h3 {
+    margin: 0 0 4px;
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .action-info p {
+    margin: 0;
+    font-size: 0.86rem;
+    color: #475569;
+    line-height: 1.5;
+  }
+
+  /* ── Sidebar Cards ── */
+  .article-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: sticky;
+    top: 24px;
+  }
+  .sidebar-card {
+    background: #ffffff;
+    border: 1px solid var(--preview-border);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  }
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    color: #0369a1;
+    margin-bottom: 10px;
+  }
+  .quick-tool-card h3 {
+    margin: 0 0 8px;
+    font-size: 1.05rem;
+    color: #0f172a;
+  }
+  .quick-tool-card p {
+    margin: 0 0 14px;
+    font-size: 0.86rem;
+    color: #475569;
+    line-height: 1.5;
+  }
+  .sidebar-cta {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 9px 16px;
+    background: #0f172a;
+    color: #ffffff !important;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-decoration: none !important;
+  }
+  .sidebar-cta:hover {
+    background: #1e293b;
+  }
+  .related-post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .related-post-title {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: #0f172a;
+    line-height: 1.4;
+    text-decoration: none;
+  }
+  .related-post-title:hover {
+    color: #0284c7;
+    text-decoration: underline;
+  }
+  .related-post-desc {
+    margin: 4px 0 0;
+    font-size: 0.82rem;
+    color: #475569;
+    line-height: 1.45;
+  }
+
+  /* ── Dark Mode ── */
+  :global(:root[data-theme="dark"]) .blog-preview {
+    --preview-link: #38bdf8;
+    --preview-border: #1e293b;
+    --preview-card-bg: #111b27;
+    background: #090e15;
+    color: #e2e8f0;
+  }
+  :global(:root[data-theme="dark"]) .article-hero-band {
+    background: #0c1520;
+    border-bottom-color: #1e293b;
+  }
+  :global(:root[data-theme="dark"]) .article-content-band {
+    background: #090e15;
+  }
+  :global(:root[data-theme="dark"]) .blog-preview a,
+  :global(:root[data-theme="dark"]) .category-pill,
+  :global(:root[data-theme="dark"]) .sidebar-header {
+    color: #7dd3fc;
+  }
+  :global(:root[data-theme="dark"]) h1,
+  :global(:root[data-theme="dark"]) .content-section h2,
+  :global(:root[data-theme="dark"]) .action-info h3,
+  :global(:root[data-theme="dark"]) .quick-tool-card h3,
+  :global(:root[data-theme="dark"]) .related-post-title,
+  :global(:root[data-theme="dark"]) .toc-header {
+    color: #f1f5f9;
+  }
+  :global(:root[data-theme="dark"]) .content-section h2 {
+    border-bottom-color: #1e293b;
+  }
+  :global(:root[data-theme="dark"]) .summary-deck {
+    background: #111b27;
+    border-left-color: #38bdf8;
+  }
+  :global(:root[data-theme="dark"]) .summary-text {
+    color: #cbd5e1;
+  }
+  :global(:root[data-theme="dark"]) .body-para,
+  :global(:root[data-theme="dark"]) .bullet-list li,
+  :global(:root[data-theme="dark"]) .link-list li,
+  :global(:root[data-theme="dark"]) .caption-note,
+  :global(:root[data-theme="dark"]) .source-caveat,
+  :global(:root[data-theme="dark"]) .action-info p,
+  :global(:root[data-theme="dark"]) .quick-tool-card p,
+  :global(:root[data-theme="dark"]) .related-post-desc,
+  :global(:root[data-theme="dark"]) .date-text,
+  :global(:root[data-theme="dark"]) .byline-bar {
+    color: #94a3b8;
+  }
+  :global(:root[data-theme="dark"]) .byline-bar .author {
+    color: #e2e8f0;
+  }
+  :global(:root[data-theme="dark"]) .table-of-contents,
+  :global(:root[data-theme="dark"]) .sources-section,
+  :global(:root[data-theme="dark"]) .action-card,
+  :global(:root[data-theme="dark"]) .sidebar-card {
+    background: #111b27;
+    border-color: #1e293b;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  }
+  :global(:root[data-theme="dark"]) .action-icon {
+    background: #0e2238;
+    color: #38bdf8;
+  }
+  :global(:root[data-theme="dark"]) .sidebar-cta {
+    background: #38bdf8;
+    color: #0f172a !important;
+  }
+  :global(:root[data-theme="dark"]) .sidebar-cta:hover {
+    background: #7dd3fc;
+  }
+
+  /* ── Mobile Responsive ── */
+  @media (max-width: 860px) {
+    .article-layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 36px;
+    }
+    .action-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 2rem;
+    }
+  }
+</style>

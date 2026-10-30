@@ -1,0 +1,227 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { site } from "../../data/site";
+
+Astro.response.headers.set("X-Robots-Tag", "noindex, nofollow");
+
+const previews = [
+  {
+    title: "1. 首页预览 (Homepage Preview)",
+    href: "/design-preview/homepage-v2/",
+    desc: "方案 B 大气风暴控制台标准。重构冰川冷雾底色、微金免责声明、高对比度深蓝文字、大西洋风暴与 7 天展望监控卡、本地 ZIP 预警筛查。",
+    icon: "fa-house-signal",
+    badge: "Option B Core"
+  },
+  {
+    title: "2. 博客正文预览 (Blog Article Preview)",
+    href: "/design-preview/blog-article/",
+    desc: "专业气象深度分析文章排版。沉稳深蓝大标题、黄金阅读行宽、结构化导读条、官方参考源及下一步安全行动卡。",
+    icon: "fa-newspaper",
+    badge: "Editorial Depth"
+  },
+  {
+    title: "3. 实时追踪页预览 (Tracker Preview)",
+    href: "/design-preview/tracker/",
+    desc: "飓风与大西洋盆地态势监测操作台。大西洋与太平洋真实风暴数据分流、多普勒雷达与交互地图入口、9 个沿海重点州预警直达网格。",
+    icon: "fa-satellite-dish",
+    badge: "Command Console"
+  }
+];
+---
+
+<Layout title="Design Preview Hub | HurricaneHub" description="Design Preview Directory for HurricaneHub Option B visual standards." canonical={`${site.url}/design-preview/`}>
+  <Fragment slot="head">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </Fragment>
+
+  <div class="hub-container">
+    <header class="hub-header">
+      <div class="inner">
+        <span class="hub-badge"><i class="fa-solid fa-palette"></i> Design System Standard</span>
+        <h1>HurricaneHub 视觉预览控制台</h1>
+        <p class="hub-subtitle">
+          以“方案 B：大气风暴控制台（Atmospheric Command Deck）”为视觉基底，减少卡片嵌套、提高文字对比度、剔除冗余装饰标签，支持桌面与手机端、亮色与暗色模式。
+        </p>
+      </div>
+    </header>
+
+    <div class="band hub-main">
+      <div class="inner hub-grid">
+        {previews.map((item) => (
+          <a href={item.href} class="hub-card">
+            <div class="card-top">
+              <div class="card-icon"><i class={`fa-solid ${item.icon}`}></i></div>
+              <span class="card-badge">{item.badge}</span>
+            </div>
+            <h2>{item.title}</h2>
+            <p>{item.desc}</p>
+            <div class="card-link-text">打开预览页面 →</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .hub-container {
+    background: #f8fafc;
+    min-height: 100vh;
+    color: #0f172a;
+  }
+  .hub-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 48px var(--page-x) 40px;
+    text-align: center;
+  }
+  .hub-header .inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .hub-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: rgba(2, 132, 199, 0.08);
+    color: #0369a1;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-size: 2.6rem;
+    color: #0f172a;
+    font-weight: 850;
+    letter-spacing: 0;
+    margin: 0 0 14px;
+  }
+  .hub-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #475569;
+    margin: 0;
+  }
+  .hub-main {
+    padding: 48px var(--page-x);
+  }
+  .hub-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hub-card {
+    display: flex;
+    flex-direction: column;
+    padding: 28px 24px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    text-decoration: none !important;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 8px 24px -4px rgba(15, 23, 42, 0.06);
+    transition: all 0.2s ease;
+  }
+  .hub-card:hover {
+    border-color: #0284c7;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.12);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background: #f0f9ff;
+    color: #0284c7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+  }
+  .card-badge {
+    font-size: 0.74rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #f1f5f9;
+    color: #475569;
+  }
+  .hub-card h2 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 10px;
+  }
+  .hub-card p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: #475569;
+    margin: 0 0 20px;
+    flex: 1;
+  }
+  .card-link-text {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #0284c7;
+  }
+
+  /* ── Dark Mode ── */
+  :global(:root[data-theme="dark"]) .hub-container {
+    background: #090e15;
+    color: #e2e8f0;
+  }
+  :global(:root[data-theme="dark"]) .hub-header {
+    background: #0c1520;
+    border-bottom-color: #1e293b;
+  }
+  :global(:root[data-theme="dark"]) h1,
+  :global(:root[data-theme="dark"]) .hub-card h2 {
+    color: #f1f5f9;
+  }
+  :global(:root[data-theme="dark"]) .hub-subtitle,
+  :global(:root[data-theme="dark"]) .hub-card p {
+    color: #94a3b8;
+  }
+  :global(:root[data-theme="dark"]) .hub-card {
+    background: #111b27;
+    border-color: #1e293b;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  }
+  :global(:root[data-theme="dark"]) .card-icon {
+    background: #0e2238;
+    color: #38bdf8;
+  }
+  :global(:root[data-theme="dark"]) .card-badge {
+    background: #0e1722;
+    color: #94a3b8;
+  }
+  :global(:root[data-theme="dark"]) .hub-badge,
+  :global(:root[data-theme="dark"]) .card-link-text {
+    color: #7dd3fc;
+  }
+
+  @media (max-width: 960px) {
+    .hub-grid {
+      grid-template-columns: minmax(0, 1fr);
+      max-width: 540px;
+    }
+  }
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 2rem;
+    }
+  }
+</style>

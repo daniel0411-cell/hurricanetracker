@@ -301,16 +301,36 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
 
 <style>
   .home-preview {
-    --preview-link: #0e6f8f;
-    --preview-card-bg: var(--panel, #ffffff);
-    --preview-border: var(--line, #d7dde2);
-    color: var(--ink);
+    --preview-link: #0284c7;
+    --preview-card-bg: #ffffff;
+    --preview-border: #e2e8f0;
+    color: #0f172a;
+    background: #f8fafc;
   }
   .home-preview a {
     text-underline-offset: 3px;
   }
   .home-preview .inner {
     min-width: 0;
+  }
+
+  /* ── Refined Amber Disclaimer Bar ── */
+  :global(.site-body:has(.home-preview) .disclaimer) {
+    background: #fffbeb !important;
+    color: #92400e !important;
+    border-bottom: 1px solid #fde68a !important;
+  }
+  :global(.site-body:has(.home-preview) .disclaimer a) {
+    color: #78350f !important;
+    font-weight: 700 !important;
+  }
+  :global(:root[data-theme="dark"] .site-body:has(.home-preview) .disclaimer) {
+    background: #18150f !important;
+    color: #fde68a !important;
+    border-bottom: 1px solid #3d351b !important;
+  }
+  :global(:root[data-theme="dark"] .site-body:has(.home-preview) .disclaimer a) {
+    color: #fef08a !important;
   }
 
   /* ── Preview notice banner ── */
@@ -346,15 +366,15 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
 
   /* ── Typography & Global Section Spacing ── */
   h1 {
-    font-size: 2.85rem;
+    font-size: 2.75rem;
     line-height: 1.15;
     margin: 0 0 16px;
-    color: var(--ink);
+    color: #0f172a;
     font-weight: 850;
     letter-spacing: 0;
   }
   h2, h3 {
-    color: var(--ink);
+    color: #0f172a;
     letter-spacing: 0;
   }
   h2 {
@@ -372,14 +392,14 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
     letter-spacing: 0;
     padding: 3px 8px;
     border-radius: 4px;
-    background: rgba(14, 111, 143, 0.1);
-    color: var(--preview-link);
+    background: rgba(2, 132, 199, 0.08);
+    color: #0369a1;
     margin: 0 0 12px;
   }
 
   /* ── Hero Section ── */
   .preview-hero {
-    background: var(--panel);
+    background: #f8fafc;
     padding-top: clamp(36px, 5vw, 56px);
     padding-bottom: clamp(36px, 5vw, 56px);
   }
@@ -399,7 +419,8 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
     font-size: 1.08rem;
     line-height: 1.6;
     margin: 0 0 24px;
-    color: var(--muted);
+    color: #334155;
+    font-weight: 500;
   }
   .hero-actions {
     display: flex;
@@ -411,27 +432,37 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    padding: 11px 20px;
+    padding: 11px 22px;
+    background: #0f172a;
+    color: #ffffff !important;
+    border-radius: 8px;
     font-weight: 700;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .hero-actions .action-link:hover {
+    background: #1e293b;
+    transform: translateY(-1px);
   }
   .hero-secondary-link {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     padding: 10px 16px;
-    border: 1px solid var(--preview-border);
-    border-radius: 6px;
-    background: var(--surface);
-    color: var(--ink) !important;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #1e293b !important;
     font-weight: 700;
     font-size: 0.92rem;
     text-decoration: none !important;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
     transition: all 0.15s ease;
   }
   .hero-secondary-link:hover {
-    background: var(--panel);
-    border-color: var(--preview-link);
-    color: var(--preview-link) !important;
+    background: #f1f5f9;
+    border-color: #94a3b8;
+    color: #0f172a !important;
   }
 
   /* ── Right-Side Activity Summary Card ── */
@@ -439,11 +470,11 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
     display: flex;
     flex-direction: column;
     padding: 24px 22px;
-    background: var(--surface);
+    background: #ffffff;
     border: 1px solid var(--preview-border);
-    border-left: 4px solid var(--preview-link);
+    border-left: 4px solid #0284c7;
     border-radius: 8px;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04), 0 8px 24px -4px rgba(15, 23, 42, 0.06);
   }
   .summary-top {
     display: flex;
@@ -461,35 +492,39 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
     text-transform: uppercase;
     letter-spacing: 0;
     padding: 3px 8px;
-    border-radius: 4px;
+    border-radius: 6px;
   }
   .status-calm {
-    background: rgba(47, 125, 79, 0.14);
-    color: #15803d;
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
   }
   .status-active {
-    background: rgba(193, 68, 46, 0.15);
-    color: #c1442e;
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
   }
   .status-unavailable {
-    background: rgba(161, 98, 7, 0.12);
-    color: #854d0e;
+    background: #fffbeb;
+    color: #92400e;
+    border: 1px solid #fde68a;
   }
   .activity-summary h2 {
     font-size: 1.35rem;
     line-height: 1.35;
     margin: 6px 0 10px;
-    color: var(--ink);
+    color: #0f172a;
   }
   .activity-summary p {
     margin: 8px 0 0;
   }
   .pacific-note {
     font-size: 0.84rem;
-    color: var(--muted);
-    padding: 6px 10px;
-    background: rgba(0, 0, 0, 0.03);
-    border-radius: 4px;
+    color: #475569;
+    padding: 8px 12px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
     margin-top: 10px !important;
   }
   .verify-link {
@@ -498,8 +533,8 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
     font-size: 0.94rem;
   }
   .disclaimer-note {
-    font-size: 0.82rem;
-    color: var(--muted);
+    font-size: 0.84rem;
+    color: #475569;
     border-top: 1px dashed var(--preview-border);
     padding-top: 10px;
     margin-top: 12px !important;
@@ -888,10 +923,35 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
     --preview-link: #38bdf8;
     --preview-card-bg: #111b27;
     --preview-border: #1e293b;
+    background: #090e15;
     color: #e2e8f0;
   }
   :global(:root[data-theme="dark"]) .preview-hero {
-    background: var(--surface);
+    background: #090e15;
+  }
+  :global(:root[data-theme="dark"]) .band:not(.preview-hero) {
+    background: #090e15;
+  }
+  :global(:root[data-theme="dark"]) .hero-summary {
+    color: #cbd5e1;
+  }
+  :global(:root[data-theme="dark"]) h1,
+  :global(:root[data-theme="dark"]) h2,
+  :global(:root[data-theme="dark"]) h3,
+  :global(:root[data-theme="dark"]) .activity-summary h2 {
+    color: #f1f5f9;
+  }
+  :global(:root[data-theme="dark"]) .source-note {
+    color: #94a3b8;
+  }
+  :global(:root[data-theme="dark"]) .eyebrow {
+    background: #0e2238;
+    color: #7dd3fc;
+  }
+  :global(:root[data-theme="dark"]) .pacific-note {
+    background: #0e1722;
+    border-color: #1e293b;
+    color: #cbd5e1;
   }
   :global(:root[data-theme="dark"]) .activity-summary,
   :global(:root[data-theme="dark"]) .storm-summary,
@@ -901,6 +961,7 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
   :global(:root[data-theme="dark"]) .state-card {
     background: var(--preview-card-bg);
     border-color: var(--preview-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   }
   :global(:root[data-theme="dark"]) .zip-form {
     background: var(--preview-card-bg);
