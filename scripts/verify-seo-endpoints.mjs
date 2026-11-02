@@ -6,7 +6,7 @@
  */
 
 const site = process.env.SITE_URL || "https://www.hurricanetracker.cc";
-const publisherId = "pub-2321309842883439";
+const publisherId = "pub-9796748281026165";
 const adsTxtEntry = `google.com, ${publisherId}, DIRECT, f08c47fec0942fa0`;
 const crawlerUserAgents = [
   "Mediapartners-Google",
