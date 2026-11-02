@@ -108,6 +108,36 @@ const generator = blogPosts.find((post) => post.slug === "hurricane-generator-sa
 assert.match(generator.figures[0].sourceUrl, /^https:\/\/www\.cdc\.gov\//);
 assert.match(generator.figures[0].caption, /not to scale/);
 assert(generator.sections.some((section) => section.body.includes("fresh air immediately, then call 911")));
+const water = blogPosts.find((post) => post.slug === "hurricane-water-storage-purification-emergency");
+const medical = blogPosts.find((post) => post.slug === "hurricane-medical-needs-registry-preparedness");
+const assistance = blogPosts.find((post) => post.slug === "hurricane-safety-seniors-children-disability");
+const revisedCarePosts = [water, medical, assistance];
+for (const [post, published, heading] of [
+  [water, "2026-08-18", "Boiling Questionable Water"],
+  [medical, "2026-08-14", "Worked Record: A Charged Battery Is Not a Confirmed Plan"],
+  [assistance, "2026-08-13", "Worked Handoff: The Usual Helper Cannot Arrive"]
+]) {
+  assert.equal(post.datePublished, published);
+  assert.equal(post.dateModified, "2026-11-02");
+  assert.equal(post.sourceCheck.date, "2026-11-02");
+  routes.set(`/blog/${post.slug}/`, heading);
+}
+const filterFaq = water.faqs.find((faq) => faq.question === "Can a household water filter replace boiling?");
+assert.match(filterFaq.answer, /During a boil-water advisory, no/);
+assert.match(filterFaq.answer, /even after it passes through a home filter/);
+assert(water.sections.some((section) => section.body.includes("boil even water that has passed through a home filter")));
+assert.match(water.sourceCheck.scope, /October 27, not rechecked today/);
+assert.match(JSON.stringify(medical), /transfer switch routes electricity.*does not generate or store power/);
+assert.match(JSON.stringify(medical), /runtime under prescribed use is 'not confirmed\.'/);
+assert.match(JSON.stringify(medical), /not to use insulin that has been frozen/);
+assert(medical.sources.some((source) => source.href.startsWith("https://www.fda.gov/")));
+for (const [post, other] of [[medical, assistance], [assistance, medical]]) {
+  const text = JSON.stringify(post);
+  assert(post.sources.some((source) => source.href === "https://www.ada.gov/resources/service-animals-faqs/"));
+  assert(post.sections.some((section) => section.links?.some((link) => link.href === `/blog/${other.slug}/`)));
+  assert.match(text, /vaccination and dog-licensing rules/);
+  assert.doesNotMatch(text, /ADA documentation|food, vest|6 hours out: Stop travel|Leave one to two days earlier|minimum 14-day supply|A 7-day supply of every medication|charged from your car or generator|Rotate equipment to generator or vehicle/);
+}
 for (const [slug, heading, source] of [
   ["jacksonville", "Renew Special Medical Needs Registration Each Year", "https://maps.coj.net/evsearch/"],
   ["new-orleans", "Plan City-Assisted Evacuation Before Activation", "https://ready.nola.gov/plan/hurricane/#cae"]
@@ -193,13 +223,20 @@ if (base) {
     assert(html.includes(heading.replaceAll("'", "&#39;")) || html.includes(heading), `${route}: new content missing`);
     assert(html.includes(`https://www.hurricanetracker.cc${route}`), `${route}: canonical missing`);
     assert.match(html, /application\/ld\+json/);
-    if (route === "/city/miami/hurricane-tracker/" || route === `/blog/${rooms.slug}/` || route === `/blog/${hardening.slug}/`) {
+    if (route === "/city/miami/hurricane-tracker/" || route === `/blog/${rooms.slug}/` || route === `/blog/${hardening.slug}/` || revisedCarePosts.some((post) => route === `/blog/${post.slug}/`)) {
       const schemas = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)]
         .map((match) => JSON.parse(match[1]));
       const nodes = schemas.flatMap((schema) => schema["@graph"] ?? [schema]);
       assert(nodes.some((node) => String(node.dateModified).startsWith("2026-11-02")), `${route}: actual revision date missing from schema`);
       assert(html.includes("Source check 2026-11-02"), `${route}: source-check scope missing`);
       assert.doesNotMatch(html, /practice shutting off gas|outer edge, not the center|12 hours out: Shut off propane/);
+      if (route === `/blog/${water.slug}/`) {
+        const faq = nodes.find((node) => node["@type"] === "FAQPage");
+        assert(faq, "Water FAQ schema missing");
+        const filterQuestion = faq.mainEntity.find((question) => question.name === filterFaq.question);
+        assert.equal(filterQuestion?.acceptedAnswer?.text, filterFaq.answer, "Rendered FAQ schema must carry the corrected water instruction");
+        assert(html.includes(filterFaq.answer.replaceAll("'", "&#39;")) || html.includes(filterFaq.answer), "Visible FAQ must match its schema");
+      }
     }
     if (route.startsWith("/blog/") && route !== "/blog/hurricane-watch-vs-warning/") {
       assert(html.includes('aria-label="Article contents"'), `${route}: contents navigation missing`);

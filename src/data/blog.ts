@@ -2068,113 +2068,89 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-safety-seniors-children-disability",
-    sources: [{ href: "https://www.ready.gov/disability", label: "Ready.gov: disability-inclusive preparedness" }, { href: "https://www.ready.gov/older-adults", label: "Ready.gov: older adult preparedness" }],
-    title: "Hurricane Safety for Seniors, Children, and People With Disabilities",
-    description: "Practical hurricane planning for vulnerable household members: medication and medical-equipment plans, accessible evacuation, and how to prepare children and older adults before a storm.",
+    sourceCheck: { date: "2026-11-02", scope: "Ready.gov disability guidance on support networks, communication and accessible transportation, and DOJ ADA service-animal FAQ Q7, Q8 and Q17-21. Household examples are illustrative; no individual's care needs, current shelter accommodations, transport booking or evacuation order was verified." },
+    sources: [{ href: "https://www.ready.gov/disability", label: "Ready.gov: support networks, communication and accessible transport" }, { href: "https://www.ada.gov/resources/service-animals-faqs/", label: "DOJ: ADA service-animal questions and requirements" }],
+    title: "Hurricane Plans for Seniors, Children and Disabled People",
+    description: "Assign care roles, test accessible alerts, confirm transport and shelter accommodations, and plan household handoffs for a hurricane evacuation.",
     datePublished: "2026-08-13",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-02",
     image: "/images/blog/hurricane-safety-seniors-children-disability.png",
     imageAlt: "A family with an older adult in a wheelchair and a young child packs an emergency go-bag together in a bright living room before a hurricane.",
     sections: [
       {
-        heading: "Direct Answer: Plan Around the Person, Not Just the Storm",
-        body: "Hurricane plans fail for vulnerable household members when they are written for the average adult. Seniors, children, and people with disabilities need their own go-bags, their own transportation and medication plans, and extra time to evacuate. Start by writing down each person's daily needs—medications, medical equipment, mobility aids, food textures, communication methods—then build the kit and the plan around that list. If a member of your household has special needs, begin preparing several days earlier and plan to leave earlier, because shelters and evacuation routes do not wait."
+        heading: "Start With the Person and the Help They Want",
+        body: "A useful household hurricane plan names who will help, how they will communicate, and where that help continues if the household moves. Age or a disability label alone does not tell you which assistance someone needs. Ask the person about their preferences, daily support and tasks they can manage independently. Include children in an age-appropriate conversation and agree with caregivers who can collect them. Ready.gov recommends a support network and accessible transportation planning. Use this guide to turn those ideas into named responsibilities and confirmed arrangements; use the separate medical continuity guide for equipment, prescriptions and treatment appointments.",
+        links: [{ href: "/blog/hurricane-medical-needs-registry-preparedness/", label: "Build the medical equipment and medication continuity record" }]
       },
       {
-        heading: "Build a Personal Emergency Kit for Each Person",
-        body: "Beyond the household go-bag, each person who relies on daily support needs a personal kit with the specific items they cannot be without. Pack it in a labeled bag that the person themselves can carry or wheel.",
+        heading: "Assign a Helper, a Backup and a Handoff",
+        body: "For each necessary task, write the person's preferred method, the responsible helper, a backup and the point when responsibility changes. Do not assume the nearest relative is available or that everyone can carry a bag. Ask helpers to agree to their roles, including any assistance they are trained and able to provide. A name on a list without that agreement is an unresolved task.",
         bullets: [
-          "A 7-day supply of every medication, plus a written list with dosages and the pharmacy phone number.",
-          "Spare batteries, chargers, and a portable backup battery for hearing aids, CPAP, and other devices.",
-          "Copies of insurance cards, medical records, and a doctor's name and phone number.",
-          "Comfort items for children: a favorite toy, blanket, books, and quiet activities.",
-          "A written note describing mobility, communication, and any behavioral needs for first responders."
+          "Getting ready: who packs and carries the person's supplies, communication aids and essential records? Keep needed items accessible during the trip.",
+          "Leaving the building: who helps with doors, stairs or a mobility aid, and what is the alternative if an elevator cannot be used? Confirm assistance rather than improvising a lift or transfer.",
+          "Arrival: who receives the person, helps with meals or personal care, and checks that necessary supplies arrived? Do not assume transport staff will provide ongoing care.",
+          "Privacy: agree which information each helper needs. Keep a short paper contact and assistance card with the person, and share sensitive records only as appropriate."
         ]
       },
       {
-        heading: "Plan for Medications and Medical Equipment",
-        body: "Power loss and pharmacy closures are the two biggest threats to people who depend on regular medical care. Plan for both before the storm reaches your area.",
+        heading: "Test Alerts and Communication in the Preferred Format",
+        body: "Ask how the person receives and understands information: spoken language, sign language, text, large print, audio or a communication device. Test the actual local alert channel and the device settings together. A phone being charged does not prove its alert will be perceived or understood. Agree who will relay an evacuation instruction if the primary channel fails, and keep a paper alternative that does not need a login or mobile signal.",
         bullets: [
-          "Ask your pharmacist and clinician about an emergency medication supply, refill rules, and a written plan for interruptions.",
-          "Store medications in a waterproof, labeled container you can grab quickly.",
-          "For insulin and other temperature-sensitive drugs, pack a cooler with a thermometer.",
-          "Get a backup power source for CPAP, ventilators, or oxygen concentrators and test it.",
-          "Ask the utility about medical-needs registration, but do not assume it guarantees power or priority restoration. Arrange an alternate care location and transport.",
-          "Ask about oxygen delivery, dialysis, or home-care services in your county's emergency plan."
+          "Write a short communication card with the person's preferred communication method, an emergency contact and assistance requests they want responders to know.",
+          "For a child, rehearse a simple explanation of where the family will go and who will collect them. Avoid asking the child to interpret technical alerts or manage adult responsibilities.",
+          "For someone who benefits from a familiar routine, agree a calm way to explain changes and pack familiar sensory or comfort items chosen with them. Avoid assuming one format works for every cognitive or sensory need."
         ]
       },
       {
-        heading: "Evacuation With Seniors and People With Mobility Needs",
-        body: "Evacuation takes longer for households with mobility limitations, and standard plans assume everyone can walk to a bus or car quickly. Design the route and the schedule around the slowest member.",
+        heading: "Confirm the Whole Trip, Including the Doorway",
+        body: "A ride offer is only one part of an accessible trip. Check how the person gets from their room to the vehicle, whether the vehicle accommodates the person and their mobility equipment, and how they enter the destination. Tell the transport provider about assistance needs in advance and follow its equipment and securement requirements. Do not assume a standard car, school bus or evacuation pickup provides the needed service.",
         bullets: [
-          "Leave one to two days earlier than the general evacuation order if possible.",
-          "Pre-arrange a ride from a neighbor, family member, or local disability or aging organization.",
-          "Bring mobility aids, spare batteries for power wheelchairs, and a charger for the car.",
-          "If you cannot drive, register in advance with your county's emergency management office.",
-          "Identify which shelters are accessible; check before the storm, not during it."
+          "Record the confirmed provider, pickup method or window, contact number, destination and what to do if no vehicle arrives. An assistance application is not a confirmed booking.",
+          "Ask local emergency management about available assistance and any eligibility or renewal process. Services differ by locality; a registry is not a promise of rescue or transportation.",
+          "Agree departure triggers with local officials, the transport provider and the care team where relevant. Extra assistance may require earlier arrangements, but there is no universal one- or two-day offset or safe travel cutoff.",
+          "Follow evacuation instructions that apply to the address and household. If a plan fails or conditions become unsafe, contact the provider or local officials for instructions; use 911 for an immediate emergency."
         ]
       },
       {
-        heading: "Special Plans for Children",
-        body: "Children process warnings differently from adults, and their needs change the plan—car seats, strollers, food, and emotional support all have to fit in the car.",
+        heading: "Resolve Child Pickup and Reunification Before Separation",
+        body: "Ask the school or childcare provider how it announces closure, where children may be moved, who is authorized to collect them and how identity is checked. Record the provider's actual procedure rather than choosing a family meeting point that conflicts with it. Make sure a backup caregiver is authorized and can be reached if the usual adult is at work or cannot travel.",
         bullets: [
-          "Install and double-check car seats well before the evacuation order.",
-          "Pack diapers, wipes, formula or preferred foods, and a change of clothes for each child.",
-          "Include age-appropriate activities and one comfort item to reduce stress.",
-          "Explain the plan in simple, calm words; practice the go-bag and the evacuation drill.",
-          "Know where schools and childcare providers send children if the storm hits during the day."
+          "Confirm an appropriate child restraint for the actual vehicle and follow its manufacturer instructions; a last-minute change of driver may also change the transport arrangements.",
+          "Assign an adult to carry feeding, changing and comfort supplies. Include allergy or care instructions the receiving caregiver needs, without relying on a child's memory.",
+          "Keep an out-of-area contact and the provider's reunification details on paper. Practice a missed-contact scenario without placing a real emergency call."
         ]
       },
       {
-        heading: "Communication and Cognitive Needs",
-        body: "People who are deaf, hard of hearing, blind, or living with dementia or autism need information in a form they can actually receive. Adapt alerts and instructions to each person.",
-        bullets: [
-          "Use a NOAA Weather Radio with a visual alert or a smartphone with vibration alerts for deaf and hard-of-hearing members.",
-          "Provide written, large-print instructions for people with cognitive or vision needs.",
-          "Practice the plan in a low-stress setting; repeat steps calmly and often for people with dementia.",
-          "For a person who wanders, pack identification and contact information inside their clothing.",
-          "Keep a contact list of neighbors who know the person's needs and can help in an emergency."
-        ]
+        heading: "Ask About Specific Shelter Accommodations",
+        body: "Contact the destination's operator through an official local channel. Ask about the particular accessible entrance, toilet, communication support, caregiver arrangements and space for equipment the household needs. If medical care, refrigeration or equipment power is necessary, confirm it separately with the operator and care team. An accessible building is not proof of skilled nursing or support for a particular medical device. Save the answer, contact and date, and recheck activation and availability as instructed. If something remains unconfirmed, write it down and seek another arrangement rather than assuming it will be supplied."
       },
       {
-        heading: "Sheltering and the Shelter Experience",
-        body: "General population shelters are loud, crowded, and often short on medical support. Know what your household needs before you choose to go to one.",
-        bullets: [
-          "Ask about medical shelters or shelter-at-home programs before the storm arrives.",
-          "Bring bedding, food for special diets, and all medical equipment and supplies.",
-          "Request a quiet or accessible area if available; shelter managers can usually help.",
-          "Pack cash, because card readers and ATMs often fail after a storm.",
-          "For service animals, carry documentation and the animal's own kit and water."
-        ]
+        heading: "Separate Service-Animal Access From Pet Arrangements",
+        body: "For ADA-covered settings, DOJ says a service animal does not need a vest, identification tag or specific harness, and covered entities cannot require service-animal certification as a condition of entry. When the service is not apparent, the ADA FAQ describes the two permitted questions. Ordinary vaccination and dog-licensing rules can still apply; those records are different from proof of service-animal status. Pack the animal's food, water and care supplies, and read the DOJ FAQ for access rules and exceptions. Arrange household pets separately under the destination's pet policy; a pet-friendly listing is not a substitute for checking service-animal access.",
+        links: [{ href: "https://www.ada.gov/resources/service-animals-faqs/", label: "Read DOJ's service-animal FAQ, including Q7, Q8 and Q17-21" }, { href: "/blog/hurricane-pet-safety/", label: "Plan separate evacuation arrangements for household pets" }]
       },
       {
-        heading: "After the Storm: Follow-Up Needs",
-        body: "Vulnerability continues after the storm passes. Medication refills, medical appointments, and mobility barriers all persist into the recovery period.",
-        bullets: [
-          "Refill prescriptions as soon as pharmacies reopen; do not wait until supplies run out.",
-          "Keep medical devices charged from your car or generator if the home is still without power.",
-          "Ask for help clearing a path for wheelchairs and walkers around damaged homes.",
-          "Check on neighbors who are older or have disabilities—storms isolate people fast.",
-          "Reach out to your local aging or disability agency if home care or transportation was disrupted."
-        ]
+        heading: "Worked Handoff: The Usual Helper Cannot Arrive",
+        body: "Illustrative example, not a current service arrangement: an older adult uses a wheelchair and prefers written messages. Their daughter normally helps them leave the apartment, but cannot reach the building. The household record names a backup neighbor who has agreed to help with the door and carry the bag. That agreement does not establish that the neighbor can perform a transfer or that an accessible vehicle is booked. During a calm-weather rehearsal, the family marks the vehicle and destination assistance as 'not confirmed,' contacts the transport provider, and obtains a receiving helper's agreement. They also test a written message and a backup contact method. The completed plan records who confirmed each part and when to recheck; it does not treat the neighbor's willingness as proof the whole trip is ready."
       },
       {
-        heading: "Stay Informed With HurricaneHub",
-        body: "Use HurricaneHub for storm context and links to alerts. Obtain evacuation orders, accessible shelter status, transport availability, and medical-support arrangements directly from your local emergency-management agency and care providers. Confirm these arrangements before hazardous conditions; the site cannot verify an individual's shelter or medical needs."
+        heading: "Recheck Care Before Returning Home",
+        body: "An official reopening does not confirm that a particular household can resume its routine. Check the accessible entrance, assistance arrangements and essential services before the person returns. Ask the care team about interrupted treatment or medication concerns; use the medical continuity record to resolve equipment power rather than improvising a car or generator connection. Update the household record when a helper, destination or phone number changes. HurricaneHub supplies general planning context; current evacuation orders, assistance availability and care decisions come from local officials and the relevant providers.",
+        links: [{ href: "/blog/hurricane-family-communication-plan/", label: "Rehearse the family missed-contact plan" }, { href: "/blog/how-to-check-your-hurricane-evacuation-zone/", label: "Find the official evacuation map and current order" }]
       }
     ],
     faqs: [
       {
-        question: "Should people with disabilities evacuate earlier than everyone else?",
-        answer: "In most cases, yes. People who need extra time to move, pack medical equipment, or arrange accessible transportation should plan to leave one to two days earlier than a general evacuation order. Check with your county emergency management office about accessible transportation and shelters in advance."
+        question: "How early should a household needing assistance leave?",
+        answer: "Agree departure triggers with local officials, the transport provider and the care team where relevant. Allow for the household's actual assistance needs and follow applicable evacuation instructions. There is no universal one- or two-day offset or safe travel cutoff. Confirm the ride and receiving arrangements before hazardous conditions."
       },
       {
-        question: "What should go in a special-needs emergency kit?",
-        answer: "A 7-day supply of medications and medical supplies, backup power for essential devices, copies of medical records and insurance cards, a list of diagnoses and providers, mobility aids and their spare batteries, and a written description of the person's needs for first responders. Include comfort and communication items for children."
+        question: "Does a service animal need a certificate or vest for access?",
+        answer: "In ADA-covered settings, a service-animal certificate, vest, identification tag or specific harness is not required. Ordinary vaccination and dog-licensing rules can still apply. These are different from service-animal certification. Consult DOJ's ADA FAQ for the permitted questions, access rules and exceptions."
       },
       {
         question: "Can general shelters meet medical and accessibility needs?",
-        answer: "General population shelters provide basic shelter but usually cannot supply medical care, refrigeration for medication, or specialized equipment. Ask about medical shelters and shelter-at-home options before the storm. If you use a general shelter, bring all medications, medical equipment, special food, and bedding with you."
+        answer: "Confirm the specific accommodation with the official shelter operator. An accessible building does not establish that skilled care, medicine refrigeration or power for a particular device is available. Record the contact and answer, recheck activation, and resolve unconfirmed needs with the operator and care team."
       }
     ]
   },
@@ -2423,123 +2399,94 @@ export const blogPosts: BlogPost[] = [
   },
   {
     "slug": "hurricane-medical-needs-registry-preparedness",
-    sources: [{ href: "https://www.ready.gov/disability", label: "Ready.gov: medical equipment and assistance planning" }, { href: "https://www.ready.gov/power-outages", label: "Ready.gov: power-dependent medical needs" }],
-    "title": "Hurricane Preparedness for People With Medical Needs and Disabilities: A Registry and Equipment Guide",
-    "description": "How people with medical needs or disabilities prepare for a hurricane: functional-needs registries, durable medical equipment, refrigerated medicine, and a support plan.",
+    sourceCheck: { date: "2026-11-02", scope: "Ready.gov disability and power-outage guidance, FDA emergency insulin storage guidance, and DOJ ADA service-animal FAQ. No patient's prescription, equipment compatibility or runtime, local registry eligibility, current transport, shelter capacity or care availability was verified. The continuity example is illustrative, not a clinical or electrical plan." },
+    sources: [{ href: "https://www.ready.gov/disability", label: "Ready.gov: medical equipment and assistance planning" }, { href: "https://www.ready.gov/power-outages", label: "Ready.gov: medical devices and refrigerated medicine during outages" }, { href: "https://www.fda.gov/drugs/emergency-preparedness-drugs/information-regarding-insulin-storage-and-switching-between-products-emergency", label: "FDA: product-specific insulin storage in an emergency" }, { href: "https://www.ada.gov/resources/service-animals-faqs/", label: "DOJ: ADA service-animal access requirements" }],
+    "title": "Hurricane Medical Needs: Equipment, Medicine and Care",
+    "description": "Confirm medical-device power, medication storage, care destinations and accessible transport. Build a hurricane continuity record with named providers.",
     "datePublished": "2026-08-14",
-    "dateModified": "2026-10-24",
+    "dateModified": "2026-11-02",
     "image": "/images/blog/hurricane-medical-needs-registry-preparedness.png",
     "imageAlt": "A person using a mobility aid reviews a medical go-bag with prescription medicines and durable medical equipment during hurricane planning at home.",
     "sections": [
       {
-        "heading": "Direct Answer",
-        "body": "If you or someone in your home relies on electricity for medical equipment, refrigerated medicine, or daily assistance, your hurricane plan must start with the local functional-needs (special medical needs) registry and a backup power strategy—well before a storm forms. Register with your county emergency management office now, secure a power plan for any device that breathes or pumps, and pack a medical go-bag with at least a two-week supply of prescriptions and a paper copy of every record. Do not wait for an evacuation order to discover your dialysis center is closed or your oxygen is running low. Track the threat with the HurricaneHub tracker tool so you can move on your own schedule."
+        "heading": "Start With a Continuity Record, Not a Registry Receipt",
+        "body": "If treatment depends on electricity, medicines, equipment deliveries or a staffed facility, prepare a written continuity record with the care team and equipment supplier before a storm. Record what must continue, who has confirmed the alternative, and what triggers a change of location or a call for help. Ready.gov recommends discussing medical-device and refrigerated-medicine outage plans with providers. A local registry may help emergency planning, but enrollment alone does not confirm power, transport or treatment. This guide helps organize those conversations; it does not determine a safe battery runtime, prescribe medicine or establish that a home or shelter can meet an individual's medical needs."
       },
       {
-        "heading": "Hurricane Preparedness Checklist: The Medical Go-Bag",
-        "body": "A standard emergency kit is not enough when health depends on equipment and medication. Build a dedicated medical go-bag. Pair this with the general emergency kit checklist for food, water, and light.",
+        "heading": "Record Each Device and Its Approved Power Plan",
+        "body": "Ask the supplier and clinical team about the exact device model and prescribed use, rather than copying a plan for another person's equipment. A battery, generator or other supply must be suitable for that device and its operating conditions. A transfer switch routes electricity between sources; it does not generate or store power. Any installation or connection needs the relevant qualified professional. Do not assume a vehicle outlet, consumer power bank or household generator is an approved medical backup.",
         "bullets": [
-          "A minimum 14-day supply of all prescriptions, plus copies of every prescription and a current medication list with dosages.",
-          "Refrigerated medicines (insulin, biologics) with a cooled transport method and a thermometer to confirm temperature.",
-          "Backup power for durable medical equipment (DME): charged batteries, a generator, or a transfer switch sized for the device.",
-          "Spare tubing, masks, cannulas, and consumables for ventilators, CPAP, or feeding pumps.",
-          "A written care plan: diagnoses, treating physicians, equipment model numbers, and supplier contacts.",
-          "Service animal supplies: food, vest, vaccinations, and ADA documentation.",
-          "Hearing aids with extra batteries, glasses, and mobility aids (cane, walker, wheelchair) with a patch kit."
+          "Identification: model, serial number, supplier's routine and after-hours contacts, and the instructions needed during transport or a fault.",
+          "Approved backup: the specific power source and connection method confirmed by the supplier, any required accessories, and who is responsible for setup.",
+          "Duration and replenishment: provider-confirmed runtime under prescribed use and relevant conditions, how to recharge or replenish it, and what to do if replenishment is unavailable. Do not substitute a generic watt-hour calculation for a life-support plan.",
+          "Supplies and response: required consumables, delivery arrangements, signs of failure described by the provider, and the agreed contact or transfer action. Mark an unanswered field 'not confirmed.'"
         ]
       },
       {
-        "heading": "Room-by-Room Medical Readiness",
-        "body": "For broader interior prep, see the room-by-room guide.",
+        "heading": "Make Medication Storage and Refill Instructions Specific",
+        "body": "Prepare a current medication list and keep labeled packaging and provider contacts available. Ready.gov recommends talking to a doctor or pharmacist about creating an emergency medicine supply. Ask for a practical supply target and refill arrangements for each medicine, taking account of dispensing rules and access. Do not assume every prescription has the same refill or storage rules, and do not ration, change doses or switch products based on a hurricane checklist.",
         "bullets": [
-          "Bedroom: Keep the medical go-bag, mobility aids, and a charged phone by the bed. Identify the safest path to the interior shelter room with the fewest steps.",
-          "Bathroom: Store a week of essential supplies in a waterproof tote; secure oxygen cylinders upright and away from heat.",
-          "Living area: Designate one windowless room as the shelter space, close to a power source for equipment.",
-          "Utility area: Label the main shutoffs; if you have a generator, practice safe outdoor placement away from windows.",
-          "Entry: Stage a ramp or plan for wheelchair transfer to a vehicle; confirm the vehicle can carry DME."
+          "For each product, record the name and packaging, label storage conditions, supply on hand, next refill or delivery, and a pharmacy contact if the usual location closes.",
+          "For temperature-sensitive medicine, ask which transport method and monitoring are appropriate and what to do after a temperature excursion. A cooler alone does not establish acceptable storage.",
+          "FDA says not to use insulin that has been frozen. Avoid freezing it against ice or cold packs, and obtain product-specific instructions; insulin formulations and packaging can have different storage limits.",
+          "If storage conditions are uncertain or a supply is running out, contact the pharmacist or clinical team promptly for a replacement or treatment plan. This article cannot decide that an exposed medicine remains effective."
+        ],
+        links: [{ href: "https://www.fda.gov/drugs/emergency-preparedness-drugs/information-regarding-insulin-storage-and-switching-between-products-emergency", label: "Read FDA's insulin storage guidance; confirm your product with the pharmacist" }]
+      },
+      {
+        "heading": "Separate Registry Enrollment From Confirmed Services",
+        "body": "Ready.gov says many local emergency-management agencies maintain voluntary registries for people needing assistance. Ask the local office whether a relevant program exists, who is eligible, how to apply or renew, what the program actually provides and how status is confirmed. A utility medical-needs listing is a separate process; do not treat it as uninterrupted service or a restoration guarantee. Keep copies of confirmations, but distinguish each of these steps:",
+        "bullets": [
+          "Application submitted: the agency has received information, but eligibility or acceptance may still be pending.",
+          "Enrollment accepted: confirm which service, if any, follows and whether another booking or activation step is needed.",
+          "Transport confirmed: record the provider, pickup arrangements, equipment and assistance they can accommodate, and the fallback contact if the ride fails.",
+          "Destination confirmed: separately verify the receiving site's current activation, equipment support, staffing and admission arrangements. Enrollment or a ride reservation is not a shelter placement or treatment appointment."
         ]
       },
       {
-        "heading": "Protecting Vulnerable Family Members",
-        "body": "This post focuses on medical and functional needs, but the broader household still matters. Young children, older adults, and people with cognitive disabilities each need clear, rehearsed roles. Our seniors, children, and disability safety guide covers communication aids, sensory considerations, and how to explain the plan calmly. Coordinate one plan that serves the whole home so no one is overlooked."
+        "heading": "Confirm a Care Destination and a Transfer Trigger",
+        "body": "For dialysis, infusions, oxygen deliveries, home nursing or other recurring support, ask the provider what happens during closure or service interruption. Ready.gov recommends identifying more than one facility for dialysis or other life-sustaining treatment and checking availability. Record the receiving contact, the service confirmed, required records and supplies, and the accessible transport arrangements. A facility appearing on a map is not evidence it can accept the person. Agree what event triggers a call or transfer with the care team, transport provider and local officials. Do not wait for a backup to fail before asking those questions, and do not use a fixed 'six hours before landfall' rule as a safe travel boundary. Follow applicable evacuation instructions; call 911 for an immediate medical emergency."
       },
       {
-        "heading": "Pet and Service Animal Safety",
-        "body": "Service animals are not pets under the law and must stay with you, including in most shelters. Pack their food, documentation, and a backup harness. For companion animals, follow the same early-evacuation rule: never leave them behind. The full hurricane pet safety guide lists carriers, records, and pet-friendly lodging."
+        "heading": "Worked Record: A Charged Battery Is Not a Confirmed Plan",
+        "body": "Illustrative example, not a recommendation for a particular device: a household has an electrically powered medical device and a charged spare battery. Its record lists the model and supplier, but runtime under prescribed use is 'not confirmed.' The supplier must resolve that question; the household does not fill the gap with an online calculator. A local registry application has been received, but accessible transport is still 'not booked' and the receiving site's equipment support is 'not confirmed.' Those are three separate open tasks, not three backups. Before conditions deteriorate, the household contacts the supplier, transport service and receiving provider, then records who confirmed each arrangement and the agreed next action. If an essential gap cannot be resolved, it asks the care team and local officials for an alternative rather than inventing a safe number of hours at home."
       },
       {
-        "heading": "Insurance: Documents and Coverage",
-        "body": "Medical equipment is expensive and often excluded or capped under basic policies. Photograph every device with its serial number and keep receipts in your waterproof file. Confirm whether your plan covers replacement if equipment is damaged by flood—it usually will not without a flood policy. Keep our insurance documentation checklist with your medical records so a claim moves quickly. Understand your deductibles before you need them."
+        "heading": "Pack the Record With the Supplies and Assign a Handoff",
+        "body": "Keep a portable paper copy of the essential care instructions, medication list, supplier and provider contacts, confirmed destination and transport details. Protect records from water and share sensitive information only with the people who need it. Assign who carries the equipment, approved backup and required consumables, and who checks them at arrival. Do not assume the person using the equipment can carry everything or that the driver provides personal care. Rehearse packing and contact steps while conditions are calm; test equipment only as its provider instructs.",
+        "links": [{ href: "/blog/hurricane-safety-seniors-children-disability/", label: "Assign household helpers, accessible communication and arrival handoffs" }]
       },
       {
-        "heading": "Recovery After the Storm",
-        "body": "After landfall, your first task is power and medicine continuity, not cleanup. Rotate equipment to generator or vehicle power if the grid is down, and contact your durable-medical-equipment supplier about replacement if a device was submerged. Refrigerated medicine that warmed above label limits should be replaced—do not guess. Document damage for insurance and request a county \"special needs\" wellness check if you are isolated. The post-hurricane recovery guide has the safe step order."
+        "heading": "Service Animals: No ADA Certificate or Vest Requirement",
+        "body": "DOJ's ADA FAQ says service-animal certification is not a condition of entry in ADA-covered settings, and no vest, identification tag or specific harness is required. Ordinary vaccination and dog-licensing rules may still apply. Pack animal care supplies and consult the official FAQ for access rules and exceptions. Do not confuse those ordinary records with proof of service-animal status, or assume a household pet policy defines service-animal access.",
+        "links": [{ href: "https://www.ada.gov/resources/service-animals-faqs/", label: "Check DOJ's service-animal FAQ Q7, Q8 and Q17-21" }]
       },
       {
-        "heading": "The 48-Hour Preparedness Timeline",
-        "body": "The full 72/48/24-hour timeline applies to every household.",
-        "bullets": [
-          "48 hours out: Confirm your registry status, charge all backups, refill prescriptions, and call your dialysis or oxygen supplier for a storm plan.",
-          "24 hours out: Pack the medical go-bag, test the generator, and confirm accessible transport and lodging.",
-          "12 hours out: Move to the safe room with equipment; switch non-essential loads off the generator.",
-          "6 hours out: Stop travel; conserve battery; keep one line open to your support contact."
-        ]
-      },
-      {
-        "heading": "Track the Storm With HurricaneHub Tools",
-        "body": "People with medical needs should evacuate earlier than the general population, so forecast lead time matters more. The HurricaneHub real-time tracker shows the NHC cone and wind field so you can leave before roads clog. Read the cone of uncertainty to understand why the storm does not have to hit you directly to disrupt your power and care. Also watch storm-surge vs. hurricane warnings—surge can cut access routes you will need."
-      },
-      {
-        "heading": "Common Hurricane Preparedness Mistakes",
-        "body": "",
-        "bullets": [
-          "Assuming the shelter will have your equipment. Most do not; bring backups and power.",
-          "Relying on cell service for the registry. Register in person or by phone now; do not count on a last-minute text.",
-          "Under-packaging medicine. A 3-day supply is the bare minimum; aim for 14 days given pharmacy closures.",
-          "Forgetting paper records. If the cloud is down, a printed medication list and care plan is what EMTs will use.",
-          "Waiting for an order to leave. Medical-needs households should move on their own schedule, ahead of the order."
-        ]
-      },
-      {
-        "heading": "Official Resources and Where to Get Help",
-        "body": "Before any life-safety decision, check weather.gov, your local emergency management agency, and current NHC advisories.",
-        "bullets": [
-          "National Hurricane Center: https://www.nhc.noaa.gov — official track and warnings.",
-          "National Weather Service: https://www.weather.gov — local alerts and forecasts.",
-          "FEMA/disaster disability: https://www.fema.gov — assistance and accessibility guidance.",
-          "CDC emergency preparedness: https://www.cdc.gov — medication and equipment cooling guidance.",
-          "Your county emergency management office: the functional-needs registry and accessible shelter locations."
-        ]
-      },
-      {
-        "heading": "Final Checklist and Take Action",
-        "body": "Register today, not during the next storm. Three actions this week: (1) add your household to the county functional-needs registry, (2) build the medical go-bag with a 14-day medication buffer, and (3) test a power plan for any life-dependent device. When a system forms, open the HurricaneHub tracker tool daily and plan to move early. Your health cannot wait for the forecast to be certain."
-      },
-      {
-        "heading": "Building a Support Network and Communication Plan",
-        "body": "A plan fails if no one knows it. Designate two contacts—one local, one out of state—who will check on you and relay status if local lines fail. Share your care plan and equipment needs with a neighbor who can assist in the first hours. If you live alone, ask your area agency on aging or disability organization to add you to a call-down list. Our family communication plan guide has the template to fill in now, while the weather is calm."
+        "heading": "After an Interruption, Reconfirm the Care Plan",
+        "body": "Ask the supplier about equipment exposed to water or damage before using it. Contact the pharmacist or clinical team about uncertain medicine storage, missed treatment or dwindling supplies. Confirm the receiving provider and transport again if conditions change. A restored street power supply or an official return announcement does not establish that the device, home-care visits or treatment facility is ready. General generator precautions remain important, but they do not establish device compatibility or a clinically adequate backup.",
+        "links": [{ href: "/blog/hurricane-generator-safety-carbon-monoxide/", label: "Review generator placement and carbon-monoxide precautions" }, { href: "/blog/hurricane-power-outage-food-medicine-plan/", label: "Coordinate the broader household outage plan" }, { href: "/blog/how-to-check-your-hurricane-evacuation-zone/", label: "Check the official local evacuation map and order" }]
       }
     ],
     "faqs": [
       {
         "question": "What is a functional-needs or special medical needs registry?",
-        "answer": "It is a free county-run list that tells emergency managers you may need accessible transport, an accessible shelter, or a wellness check during a disaster. Register by phone or in person with your local emergency management office before hurricane season."
+        "answer": "Many local agencies have voluntary assistance registries, but availability, eligibility, renewal and services vary. Ask the local emergency-management office what its program provides. An application or accepted enrollment is not confirmation of a ride, shelter placement, treatment or uninterrupted electricity."
       },
       {
         "question": "Will a regular public shelter have power for my oxygen or ventilator?",
-        "answer": "Not necessarily. Some counties operate designated medical-needs shelters with power and staff, but you must register in advance and still bring your own equipment, backups, and supplies. Never assume a standard shelter can support life-dependent devices."
+        "answer": "Confirm support for the particular device with the official shelter operator and care team. An accessible building or a registry receipt does not verify equipment power, staffing or admission. Resolve the destination and transport arrangements separately and keep an alternative if a necessary service cannot be confirmed."
       },
       {
         "question": "How much medication should I keep for hurricane season?",
-        "answer": "Aim for at least 14 days beyond your normal refill, because pharmacies may close for weeks. Keep a printed list of every drug, dose, and prescriber, and store it with your medical go-bag."
+        "answer": "Ready.gov recommends talking to a doctor or pharmacist about creating an emergency medicine supply. Confirm a practical supply target and refill plan for each medicine, taking account of dispensing and storage requirements. Keep a current medication list and product-specific storage instructions, and do not change treatment based on a preparedness checklist."
       },
       {
-        "question": "Does flood insurance cover my durable medical equipment?",
-        "answer": "A separate flood policy may cover equipment damaged by flooding, but a standard homeowners policy usually excludes flood. Document serial numbers and receipts now; see the flood insurance guide."
+        "question": "Is a transfer switch a backup power source for medical equipment?",
+        "answer": "No. A transfer switch routes electricity between sources; it does not generate or store power. The supplier and care team must confirm an appropriate device-specific power plan, and qualified professionals must handle relevant installation or connections. Do not assume vehicle or generator power is compatible."
       },
       {
         "question": "Should I evacuate earlier if I have medical needs?",
-        "answer": "Yes. Leave before the general population and before the evacuation order if your care depends on power, refrigerated medicine, or regular treatment. Roads and services degrade quickly once a storm is close."
+        "answer": "Plan transfer triggers with the care team, transport provider and local officials before a storm, and follow applicable evacuation instructions. The timing depends on care continuity, confirmed transport, the destination and local conditions. A fixed countdown or an unconfirmed battery estimate cannot establish a safe departure time."
       }
     ]
   },
@@ -3233,12 +3180,12 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-water-storage-purification-emergency",
-    sourceCheck: { date: "2026-10-27", scope: "CDC advisory types and household-use guidance, plus Austin Water's February 11, 2022 retrospective memo. This historical case is not a current water-safety check or a hurricane-caused incident; the memo's wholesale-customer completion estimate is not a verified rescission for those systems." },
+    sourceCheck: { date: "2026-11-02", scope: "Rechecked CDC's drinking-water advisory guidance and corrected the filter-versus-boiling FAQ to match the body. Austin Water's February 11, 2022 retrospective memo was checked on October 27, not rechecked today. That case is not a current water-safety check or a hurricane-caused incident; its wholesale-customer completion estimate is not a verified rescission for those systems." },
     sources: [{ href: "https://www.ready.gov/water", label: "Ready.gov: water supplies" }, { href: "https://www.cdc.gov/water-emergency/about/", label: "CDC: emergency water storage and treatment" }, { href: "https://www.cdc.gov/water-emergency/about/drinking-water-advisories-an-overview.html", label: "CDC: boil-water, do-not-drink and do-not-use advisories" }, { href: "https://services.austintexas.gov/edims/document.cfm?id=376266", label: "Austin Water: February 11, 2022 official memo and notice timeline (PDF)" }, { href: "https://www.epa.gov/ground-water-and-drinking-water/emergency-disinfection-drinking-water", label: "EPA: emergency drinking-water disinfection" }],
     title: "Emergency Water Storage and Purification for Hurricanes",
     description: "How much emergency water to store for a hurricane, which containers to use, how to follow boil-water notices, and when boiling or filtering is not enough.",
     datePublished: "2026-08-18",
-    dateModified: "2026-10-27",
+    dateModified: "2026-11-02",
     image: "/images/blog/hurricane-emergency-kit-checklist.png",
     imageAlt: "Household hurricane emergency supplies with sealed drinking-water containers ready for an outage.",
     imageCaption: "AI-generated preparedness illustration, not a photograph of an actual water advisory or distribution site.",
@@ -3323,7 +3270,7 @@ export const blogPosts: BlogPost[] = [
       { question: "How much water should I store per person for a hurricane?", answer: "Use at least one gallon per person per day for drinking and sanitation. Store several days of supply and consider up to two weeks at home when space and resources allow, with extra for heat, illness, pets, and medical needs." },
       { question: "How often should home-filled emergency water be replaced?", answer: "CDC guidance recommends replacing water stored in self-filled containers every six months. Keep it cool, sealed, dated, and away from chemicals." },
       { question: "Does boiling make flood water safe?", answer: "Not necessarily. Boiling kills many germs but does not remove chemical contamination, fuels, metals, salt, or pesticides. Never assume floodwater is drinkable; follow local public-health instructions and use sealed water when chemical contamination is possible." },
-      { question: "Can a household water filter replace boiling?", answer: "Only if the product is designed for the specific contaminants involved. Filters vary, and many do not remove viruses or chemicals. Check the label and follow the local water advisory." },
+      { question: "Can a household water filter replace boiling?", answer: "During a boil-water advisory, no. CDC says to boil tap water even after it passes through a home filter, or use commercially bottled water as directed by the local notice. A filter's contaminant-specific claims are not an exemption from that notice. Boiling does not make chemically contaminated water safe; follow do-not-drink or do-not-use instructions when issued." },
       { question: "What is the difference between a boil-water and do-not-use notice?", answer: "A boil-water notice usually addresses microbial risk, while a do-not-drink or do-not-use notice can involve contaminants boiling cannot remove. Follow the exact notice from the local utility or health department." }
     ]
   }

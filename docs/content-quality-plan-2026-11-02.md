@@ -236,10 +236,10 @@ Google Search 官方重新抓取说明（`https://developers.google.com/search/d
 | `/blog/what-to-do-after-a-hurricane/` | P2 逐篇编辑 | 尚未完成逐句事实审查；要求一个具体问题、来源证据、案例及适用边界 |
 | `/blog/hurricane-pet-safety/` | P2 逐篇编辑 | 尚未完成逐句事实审查；要求一个具体问题、来源证据、案例及适用边界 |
 | `/blog/hurricane-home-preparedness-room-by-room-checklist/` | 本地修订／待发布 | 逐房物品与任务记录；燃气演练、固定倒计时和留家误导已纠正，与结构加固文章互链 |
-| `/blog/hurricane-safety-seniors-children-disability/` | P2 逐篇编辑 | 尚未完成逐句事实审查；要求一个具体问题、来源证据、案例及适用边界 |
+| `/blog/hurricane-safety-seniors-children-disability/` | 本地修订／待发布 | 聚焦本人意愿、家庭照护分工、沟通与无障碍行程交接；纠正 ADA 证件前提和固定提前离开天数，保留来源核对边界 |
 | `/blog/hurricane-insurance-claim-guide-documentation/` | P2 逐篇编辑 | 尚未完成逐句事实审查；要求一个具体问题、来源证据、案例及适用边界 |
 | `/blog/hurricane-home-hardening-checklist/` | 本地修订／待发布 | 聚焦屋顶/车库门/门窗及承包商记录，补 IBHS 依据，纠正预报锥与工期，删重叠段落 |
-| `/blog/hurricane-medical-needs-registry-preparedness/` | P1 归并评估 | 对照同主题文章，以不同输入和产出区分；无独立任务则提具体合并方案 |
+| `/blog/hurricane-medical-needs-registry-preparedness/` | 本地修订／待发布 | 聚焦医疗连续性记录；纠正备用电源、药品储备/防冻、登记确认与转移触发条件，与家庭照护文章互链 |
 | `/blog/hurricane-flood-insurance-guide-nfip/` | P2 逐篇编辑 | 尚未完成逐句事实审查；要求一个具体问题、来源证据、案例及适用边界 |
 | `/blog/hurricane-generator-safety-carbon-monoxide/` | 保留样板／待复核 | 已有来源示例，保留；复核图片版本、结论边界与来源检查范围 |
 | `/blog/hurricane-additional-living-expenses-ale-coverage/` | P2 逐篇编辑 | 尚未完成逐句事实审查；要求一个具体问题、来源证据、案例及适用边界 |
@@ -250,7 +250,7 @@ Google Search 官方重新抓取说明（`https://developers.google.com/search/d
 | `/blog/apartment-hurricane-preparedness-renters-checklist/` | P1 归并评估 | 对照同主题文章，以不同输入和产出区分；无独立任务则提具体合并方案 |
 | `/blog/hurricane-school-daycare-emergency-plan/` | P2 逐篇编辑 | 尚未完成逐句事实审查；要求一个具体问题、来源证据、案例及适用边界 |
 | `/blog/hurricane-contractor-scams-insurance-claim/` | P2 逐篇编辑 | 尚未完成逐句事实审查；要求一个具体问题、来源证据、案例及适用边界 |
-| `/blog/hurricane-water-storage-purification-emergency/` | P2 逐篇编辑 | 尚未完成逐句事实审查；要求一个具体问题、来源证据、案例及适用边界 |
+| `/blog/hurricane-water-storage-purification-emergency/` | 本地修订／待发布 | 纠正过滤替代煮沸的 FAQ 冲突，同查可见 FAQ 与 JSON-LD；保留 Austin 历史案例及原核对日期 |
 | `/blog/hurricane-watch-vs-warning/` | 本轮已改 | 事实纠正／独立任务／可核对示例；待验证后发布 |
 | `/blog/flood-advisory-vs-watch-vs-warning/` | P1 区分任务 | 对照本轮两篇：分别承担定义、产品识别、现场行动或水/风差异；重复定义压缩并内链 |
 | `/blog/rip-current-statement-gulf-coast/` | P2 逐篇编辑 | 尚未完成逐句事实审查；要求一个具体问题、来源证据、案例及适用边界 |
