@@ -6,6 +6,8 @@ export type LocalPreparednessPage = {
   stateSlug: string;
   title: string;
   description: string;
+  dateModified?: string;
+  sourceCheck?: { date: string; scope: string };
   risk: string[];
   history: Array<{ storm: string; detail: string }>;
   evacuation: string[];
@@ -508,6 +510,8 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
     kind: "city", slug: "miami", name: "Miami", stateName: "Florida", stateSlug: "florida",
     title: "Miami Hurricane Preparedness 2026: Evacuation & Safety",
     description: "Miami hurricane preparedness for 2026: Miami-Dade evacuation zones, official alerts, storm surge, emergency routes, history, and safety.",
+    dateModified: "2026-11-02",
+    sourceCheck: { date: "2026-11-02", scope: "Miami-Dade's official storm-surge page describes five planning zones, A-E. Checked the zone explanation and linked lookup entry only; no address, interactive map result, current evacuation order, shelter availability or road condition was verified. Other historical and local background on this page was not reverified in this check." },
     risk: [
       "Miami sits near the warm western Atlantic at the southeast edge of the Florida peninsula. Biscayne Bay, low coastal neighborhoods, canals, barrier islands, high-rise buildings, and porous limestone create distinct storm-surge, rainfall, wind, and drainage problems across Miami-Dade County.",
       "A forecast track east of Miami can still produce dangerous surf, rip currents, tornadoes, and wind, while a track through the Straits or from the southwest can drive water into the bay. Residents should watch the NHC cone, wind field, surge products, and local warnings rather than focus on the center line.",
@@ -526,7 +530,8 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
       { storm: "Irma (2017)", detail: "Passed west after striking the Keys but still produced wind, bay flooding, tornado risk, and outages." }
     ],
     evacuation: [
-      "Miami-Dade uses storm-surge Planning Zones A through F. Find the address in the county tool; officials announce which zones evacuate for the storm. The letters are not hurricane categories and are different from FEMA insurance flood zones.",
+      "Miami-Dade uses five storm-surge Planning Zones, A through E. Find the full address in the county tool and save the result with the lookup date and source URL. During a threat, compare that result with the county's current instructions; the planning map is not itself an evacuation order. The letters are not hurricane categories and are different from FEMA insurance flood zones.",
+      "Keep a private planning record for the household: address and zone result, who needs transport, an agreed destination outside the threatened area, and the official channel to check again. If the map fails or the result is unclear, record the lookup as unresolved and contact county emergency management; do not translate a blank result into no risk. Recheck mobile-home, medical and building-specific instructions even when an address is outside a mapped surge zone.",
       "Routes depend on origin and destination and may use I-95, Florida's Turnpike, the Palmetto Expressway, Dolphin Expressway, US 1, and local arterials. Traffic from the Keys and coastal zones can affect all corridors.",
       "Use Miami-Dade alerts and road information, leave during the announced window, and choose a destination outside the ordered zone and forecast risk. Do not shelter in a vehicle, parking garage, or flooded high-rise basement."
     ],
@@ -538,7 +543,7 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
     ],
     faqs: [
       { question: "Is a hurricane threatening Miami now?", answer: "Check the HurricaneHub live tracker, the latest NHC advisory, and NWS Miami alerts. This standing page does not itself indicate a current threat." },
-      { question: "What Miami-Dade evacuation zone am I in?", answer: "Use the county Storm Surge Planning Zone tool for the exact address. Zones A through F reflect surge planning, not storm category." },
+      { question: "What Miami-Dade evacuation zone am I in?", answer: "Use the county Storm Surge Planning Zone tool for the exact address. The five zones, A through E, reflect surge planning, not storm category or FEMA flood-insurance zones. Save the lookup date, then check current county instructions separately; this guide has not looked up your address." },
       { question: "Should Miami high-rise residents evacuate?", answer: "Follow the order for the address and building. High-rises outside evacuation zones still need plans for glass, elevators, water, heat, and prolonged outages." },
       { question: "Which hurricane caused Miami's greatest damage?", answer: "The 1926 Miami hurricane devastated the city, while Andrew in 1992 destroyed communities in south Miami-Dade and reshaped building standards." }
     ]

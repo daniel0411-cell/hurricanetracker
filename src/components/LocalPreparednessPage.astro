@@ -9,23 +9,24 @@ const { page } = Astro.props as { page: LocalPreparednessPage };
 const path = page.kind === "state" ? `state/${page.slug}/preparedness/` : `city/${page.slug}/hurricane-tracker/`;
 const url = `${site.url}/${path}`;
 const statePage = `/state/${page.stateSlug}/preparedness/`;
+const lastModified = page.dateModified ?? site.contentLastModified;
 const jsonLd = graph(
   websiteSchema(),
-  articleSchema({ title: page.title, description: page.description, url, dateModified: site.contentLastModified }),
+  articleSchema({ title: page.title, description: page.description, url, dateModified: lastModified }),
   faqSchema(page.faqs),
   howToSchema({ name: `${page.name} seven-day hurricane preparedness checklist`, description: `Prepare a household in ${page.name} for evacuation, outages, flooding, and official hurricane alerts.`, url, steps: preparednessSteps }),
   breadcrumbSchema([{ name: "Home", url: site.canonicalUrl }, { name: page.stateName, url: page.kind === "state" ? url : `${site.url}${statePage}` }, { name: `${page.name} Hurricane Guide`, url }])
 );
 ---
 
-<Layout title={page.title} description={page.description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified}>
+<Layout title={page.title} description={page.description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
   <section class="band local-hero" aria-labelledby="local-title"><div class="inner"><p class="eyebrow">2026 Atlantic season readiness</p><h1 id="local-title">{page.name} Hurricane {page.kind === "state" ? "Preparedness" : "Preparedness and Evacuation"} Guide</h1><p class="answer">Use this standing guide to prepare supplies, transport, evacuation arrangements, and official contacts before a storm. It does not describe a current threat to {page.name}.</p><p class="section-actions"><a class="action-link" href="/2026-hurricane-season/">2026 season hub</a><a class="action-link secondary-action" href={page.kind === "city" ? `/hurricane-tracker/city/${page.slug}/` : `/tracker/${page.stateSlug}/`}>Current {page.name} storm context and alerts</a></p></div></section>
 
   <section class="band" aria-labelledby="local-risk"><div class="inner"><p class="eyebrow">Local vulnerability</p><h2 id="local-risk">Why {page.name} Faces Hurricane Risk</h2>{page.risk.map((paragraph) => <p class="answer">{paragraph}</p>)}</div></section>
 
   <section class="band muted" aria-labelledby="storm-history"><div class="inner"><p class="eyebrow">Historical context</p><h2 id="storm-history">Past Storms and {page.name} Planning</h2><p>These events illustrate different planning hazards, not a forecast of the next storm. A storm's peak category is not necessarily the wind experienced in {page.name}, and does not measure rainfall, surge, or community impact.</p><div class="history-grid">{page.history.map((item) => <article><h3>{item.storm}</h3><p>{item.detail}</p></article>)}</div><p class="source-note">Source context: <a href="https://www.nhc.noaa.gov/data/tcr/" rel="noopener nofollow">NHC Tropical Cyclone Reports</a> and official state emergency guidance.</p></div></section>
 
-  <section class="band" aria-labelledby="evacuation-plan"><div class="inner"><p class="eyebrow">Leave by local order</p><h2 id="evacuation-plan">Evacuation Zones, Routes and Timing</h2>{page.evacuation.map((paragraph) => <p class="answer">{paragraph}</p>)}<aside class="safety-note"><strong>Route safety:</strong> Never rely on a remembered route, automatic contraflow, or a forecast center line. Check the current local order, road conditions, destination risk, and arrival of tropical-storm-force winds.</aside></div></section>
+  <section class="band" aria-labelledby="evacuation-plan"><div class="inner"><p class="eyebrow">Leave by local order</p><h2 id="evacuation-plan">Evacuation Zones, Routes and Timing</h2>{page.evacuation.map((paragraph) => <p class="answer">{paragraph}</p>)}{page.sourceCheck && <p class="source-note">Source check {page.sourceCheck.date}: {page.sourceCheck.scope}</p>}<aside class="safety-note"><strong>Route safety:</strong> Never rely on a remembered route, automatic contraflow, or a forecast center line. Check the current local order, road conditions, destination risk, and arrival of tropical-storm-force winds.</aside></div></section>
 
   <section class="band muted" aria-labelledby="kit-checklist"><div class="inner"><p class="eyebrow">Seven-day baseline</p><h2 id="kit-checklist">{page.name} Hurricane Emergency Kit Checklist</h2><ol class="checklist">{preparednessSteps.map((step) => <li><h3>{step.name}</h3><p>{step.text}</p></li>)}</ol></div></section>
 

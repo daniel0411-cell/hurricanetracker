@@ -1945,119 +1945,112 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-home-preparedness-room-by-room-checklist",
-    sources: [{ href: "https://www.ready.gov/kit", label: "Ready.gov: supplies checklist" }, { href: "https://www.ready.gov/hurricanes", label: "Ready.gov: hurricane preparation" }],
+    sources: [{ href: "https://www.ready.gov/hurricanes", label: "Ready.gov: household preparation and local evacuation instructions" }, { href: "https://www.ready.gov/safety-skills", label: "Ready.gov: natural gas, water and electricity safety skills" }, { href: "https://www.nhc.noaa.gov/aboutnhcgraphics.shtml#TOA", label: "NHC: arrival time of tropical-storm-force winds" }],
     title: "Hurricane Home Preparedness: Room-by-Room Checklist",
-    description: "Walk through your home room by room with this hurricane preparedness checklist: kitchen, bathroom, bedroom, garage, attic, and yard—and know exactly what to secure before the storm arrives.",
+    description: "Check rooms, supplies, documents and utility instructions before a hurricane. Track unfinished tasks without delaying evacuation or starting structural repairs.",
     datePublished: "2026-08-13",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-02",
+    sourceCheck: { date: "2026-11-02", scope: "Read Ready.gov hurricane and safety-skills guidance, including gas practice and qualified restart, plus NHC wind-arrival product definitions. The walkthrough and worked record are editorial planning examples, not a home inspection. No current warning, utility configuration, address, supply inventory or safe route was verified." },
     image: "/images/blog/hurricane-home-preparedness-room-by-room-checklist.png",
     imageAlt: "A homeowner walks through a bright living room with a clipboard, checking hurricane preparedness items while an emergency kit stands ready by the door.",
     sections: [
       {
-        heading: "Direct Answer: Get Every Room Ready Before the Wind Arrives",
-        body: "A full hurricane home preparation is really a sequence of small tasks repeated in every room. The fastest way to make sure you have not missed anything is to walk the house room by room with a checklist, starting the week before landfall and finishing before watches become warnings. Focus on four things in every space: what can fly, what can flood, what you will need in the dark, and what you must protect. Work from the outside in, and stop outdoor work the moment winds pick up or a warning is issued."
+        heading: "Start With a Household Walkthrough, Not a Repair Project",
+        body: "Use this checklist to locate supplies, pack what must travel, move manageable belongings and identify unresolved needs. It is not a roof inspection, a structural retrofit or permission to stay in an unsafe building. First check whether local officials are directing your household to leave; an evacuation order takes priority over every unfinished task. Prepare throughout the season rather than assuming a storm will give you a full week or a final 48-hour window.",
+        links: [{ href: "/blog/hurricane-home-hardening-checklist/", label: "Plan rated openings and structural work before a storm threatens" }]
       },
       {
-        heading: "Why a Room-by-Room Walkthrough Works",
-        body: "Most homeowners prepare the obvious things—windows, roof, food—and forget the rest of the house until it is too late. A structured walkthrough turns a vague task like 'prepare the home' into a concrete list you can finish. It also reveals problems you would otherwise discover mid-storm: a ceiling leak over the bed, a garage door that will not latch, a window AC unit that was never removed. Set aside two hours with your family, go through each room below, and mark every task off as you complete it. Keep the list where you can see it on the day the forecast starts to turn."
+        heading: "Record an Owner, a Location and a Completion Check",
+        body: "For each task, write who will do it, where the item is and what proves it is ready. Use three statuses: complete, unresolved and needs a professional. A shopping list is not proof that supplies are present; a flashlight is ready only after a check that it works and can be reached in darkness. Keep the record offline with your departure bag. Renters should report building or fixture problems to the manager rather than alter shared equipment. Do not post your address, medication list or door-access details on a public checklist."
       },
       {
         heading: "Entryways, Living Room, and Common Spaces",
-        body: "Start where you spend your time. Common rooms collect loose objects, breakables, and electronics that are easy to forget when the forecast changes.",
+        body: "Check the route from each occupied room to the exit with the household members who will use it. A charged phone does not resolve a stair-access or transport problem. Ask the building manager about elevator shutdowns and identify assistance before an outage.",
         bullets: [
-          "Move potted plants, lamps, and décor away from windows; store breakables in lower cabinets.",
-          "Anchor TVs and heavy furniture to studs so they cannot topple in shaking wind.",
-          "Charge phones, tablets, and power banks; keep them and a weather radio in one grab-and-go spot.",
-          "Roll up loose rugs that could become a slipping hazard on wet floors.",
-          "Take photos or video of every room and its contents for your insurance record."
+          "Clear exit paths and move manageable loose or breakable objects away from windows.",
+          "Test flashlights and backup charging equipment; keep alerts available through more than one channel.",
+          "Confirm keys, shoes, mobility aids and departure bags are accessible to the people who need them.",
+          "Photograph belongings from a safe position and store a copy of the inventory away from the home."
         ]
       },
       {
         heading: "Kitchen and Pantry",
-        body: "The kitchen holds your food supply, your water supply, and a surprising amount of glass. If you store emergency food here, make sure it is reachable without power or light.",
+        body: "Count what is actually stored, including water, food that can be eaten without cooking, a manual opener and any dietary requirements. Keep drinking water separate from water intended for cleaning or toilet flushing. An unlabelled bathtub supply is not a drinking-water plan. A cooler also needs a cold source and a temperature check; a cold-feeling package does not establish food or medication safety.",
         bullets: [
-          "Freeze bottles of water ahead of the storm to keep the fridge cold longer during outages.",
-          "Turn refrigerators and freezers to their coldest settings before landfall.",
-          "Stock five to seven days of non-perishable food that needs no cooking or refrigeration.",
-          "Store one gallon of water per person per day for at least three days.",
-          "Check that your manual can opener, not an electric one, is the tool you reach for.",
-          "Tape or move glassware and breakables out of cabinets above counters where shaking can dislodge them."
-        ]
+          "Check container labels, quantities and expiry dates against your household supply plan.",
+          "Store appliance thermometers and know where to find the current food-discard guidance.",
+          "Keep refrigerator and freezer doors closed during an outage; follow the appliance manufacturer's preparation instructions.",
+          "Plan outdoor cooking and backup power separately; never bring a generator or charcoal grill into the kitchen or garage."
+        ],
+        links: [{ href: "/blog/hurricane-power-outage-food-medicine-plan/", label: "Work through water quantities, food temperatures and medication exceptions" }]
       },
       {
         heading: "Bathrooms and Plumbing",
-        body: "Bathrooms are easy to skip, but they are where you will wash, treat small injuries, and manage water needs during an outage.",
+        body: "Check handwashing, sanitation and first-aid supplies without assuming normal water service will continue. Store any non-drinking water safely and keep children away from open containers or a filled bathtub. Keep prescription instructions with the medicines and ask the pharmacist about storage, refill or transport requirements rather than substituting a household cooling rule.",
         bullets: [
-          "Fill the bathtub and large containers with water for flushing and cleaning before the storm.",
-          "Store a first-aid kit and any prescription medications in a waterproof bag.",
-          "Keep flashlights in each bathroom; a headlamp frees both hands.",
-          "Confirm you know where the main water shutoff valve is and that the wrench is accessible.",
-          "Remove or secure any glass bottles, mirrors, and décor that could shatter."
+          "Keep first-aid materials, hygiene supplies and required medicines accessible for departure.",
+          "Label water by intended use and follow local drinking-water advisories.",
+          "Locate the household water shutoff and obtain instructions before an emergency; do not operate unfamiliar utility-owned equipment."
         ]
       },
       {
         heading: "Bedrooms and Valuables",
-        body: "Bedrooms protect sleep, documents, and the things hardest to replace. This is where you sleep through the worst of the storm, so make it safe and comfortable.",
+        body: "A familiar bedroom is not automatically a safe place during high winds. If local guidance allows remaining in the building, identify an appropriate interior refuge and an accessible path to it. Flood protection may require a different action from wind protection; a windowless room does not make an evacuation-zone home safe. Pack documents and essentials to travel with you rather than relying only on upstairs storage.",
         bullets: [
-          "Move beds and cribs away from windows; secure headboards to walls.",
-          "Keep shoes, a flashlight, and a whistle beside each bed for dark escapes.",
-          "Move irreplaceable documents and heirlooms to interior closets or upper floors.",
-          "Store photo albums and hard drives in waterproof bins or bags.",
-          "Rechargeable lanterns and spare batteries belong here, not just in the kitchen."
+          "Keep shoes, lights and necessary hearing, vision or mobility aids within reach.",
+          "Pack identification, essential contacts and copies of relevant insurance or medical records in a portable waterproof pouch.",
+          "Move only manageable remaining valuables before conditions deteriorate; property protection must not delay leaving."
         ]
       },
       {
         heading: "Garage, Laundry, and Utility Rooms",
-        body: "Garages hide two of the biggest hurricane risks: unsecured doors and flammable or toxic liquids. Utility rooms hide the shutoffs you will need when the power goes out.",
+        body: "Locate and label shutoffs in advance, but treat gas, water and electricity as different systems. Ready.gov explicitly says not to actually turn off natural gas when practicing. Ask your gas utility for the procedure for your meter; if gas is turned off, only a qualified professional should restore it. This walkthrough is not an instruction to disconnect utilities on a fixed storm countdown.",
         bullets: [
-          "Reinforce garage door tracks and braces—a blown-out garage door can unload the entire roof.",
-          "Move gasoline, propane, and cleaning chemicals to high ground, away from ignition sources.",
-          "Lift freezers and appliances off the floor if flooding is possible in your area.",
-          "Mark and practice shutting off gas, water, and electricity from their main valves.",
-          "Clear space so the water heater and furnace air intakes stay above any flood line."
-        ]
+          "Record utility emergency numbers and confirm instructions with the provider. Do not touch switches or equipment if you suspect a gas leak; leave and call from a safe location.",
+          "Identify electrical controls in advance. Never approach or operate electrical equipment while standing in water; obtain utility or qualified electrical assistance.",
+          "Keep fuels in approved containers and permitted storage locations according to fire rules and manufacturer instructions; do not move propane or gasoline into occupied rooms.",
+          "Refer garage-door rating, reinforcement, appliance elevation and other fixed-equipment changes to qualified professionals."
+        ],
+        links: [{ href: "https://www.ready.gov/safety-skills", label: "Read the separate Ready.gov gas, water and electricity procedures" }]
       },
       {
         heading: "Attic, Basement, and Crawl Space",
-        body: "Unused spaces are where leaks, pests, and stored hazards get discovered too late. A quick inspection now prevents surprises during a week of heavy rain and wind.",
+        body: "Check stored items and visible problems only from a dry, safe and accessible position. A stain is a reason to arrange an inspection, not evidence that a roof is sound. Do not climb onto a roof, enter an unstable space or move heavy equipment as a storm approaches. Basement flooding, electrical equipment and limited exits can make an apparently useful storage area dangerous.",
         bullets: [
-          "Inspect the roof and attic for existing leaks or weak shingles while it is still safe to work.",
-          "Remove anything from the basement floor that floodwater would destroy; raise shelves.",
-          "Verify sump pumps work and that the backup battery or generator hookup is ready.",
-          "Store valuables on the highest floor; move them now, not when water is rising.",
-          "Clear debris from vents and drains so heavy rain flows away instead of pooling."
+          "Move portable records out of flood-prone storage before any flooding begins.",
+          "Check pump or backup equipment according to its instructions; have wiring and fixed installations assessed professionally.",
+          "Record leaks and access problems for the property owner or contractor. Do not use a closed attic as a refuge from rising floodwater."
         ]
       },
       {
         heading: "Yard, Porch, and Outdoor Items",
-        body: "Anything outside becomes a projectile at hurricane wind speeds. Outdoor preparation is the first thing to do and the first thing to stop once winds rise.",
+        body: "Bring manageable loose items indoors while conditions are safe. Tree work, roof repairs and ladder tasks belong in advance planning with appropriate help. Skip a task if it puts a person at risk or delays evacuation; a furniture checklist cannot create a safe outdoor work window.",
         bullets: [
-          "Bring in or tie down patio furniture, grills, trash cans, and garden tools.",
-          "Trim weak or dead branches while conditions are calm—never during wind.",
-          "Clear gutters and downspouts so stormwater has a path away from the foundation.",
-          "Secure loose shingles, siding, and outdoor lighting fixtures.",
-          "Move vehicles away from trees, power lines, and low-lying flood areas."
+          "Store patio furniture, planters, loose tools and bins without blocking exits or access to required equipment.",
+          "Follow the grill and fuel-container storage instructions; an outdoor item is not necessarily safe to store indoors.",
+          "Check vehicle keys, fuel or charge, parking risk and transport arrangements before an order requires departure."
         ]
       },
       {
-        heading: "The 48-Hour Window: When to Do What",
-        body: "Timing is as important as the tasks themselves. A room-by-room plan works best when you stage it over the week before a storm, then finish the last steps inside the final 48 hours.",
+        heading: "Use Local Instructions and Wind Timing, Not a Universal Countdown",
+        body: "Read the current local order first, then the NHC wind-arrival graphics and local NWS hazards. Landfall time and the edge of the track cone are not household deadlines. The earliest reasonable arrival graphic accounts for uncertainty in tropical-storm-force wind onset; it is not a guarantee of safe conditions until that time. Rain, lightning, flooding, transport needs or a local order can require stopping work or leaving earlier.",
         bullets: [
-          "Seven to three days out: shop, stock, trim trees, and fix known repairs while stores and contractors are still available.",
-          "48 hours out: finish outdoor work, fill water containers, freeze water bottles, and charge devices.",
-          "24 hours out: move vehicles, set the fridge to max cold, take final photos, and confirm your alert settings.",
-          "At the warning: stop outdoor work, shelter in the strongest room, and stay off the roads."
-        ]
+          "Before the season: resolve building repairs, transport, utility instructions and equipment installation.",
+          "When a threat develops: check the applicable instructions and complete only tasks that fit safely before departure or worsening conditions.",
+          "When directed to evacuate: leave as instructed, even if room tasks remain incomplete. A warning alone does not mean every household should shelter at home."
+        ],
+        links: [{ href: "https://www.nhc.noaa.gov/aboutnhcgraphics.shtml#TOA", label: "Check what NHC wind-arrival products do and do not establish" }]
       },
       {
-        heading: "Stay Informed With HurricaneHub",
-        body: "Use HurricaneHub's tracker, radar, and state alert pages for storm context. Check the product timestamps, then use your local emergency-management agency's address lookup and current orders for evacuation decisions. A storm map cannot determine whether a particular home or road will be safe."
+        heading: "Worked Record: A Missing Item Is an Unfinished Task",
+        body: "Illustrative example, not an inspected home: a household finds a working kitchen flashlight, an empty medicine cooler and a utility sheet with no gas-provider number. The record can say 'light tested, complete'; 'cooling and transport plan, unresolved, ask pharmacist'; and 'utility contact and procedure, unresolved, contact provider'. Do not mark the room ready because the objects exist, or close a gas valve to demonstrate completion. Assign each unresolved task to a person and a next action; if an evacuation order arrives first, leave with the available essentials and seek official assistance for unmet needs.",
+        links: [{ href: "/blog/how-to-check-your-hurricane-evacuation-zone/", label: "Make a separate address and evacuation-instruction record" }, { href: "/hurricane-tracker/live/", label: "Check current storm context and product timestamps" }]
       }
     ],
     faqs: [
       {
         question: "How long before a hurricane should I start preparing my home?",
-        answer: "Start the big tasks—shopping, trimming, repairs, and yard work—a week before a storm is forecast to approach. Finish outdoor work and final inside tasks within the last 48 hours. Once a hurricane warning is issued, stop outdoor work and shelter in place."
+        answer: "Prepare supplies, repairs, transport and utility instructions before a threat develops. As a storm approaches, use local instructions and wind-arrival guidance rather than a fixed landfall countdown. Evacuate when directed; unfinished property tasks do not justify staying."
       },
       {
         question: "What should I check in the garage and utility room?",
@@ -2065,7 +2058,11 @@ export const blogPosts: BlogPost[] = [
       },
       {
         question: "Do I need to prepare every room if I plan to evacuate?",
-        answer: "Yes, partially. Even if you evacuate, unsecured items can cause damage that raises your insurance claim and leaves hazards for first responders. Secure or remove anything that could fly or flood, take photos for your claim, and skip only the tasks meant for sheltering in place."
+        answer: "Complete manageable tasks while it is safe, but leave as instructed even if the checklist is unfinished. Prioritize people, required medicines, transport and essential records; do not return to hazardous conditions for property preparation."
+      },
+      {
+        question: "Should I close the gas valve to practice for a hurricane?",
+        answer: "No. Ready.gov says not to actually turn off natural gas during practice. Obtain the procedure for your meter from the gas utility. If gas is turned off, only a qualified professional should turn it back on."
       }
     ]
   },
@@ -2316,125 +2313,111 @@ export const blogPosts: BlogPost[] = [
   },
   {
     "slug": "hurricane-home-hardening-checklist",
-    sources: [{ href: "https://www.ready.gov/hurricanes", label: "Ready.gov: home protection and hurricane preparation" }],
-    "title": "Hurricane Home Hardening: A Room-by-Room Protection Checklist for Windows, Doors, and Roof",
-    "description": "A practical hurricane home hardening checklist for windows, doors, garage, and roof—plus a room-by-room interior inspection and the 48-hour timeline to protect your house.",
+    sources: [{ href: "https://ibhs.org/hurricanereadyhomeupgrades/", label: "IBHS: roof, rated garage-door and opening upgrades" }, { href: "https://ibhs.org/hurricanereadyhomebeforeevent", label: "IBHS: preparation as a hurricane approaches" }, { href: "https://www.ready.gov/hurricanes", label: "Ready.gov: local orders and household preparation" }, { href: "https://www.nhc.noaa.gov/aboutcone.shtml", label: "NHC: definition of the track forecast cone" }, { href: "https://www.nhc.noaa.gov/aboutnhcgraphics.shtml#TOA", label: "NHC: wind-arrival products and uncertainty" }],
+    "title": "Hurricane Home Hardening: Roof, Door and Window Checklist",
+    "description": "Plan hurricane upgrades for roofs, garage doors and windows. Check ratings, installation records and contractor questions before a storm threatens your home.",
     "datePublished": "2026-08-14",
-    "dateModified": "2026-10-24",
+    "dateModified": "2026-11-02",
+    sourceCheck: { date: "2026-11-02", scope: "Read IBHS Home Upgrades and Just Before the Storm, Ready.gov hurricane guidance, and NHC cone and wind-arrival definitions. Product-record examples are illustrative, not engineering or a code assessment. No building, product approval, contractor, insurance discount, current forecast or evacuation instruction was verified." },
     "image": "/images/blog/hurricane-home-hardening-checklist.png",
-    "imageAlt": "A homeowner securing plywood storm panels over windows and bracing a garage door while preparing a coastal house for an approaching hurricane.",
+    "imageAlt": "Editorial illustration of a person fitting a plywood panel over a window on a house.",
     "sections": [
       {
-        "heading": "Direct Answer",
-        "body": "Start hardening your home the moment a hurricane enters the five-day forecast, not the night before. The single highest-value actions are protecting openings (windows and doors), bracing the garage door, and clearing the yard of projectile debris. Spend the first 48 hours on permanent and semi-permanent fixes—storm shutters, plywood panels, roof trim—and the final 24 hours on the interior and last-minute securing. A hardened envelope is what keeps wind and rain out; once water gets inside, damage multiplies fast. Use the HurricaneHub tracker tool to watch the cone and time your work against the forecast."
+        "heading": "Plan Building Upgrades Before a Storm Threatens",
+        "body": "Home hardening means reducing building vulnerability through suitable roof, door, window and connection upgrades. Plan inspections, permits, product selection and installation before a storm threatens, often alongside maintenance or reroofing. A five-day forecast is not a safe starting signal for a structural project. When a threat develops, the task changes to deploying already planned protection and following local instructions. No retrofit makes a home safe from every wind or flood hazard, or overrides an evacuation order."
       },
       {
-        "heading": "Hurricane Preparedness Checklist: The Home Hardening Kit",
-        "body": "A \"go-bag\" protects your family; a separate home hardening kit protects the structure. Assemble it before hurricane season, not during the rush. Keep this kit in one marked bin so you are not searching in the rain. Pair it with a family emergency kit checklist for supplies you will take if you evacuate.",
+        "heading": "Make an Opening and Roof Record Before Buying Materials",
+        "body": "The useful output is a property-specific record, not a generic shopping bin. Number each opening, note the existing protection and record what evidence is available. An unlabelled door or a seller's 'hurricane proof' claim leaves a question to resolve; neither establishes suitability. Ask a qualified installer and the local building department what applies to the building and opening before ordering.",
         "bullets": [
-          "Pre-cut plywood panels labeled for each window and door, with drilled pilot holes.",
-          "Storm shutters (permanent or accordion) and the hardware to mount them.",
-          "Garage door braces or a reinforced retrofit kit rated for your wind zone.",
-          "Roofing sealant, spare shingles, and a tarp sized for the largest vulnerable roof section.",
-          "Sandbags or flood barriers for ground-floor doors and low-lying entries.",
-          "Ratchet straps, bungee cords, and heavy-duty anchors for outdoor items.",
-          "A lithium-ion or manual drill, bits, a ladder, and work gloves."
+          "Record the product model, readable rating label, approval or test documentation, installation instructions and opening identifier.",
+          "Save the installer's contact, scope of work, permits or inspection records where applicable, and dated completion photos.",
+          "For removable protection, label the panels and hardware by opening and check that the required parts and installation instructions are present.",
+          "Keep unresolved questions separate from completed work; a quote, delivery or deposit is not an installed and checked system."
         ]
       },
       {
-        "heading": "Room-by-Room Home Inspection",
-        "body": "Hardening is not only exterior. Walk the house and address each space: A full interior version of this walkthrough is in our room-by-room preparedness guide.",
+        "heading": "Roof: Ask About the System, Not Just the Shingles",
+        "body": "IBHS distinguishes roof cover, deck attachment, roof edges and a sealed roof deck. Cover damage and water intrusion are related but different failure paths; replacing a few visible shingles does not establish the condition of the system below. Arrange a roof assessment with a qualified contractor well ahead of a threat. Keep observations made safely from the ground, but do not treat them as a structural inspection or climb onto the roof to complete this checklist.",
         "bullets": [
-          "Attic and roof: Check for loose or missing shingles, deteriorated flashing, and water stains that signal an existing leak. Trim overhanging branches that could puncture the roof.",
-          "Windows: Confirm each opens, closes, and locks. Note which need panels or shutters; measure and pre-fit them now.",
-          "Exterior doors: Tighten hinges and strike plates; add a deadbolt or barrel bolt at the top and bottom for double doors.",
-          "Garage: Ask a qualified installer whether the door is wind-rated and whether an approved reinforcement system is suitable for the opening and local code. An improvised brace is not a guarantee against failure.",
-          "Utility room: Know where the main water, gas, and electrical shutoffs are, and keep a wrench nearby.",
-          "Yard and patio: Anything loose becomes a missile. Secure or store furniture, grills, planters, and trash cans.",
-          "Interior: Move valuables, electronics, and documents to an upper floor or a sealed plastic container off the ground."
+          "Ask which observed defects need repair and which proposed improvements require reroofing or access to concealed work.",
+          "Request a written scope for deck attachment, edge details, water protection and applicable inspection, rather than a promise about one storm category.",
+          "If pursuing a FORTIFIED designation, use the program's professional and independent evaluation process. A roofing sales description is not the designation."
         ]
       },
       {
-        "heading": "Protecting Vulnerable Family Members",
-        "body": "If anyone in the home is elderly, a young child, or has a disability, hardening decisions should account for their mobility and medical needs. Identify a safe interior room with no windows for shelter, keep medications and mobility aids in one grab-and-go spot, and confirm the evacuation route is wheelchair accessible. Do not rely on memory—write the plan down. Our dedicated guide for seniors, children, and people with disabilities covers registries and support networks in detail."
+        "heading": "Garage Door: Read the Label and Resolve Missing Evidence",
+        "body": "IBHS identifies the garage door as a vulnerable large opening and recommends wind-rated doors. Its guidance describes labels with positive and negative design pressures in pounds per square foot, or PSF. Those figures are not a hurricane category rating. Photograph a readable label from a safe position and ask the building department or qualified door installer what rating and installation are required for the opening. Do not select a generic brace or change tracks, springs or anchors from an online checklist. A missing label means the rating remains unresolved until documentation or an assessment establishes it.",
+        links: [{ href: "https://ibhs.org/hurricanereadyhomeupgrades/", label: "Read IBHS's wind-rated garage-door label guidance" }]
       },
       {
-        "heading": "Pet Safety During Hurricane Prep",
-        "body": "Pets need the same early action as people. Bring outdoor animals inside before wind arrives, confirm collars and microchips, and pack a pet go-bag with food, water, meds, and carriers. If you evacuate, take pets with you—most public shelters that accept people will not take animals, so identify pet-friendly hotels in advance. See the full hurricane pet safety guide for a complete checklist."
+        "heading": "Windows and Doors: Check Protection and Installation Together",
+        "body": "IBHS lists impact-rated windows and glazed doors, and hurricane shutters, as upgrade options. Ask whether the selected product, opening size, attachment and existing wall construction match the approved installation. A shutter stored in the garage provides no protection until correctly installed. Practice the planned deployment in calm conditions, arranging help for heavy panels or inaccessible openings. Confirm how people will enter and leave after protection is deployed; renters and condo owners need the owner's or association's approved arrangements. Do not tape glass or treat improvised boards as equivalent to a documented protection system."
       },
       {
-        "heading": "Insurance: Documents and Coverage",
-        "body": "Hardening reduces damage, but it does not eliminate risk, so your paperwork must be ready before landfall. Photograph or video every room, the roof, and outbuildings now, while conditions are fair. Store the policy number, agent contact, and a copy of the declarations page in a waterproof pouch and in cloud storage. Understand your hurricane deductible—it is usually a percentage of dwelling value, not a flat amount, and it applies separately from the flood deductible. Keep our insurance documentation checklist handy so nothing is missing when you file."
+        "heading": "Ask the Contractor Five Specific Questions",
+        "body": "Use the answers to compare proposals for the same opening or roof scope. Record the answer and supporting document, not just 'yes'. If a required item is unknown, ask who will resolve it and when; do not assume paying for a product resolves its installation or code requirements.",
+        "bullets": ["What existing condition or failure path does this work address?", "Which product and installation documents apply to this exact opening or roof system?", "Who determines local code requirements, permits and inspections?", "What documentation and operating instructions will I receive at completion?", "Which limitations remain, including flood exposure and the need to evacuate?"]
       },
       {
-        "heading": "Recovery After the Storm",
-        "body": "After the storm passes, do not rush back in. Wait for official \"all clear,\" then inspect from the outside first: downed lines, gas smell, and structural leaning mean stay out. Document every bit of damage with photos before any temporary repair, and keep receipts for tarps or board-up work—insurers reimburse reasonable mitigation. A safe, ordered recovery plan is in what to do after a hurricane."
+        "heading": "Worked Example: A Product Label Is Only One Part of the Record",
+        "body": "Illustrative example, not a real inspection: the owner records 'G1, garage opening; model label present; positive and negative PSF values readable; required local rating not yet confirmed; installation record missing'. The next action is to send the label and opening information privately to a qualified installer and ask the local building department about requirements. The status remains unresolved. It must not become 'Category 3 safe' or 'safe to shelter' based on the label alone. Close the documentation task only when the suitability and installation questions have answers, while retaining the limits on what was actually assessed."
       },
       {
-        "heading": "The 48-Hour Preparedness Timeline",
-        "body": "Our broader 72/48/24-hour timeline expands each window.",
+        "heading": "Separate Annual Work From Deploying Existing Protection",
+        "body": "IBHS separates Home Upgrades from Just Before the Storm. Use the same distinction in your plan. Complete contracted upgrades and correct problems before a threat. When a storm approaches, deploy the already selected system only according to its instructions and while conditions allow; do not start a reroofing, electrical, structural or elevated-work project to meet a countdown.",
         "bullets": [
-          "48 hours out: Install shutters or plywood on the most exposed openings; brace the garage door; clear yard debris; top off fuel and charge power banks.",
-          "24 hours out: Finish remaining openings; move valuables upstairs; stage the sandbags; confirm evacuation lodging and route via your evacuation zone lookup.",
-          "12 hours out: Shut off propane; set the fridge to coldest; fill bathtubs and containers with water; bring pets inside.",
-          "6 hours out: Close and lock all interior doors; move to the safe room; stop all exterior work once tropical-storm-force winds begin."
+          "Before the season: inspect, select, permit, install and resolve documentation and deployment needs.",
+          "When a threat develops: check local orders, available assistance and weather timing; install existing protection while safe without delaying departure.",
+          "Before leaving: close doors and windows as appropriate to the planned system. Do not disconnect gas, propane or electricity just because a template says a certain number of hours remains.",
+          "When unsafe conditions or departure instructions arrive: stop property tasks and follow the applicable instructions. Do not wait for tropical-storm-force winds to begin."
         ]
       },
       {
-        "heading": "Track the Storm With HurricaneHub Tools",
-        "body": "Timing your hardening work depends on an accurate forecast. The HurricaneHub real-time tracker shows the official NHC cone, current position, and wind radii so you can judge when the 48-hour window opens for your area. Learn to read uncertainty in the cone of uncertainty explainer—the storm can shift, and your prep should finish before the outer edge, not the center, reaches you. Pair tracking with storm-surge vs. hurricane warnings so you know whether water, not just wind, drives your decision."
+        "heading": "The Cone Is Not a Work-Completion Deadline",
+        "body": "The NHC cone represents uncertainty in the forecast track of the storm's center. Its edge is not the boundary of damaging weather or an arrival-time line. Use current local instructions and the NHC arrival-time products for tropical-storm-force winds, checking their timestamps and uncertainty. The earliest reasonable wind-arrival time is a planning aid, not a guarantee that outdoor work is safe until then; rain, lightning, flooding and evacuation transport may require an earlier stop. The most likely arrival time leaves more risk that winds begin before preparation is complete.",
+        links: [{ href: "https://www.nhc.noaa.gov/aboutnhcgraphics.shtml#TOA", label: "Compare the earliest reasonable and most likely wind-arrival definitions" }, { href: "/blog/how-to-read-the-hurricane-cone-of-uncertainty/", label: "Read a historical cone example without treating it as a damage boundary" }]
       },
       {
-        "heading": "Common Hurricane Preparedness Mistakes",
-        "body": "",
+        "heading": "Do Not Convert an Upgrade Into a Safety Guarantee",
+        "body": "A completed improvement addresses a defined vulnerability under defined conditions. It does not establish that every part of the building is adequate or remove surge, rain or access risk. Keep these conclusions separate in the record:",
         "bullets": [
-          "Taping windows. Tape does not stop glass from breaking and creates sharper, more dangerous shards. Use panels or shutters.",
-          "Ignoring the garage door. A failed garage door can pressurize the whole house and lift the roof. Always brace it.",
-          "Waiting for a warning. By the time a warning is issued, stores are empty and the clock is short.",
-          "Forgetting the yard. Lawn furniture causes as much damage as flying branches.",
-          "Assuming insurance covers flood. Standard policies do not. See the flood section below and our flood insurance guide."
+          "Wind-rated is not the same as impact-rated, and neither alone demonstrates flood protection.",
+          "Installed is not the same as documented, inspected or maintained.",
+          "A stronger roof or door does not authorize remaining in an evacuation area.",
+          "An insurance incentive is policy-specific. Ask the insurer what evidence it accepts; do not assume a discount, reimbursement or coverage."
         ]
       },
       {
-        "heading": "Official Resources and Where to Get Help",
-        "body": "Before any life-safety decision, check weather.gov, your local emergency management agency, and current NHC advisories.",
-        "bullets": [
-          "National Hurricane Center: https://www.nhc.noaa.gov — advisories, cone, and warnings.",
-          "National Weather Service: https://www.weather.gov — local forecasts and alerts.",
-          "Ready.gov hurricanes: https://www.ready.gov/hurricanes — family planning.",
-          "FEMA: https://www.fema.gov — assistance and the flood program.",
-          "Your county emergency management office: shelter locations, evacuation orders, and special-needs registries."
-        ]
+        "heading": "Keep Household and Evacuation Tasks in Their Own Plans",
+        "body": "This checklist should finish with a building-work record: known systems, documentation, unresolved items and responsible professionals. Use a separate household walkthrough for medicines, food, loose belongings and departure bags, and a separate address check for evacuation instructions. Those tasks remain necessary even after structural improvements.",
+        links: [{ href: "/blog/hurricane-home-preparedness-room-by-room-checklist/", label: "Check household rooms and record unfinished tasks" }, { href: "/blog/how-to-check-your-hurricane-evacuation-zone/", label: "Check the address, local planning zone and current orders separately" }]
       },
       {
-        "heading": "Final Checklist and Take Action",
-        "body": "You do not need to do everything at once, but you do need to start early. This week: build the hardening kit, pre-fit plywood, and brace the garage. This season: photograph the house and organize insurance papers. This storm: follow the 48-hour timeline and track the cone. The HurricaneHub tracker tool is free and updates with official data—open it now and set a reminder to check it daily once a system forms. Preparedness is a habit, not a panic."
-      },
-      {
-        "heading": "When to Evacuate vs. Shelter in Place",
-        "body": "Evacuate if you are in a designated storm-surge or evacuation zone, if local officials order it, or if your home cannot withstand the expected winds. Shelter in place only when you are outside surge risk, in a sturdy structure, with openings protected and a safe interior room identified. Never \"ride it out\" in a mobile or manufactured home, a low-lying area, or a house with known structural damage. When the order comes, leave early—roads flood and clog fast."
+        "heading": "Choose the Next Action From the Unresolved Evidence",
+        "body": "If the record shows a roof leak, arrange an assessment. If a door rating is missing, locate documentation or obtain a qualified review. If protection is installed but nobody can deploy it, arrange training or assistance in advance. If a storm is already threatening and a safe deployment cannot be completed, prioritize people and local instructions rather than improvising a structural fix. Save the resolved record offline and recheck it after alterations, damage or maintenance."
       }
     ],
     "faqs": [
       {
         "question": "Is taping windows an acceptable hurricane protection?",
-        "answer": "No. Tape does not prevent glass from breaking and can produce larger, sharper fragments. Use properly installed storm shutters or Code-approved plywood panels measured and pre-fitted to each opening."
+        "answer": "No. IBHS states that taping windows provides no protection. Plan suitable impact-rated glazing or hurricane shutters and their installation with a qualified professional; tape is not a substitute."
       },
       {
         "question": "How early should I start hardening my home?",
-        "answer": "Begin as soon as a hurricane is in the five-day forecast. The most effective work—shutters, garage bracing, yard clearing—should be done in the 48 hours before tropical-storm-force winds arrive, not the night before."
+        "answer": "Plan inspections and building upgrades before a storm threatens, often with maintenance or reroofing. As a threat approaches, deploy existing protection only while safe and without delaying evacuation. Do not begin structural work on a five-day or 48-hour countdown."
       },
       {
-        "question": "Does hurricane insurance cover flood damage from storm surge?",
-        "answer": "Standard homeowners policies generally exclude flood, including storm surge. Separate NFIP coverage generally has a 30-day waiting period with exceptions; private flood policy waiting periods vary. Confirm the effective date and coverage with the insurer."
+        "question": "Does a wind-rated door also establish impact or flood protection?",
+        "answer": "No. Check each claimed performance and the applicable installation documentation separately. A wind-pressure label does not by itself establish impact resistance, flood protection or that the whole building is safe to occupy."
       },
       {
-        "question": "What is the most overlooked part of home hardening?",
-        "answer": "The garage door. It is the largest unbroken opening and a common failure point; once it fails, wind pressurizes the house and can lift the roof. A retrofit brace kit is inexpensive and high-impact."
+        "question": "Can a garage-door pressure label tell me which hurricane category is safe?",
+        "answer": "No. IBHS describes positive and negative design pressures on wind-rated door labels. Ask a qualified installer and local building department whether the product and installation meet the requirements for that opening. The label is not a shelter decision or a whole-building category guarantee."
       },
       {
         "question": "Can I shelter in place during a hurricane warning?",
-        "answer": "Only if you are outside surge and evacuation zones, in a well-built home with protected openings and a windowless safe room. Otherwise, follow the evacuation order early."
+        "answer": "Follow the local instructions that apply to the household, building and hazards. Hardening and a windowless room do not override an evacuation order or resolve flooding and medical needs. This checklist cannot determine that a particular home is safe to occupy during a warning."
       }
     ]
   },

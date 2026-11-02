@@ -34,6 +34,31 @@ NHC glossary 请求 curl 28 SSL connection timeout；2025 TCR 索引请求超时
 
 编辑验收：直接回答问题；关键事实能定位来源；示例明确历史/假设/当前；说明输入与未知；同站文章各有独立任务；网页和相关链接实际可用。字数、文章数、等候天数不作为 AdSense 通过门槛，本计划不提供通过率承诺。重提申请应在主要缺陷修复且线上复核之后，并遵守后台可申请时间。
 
+## 第三批：事实一致性与家庭准备指南
+
+基准：`b331fa97163b28c6274d2424e45325d41fa38777`，main 与本轮刚获取的 origin/main 一致（0/0）。第二批已发布到 Worker version `4d603603-7d8c-437c-aa3a-1f2bc9a68312`，deployment `38465203-be93-410e-9d75-9c00b6335903`，100% 流量，发布注释含该提交 SHA；Erin/Dolly 正式页面中的历史节、原始 PDF、五项事件、核验日期、canonical 和 JSON-LD 已核对。
+
+本批开发内容：
+
+- Miami 常备指南正文与 FAQ 统一为官方五个 Planning Zones A-E；增加私有地址/交通/目的地记录、查询失败处理，以及仅限本次分区核验的日期和范围。Duval 的 A-F 保留。常备页组件允许每页提供实质修订日期，其余页面仍沿用既有日期。
+- 家庭逐房指南只承担物品、补给、通行和未完成任务检查；纠正燃气实操演练、固定倒计时、warning 后一律留家的建议。增加一个明确标为假设的完成记录示例，并指向独立结构加固指南。
+- 结构加固指南聚焦屋顶、额定车库门、门窗保护及安装证据；区分年度升级与临近风暴部署已有防护。增加 PSF 标签记录示例和承包商五问，去掉与家庭、宠物、恢复文章重叠的段落。纠正预报锥边缘代表到达时间的误读，不把额定标签转换为全屋安全保证。
+- 两篇保留原发表日期和 URL，实质修订日期为 2026-11-02，并注明所读来源和未核验的房屋、产品、当前警报等边界。
+
+本轮成功读取并用 MarkItDown 核对：Miami-Dade 官方分区页；Ready.gov `/hurricanes`、`/safety-skills`；NHC `/aboutcone.shtml`、`/aboutnhcgraphics.shtml#TOA`；IBHS `/hurricanereadyhomeupgrades/`、`/hurricanereadyhomebeforeevent`。这些页面支持通用指导，不代表对某个房屋、地址或当前天气完成核验。NHC `/abouttafw.shtml` 与 NWS `/safety/hurricane-prepare` 返回 404，未用作来源；NWS `/wrn/hurricane-preparedness` 仅提取到导航，没有把它记成已核实的结构技术依据。实际使用的替代来源为上述 NHC 图表说明与 IBHS 指南。
+
+以上为开发阶段记录，当时未提交、部署或通知搜索引擎；用户随后明确授权本批提交部署，实际发布版本以 Git 提交及 Cloudflare 发布记录为准。构建通过；类型检查为 0 errors、0 warnings，保留既有 4 hints。23 路由数据与页面回归通过，核对本批三页的修订日期、来源范围、canonical 和 JSON-LD；三页均经 1440/390px 浏览器检查，图片正常、无横向溢出，并检查了桌面示例、手机标题和 Miami 正文截图。本地预览为 `http://127.0.0.1:8803/`。未获授权的搜索引擎 URL 通知不随部署执行。
+
+### 重新申请与重新抓取的检查标准
+
+Google AdSense 官方拒绝处理说明（`https://support.google.com/adsense/answer/12176698?hl=en`）要求解决内容、体验及可访问性问题后从 Sites 申请审核，没有给所有站点规定统一优化等待天数；后台若显示下一次可申请日期，须遵守。通常审核几天，部分情况 2-4 周；这是申请后的审核耗时，不是修改后必须等待的时间。
+
+建议重提前确认：主要入口和代表性内容没有仍未处理的重大事实或安全缺陷；相近页面各有独立任务和可验证产出；来源、日期和失败状态表达真实；修订已部署，正式页面、导航、canonical、robots 与广告账号配置可访问且一致。当前清单中仍有待复核页面，不能因少量样板完成便宣称全站整改完成。无需把所有 URL 收录作为申请的前置条件；搜索抓取和 AdSense 审核分别核验。
+
+Google Search 官方重新抓取说明（`https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl`）写明可能几天到几周，不保证即时纳入，重复申请同一 URL 不会加速。部署后可对少量重点 URL 用 Search Console URL Inspection 请求抓取，查看最近抓取时间和索引状态；即时测试能访问不等于已更新索引。Bing 可用 IndexNow 告知已发生的变更，但官方 FAQ（`https://www.indexnow.org/faq`）明确通知不保证索引，须检查 Bing Webmaster Tools 的 URL 诊断与抓取记录。上述链接本轮已读取；未登录两家后台，未核实本域名当前抓取/索引状态，也未提交任何 URL。
+
+已知发现信号限制：`src/lib/sitemapRoutes.ts` 的博客 lastmod 已读取每篇 dateModified，但常备指南等非博客路由仍沿用 `site.contentLastModified`（2026-09-01）。本轮 Miami HTML/JSON-LD 已用本页日期，sitemap 对应日期仍旧；这不阻止抓取，但没有向 sitemap 传递本次修订日期。该文件属于项目禁区，本轮未改，后续应取得明确授权后按实际页面日期修正，不能把全站日期一起改为今天来代替。
+
 ## 逐 URL 初筛
 
 范围：从当前 sitemap 真相源读取的 189 个 URL（pages 69、tools 15、locations 50、blog 55）。这是全量登记与风险分流，不是 189 页逐句事实审查。状态为“待复核”的页面不能据此宣称内容合格。KV 动态新增的风暴及未列入 sitemap 的路由不在此清单；后续档案审计须单独导出核对。未修改 sitemap 真相源。
@@ -71,7 +96,7 @@ NHC glossary 请求 curl 28 SSL connection timeout；2025 TCR 索引请求超时
 | `/state/new-york/preparedness/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
 | `/state/new-jersey/preparedness/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
 | `/state/massachusetts/preparedness/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
-| `/city/miami/hurricane-tracker/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
+| `/city/miami/hurricane-tracker/` | 本地修订／局部核验 | A-E 正文与 FAQ、地址记录、查询失败及核验范围已修正；历史段落仍待逐项来源复核，不执行跳转或下线 |
 | `/city/tampa/hurricane-tracker/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
 | `/city/orlando/hurricane-tracker/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
 | `/city/jacksonville/hurricane-tracker/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
@@ -210,10 +235,10 @@ NHC glossary 请求 curl 28 SSL connection timeout；2025 TCR 索引请求超时
 | `/blog/below-normal-hurricane-season-2026-real-time-tracker/` | P2 逐篇编辑 | 尚未完成逐句事实审查；要求一个具体问题、来源证据、案例及适用边界 |
 | `/blog/what-to-do-after-a-hurricane/` | P2 逐篇编辑 | 尚未完成逐句事实审查；要求一个具体问题、来源证据、案例及适用边界 |
 | `/blog/hurricane-pet-safety/` | P2 逐篇编辑 | 尚未完成逐句事实审查；要求一个具体问题、来源证据、案例及适用边界 |
-| `/blog/hurricane-home-preparedness-room-by-room-checklist/` | P1 归并评估 | 对照同主题文章，以不同输入和产出区分；无独立任务则提具体合并方案 |
+| `/blog/hurricane-home-preparedness-room-by-room-checklist/` | 本地修订／待发布 | 逐房物品与任务记录；燃气演练、固定倒计时和留家误导已纠正，与结构加固文章互链 |
 | `/blog/hurricane-safety-seniors-children-disability/` | P2 逐篇编辑 | 尚未完成逐句事实审查；要求一个具体问题、来源证据、案例及适用边界 |
 | `/blog/hurricane-insurance-claim-guide-documentation/` | P2 逐篇编辑 | 尚未完成逐句事实审查；要求一个具体问题、来源证据、案例及适用边界 |
-| `/blog/hurricane-home-hardening-checklist/` | P1 归并评估 | 对照同主题文章，以不同输入和产出区分；无独立任务则提具体合并方案 |
+| `/blog/hurricane-home-hardening-checklist/` | 本地修订／待发布 | 聚焦屋顶/车库门/门窗及承包商记录，补 IBHS 依据，纠正预报锥与工期，删重叠段落 |
 | `/blog/hurricane-medical-needs-registry-preparedness/` | P1 归并评估 | 对照同主题文章，以不同输入和产出区分；无独立任务则提具体合并方案 |
 | `/blog/hurricane-flood-insurance-guide-nfip/` | P2 逐篇编辑 | 尚未完成逐句事实审查；要求一个具体问题、来源证据、案例及适用边界 |
 | `/blog/hurricane-generator-safety-carbon-monoxide/` | 保留样板／待复核 | 已有来源示例，保留；复核图片版本、结论边界与来源检查范围 |

@@ -13,6 +13,7 @@ async function loadData(path) {
 const { blogPosts } = await loadData("src/data/blog.ts");
 const { hurricaneCities } = await loadData("src/data/cities.ts");
 const { stormTrackerPages } = await loadData("src/data/stormPages.ts");
+const { localPreparednessPages } = await loadData("src/data/localPreparednessPages.ts");
 const articles = new Map([
   ["what-hurricane-watch-warning-means", "Work Through a Warning Without Inventing a Deadline"],
   ["what-to-do-during-a-hurricane-warning", "If Your Original Plan Stops Working"],
@@ -44,6 +45,36 @@ assert(evacuation.sections.some((section) => section.body.includes("Illustrative
 assert(evacuation.sections.some((section) => section.body.includes("failed lookup, not a no-risk result")));
 assert.match(evacuation.sourceCheck.scope, /No address entered/);
 routes.set(`/blog/${evacuation.slug}/`, "Worked Example: Miami-Dade's Planning Zones");
+const miamiPreparedness = localPreparednessPages.find((page) => page.kind === "city" && page.slug === "miami");
+assert.equal(miamiPreparedness.dateModified, "2026-11-02");
+assert.match(miamiPreparedness.sourceCheck.scope, /no address/i);
+assert.match(miamiPreparedness.evacuation.join(" "), /five.*A through E/);
+assert.match(miamiPreparedness.faqs.find((faq) => faq.question.includes("evacuation zone")).answer, /A through E/);
+assert.doesNotMatch(JSON.stringify(miamiPreparedness), /A through F/);
+const duval = localPreparednessPages.find((page) => page.kind === "city" && page.slug === "jacksonville");
+assert.match(duval.evacuation.join(" "), /A through F/, "Miami's zone correction must not change Duval's different system");
+routes.set("/city/miami/hurricane-tracker/", "five storm-surge Planning Zones, A through E");
+const rooms = blogPosts.find((post) => post.slug === "hurricane-home-preparedness-room-by-room-checklist");
+const hardening = blogPosts.find((post) => post.slug === "hurricane-home-hardening-checklist");
+const roomText = JSON.stringify(rooms);
+assert.match(roomText, /not to actually turn off natural gas when practicing/);
+assert.match(roomText, /only a qualified professional should restore it/);
+assert(rooms.sources.some((source) => source.href === "https://www.ready.gov/safety-skills"));
+const hardeningText = JSON.stringify(hardening);
+assert.match(hardeningText, /edge is not the boundary of damaging weather or an arrival-time line/);
+assert.match(hardeningText, /positive and negative design pressures/);
+assert(hardening.sources.some((source) => source.href === "https://ibhs.org/hurricanereadyhomeupgrades/"));
+for (const [post, other, published, heading] of [
+  [rooms, hardening, "2026-08-13", "Worked Record: A Missing Item Is an Unfinished Task"],
+  [hardening, rooms, "2026-08-14", "Worked Example: A Product Label Is Only One Part of the Record"]
+]) {
+  assert.equal(post.datePublished, published);
+  assert.equal(post.dateModified, "2026-11-02");
+  assert.equal(post.sourceCheck.date, "2026-11-02");
+  assert(post.sections.some((section) => section.links?.some((link) => link.href === `/blog/${other.slug}/`)));
+  assert.doesNotMatch(JSON.stringify(post), /practice shutting off gas|outer edge, not the center|12 hours out: Shut off propane|At the warning: stop outdoor work, shelter|first 48 hours on permanent/);
+  routes.set(`/blog/${post.slug}/`, heading);
+}
 const dolly = stormTrackerPages.find((storm) => storm.slug === "dolly");
 assert(dolly.trackerFocus.some((item) => item.includes("85 kt (Category 2)") && item.includes("75 kt (Category 1)")));
 assert.doesNotMatch(JSON.stringify(dolly), /if it forms/);
@@ -162,6 +193,14 @@ if (base) {
     assert(html.includes(heading.replaceAll("'", "&#39;")) || html.includes(heading), `${route}: new content missing`);
     assert(html.includes(`https://www.hurricanetracker.cc${route}`), `${route}: canonical missing`);
     assert.match(html, /application\/ld\+json/);
+    if (route === "/city/miami/hurricane-tracker/" || route === `/blog/${rooms.slug}/` || route === `/blog/${hardening.slug}/`) {
+      const schemas = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)]
+        .map((match) => JSON.parse(match[1]));
+      const nodes = schemas.flatMap((schema) => schema["@graph"] ?? [schema]);
+      assert(nodes.some((node) => String(node.dateModified).startsWith("2026-11-02")), `${route}: actual revision date missing from schema`);
+      assert(html.includes("Source check 2026-11-02"), `${route}: source-check scope missing`);
+      assert.doesNotMatch(html, /practice shutting off gas|outer edge, not the center|12 hours out: Shut off propane/);
+    }
     if (route.startsWith("/blog/") && route !== "/blog/hurricane-watch-vs-warning/") {
       assert(html.includes('aria-label="Article contents"'), `${route}: contents navigation missing`);
       assert(html.includes('href="#section-0"'), `${route}: section navigation missing`);
