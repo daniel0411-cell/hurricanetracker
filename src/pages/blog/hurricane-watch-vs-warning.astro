@@ -4,94 +4,116 @@ import { site } from "../../data/site";
 import { blogPostingSchema } from "../../lib/schema";
 
 const slug = "hurricane-watch-vs-warning";
-const title = "Hurricane Watch vs Warning: What's the Difference and When to Act";
+const title = "Hurricane Watch vs Warning: Timing and Key Differences";
 const description =
-  "A hurricane watch means dangerous conditions are possible within 48 hours, while a warning means they are expected. Learn the difference and when Florida and Texas households should act.";
+  "Compare hurricane watches and warnings, the 48/36-hour wind timing, and why a wind warning, surge warning and local evacuation order mean different things.";
 const canonical = `${site.url}/blog/${slug}/`;
 const date = "2026-08-07";
+const modified = "2026-11-02";
 const jsonLd = blogPostingSchema({
   title,
   description,
   url: canonical,
   datePublished: date,
-  dateModified: date,
+  dateModified: modified,
   authorName: "HurricaneHub team"
 });
 ---
 
-<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={date} ogImage="https://www.hurricanetracker.cc/images/blog/og/hurricane-watch-vs-warning.png">
-  <main class="prose">
+<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={modified} ogImage="https://www.hurricanetracker.cc/images/blog/og/hurricane-watch-vs-warning.png">
+  <div class="prose">
     <article>
       <h1>{title}</h1>
       <p class="lead">
-        When a storm approaches the Gulf or the Atlantic, the single most misunderstood pair of terms is
-        <strong>hurricane watch</strong> and <strong>hurricane warning</strong>. They sound similar, but the
-        difference is the difference between "get ready" and "take action now." Confusing them is one of the
-        most common reasons households lose precious hours.
+        A <strong>hurricane watch</strong> means hurricane conditions are possible somewhere in the specified
+        area. A <strong>hurricane warning</strong> means those conditions are expected. Their usual 48- and
+        36-hour lead times are measured before the anticipated arrival of <strong>tropical-storm-force winds</strong>,
+        not landfall. Neither gives your household a guaranteed number of hours left to prepare or leave.
       </p>
+      <p>Updated November 2, 2026. Definitions checked against the <a href="https://www.weather.gov/safety/hurricane-ww">NWS hurricane watch and warning guide</a>; this is an explanation, not a current alert.</p>
+
+      <h2>Compare the Two Wind Alerts</h2>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Hurricane watch and warning comparison">
+        <table>
+          <caption>Hurricane conditions mean sustained winds of at least 74 mph.</caption>
+          <thead><tr><th scope="col">Question</th><th scope="col">Watch</th><th scope="col">Warning</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Forecast meaning</th><td>Hurricane conditions possible in the specified area.</td><td>Hurricane conditions expected in the specified area.</td></tr>
+            <tr><th scope="row">Usual issue timing</th><td>48 hours before anticipated tropical-storm-force winds.</td><td>36 hours before anticipated tropical-storm-force winds.</td></tr>
+            <tr><th scope="row">Household priority</th><td>Complete preparations and confirm local instructions.</td><td>Preparations should be complete; evacuate immediately if ordered.</td></tr>
+          </tbody>
+        </table>
+      </div>
 
       <h2>What a Hurricane Watch Means</h2>
       <p>
         A <strong>hurricane watch</strong> is issued by the National Hurricane Center (NHC) when hurricane
-        conditions (sustained winds of 74 mph or higher) are <em>possible</em> within a defined coastal area,
-        typically within 48 hours. "Possible" is the key word. The storm may still weaken, shift, or miss your
-        county entirely. A watch is a heads-up: conditions could develop, so prepare while you still have time
-        and daylight.
+        conditions are <em>possible</em> in a specified area. The lead time starts with anticipated
+        tropical-storm-force winds because outdoor work and travel can become dangerous before hurricane
+        winds arrive. A watch does not promise a warning will follow or that every property will experience
+        the same wind. Read the affected area and any local instructions while there is time to act.
       </p>
       <p>
-        If you live along a vulnerable coastline — for example, where the
-        <a href="/tracker/florida/">Florida hurricane tracker</a> already shows a system organizing in
-        the Caribbean — a watch is your signal to finish shutters, fuel the car, and confirm your evacuation
-        zone. You are not yet told to leave, but you should be ready to leave on short notice.
+        Confirm your evacuation zone, destination, transport and any medical support. A local evacuation
+        order can require action before a hurricane warning. Do not wait for a change in the wind-alert
+        label if officials have already ordered you to leave.
       </p>
 
       <h2>What a Hurricane Warning Means</h2>
       <p>
         A <strong>hurricane warning</strong> is more serious. It is issued when hurricane conditions are
-        <em>expected</em> within the area, usually within 36 hours. "Expected" means the forecast is confident
-        enough that you should complete preparations immediately and follow any evacuation orders without
-        waiting. Warnings are not guesses — they reflect a high-confidence track and intensity forecast.
+        <em>expected</em> somewhere within the specified area. It does not guarantee a particular track,
+        landfall point or wind speed at your house. The usual 36-hour issue lead time is not a new countdown
+        that starts when you open an alert. A screenshot may already be hours old, and local departure
+        instructions may require earlier action.
       </p>
       <p>
-        On the <a href="/tracker/texas/">Texas hurricane alerts</a> page, a warning often arrives as a
-        storm strengthens in the Gulf and the cone narrows toward the coast. Once a warning is posted for your
-        zone, the window for safe travel shrinks fast. Roads clog, fuel runs out, and bridge closures begin. The
-        warning is the moment to execute the plan you built during the watch.
+        Check the original issue time, time zone, affected locations and latest replacement message.
+        If the warning is already in effect, use the <a href="/blog/what-to-do-during-a-hurricane-warning/">warning action checklist</a>{" "}
+        and local orders. A forecast center position is not a departure deadline.
       </p>
 
-      <h2>Why the Distinction Matters for Your Family</h2>
+      <h2>A Wind Warning Is Not a Surge Warning or Evacuation Order</h2>
       <p>
-        The watch-to-warning transition is when most families make or break their outcome. A watch is the calm
-        before the storm — use it. A warning is the storm before the storm — act on it. Treating a warning like
-        a watch ("I'll wait and see") is how people get caught in rising water or trapped by closed roads.
+        A hurricane warning describes expected hurricane conditions. A storm surge warning describes a danger
+        of life-threatening coastal inundation somewhere in its specified area, generally within 36 hours.
+        These are separate products, and their boundaries can differ. Surge, rainfall flooding and tornadoes
+        need their own alerts; a wind category does not summarize them.
       </p>
       <p>
-        Remember that a hurricane warning covers wind, but the deadliest hazards are often water: storm surge,
-        rainfall flooding, and isolated tornadoes. A warning for your county may be issued for surge even when
-        you expect "only" tropical-storm winds.
+        Local officials issue evacuation orders for specified zones, communities or housing groups. Being
+        outside a surge zone does not establish that a mobile home, flood-prone house or medically dependent
+        household can safely stay. Compare <a href="/blog/storm-surge-warning-vs-hurricane-warning/">surge and wind warning decisions</a>{" "}
+        and check the current order with your own local agency.
       </p>
 
-      <h2>When to Act: A Simple Rule</h2>
+      <h2>Example: Why 36 Hours Is Not Your Travel Window</h2>
       <p>
-        Use this checklist the moment a watch is issued for your area, and finish it before a warning arrives:
+        Illustrative example, not a current forecast: a warning was issued at 5 AM and you read it at 2 PM.
+        The message is nine hours old. Adding 36 hours to 2 PM invents a deadline the forecaster never gave.
+        Instead, check the newest advisory, expected tropical-storm-force wind arrival and local evacuation
+        instructions. The earliest relevant safety constraint controls your plan; do not calculate a safe
+        departure time by subtracting a fixed number of hours from a forecast landfall.
       </p>
+      <h2>Three Checks Before Acting on a Notification</h2>
       <ul>
-        <li>Charge phones and battery packs; download offline maps and the HurricaneHub dashboard.</li>
-        <li>Refill prescriptions and gather a 7-day supply of medication and pet food.</li>
-        <li>Photograph documents, IDs, and property for insurance; store copies in cloud storage.</li>
-        <li>Confirm your evacuation zone and identify two routes inland.</li>
-        <li>Secure outdoor items and complete window protection before winds rise.</li>
+        <li>Does the latest official message cover your location, and which hazard does it name?</li>
+        <li>What issue time, expected conditions and instructions appear in the full message?</li>
+        <li>Does your local agency have an evacuation order, transport instruction or shelter notice?</li>
       </ul>
       <p>
-        When the warning is issued, stop preparing and start executing: leave if ordered, or shelter in your
-        hardened safe room if you are outside the evacuation zone.
+        For a record you can fill in while reading the product, use <a href="/blog/what-hurricane-watch-warning-means/">how to read a hurricane alert</a>.
+        For address-level planning, use <a href="/blog/how-to-check-your-hurricane-evacuation-zone/">the evacuation-zone lookup guide</a>.
       </p>
 
       <p class="byline">
-        This article was updated for the 2026 hurricane season by the HurricaneHub team.
+        Sources: <a href="https://www.weather.gov/safety/hurricane-ww">NWS hurricane watches and warnings</a>{" "}
+        and the <a href="https://www.nhc.noaa.gov/aboutgloss.shtml">NHC glossary</a>.
+        NWS wind and surge definitions were checked November 2, 2026. The NHC glossary could not be
+        retrieved during this revision; no current warnings, local orders or routes were verified.
       </p>
     </article>
-  </main>
+  </div>
 </BaseLayout>
 
 <style>
@@ -114,6 +136,10 @@ const jsonLd = blogPostingSchema({
     font-size: 1.1rem;
     color: var(--muted, #4a5568);
   }
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  caption { text-align: left; padding: 0.5rem 0; }
+  th, td { text-align: left; vertical-align: top; padding: 0.65rem; border: 1px solid var(--border, #e2e8f0); min-width: 8rem; }
   .prose a {
     color: var(--accent, #1f6feb);
     text-decoration: underline;
