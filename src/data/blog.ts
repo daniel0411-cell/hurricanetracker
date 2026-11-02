@@ -211,38 +211,45 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "what-hurricane-watch-warning-means",
-    sources: [{ href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC glossary: watch and warning definitions and timing" }],
-    title: "What a Hurricane Watch or Warning Means",
-    description: "Understand hurricane watch versus warning timing, read the affected area, and distinguish a wind warning from a local evacuation order.",
+    sources: [{ href: "https://www.weather.gov/safety/hurricane-ww", label: "NWS: hurricane products, wind-warning timing and local instructions" }, { href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC glossary: reference definitions" }],
+    title: "How to Read a Hurricane Watch or Warning Message",
+    description: "Read a hurricane alert's issuer, location, time and instructions. Work through a labeled example and record what still needs local confirmation.",
     datePublished: "2025-06-18",
-    dateModified: "2026-10-27",
+    dateModified: "2026-11-02",
+    sourceCheck: { date: "2026-11-02", scope: "NWS hurricane watch/warning guide: wind and surge definitions and timing only. Its older outlook-period text was not used. NHC glossary retrieval timed out. No current warning, local order, road or shelter status verified." },
     image: "/images/blog/what-hurricane-watch-warning-means.png",
     imageAlt: "A kitchen counter with a smartphone showing weather alerts, a NOAA weather radio, flashlight, batteries, and an evacuation map.",
     sections: [
       {
-        heading: "Watch vs Warning",
+        heading: "Start With the Full Official Message",
         body:
-          "A hurricane watch means hurricane conditions are possible in the specified area, generally issued 48 hours before the anticipated onset of tropical-storm-force winds. A hurricane warning means hurricane conditions are expected, generally issued 36 hours before that onset. The timing is measured from tropical-storm-force winds because preparation becomes dangerous before hurricane-force winds arrive. It is not a countdown to landfall, and an individual warning may be issued with less lead time."
+          "A short phone notification can omit the locations, timing and instructions that determine your next step. Open the original message through weather.gov or the NHC and identify the issuing office and product. Check whether the message has been replaced, extended or canceled. This guide is for reading a message; it does not establish that a warning is in force today.",
+        links: [{ href: "/blog/hurricane-watch-vs-warning/", label: "Need the definitions first? Compare hurricane watches and warnings" }]
       },
       {
-        heading: "When to Escalate",
-        body: "Escalate from monitoring to action when official alerts mention warning-level wind, storm surge, flash flooding, tornadoes, or evacuation instructions.",
-        bullets: ["Prepare during a watch.", "Act during a warning.", "Leave when ordered by local officials or when your household needs extra travel time."]
+        heading: "Record Six Fields Before Sharing the Alert",
+        body: "Use a note with these fields so another household member can reopen the same evidence. Copy the agency's wording for the area and hazard; do not turn a coastal segment into a county-wide claim or a state summary into an address-level answer.",
+        bullets: ["Issuer and original product URL: who published the message?", "Issue time and time zone: when was this version issued?", "Hazard and alert level: hurricane wind, surge, flooding or another product?", "Affected area: does the official text or map include your location?", "Expected conditions and instructions: what does the message actually ask you to do?", "Next check: note the next scheduled update if given, and monitor local alerts for earlier changes."]
       },
       {
-        heading: "Storm Surge Alerts",
+        heading: "Separate the Forecast From the Local Order",
         body:
-          "Storm surge alerts deserve separate attention from wind alerts because water can make roads unusable before peak wind arrives. If your zone floods easily, plan around the water hazard first."
+          "A wind warning is not a list of evacuation zones. Open the responsible local emergency-management agency's current order separately, then compare its zone labels or housing groups with your household. A surge warning needs separate attention even if the hurricane center is forecast elsewhere. If the order and forecast seem inconsistent, first compare their issue times, jurisdictions and hazards; do not choose whichever message sounds less serious."
       },
       {
         heading: "Read the Message's Location and Timing",
-        body: "Open the full official product and identify the named locations, issue time, expected wind-arrival window, and instructions. A phone notification or state-wide summary may omit the boundaries. If you live near a boundary, check the official map and local office rather than assuming a ZIP-wide answer. Watches and warnings can coexist for different hazards, and a hurricane warning can continue while dangerous high water remains even after winds fall below hurricane force.",
-        links: [{ href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC definitions and timing exceptions" }]
+        body: "Do not substitute the storm's name, your ZIP code or the cone's edge for the message's geographic boundaries. If your address is near a boundary or the product names an unfamiliar coastal landmark, check the official map and local office. For timing, distinguish when the message was issued, when conditions are expected and when an order requires action. Those are three different fields. The usual 48/36-hour hurricane watch/warning lead times refer to anticipated tropical-storm-force winds, not a landfall countdown.",
+        links: [{ href: "https://www.weather.gov/safety/hurricane-ww", label: "NWS wind-warning timing and product descriptions" }]
       },
       {
         heading: "Work Through a Warning Without Inventing a Deadline",
         body: "Illustrative example, not a current alert: a household reads a hurricane warning on Tuesday morning and sees a Wednesday evening forecast center position. Wednesday evening is not its departure deadline. The household must read the expected arrival of tropical-storm-force winds and the local evacuation order, which may require earlier action. Record the issuing agency, issue time and time zone, affected area, expected conditions, and next update. Do not convert the usual 36-hour warning lead time into 36 hours remaining from the moment you read it.",
         links: [{ href: "https://www.weather.gov/safety/hurricane-ww", label: "NWS: wind-warning timing and local instructions" }]
+      },
+      {
+        heading: "Check What the Example Still Cannot Tell You",
+        body: "In the Tuesday/Wednesday example, you can conclude only that the forecast-center time is not a safe-departure time. The example gives no street address, local order, wind-arrival product, transport availability or safe destination. Those remain unresolved. If a map fails to load or an official order cannot be retrieved, record that gap and contact the local agency; a missing answer is not evidence that no order exists. Do not circulate the illustrative example as an actual advisory.",
+        links: [{ href: "/blog/how-to-check-your-hurricane-evacuation-zone/", label: "Find the local zone map and compare its label with the current order" }]
       },
       {
         heading: "Choose the Next Question",
@@ -707,11 +714,12 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "how-to-check-your-hurricane-evacuation-zone",
-    sources: [{ href: "https://www.ready.gov/evacuation", label: "Ready.gov: evacuation planning and local orders" }, { href: "https://msc.fema.gov/portal/home", label: "FEMA Flood Map Service Center (insurance mapping, not an evacuation-zone lookup)" }],
+    sources: [{ href: "https://www.miamidade.gov/global/emergency/hurricane/storm-surge-zones.page", label: "Miami-Dade: storm surge planning zones and official Know Your Zone link" }, { href: "https://www.ready.gov/evacuation", label: "Ready.gov: evacuation planning and local orders" }, { href: "https://msc.fema.gov/portal/home", label: "FEMA Flood Map Service Center (insurance mapping, not an evacuation-zone lookup)" }],
     title: "How to Check Your Hurricane Evacuation Zone",
     description: "Learn how to check your hurricane evacuation zone, why ZIP codes are not enough, and what to do when local officials issue evacuation instructions.",
     datePublished: "2026-08-05",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-02",
+    sourceCheck: { date: "2026-11-02", scope: "Miami-Dade official storm-surge page: A-E planning zones, linked lookup, event-specific orders and mobile-home/medical exceptions. No address entered and no ArcGIS map result or current evacuation order verified. FEMA portal retrieval failed; no FEMA map was checked." },
     image: "/images/blog/how-to-check-your-hurricane-evacuation-zone.png",
     imageAlt: "A person views a color-coded coastal hurricane evacuation zone map on a laptop and points at the screen.",
     sections: [
@@ -724,6 +732,25 @@ export const blogPosts: BlogPost[] = [
         body: "Open the responsible local emergency-management site from the official city resources, select its evacuation-zone map, and enter the full street address. Check that the marker lands on the correct property, read the legend, and record the zone label and lookup date. Then open the current event's order and compare the exact labels. Some jurisdictions issue neighborhood or mobile-home orders instead of using lettered zones; use their terminology rather than inventing a conversion.",
         bullets: ["A blank map result can be a lookup failure; ask the local agency instead of assuming no risk.", "FEMA flood zones describe insurance mapping and are not local evacuation orders.", "Save the agency's phone number and a screenshot for offline use, then recheck the live order.", "Confirm where the order directs residents to go and which transport or shelter assistance is actually available."],
         links: [{ href: "/hurricane-tracker/city/", label: "Find city-specific official emergency resources" }]
+      },
+      {
+        heading: "Worked Example: Miami-Dade's Planning Zones",
+        body: "Miami-Dade's official storm-surge page links a Know Your Zone map and describes five planning zones, A through E. Start on the county page so you can follow its current map link rather than an old search result. Use the map's address lookup, check the property marker and save the exact result. This article has not looked up your home and cannot assign it a zone. Miami-Dade's letters are a local planning system; do not carry them over to another county's map.",
+        links: [{ href: "https://www.miamidade.gov/global/emergency/hurricane/storm-surge-zones.page", label: "Open Miami-Dade's official zone explanation and Know Your Zone link" }, { href: "/hurricane-tracker/city/miami/", label: "Miami guide: local alerts, transport and emergency resources" }]
+      },
+      {
+        heading: "Compare the Result With an Actual Order",
+        body: "Illustrative example, not a current order: your confirmed property result says Zone B, while an event notice orders Zone A to evacuate. That zone-specific instruction does not by itself order Zone B to leave. It also does not certify your home as safe or override instructions for other groups. Miami-Dade states that a zone or part of a zone may be evacuated based on track and projected surge, independently of hurricane category. Do not wait for a Category 2 label because you live in Zone B.",
+        bullets: ["Read the full event notice for neighborhoods, partial-zone boundaries and housing or medical exceptions.", "Miami-Dade's published guidance tells mobile-home residents and people using electrically dependent life-sustaining medical equipment to evacuate when any hurricane evacuation order is issued, regardless of their surge planning zone.", "Planning-zone letters do not tell you whether a road is open, a shelter has space or your building can withstand wind.", "Outside the mapped surge area, rainfall flooding, unsafe housing and medical needs still require separate planning."]
+      },
+      {
+        heading: "Keep a Lookup Record You Can Recheck",
+        body: "Save a private note with your address, responsible agency, original map URL, lookup date, exact zone label and a screenshot with the legend. Add the current order's URL, issue time, affected groups and required action in a separate field. Mark unknown items as unknown. If you move or the county revises the map, repeat the lookup rather than copying the old zone. Keep household addresses and medical details out of public posts.",
+        bullets: ["Map result: [zone label], checked [date], property marker confirmed [yes/no].", "Current order: [agency and URL], issued [time and time zone], applies to [zone/group].", "Departure plan: [destination and transport confirmed], plus any earlier medical or mobility arrangements.", "Unresolved: [failed lookup, unclear boundary or missing order]; confirm with the local agency before relying on it."]
+      },
+      {
+        heading: "If the Map Is Blank or the Address Is Not Found",
+        body: "First confirm the county and street spelling and whether the marker is on the correct building. A blank tile, unmatched address or missing legend is a failed lookup, not a no-risk result. Use the official page's alternative instructions or contact the agency for help. Do not substitute a nearby property's result, a ZIP-code tool or a FEMA insurance zone. If an evacuation instruction already applies to you, a broken map is not a reason to delay following it."
       },
       {
         heading: "Why ZIP Codes Are Not Enough",

@@ -12,6 +12,7 @@ async function loadData(path) {
 
 const { blogPosts } = await loadData("src/data/blog.ts");
 const { hurricaneCities } = await loadData("src/data/cities.ts");
+const { stormTrackerPages } = await loadData("src/data/stormPages.ts");
 const articles = new Map([
   ["what-hurricane-watch-warning-means", "Work Through a Warning Without Inventing a Deadline"],
   ["what-to-do-during-a-hurricane-warning", "If Your Original Plan Stops Working"],
@@ -26,6 +27,26 @@ const cities = new Map([
   ["houston", "Separate Coastal Evacuation From Inland Flood Decisions"]
 ]);
 const routes = new Map();
+const warningSource = await fs.readFile("src/pages/blog/hurricane-watch-vs-warning.astro", "utf8");
+assert.match(warningSource, /anticipated arrival of <strong>tropical-storm-force winds/);
+assert.match(warningSource, /scope="col"/);
+assert.match(warningSource, /A Wind Warning Is Not a Surge Warning or Evacuation Order/);
+assert.doesNotMatch(warningSource, /Warnings are not guesses|warning for your county may be issued for surge/);
+routes.set("/blog/hurricane-watch-vs-warning/", "Compare the Two Wind Alerts");
+const warningReader = blogPosts.find((post) => post.slug === "what-hurricane-watch-warning-means");
+assert(warningReader.sections.some((section) => section.heading === "Record Six Fields Before Sharing the Alert"));
+assert(warningReader.sections.some((section) => section.links?.some((link) => link.href === "/blog/hurricane-watch-vs-warning/")));
+assert.match(warningReader.sourceCheck.scope, /timed out/);
+const evacuation = blogPosts.find((post) => post.slug === "how-to-check-your-hurricane-evacuation-zone");
+assert.equal(evacuation.dateModified, "2026-11-02");
+assert(evacuation.sources.some((source) => source.href.startsWith("https://www.miamidade.gov/")));
+assert(evacuation.sections.some((section) => section.body.includes("Illustrative example, not a current order")));
+assert(evacuation.sections.some((section) => section.body.includes("failed lookup, not a no-risk result")));
+assert.match(evacuation.sourceCheck.scope, /No address entered/);
+routes.set(`/blog/${evacuation.slug}/`, "Worked Example: Miami-Dade's Planning Zones");
+const dolly = stormTrackerPages.find((storm) => storm.slug === "dolly");
+assert(dolly.trackerFocus.some((item) => item.includes("85 kt (Category 2)") && item.includes("75 kt (Category 1)")));
+assert.doesNotMatch(JSON.stringify(dolly), /if it forms/);
 for (const [slug, heading] of [
   ["hurricane-power-outage-food-medicine-plan", "Calculate the Household Base, Then Record the Exceptions"],
   ["hurricane-generator-safety-carbon-monoxide", "Read the Official Placement Diagram"]
@@ -100,7 +121,7 @@ for (const [slug, heading] of articles) {
   const post = blogPosts.find((post) => post.slug === slug);
   assert(post, `Missing existing article ${slug}`);
   assert(post.sections.some((section) => section.heading === heading));
-  assert.equal(post.dateModified, "2026-10-27");
+  assert.equal(post.dateModified, slug === "what-hurricane-watch-warning-means" ? "2026-11-02" : "2026-10-27");
   assert(post.datePublished < post.dateModified, "Preserve original publication date");
   routes.set(`/blog/${slug}/`, heading);
 }
@@ -128,7 +149,7 @@ if (base) {
     assert(html.includes(heading.replaceAll("'", "&#39;")) || html.includes(heading), `${route}: new content missing`);
     assert(html.includes(`https://www.hurricanetracker.cc${route}`), `${route}: canonical missing`);
     assert.match(html, /application\/ld\+json/);
-    if (route.startsWith("/blog/")) {
+    if (route.startsWith("/blog/") && route !== "/blog/hurricane-watch-vs-warning/") {
       assert(html.includes('aria-label="Article contents"'), `${route}: contents navigation missing`);
       assert(html.includes('href="#section-0"'), `${route}: section navigation missing`);
     }

@@ -139,12 +139,12 @@ export const stormTrackerPages: StormTrackerPage[] = [
     searchDemandNote:
       "Use this page for Tropical Storm Dolly live tracker, path, map, current position, forecast, and NHC advisory update searches.",
     overview:
-      "Use this Tropical Storm Dolly 2026 tracker for the latest NHC position, official advisory time, forecast path, radar, satellite imagery, and local-alert context. Live NHC data appears while Dolly is active; the page remains available afterward as a stable advisory and storm-history reference.",
+      "Use this Dolly entry to check whether the current feed contains an active storm and to find dated official records. A retained feed observation is not a complete historical track or a post-season best-track report. Confirm the year and advisory time before interpreting a position as current.",
     trackerFocus: [
-      "Check Dolly's latest NHC position, movement, intensity, and advisory time before relying on an older map or screenshot.",
+      "Check Dolly's year, basin identifier and advisory time first. An inactive feed record describes a past observation, not where a storm is now.",
       "When Dolly is active, compare the official forecast track with radar, satellite, and the cone of uncertainty — never the center line alone.",
       "Pair any Dolly forecast with local NWS alerts and emergency management guidance before making evacuation or shelter decisions.",
-      "Historical Dolly storms include 2008 (Hurricane Dolly, Category 1 landfall near South Padre Island, Texas, with heavy rain and surge) and 2014 (Tropical Storm Dolly, landfall near Tampico, Mexico). Each Dolly had a very different footprint, so the 2026 system should be assessed on its own data, not the name."
+      "Historical example, not a current advisory: NHC's Hurricane Dolly report (AL042008, January 22, 2009) distinguishes the 2008 peak of 85 kt (Category 2) around 1400 UTC July 23 from the South Padre Island landfall just after 1800 UTC at 75 kt (Category 1). Peak intensity and landfall intensity answer different questions; neither predicts another storm's strength or track."
     ],
     faqs: [
       {
@@ -160,7 +160,7 @@ export const stormTrackerPages: StormTrackerPage[] = [
       {
         question: "How does the 2026 Dolly compare to past Dolly storms?",
         answer:
-          "Past Dolly storms differ widely: 2008 Hurricane Dolly struck South Padre Island, Texas as a Category 1 with damaging surge and rainfall, while 2014 Tropical Storm Dolly made landfall near Tampico, Mexico, and 1996 Hurricane Dolly affected the western Gulf. The 2026 Dolly, if it forms, should be evaluated on its own NHC data rather than the name's history."
+          "Compare records by year and basin identifier, and distinguish maximum intensity from intensity at landfall. NHC's 2008 Dolly report gives a Category 2 peak but a Category 1 South Padre Island landfall. For the 2026 entry, use the dated official advisory record; this page does not provide a complete best-track comparison or establish today's conditions from an old observation."
       }
     ]
   },
