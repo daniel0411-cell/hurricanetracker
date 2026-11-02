@@ -6,7 +6,7 @@ import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
 const title = "About HurricaneHub";
 const description = "Learn about HurricaneHub's mission to provide accurate hurricane tracking, emergency preparedness guidance, and NOAA/NHC source transparency.";
 const url = `${site.url}/about/`;
-const lastModified = site.contentLastModified;
+const lastModified = "2026-11-02";
 const pageFaqs = [
   {
     question: "Where does HurricaneHub get hurricane information?",
@@ -41,6 +41,16 @@ const jsonLd = graph(
       <p class="eyebrow">Mission and source transparency</p>
       <h1 id="about-title">About HurricaneHub</h1>
       <p class="answer">HurricaneHub helps people track hurricanes, understand official alerts, and prepare earlier using NOAA, National Hurricane Center, and National Weather Service public data.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="publisher-heading">
+    <div class="inner">
+      <h2 id="publisher-heading">Who Publishes and Maintains HurricaneHub</h2>
+      <p class="answer">HurricaneHub is an independent web project that publishes articles under the HurricaneHub organization name. That byline identifies the publisher responsible for the page; it does not mean an article was written or approved by a meteorologist, an emergency-management agency or a medical professional. Named contributors and professional reviewers should be credited only for work they actually performed.</p>
+      <p>AI tools assist with drafting, coding and editing. Readers can assess a page through its linked original sources, dated correction notes and specific examples. A source-check note describes exactly what was checked and what was left unresolved. It should not be read as a complete expert review of the article or confirmation of a current evacuation order, road condition or household arrangement.</p>
+      <p>Article revision dates describe editorial changes. Forecast issue times and live-feed check times describe separate data events. Historical case studies name their year and report version; hypothetical household records are labeled as examples. These distinctions let a reader check a particular claim without relying on the publisher name alone.</p>
+      <p>For a correction, send the page URL, the passage in question and the original source that supports a change to <a href="mailto:weather-data@hurricanetracker.cc?subject=HurricaneHub%20correction">weather-data@hurricanetracker.cc</a>. Do not include private addresses, medical records or identity documents. Urgent warnings, rescue requests and evacuation questions belong with the responsible official agency or emergency service.</p>
     </div>
   </section>
 

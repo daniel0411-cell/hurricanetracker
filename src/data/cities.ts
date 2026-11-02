@@ -67,8 +67,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "miami",
-    dateModified: "2026-10-27",
-    sourceCheck: { date: "2026-10-27", scope: "Miami-Dade hurricane hub and linked planning-zone entry. No address result, assistance eligibility or current order was verified." },
+    dateModified: "2026-11-02",
+    sourceCheck: { date: "2026-11-02", scope: "Read Miami-Dade's storm-surge planning-zone explanation and linked lookup entry. No address, current order, assistance arrangement or live weather was verified; other local background was not reverified." },
     name: "Miami",
     stateCode: "FL",
     stateName: "Florida",
@@ -97,11 +97,11 @@ export const hurricaneCities: HurricaneCity[] = [
       },
       {
         heading: "Look Up the Miami-Dade Planning Zone",
-        body: "Use the Storm Surge Planning Zone tool linked from Miami-Dade's hurricane page and locate the full street address, not just Miami or a ZIP code. Record the planning-zone result, the lookup date and the official page address. During a threat, compare that result with the current county evacuation instructions; a planning map is not itself an evacuation order. FEMA flood-insurance zones answer a different question and cannot substitute for this lookup. A location outside a surge planning zone still needs rainfall, wind and tornado guidance from NWS Miami-South Florida."
+        body: "Compare the full address with Miami-Dade's current local instructions. Its storm-surge planning zones and FEMA insurance flood zones answer different questions. Read NWS Miami-South Florida warnings for rain, wind and tornado hazards as well as the county's surge instructions. Save the detailed address lookup and building arrangements in the separate household planning record."
       },
       {
         heading: "Confirm Assistance Before Travel",
-        body: "Miami-Dade's hurricane hub links to the Emergency & Evacuation Assistance Program for residents needing specialized transportation. Review eligibility and enrollment before a storm rather than assuming a shelter or ride will be available on demand. For a condo or high-rise, confirm the building's elevator, stair access and outage arrangements separately; a building plan cannot override a county order. Save the current destination and transport confirmation offline, and verify pet and medical-equipment arrangements with the responsible provider. Source navigation checked October 27, 2026; open the county page again for current orders and availability."
+        body: "An updated warning can change the time available to use a saved transport plan. Contact the responsible service and receiving person for current arrangements; an assistance application or a building plan cannot confirm today's ride, shelter or elevator access. The standing guide has a dedicated handoff record for these confirmations."
       }
     ],
     evacuationFocus: [
@@ -161,8 +161,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "tampa",
-    dateModified: "2026-10-27",
-    sourceCheck: { date: "2026-10-27", scope: "Hillsborough evacuation-information page and its lookup, map-version and transport navigation. No address result, shelter activation or current order was verified." },
+    dateModified: "2026-11-02",
+    sourceCheck: { date: "2026-11-02", scope: "Read Hillsborough's evacuation-information page, HEAT entry, 2025/2026 map comparison and HART transport link. No address, activated service, current order or live weather was verified; other local background was not reverified." },
     name: "Tampa",
     stateCode: "FL",
     stateName: "Florida",
@@ -191,11 +191,11 @@ export const hurricaneCities: HurricaneCity[] = [
       },
       {
         heading: "Start With the Correct County's Address Map",
-        body: "For a Tampa address in Hillsborough County, open the county's Find Evacuation Information page and use the Hurricane Evacuation Assessment Tool (HEAT). Search the street address, verify the mapped property and record the zone result and lookup date. The county page links both 2025 and 2026 maps, so confirm the map version instead of reusing an old screenshot. A Tampa Bay address in Pinellas County needs Pinellas instructions instead; the metro name does not identify the responsible jurisdiction. A planning-zone color is not a current order, and a FEMA flood-zone letter is not an evacuation-zone result."
+        body: "Use the actual county's current instruction for the address. Hillsborough's official page includes HEAT and both 2025 and 2026 map comparisons; a saved screenshot needs its version checked. A Tampa Bay place name does not identify the county responsible for the order. The standing guide walks through the saved lookup and transport record."
       },
       {
         heading: "Check Transport and Shelter Instructions Separately",
-        body: "Hillsborough's evacuation page links to nearby shelters, HART emergency evacuation bus information and HCFL Alert registration. Review those resources before an emergency and confirm the current activation, pickup arrangements and shelter suitability during a threat. A listed shelter is not proof that it is open. For a trip across the bay or from a barrier island, check the responsible county's current road and bridge notices; do not invent a wind-speed closure threshold or assume the usual route will remain available. Source navigation checked October 27, 2026; weather and service status must be checked again before travel."
+        body: "During an event, check the county's current shelter activation, transport and road notices alongside NWS Tampa Bay warnings. Hillsborough links HART emergency transport information, but a planning route does not confirm today's service. Recheck the proposed destination and any bridge dependency when local instructions change."
       }
     ],
     evacuationFocus: [
@@ -255,8 +255,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "houston",
-    dateModified: "2026-10-27",
-    sourceCheck: { date: "2026-10-27", scope: "Houston OEM planning entry and Harris County Flood Warning System. No live gauge value, road condition or current order was verified." },
+    dateModified: "2026-11-02",
+    sourceCheck: { date: "2026-11-02", scope: "Read Houston OEM navigation, Harris County Flood Warning System's interface and TxDOT route guidance. No live gauge, road, order, transport or care arrangement was verified; other local background was not reverified." },
     name: "Houston",
     stateCode: "TX",
     stateName: "Texas",
@@ -285,15 +285,15 @@ export const hurricaneCities: HurricaneCity[] = [
       },
       {
         heading: "Separate Coastal Evacuation From Inland Flood Decisions",
-        body: "Begin with the exact address and responsible city or county: a Houston-area label may refer to Harris, Galveston, Brazoria or Chambers County. Use Houston OEM for city instructions and the relevant county's emergency-management resources for its evacuation guidance. Do not apply a Galveston Bay coastal instruction to every inland Houston neighborhood, or treat an inland location as flood-safe. Local rainfall, bayou levels and NWS flood warnings can require different actions from a coastal surge evacuation. An insurance flood map or ZIP representative point does not establish whether an evacuation order covers the address."
+        body: "Read the relevant city or county's current instruction for the address. A coastal surge notice and an inland NWS flood warning cover different hazards and may apply to different places. Check both the warning's affected area and the local instruction instead of applying a Houston metro-wide stay-or-leave rule."
       },
       {
         heading: "Save Three Different Official Checks",
-        body: "Keep Houston OEM or the responsible local agency for orders and assistance, NWS Houston/Galveston for forecast hazards and warnings, and the Harris County Flood Warning System for local rainfall and water-level observations. The flood gauges show conditions at monitored locations; they do not certify a road, underpass or home as safe and are not a forecast for every neighborhood. Check the observation time, avoid flooded roads, and verify any proposed travel with current official information. Plan cooling, essential medical power and a confirmed destination before an outage makes coordination difficult. Source navigation checked October 27, 2026; these are ongoing planning resources, not current evacuation or road-status claims."
+        body: "Use local emergency management for instructions, NWS Houston/Galveston for warnings, and the Harris County Flood Warning System for site-specific rainfall and water observations. Record the observation time and measurement type. Missing data is an unresolved check; a gauge cannot certify road access. The standing guide keeps those observations separate from transport and care confirmations."
       }
     ],
     evacuationFocus: [
-      "Do not evacuate from inland Houston unless officials advise it or your household risk requires it.",
+      "Compare current local instructions with the full address, housing, flood and care needs.",
       "Know whether you are in a coastal surge zone, mobile home, flood-prone street, or medically vulnerable household.",
       "Pick routes that avoid bayous, underpasses, and historically flooded freeway sections.",
       "Keep water, fuel, medication, chargers, and cooling plans ready for extended outages."
@@ -309,7 +309,7 @@ export const hurricaneCities: HurricaneCity[] = [
       {
         question: "Should Houston residents evacuate for every hurricane?",
         answer:
-          "No. Many inland Houston residents are safer staying off the roads unless local officials issue evacuation guidance or the household has special risk. Coastal surge zones, mobile homes, flood-prone properties, and medical needs require earlier decisions."
+          "There is no metro-wide answer for every household. Compare the actual local instruction and NWS warnings with the address, housing, coastal or inland flooding, transport and care needs. Confirm current arrangements with the responsible people and agencies."
       },
       {
         question: "What hurricane hazard matters most in Houston?",

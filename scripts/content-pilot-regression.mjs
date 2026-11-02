@@ -189,9 +189,18 @@ for (const slug of ["official-hurricane-information-sources-rumor-verification",
 }
 for (const slug of ["miami", "tampa", "houston"]) {
   const city = hurricaneCities.find((city) => city.slug === slug);
-  assert.equal(city.dateModified, "2026-10-27");
-  assert.equal(city.sourceCheck?.date, "2026-10-27");
+  assert.equal(city.dateModified, "2026-11-02");
+  assert.equal(city.sourceCheck?.date, "2026-11-02");
+  const guide = localPreparednessPages.find((page) => page.kind === "city" && page.slug === slug);
+  assert.equal(guide.dateModified, "2026-11-02");
+  assert.equal(guide.planningRecord.steps.length, 6);
+  assert.match(guide.planningRecord.example, /Hypothetical/);
+  assert.match(guide.sourceCheck.scope, /no (address|live)|No address/i);
+  routes.set(`/city/${slug}/hurricane-tracker/`, guide.planningRecord.title);
 }
+assert.equal(new Set(localPreparednessPages.filter((page) => page.planningRecord).map((page) => page.planningRecord.title)).size, 3);
+routes.set("/city/orlando/hurricane-tracker/", "Orlando Hurricane Emergency Kit Checklist");
+routes.set("/about/", "Who Publishes and Maintains HurricaneHub");
 for (const [slug, heading] of articles) {
   const post = blogPosts.find((post) => post.slug === slug);
   assert(post, `Missing existing article ${slug}`);
@@ -224,8 +233,13 @@ assert.doesNotMatch(floridaSource, /Florida Gulf searches overlap|For local sear
 const sharedStateSource = await fs.readFile("src/components/StateTrackerSeoLinks.astro", "utf8");
 assert.doesNotMatch(sharedStateSource, /Common searches this page answers|Local searches covered|High-Intent|searchQueries|cityRiskQueries/);
 routes.set("/", "Understand the Maps Behind the Forecast");
+const stateCaseHeadings = {
+  florida: "Ian: Three Measurements, Three Different Questions",
+  texas: "Harvey: A Landfall, a Rain Gauge and a Water Level",
+  "north-carolina": "Florence: Weaker Landfall Winds, Different Water Hazards"
+};
 for (const state of coastalStates) {
-  routes.set(`/tracker/${state.slug}/`, state.slug === "florida" ? "Ian: Three Measurements, Three Different Questions" : `Local Guides in ${state.name}`);
+  routes.set(`/tracker/${state.slug}/`, stateCaseHeadings[state.slug] ?? `Local Guides in ${state.name}`);
 }
 
 const base = process.env.CONTENT_AUDIT_BASE_URL;
@@ -237,6 +251,37 @@ if (base) {
     assert(html.includes(heading.replaceAll("'", "&#39;")) || html.includes(heading), `${route}: new content missing`);
     assert(html.includes(`https://www.hurricanetracker.cc${route}`), `${route}: canonical missing`);
     assert.match(html, /application\/ld\+json/);
+    if (["miami", "tampa", "houston"].some((slug) => route === `/city/${slug}/hurricane-tracker/`)) {
+      const guide = localPreparednessPages.find((page) => page.kind === "city" && route === `/city/${page.slug}/hurricane-tracker/`);
+      const schemas = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map((match) => JSON.parse(match[1]));
+      const nodes = schemas.flatMap((schema) => schema["@graph"] ?? [schema]);
+      const howTo = nodes.find((node) => node["@type"] === "HowTo");
+      assert.equal(howTo.name, guide.planningRecord.title);
+      assert.equal(howTo.step.length, 6);
+      assert.equal(howTo.step[0].text, guide.planningRecord.steps[0].text);
+      assert(html.includes(`href="/hurricane-tracker/city/${guide.slug}/"`));
+      assert.doesNotMatch(html, /id="storm-history"|id="kit-checklist"/);
+      assert(html.includes("Hypothetical record:"));
+      assert(html.includes("Source check 2026-11-02"));
+    }
+    if (["miami", "tampa", "houston"].some((slug) => route === `/hurricane-tracker/city/${slug}/`)) {
+      const slug = route.split("/")[3];
+      assert(html.includes(`href="/city/${slug}/hurricane-tracker/"`));
+      assert(html.includes("Apply the Current Local Instruction"));
+      assert.doesNotMatch(html, /Evacuation and Action Checklist|72\/48\/24-hour/);
+    }
+    if (route === "/tracker/texas/" || route === "/tracker/north-carolina/") {
+      const schemas = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map((match) => JSON.parse(match[1]));
+      const nodes = schemas.flatMap((schema) => schema["@graph"] ?? [schema]);
+      assert(nodes.some((node) => String(node.dateModified).startsWith("2026-11-02")));
+      const faq = nodes.find((node) => node["@type"] === "FAQPage");
+      const question = faq.mainEntity.find((item) => item.name.includes(route.includes("texas") ? "60.58 inches" : "Category 4"));
+      assert(question);
+      assert.match(question.acceptedAnswer.text, route.includes("texas") ? /Nederland/ : /1115 UTC/);
+      assert(html.includes("scope=\"row\""));
+      assert(html.includes("Source check 2026-11-02"));
+      assert.match(html, route.includes("texas") ? /AL092017_Harvey\.pdf/ : /AL062018_Florence\.pdf/);
+    }
     if (route.startsWith("/tracker/")) {
       assert.doesNotMatch(html, /Common searches this page answers|Local searches covered|High-Intent|For local searches such as/);
       assert(html.includes('href="/tools/evacuation-decision-helper/"'));

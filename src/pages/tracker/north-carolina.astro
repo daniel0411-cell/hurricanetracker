@@ -2,7 +2,6 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
 import StateActionPaths from "../../components/StateActionPaths.astro";
-import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
 import StateCurrentAnswer from "../../components/StateCurrentAnswer.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateSeoProfile } from "../../data/stateSeo";
@@ -19,16 +18,16 @@ const seo = getStateSeoProfile(state);
 const title = seo.title;
 const description = seo.description;
 const canonical = `${site.url}/tracker/${state.slug}/`;
-const lastModified = "2026-10-12";
+const lastModified = "2026-11-02";
 const currentStatus = await getStateCurrentStatus(code);
 
-const intro = `North Carolina's coastline runs about 300 miles from the Virginia line to the South Carolina border, but its hurricane identity is defined by Cape Hatteras and the Outer Banks—a string of narrow barrier islands in the Atlantic's busy recurvature lane. Storms riding the Gulf Stream often curve ashore here, slamming the islands before pushing into the sounds and inland rivers, producing both wind damage on the coast and catastrophic river flooding hundreds of miles inland. In 2018, Hurricane Florence stalled near the coast and unleashed historic rainfall that flooded communities from Wilmington to the Piedmont. The 2026 Atlantic hurricane season runs June 1 through November 30, with its climatological peak in September, so Outer Banks and coastal residents should monitor current outlooks and plan ferry and bridge timing before access closes.`;
+const intro = `North Carolina hurricane checks need to cover the ocean coast, sounds and river communities as well as inland destinations. Florence's 2018 record shows why: the storm weakened from its offshore peak before landfall, yet produced major coastal inundation and freshwater flooding. A category attached to the landfall cannot summarize all those places or hazards. Start with current NHC and NWS information, then use the county's actual address and evacuation guidance. The historical case below explains measurements; the planning record connects local instructions with transport and a destination.`;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const stateActionPaths = [
   {
     name: `${name} local risk action plan`,
-    description: `Build a 72/48/24-hour household action plan from ${name} alerts, coastal hazards, and local constraints.`,
+    description: `Record ${name} alerts, local instructions, transport and household constraints in an action plan.`,
     url: `${site.url}/tools/local-risk-plan/?state=${code}`
   },
   {
@@ -52,15 +51,23 @@ const adjacent = ["south-carolina", "virginia"];
 const faqs = [
   {
     question: `When is hurricane season in ${name}?`,
-    answer: `The Atlantic season runs June 1–November 30, and North Carolina risk is highest from August through September as Cape Hatteras sits in a frequent recurvature lane. Outer Banks and coastal residents should monitor current tropical outlooks closely.`
+    answer: `The Atlantic season runs June 1 through November 30. Use current official outlooks and warnings throughout the season; a calendar date cannot establish the conditions at a particular coast, river or address.`
   },
   {
-    question: `What was the worst hurricane to hit ${name}?`,
-    answer: `Hurricane Florence (2018) stalled near the coast and dumped historic rainfall across the Carolinas, causing catastrophic river flooding far inland. It was among the wettest and most destructive storms to hit North Carolina.`
+    question: "Was Florence still a Category 4 hurricane at North Carolina landfall?",
+    answer: "No. NHC's September 25, 2019 revised report places Florence's peak at 130 kt on September 11, 2018, and its Wrightsville Beach landfall at 80 kt around 1115 UTC September 14, Category 1. The lower landfall wind category did not describe its coastal inundation or freshwater flooding."
   },
   {
     question: `Does ${name} have hurricane evacuation routes?`,
     answer: `North Carolina's Know Your Zone program identifies evacuation zones in participating coastal counties. Follow county evacuation orders and check DriveNC and ferry service notices for current access. Do not assume NC-12, US-64, bridges, or ferries will remain open, or that any road will use reversed lanes unless officials announce it.`
+  },
+  {
+    question: "Does every North Carolina county use Zones A through E?",
+    answer: "No. The state's Know Your Zone page describes 21 participating coastal counties, with some using only A and B and others additional zones. Read the actual county's lookup and current instruction. A failed lookup or an area without a predetermined zone does not cancel other emergency instructions."
+  },
+  {
+    question: "Does Florence's 35.93-inch rain total apply to the whole state?",
+    answer: "No. It was a reported storm-total maximum about 6 nautical miles northwest of Elizabethtown. NHC separately describes a narrow swath above 30 inches from Wilmington toward Elizabethtown. Keep the measurement location and accumulation period attached; neither number is a current forecast."
   }
 ];
 
@@ -83,6 +90,7 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">{region} hurricane operations</p>
       <h1 id="tracker-state-title">{seo.headline}</h1>
+      <p class="source-note">Guide revised <time datetime={lastModified}>{lastModified}</time>. Live feeds have separate check times.</p>
       <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
       <section class="intent-answer" aria-labelledby="north-carolina-intent-heading">
         <h2 id="north-carolina-intent-heading">Check North Carolina Hurricane Risk Now</h2>
@@ -92,6 +100,38 @@ const jsonLd = graph(
       </section>
 
       <p class="answer">{intro}</p>
+
+      <section class="intent-answer" aria-labelledby="florence-case-heading">
+        <p class="eyebrow">Historical case: September 2018</p>
+        <h2 id="florence-case-heading">Florence: Weaker Landfall Winds, Different Water Hazards</h2>
+        <p>NHC's Florence report, AL062018, was revised on September 25, 2019. Its wind, storm-surge and rainfall analyses describe different locations and reference levels. Use the report's labels rather than turning one category or one water number into a statewide impact estimate.</p>
+        <div class="evidence-table-wrap" tabindex="0" role="region" aria-label="Historical Florence measurements; scroll horizontally if needed">
+          <table><caption>Selected NHC findings from 2018, not a current North Carolina forecast</caption><thead><tr><th scope="col">Location or event</th><th scope="col">Reported finding</th><th scope="col">How to read it</th></tr></thead><tbody>
+            <tr><th scope="row">Offshore peak and Wrightsville Beach landfall</th><td>Peak: 130 kt at 1800 UTC September 11. Landfall: 80 kt around 1115 UTC September 14, Category 1 (pp. 3-5).</td><td>The peak and landfall were different events. A lower landfall category does not measure rainfall or coastal water depth.</td></tr>
+            <tr><th scope="row">Neuse River and tributaries at Pamlico Sound</th><td>Estimated maximum storm-surge inundation of 8-11 ft above ground level along these shores (p. 6).</td><td>The sound and river setting matters. An above-ground inundation analysis is different from a tide-gauge elevation.</td></tr>
+            <tr><th scope="row">About 6 nautical miles northwest of Elizabethtown</th><td>Reported maximum storm-total rainfall of 35.93 inches. A narrow Wilmington-to-Elizabethtown swath exceeded 30 inches (p. 7).</td><td>A point maximum and a mapped swath are separate summaries. They do not give the rain total at every property or river crossing.</td></tr>
+          </tbody></table>
+        </div>
+        <p>For example, the report describes a USGS sensor across the Neuse River from downtown New Bern that recorded 10.08 ft NAVD88, converted to about 10.4 ft above mean higher high water (p. 6). Neither label means 10.4 feet above the ground at every nearby home. The report's 8-11-foot above-ground analysis and that sensor reading have different reference levels and geographic scopes.</p>
+        <p>Persistent rainbands and slow motion produced freshwater flooding beyond the landfall coast. A household checking a destination needs its own local warnings and access information, even if the destination is away from the ocean. Historical landfall, inundation and rain totals explain why several checks are needed; they do not predict the next event or identify a usable present-day route.</p>
+        <p><a href="https://www.nhc.noaa.gov/data/tcr/AL062018_Florence.pdf">Read NHC's Florence report, revised September 25, 2019 (PDF)</a> &middot; <a href="/blog/hurricane-storm-surge-forecasting/">Compare the units and reference levels on surge products</a></p>
+      </section>
+
+      <section class="intent-answer" aria-labelledby="nc-zone-record">
+        <h2 id="nc-zone-record">Keep the County Zone, Order and Access Checks Together</h2>
+        <p>North Carolina's official Know Your Zone page describes 21 participating coastal counties. It explains that some counties use only A and B while others have additional zones; local officials decide which areas to evacuate. Keep the lookup result separate from the current instruction instead of assuming one statewide lettering scheme or automatic evacuation sequence.</p>
+        <ol class="check-list">
+          <li><strong>Property:</strong> save the county, full address, official lookup URL, result and date privately. Confirm the actual mapped property. If the map will not load, the state page directs users to local emergency management; leave the result unresolved until clarified.</li>
+          <li><strong>Instruction:</strong> record the issuing local agency, issue time, affected area and required action. An address outside a predetermined zone can still receive emergency instructions for other hazards. Keep relevant NWS flood, wind and tornado warnings with the record.</li>
+          <li><strong>Destination:</strong> confirm the host or shelter operator, access, care and animal arrangements. Check the destination's own local instructions and flood hazards; moving away from the ocean is not a complete destination check.</li>
+          <li><strong>Access:</strong> record the proposed journey and any bridge, ferry or other dependency. The state page links DriveNC for road incidents and congestion. Confirm current road information and any necessary ferry service directly before travel rather than relying on a normal timetable or old screenshot.</li>
+          <li><strong>Return:</strong> save the local reentry instructions and who will check the accommodation is available. The state's guidance tells visitors to contact their accommodation provider before returning; the end of an evacuation does not confirm every building or access route is ready.</li>
+        </ol>
+        <h3>Worked Record: The Destination Has Its Own Warning</h3>
+        <p>Hypothetical example: a coastal household saves its county zone result and agrees to stay with an inland friend. A later NWS flood warning names the destination area, while access information for the proposed journey remains unclear. The host's agreement stays recorded, but the destination and route checks are reopened. The household checks current local instructions with the responsible sources and discusses an alternative with its driver and host. It does not substitute Florence's historical rainfall map for today's warning or assume inland means suitable. No actual address, warning, road or ferry was checked for this example.</p>
+        <p><a href="https://www.ncdps.gov/our-organization/emergency-management/emergency-preparedness/know-your-zone">North Carolina's official Know Your Zone guidance</a> &middot; <a href="https://drivenc.gov/">DriveNC road information</a> &middot; <a href="/blog/how-to-check-your-hurricane-evacuation-zone/">Create a private evacuation-zone record</a></p>
+        <details class="source-note"><summary>Source check 2026-11-02</summary><p>Read the complete September 25, 2019 NHC Florence report, especially pages 3-7, and North Carolina's Know Your Zone guidance and linked lookup, orders and road-information entries. No interactive map result, real address, current order, warning, road, ferry, destination or reentry arrangement was verified. The worked example is hypothetical; live feeds have separate check times.</p></details>
+      </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
@@ -111,8 +151,7 @@ const jsonLd = graph(
 
       <StateActionPaths state={state} />
 
-      <StateTrackerSeoLinks state={state} cities={stateCities} />
-      <p class="region-link"><a href="/hurricane-tracker/live/">Check the live NHC hurricane tracker</a> · <a href="/2026-hurricane-season/">Review the 2026 hurricane season tracker</a> · <a href="/hurricane-tracker/southeast/">Compare North Carolina with the Southeast and East Coast Hurricane Tracker</a></p>
+      <section class="intent-answer" aria-labelledby="nc-planning-questions"><h2 id="nc-planning-questions">North Carolina Planning Questions</h2>{faqs.map((faq) => <details><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}</section>
 
       <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
       <ul class="check-list">
@@ -127,7 +166,13 @@ const jsonLd = graph(
 
 <style>
   .answer { font-size: 1.05rem; line-height: 1.75; }
-  .intent-answer { margin: 24px 0; padding: 18px 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface, #f3f7fa); }
+  .intent-answer { margin: 28px 0; padding: 20px 0; border-top: 1px solid var(--line); }
   .intent-answer h2 { margin-top: 0; }
-  .region-link { margin: 24px 0; font-weight: 800; }
+  .intent-answer details { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .intent-answer summary { cursor: pointer; font-weight: 700; }
+  .evidence-table-wrap { max-width: 100%; overflow-x: auto; margin: 20px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  caption { text-align: left; margin-bottom: 12px; color: var(--muted); }
+  th, td { text-align: left; vertical-align: top; padding: 14px 12px; border-bottom: 1px solid var(--line); min-width: 160px; line-height: 1.6; }
+  thead th { background: var(--surface); }
 </style>

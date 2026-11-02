@@ -8,6 +8,12 @@ export type LocalPreparednessPage = {
   description: string;
   dateModified?: string;
   sourceCheck?: { date: string; scope: string };
+  planningRecord?: {
+    title: string;
+    intro: string;
+    steps: Array<{ name: string; text: string }>;
+    example: string;
+  };
   risk: string[];
   history: Array<{ storm: string; detail: string }>;
   evacuation: string[];
@@ -509,9 +515,22 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
   {
     kind: "city", slug: "miami", name: "Miami", stateName: "Florida", stateSlug: "florida",
     title: "Miami Hurricane Preparedness 2026: Evacuation & Safety",
-    description: "Miami hurricane preparedness for 2026: Miami-Dade evacuation zones, official alerts, storm surge, emergency routes, history, and safety.",
+    description: "Build a Miami hurricane plan with a private Miami-Dade zone lookup, high-rise access questions, transport contacts and care handoff record.",
     dateModified: "2026-11-02",
     sourceCheck: { date: "2026-11-02", scope: "Miami-Dade's official storm-surge page describes five planning zones, A-E. Checked the zone explanation and linked lookup entry only; no address, interactive map result, current evacuation order, shelter availability or road condition was verified. Other historical and local background on this page was not reverified in this check." },
+    planningRecord: {
+      title: "Miami: Build a High-Rise and Care Handoff Record",
+      intro: "Use this record before a threat to assign the address lookup, building questions and care arrangements to named household contacts. Miami-Dade's five storm-surge planning zones answer a coastal-water question. They do not describe whether a lift will work, who can carry equipment, or whether a host can receive the household. Keep the completed record privately; do not publish the address, medical details or access codes. The current tracker is the separate place to start checking weather during an event.",
+      steps: [
+        { name: "Record the exact property and county lookup", text: "Write the full street address, unit and county, then use Miami-Dade's linked Know Your Zone tool. Save the returned designation, source URL and lookup date with a copy that can be read offline. Five zones, A through E, appear in the county guidance. An unclear result belongs in an unresolved field until the county clarifies it; do not fill the gap using a nearby building's result." },
+        { name: "Ask the building manager about access", text: "Record the manager's contact and answers about elevator shutdown, accessible stair access, water service, entry after an outage and any building evacuation instructions. Assign a household member to follow up on unanswered questions. A generator in a building does not establish which circuits or lifts it powers. Ask about the actual service needed rather than writing only 'building has backup power'." },
+        { name: "Keep care and transport confirmations separate", text: "For a person needing help, record the agreed driver or provider, vehicle and equipment space, contact method and backup arrangement. Ask the treating or equipment provider about transport and continuity needs specific to that person. Keep an assistance application marked as submitted until the responsible service confirms its status and instructions; a submission is not a booked ride or a confirmed care placement." },
+        { name: "Confirm the destination's actual arrangements", text: "Contact the host or shelter operator about access, care, equipment power and animals before treating a destination as agreed. Save the address privately and identify who will check the destination's own local instructions during a threat. An inland address changes the questions to ask; it does not settle flood, wind, outage or accessibility concerns. A familiar hotel name is not confirmation that a room or service is available." },
+        { name: "Pack a portable handoff, not a second household inventory", text: "Keep essential contacts, the agreed care plan, medication and equipment instructions, documents and the items that must travel together in one accessible place. Identify who carries each essential item and who receives the person at the destination. Use the separate supply-checklist tool for quantities, so this record remains a short account of people, confirmations and unfinished arrangements." },
+        { name: "Match the saved plan to the next official instruction", text: "During an event, save the issuing agency, issue time, affected area and action from the actual local instruction. Compare it with the recorded address and building needs. Miami-Dade's published guidance also identifies mobile homes and electrically dependent life-sustaining equipment as needing attention regardless of the surge planning zone. Check the current wording directly; the stored map and this household record are preparation inputs, not an evacuation order." }
+      ],
+      example: "Hypothetical record: a Miami condo household has saved its county zone result and a relative has agreed to receive them. The building manager has not answered which elevator operates during a power failure, and transport for a mobility device is not confirmed. The record has two open tasks, each assigned to a contact, plus an alternative destination contact. The household does not mark transport 'ready' because an assistance form was sent. During an actual threat it would compare the current county instruction with its address and care needs, then confirm the agreed departure and arrival handoff with the responsible people. No property, ride, medical arrangement or current order has been checked for this example."
+    },
     risk: [
       "Miami sits near the warm western Atlantic at the southeast edge of the Florida peninsula. Biscayne Bay, low coastal neighborhoods, canals, barrier islands, high-rise buildings, and porous limestone create distinct storm-surge, rainfall, wind, and drainage problems across Miami-Dade County.",
       "A forecast track east of Miami can still produce dangerous surf, rip currents, tornadoes, and wind, while a track through the Straits or from the southwest can drive water into the bay. Residents should watch the NHC cone, wind field, surge products, and local warnings rather than focus on the center line.",
@@ -545,13 +564,28 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
       { question: "Is a hurricane threatening Miami now?", answer: "Check the HurricaneHub live tracker, the latest NHC advisory, and NWS Miami alerts. This standing page does not itself indicate a current threat." },
       { question: "What Miami-Dade evacuation zone am I in?", answer: "Use the county Storm Surge Planning Zone tool for the exact address. The five zones, A through E, reflect surge planning, not storm category or FEMA flood-insurance zones. Save the lookup date, then check current county instructions separately; this guide has not looked up your address." },
       { question: "Should Miami high-rise residents evacuate?", answer: "Follow the order for the address and building. High-rises outside evacuation zones still need plans for glass, elevators, water, heat, and prolonged outages." },
-      { question: "Which hurricane caused Miami's greatest damage?", answer: "The 1926 Miami hurricane devastated the city, while Andrew in 1992 destroyed communities in south Miami-Dade and reshaped building standards." }
+      { question: "Does a building generator complete my care plan?", answer: "No. Ask which services it powers, then confirm transport, equipment needs and the receiving person's arrangements separately. Keep unanswered building or care questions open in the household record." }
     ]
   },
   {
     kind: "city", slug: "tampa", name: "Tampa", stateName: "Florida", stateSlug: "florida",
     title: "Tampa Hurricane Preparedness 2026: Evacuation & Safety",
-    description: "Tampa hurricane preparedness for 2026: Hillsborough evacuation zones, official alerts, storm surge, routes, history, and safety.",
+    description: "Prepare a Tampa Bay hurricane record: confirm the county, save the Hillsborough map version, and check transport, destination and bridge dependencies.",
+    dateModified: "2026-11-02",
+    sourceCheck: { date: "2026-11-02", scope: "Read Hillsborough's Find Evacuation Information page, its five-zone legend, linked HEAT lookup, 2025/2026 map comparison and HART transport entry. No address, interactive map result, current order, bridge status, activated bus or shelter was verified. Historical background was not reverified." },
+    planningRecord: {
+      title: "Tampa: Save the Map Version and Transport Confirmation",
+      intro: "A Tampa Bay plan can cross county lines and depend on a bridge, bus or host. Start with the property's actual jurisdiction, then give each map and transport arrangement its own confirmation status. Hillsborough's official page includes 2025 and 2026 evacuation-map comparisons; an old screenshot can therefore answer a different question from the current lookup. This record is for preparing the household before an event. Use the current tracker and local agencies to check what is happening now.",
+      steps: [
+        { name: "Identify the county responsible for the address", text: "Save the street address and county privately before opening an evacuation map. A Tampa Bay place name alone does not identify whether Hillsborough, Pinellas or another jurisdiction supplies the applicable instructions. Record the relevant county's official page rather than copying the result for a relative living across the bay. Visitors should confirm the lodging address and county with the property manager." },
+        { name: "Record a dated HEAT lookup for Hillsborough", text: "Use the county's Find Evacuation Information page to open the Hurricane Evacuation Assessment Tool. Its legend lists Zones A-E. Save the matched property, returned designation and lookup date. The page links printable maps and comparisons between 2025 and 2026, including Apollo Beach, Thonotosassa and Town 'N Country. Check the version of a saved image; a changed map is a reason to repeat the actual address lookup, not to guess a replacement zone." },
+        { name: "Write the shelter or host confirmation separately", text: "Record who agreed to receive the household, when that agreement was made and what still needs checking about accessibility, pets, equipment and care. The official county page links a shelter map, but a location on a planning map does not show that it is open for the current event. Obtain activation and intake instructions from the responsible operator during a threat, and keep an alternative contact." },
+        { name: "Plan transport before relying on an emergency service", text: "The county page links HART emergency evacuation bus information. Review the official routes and instructions before a storm, then confirm event-specific service and pickup details when needed. Save the transport contact, the people and equipment travelling, and the alternative if that arrangement fails. A link to a bus route is a planning resource; it is not a personal reservation or proof that service is operating." },
+        { name: "Identify a bridge or access dependency", text: "Name any bridge, causeway or other crossing on the proposed journey, and record which official road or county source will supply its current status. Keep an alternative destination or transport arrangement if access changes. Do not turn a remembered closure threshold, an ordinary journey time or an app's suggested route into a promise of access. Check the destination's own instructions as well as those at the origin." },
+        { name: "Assign the next order and map checks", text: "Keep the current instruction in its own field: issuing agency, issue time, affected zones or conditions, and required action. Use HCFL Alert and county updates for a Hillsborough address. Compare the instruction with the saved property result and household needs. Give one contact responsibility for updates and another for confirming arrival; a printed map without an event-specific instruction does not complete the record." }
+      ],
+      example: "Hypothetical record: a Hillsborough household saved a 2025 map and planned to stay with a host across the bay. It notices the official page now displays a 2026 comparison. Its old zone entry is marked 'recheck', not silently carried forward. A contact is assigned to repeat the property lookup; another confirms the host's access and care arrangements. The proposed crossing remains an access dependency, and an alternative destination is recorded. No new zone, open bridge, activated HART service or shelter place is assumed. This is an example of unfinished planning fields, not a current route or departure recommendation."
+    },
     risk: [
       "Tampa lies at the upper end of a shallow bay connected to the Gulf of Mexico. Onshore winds can push water through Tampa Bay toward low neighborhoods, rivers, ports, causeways, and critical infrastructure, making surge a central planning hazard.",
       "The exact track matters for wind direction, but residents should not wait for an exact landfall forecast. A large hurricane passing west or north can produce surge, tornadoes, rainfall flooding, and long outages across Hillsborough, Pinellas, and Pasco counties.",
@@ -572,7 +606,7 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
     evacuation: [
       "Hillsborough County uses evacuation zones A through E based on storm-surge risk. Check the address; neighboring Pinellas and Pasco counties maintain their own zone tools and orders.",
       "Routes can include I-275, I-75, I-4, the Veterans Expressway, Selmon Expressway, US 19, US 301, and local roads. Bridges across Tampa Bay may become unsafe or restricted before peak wind.",
-      "Evacuate tens of miles to sturdy shelter when possible rather than driving hundreds of miles through congestion. Follow the county order and verify the destination's zone, flood, and outage risk."
+      "Choose a destination and transport arrangement that fit current local instructions and household needs. Confirm the destination's access, care arrangements and local hazards instead of treating a fixed travel distance as a safety rule."
     ],
     resources: [
       { label: "Hillsborough County emergency management", href: "https://hcfl.gov/residents/public-safety/emergency-management" },
@@ -584,7 +618,7 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
       { question: "Is Tampa Bay under a hurricane threat?", answer: "Use the current NHC feed, NWS Tampa Bay alerts, and county notices. A permanent tracker page does not mean a storm is approaching." },
       { question: "What Tampa evacuation zone is my home in?", answer: "Enter the address in Hillsborough County's zone tool. Zone letters describe surge planning and do not match hurricane categories." },
       { question: "Do Tampa Bay bridges close in hurricanes?", answer: "High wind, water, crashes, or official controls can restrict bridges, so residents in ordered zones should leave during the announced window." },
-      { question: "Has Tampa had a direct hurricane hit?", answer: "The 1921 Tampa Bay hurricane is the main modern historical direct-strike benchmark; nearby storms have repeatedly produced regional surge and wind." }
+      { question: "Can I reuse my saved Hillsborough evacuation map?", answer: "Check its version and repeat the address lookup if needed. The official county page includes 2025 and 2026 map comparisons; a saved zone result is not a current evacuation order or proof of bridge access." }
     ]
   },
   {
@@ -668,7 +702,22 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
   {
     kind: "city", slug: "houston", name: "Houston", stateName: "Texas", stateSlug: "texas",
     title: "Houston Hurricane Preparedness 2026: Flood & Evacuation",
-    description: "Houston hurricane preparedness for 2026: official alerts, ZIP evacuation zones, bayou flooding, surge, routes, history, and safety.",
+    description: "Build a Houston hurricane record that separates local instructions, rainfall and channel observations, transport, destination and household care needs.",
+    dateModified: "2026-11-02",
+    sourceCheck: { date: "2026-11-02", scope: "Read Houston OEM's public contact/navigation, Harris County Flood Warning System's rainfall, channel-status and water-level interface, and TxDOT's hurricane evacuation-route page. The flood-tool HTML includes an unavailable-data notice; no live observation, map interaction, route, order, shelter or assistance arrangement was verified. Historical background was not reverified." },
+    planningRecord: {
+      title: "Houston: Separate the Order, Flood Observation and Care Plan",
+      intro: "A Houston-area household can need coastal evacuation information, local flood observations and an outage plan at the same time. Give these different evidence fields rather than writing one overall 'safe' status. Houston OEM supplies city emergency information; the responsible county may be different for a property elsewhere in the metro. Harris County's Flood Warning System separates rainfall, channel status and water levels. None of those measurements alone completes a household transport or care arrangement.",
+      steps: [
+        { name: "Record the actual jurisdiction and applicable instruction", text: "Save the full address and responsible city or county privately. Locate that agency's evacuation information, then keep any event instruction with its source, issue time, affected area and required action. Do not apply one Galveston Bay coastal notice to every inland Houston household. Conversely, a blank coastal-zone field cannot resolve an inland flood warning or a need for medical support." },
+        { name: "Keep rainfall and channel observations in separate fields", text: "When consulting the Harris County Flood Warning System, record the selected site, measurement type, displayed units, observation time and accumulation period where applicable. Rainfall totals describe precipitation; channel levels and channel status answer a different question. A nearby gauge is an observation at that site, not a measured depth at the home. Leave missing or unavailable observations unresolved rather than entering zero." },
+        { name: "Confirm a care and cooling arrangement", text: "Identify who needs essential equipment power, temperature-controlled medicine, assistance or a place to cool during a prolonged outage. Record the specific provider's advice and the receiving person's contact. A charged battery or a utility medical-needs listing does not establish how long equipment will run, that a ride is booked, or that power will be restored by a particular time. Keep each confirmation distinct." },
+        { name: "Connect a destination with an actual journey", text: "Confirm the host or shelter operator can receive the household and its equipment or animals. Save the destination's own local instructions and who will recheck them. TxDOT publishes district evacuation maps and links DriveTexas for route information; these are planning and status resources, not a guarantee that every segment is passable. Record the origin, destination, proposed route and transport contact together." },
+        { name: "Treat flooded access as a failed route check", text: "Do not translate a gauge color, a navigation shortcut or a receding water report into permission to cross floodwater. Check current official warnings and road information before travel. If a proposed journey depends on an underpass, bayou crossing or access road with unresolved conditions, keep that dependency open and contact the appropriate local source. A historical rain total cannot establish today's street condition." },
+        { name: "Save a short offline handoff", text: "Assign who carries essential documents, medication instructions and equipment, who contacts the destination, and who follows updated instructions. Keep a backup contact outside the immediate household and record which arrangements are confirmed, pending or failed. Use the separate supply tool for quantities; this sheet should remain a readable account of the people, observations, dependencies and next checks needed for the plan." }
+      ],
+      example: "Hypothetical record: an inland Harris County household has a relative willing to host someone using powered medical equipment. The selected flood-observation site has no usable current reading, and the relative has not confirmed an appropriate power arrangement. The household records 'observation unavailable' and 'equipment power pending', not 'no flooding' and 'destination ready'. A designated contact checks current NWS and local instructions; another speaks with the equipment provider and host about an alternative. No actual gauge, household medical need, route or destination is verified here. The example shows why the order, a water observation and a care confirmation cannot be compressed into one readiness score."
+    },
     risk: [
       "Houston is inland from the open Gulf but connected to Galveston Bay through the Ship Channel and surrounded by bayous, reservoirs, flat terrain, and extensive development. The metro can face coastal surge in eastern areas, extreme rainfall, flash flooding, tornadoes, wind, heat, and prolonged power loss.",
       "A hurricane does not need to make landfall at Galveston to threaten Houston. Large or slow storms can place the region in persistent rain bands or onshore flow, while trees and infrastructure fail across a broad area beyond mapped floodplains.",
@@ -687,7 +736,7 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
       { storm: "Harvey (2017)", detail: "Stalled over southeast Texas and caused catastrophic rainfall flooding across the metro." }
     ],
     evacuation: [
-      "The Houston-Galveston region uses coastal ZIP evacuation zones for surge-threatened areas. Follow county and city instructions; many inland Houston residents are safer sheltering than joining coastal traffic unless local risks require leaving.",
+      "Check the responsible city or county's coastal evacuation guidance and current instruction for the full address. Record any applicable local zone or ZIP designation. Inland flood, housing and care needs require their own checks; a metro-wide stay-or-leave rule cannot resolve them.",
       "Routes can include I-45, I-10, US 59/I-69, US 290, SH 225, SH 288, and beltways. TxDOT and officials decide any traffic controls or contraflow based on the event.",
       "Plan around bayou and underpass flooding, fuel, heat, pets, medical needs, and a destination outside the storm's inland path. Never drive into floodwater, even after wind subsides."
     ],
@@ -699,9 +748,9 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
     ],
     faqs: [
       { question: "Is Houston in a hurricane evacuation zone?", answer: "Some coastal and eastern Houston-region ZIP codes are in surge evacuation zones. Many inland residents are not; check the official ZIP-zone map and local order." },
-      { question: "Should all Houston residents evacuate?", answer: "No. Mass unnecessary evacuation can obstruct coastal zones. Leave for an applicable order, unsafe housing, medical need, or credible local flood risk." },
+      { question: "Should all Houston residents evacuate?", answer: "Follow the actual local instruction for the address and assess housing, coastal or inland flooding, transport and care needs with the relevant agencies and providers. A metro-wide stay-or-leave rule cannot settle every household's situation." },
       { question: "Which NWS office covers Houston?", answer: "NWS Houston/Galveston issues local forecasts, watches, warnings, and storm information for the region." },
-      { question: "What storm best explains Houston risk?", answer: "Ike is a wind and surge benchmark; Harvey and Allison show that rainfall flooding can be catastrophic without a direct major-hurricane strike." }
+      { question: "Does an unavailable flood reading mean no flooding?", answer: "No. Leave the observation unresolved and check current official warnings and local information. A gauge reading is site-specific and cannot certify that a road, underpass or property is safe." }
     ]
   },
   {

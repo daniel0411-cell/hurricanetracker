@@ -24,6 +24,7 @@ const title = `${city.name} Hurricane Tracker & Alerts`;
 const description = `Track ${city.name} hurricane risk with local NWS alerts, NHC storm context, storm surge, flooding, evacuation planning, and household decision tools.`;
 const url = `${site.url}/hurricane-tracker/city/${city.slug}/`;
 const lastModified = city.dateModified ?? site.contentLastModified;
+const planningGuide = ["miami", "tampa", "houston"].includes(city.slug) ? `/city/${city.slug}/hurricane-tracker/` : null;
 const state = getStateByCode(city.stateCode);
 const stateSlug = state?.slug ?? city.stateName.toLowerCase().replaceAll(" ", "-");
 const stateCities = hurricaneCities
@@ -38,12 +39,12 @@ const nextStateLinks = coastalStates
 const actionPaths = [
   {
     name: `${city.name} local risk action plan`,
-    description: `Use active alerts and ${city.stateName} storm context to build a 72/48/24-hour household action plan for ${city.name}.`,
+    description: `Record ${city.name} alerts, current local instructions and household constraints in a local action plan.`,
     href: `/tools/local-risk-plan/?state=${city.stateCode}`
   },
   {
     name: `${city.name} evacuation decision helper`,
-    description: `Check whether housing type, flood exposure, transportation, pets, medical needs, or local orders should move a ${city.name} household from prepare to leave.`,
+    description: `Organize ${city.name} housing, flood exposure, transport, pets, medical needs and local instructions for an evacuation plan.`,
     href: "/tools/evacuation-decision-helper/"
   },
   {
@@ -101,6 +102,7 @@ const jsonLd = graph(
       {city.sourceCheck && <p class="small">Source check {city.sourceCheck.date} · {city.sourceCheck.scope}</p>}
       <p class="answer">This page helps {city.name} residents connect state NWS alerts, NHC storm context, evacuation-zone checks, and household planning tools before wind, surge, flooding, or road constraints reduce options.</p>
       <p class="answer">{city.overview}</p>
+      {planningGuide && <p><a href="#city-live">Read {city.name} area NWS alerts</a> &middot; <a href={planningGuide}>Prepare a {city.name} household and transport record</a></p>}
     </div>
   </section>
 
@@ -161,7 +163,7 @@ const jsonLd = graph(
     </div>
   </section>
 
-  <section class="band" aria-labelledby="city-evacuation">
+  {planningGuide ? <section class="band" aria-labelledby="city-evacuation"><div class="inner"><h2 id="city-evacuation">Apply the Current Local Instruction</h2><p>Read the actual alert or local instruction and keep its issuing agency, issue time, affected area and required action together. Compare that area with the full address; a storm-center distance and a state-level summary cannot establish whether an order applies to the property. Use the responsible local agency's current wording for evacuation and service arrangements.</p><p><a href={planningGuide}>Open the {city.name} household planning record</a> for the saved map, transport, destination and care confirmations prepared before an event. Recheck those arrangements against the new instruction.</p></div></section> : <section class="band" aria-labelledby="city-evacuation">
     <div class="inner grid-2">
       <article class="panel">
         <h2 id="city-evacuation">{city.name} Evacuation and Action Checklist</h2>
@@ -178,7 +180,7 @@ const jsonLd = graph(
         <p>Write down the applicable zone or neighborhood, destination, transport contact, and next official update time. A nearby storm, state-level alert, or ZIP representative point cannot establish that a particular road or property is safe.</p>
       </article>
     </div>
-  </section>
+  </section>}
 
   <section class="band" aria-labelledby="city-action-paths">
     <div class="inner">

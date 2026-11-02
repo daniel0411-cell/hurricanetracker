@@ -59,6 +59,25 @@ Google Search 官方重新抓取说明（`https://developers.google.com/search/d
 
 已知发现信号限制：`src/lib/sitemapRoutes.ts` 的博客 lastmod 已读取每篇 dateModified，但常备指南等非博客路由仍沿用 `site.contentLastModified`（2026-09-01）。本轮 Miami HTML/JSON-LD 已用本页日期，sitemap 对应日期仍旧；这不阻止抓取，但没有向 sitemap 传递本次修订日期。该文件属于项目禁区，本轮未改，后续应取得明确授权后按实际页面日期修正，不能把全站日期一起改为今天来代替。
 
+## Antigravity 审计建议复核与下一轮顺序
+
+2026-11-02 复核基准：本地 main 与本轮成功 fetch 的 origin/main 均为 `53718fbd880783c3b8ae096c138bd87160d171a1`，领先／落后 0/0。生产域名 `https://www.hurricanetracker.cc/` 的 Cloudflare deployment `82fba7c8-80cb-4d75-a508-f09079bca126`，Worker version `b5368d64-6b38-41d6-913e-56a8ff468de8` 承接 100% 流量，注释对应同一 Git SHA。本轮是审计和计划修订，不改线上内容或索引规则。
+
+采纳的工作：
+
+1. 优先对照 Miami、Tampa、Houston 的城市追踪页与常备指南。代码清单有 33 个城市追踪页、22 个常备指南（12 州、10 城市），其中同城配对 10 组、同州配对 9 组；不是 30 个已证实应下线的重复页。正式站抽查 Miami 两页及 Florida 常备页均为 200，标题和首段已区分当前背景与长期准备，但撤离分区、补给、资源、FAQ 仍有任务重叠。先列每段归属、独有内容和保留目标，无法形成独立用途的页面再提具体合并建议；不按 URL 形状或页面数直接判重复，不凭无流量假设删页。没有读取 GSC／Bing／分析后台数据。
+2. Texas／North Carolina 作为下一批州级深化样板，分别考虑 Harvey／Florence 的 NHC 原报告。核对峰值、登陆事件、雨量／水位定义和具体地点，再建立本州查询记录；正文与 FAQ／JSON-LD 一并核对。当前只是选题和范围，尚未读取这两份报告，不能先填数或宣称已核验。Texas 仍有“Most Texas hurricanes...”等无就近来源的广泛断言，FAQ 的“worst”也缺少统一衡量标准，应优先复核。其余州不能因为沿用相同布局就一概称为纯变量替换，也不能因共享文案已清理就称审查完成。
+3. 补清真实维护责任与编辑流程。现有 About 已有纠错渠道、官方来源、商业独立和核验边界，但尚未说明具体维护者。公开身份、经历、贡献者、专业审核都必须真实且经本人确认；不能编造气象专家、沿海经历、编辑团队或专业审阅。优先让组织署名可追溯到实际责任和方法，不把真人姓名视为 AdSense 保证。
+
+不采纳的判断：
+
+- “ads.txt 的一次根域到 www 跳转是硬伤／拒审原因”：实测 HTTPS 根域 301→www 200，最终 `text/plain`，发布商为用户确认的 `pub-2321309842883439`；www 使用 Mediapartners-Google UA 也返回 200，robots 未屏蔽 ads.txt。Google 的 [抓取说明](https://support.google.com/adsense/answer/7679060?hl=en) 明确支持并要求这种 www 重定向；[ads.txt 指南](https://support.google.com/adsense/answer/7532444?hl=en) 明确非强制但强烈推荐，后台反映可能需几天、少量广告请求时长至一个月。本次抽查不证明真实 Google 请求成功、历史无故障或后台已更新；如后台持续异常，应查具体抓取错误和 Cloudflare 事件，而不是无证据改重定向或缓存策略。
+- “189 页必须缩到 80–100 页、越少通过率越高”：没有这种官方页面数阈值。按独立用途、证据和实际用户价值处置，保留有用的工具／目录；noindex 不能替代内容质量整改。涉及永久跳转、noindex、sitemap 等禁区仍须按具体 URL 另取授权。
+- “统一冷却 2–3 周，过早申请必然秒拒，优化后通过率 80%–85%”：没有本域名审核样本或官方依据。[Google 拒绝后处理说明](https://support.google.com/adsense/answer/12176698?hl=en) 要求整改后重提，通常几天、部分 2–4 周是提交后的审核时长；后台若显示限制日期，按其执行。不能用固定日期、展现曲线或搜索收录作为必然过审门槛。
+- “昨晚拒审说明 Google 尚未重新抓取今天版本”：只能确认今天的改动晚于报告中的拒审时间，未读取 GSC 最近抓取、广告审核记录或实际爬虫日志，无法断言具体抓取状态或唯一拒审原因。搜索抓取与 AdSense 审核也不是同一流程。
+
+本轮成功读取上述 Google 三份 AdSense 说明及 [Search helpful content 指南](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)。后者支持准确署名和来源透明度，并明确不应伪造作者身份；它是搜索质量建议，不能直接当作 AdSense 的硬性准入清单。本轮仅调整本地计划，未提交、推送、部署或通知搜索引擎。
+
 ## 逐 URL 初筛
 
 范围：从当前 sitemap 真相源读取的 189 个 URL（pages 69、tools 15、locations 50、blog 55）。这是全量登记与风险分流，不是 189 页逐句事实审查。状态为“待复核”的页面不能据此宣称内容合格。KV 动态新增的风暴及未列入 sitemap 的路由不在此清单；后续档案审计须单独导出核对。未修改 sitemap 真相源。
@@ -96,18 +115,18 @@ Google Search 官方重新抓取说明（`https://developers.google.com/search/d
 | `/state/new-york/preparedness/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
 | `/state/new-jersey/preparedness/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
 | `/state/massachusetts/preparedness/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
-| `/city/miami/hurricane-tracker/` | 本地修订／局部核验 | A-E 正文与 FAQ、地址记录、查询失败及核验范围已修正；历史段落仍待逐项来源复核，不执行跳转或下线 |
-| `/city/tampa/hurricane-tracker/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
+| `/city/miami/hurricane-tracker/` | 本批完成／待发布 | 聚焦高层建筑与照护交接的六步记录；替换通用历史列表和补给清单，schema 与正文一致；详见本批核验记录 |
+| `/city/tampa/hurricane-tracker/` | 本批完成／待发布 | 聚焦县级责任、HEAT 地图版本、交通与目的地确认；替换通用历史列表和补给清单，保留独立常备任务 |
 | `/city/orlando/hurricane-tracker/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
 | `/city/jacksonville/hurricane-tracker/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
-| `/city/houston/hurricane-tracker/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
+| `/city/houston/hurricane-tracker/` | 本批完成／待发布 | 分开记录本地指令、雨量／河道观测、交通及照护；纠正一概留家的建议，示例明确为假设 |
 | `/city/new-orleans/hurricane-tracker/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
 | `/city/charleston/hurricane-tracker/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
 | `/city/savannah/hurricane-tracker/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
 | `/city/wilmington/hurricane-tracker/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
 | `/city/virginia-beach/hurricane-tracker/` | P1 归并评估 | 与对应 city/tracker 页逐段对照，选内容归属；本轮不执行跳转或下线 |
 | `/decision-guide/` | 保留导航／待复核 | 确认能按读者任务找到完整答案；目录页不套文章字数标准 |
-| `/about/` | 保留／核实真实性 | 核对身份、联系方式、编辑责任与实际服务；政策页不承担内容充数 |
+| `/about/` | 本批完成／待发布 | 解释组织署名、AI 辅助、日期含义和纠错渠道；不虚构个人身份或专业审核资质 |
 | `/contact/` | 保留／核实真实性 | 核对身份、联系方式、编辑责任与实际服务；政策页不承担内容充数 |
 | `/privacy/` | 保留／核实真实性 | 核对身份、联系方式、编辑责任与实际服务；政策页不承担内容充数 |
 | `/terms/` | 保留／核实真实性 | 核对身份、联系方式、编辑责任与实际服务；政策页不承担内容充数 |
@@ -150,9 +169,9 @@ Google Search 官方重新抓取说明（`https://developers.google.com/search/d
 | `/tools/business-preparedness/` | P1 核验工具 | 复核输入、来源、算法假设、失败情形和一份完整示例；不能以免责声明代替验证 |
 | `/tools/wind-mitigation-calculator/` | P1 核验工具 | 复核输入、来源、算法假设、失败情形和一份完整示例；不能以免责声明代替验证 |
 | `/tracker/florida/` | 本轮已改 | 用 NHC 修订报告核对 Ian 峰值／登陆风速、沿海淹水和内陆雨量；加入地址／撤离记录与明确假设案例，五项规划 FAQ 正文与 schema 一致。当前警报和真实地址仍须另查 |
-| `/tracker/texas/` | P1 深化 | 核对州资源，解释州级数据与地址级命令边界；串联真正不同的本地指南 |
+| `/tracker/texas/` | 本批完成／待发布 | 完整核对 Harvey TCR；增加登陆／雨量／水位数据表与 TxDOT 行程记录，删除广泛路径断言；五项可见 FAQ 与 schema 一致 |
 | `/tracker/louisiana/` | P1 深化 | 核对州资源，解释州级数据与地址级命令边界；串联真正不同的本地指南 |
-| `/tracker/north-carolina/` | P1 深化 | 核对州资源，解释州级数据与地址级命令边界；串联真正不同的本地指南 |
+| `/tracker/north-carolina/` | 本批完成／待发布 | 完整核对 Florence TCR；增加峰值／登陆／淹水／降雨对照与县级分区、指令及通行记录；五项可见 FAQ 与 schema 一致 |
 | `/tracker/south-carolina/` | P1 深化 | 核对州资源，解释州级数据与地址级命令边界；串联真正不同的本地指南 |
 | `/tracker/georgia/` | P1 深化 | 核对州资源，解释州级数据与地址级命令边界；串联真正不同的本地指南 |
 | `/tracker/alabama/` | P1 深化 | 核对州资源，解释州级数据与地址级命令边界；串联真正不同的本地指南 |
@@ -160,9 +179,9 @@ Google Search 官方重新抓取说明（`https://developers.google.com/search/d
 | `/tracker/virginia/` | P1 深化 | 核对州资源，解释州级数据与地址级命令边界；串联真正不同的本地指南 |
 | `/hurricane-tracker/city/` | 保留导航／待复核 | 确认能按读者任务找到完整答案；目录页不套文章字数标准 |
 | `/hurricane-tracker/city/orlando/` | P1 深化 | 核查本地 agency/zone/order 示例与交通、医疗限制；避免城市名模板替换 |
-| `/hurricane-tracker/city/miami/` | P1 深化 | 核查本地 agency/zone/order 示例与交通、医疗限制；避免城市名模板替换 |
-| `/hurricane-tracker/city/tampa/` | P1 深化 | 核查本地 agency/zone/order 示例与交通、医疗限制；避免城市名模板替换 |
-| `/hurricane-tracker/city/houston/` | P1 深化 | 核查本地 agency/zone/order 示例与交通、医疗限制；避免城市名模板替换 |
+| `/hurricane-tracker/city/miami/` | 本批完成／局部核验 | 压缩常备教程，指向独立高层建筑与照护记录；保留当前信息入口，实时客户端失败处理仍待专项核验 |
+| `/hurricane-tracker/city/tampa/` | 本批完成／局部核验 | 压缩常备教程，指向地图版本与交通记录；未验证实际地址、当前指令或交通安排 |
+| `/hurricane-tracker/city/houston/` | 本批完成／局部核验 | 压缩常备教程，指向指令／观测／照护记录；纠正一概留家的建议，未认证当前观测值 |
 | `/hurricane-tracker/city/new-orleans/` | P1 深化 | 核查本地 agency/zone/order 示例与交通、医疗限制；避免城市名模板替换 |
 | `/hurricane-tracker/city/virginia-beach/` | P1 深化 | 核查本地 agency/zone/order 示例与交通、医疗限制；避免城市名模板替换 |
 | `/hurricane-tracker/city/fort-myers/` | P1 深化 | 核查本地 agency/zone/order 示例与交通、医疗限制；避免城市名模板替换 |

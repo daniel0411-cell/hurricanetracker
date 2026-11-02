@@ -2,7 +2,6 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
 import StateActionPaths from "../../components/StateActionPaths.astro";
-import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
 import StateCurrentAnswer from "../../components/StateCurrentAnswer.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateSeoProfile } from "../../data/stateSeo";
@@ -19,16 +18,16 @@ const seo = getStateSeoProfile(state);
 const title = seo.title;
 const description = seo.description;
 const canonical = `${site.url}/tracker/${state.slug}/`;
-const lastModified = site.contentLastModified;
+const lastModified = "2026-11-02";
 const currentStatus = await getStateCurrentStatus(code);
 
-const intro = `Texas guards about 367 miles of Gulf of Mexico coastline, from the marshy upper coast near Port Arthur to the brush country around Brownsville. Most Texas hurricanes form in the western Gulf or recurve out of the Bay of Campeche, then drive north or northeast toward Galveston, Matagorda, or Corpus Christi. The state's wide, shallow shelf amplifies storm surge, while slow-moving systems can dump feet of rain far inland around Houston. Historically, Hurricane Harvey (2017) stalled over South Texas and became the wettest tropical cyclone in U.S. history, flooding entire communities. The 2026 Atlantic hurricane season runs June 1 through November 30, with its climatological peak in September. Because Texas evacuations can mean 100-plus-mile drives inland and long power outages, residents should prepare generators safely, stock water and fuel, and learn their county evacuation zone before a storm threatens.`;
+const intro = `Texas hurricane checks need to separate the landfall coast, rainfall farther inland and access to a destination. Harvey's 2017 record illustrates the difference: its Category 4 landfall near Rockport was one event, while severe rainfall flooding affected the Houston area and the highest reported storm-total rain fell near Nederland. Use the current NHC and NWS information for today's weather, then check the responsible local agency's instruction for the full address. The historical measurements below explain what different reports can and cannot tell a household.`;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const stateActionPaths = [
   {
     name: `${name} local risk action plan`,
-    description: `Build a 72/48/24-hour household action plan from ${name} alerts, coastal hazards, and local constraints.`,
+    description: `Record ${name} alerts, local instructions, transport and household constraints in an action plan.`,
     url: `${site.url}/tools/local-risk-plan/?state=${code}`
   },
   {
@@ -52,11 +51,11 @@ const adjacent = ["louisiana"];
 const faqs = [
   {
     question: `When is hurricane season in ${name}?`,
-    answer: `The Atlantic hurricane season runs June 1 to November 30, with Texas most active from August through September as Gulf waters peak in warmth. Gulf Coast households should keep an evacuation and power-outage plan ready throughout that period.`
+    answer: `The Atlantic hurricane season runs June 1 through November 30. Keep local instructions and household arrangements ready throughout the season; the calendar does not establish whether a current warning applies to an address.`
   },
   {
-    question: `What was the worst hurricane to hit ${name}?`,
-    answer: `Hurricane Harvey (2017) stalled over South Texas and dropped more than 60 inches of rain near Houston, causing catastrophic flooding. It remains the wettest tropical cyclone in U.S. recorded history and one of the costliest disasters nationwide.`
+    question: "Did all of Houston receive Harvey's 60.58 inches of rain?",
+    answer: "No. NHC's May 9, 2018 report places the 60.58-inch storm-total observation near Nederland, Texas. Its discussion reports 36-48 inches in the Houston metro area. These are different location summaries, not a uniform depth at every property or a forecast for another storm."
   },
   {
     question: `Does ${name} have hurricane evacuation routes?`,
@@ -65,6 +64,10 @@ const faqs = [
   {
     question: "How should I prepare for hurricane season in Texas?",
     answer: "Know the local evacuation zone, prepare water and food, protect medication and documents, plan for pets, check flood and surge exposure, arrange safe generator use, and account for long drives and extended heat during outages."
+  },
+  {
+    question: "Does a TxDOT contraflow map mean reversed lanes are open?",
+    answer: "No. TxDOT publishes planning maps and explanations of contraflow and evacuation lanes. Check current official traffic instructions and DriveTexas for the actual journey; a brochure does not confirm that a traffic control is active or a road is passable."
   }
 ];
 
@@ -88,6 +91,7 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">{region} hurricane operations</p>
       <h1 id="tracker-state-title">{seo.headline}</h1>
+      <p class="source-note">Guide revised <time datetime={lastModified}>{lastModified}</time>. Live feeds have separate check times.</p>
       <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
       <p class="answer">{intro}</p>
 
@@ -98,10 +102,36 @@ const jsonLd = graph(
         <p><a href="/tools/my-hurricane-dashboard/">Build a Texas hurricane dashboard</a> or use the <a href="/tools/evacuation-decision-helper/">hurricane evacuation assessment tool</a> to organize zone, housing, transport, pet, and medical needs.</p>
       </section>
 
-      <section class="intent-answer" aria-labelledby="texas-season-heading">
-        <h2 id="texas-season-heading">How to Prepare for Hurricane Season in Texas</h2>
-        <p>Texas hurricane preparation must cover both coastal surge and inland rainfall. Confirm the county evacuation zone and routes, choose a destination far enough from the threatened area, protect documents and medication, and prepare for heat, food safety, fuel limits, and prolonged outages. Houston-area households should treat bayou and street flooding as a separate risk from the forecast landfall point.</p>
-        <p>Use the <a href="/tools/preparedness-checklist/">hurricane supply checklist</a> for household essentials and the <a href="/hurricane-tracker/evacuation-plan/">evacuation plan guide</a> for transport, destinations, pets, medical needs, and local triggers.</p>
+      <section class="intent-answer" aria-labelledby="harvey-case-heading">
+        <p class="eyebrow">Historical case: August 2017</p>
+        <h2 id="harvey-case-heading">Harvey: A Landfall, a Rain Gauge and a Water Level</h2>
+        <p>NHC's Harvey report, AL092017, was revised on May 9, 2018. Its measurements describe different events and locations. Read the place, time, measurement type and units before comparing a wind category with a flood account.</p>
+        <div class="evidence-table-wrap" tabindex="0" role="region" aria-label="Historical Harvey measurements; scroll horizontally if needed">
+          <table><caption>Selected NHC findings from 2017, not a current Texas forecast</caption><thead><tr><th scope="col">Location or event</th><th scope="col">Reported finding</th><th scope="col">How to read it</th></tr></thead><tbody>
+            <tr><th scope="row">Northern San Jose Island, near Rockport</th><td>Landfall at 0300 UTC August 26: 115 kt, Category 4. Mainland landfall three hours later: 105 kt (p. 3).</td><td>Attach a wind estimate to its event and time. The first coastal landfall is not a measurement of conditions across the whole state.</td></tr>
+            <tr><th scope="row">Nederland and the Houston metro</th><td>Highest storm-total rain report: 60.58 inches near Nederland. Houston metro discussion: 36-48 inches (p. 6).</td><td>A point maximum and a regional range are different summaries. Neither is the measured total for every Houston property.</td></tr>
+            <tr><th scope="row">Manchester, east side of Houston</th><td>A gauge recorded 10.5 ft above mean higher high water. NHC says the high Houston-area gauge values were largely caused by excessive rainfall runoff, not storm surge (p. 6).</td><td>Keep the water-level reference and cause attached. Feet above a tidal reference are not feet of water above the ground at a house.</td></tr>
+          </tbody></table>
+        </div>
+        <p>The report also estimates maximum inundation of 6-10 feet above ground level in back bays between Port Aransas and Matagorda (p. 5). That coastal analysis is a different measure from Manchester's gauge elevation. A screenshot that drops the location, units or reference level can make two valid numbers appear contradictory. Use the original report to recover those labels.</p>
+        <p>Harvey's center passed south of the Houston metro while torrential rain affected the area. For a household, the practical consequence is to keep coastal evacuation instructions, local flood warnings and observations, and destination access as separate checks. Historical observations establish what happened in 2017; they cannot certify a present road, home or journey.</p>
+        <p><a href="https://www.nhc.noaa.gov/data/tcr/AL092017_Harvey.pdf">Read NHC's Harvey report, revised May 9, 2018 (PDF)</a> &middot; <a href="/blog/hurricane-tracking-after-landfall-inland-flooding-tornadoes/">Track inland hazards after landfall</a></p>
+      </section>
+
+      <section class="intent-answer" aria-labelledby="texas-route-record">
+        <h2 id="texas-route-record">Build a Texas Origin, Destination and Route Record</h2>
+        <p>TxDOT's hurricane page separates district evacuation maps from contraflow information and links DriveTexas for road information. Select the district relevant to the journey: its maps include Beaumont, Corpus Christi, Houston, Pharr and Yoakum. A route map is one planning input; an applicable local instruction and current access checks are still needed.</p>
+        <ol class="check-list">
+          <li><strong>Origin:</strong> save the full address and responsible local agency privately. Record any applicable local zone or ZIP designation, the map source and check date; do not assume every Texas community uses the same system.</li>
+          <li><strong>Instruction:</strong> save the issuing agency, issue time, area and required action. Keep coastal surge instructions distinct from NWS inland flood warnings, while checking whether either applies to the address.</li>
+          <li><strong>Destination:</strong> confirm the receiving person or shelter operator, access, animals, care and equipment needs. Check that location's own warnings and instructions instead of choosing solely by distance inland.</li>
+          <li><strong>Journey:</strong> record the planned roads, transport contact and alternatives. Check current official road information before travel. A contraflow brochure describes a possible operation, not its activation for this event.</li>
+          <li><strong>Handoff:</strong> assign who checks updates, carries essential items and confirms arrival. Mark an unanswered transport or care question as pending, not completed because a form was submitted.</li>
+        </ol>
+        <h3>Worked Record: A Route Map Is Not a Confirmed Journey</h3>
+        <p>Hypothetical example: a household in the Houston region has an agreed inland host and a saved TxDOT district map. It has not checked the destination's local warnings, and the route depends on a crossing with unresolved status. The record shows a confirmed host contact but two open checks. It contacts the relevant official sources and agrees an alternative with the host and driver. It does not interpret the printed map as a road-opening notice or infer that reversed lanes are operating. No actual address, road or departure recommendation is represented by this example.</p>
+        <p><a href="https://www.txdot.gov/safety/severe-weather/hurricane-preparation.html">TxDOT hurricane routes and contraflow explanations</a> &middot; <a href="https://drivetexas.org/">DriveTexas road information</a> &middot; <a href="/city/houston/hurricane-tracker/">Houston household flood and care record</a></p>
+        <details class="source-note"><summary>Source check 2026-11-02</summary><p>Read the complete May 9, 2018 NHC Harvey report, especially pages 3, 5-6, and TxDOT's hurricane preparation page. The household example is hypothetical. No real address, local order, live water reading, road, activated traffic control, destination or care arrangement was verified. Linked live feeds retain their own timestamps.</p></details>
       </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
@@ -122,8 +152,7 @@ const jsonLd = graph(
 
       <StateActionPaths state={state} />
 
-      <StateTrackerSeoLinks state={state} cities={stateCities} />
-      <p class="basin-link"><a href="/hurricane-tracker/gulf/">Compare this Texas track with the Gulf Hurricane Tracker</a> · <a href="/hurricane-tracker/live/">Check the live NHC hurricane tracker</a> · <a href="/2026-hurricane-season/">Review the 2026 hurricane season tracker</a></p>
+      <section class="intent-answer" aria-labelledby="texas-planning-questions"><h2 id="texas-planning-questions">Texas Planning Questions</h2>{faqs.map((faq) => <details><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}</section>
 
       <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
       <ul class="check-list">
@@ -138,7 +167,13 @@ const jsonLd = graph(
 
 <style>
   .answer { font-size: 1.05rem; line-height: 1.75; }
-  .intent-answer { margin: 24px 0; padding: 18px 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface, #f3f7fa); }
+  .intent-answer { margin: 28px 0; padding: 20px 0; border-top: 1px solid var(--line); }
   .intent-answer h2 { margin-top: 0; }
-  .basin-link { margin: 24px 0; font-weight: 800; }
+  .intent-answer details { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .intent-answer summary { cursor: pointer; font-weight: 700; }
+  .evidence-table-wrap { max-width: 100%; overflow-x: auto; margin: 20px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  caption { text-align: left; margin-bottom: 12px; color: var(--muted); }
+  th, td { text-align: left; vertical-align: top; padding: 14px 12px; border-bottom: 1px solid var(--line); min-width: 160px; line-height: 1.6; }
+  thead th { background: var(--surface); }
 </style>
