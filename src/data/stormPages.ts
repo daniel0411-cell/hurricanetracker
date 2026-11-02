@@ -9,6 +9,17 @@ export type StormTrackerPage = {
   searchDemandNote: string;
   overview: string;
   trackerFocus: string[];
+  historicalReport?: {
+    year: number;
+    stormId: string;
+    title: string;
+    url: string;
+    reportDate: string;
+    checkedOn: string;
+    summary: string;
+    timeline: Array<{ date: string; event: string }>;
+    lessons: Array<{ heading: string; body: string }>;
+  };
   faqs: Array<{
     question: string;
     answer: string;
@@ -24,7 +35,27 @@ export const stormTrackerPages: StormTrackerPage[] = [
     searchDemandNote:
       "Erin tracker queries often spike around active Atlantic advisories, path-map searches, and forecast-update checks.",
     overview:
-      "Check whether Erin is present in the current NHC feed and find official storm records and local safety resources. Storm names can refer to different years; confirm the year and basin identifier before using an archived advisory or map. When no current record is available, this page provides source guidance rather than a historical track.",
+      "Check Erin's current-feed status separately from the sourced 2025 historical record below. Storm names can refer to different years; confirm the year and basin identifier before comparing an advisory, map or report. The historical timeline describes NHC's post-season analysis, not today's storm position.",
+    historicalReport: {
+      year: 2025,
+      stormId: "AL052025",
+      title: "NHC Tropical Cyclone Report: Hurricane Erin, 11-22 August 2025",
+      url: "https://www.nhc.noaa.gov/data/tcr/AL052025_Erin.pdf",
+      reportDate: "2026-01-30",
+      checkedOn: "2026-11-02",
+      summary: "NHC's post-season report describes a Category 5 hurricane with a peak intensity of 140 kt and minimum pressure of 913 mb on August 16. Erin later expanded while recurving offshore of the U.S. East Coast. The report's January 30 revision corrects official intensity-forecast verification; it is a revised historical analysis, not a live advisory. Dates and intensities below come from its Synoptic History section (PDF pages 2-3).",
+      timeline: [
+        { date: "11 August 2025, 0000-0600 UTC", event: "A depression formed southwest of Sal, then became a tropical storm while making landfall on Santo Antao in the Cabo Verde Islands by 0600 UTC." },
+        { date: "15 August 2025, 1200 UTC", event: "Erin became a hurricane about 375 nautical miles east of the northernmost Leeward Islands." },
+        { date: "16 August 2025, around 1800 UTC", event: "Peak intensity reached 140 kt (Category 5), with about 913 mb minimum pressure. These are the cyclone's peak values, not measured winds at every coastal location." },
+        { date: "21 August 2025, around 0600 UTC", event: "The center passed about 175 nautical miles southeast of Cape Hatteras. The western circulation brought tropical-storm conditions to parts of the North Carolina and mid-Atlantic coastline." },
+        { date: "22 August 2025, around 1800 UTC", event: "Erin became a hurricane-force extratropical cyclone. Extratropical is a structural classification; it did not mean the winds or ocean hazards immediately ended." }
+      ],
+      lessons: [
+        { heading: "An Offshore Center Did Not Keep Coastal Roads Dry", body: "The report's damage discussion (PDF page 5) records North Carolina Highway 12 flooding and closure at Oregon Inlet, with large surf and surge affecting the Outer Banks. This is evidence of a past road impact despite an offshore center, not evidence that Highway 12 is closed or safe today. For a current trip, obtain the road operator's present status and local instructions." },
+        { heading: "A Tide-Gauge Number Is Not Water Depth Inside a Home", body: "The report's Storm Surge section (PDF pages 4-5) gives Duck, North Carolina, a peak water level of 3.4 feet relative to Mean Higher High Water (MHHW). That reference level is not ground level or a building's floor. Do not convert it into 3.4 feet of flooding at an address or compare it directly with an above-ground inundation map. Peak cyclone wind, local wind, gauge water level and property flooding are different measurements." }
+      ]
+    },
     trackerFocus: [
       "Check whether the current NHC feed lists Erin as an active tropical cyclone.",
       "Use the live tracker and radar pages for current position, satellite, and alert context.",
@@ -140,6 +171,26 @@ export const stormTrackerPages: StormTrackerPage[] = [
       "Use this page for Tropical Storm Dolly live tracker, path, map, current position, forecast, and NHC advisory update searches.",
     overview:
       "Use this Dolly entry to check whether the current feed contains an active storm and to find dated official records. A retained feed observation is not a complete historical track or a post-season best-track report. Confirm the year and advisory time before interpreting a position as current.",
+    historicalReport: {
+      year: 2008,
+      stormId: "AL042008",
+      title: "NHC Tropical Cyclone Report: Hurricane Dolly, 20-25 July 2008",
+      url: "https://www.nhc.noaa.gov/data/tcr/AL042008_Dolly.pdf",
+      reportDate: "2009-01-22",
+      checkedOn: "2026-11-02",
+      summary: "The official report separates Dolly's Category 2 peak from its Category 1 landfall on South Padre Island. The events below are post-season best-track estimates from the Synoptic History section (PDF pages 1-2), not a current forecast or a reconstruction of any 2026 system.",
+      timeline: [
+        { date: "20 July 2008, around 1200 UTC", event: "Dolly formed as a tropical storm in the western Caribbean, about 270 nautical miles east of Chetumal, Mexico, with winds near 40 kt." },
+        { date: "23 July 2008, 0000 UTC", event: "Dolly became a hurricane over the Gulf of Mexico before its approach to the southern Texas coast." },
+        { date: "23 July 2008, around 1400 UTC", event: "Peak intensity reached 85 kt (Category 2), a little less than 20 nautical miles east of the Rio Grande's mouth." },
+        { date: "23 July 2008, just after 1800 UTC", event: "The center made landfall on South Padre Island with estimated maximum winds of 75 kt (Category 1), after weakening from the earlier peak." },
+        { date: "23 July 2008, about two hours later", event: "The center reached the Texas mainland about 10 nautical miles south of Port Mansfield at an estimated 70 kt. This is a second landfall estimate, not the earlier island landfall intensity." }
+      ],
+      lessons: [
+        { heading: "Peak Category and Landfall Category Are Different Records", body: "Using 85 kt to describe the South Padre Island landfall would merge two observations four hours apart. NHC's Winds and Pressure section also says it could not determine whether Category 2 winds reached the Texas coast during the hours before the center's landfall. A Category 1 landfall estimate therefore does not prove every earlier coastal wind was below Category 2 strength." },
+        { heading: "A Lower Wind Category Did Not Remove Water Damage", body: "NHC reports storm surge up to 4 feet at South Padre Island, Port Mansfield and the Port of Brownsville, with 3-4 feet of water across the bay side of South Padre Island (Meteorological Statistics section, PDF page 3). These are historical observations at named places, not a uniform water depth across Texas or an estimate for your home. Use the report's observation tables for station details and current local products for present hazards." }
+      ]
+    },
     trackerFocus: [
       "Check Dolly's year, basin identifier and advisory time first. An inactive feed record describes a past observation, not where a storm is now.",
       "When Dolly is active, compare the official forecast track with radar, satellite, and the cone of uncertainty — never the center line alone.",

@@ -47,6 +47,19 @@ routes.set(`/blog/${evacuation.slug}/`, "Worked Example: Miami-Dade's Planning Z
 const dolly = stormTrackerPages.find((storm) => storm.slug === "dolly");
 assert(dolly.trackerFocus.some((item) => item.includes("85 kt (Category 2)") && item.includes("75 kt (Category 1)")));
 assert.doesNotMatch(JSON.stringify(dolly), /if it forms/);
+for (const [slug, stormId, year] of [["erin", "AL052025", 2025], ["dolly", "AL042008", 2008]]) {
+  const report = stormTrackerPages.find((storm) => storm.slug === slug).historicalReport;
+  assert.equal(report.stormId, stormId);
+  assert.equal(report.year, year);
+  assert.equal(report.url, `https://www.nhc.noaa.gov/data/tcr/${stormId}_${slug[0].toUpperCase() + slug.slice(1)}.pdf`);
+  assert(report.reportDate <= report.checkedOn);
+  assert(report.timeline.length >= 4);
+  assert(report.lessons.some((lesson) => /not|different/i.test(lesson.body)));
+  routes.set(`/hurricane-tracker/storm/${slug}/`, `${year}: What the Official Report Establishes`);
+}
+assert.equal(stormTrackerPages.find((storm) => storm.slug === "melissa").historicalReport, undefined,
+  "An incomplete report download must not become verified historical content");
+assert(dolly.historicalReport.lessons.some((lesson) => lesson.body.includes("Port of Brownsville")));
 for (const [slug, heading] of [
   ["hurricane-power-outage-food-medicine-plan", "Calculate the Household Base, Then Record the Exceptions"],
   ["hurricane-generator-safety-carbon-monoxide", "Read the Official Placement Diagram"]

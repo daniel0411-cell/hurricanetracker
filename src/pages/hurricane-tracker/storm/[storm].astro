@@ -1,5 +1,6 @@
 ---
 import FaqBlock from "../../../components/FaqBlock.astro";
+import HistoricalStormReport from "../../../components/HistoricalStormReport.astro";
 import Layout from "../../../layouts/Layout.astro";
 import { getStormPageBySlug } from "../../../data/stormPages";
 import { site } from "../../../data/site";
@@ -101,7 +102,7 @@ const advisoryChanges = advisoryHistory.map((item, index) => {
   };
 });
 const riSignal = advisoryHistory.length ? detectRapidIntensification(advisoryHistory) : null;
-const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
+const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? knownPage?.historicalReport?.checkedOn ?? site.contentLastModified;
 const title = activeStorm
   ? isPostTropical ? `${stormName} Post-Tropical Cyclone: Latest Advisory & Track` : `${stormName} ${classification} Tracker: Current Position & NHC Update`
   : isArchived ? `${stormName}: Last Recorded Status & Official Sources` : `${stormName}: NHC Status & Official Sources`;
@@ -147,7 +148,7 @@ const jsonLd = graph(
       <h1 id="storm-title">{activeStorm ? isPostTropical ? `${stormName} Post-Tropical Cyclone: Latest Track and Advisory` : `${stormName} ${classification} Tracker: Live Map, Path and NHC Updates` : title}</h1>
       {isArchived && <p class="archive-notice"><strong>{stormName} is not active in the current NHC feed.</strong> This stable archive page preserves the last observed advisory context; use the live tracker for current storms.</p>}
       <p class="answer">{activeStorm ? isPostTropical ? `${stormName} is post-tropical. The current feed reports ${activeStorm.latitude ?? "pending"}, ${activeStorm.longitude ?? "pending"}, with ${activeStorm.intensity ? formatWind(Number(activeStorm.intensity)) : "intensity pending"}, updated ${activeStorm.lastUpdate ?? lastModified}. Follow the official advisory and local alerts for continuing rainfall, flooding, wind and surf hazards.` : `${stormName} is currently classified as a ${classification}. ${forecastCenter} last reported the system at ${activeStorm.latitude ?? "a pending latitude"}, ${activeStorm.longitude ?? "a pending longitude"}, motion: ${formatStormMotion(activeStorm)}. Updated ${activeStorm.lastUpdate ?? lastModified}. Use the tracker and official forecast path below for current details.` : inactiveOverview}</p>
-      {!activeStorm && <p class="answer">A missing current-feed record is not an all-clear. For historical storms, confirm the year in the <a href="https://www.nhc.noaa.gov/data/">NHC past-season archive</a>; this page does not provide a complete historical track or final report.</p>}
+      {!activeStorm && <p class="answer">A missing current-feed record is not an all-clear. For historical storms, confirm the year in the <a href="https://www.nhc.noaa.gov/data/">NHC past-season archive</a>. A retained feed observation is not a complete historical track or post-season analysis; any sourced historical excerpt below is a separate, dated record.</p>}
       <p class="section-actions">
         <a class="action-link" href="/hurricane-tracker/live/">Open live hurricane tracker</a>
         <a class="action-link secondary-action" href={`/embed/radar?layer=radar&theme=dark&view=${mapView}`}>Open {basin} radar and satellite map</a>
@@ -274,6 +275,8 @@ const jsonLd = graph(
       </div>
     </section>
   )}
+
+  {knownPage?.historicalReport && <HistoricalStormReport name={knownPage.name} report={knownPage.historicalReport} />}
 
   <section class="band" aria-labelledby="tracking-plan">
     <div class="inner">

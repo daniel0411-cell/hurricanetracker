@@ -1,0 +1,35 @@
+---
+import type { StormTrackerPage } from "../data/stormPages";
+
+interface Props {
+  name: string;
+  report: NonNullable<StormTrackerPage["historicalReport"]>;
+}
+const { name, report } = Astro.props;
+---
+
+<section class="band history-report" aria-labelledby="historical-report-title">
+  <div class="inner">
+    <p class="eyebrow">Historical record · {report.stormId}</p>
+    <h2 id="historical-report-title">{name} {report.year}: What the Official Report Establishes</h2>
+    <p class="history-summary">{report.summary}</p>
+    <p><a href={report.url}>{report.title} (original PDF)</a></p>
+    <p class="source-note">Report version: {report.reportDate}. Historical source checked: {report.checkedOn}. This check does not verify current weather, warnings or road conditions.</p>
+    <h3>Selected Events From the Post-Season Analysis</h3>
+    <p>This is a selected timeline. Open the report's best-track table for the full observation series.</p>
+    <ol class="history-timeline">
+      {report.timeline.map((item) => <li><strong>{item.date}</strong><p>{item.event}</p></li>)}
+    </ol>
+    {report.lessons.map((lesson) => <><h3>{lesson.heading}</h3><p>{lesson.body}</p></>)}
+  </div>
+</section>
+
+<style>
+  .history-report h2 { font-size: 1.6rem; line-height: 1.25; }
+  .history-report h3 { margin: 1.75rem 0 0.65rem; font-size: 1.15rem; }
+  .history-report p { max-width: 78ch; line-height: 1.7; }
+  .history-report a { overflow-wrap: anywhere; }
+  .history-timeline { max-width: 78ch; padding-left: 1.5rem; }
+  .history-timeline li { padding: 0.75rem 0; border-bottom: 1px solid var(--line); }
+  .history-timeline li p { margin: 0.35rem 0 0; }
+</style>

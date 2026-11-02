@@ -21,6 +21,12 @@ NHC glossary 请求 curl 28 SSL connection timeout；2025 TCR 索引请求超时
 
 ## 近期工作顺序与验收
 
+首批已按用户后续授权发布：GitHub `c469807f4e9bf7cf4b7656d8475f56900fe480c4` 的应用代码与发布构建一致；Cloudflare deployment `11c54670-d7e6-490e-8636-8695ddc815d1`，Worker version `adf899e0-0738-4f02-abb8-b005fca3ba47`，100% 流量。三篇指南和 Dolly 正式 URL 均返回 200，更新内容、canonical 和 JSON-LD 已核对。
+
+第二批本地样板：Erin 2025 和 Dolly 2008 加入独立历史报告节，含原始 NHC PDF、报告版本、核验日期、节选时间线及数据解释。Erin 原始报告完整下载并转文本，版本为 2026-01-30；Dolly 使用完整的 2009-01-22 版报告。Melissa `AL132025_Melissa.pdf` 两次 curl 18（Transferred a partial file），不将部分文件用作核验材料，也未添加其历史记录。这些历史案例不替代 2026 记录或实时预警核验。
+
+用户已明确批准普通合并。`f168709` 保留本地检查记录修订与远程首批提交两边历史，未使用强推、reset 或 rebase。第二批开发时保留工作区，不混入首批发布；用户随后于 11 月 2 日授权第二批提交部署。
+
 1. P0：有来源的事实和数据可靠性。风暴页要保留年份、basin ID、每个事件的原始 advisory URL，区分当时预测和事后实况；找不到证据就标资料不足，不编补时间线。
 2. P1：处理内容重叠。先确定读者任务和主页面，再搬有价值内容与内链；涉及永久跳转、删除、noindex 或 sitemap 时提交具体 URL 对应方案取得授权。
 3. P1：每轮完善 2-3 篇核心指南或 1-2 个本地页面。每页至少有一个可核对的示例或实际可用产出，不能只增加篇幅和 FAQ。
@@ -162,10 +168,10 @@ NHC glossary 请求 curl 28 SSL connection timeout；2025 TCR 索引请求超时
 | `/hurricane-tracker/city/sarasota/` | P1 深化 | 核查本地 agency/zone/order 示例与交通、医疗限制；避免城市名模板替换 |
 | `/hurricane-tracker/city/port-charlotte/` | P1 深化 | 核查本地 agency/zone/order 示例与交通、医疗限制；避免城市名模板替换 |
 | `/hurricane-tracker/storm/` | 保留导航／待复核 | 确认能按读者任务找到完整答案；目录页不套文章字数标准 |
-| `/hurricane-tracker/storm/erin/` | P0 重写 | 按年份与编号核验档案；补原始 advisory/TCR、时间线、资料缺口。Dolly 本轮仅改历史说明 |
+| `/hurricane-tracker/storm/erin/` | P0 部分改进 | 本地已补 Erin 2025 正式报告与时间线；2026 及动态留存记录仍须独立核验 |
 | `/hurricane-tracker/storm/melissa/` | P0 重写 | 按年份与编号核验档案；补原始 advisory/TCR、时间线、资料缺口。Dolly 本轮仅改历史说明 |
 | `/hurricane-tracker/storm/isaias/` | P0 重写 | 按年份与编号核验档案；补原始 advisory/TCR、时间线、资料缺口。Dolly 本轮仅改历史说明 |
-| `/hurricane-tracker/storm/dolly/` | P0 重写 | 按年份与编号核验档案；补原始 advisory/TCR、时间线、资料缺口。Dolly 本轮仅改历史说明 |
+| `/hurricane-tracker/storm/dolly/` | P0 部分改进 | 本地已补 Dolly 2008 正式报告与强度／登陆时间线；2026 记录仍须独立核验 |
 | `/hurricane-tracker/storm/edouard/` | P0 重写 | 按年份与编号核验档案；补原始 advisory/TCR、时间线、资料缺口。Dolly 本轮仅改历史说明 |
 | `/hurricane-tracker/storm/fay/` | P0 重写 | 按年份与编号核验档案；补原始 advisory/TCR、时间线、资料缺口。Dolly 本轮仅改历史说明 |
 | `/blog/` | 保留导航／待复核 | 确认能按读者任务找到完整答案；目录页不套文章字数标准 |
@@ -234,3 +240,7 @@ NHC glossary 请求 curl 28 SSL connection timeout；2025 TCR 索引请求超时
 - `git diff --check`：本地验证阶段通过。当时所有更改保留本地，未提交、推送或部署。
 
 本地构建预览：http://127.0.0.1:8799/blog/how-to-check-your-hurricane-evacuation-zone/ 。结构测试不构成内容质量或广告审核认证。
+
+第二批本地验证：`npm run build` 通过；`npm run check` 为 0 errors、0 warnings、4 个既有 hints；扩展内容回归的 20 条本地构建路径通过。Chrome/Playwright 在 1440px 和 390px 检查 Erin 与 Dolly 的年份/编号、原始报告链接、五项时间线、canonical 与无横向溢出，截图人工核对通过。Melissa、Isaias、Edouard、Fay 未显示其他风暴的历史报告；退役名称 301 和未知名称 302 行为保持。没有把本地 feed 的可用性检查当作实时天气核验。本地验证阶段未提交、未推送、未部署；后续实际发布以 Git 与 Cloudflare 记录为准。
+
+第二批预览：http://127.0.0.1:8801/hurricane-tracker/storm/erin/ 和 http://127.0.0.1:8801/hurricane-tracker/storm/dolly/ 。
