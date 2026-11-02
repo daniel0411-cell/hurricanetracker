@@ -8,6 +8,8 @@ const transpile = (source) => ts.transpileModule(source, {
   compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 }
 }).outputText;
 const page = read("../src/components/Homepage.astro");
+const blogContext = { exports: {} };
+vm.runInNewContext(transpile(read("../src/data/blog.ts")), blogContext);
 const now = Date.parse("2026-10-28T12:00:00Z");
 class TestDate extends Date { static now() { return now; } }
 const fetchedAt = new Date(now).toISOString();
@@ -32,14 +34,14 @@ async function preview(stormData = nhc, alertData = nws, outlookData = outlook, 
       if (name.endsWith("/states")) return { coastalStates: [] };
       if (name.endsWith("/cities")) return { hurricaneCities: [] };
       if (name.endsWith("/site")) return { site: { canonicalUrl: "https://www.hurricanetracker.cc/", url: "https://www.hurricanetracker.cc" }, faqs: [] };
-      if (name.endsWith("/topicPages")) return { topicPages: [] };
+      if (name.endsWith("/blog")) return blogContext.exports;
       if (name.endsWith("/schema")) return { graph() {}, websiteSchema() {}, articleSchema() {}, faqSchema() {} };
       throw new Error(`Unexpected import: ${name}`);
     }
   };
   return vm.runInNewContext(`(async () => { ${transpile(page.split("---")[1])}
     return { stormsAvailable, alertsAvailable, outlookAvailable, stormHeading, stormStatusClass,
-      atlanticStorms, pacificStorms, robots: Astro.response.headers.get("X-Robots-Tag") };
+      atlanticStorms, pacificStorms, selectedGuides, robots: Astro.response.headers.get("X-Robots-Tag") };
   })()`, context);
 }
 assert.match((await preview()).stormHeading, /No active Atlantic/);
@@ -64,6 +66,14 @@ assert.equal(mixed.atlanticStorms.length, 1);
 assert.equal(mixed.stormStatusClass, "status-active");
 assert.equal(mixed.pacificStorms.length, 1);
 assert.equal((await preview()).outlookAvailable, true);
+for (const guide of (await preview()).selectedGuides) {
+  assert(guide.figure.sourceUrl.startsWith("https://"));
+  assert(guide.figure.width > 0 && guide.figure.height > 0);
+  assert(guide.figure.src.startsWith("/images/blog/external/"));
+  assert.match(guide.imageLabel, /2022|2024/);
+  assert.equal(guide.post.dateModified, "2026-10-27", "Featuring an article must not manufacture a new revision date");
+}
+assert.equal((await preview()).selectedGuides.length, 3);
 assert.doesNotMatch(page, /simulated-radar|40% - 55%|atlanticOutlook \? "Low"/);
 
 const nodes = Object.fromEntries(["preview-zip-form", "preview-zip", "preview-local-status", "preview-local-result"].map((id) => [id, {

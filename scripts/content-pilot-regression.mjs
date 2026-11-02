@@ -14,6 +14,7 @@ const { blogPosts } = await loadData("src/data/blog.ts");
 const { hurricaneCities } = await loadData("src/data/cities.ts");
 const { stormTrackerPages } = await loadData("src/data/stormPages.ts");
 const { localPreparednessPages } = await loadData("src/data/localPreparednessPages.ts");
+const { coastalStates } = await loadData("src/data/states.ts");
 const articles = new Map([
   ["what-hurricane-watch-warning-means", "Work Through a Warning Without Inventing a Deadline"],
   ["what-to-do-during-a-hurricane-warning", "If Your Original Plan Stops Working"],
@@ -213,6 +214,19 @@ const png = await fs.readFile(`public${figure.src}`);
 assert.equal(png.subarray(1, 4).toString(), "PNG");
 assert(png.readUInt32BE(16) > 0 && png.readUInt32BE(20) > 0);
 assert(cone.sections.some((section) => section.links?.some((link) => link.href.endsWith("/images/cone_5day_with_ww.png"))));
+const floridaSource = await fs.readFile("src/pages/tracker/florida.astro", "utf8");
+assert.match(floridaSource, /AL092022_Ian\.pdf/);
+assert.match(floridaSource, /10-15 feet above ground level/);
+assert.match(floridaSource, /10-20 inches of rain/);
+assert.match(floridaSource, /<caption>/);
+assert.match(floridaSource, /scope="row"/);
+assert.doesNotMatch(floridaSource, /Florida Gulf searches overlap|For local searches such as/);
+const sharedStateSource = await fs.readFile("src/components/StateTrackerSeoLinks.astro", "utf8");
+assert.doesNotMatch(sharedStateSource, /Common searches this page answers|Local searches covered|High-Intent|searchQueries|cityRiskQueries/);
+routes.set("/", "Understand the Maps Behind the Forecast");
+for (const state of coastalStates) {
+  routes.set(`/tracker/${state.slug}/`, state.slug === "florida" ? "Ian: Three Measurements, Three Different Questions" : `Local Guides in ${state.name}`);
+}
 
 const base = process.env.CONTENT_AUDIT_BASE_URL;
 if (base) {
@@ -223,6 +237,27 @@ if (base) {
     assert(html.includes(heading.replaceAll("'", "&#39;")) || html.includes(heading), `${route}: new content missing`);
     assert(html.includes(`https://www.hurricanetracker.cc${route}`), `${route}: canonical missing`);
     assert.match(html, /application\/ld\+json/);
+    if (route.startsWith("/tracker/")) {
+      assert.doesNotMatch(html, /Common searches this page answers|Local searches covered|High-Intent|For local searches such as/);
+      assert(html.includes('href="/tools/evacuation-decision-helper/"'));
+    }
+    if (route === "/" || route === "/tracker/florida/") {
+      const schemas = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map((match) => JSON.parse(match[1]));
+      const nodes = schemas.flatMap((schema) => schema["@graph"] ?? [schema]);
+      assert(nodes.some((node) => String(node.dateModified).startsWith("2026-11-02")));
+      if (route === "/") {
+        assert.doesNotMatch(html, /aria-label="Hurricane topic trackers"/);
+        for (const post of [cone, radar, floodMap]) {
+          assert(html.includes(`href="/blog/${post.slug}/"`));
+          assert(html.includes(post.figures[0].src));
+          assert(html.includes(`datetime="${post.dateModified}"`));
+        }
+      } else {
+        const faq = nodes.find((node) => node["@type"] === "FAQPage");
+        assert.match(faq.mainEntity.find((item) => item.name.includes("Was Ian a Category 5")).acceptedAnswer.text, /130 kt, Category 4/);
+        assert(html.includes("Source check 2026-11-02"));
+      }
+    }
     if (route === "/city/miami/hurricane-tracker/" || route === `/blog/${rooms.slug}/` || route === `/blog/${hardening.slug}/` || revisedCarePosts.some((post) => route === `/blog/${post.slug}/`)) {
       const schemas = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)]
         .map((match) => JSON.parse(match[1]));

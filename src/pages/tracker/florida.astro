@@ -2,7 +2,6 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StateAlerts from "../../components/StateAlerts.astro";
 import StateActionPaths from "../../components/StateActionPaths.astro";
-import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
 import StateCurrentAnswer from "../../components/StateCurrentAnswer.astro";
 import { hurricaneCities } from "../../data/cities";
 import { getStateSeoProfile } from "../../data/stateSeo";
@@ -19,16 +18,16 @@ const seo = getStateSeoProfile(state);
 const title = seo.title;
 const description = seo.description;
 const canonical = `${site.url}/tracker/${state.slug}/`;
-const lastModified = "2026-10-12";
+const lastModified = "2026-11-02";
 const currentStatus = await getStateCurrentStatus(code);
 
-const intro = `Florida faces the Atlantic and Gulf of Mexico at once, giving it more than 1,300 miles of tidal coastline—the longest of any hurricane-prone state. Storms typically organize near the Bahamas or in the Caribbean and track west across South Florida, or curve north into the Panhandle and Big Bend, while others develop in the Gulf and threaten Tampa Bay or the central coast. Because the peninsula is low and surrounded by warm water, rapid intensification just before landfall is common. In recent memory, Hurricane Michael (2018) struck the Panhandle as a catastrophic Category 5, and Hurricane Ian (2022) produced deadly storm surge and flooding across southwest Florida. The 2026 Atlantic hurricane season runs June 1 through November 30, with the climatological peak around September 10. Residents should confirm evacuation zones and keep a ready-to-go plan before any system forms, because bridge and causeway closures often arrive well ahead of landfall.`;
+const intro = `Florida's Atlantic and Gulf coasts, barrier islands, bays and inland river basins need different hurricane checks. Start with the current storm and alert information, then use the county's address lookup and emergency instructions for the place where you live or are staying. Hurricane Ian illustrates why these steps matter: its September 2022 southwest Florida landfall, coastal inundation and central Florida freshwater flooding describe different hazards in different places. The historical record below explains those differences; current evacuation instructions remain a separate check.`;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const stateActionPaths = [
   {
     name: `${name} local risk action plan`,
-    description: `Build a 72/48/24-hour household action plan from ${name} alerts, coastal hazards, and local constraints.`,
+    description: `Organize ${name} alerts, coastal hazards, transport and household constraints into a local plan.`,
     url: `${site.url}/tools/local-risk-plan/?state=${code}`
   },
   {
@@ -48,13 +47,6 @@ const stateActionPaths = [
   }
 ];
 const adjacent = ["georgia", "alabama"];
-const gulfLinks = [
-  { href: "/hurricane-tracker/gulf/", label: "Gulf Hurricane Tracker" },
-  { href: "/tracker/texas/", label: "Texas Hurricane Tracker" },
-  { href: "/tracker/louisiana/", label: "Louisiana Hurricane Tracker" },
-  { href: "/tracker/mississippi/", label: "Mississippi Hurricane Tracker" },
-  { href: "/tracker/alabama/", label: "Alabama Hurricane Tracker" }
-];
 
 const faqs = [
   {
@@ -62,8 +54,8 @@ const faqs = [
     answer: `The Atlantic hurricane season runs June 1 through November 30. Florida faces elevated risk from August through October, with the climatological peak around September 10, so residents should keep supplies current and know their evacuation zone.`
   },
   {
-    question: `What was the worst hurricane to hit ${name}?`,
-    answer: `Hurricane Michael (2018) was a catastrophic Category 5 landfall on the Florida Panhandle, among the strongest U.S. landfalls on record. Hurricane Ian (2022) caused deadly storm surge and historic flooding across southwest Florida, making it one of the costliest storms in state history.`
+    question: "Was Ian a Category 5 hurricane when it made landfall in Florida?",
+    answer: "NHC's March 12, 2026 revised report places Ian's peak at 140 kt, Category 5, at 1200 UTC on September 28, 2022. Its Cayo Costa landfall at 1905 UTC was 130 kt, Category 4. Peak intensity and landfall intensity are separate observations; neither describes the depth of coastal flooding or inland rainfall."
   },
   {
     question: `Does ${name} have hurricane evacuation routes?`,
@@ -99,25 +91,56 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">{region} hurricane operations</p>
       <h1 id="tracker-state-title">{seo.headline}</h1>
+      <p class="source-note">Guide revised <time datetime={lastModified}>{lastModified}</time>. Live data has its own check time.</p>
       <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
 
       <section class="intent-answer" aria-labelledby="florida-intent-heading">
-        <h2 id="florida-intent-heading">Florida Hurricane Questions Today</h2>
-        <p>Check the NHC status above, then read warnings for your county. A nearby storm center does not establish a Florida landfall, and an offshore track does not rule out surge, flooding, or dangerous surf.</p>
+        <h2 id="florida-intent-heading">Start With Your County and Address</h2>
+        <p>Check the advisory time and the counties or zones named in each warning. For evacuation, enter your street address in the official map and compare the result with your county's current order. Keep the order's issue time and any instructions for mobile homes, visitors or people needing assistance with that record.</p>
         <p><a href="/hurricane-tracker/gulf/">Check the current Gulf hurricane tracker</a> · <a href="#alerts-heading">Read Florida NWS alerts</a> · <a href="#city-trackers">Find your Florida city tracker</a> · <a href="https://www.floridadisaster.org/knowyourzone/" rel="noopener">Find your official county evacuation zone</a></p>
       </section>
 
       <p class="answer">{intro}</p>
 
+      <section class="florida-case" aria-labelledby="ian-case-heading">
+        <p class="eyebrow">Historical case: September 2022</p>
+        <h2 id="ian-case-heading">Ian: Three Measurements, Three Different Questions</h2>
+        <p>NHC's post-storm report for Ian, AL092022, was revised on March 12, 2026. That revision removed WeatherStem data containing a mixture of measured and derived observations. The figures here use the report's synoptic history, storm-surge analysis and rainfall discussion, with page references so the measurements can be checked in context.</p>
+        <div class="evidence-table-wrap" tabindex="0" role="region" aria-label="Historical Ian measurements; scroll horizontally if needed">
+          <table>
+            <caption>Selected findings from NHC's revised Ian report, not a current forecast</caption>
+            <thead><tr><th scope="col">Place or event</th><th scope="col">Reported finding</th><th scope="col">What it tells you</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Cayo Costa landfall, September 28</th><td>130 kt at 1905 UTC, Category 4. Earlier peak: 140 kt at 1200 UTC, Category 5 (p. 4).</td><td>The storm's peak and its landfall intensity occurred at different times. Record the event and time alongside a category.</td></tr>
+              <tr><th scope="row">Fort Myers Beach and Estero Island</th><td>Maximum storm-surge inundation of 10-15 feet above ground level (p. 8).</td><td>This is a coastal inundation analysis for named places. Its above-ground reference differs from tide-gauge elevations or a property's floor elevation.</td></tr>
+              <tr><th scope="row">Central and eastern Florida</th><td>10-20 inches of rain caused major flooding along waterways including the St. Johns and Little Wekiva Rivers, affecting Orange, Seminole and other counties (p. 11).</td><td>Inland freshwater flooding requires its own warning and route checks, even away from the southwest coast's landfall and surge.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The rainfall maximum in the report was 26.95 inches at Grove City; the 10-20-inch regional range is a different summary. Likewise, the report's 10-15-foot inundation analysis is not interchangeable with a sensor reading referenced to mean higher high water. Keep the location, time, units and reference level attached to every number when comparing an article, map or screenshot.</p>
+        <p>For a household, these observations lead to separate tasks: check coastal evacuation instructions, read inland flood warnings, and confirm a destination and route under current conditions. A statewide wind category cannot complete all three. Historical depths and rainfall totals are evidence of what happened in 2022, not a prediction for the next storm.</p>
+        <p><a href="https://www.nhc.noaa.gov/data/tcr/AL092022_Ian.pdf">Read NHC's Ian report, revised March 12, 2026 (PDF)</a> &middot; <a href="/blog/hurricane-storm-surge-forecasting/">Read the units and legend on a surge map</a></p>
+      </section>
+
       <section class="intent-answer" aria-labelledby="florida-preparedness-heading">
-        <h2 id="florida-preparedness-heading">How to Prepare for a Hurricane in Florida</h2>
-        <p>Start before a storm forms: confirm the county evacuation zone, identify a safe room and two destinations, protect documents, refill permitted prescriptions, plan for pets, and prepare for heat and extended outages. A “Florida hurricane box” should be a portable part of the broader plan, not the entire plan.</p>
-        <p><a href="/tools/preparedness-checklist/">Build a Florida hurricane supply list</a>, then use the <a href="/hurricane-tracker/evacuation-plan/">hurricane evacuation plan</a> to record routes, transport, contacts, and departure triggers.</p>
+        <h2 id="florida-preparedness-heading">Make a Florida Address and Evacuation Record</h2>
+        <p>Florida's Know Your Zone, Know Your Home resource links an address-based evacuation map and emphasizes following local officials. Use the county's actual designation and instructions rather than assuming one lettering scheme describes every county. For visitors, ask the property manager for the address and county before starting the lookup; a resort name or booking confirmation may not provide enough detail.</p>
+        <ul class="check-list">
+          <li><strong>Address and map:</strong> record the county, official lookup URL, result and check date privately. A failed lookup is an unfinished check, not proof the address is outside a zone.</li>
+          <li><strong>Current instruction:</strong> save the issuing agency, order time, affected zones and any housing or assistance conditions. A planning map identifies an area; an event-specific order tells you which instructions apply now.</li>
+          <li><strong>Destination:</strong> confirm the host or official shelter operator can receive the household, including pets, mobility and care needs. Check the destination's own warnings and local instructions.</li>
+          <li><strong>Transport:</strong> confirm the driver or assistance service, equipment space, contacts and an alternative if the arrangement fails. Recheck road and bridge conditions through current official channels.</li>
+          <li><strong>Next check:</strong> record who will monitor updates and what triggers the agreed action. Keep the essential contact and order details offline as well as on a phone.</li>
+        </ul>
+        <p><a href="https://www.floridadisaster.org/knowyourzone/">Open Florida's official Know Your Zone resource</a> &middot; <a href="/blog/how-to-check-your-hurricane-evacuation-zone/">Work through an evacuation-zone lookup record</a></p>
       </section>
 
       <section class="intent-answer" aria-labelledby="florida-evacuation-heading">
-        <h2 id="florida-evacuation-heading">Florida Hurricane Evacuation Plan</h2>
-        <p>Use the county address lookup rather than ZIP code or an insurance flood map. Choose a primary and backup destination outside the threatened area, plan more than one route, and allow extra time for barrier islands, bridges, medical equipment, disability, children, pets, or no personal vehicle. Follow current county and state instructions; do not assume contraflow or a bridge will remain open.</p>
+        <h2 id="florida-evacuation-heading">Worked Record: A Destination Is Still Unconfirmed</h2>
+        <p>Illustrative example, not a current evacuation instruction: a Miami household saves its county map result and asks a relative in Orlando about staying there. The relative agrees, but the household has not checked local warnings at the destination or confirmed how to transport a family member's medical equipment. Its record shows those two tasks as open. It checks the destination's official alerts and contacts its transport and care providers before calling the plan complete. Moving inland can change the hazards being considered; it does not by itself confirm that a particular building, road or care arrangement is suitable.</p>
+        <p>Keep supply planning separate from these confirmations. Pack records and essential items that can travel, identify who carries them, and agree an arrival handoff. Medication storage, equipment power and ongoing treatment need the specific provider's plan. A local assistance application and a utility medical-needs listing should each retain their own confirmation status.</p>
+        <p><a href="/blog/hurricane-medical-needs-registry-preparedness/">Confirm medical equipment, medication and care continuity</a> &middot; <a href="/blog/hurricane-safety-seniors-children-disability/">Assign household helpers and accessible transport</a></p>
+        <details class="source-note"><summary>Source check 2026-11-02</summary><p>Read NHC's March 12, 2026 Ian report, especially pages 4, 8-9 and 11, and Florida's Know Your Zone, Know Your Home page. The example is hypothetical. No address, interactive map result, current evacuation order, road, shelter or medical arrangement was verified. Live feeds above and below have separate timestamps.</p></details>
       </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
@@ -136,22 +159,11 @@ const jsonLd = graph(
         ))}
       </div>
 
-      <section class="city-intent-strip" aria-labelledby="florida-city-intent-heading">
-        <h3 id="florida-city-intent-heading">Florida Hurricane Tracker Today by City</h3>
-        <p>For local searches such as Orlando hurricane today, Miami hurricane tracker, or Tampa Bay storm risk, open the closest city guide and verify county alerts.</p>
-        <div class="city-intent-links">
-          {stateCities.slice(0, 8).map((city) => <a href={`/hurricane-tracker/city/${city.slug}/`}>{city.name} hurricane tracker</a>)}
-        </div>
-      </section>
-
       <StateActionPaths state={state} />
 
-      <StateTrackerSeoLinks state={state} cities={stateCities} />
-
-      <section class="gulf-links" aria-labelledby="florida-gulf-heading">
-        <h2 id="florida-gulf-heading">Florida Gulf Hurricane Tracker Connections</h2>
-        <p>Florida Gulf searches overlap with Texas, Louisiana, Mississippi, and Alabama storm questions. Use the Gulf basin page first, then open the state page closest to your location.</p>
-        <ul class="check-list">{gulfLinks.map((link) => <li><a href={link.href}>{link.label}</a></li>)}</ul>
+      <section class="intent-answer" aria-labelledby="florida-planning-questions">
+        <h2 id="florida-planning-questions">Florida Planning Questions</h2>
+        {faqs.map((faq) => <details><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}
       </section>
 
       <h2 id="nearby-heading">Nearby State Hurricane Trackers</h2>
@@ -167,11 +179,14 @@ const jsonLd = graph(
 
 <style>
   .answer { font-size: 1.05rem; line-height: 1.75; }
-  .intent-answer { margin: 24px 0; padding: 18px 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface, #f3f7fa); }
+  .intent-answer, .florida-case { margin: 28px 0; padding: 20px 0; border-top: 1px solid var(--line); }
   .intent-answer h2 { margin-top: 0; }
-  .gulf-links { margin-top: 28px; padding: 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface, #f3f7fa); }
-  .gulf-links h2 { margin-top: 0; }
-  .city-intent-strip { margin: 24px 0; padding: 18px 20px; border-top: 3px solid var(--ocean); background: var(--surface, #f3f7fa); }
-  .city-intent-strip h3 { margin-top: 0; }
-  .city-intent-links { display: flex; flex-wrap: wrap; gap: 8px 16px; font-weight: 800; }
+  .intent-answer details { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .intent-answer summary { cursor: pointer; font-weight: 700; }
+  .evidence-table-wrap { max-width: 100%; overflow-x: auto; margin: 20px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  caption { text-align: left; margin-bottom: 12px; color: var(--muted); }
+  th, td { text-align: left; vertical-align: top; padding: 14px 12px; border-bottom: 1px solid var(--line); min-width: 160px; line-height: 1.6; }
+  thead th { background: var(--surface); }
+  th:first-child { width: 23%; }
 </style>

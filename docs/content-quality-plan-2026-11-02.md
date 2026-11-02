@@ -65,7 +65,7 @@ Google Search 官方重新抓取说明（`https://developers.google.com/search/d
 
 | URL | 处置 | 下一项具体工作／状态 |
 | --- | --- | --- |
-| `/` | P2 复核 | 尚未逐页编辑验收；检查独立任务、证据、内链与时间含义 |
+| `/` | 本轮已改 | 展示三篇带官方历史图表的解读，保留原文章日期；正文链接 84→50，保留主要入口、来源时间与失败状态。详见本轮首页／Florida 核验记录 |
 | `/tracker/` | 保留导航／待复核 | 确认能按读者任务找到完整答案；目录页不套文章字数标准 |
 | `/hurricane-tracker/live/` | P0 核验 | 分别检查数据时间、失败状态与 NHC 一致性；本轮未认证实时数据 |
 | `/hurricane-tracker/tropical-disturbances/` | P0 核验 | 分别检查数据时间、失败状态与 NHC 一致性；本轮未认证实时数据 |
@@ -149,7 +149,7 @@ Google Search 官方重新抓取说明（`https://developers.google.com/search/d
 | `/tools/family-communication-plan/` | P1 核验工具 | 复核输入、来源、算法假设、失败情形和一份完整示例；不能以免责声明代替验证 |
 | `/tools/business-preparedness/` | P1 核验工具 | 复核输入、来源、算法假设、失败情形和一份完整示例；不能以免责声明代替验证 |
 | `/tools/wind-mitigation-calculator/` | P1 核验工具 | 复核输入、来源、算法假设、失败情形和一份完整示例；不能以免责声明代替验证 |
-| `/tracker/florida/` | P1 深化 | 核对州资源，解释州级数据与地址级命令边界；串联真正不同的本地指南 |
+| `/tracker/florida/` | 本轮已改 | 用 NHC 修订报告核对 Ian 峰值／登陆风速、沿海淹水和内陆雨量；加入地址／撤离记录与明确假设案例，五项规划 FAQ 正文与 schema 一致。当前警报和真实地址仍须另查 |
 | `/tracker/texas/` | P1 深化 | 核对州资源，解释州级数据与地址级命令边界；串联真正不同的本地指南 |
 | `/tracker/louisiana/` | P1 深化 | 核对州资源，解释州级数据与地址级命令边界；串联真正不同的本地指南 |
 | `/tracker/north-carolina/` | P1 深化 | 核对州资源，解释州级数据与地址级命令边界；串联真正不同的本地指南 |

@@ -4,8 +4,8 @@ import DecisionPathFlow from "./DecisionPathFlow.astro";
 import FaqBlock from "./FaqBlock.astro";
 import { coastalStates } from "../data/states";
 import { hurricaneCities } from "../data/cities";
+import { blogPosts } from "../data/blog";
 import { faqs, site } from "../data/site";
-import { topicPages } from "../data/topicPages";
 import { getAtlanticOutlook } from "../lib/nhcOutlook";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../lib/schema";
 import { advisoryUrl, type NhcStorm, type NwsAlert } from "../lib/weather";
@@ -42,16 +42,25 @@ const stormHeading = !stormsAvailable ? "Atlantic status unavailable"
 const checked = (value: string | undefined) => new Date(value!).toLocaleString("en-US", {
   timeZone: "UTC", month: "short", day: "numeric", hour: "numeric", minute: "2-digit"
 }) + " UTC";
-const cities = ["orlando", "clearwater", "morehead-city", "pensacola", "brownsville", "baton-rouge", "miami", "tampa", "houston", "new-orleans", "charleston"]
+const cities = ["miami", "tampa", "houston", "new-orleans", "charleston", "morehead-city"]
   .map((slug) => hurricaneCities.find((city) => city.slug === slug))
   .filter((city): city is NonNullable<typeof city> => Boolean(city));
 const tools = [
   { icon: "fa-clipboard-check", title: "Pack for your household", description: "Build a supply checklist with household size, pet supplies, and document reminders.", href: "/tools/preparedness-checklist/", action: "Build a checklist" },
-  { icon: "fa-route", title: "Organize an evacuation plan", description: "Review official orders, housing, flood exposure, transport, and medical needs. This helper does not issue evacuation orders.", href: "/tools/evacuation-decision-helper/", action: "Open the planning helper" },
+  { icon: "fa-route", title: "Organize an evacuation plan", description: "Record official instructions, destinations, transport, and medical needs for your household.", href: "/tools/evacuation-decision-helper/", action: "Open the planning helper" },
   { icon: "fa-bolt", title: "Plan for a power outage", description: "Work through food storage, equipment, and backup-power questions before an outage.", href: "/tools/power-outage-planner/", action: "Open the outage planner" },
-  { icon: "fa-house-shield", title: "Compare an insurance scenario", description: "Use your actual wind premium and an insurer-confirmed additional credit. Roof features alone do not determine savings.", href: "/tools/wind-mitigation-calculator/", action: "Compare confirmed figures" }
+  { icon: "fa-house-shield", title: "Compare an insurance scenario", description: "Compare costs using your annual wind premium and an additional credit confirmed by your insurer.", href: "/tools/wind-mitigation-calculator/", action: "Compare confirmed figures" }
 ];
-const lastModified = "2026-10-28T00:00:00.000Z";
+const selectedGuides = [
+  { slug: "how-to-read-the-hurricane-cone-of-uncertainty", heading: "Read the Cone, Wind Field and Warning Colors", summary: "Helene's September 2024 graphic separates forecast center points, the white cone and the current wind field. Follow the original labels to see which question each layer answers.", imageLabel: "NOAA/NHC: Helene, September 25, 2024" },
+  { slug: "hurricane-radar-vs-satellite", heading: "Compare Clouds With Rain Bands", summary: "Two frames of Ian's September 2022 radar and visible-satellite composite show different measurements in the same scene. Locate Charleston and Wilmington, then compare the timestamps and layers.", imageLabel: "NWS Wilmington: Ian, September 30, 2022" },
+  { slug: "hurricane-flood-zone-map-fema-understanding", heading: "Read a Flood Map's Zone and Effective Date", summary: "FEMA's teaching map identifies Zone AE, a location pin and the panel date. Work through those labels before checking the effective map for a property and its separate evacuation zone.", imageLabel: "FEMA: flood-map tutorial, January 2022" }
+].map((guide) => {
+  const post = blogPosts.find((post) => post.slug === guide.slug);
+  if (!post?.figures?.[0]) throw new Error(`Missing sourced figure for ${guide.slug}`);
+  return { ...guide, post, figure: post.figures[0] };
+});
+const lastModified = "2026-11-02T00:00:00.000Z";
 const atlanticNames = atlanticStorms.map((storm) => storm.name).filter(Boolean);
 const title = atlanticNames.length
   ? `Hurricane Tracker: ${atlanticNames.slice(0, 2).join(", ")} & NHC Map`
@@ -80,7 +89,7 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
         <div class="hero-primary">
           <p class="eyebrow"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Official-Source Tracking</p>
           <h1 id="home-title">Live Hurricane Tracker</h1>
-          <p class="hero-summary">See what NHC is tracking, check the source time, then look up alerts for your area. A storm's track is not the boundary of its impacts.</p>
+          <p class="hero-summary">Track NHC systems, compare forecast maps, and check weather alerts for your area.</p>
           <div class="hero-actions">
             <a class="action-link" href="/hurricane-tracker/live/">Open live tracker <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
             <a class="hero-secondary-link" href="/radar/"><i class="fa-solid fa-satellite" aria-hidden="true"></i> Radar &amp; satellite</a>
@@ -99,7 +108,7 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
           <p class="source-note" id="storm-feed-status">{stormsAvailable ? `Feed checked ${checked(stormFeed?.fetchedAt)}.` : "The feed failed validation, is stale, or could not be reached. This is not a zero-storm result."}</p>
           {pacificStorms.length > 0 && <p class="source-note pacific-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> {pacificStorms.length} additional NHC system{pacificStorms.length === 1 ? "" : "s"} in the Eastern or Central Pacific; not included in this Atlantic count.</p>}
           <p class="verify-link"><a href="https://www.nhc.noaa.gov/">Verify official NHC advisories <span aria-hidden="true">&rarr;</span></a></p>
-          <p class="source-note disclaimer-note">No active system in a feed is not an all-clear for flooding, surf, or other local hazards.</p>
+          <p class="source-note disclaimer-note">Check local alerts for flooding, surf, and other hazards, including when the Atlantic is quiet.</p>
         </aside>
       </div>
     </section>
@@ -125,7 +134,7 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
             <h3>7-day Atlantic outlook</h3>
             <p class="source-note outlook-timestamp">{outlookAvailable ? `NHC issue time: ${outlook!.issued}` : "Current outlook unavailable or outside the 12-hour freshness window. Formation chances have not been verified."}</p>
             {outlookAvailable && <p class="outlook-text">{outlook!.text}</p>}
-            <p class="source-note caution-note">Formation chances apply to development areas, not a household's chance of impact. Read every area in the official bulletin.</p>
+            <p class="source-note caution-note">The 7-day percentage describes tropical cyclone formation in a development area. Use local alerts to assess hazards at your location.</p>
             <div class="text-links">
               <a href="https://www.nhc.noaa.gov/text/MIATWOAT.shtml">Read official NHC outlook &rarr;</a>
               <a href="/hurricane-tracker/tropical-disturbances/">Atlantic disturbances</a>
@@ -145,12 +154,33 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
       </div>
     </section>
 
+    <section class="band reading-band" aria-labelledby="case-studies-heading">
+      <div class="inner">
+        <p class="eyebrow">Historical cases &amp; map reading</p>
+        <h2 id="case-studies-heading">Understand the Maps Behind the Forecast</h2>
+        <div class="reading-grid">
+          {selectedGuides.map((guide) => (
+            <article class="reading-item">
+              <figure>
+                <img src={guide.figure.src} alt={guide.figure.alt} width={guide.figure.width} height={guide.figure.height} loading="lazy" decoding="async" />
+                <figcaption>{guide.imageLabel}. <a href={guide.figure.sourceUrl}>Original source</a></figcaption>
+              </figure>
+              <p class="reading-meta">By HurricaneHub &middot; Updated <time datetime={guide.post.dateModified}>{guide.post.dateModified}</time></p>
+              <h3><a href={`/blog/${guide.slug}/`}>{guide.heading}</a></h3>
+              <p>{guide.summary}</p>
+            </article>
+          ))}
+        </div>
+        <p class="text-links"><a href="/blog/">All preparedness and forecasting guides</a></p>
+      </div>
+    </section>
+
     <!-- Local NWS Alert Screening -->
     <section class="band local-band" aria-labelledby="local-alerts-heading">
       <div class="inner">
         <p class="eyebrow"><i class="fa-solid fa-map-pin" aria-hidden="true"></i> Your area, not the whole basin</p>
         <h2 id="local-alerts-heading">Check Local NWS Alerts</h2>
-        <p class="local-intro">Enter a US ZIP code to check NWS alerts at its representative point. A ZIP point does not identify your property's flood zone, evacuation zone, or safety.</p>
+        <p class="local-intro">Check NWS alerts near a US ZIP code. This lookup uses a representative point; evacuation zones require a separate street-address check.</p>
 
         <form id="preview-zip-form" class="zip-form">
           <label for="preview-zip">US ZIP code</label>
@@ -203,8 +233,8 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
             </article>
           ))}
         </div>
-        <p class="source-note planning-note">For water storage and treatment, <a href="/blog/hurricane-water-storage-purification-emergency/">read the CDC-sourced water guide</a>. Storage quantities do not determine whether contaminated water can be made safe.</p>
-        <p class="text-links"><a href="/tools/">All hurricane planning tools</a><a href="/preparedness/">Household preparedness</a><a href="/local-hurricane-risk/">Local hurricane risk</a><a href="/alerts/">NWS alert directory</a></p>
+        <p class="source-note planning-note">Plan stored supplies and learn how to follow boil-water and do-not-use notices in the <a href="/blog/hurricane-water-storage-purification-emergency/">CDC-sourced water guide</a>.</p>
+        <p class="text-links"><a href="/tools/">All hurricane planning tools</a><a href="/preparedness/">Household preparedness</a></p>
       </div>
     </section>
 
@@ -221,7 +251,6 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
                 <h3><a href={`/tracker/${state.slug}/`}>{state.name}</a></h3>
               </div>
               <p>{state.preparednessNote}</p>
-              <a class="state-view-link" href={`/tracker/${state.slug}/`}>View {state.name} tracker &rarr;</a>
             </article>
           ))}
         </div>
@@ -229,17 +258,13 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
     </section>
     <section class="band" aria-labelledby="guides-heading">
       <div class="inner">
-        <h2 id="guides-heading">Hurricane Maps, Updates &amp; Guides</h2>
+        <h2 id="guides-heading">More Hurricane Coverage</h2>
         <nav class="text-links" aria-label="Hurricane coverage directories">
           <a href="/hurricane-tracker/">Hurricane tracker directory</a>
           <a href="/hurricane-tracker/storm/">Named storm trackers</a>
           <a href="/updates/">Latest hurricane updates</a>
           <a href="/2026-hurricane-season/">2026 hurricane season</a>
-          <a href="/blog/">Preparedness guides</a>
           <a href="/topics/">All hurricane topics</a>
-        </nav>
-        <nav class="text-links" aria-label="Hurricane topic trackers">
-          {topicPages.map((topic) => <a href={`/hurricane-tracker/${topic.slug}/`}>{topic.title}</a>)}
         </nav>
       </div>
     </section>
@@ -313,6 +338,32 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
   .home-preview .inner {
     min-width: 0;
   }
+  .reading-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    margin: 24px 0;
+  }
+  .reading-item { min-width: 0; }
+  .reading-item figure { margin: 0 0 18px; }
+  .reading-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    background: #fff;
+    border: 1px solid var(--preview-border);
+    border-radius: 4px;
+  }
+  .reading-item figcaption, .reading-meta {
+    margin: 10px 0;
+    color: var(--muted);
+    font-size: .82rem;
+    line-height: 1.5;
+  }
+  .reading-item h3 { margin: 0 0 12px; font-size: 1.2rem; line-height: 1.4; }
+  .reading-item > p:last-child { margin: 0; line-height: 1.65; }
 
   /* ── Refined Amber Disclaimer Bar ── */
   :global(.site-body:has(.home-preview) .disclaimer) {
@@ -913,10 +964,6 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
     line-height: 1.5;
     font-size: 0.86rem;
   }
-  .state-view-link {
-    font-weight: 700;
-    font-size: 0.84rem;
-  }
 
   /* ── Dark Mode Contrast & Colors ── */
   :global(:root[data-theme="dark"]) .home-preview {
@@ -1023,6 +1070,7 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
       text-align: center;
     }
     .planning-grid,
+    .reading-grid,
     .state-directory,
     .storm-links {
       grid-template-columns: minmax(0, 1fr);
