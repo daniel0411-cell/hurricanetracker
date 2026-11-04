@@ -5,8 +5,8 @@ import { site } from "../../data/site";
 import { topicPages } from "../../data/topicPages";
 import { articleSchema, breadcrumbSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 import { advisoryUrl, summarizeStorm, type NhcStorm } from "../../lib/weather";
-import OfficialUpdateStamp from "../../components/OfficialUpdateStamp.astro";
 import ContentFigure from "../../components/ContentFigure.astro";
+import { isStormFeedAvailable } from "../../lib/weatherFeedStatus";
 
 type StormFeed = {
   storms?: Array<NhcStorm & { summary?: string }>;
@@ -17,34 +17,34 @@ type StormFeed = {
 const url = `${site.url}/hurricane-tracker/live/`;
 let stormFeed: StormFeed | null = null;
 try {
-  const response = await fetch(new URL("/api/nhc/current.json", Astro.url));
+  const response = await fetch(new URL("/api/nhc/current.json", Astro.url), { signal: AbortSignal.timeout(12000) });
   if (response.ok) stormFeed = await response.json() as StormFeed;
 } catch (error) {
   console.error("HurricaneHub live tracker feed failed", { error });
 }
-const storms = stormFeed?.storms ?? [];
+const feedAvailable = isStormFeedAvailable(stormFeed);
+const storms = feedAvailable ? stormFeed!.storms! : [];
 const basinLabel = (storm: NhcStorm) => storm.id?.toUpperCase().startsWith("AL") ? "Atlantic" : storm.id?.toUpperCase().startsWith("CP") ? "Central Pacific" : "Eastern Pacific";
 const classificationLabel = (classification?: string) => ({ HU: "Hurricane", TS: "Tropical Storm", TD: "Tropical Depression", PTC: "Post-Tropical Cyclone" }[classification ?? ""] ?? classification ?? "NHC tropical system");
 const tropicalStorms = storms.filter((storm) => storm.classification !== "PTC");
 const postTropicalStorms = storms.filter((storm) => storm.classification === "PTC");
-const hurricanes = storms.filter((storm) => storm.classification === "HU");
 const stormSummary = storms.length ? `${tropicalStorms.length} active tropical system${tropicalStorms.length === 1 ? "" : "s"}${postTropicalStorms.length ? ` and ${postTropicalStorms.length} post-tropical system${postTropicalStorms.length === 1 ? "" : "s"}` : ""}` : "No active NHC systems listed";
 const activeStormNames = tropicalStorms.map((storm) => storm.name).filter(Boolean).slice(0, 2);
 const activeContext = storms.length ? ` Track ${storms.map((storm) => storm.name).filter(Boolean).join(", ")} now.` : "";
-const lastModified = stormFeed?.updatedAt ?? stormFeed?.fetchedAt ?? site.contentLastModified;
-const updatedLabel = new Date(lastModified).toLocaleString("en-US", {
+const lastModified = "2026-11-04T00:00:00.000Z";
+const updatedLabel = feedAvailable ? new Date(stormFeed!.fetchedAt!).toLocaleString("en-US", {
   timeZone: "UTC",
   month: "short",
   day: "numeric",
   year: "numeric",
   hour: "numeric",
   minute: "2-digit"
-});
+}) : "unavailable";
 const atlanticStormNames = tropicalStorms.filter((storm) => /^AL/i.test(storm.id ?? "")).map((storm) => storm.name).filter(Boolean).slice(0, 2);
 const title = atlanticStormNames.length
   ? `Live Hurricane Tracker: ${atlanticStormNames.join(", ")} & NHC Map`
   : "Live Hurricane Tracker | Current Storms & NHC Map";
-const description = atlanticStormNames.length
+const description = !feedAvailable ? "Current NHC storm data is temporarily unverified. Open official advisories, radar, satellite and local alerts; a failed feed cannot establish no active storms." : atlanticStormNames.length
   ? `Track ${atlanticStormNames.join(", ")} and current NHC storms on the live map with forecast paths, Gulf status, advisories, radar, satellite and local alerts. Updated ${updatedLabel} UTC.`
   : `${stormSummary}. Track current hurricanes on the live NHC map with storm paths, advisories, radar, satellite and local alerts. Updated ${updatedLabel} UTC.${activeContext}`;
 const liveTrackerPaths = [
@@ -89,9 +89,9 @@ const liveTrackerPaths = [
     description: "Open standing storm-name pages for current-feed checks and official NHC advisory links."
   },
   {
-    name: "Estimate the impact window",
+    name: "Check state alerts and actions",
     href: "/tools/impact-window-estimator/",
-    description: "Translate active alerts and storm context into Monitor, Prepare, Act, or Leave timing."
+    description: "Read state alerts and hazard-specific actions; obtain wind-arrival times from NHC products."
   },
   {
     name: "Calculate storm distance",
@@ -112,11 +112,11 @@ const trackerTopicHubs = topicPages.map((page) => ({
 const faqs = [
   {
     question: "Are there any hurricanes right now?",
-    answer: hurricanes.length ? `The latest NHC feed lists ${hurricanes.length} hurricane${hurricanes.length === 1 ? "" : "s"}${storms.length > hurricanes.length ? ` plus ${storms.length - hurricanes.length} other tropical or post-tropical system${storms.length - hurricanes.length === 1 ? "" : "s"}` : ""}. Open the current system list and verify each advisory time before making decisions.` : storms.length ? `The latest NHC feed lists no systems currently classified as hurricanes, but it does list ${storms.length} other tropical or post-tropical system${storms.length === 1 ? "" : "s"}.` : "The latest NHC feed does not list an active tropical cyclone right now. Tropical outlooks and local NWS alerts can change, so keep monitoring official updates."
+    answer: "Read the live snapshot and current system list with their feed-check time. Each card distinguishes hurricane, tropical storm, depression, and post-tropical classifications. An unavailable or stale check cannot establish whether a hurricane is active; verify directly with NHC when that status appears."
   },
   {
     question: "Where is the hurricane now?",
-    answer: storms.length ? "The current storm list below shows the latest NHC-reported position and update time for each active system. Use the map and official advisory for the full forecast context." : "No active named hurricane is currently listed in the latest NHC feed. Check official tropical outlooks and local NWS alerts for changes."
+    answer: "When the feed is verified, each listed system has its latest reported position and advisory source. Read the advisory's issue time separately from the feed-check time, then use local NWS alerts for your location. The list can change as systems form, change classification, or leave NHC's current feed."
   },
   {
     question: "Is there a hurricane in the Gulf right now?",
@@ -193,7 +193,7 @@ const jsonLd = graph(
       <div>
         <p class="eyebrow">Current NHC storm data</p>
         <h1 id="live-title">Live Hurricane Tracker: Current NHC Storms and Map</h1>
-        <p class="answer">{storms.length ? `The latest NHC feed lists ${stormSummary}: ${storms.map((storm) => `${storm.name ?? storm.id ?? "unnamed system"} (${classificationLabel(storm.classification)})`).join(", ")}.` : "No active tropical cyclone is listed in the latest NHC feed right now."} Last checked {updatedLabel} UTC. Use this live tracker to see current storm positions, forecast paths, NHC advisories, radar, satellite imagery, and local NWS alerts in one place.</p>
+        <p class="answer" data-live-answer>{!feedAvailable ? "The current NHC feed could not be verified. Check NHC directly for current storm status." : storms.length ? `The latest NHC feed lists ${stormSummary}: ${storms.map((storm) => `${storm.name ?? storm.id ?? "unnamed system"} (${classificationLabel(storm.classification)})`).join(", ")}.` : "No active tropical cyclone is listed in the verified NHC feed."} Use the map, official advisories, and local NWS alerts together.</p>
         <p class="section-actions">
           <a class="action-link" href="#current-hurricanes" data-track-event="view_current_storms">View current storms</a>
           <a class="action-link secondary-action" href="#live-map-heading" data-track-event="open_live_map">Open live map</a>
@@ -204,10 +204,9 @@ const jsonLd = graph(
       </div>
       <aside class="panel live-snapshot" aria-label="Current hurricane tracker status">
         <p class="eyebrow">Live snapshot</p>
-        <strong class="storm-count" data-live-storm-count>{storms.length}</strong>
-        <span data-live-storm-label>{storms.length === 1 ? "active NHC system" : "active NHC systems"}</span>
-        <p class="source-note" data-live-updated>Last checked {updatedLabel} UTC</p>
-        <OfficialUpdateStamp updatedAt={lastModified} />
+        <strong class="storm-count" data-live-storm-count>{feedAvailable ? storms.length : "—"}</strong>
+        <span data-live-storm-label>{!feedAvailable ? "current status unverified" : storms.length === 1 ? "active NHC system" : "active NHC systems"}</span>
+        <p class="source-note" data-live-updated>{feedAvailable ? `Feed checked ${updatedLabel} UTC` : "Current feed unavailable or stale; check NHC directly."}</p>
         <a href="https://www.nhc.noaa.gov/" rel="noopener nofollow">Verify with the National Hurricane Center</a>
       </aside>
     </div>
@@ -282,7 +281,7 @@ const jsonLd = graph(
               <span class="badge warn">{storm.intensity ? `${storm.intensity} kt` : storm.windSpeed ?? "Advisory active"}</span>
             </header>
             <p><strong>{basinLabel(storm)}</strong> · {summarizeStorm(storm)}</p>
-            <p class="source-note">Position {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"} · Updated {storm.lastUpdate ?? lastModified}</p>
+            <p class="source-note">Position {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"} · Advisory update {storm.lastUpdate ?? "unavailable; open NHC advisory"}</p>
             <p class="section-actions">
               <a class="action-link" href={`/hurricane-tracker/storm/${String(storm.name ?? storm.id ?? "storm").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}/`}>Open {storm.name ?? "storm"} live tracker</a>
               {advisoryUrl(storm.publicAdvisory) && <a class="action-link secondary-action" href={advisoryUrl(storm.publicAdvisory)} rel="noopener nofollow">NHC advisory</a>}
@@ -290,8 +289,8 @@ const jsonLd = graph(
           </article>
         )) : (
           <article class="panel no-active-storms">
-            <h3>No Active NHC Tropical Cyclones</h3>
-            <p>No active tropical cyclone is listed in the latest NHC feed. This is not an all-clear for every location: disturbances and local hazards can develop before a named system appears.</p>
+            <h3>{feedAvailable ? "No Active NHC Tropical Cyclones" : "Current Storm Status Unverified"}</h3>
+            <p>{feedAvailable ? "No active tropical cyclone is listed in the verified NHC feed. Check the outlook and local alerts for developing or continuing hazards." : "The current NHC feed could not be verified. Check NHC directly; this is not a no-active-storms result."}</p>
             <p class="section-actions">
               <a class="action-link" href="https://www.nhc.noaa.gov/gtwo.php" rel="noopener nofollow">Check tropical outlook</a>
               <a class="action-link secondary-action" href="/alerts/">Check local alerts</a>
@@ -446,6 +445,7 @@ const jsonLd = graph(
 
 <script>
   import { summarizeStorm } from "../../lib/weather";
+  import { isStormFeedAvailable } from "../../lib/weatherFeedStatus";
   const countEl = document.querySelector<HTMLElement>("[data-live-storm-count]");
   const labelEl = document.querySelector<HTMLElement>("[data-live-storm-label]");
   const updatedEl = document.querySelector<HTMLElement>("[data-live-updated]");
@@ -464,18 +464,29 @@ const jsonLd = graph(
   }
   async function refreshStormList() {
     try {
-      const response = await fetch("/api/nhc/current.json", { cache: "no-store" });
-      if (!response.ok) return;
+      const response = await fetch("/api/nhc/current.json", { cache: "no-store", signal: AbortSignal.timeout(12000) });
+      if (!response.ok) throw new Error(`NHC HTTP ${response.status}`);
       const feed = await response.json() as { storms?: Array<Record<string, any>>; updatedAt?: string; fetchedAt?: string };
+      if (!isStormFeedAvailable(feed)) throw new Error("NHC feed malformed or stale");
       const storms = Array.isArray(feed.storms) ? feed.storms : [];
       const tropicalCount = storms.filter((storm) => storm.classification !== "PTC").length;
       const postTropicalCount = storms.length - tropicalCount;
       if (countEl) countEl.textContent = String(storms.length);
       if (labelEl) labelEl.textContent = postTropicalCount ? `${tropicalCount} active tropical, ${postTropicalCount} post-tropical` : storms.length === 1 ? "active NHC system" : "active NHC systems";
-      if (updatedEl) updatedEl.textContent = `Last checked ${new Date(feed.updatedAt ?? feed.fetchedAt ?? Date.now()).toLocaleString("en-US", { timeZone: "UTC" })} UTC`;
-      if (listEl && storms.length) listEl.innerHTML = storms.map(stormMarkup).join("");
-    } catch {}
+      if (updatedEl) updatedEl.textContent = `Last checked ${new Date(feed.fetchedAt!).toLocaleString("en-US", { timeZone: "UTC" })} UTC`;
+      if (listEl) listEl.innerHTML = storms.length ? storms.map(stormMarkup).join("") : '<p>No active NHC systems in the verified feed. Check the Atlantic outlook and local alerts for other hazards.</p>';
+      const answer = document.querySelector("[data-live-answer]");
+      if (answer) answer.textContent = storms.length ? `Verified NHC feed: ${storms.map((storm) => storm.name ?? storm.id).join(", ")}. Read the advisory time and local alerts for each system.` : "No active NHC systems in the verified feed. Check the Atlantic outlook and local alerts for other hazards.";
+    } catch {
+      if (countEl) countEl.textContent = "—";
+      if (labelEl) labelEl.textContent = "current status unverified";
+      if (updatedEl) updatedEl.textContent = "Current feed unavailable or stale; check NHC directly.";
+      if (listEl) listEl.innerHTML = '<p>Current storm data could not be verified. <a href="https://www.nhc.noaa.gov/">Open NHC for current advisories.</a></p>';
+      const answer = document.querySelector("[data-live-answer]");
+      if (answer) answer.textContent = "Current NHC data could not be verified. This is not a no-active-storms result.";
+    }
   }
+  refreshStormList();
   window.setInterval(refreshStormList, 10 * 60 * 1000);
 </script>
 

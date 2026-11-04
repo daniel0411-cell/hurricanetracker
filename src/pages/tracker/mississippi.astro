@@ -1,5 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import FaqBlock from "../../components/FaqBlock.astro";
+import StatePreparednessEvidence from "../../components/StatePreparednessEvidence.astro";
+import { stateEvidence, stateEvidenceFaqs } from "../../data/stateEvidence";
 import StateAlerts from "../../components/StateAlerts.astro";
 import StateActionPaths from "../../components/StateActionPaths.astro";
 import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
@@ -17,16 +20,17 @@ const region = state.region;
 const title = `${name} Hurricane Tracker | Today, Live NHC & NWS Alerts`;
 const description = `Is a hurricane coming to Mississippi? Check today's live NHC track, Gulf storm status, Mississippi NWS alerts, Gulfport and Biloxi risk, surge, and evacuation updates.`;
 const canonical = `${site.url}/tracker/${state.slug}/`;
-const lastModified = site.contentLastModified;
+const lastModified = "2026-11-04T00:00:00.000Z";
 const currentStatus = await getStateCurrentStatus(code);
 
-const intro = `Mississippi's Gulf coast is the shortest of the hurricane-prone states at roughly 44 miles, yet it has absorbed some of the most violent landfalls in U.S. history. Storms typically approach from the southeast across warm Gulf water that fuels rapid intensification, then drive into Hancock, Harrison, and Jackson counties. The low, flat coast and the Bay of St. Louis make surge the dominant threat. In 1969, Hurricane Camille came ashore as a catastrophic Category 5, among the strongest storms ever recorded, and Hurricane Katrina (2005) then devastated the coast and flooded coastal communities. The 2026 Atlantic hurricane season runs June 1 through November 30, with Gulf risk highest from August through September. Because much of the coast is low-lying, officials urge early evacuation for mobile-home residents and medically dependent households before routes close.`;
+const evidence = stateEvidence[code];
+const intro = evidence.intro;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const stateActionPaths = [
   {
     name: `${name} local risk action plan`,
-    description: `Build a 72/48/24-hour household action plan from ${name} alerts, coastal hazards, and local constraints.`,
+    description: `Read ${name} alerts and record hazard-specific actions with official local instructions and deadlines.`,
     url: `${site.url}/tools/local-risk-plan/?state=${code}`
   },
   {
@@ -47,20 +51,7 @@ const stateActionPaths = [
 ];
 const adjacent = ["louisiana", "alabama"];
 
-const faqs = [
-  {
-    question: `When is hurricane season in ${name}?`,
-    answer: `Mississippi's season follows June 1–November 30, peaking from August through September as warm Gulf waters fuel rapid intensification. Gulf Coast households should keep plans current throughout that period.`
-  },
-  {
-    question: `What was the worst hurricane to hit ${name}?`,
-    answer: `Hurricane Camille (1969) was a catastrophic Category 5 landfall on the Mississippi coast, among the strongest ever recorded in the U.S. Hurricane Katrina (2005) then devastated the coast and flooded coastal communities days apart decades later.`
-  },
-  {
-    question: `Does ${name} have hurricane evacuation routes?`,
-    answer: `Yes. Mississippi's coastal counties use evacuation zones and Contraflow on I-10 and U.S. 49. Because much of the coast is low-lying, officials urge early departure for mobile-home residents and medically dependent households.`
-  }
-];
+const faqs = stateEvidenceFaqs(name, evidence);
 
 const jsonLd = graph(
   websiteSchema(),
@@ -83,15 +74,12 @@ const jsonLd = graph(
       <h1 id="tracker-state-title">{name} Hurricane Tracker – Live Updates</h1>
       <p class="answer">{intro}</p>
       <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
-      <section class="intent-answer" aria-labelledby="mississippi-intent-heading">
-        <h2 id="mississippi-intent-heading">Is There a Hurricane Coming to Mississippi?</h2>
-        <p>Use the live status above for the latest NHC answer, then check Gulf storm tracks, Mississippi NWS alerts, storm surge, and coastal evacuation instructions. Gulf storms can create dangerous water and flooding beyond the center line.</p>
-        <p><a href="/hurricane-tracker/live/">Check the live hurricane tracker</a> · <a href="/hurricane-tracker/gulf/">Check the Gulf tracker</a> · <a href="/alerts/">View Mississippi alerts</a></p>
-      </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
       <StateAlerts state={code} />
+
+      <StatePreparednessEvidence code={code} name={name} />
 
       <h2 id="city-trackers">{name} City Hurricane Trackers</h2>
       <p class="source-note">Open city guides for local surge, flooding, evacuation-route, and outage planning notes within {name}.</p>
@@ -119,6 +107,7 @@ const jsonLd = graph(
       </ul>
     </div>
   </article>
+  <FaqBlock faqs={faqs} />
 </BaseLayout>
 
 <style>

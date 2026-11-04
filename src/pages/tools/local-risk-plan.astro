@@ -5,8 +5,8 @@ import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
 import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
 
-const title = "Local Hurricane Risk and 72-Hour Action Plan";
-const description = "Check local hurricane risk by ZIP code or state, see active NWS alerts, understand the main hazard type, and generate a 72/48/24-hour household action plan.";
+const title = "State Hurricane Alerts and Household Action Plan";
+const description = "Use a ZIP code or state to check state NWS alerts, read hazard-specific protective actions, and record official local instructions and deadlines.";
 const url = `${site.url}/tools/local-risk-plan/`;
 const lastModified = site.contentLastModified;
 const pageFaqs = [
@@ -18,12 +18,12 @@ const pageFaqs = [
   {
     question: "What does the Monitor, Prepare, Act, or Leave level mean?",
     answer:
-      "Monitor means no high-priority alert was returned. Prepare means a watch, tropical system, or lower-level hazard needs supplies and route planning. Act means warning-level hazards require immediate protective actions. Leave means evacuation or extreme hazard language requires following official instructions now."
+      "The label summarizes the returned events, not your address's risk. A watch means Prepare; a warning means Act on its specific protective instruction. Only an explicit evacuation event can produce Leave. Extreme Wind and Tornado Warnings require immediate shelter, not automatic travel."
   },
   {
     question: "When should I follow the action plan?",
     answer:
-      "Use the plan as a preparation sequence, but official county evacuation orders and NWS instructions always take priority. If local officials say leave, do not wait for the 72-hour sequence to finish."
+      "Read current warning instructions immediately. Record the local authority's actual deadline separately; this tool does not calculate storm arrival, a safe departure time, or an evacuation countdown."
   },
   ...faqs
 ];
@@ -34,7 +34,7 @@ const jsonLd = graph(
     name: title,
     description,
     url,
-    featureList: ["ZIP code location screening", "NWS alert decision level", "72/48/24-hour household action plan"]
+    featureList: ["ZIP-to-state alert screening", "Hazard-specific protective actions", "Official instruction and deadline record"]
   }),
   faqSchema(pageFaqs)
 );
@@ -43,8 +43,8 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="risk-page-title">
     <div class="inner">
       <p class="eyebrow">Emergency decision tool</p>
-      <h1 id="risk-page-title">Local Hurricane Risk and 72-Hour Action Plan</h1>
-      <p class="answer">Check your ZIP code or state to see active NWS alerts, the main hazard types, and a practical 72/48/24-hour action plan for your household.</p>
+      <h1 id="risk-page-title">State Alerts and Household Action Plan</h1>
+      <p class="answer">Choose a state or use a ZIP code to identify its state. Read the returned alerts, match their affected areas to your county, and record local instructions and deadlines.</p>
     </div>
   </section>
 
@@ -60,7 +60,8 @@ const jsonLd = graph(
       <article class="panel">
         <h2>Decision Rules</h2>
         <ul class="check-list">
-          <li>Evacuation or extreme wind language: Leave</li>
+          <li>Extreme Wind or Tornado Warning: Act by taking immediate shelter</li>
+          <li>Explicit evacuation event: Leave according to the issuing authority</li>
           <li>Hurricane, surge, flood, or tornado warning: Act</li>
           <li>Watch, tropical system, or severe hazard: Prepare</li>
           <li>No high-priority alert returned: Monitor</li>

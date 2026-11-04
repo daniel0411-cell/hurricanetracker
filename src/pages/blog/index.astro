@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import FaqBlock from "../../components/FaqBlock.astro";
 import { blogPosts, getCategory, BLOG_CATEGORY_LIST, BLOG_CATEGORY_PAGES } from "../../data/blog";
 import { contentClusters } from "../../data/contentClusters";
 import { faqs, site } from "../../data/site";
@@ -385,4 +386,5 @@ const jsonLd = graph(
       });
     }
   </script>
+  <FaqBlock faqs={faqs} />
 </Layout>

@@ -2,11 +2,10 @@
 import FaqBlock from "../../components/FaqBlock.astro";
 import Layout from "../../layouts/Layout.astro";
 import ContentFigure from "../../components/ContentFigure.astro";
+import ModelTimingExercise from "../../components/ModelTimingExercise.astro";
 import { faqs, site } from "../../data/site";
 import { getTopicPage, topicPages } from "../../data/topicPages";
 import { articleSchema, breadcrumbSchema, faqSchema, graph, howToSchema, itemListSchema, websiteSchema } from "../../lib/schema";
-import { getAtlanticOutlook } from "../../lib/nhcOutlook";
-import { getNhcCurrentFeed } from "../../lib/nhcCurrent";
 
 export const prerender = true;
 
@@ -21,19 +20,8 @@ if (!page) {
 
 const url = `${site.url}/hurricane-tracker/${page.slug}/`;
 const lastModified = site.contentLastModified;
-const gulfStatus = page.slug === "gulf" ? await getNhcCurrentFeed() : null;
-const gulfStorms = gulfStatus?.feed.storms.filter((storm) => {
-  const longitude = storm.longitudeNumeric;
-  const latitude = storm.latitudeNumeric;
-  return /^AL/i.test(storm.id ?? "") && typeof longitude === "number" && typeof latitude === "number" && longitude >= -98 && longitude <= -80 && latitude >= 18 && latitude <= 31;
-}) ?? [];
-const atlanticOutlook = page.slug === "gulf" ? await getAtlanticOutlook() : null;
-const gulfOutlookClient = {
-  issued: atlanticOutlook?.issued ?? "",
-  issuedAt: atlanticOutlook?.issuedAt ?? "",
-  chance48h: atlanticOutlook?.formationChance48h ?? null,
-  chance7d: atlanticOutlook?.formationChance7d ?? null
-};
+// Current conditions are fetched in the browser, never frozen into a prerendered page.
+const gulfStorms: Array<{ name?: string; id?: string }> = [];
 const primaryGulfStorm = gulfStorms[0];
 const primaryGulfSlug = String(primaryGulfStorm?.name ?? primaryGulfStorm?.id ?? "storm").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const pageFaqs = [...page.faqs, ...faqs];
@@ -72,9 +60,9 @@ const jsonLd = graph(
     </div>
   </section>
 
-  {page.slug === "gulf" && <section class="band" aria-labelledby="gulf-status-heading" data-gulf-status><div class="inner"><p class="eyebrow">Current NHC Gulf check</p><h2 id="gulf-status-heading" data-gulf-heading>{gulfStorms.length ? `${gulfStorms.length} Active Gulf Tropical System${gulfStorms.length === 1 ? "" : "s"}` : "No Active Gulf Tropical Cyclone"}</h2><p class="answer" data-gulf-answer>{gulfStorms.length ? `The latest NHC feed lists ${gulfStorms.map((storm) => storm.name ?? storm.id ?? "an unnamed system").join(", ")} in the Gulf region. Open the live tracker and official advisory for current position, forecast, and warnings.` : "The latest NHC feed does not list an active tropical cyclone in the Gulf region. A disturbance can still be monitored before it becomes a depression or named storm."}</p>{atlanticOutlook && <><p class="eyebrow" data-outlook-issued>NHC Atlantic outlook · {atlanticOutlook.issued}</p><p data-outlook-text>{atlanticOutlook.text}</p></>}<p class="section-actions">{primaryGulfStorm && <a class="action-link" data-gulf-storm-link href={`/hurricane-tracker/storm/${primaryGulfSlug}/`}>Track {primaryGulfStorm.name ?? "active Gulf storm"}</a>}<a class:list={["action-link", primaryGulfStorm && "secondary-action"]} href="/hurricane-tracker/tropical-disturbances/">Open current Atlantic outlook</a><a class="action-link secondary-action" href="/tracker/florida/">Florida hurricane tracker</a><a class="action-link secondary-action" href="/tracker/alabama/">Alabama hurricane tracker</a><a class="action-link secondary-action" href="/tracker/mississippi/">Mississippi hurricane tracker</a><a class="action-link secondary-action" href="/tracker/louisiana/">Louisiana hurricane tracker</a></p><p class="section-actions"><a class="action-link" href="/hurricane-tracker/city/pensacola/" data-track-event="open_city_tracker">Pensacola hurricane tracker</a><a class="action-link secondary-action" href="/hurricane-tracker/city/gulf-shores/" data-track-event="open_city_tracker">Gulf Shores hurricane tracker</a><a class="action-link secondary-action" href="/hurricane-tracker/city/mobile/" data-track-event="open_city_tracker">Mobile hurricane tracker</a><a class="action-link secondary-action" href="/hurricane-tracker/city/biloxi/" data-track-event="open_city_tracker">Biloxi hurricane tracker</a><a class="action-link secondary-action" href="/tools/storm-distance-calculator/" data-track-event="open_storm_distance">Check distance by ZIP code</a><a class="action-link secondary-action" href="/tools/storm-surge-checker/" data-track-event="open_storm_surge">Check storm surge alerts</a></p><p class="source-note" data-gulf-updated>{gulfStorms.length ? "NHC is issuing advisories for an active Gulf tropical cyclone. Use the storm tracker and official advisory for its current path, watches, warnings, and hazards; do not infer impacts from the center line alone." : "An outlook area or Invest is not yet a named storm. Formation probability is not a forecast track, warning area, or landfall prediction; specific Gulf Coast impacts may remain uncertain. Verify the issue time with the official NHC outlook."}</p></div></section>}
+  {page.slug === "gulf" && <section class="band" aria-labelledby="gulf-status-heading" data-gulf-status><div class="inner"><p class="eyebrow">Current NHC Gulf check</p><h2 id="gulf-status-heading" data-gulf-heading>Current Gulf Status Awaiting Verification</h2><p class="answer" data-gulf-answer>Current conditions load from the NHC feed below. Until verified, no active/inactive conclusion is available. <a href="https://www.nhc.noaa.gov/">Check NHC directly</a> if the feed cannot load.</p><p class="eyebrow" data-outlook-issued>Atlantic outlook awaiting verification</p><p data-outlook-text></p><p class="section-actions">{primaryGulfStorm && <a class="action-link" data-gulf-storm-link href={`/hurricane-tracker/storm/${primaryGulfSlug}/`}>Track {primaryGulfStorm.name ?? "active Gulf storm"}</a>}<a class:list={["action-link", primaryGulfStorm && "secondary-action"]} href="/hurricane-tracker/tropical-disturbances/">Open current Atlantic outlook</a><a class="action-link secondary-action" href="/tracker/florida/">Florida hurricane tracker</a><a class="action-link secondary-action" href="/tracker/alabama/">Alabama hurricane tracker</a><a class="action-link secondary-action" href="/tracker/mississippi/">Mississippi hurricane tracker</a><a class="action-link secondary-action" href="/tracker/louisiana/">Louisiana hurricane tracker</a></p><p class="section-actions"><a class="action-link" href="/hurricane-tracker/city/pensacola/" data-track-event="open_city_tracker">Pensacola hurricane tracker</a><a class="action-link secondary-action" href="/hurricane-tracker/city/gulf-shores/" data-track-event="open_city_tracker">Gulf Shores hurricane tracker</a><a class="action-link secondary-action" href="/hurricane-tracker/city/mobile/" data-track-event="open_city_tracker">Mobile hurricane tracker</a><a class="action-link secondary-action" href="/hurricane-tracker/city/biloxi/" data-track-event="open_city_tracker">Biloxi hurricane tracker</a><a class="action-link secondary-action" href="/tools/storm-distance-calculator/" data-track-event="open_storm_distance">Check distance by ZIP code</a><a class="action-link secondary-action" href="/tools/storm-surge-checker/" data-track-event="open_storm_surge">Check storm surge alerts</a></p><p class="source-note" data-gulf-updated>Current data has not yet been verified on this visit.</p></div></section>}
 
-  {page.slug === "gulf" && !gulfStorms.length && <section class="band" aria-labelledby="gulf-probability-heading"><div class="inner"><p class="eyebrow">Atlantic outlook context</p><h2 id="gulf-probability-heading">Read the Development Area Before the Percentage</h2><p class="answer">These percentages summarize the Atlantic outlook, not a Gulf-specific forecast. The outlook covers the North Atlantic, Caribbean, and Gulf; read the named development area in the official text above. A percentage estimates formation inside that area during the stated window, not landfall, hurricane strength, or the chance that your city will be affected.</p><div class="grid-2 section-grid probability-grid"><article class="panel"><span class="probability-value" data-chance-48>{atlanticOutlook?.formationChance48h ?? "—"}{atlanticOutlook?.formationChance48h != null && "%"}</span><h3>Atlantic outlook: within 48 hours</h3><p>Near-term organization potential in an Atlantic outlook area. Check the official text for its location; the number alone does not identify a Gulf threat.</p></article><article class="panel"><span class="probability-value" data-chance-7>{atlanticOutlook?.formationChance7d ?? "—"}{atlanticOutlook?.formationChance7d != null && "%"}</span><h3>Atlantic outlook: within 7 days</h3><p>A longer formation window in an Atlantic outlook area. Read each area's separate probability in the official text when more than one area is listed.</p></article></div><div class="grid-2 section-grid"><article class="panel"><h3>Four probabilities people often confuse</h3><ul class="check-list"><li><strong>Formation:</strong> will a tropical cyclone form in the outlook area?</li><li><strong>Track:</strong> where could an established cyclone move?</li><li><strong>Landfall:</strong> where might its center cross the coast?</li><li><strong>Local impact:</strong> could a location receive surge, rain, wind, tornadoes, or outages?</li></ul></article><article class="panel"><h3>Why the number can change</h3><ul class="check-list"><li>Whether a closed circulation is becoming better organized</li><li>Thunderstorm persistence near the developing center</li><li>Vertical wind shear, dry air, and interaction with a front</li><li>How long the disturbance remains over supportive water</li></ul></article></div><p class="source-note">Only NHC assigns the official formation probability. Model runs and social posts can discuss possibilities but do not replace the outlook.</p></div></section>}
+  {page.slug === "gulf" && !gulfStorms.length && <section class="band" aria-labelledby="gulf-probability-heading"><div class="inner"><p class="eyebrow">Atlantic outlook context</p><h2 id="gulf-probability-heading">Read the Development Area Before the Percentage</h2><p class="answer">These percentages summarize the Atlantic outlook, not a Gulf-specific forecast. The outlook covers the North Atlantic, Caribbean, and Gulf; read the named development area in the official text above. A percentage estimates formation inside that area during the stated window, not landfall, hurricane strength, or the chance that your city will be affected.</p><div class="grid-2 section-grid probability-grid"><article class="panel"><span class="probability-value" data-chance-48>—</span><h3>Atlantic outlook: within 48 hours</h3><p>Near-term organization potential in an Atlantic outlook area. Check the official text for its location; the number alone does not identify a Gulf threat.</p></article><article class="panel"><span class="probability-value" data-chance-7>—</span><h3>Atlantic outlook: within 7 days</h3><p>A longer formation window in an Atlantic outlook area. Read each area's separate probability in the official text when more than one area is listed.</p></article></div><div class="grid-2 section-grid"><article class="panel"><h3>Four probabilities people often confuse</h3><ul class="check-list"><li><strong>Formation:</strong> will a tropical cyclone form in the outlook area?</li><li><strong>Track:</strong> where could an established cyclone move?</li><li><strong>Landfall:</strong> where might its center cross the coast?</li><li><strong>Local impact:</strong> could a location receive surge, rain, wind, tornadoes, or outages?</li></ul></article><article class="panel"><h3>Why the number can change</h3><ul class="check-list"><li>Whether a closed circulation is becoming better organized</li><li>Thunderstorm persistence near the developing center</li><li>Vertical wind shear, dry air, and interaction with a front</li><li>How long the disturbance remains over supportive water</li></ul></article></div><p class="source-note">Only NHC assigns the official formation probability. Model runs and social posts can discuss possibilities but do not replace the outlook.</p></div></section>}
 
   {page.slug === "gulf" && <section class="band" aria-labelledby="outlook-history-heading"><div class="inner grid-2"><article class="panel"><p class="eyebrow">Outlook change log</p><h2 id="outlook-history-heading">What Changed Since Your Last Visit</h2><div data-outlook-history><p>Open this page again after a new NHC outlook to compare the official 48-hour and 7-day percentages on this device.</p></div><p class="source-note">This device-only history is a convenience, not an official advisory archive.</p></article><article class="panel"><p class="eyebrow">Social screenshot check</p><h2>Is That Hurricane Screenshot Still Current?</h2><form data-screenshot-check><label for="screenshot-time">Time shown on the screenshot or post</label><input id="screenshot-time" name="screenshotTime" type="datetime-local" required /><label for="screenshot-zone">Timezone shown or used</label><select id="screenshot-zone" name="screenshotZone"><option value="local">My device timezone</option><option value="-04:00">EDT (UTC-4)</option><option value="-05:00">EST/CDT (UTC-5)</option><option value="-06:00">CST (UTC-6)</option><option value="-07:00">MDT (UTC-7)</option><option value="-08:00">PDT (UTC-8)</option><option value="+00:00">UTC</option></select><button type="submit">Check timestamp</button></form><div class="screenshot-result" data-screenshot-result aria-live="polite"><p>Enter the timestamp printed on a social post, outlook map, or forecast screenshot. This checks time only; it cannot verify an edited image.</p></div></article></div></section>}
 
@@ -82,9 +70,25 @@ const jsonLd = graph(
   {page.slug === "map" && <section class="band" aria-labelledby="map-visual"><div class="inner"><h2 id="map-visual">The Forecast Cone Is Not an Impact Boundary</h2><ContentFigure src="/images/guides/forecast-cone-impact-boundary.svg" alt="Diagram showing an NHC forecast cone for probable storm-center positions with hazards extending outside it" caption="Use the cone for storm-center uncertainty, then check NHC hazard products, NWS alerts, and local evacuation guidance for impacts." /></div></section>}
   {page.slug === "storm-surge-map" && <section class="band" aria-labelledby="surge-visual"><div class="inner"><h2 id="surge-visual">Use Each Hurricane Map for the Right Question</h2><ContentFigure src="/images/guides/storm-hazard-map-differences.svg" alt="Comparison of hurricane forecast track, storm surge, rainfall and flood maps, and local weather alerts" caption="Forecast tracks, surge maps, rainfall forecasts, and local alerts describe different hazards. Check the latest official products together before acting." /></div></section>}
 
+  {page.slug === "what-does-a-hurricane-look-like" && <section class="band" aria-labelledby="structure-example"><div class="inner">
+    <h2 id="structure-example">Find an Eye in a Historical Radar Image</h2>
+    <ContentFigure src="/images/blog/external/nws-michael-2018-radar-eye.png" width={975} height={564} alt="Michael historical radar comparison: a low-reflectivity eye surrounded by a ring of stronger echoes on the left; radial velocity colors on the right." caption="Historical NWS Michael example, October 10, 2018. The image labels KEVX; its left product time reads 16:46:41 and right time 16:46:44. Reflectivity (dBZ) and velocity (knots) are separate radar products, not a current forecast or surface-wind map. The original image is retained without edited data or labels." sourceUrl="https://www.weather.gov/tae/HurricaneMichael2018" sourceLabel="NWS Michael event page, figure 8" fullSize={true} />
+    <ol class="check-list"><li>On the left, locate the relatively dark, low-echo center offshore of Mexico Beach. The surrounding stronger ring shows precipitation in the eyewall; the eye is not a zone to travel into.</li><li>Read the left scale: dBZ measures radar reflectivity, not hurricane category. On the right the scale is knots of radial velocity; these are not interchangeable colors.</li><li>The velocity product samples motion toward or away from the radar at beam height. Do not read the cursor value as sustained wind at a house.</li></ol>
+    <p><strong>Reading check:</strong> Does a dark eye establish safe local conditions? No. It is a feature in an old observation, surrounded by a dangerous eyewall. Current warnings determine protective action.</p>
+    <ContentFigure src="/images/blog/external/nws-ian-2022-radar-visible-1301z.jpg" width={737} height={485} alt="Ian historical visible-satellite and radar composite, with cloud texture and colored precipitation bands near Charleston and Wilmington." caption="Contrasting example: NWS Wilmington's Ian composite, September 30, 2022, labeled 13:01Z (UTC). The satellite clouds and radar echoes are different layers. A clearly exposed circular eye is not required in every image. Legend text is partly clipped in the original, so no numerical color readings are assigned here." sourceUrl="https://www.weather.gov/ilm/HurricaneIan" sourceLabel="NWS Ian summary and original animation" fullSize={true} />
+  </div></section>}
+  {page.slug === "spaghetti-models" && <section class="band"><div class="inner"><ModelTimingExercise /></div></section>}
+  {page.slug === "storm-surge-map" && <section class="band" aria-labelledby="surge-example"><div class="inner">
+    <h2 id="surge-example">Read NHC's Hurricane X Teaching Map</h2>
+    <ContentFigure src="/images/blog/external/nhc-surge-charleston-teaching-example.jpg" width={1650} height={1275} alt="Fictional NHC Hurricane X map near Charleston, with a legend for above-ground inundation and gray intertidal wetlands." caption="Fictional NHC teaching scenario, Hurricane X, not a current Charleston forecast, observed storm, or evacuation order. The source graphic has no printed issue date. Existing local copy is resized/compressed with labels retained; original linked below." sourceUrl="https://www.nhc.noaa.gov/surge/inundation/images/inundation-charleston-example.jpg" sourceLabel="Original NHC teaching image" fullSize={true} />
+    <ol class="check-list"><li>Start with Hurricane X and the location labels Charleston, Mount Pleasant, and Johns Island. This identifies the exercise's scenario and geography.</li><li>Blue means greater than 1 foot above ground; yellow greater than 3; orange greater than 6; red greater than 9. Yellow does not mean exactly 3 feet, and no color is a hurricane category.</li><li>Gray marks intertidal zone/estuarine wetland. The footnote describes roughly a 1-in-10 chance of exceeding the displayed level at a location, not a 10% chance of any flood anywhere.</li></ol>
+    <p><strong>Reading check:</strong> Can the drawn road be assumed open? No. The map does not identify which roads will flood. Check the local evacuation order and transport agency's current restrictions.</p>
+    <p><a href="https://www.nhc.noaa.gov/surge/inundation/">NHC inundation product definition, coverage, and exclusions</a></p>
+  </div></section>}
+
   <section class="band" aria-labelledby="topic-workflow">
     <div class="inner">
-      <p class="eyebrow">{page.intent}</p>
+      <p class="eyebrow">Reading steps</p>
       <h2 id="topic-workflow">Start Here, Then Move Toward a Local Decision</h2>
       <div class="grid-3 section-grid">
         {page.steps.map((step, index) => (
@@ -138,12 +142,13 @@ const jsonLd = graph(
         <ul class="check-list">
           <li><a href="https://www.nhc.noaa.gov/" rel="noopener nofollow">National Hurricane Center</a></li>
           <li><a href="https://www.weather.gov/" rel="noopener nofollow">National Weather Service</a></li>
+          {page.slug === "hurricane-warning" && <li><a href="https://www.weather.gov/safety/hurricane-ww">NWS hurricane, surge, and extreme-wind watch/warning definitions</a></li>}
           <li><a href="/alerts/">Active NWS alerts on HurricaneHub</a></li>
         </ul>
       </article>
       <article class="panel">
         <p class="eyebrow">Local planning</p>
-        <h2>Bring the Search Back to Your Location</h2>
+        <h2>Check Your Location</h2>
         <p>After reading this hub, the most useful next page is usually a city tracker, state tracker, alert page, or household tool that matches the place you care about.</p>
         <ul class="check-list">
           <li><a href="/hurricane-tracker/city/">Browse city hurricane trackers</a></li>
@@ -157,26 +162,36 @@ const jsonLd = graph(
   <FaqBlock faqs={pageFaqs} />
 </Layout>
 
-{page.slug === "gulf" && <script is:inline define:vars={{ gulfOutlookClient }}>
+<script>
+  // @ts-nocheck
+  import { isStormFeedAvailable, isOutlookAvailable } from "../../lib/weatherFeedStatus";
   const heading = document.querySelector("[data-gulf-heading]");
   const answer = document.querySelector("[data-gulf-answer]");
   const updated = document.querySelector("[data-gulf-updated]");
-  const stormLink = document.querySelector("[data-gulf-storm-link]");
-  let outlook = gulfOutlookClient;
+  let stormLink = document.querySelector("[data-gulf-storm-link]");
+  let outlook = { issued: "", issuedAt: "", chance48h: null, chance7d: null };
   const historyKey = "hurricanehub:gulf-outlook-history:v1";
   const historyEl = document.querySelector("[data-outlook-history]");
-  fetch("/api/nhc/current.json", { cache: "no-store" }).then((response) => response.ok ? response.json() : null).then((feed) => {
-    if (!feed) return;
+  if (heading) fetch("/api/nhc/current.json", { cache: "no-store", signal: AbortSignal.timeout(12000) }).then((response) => {
+    if (!response.ok) throw new Error(`NHC HTTP ${response.status}`);
+    return response.json();
+  }).then((feed) => {
+    if (!isStormFeedAvailable(feed)) throw new Error("NHC feed malformed or stale");
     const storms = (Array.isArray(feed.storms) ? feed.storms : []).filter((storm) => /^AL/i.test(String(storm.id ?? "")) && Number(storm.longitudeNumeric) >= -98 && Number(storm.longitudeNumeric) <= -80 && Number(storm.latitudeNumeric) >= 18 && Number(storm.latitudeNumeric) <= 31);
     if (heading) heading.textContent = storms.length ? `${storms.length} Active Gulf Tropical System${storms.length === 1 ? "" : "s"}` : "No Active Gulf Tropical Cyclone";
     if (answer) answer.textContent = storms.length ? `The latest NHC feed lists ${storms.map((storm) => storm.name ?? storm.id ?? "an unnamed system").join(", ")} in the Gulf region. Open the live tracker and official advisory for current position, forecast, and warnings.` : "The latest NHC feed does not list an active tropical cyclone in the Gulf region. A disturbance can still be monitored before it becomes a depression or named storm.";
-    if (updated) updated.textContent = `Current-storm feed checked ${new Date(feed.updatedAt ?? feed.fetchedAt ?? Date.now()).toLocaleString("en-US", { timeZone: "UTC" })} UTC. ${storms.length ? "Use the storm tracker and official advisory for the current path, watches, warnings, and hazards." : "A formation probability is not a forecast track, warning area, or landfall prediction."}`;
+    if (updated) updated.textContent = `Current-storm feed checked ${new Date(feed.fetchedAt).toLocaleString("en-US", { timeZone: "UTC" })} UTC. The Gulf check uses NHC centers within 18–31°N, 98–80°W; hazards can extend beyond this box.`;
+    if (!stormLink && storms[0]) {
+      stormLink = document.createElement("a");
+      stormLink.className = "action-link";
+      document.querySelector("[data-gulf-status] .section-actions")?.prepend(stormLink);
+    }
     if (stormLink && storms[0]) {
       const name = String(storms[0].name ?? storms[0].id ?? "storm");
       stormLink.textContent = `Track ${name}`;
       stormLink.href = `/hurricane-tracker/storm/${name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}/`;
     }
-    if (feed.atlanticOutlook) {
+    if (isOutlookAvailable(feed.atlanticOutlook)) {
       outlook = {
         issued: feed.atlanticOutlook.issued ?? "",
         issuedAt: feed.atlanticOutlook.issuedAt ?? "",
@@ -191,14 +206,22 @@ const jsonLd = graph(
       if (textEl) textEl.textContent = feed.atlanticOutlook.text ?? "";
       if (chance48El) chance48El.textContent = typeof outlook.chance48h === "number" ? `${outlook.chance48h}%` : "—";
       if (chance7El) chance7El.textContent = typeof outlook.chance7d === "number" ? `${outlook.chance7d}%` : "—";
+      renderOutlookHistory();
+    } else {
+      const issuedEl = document.querySelector("[data-outlook-issued]");
+      if (issuedEl) issuedEl.textContent = "Atlantic outlook unavailable or stale. Check NHC directly; current-storm status and formation outlook are separate products.";
     }
-    renderOutlookHistory();
-  }).catch(() => {});
+  }).catch(() => {
+    if (heading) heading.textContent = "Current Gulf Status Unverified";
+    if (answer) answer.textContent = "The NHC feed could not be verified. This is not a no-active-storms result. Check NHC directly.";
+    if (updated) updated.textContent = "Current data unavailable or stale.";
+  });
 
   function renderOutlookHistory() {
     try {
       const stored = JSON.parse(localStorage.getItem(historyKey) || "[]");
-      const history = Array.isArray(stored) ? stored : [];
+      const validChance = (value) => value === null || (typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= 100);
+      const history = Array.isArray(stored) ? stored.filter((item) => item && typeof item.issued === "string" && validChance(item.chance48h) && validChance(item.chance7d)) : [];
       const previous = history.find((item) => item.issued && item.issued !== outlook.issued);
       if (historyEl && outlook.issued) {
         historyEl.innerHTML = previous
@@ -209,7 +232,6 @@ const jsonLd = graph(
       localStorage.setItem(historyKey, JSON.stringify(next));
     } catch {}
   }
-  renderOutlookHistory();
 
   function formatChange(previous, current) {
     if (typeof previous !== "number" || typeof current !== "number") return "not available";
@@ -226,7 +248,11 @@ const jsonLd = graph(
     const zone = String(data.get("screenshotZone") || "local");
     const screenshotTime = new Date(zone === "local" ? value : `${value}:00${zone}`);
     const officialTime = new Date(outlook.issuedAt);
-    if (!screenshotResult || Number.isNaN(screenshotTime.getTime()) || Number.isNaN(officialTime.getTime())) return;
+    if (!screenshotResult) return;
+    if (Number.isNaN(screenshotTime.getTime()) || Number.isNaN(officialTime.getTime())) {
+      screenshotResult.textContent = "A current verified outlook and a valid screenshot time are required. Check NHC directly.";
+      return;
+    }
     const differenceHours = (officialTime.getTime() - screenshotTime.getTime()) / 3_600_000;
     if (differenceHours < -1) {
       screenshotResult.innerHTML = `<p><strong>Timestamp mismatch.</strong> The entered time is later than the current official outlook (${outlook.issued}). Check the timezone and whether the post refers to another product.</p>`;
@@ -236,7 +262,7 @@ const jsonLd = graph(
       screenshotResult.innerHTML = `<p><strong>Time appears current.</strong> The screenshot is within about ${Math.max(0, Math.round(differenceHours))} hours of the current official outlook (${outlook.issued}). Still verify the source URL and exact percentages because images can be edited.</p>`;
     }
   });
-</script>}
+</script>
 
 <style>
   .probability-value { display: block; color: var(--ocean); font-size: clamp(2rem, 6vw, 4rem); font-weight: 900; line-height: 1; }

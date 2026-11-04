@@ -1,0 +1,34 @@
+import { topicPages } from "./topicPages";
+
+// Editorial revisions only. Feed fetch times and advisory issue times belong to their products.
+const revisions: Record<string, string> = {
+  "": "2026-11-02T00:00:00.000Z",
+  "blog/": "2026-11-04T00:00:00.000Z",
+  "updates/": "2026-11-04T00:00:00.000Z",
+  "learn/": "2026-11-04T00:00:00.000Z",
+  "preparedness/": "2026-11-04T00:00:00.000Z",
+  "compare/": "2026-11-04T00:00:00.000Z",
+  "decision-guide/": "2026-11-04T00:00:00.000Z",
+  "site-map/": "2026-11-04T00:00:00.000Z",
+  "storm-archive/": "2026-11-04T00:00:00.000Z",
+  "tools/": "2026-11-04T00:00:00.000Z",
+  "tools/local-risk-plan/": "2026-11-04T00:00:00.000Z",
+  "tools/impact-window-estimator/": "2026-11-04T00:00:00.000Z",
+  "tools/hurricane-brief/": "2026-11-04T00:00:00.000Z",
+  "tools/my-hurricane-dashboard/": "2026-11-04T00:00:00.000Z",
+  "tools/alert-action-decoder/": "2026-11-04T00:00:00.000Z",
+  "tools/preparedness-checklist/": "2026-11-04T00:00:00.000Z",
+  "tools/storm-surge-checker/": "2026-11-04T00:00:00.000Z"
+};
+
+export function contentModifiedFor(pathOrUrl: string, fallback: string) {
+  const path = new URL(pathOrUrl, "https://www.hurricanetracker.cc/").pathname.replace(/^\//, "");
+  if (revisions[path]) return revisions[path];
+  // These templates received material action, status, reading, or local-resource revisions.
+  if (/^tracker\//.test(path)
+    || /^hurricane-tracker\/(city|storm)\/.+/.test(path)
+    || ["hurricane-tracker/live/", "hurricane-tracker/storm/"].includes(path)
+    || topicPages.some((page) => path === `hurricane-tracker/${page.slug}/`)
+    || /^blog\/category\/[^/]+\/$/.test(path)) return "2026-11-04T00:00:00.000Z";
+  return fallback;
+}

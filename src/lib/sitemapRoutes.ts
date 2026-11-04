@@ -5,6 +5,7 @@ import { coastalStates } from "../data/states";
 import { stormTrackerPages } from "../data/stormPages";
 import { topicPages } from "../data/topicPages";
 import { localPreparednessPages } from "../data/localPreparednessPages";
+import { contentModifiedFor } from "../data/contentDates";
 
 export type SitemapSection = "pages" | "blog" | "tools" | "locations";
 
@@ -92,7 +93,8 @@ const blogRoutes: SitemapRoute[] = [
 ];
 
 export const sitemapRoutes: SitemapRoute[] = [...pageRoutes, ...toolRoutes, ...locationRoutes, ...blogRoutes]
-  .filter((route) => !route.path.startsWith("api/") && !route.path.startsWith("admin/"));
+  .filter((route) => !route.path.startsWith("api/") && !route.path.startsWith("admin/"))
+  .map((route) => ({ ...route, lastmod: contentModifiedFor(route.path, route.lastmod) }));
 
 export function routesBySection(section: SitemapSection) {
   return sitemapRoutes.filter((route) => route.section === section);

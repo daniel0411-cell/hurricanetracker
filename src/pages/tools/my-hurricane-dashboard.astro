@@ -93,6 +93,8 @@ const jsonLd = graph(
 </Layout>
 
 <script>
+  import { alertActionGuidance, decisionLevel } from "../../lib/weather";
+  import { isAlertFeedAvailable, isStormFeedAvailable } from "../../lib/weatherFeedStatus";
   type AlertItem = {
     event?: string;
     headline?: string;
@@ -195,12 +197,6 @@ const jsonLd = graph(
     return new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }).format(date);
   }
 
-  function actionsFor(level: string) {
-    if (level === "Leave") return "Follow local evacuation instructions now and use official routes.";
-    if (level === "Act") return "Read active warnings and complete immediate protective actions.";
-    if (level === "Prepare") return "Finish supplies, documents, power, and route planning.";
-    return "Confirm your evacuation zone and continue monitoring official alerts.";
-  }
 
   function alertType(alert: AlertItem) {
     const text = `${alert.event ?? ""} ${alert.headline ?? ""}`;
@@ -231,6 +227,7 @@ const jsonLd = graph(
   }
 
   function actionSteps(alert: AlertItem) {
+    if (/\b(Warning|Watch)\b|^(Immediate Evacuation|Evacuation Order)$/i.test(alert.event ?? "")) return alertActionGuidance([alert]);
     const type = alertType(alert);
     if (type === "Evacuation order") return ["Leave if your zone or household is included.", "Take IDs, medication, documents, pets, chargers, water, and cash.", "Use official evacuation routes and tell a contact where you are going."];
     if (type === "Storm surge threat") return ["Check your evacuation zone, not just your ZIP code.", "Move vehicles, medicine, documents, and valuables away from flood-prone areas.", "Leave early if officials order your zone to evacuate or your route floods easily."];
@@ -428,15 +425,16 @@ const jsonLd = graph(
 
     try {
       const [alertsResponse, stormsResponse] = await Promise.all([
-        fetch(`/api/nws/alerts.json?${alertQuery}`),
-        fetch("/api/nhc/current.json")
+        fetch(`/api/nws/alerts.json?${alertQuery}`, { signal: AbortSignal.timeout(12000) }),
+        fetch("/api/nhc/current.json", { signal: AbortSignal.timeout(12000) })
       ]);
       if (!alertsResponse.ok || !stormsResponse.ok) throw new Error("Live feed unavailable");
       const alerts = await alertsResponse.json() as AlertFeed;
       const storms = await stormsResponse.json() as StormFeed;
+      if (!isAlertFeedAvailable(alerts) || !isStormFeedAvailable(storms)) throw new Error("Feed malformed or stale");
       const alertItems = alerts.alerts ?? [];
       const stormItems = storms.storms ?? [];
-      const level = alerts.decisionLevel ?? "Monitor";
+      const level = decisionLevel(alertItems, []);
       const preview = alertItems.slice(0, 2);
 
       const levelEl = card.querySelector<HTMLElement>('[data-field="level"]');
@@ -454,7 +452,7 @@ const jsonLd = graph(
       }
       if (alertsEl) alertsEl.textContent = String(alertItems.length);
       if (stormsEl) stormsEl.textContent = String(stormItems.length);
-      if (guidanceEl) guidanceEl.textContent = actionsFor(level);
+      if (guidanceEl) guidanceEl.textContent = alertActionGuidance(alertItems).join(" ");
       if (previewEl) {
         previewEl.innerHTML = preview.length
           ? preview.map((alert) => `<div><strong>${escapeHtml(alert.event ?? "Weather alert")}</strong><span>${escapeHtml(alert.headline || alert.severity || "Official NWS alert")}</span></div>`).join("")

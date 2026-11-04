@@ -72,6 +72,8 @@ const jsonLd = graph(
 </Layout>
 
 <script>
+  import { alertActionGuidance, decisionLevel, requiresImmediateShelter } from "../../lib/weather";
+  import { isAlertFeedAvailable, isStormFeedAvailable } from "../../lib/weatherFeedStatus";
   type BriefLocation = {
     zip: string;
     city?: string;
@@ -113,13 +115,9 @@ const jsonLd = graph(
     return String(value ?? "").replace(/[&<>"']/g, (char) => replacements[char] ?? char);
   }
 
-  function actionFor(level: string, needs: string) {
-    const actions: Record<string, string[]> = {
-      Monitor: ["Review your evacuation zone and household contacts.", "Keep the kit, medications, chargers, and pet supplies ready."],
-      Prepare: ["Fuel vehicles and finish supplies, documents, routes, and shelter research.", "Move special-needs planning earlier than the public deadline."],
-      Act: ["Secure the home, move vulnerable people early, and follow every warning.", "Stop nonessential travel as flooding, wind, or road closures increase."],
-      Leave: ["Follow official evacuation instructions and use official routes.", "Take medication, IDs, documents, chargers, water, pets, and cash."]
-    };
+  function actionFor(alerts: BriefAlert[], needs: string) {
+    const actions = alertActionGuidance(alerts);
+    if (requiresImmediateShelter(alerts)) return actions;
     const priority: Record<string, string> = {
       medical: "Call your provider about backup power, refrigerated medicine, and safe care arrangements.",
       mobility: "Choose a destination and route that can support mobility needs before traffic worsens.",
@@ -127,7 +125,7 @@ const jsonLd = graph(
       renter: "Confirm building access, landlord communication, renters insurance records, and what you must secure or take.",
       "no-vehicle": "Confirm county evacuation transport, pickup location, registration rules, and a backup ride before an order is issued."
     };
-    return [...(actions[level] ?? actions.Monitor), ...(priority[needs] ? [priority[needs]] : [])];
+    return [...actions, ...(priority[needs] ? [`Before a threat, plan this need: ${priority[needs]}`] : [])];
   }
 
   function renderBrief(
@@ -145,7 +143,7 @@ const jsonLd = graph(
     const stormMarkup = storms.length
       ? `<ul class="brief-list">${storms.slice(0, 5).map((storm) => `<li><strong>${escapeHtml(storm.name || storm.id || "Active system")}</strong><span>${escapeHtml(storm.classification || "NHC")} · ${escapeHtml(storm.summary || "Current NHC storm data loaded.")}</span></li>`).join("")}</ul>`
       : `<p class="brief-muted">No active NHC tropical cyclone listed in the current feed.</p>`;
-    const actions = actionFor(decisionLevel, needs);
+    const actions = actionFor(alerts, needs);
     const checked = updated ? new Date(updated).toLocaleString([], { dateStyle: "medium", timeStyle: "short" }) : "time unavailable";
     output.innerHTML = `
       <div class="brief-heading">
@@ -176,28 +174,30 @@ const jsonLd = graph(
     event.preventDefault();
     const zip = zipInput?.value.trim() ?? "";
     const needs = needsSelect?.value ?? "standard";
+    if (output) output.innerHTML = "<p>Waiting for a verified current brief.</p>";
     if (!/^\d{5}$/.test(zip)) {
       if (statusEl) statusEl.textContent = "Enter a valid five-digit US ZIP code.";
       return;
     }
     try {
       if (statusEl) statusEl.textContent = "Loading ZIP, NWS, and NHC data...";
-      const locationResponse = await fetch(`/api/location/zip?zip=${encodeURIComponent(zip)}`);
+      const locationResponse = await fetch(`/api/location/zip?zip=${encodeURIComponent(zip)}`, { signal: AbortSignal.timeout(12000) });
       if (!locationResponse.ok) throw new Error("ZIP lookup failed");
       const location = await locationResponse.json() as BriefLocation;
       const [alertsResponse, stormsResponse] = await Promise.all([
-        fetch(`/api/nws/alerts.json?area=${encodeURIComponent(location.state)}`),
-        fetch("/api/nhc/current.json")
+        fetch(`/api/nws/alerts.json?area=${encodeURIComponent(location.state)}`, { signal: AbortSignal.timeout(12000) }),
+        fetch("/api/nhc/current.json", { signal: AbortSignal.timeout(12000) })
       ]);
       if (!alertsResponse.ok || !stormsResponse.ok) throw new Error("Official feed unavailable");
       const alertsData = await alertsResponse.json() as AlertsFeed;
       const stormsData = await stormsResponse.json() as StormsFeed;
+      if (!isAlertFeedAvailable(alertsData) || !isStormFeedAvailable(stormsData)) throw new Error("Feed malformed or stale");
       renderBrief(
         location,
         alertsData.alerts ?? [],
         stormsData.storms ?? [],
-        alertsData.decisionLevel ?? "Monitor",
-        alertsData.updatedAt ?? alertsData.fetchedAt ?? stormsData.updatedAt ?? stormsData.fetchedAt,
+        decisionLevel(alertsData.alerts ?? [], []),
+        alertsData.fetchedAt,
         needs
       );
       if (statusEl) statusEl.textContent = "Live brief updated. Verify local instructions before acting.";

@@ -27,7 +27,7 @@ export const OPTIONS: APIRoute = () =>
 export const GET: APIRoute = async () => {
   try {
     const [{ feed, cacheStatus }, atlanticOutlook] = await Promise.all([getNhcCurrentFeed(), getAtlanticOutlook()]);
-    return new Response(JSON.stringify({ ...feed, atlanticOutlook }), {
+    return new Response(JSON.stringify({ ...feed, cacheStatus, atlanticOutlook }), {
       headers: {
         ...CORS_HEADERS,
         "content-type": "application/json; charset=utf-8",

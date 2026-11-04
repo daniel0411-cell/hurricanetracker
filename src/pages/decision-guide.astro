@@ -6,7 +6,7 @@ import { articleSchema, faqSchema, howToSchema, graph, itemListSchema, websiteSc
 const title = "HurricaneHub Decision Levels – When to Monitor, Prepare, Act, or Leave";
 const description = "A plain-language guide to hurricane decision levels: what Monitor, Prepare, Act, and Leave mean, the official signals behind each, and the household actions to take at every stage.";
 const url = `${site.url}/decision-guide/`;
-const lastModified = "2026-08-07";
+const lastModified = "2026-11-04";
 
 const levels = [
   {
@@ -23,32 +23,32 @@ const levels = [
   {
     id: "prepare",
     name: "Prepare",
-    body: "Prepare means a tropical storm or hurricane, or watch-level hazards such as storm surge or flooding, is possible within roughly 48 hours. This is the window to remove friction before conditions worsen. Finish groceries, water, fuel, and cash; photograph documents and back up records; charge battery packs; and confirm pet and medication plans. Most households should not evacuate at Prepare, but those in mobile homes, flood-prone areas, or with limited mobility should start moving early. Prepare is about decisions made in calm weather: once a warning is issued, roads, shelters, and supplies get harder to secure.",
+    body: "Prepare indicates a watch or advisory in the returned feed. Read the event's own area and timing; not every watch shares a 48-hour window. Confirm supplies, medication, transport, and a destination while conditions are safe. If a local evacuation order already applies, follow that instruction rather than waiting for this label to change. Household needs should be planned in advance, not converted into an automatic departure recommendation from a state-level watch.",
     points: [
       "Stock water, food, cash, fuel, and a cooler plan before traffic builds.",
       "Photograph documents, back up records, and refill prescriptions.",
       "Charge battery packs and prepare power-outage options safely.",
-      "If you live in a mobile home, flood zone, or need extra time, begin leaving."
+      "Arrange transport and suitable shelter for mobile-home, medical, or mobility needs before a threat; record the local authority's deadline."
     ]
   },
   {
     id: "act",
     name: "Act",
-    body: "Act is triggered when warning-level hazards—hurricane-force wind, storm surge, flooding, or tornado watches—are possible, usually within about 36 hours. The forecast is now specific enough to act on. Move elderly, medically dependent, or vulnerable people to safe locations early, finish window protection, bring in loose outdoor items, and charge every device. Follow county emergency instructions and be ready to relocate to a shelter or inland. If you intend to evacuate, Act is the time to do it: routes and shelters are still operable, and waiting for the warning often means driving in deteriorating conditions.",
+    body: "Act means a warning requires its specific protective action now. Extreme Wind and Tornado Warnings call for immediate shelter in a sturdy structure; Flash Flood Warnings require action away from rising water. Hurricane and Storm Surge Warnings have separate instructions and affected areas. Act is not a 36-hour preparation window and does not establish that roads or shelters remain available. Check any overlapping local order without treating the label alone as an instruction to travel.",
     points: [
-      "Move vulnerable people and pets to safe locations early.",
-      "Finish window protection and secure outdoor items.",
-      "Charge devices and prepare a go-bag with documents and medicine.",
-      "Begin evacuation if you planned to leave; shelters and roads are still open."
+      "Extreme Wind Warning: take immediate shelter in the interior of a well-built structure.",
+      "Tornado Warning: use a basement or small interior room on the lowest safe floor; protect your head.",
+      "Flash Flood Warning: follow the warning's direction to higher ground; never cross floodwater.",
+      "Hurricane or surge warning: read the full product and the local order; finish outdoor work only while safe."
     ]
   },
   {
     id: "leave",
     name: "Leave",
-    body: "Leave applies when authorities issue an evacuation order for your zone, or when extreme wind, life-threatening storm surge, or flooding is expected. Follow official evacuation orders immediately if you can leave safely—delaying places you, responders, and family at risk. Leave is mandatory only inside an ordered zone; elsewhere it is a strong recommendation based on your exposure. Use designated Contraflow routes, take your go-bag, and tell someone your destination. If you are not in an ordered zone but face rising water or losing power, treat Leave as your personal trigger and go.",
+    body: "Leave is reserved in the automatic alert summary for an explicit evacuation event. Confirm whether the issuing authority's order includes your address, the required action, deadline, and route. Local orders may exist outside the NWS feed, so a different HurricaneHub label never cancels one. Extreme wind, tornado, and flooding require their own immediate protective instructions; a power outage alone does not establish a safe time or route to depart. If you cannot follow the order safely, contact local emergency services for assistance.",
     points: [
       "Follow evacuation orders for your specific zone immediately and safely.",
-      "Use designated Contraflow highways and avoid low-lying or flooded roads.",
+      "Use current official routes; lane reversal is available only when activated. Avoid flooded roads.",
       "Take your go-bag: documents, medicine, phone chargers, and water.",
       "Tell a contact your destination and expected arrival."
     ]
@@ -62,7 +62,7 @@ const faqs = [
   },
   {
     question: "Should I evacuate at Prepare level?",
-    answer: "Most households should not evacuate at Prepare. Finish supplies, documents, fuel, and routes. Begin leaving early only if you live in a mobile home, flood-prone area, or need extra time to reach safety."
+    answer: "The label cannot decide for your address. Confirm local orders and arrange transport, medication, and suitable shelter before conditions deteriorate. A local order takes priority even if the state alert summary still says Prepare."
   },
   {
     question: "How often do levels update?",
@@ -70,11 +70,11 @@ const faqs = [
   },
   {
     question: "Can I get alerts for my specific county?",
-    answer: "Yes. NWS issues alerts by county and zone, and HurricaneHub state pages and the alerts dashboard show active warnings for specific areas. You can also enable browser push notifications and use the local risk planner for your county."
+    answer: "NWS issues alerts by county, zone, or warning polygon. Read the full alert's affected area at weather.gov. The local risk planner selects a state from your ZIP; it does not filter warnings to your county or address."
   },
   {
     question: "Is Leave level mandatory?",
-    answer: "Leave is mandatory only when emergency management issues an evacuation order for your specific zone. Outside an ordered zone it is a strong recommendation based on your risk exposure."
+    answer: "HurricaneHub does not issue mandatory orders. Read the actual issuing authority's order for your address and follow its area, action, and deadline. An automatic label cannot establish a legal order or a safe route."
   },
   {
     question: "Does HurricaneHub send push notifications?",
@@ -84,7 +84,7 @@ const faqs = [
 
 const decisionPaths = [
   {
-    name: "Check local risk and build a 72-hour plan",
+    name: "Read state alerts and build an action record",
     description: "Use a ZIP code or state to connect the current decision level with NWS alerts, local hazards, and household actions.",
     url: `${site.url}/tools/local-risk-plan/`
   },
@@ -122,7 +122,7 @@ const levelLinks = [
     level: "Act",
     href: "/radar/",
     label: "Compare radar with alerts",
-    body: "Use this when alerts become specific enough to finish outdoor work, move vulnerable people, and monitor worsening conditions."
+    body: "Read the specific warning and its protective action immediately. A tornado or extreme wind warning means shelter, not outdoor preparation."
   },
   {
     level: "Leave",
@@ -143,9 +143,9 @@ const jsonLd = graph(
     url,
     steps: [
       { name: "Monitor", text: "During hurricane season with no active watch or warning, check NHC and NWS advisories twice daily and confirm your evacuation zone." },
-      { name: "Prepare", text: "When a storm or watch-level hazard is possible within about 48 hours, finish supplies, documents, fuel, pet plans, and routes before warnings escalate." },
-      { name: "Act", text: "When warning-level wind, surge, flood, or tornado hazards are possible within about 36 hours, move vulnerable people early and follow county instructions." },
-      { name: "Leave", text: "When an evacuation order or life-threatening hazard applies to your zone, follow official orders immediately if you can leave safely." }
+      { name: "Prepare", text: "Read the watch or advisory's own affected area and timing. Arrange supplies, transport, medication, and a destination while conditions are safe; record the actual local deadline." },
+      { name: "Act", text: "Follow the specific warning's protective action now. Extreme wind and tornado warnings require immediate shelter; flood warnings require action away from rising water." },
+      { name: "Leave", text: "Read the local evacuation order's affected area, deadline, and routes. A summary label does not replace that instruction or determine that travel is safe." }
     ]
   })
 );

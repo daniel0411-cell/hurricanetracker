@@ -11,6 +11,7 @@ import { relevantLocations } from "../../../lib/stormRelevance";
 import { getAdvisoryHistory, getNhcForecast } from "../../../lib/nhcForecast";
 import { detectRapidIntensification } from "../../../lib/riDetection";
 import { formatWind } from "../../../lib/wind-speed";
+import { isStormFeedAvailable } from "../../../lib/weatherFeedStatus";
 
 type StormFeed = {
   storms?: Array<NhcStorm & { summary?: string }>;
@@ -37,6 +38,8 @@ try {
   console.error("HurricaneHub storm-name feed failed", { storm: slug, error });
 }
 
+const feedAvailable = isStormFeedAvailable(feed);
+if (!feedAvailable) feed = null;
 const activeStorm = (feed?.storms ?? []).find((item) => {
   const values = [item.name, item.id, item.binNumber].filter(Boolean).map((value) => String(value).toLowerCase());
   return values.some((value) => value === slug || value.includes(slug));
@@ -54,7 +57,7 @@ if (!knownPage && !activeStorm && successorSlug && successorSlug !== slug) {
 }
 if (!knownPage && !activeStorm && !archivedStorm) return Astro.redirect("/storm-archive/", 302);
 const stormRecord = activeStorm ?? archivedStorm;
-const isArchived = !activeStorm && Boolean(archivedStorm);
+const isArchived = feedAvailable && !activeStorm && Boolean(archivedStorm);
 const stormName = stormRecord?.name ?? knownPage?.name ?? slug.replace(/(^|-)(\w)/g, (_, space, letter) => `${space}${letter.toUpperCase()}`);
 const basinCode = activeStorm?.id?.slice(0, 2).toLowerCase();
 const basin = knownPage?.basin ?? ({ al: "Atlantic", ep: "Eastern Pacific", cp: "Central Pacific" }[basinCode ?? ""] ?? "NHC");
@@ -65,7 +68,7 @@ const isCphc = basin === "Central Pacific" || /\/text\/HFO/i.test(advisoryUrl(ac
 const forecastCenter = isCphc ? "Central Pacific Hurricane Center" : "National Hurricane Center";
 const forecastCenterUrl = isCphc ? "https://www.nhc.noaa.gov/?cpac" : "https://www.nhc.noaa.gov/";
 const overview = knownPage?.overview ?? `Track ${stormName} with the latest NHC position, official advisory time, forecast path, radar, satellite imagery, and local-alert context. This page updates from official NHC data while the system is active and remains available as a stable storm reference.`;
-const inactiveOverview = isArchived
+const inactiveOverview = !feedAvailable ? `Current NHC data for ${stormName} is unavailable or stale. No current active/inactive conclusion can be drawn; check NHC directly. Any retained observation is historical context only.` : isArchived
   ? `${stormName} is absent from the current feed. Review the last recorded observation below and check NHC for the complete archived record.`
   : overview;
 const trackerFocus = knownPage?.trackerFocus ?? [
@@ -102,17 +105,19 @@ const advisoryChanges = advisoryHistory.map((item, index) => {
   };
 });
 const riSignal = advisoryHistory.length ? detectRapidIntensification(advisoryHistory) : null;
-const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? knownPage?.historicalReport?.checkedOn ?? site.contentLastModified;
+const lastModified = "2026-11-04T00:00:00.000Z";
 const title = activeStorm
   ? isPostTropical ? `${stormName} Post-Tropical Cyclone: Latest Advisory & Track` : `${stormName} ${classification} Tracker: Current Position & NHC Update`
   : isArchived ? `${stormName}: Last Recorded Status & Official Sources` : `${stormName}: NHC Status & Official Sources`;
 const description = activeStorm
-  ? isPostTropical ? `${stormName} is post-tropical. Review its latest reported position, advisory time, rainfall and local alerts; follow official updates for ongoing hazards.` : `${stormName} is a ${classification} at ${activeStorm.latitude ?? "a pending position"}, ${activeStorm.longitude ?? ""}, with ${activeStorm.intensity ? formatWind(Number(activeStorm.intensity)) : "intensity pending"}. See its current path, live map and NHC update from ${activeStorm.lastUpdate ?? lastModified}.`
+  ? isPostTropical ? `${stormName} is post-tropical. Review its latest reported position, advisory time, rainfall and local alerts; follow official updates for ongoing hazards.` : `${stormName} is a ${classification} at ${activeStorm.latitude ?? "a pending position"}, ${activeStorm.longitude ?? ""}, with ${activeStorm.intensity ? formatWind(Number(activeStorm.intensity)) : "intensity pending"}. See its current path, live map and NHC update from ${activeStorm.lastUpdate ?? "advisory time unavailable"}.`
   : isArchived
     ? `Review source links and the last recorded status for ${stormName}. Check official archives for a complete track and current alerts for local hazards.`
     : `Check whether ${stormName} appears in the current NHC feed, find official storm records, and review local alerts and preparedness resources.`;
 const url = `${site.url}/hurricane-tracker/storm/${slug}/`;
-const statusFaqs = isPostTropical ? [
+const statusFaqs = !feedAvailable ? [
+  { question: `Is ${stormName} active now?`, answer: "The current NHC feed could not be verified. Check NHC directly; an unavailable feed cannot establish that a system is inactive or hazards have ended." }
+] : isPostTropical ? [
   { question: `Is ${stormName} still a tropical cyclone?`, answer: `The current feed classifies ${stormName} as post-tropical. This classification does not mean advisories have ended or hazards have passed. Follow the linked official advisory and local NWS alerts for rain, flooding, wind and surf risks.` },
   { question: `Where can I review the latest ${stormName} track?`, answer: `Use this page for ${stormName}'s latest reported position and advisory time. Follow official NHC or Weather Prediction Center updates for the continuing forecast; a post-tropical classification alone does not establish a final advisory.` }
 ] : isArchived ? [
@@ -147,7 +152,7 @@ const jsonLd = graph(
       <p class="eyebrow">{basin} storm tracker</p>
       <h1 id="storm-title">{activeStorm ? isPostTropical ? `${stormName} Post-Tropical Cyclone: Latest Track and Advisory` : `${stormName} ${classification} Tracker: Live Map, Path and NHC Updates` : title}</h1>
       {isArchived && <p class="archive-notice"><strong>{stormName} is not active in the current NHC feed.</strong> This stable archive page preserves the last observed advisory context; use the live tracker for current storms.</p>}
-      <p class="answer">{activeStorm ? isPostTropical ? `${stormName} is post-tropical. The current feed reports ${activeStorm.latitude ?? "pending"}, ${activeStorm.longitude ?? "pending"}, with ${activeStorm.intensity ? formatWind(Number(activeStorm.intensity)) : "intensity pending"}, updated ${activeStorm.lastUpdate ?? lastModified}. Follow the official advisory and local alerts for continuing rainfall, flooding, wind and surf hazards.` : `${stormName} is currently classified as a ${classification}. ${forecastCenter} last reported the system at ${activeStorm.latitude ?? "a pending latitude"}, ${activeStorm.longitude ?? "a pending longitude"}, motion: ${formatStormMotion(activeStorm)}. Updated ${activeStorm.lastUpdate ?? lastModified}. Use the tracker and official forecast path below for current details.` : inactiveOverview}</p>
+      <p class="answer">{activeStorm ? isPostTropical ? `${stormName} is post-tropical. The current feed reports ${activeStorm.latitude ?? "pending"}, ${activeStorm.longitude ?? "pending"}, with ${activeStorm.intensity ? formatWind(Number(activeStorm.intensity)) : "intensity pending"}, updated ${activeStorm.lastUpdate ?? "advisory time unavailable"}. Follow the official advisory and local alerts for continuing rainfall, flooding, wind and surf hazards.` : `${stormName} is currently classified as a ${classification}. ${forecastCenter} last reported the system at ${activeStorm.latitude ?? "a pending latitude"}, ${activeStorm.longitude ?? "a pending longitude"}, motion: ${formatStormMotion(activeStorm)}. Updated ${activeStorm.lastUpdate ?? "advisory time unavailable"}. Use the tracker and official forecast path below for current details.` : inactiveOverview}</p>
       {!activeStorm && <p class="answer">A missing current-feed record is not an all-clear. For historical storms, confirm the year in the <a href="https://www.nhc.noaa.gov/data/">NHC past-season archive</a>. A retained feed observation is not a complete historical track or post-season analysis; any sourced historical excerpt below is a separate, dated record.</p>}
       <p class="section-actions">
         <a class="action-link" href="/hurricane-tracker/live/">Open live hurricane tracker</a>
@@ -160,7 +165,7 @@ const jsonLd = graph(
     <div class="inner grid-2">
       <article class="panel">
         <p class="eyebrow">Current official status</p>
-        <h2 id="live-status">{activeStorm ? isPostTropical ? `${stormName} is post-tropical in the current NHC feed` : `${stormName} is active in the current NHC feed` : isArchived ? `${stormName} historical status` : `No active ${stormName} record in the current feed`}</h2>
+        <h2 id="live-status">{!feedAvailable ? "Current NHC status unavailable" : activeStorm ? isPostTropical ? `${stormName} is post-tropical in the current NHC feed` : `${stormName} is active in the current NHC feed` : isArchived ? `${stormName} historical status` : `No active ${stormName} record in the current feed`}</h2>
         {activeStorm ? (
           <>
             <p>{summarizeStorm(activeStorm)}</p>
@@ -179,7 +184,7 @@ const jsonLd = graph(
                 <tr><th>Intensity</th><td>{activeStorm.intensity ? formatWind(Number(activeStorm.intensity)) : activeStorm.windSpeed ?? "pending"}</td></tr>
                 <tr><th>Position</th><td>{activeStorm.latitude ?? "pending"}, {activeStorm.longitude ?? "pending"}</td></tr>
                 <tr><th>Movement</th><td>{formatStormMotion(activeStorm)}</td></tr>
-                <tr><th>NHC update</th><td>{activeStorm.lastUpdate ?? lastModified}</td></tr>
+                <tr><th>NHC update</th><td>{activeStorm.lastUpdate ?? "advisory time unavailable"}</td></tr>
                 <tr><th>Advisory</th><td>{forecast?.advisoryNumber ? `#${forecast.advisoryNumber}` : "Latest official advisory"}</td></tr>
               </tbody>
             </table>
@@ -191,7 +196,7 @@ const jsonLd = graph(
           </>
         ) : (
           <>
-            <p>{isArchived ? `The last recorded ${stormName} observation below is historical context, not a final report or current threat signal.` : `No active NHC tropical cyclone named ${stormName} appears in HurricaneHub's current feed. Verify with NHC; an unavailable or delayed feed cannot establish that hazards have ended.`}</p>
+            <p>{!feedAvailable ? "The current feed could not be verified. Check NHC directly before drawing any conclusion about this system." : isArchived ? `The last recorded ${stormName} observation below is historical context, not a final report or current threat signal.` : `No active NHC tropical cyclone named ${stormName} appears in the verified current feed. Check local alerts for continuing hazards.`}</p>
             {archivedStorm && <table><tbody>
               <tr><th>Storm identifier</th><td>{archivedStorm.id ?? "Unavailable"}</td></tr>
               <tr><th>Recorded classification</th><td>{archivedStorm.classification ?? "Unavailable"}</td></tr>
@@ -253,7 +258,7 @@ const jsonLd = graph(
         <p class="eyebrow">Advisory update</p>
         <h2 id="storm-outlook">{stormName} 24–48 Hour Tracker Outlook</h2>
         <p class="answer">The current NHC record places {stormName} at {activeStorm.latitude ?? "a pending latitude"}, {activeStorm.longitude ?? "a pending longitude"}, motion: {formatStormMotion(activeStorm)}. {next48.length ? `The official GIS forecast includes ${next48.length} center positions through 48 hours.` : "Use the official forecast advisory for the next scheduled positions."}</p>
-        <p class="source-note">Updated {activeStorm.lastUpdate ?? lastModified}{forecast?.advisoryNumber ? ` · NHC advisory #${forecast.advisoryNumber}` : ""}. NHC normally issues full advisories every six hours, with intermediate updates when needed.</p>
+        <p class="source-note">Updated {activeStorm.lastUpdate ?? "advisory time unavailable"}{forecast?.advisoryNumber ? ` · NHC advisory #${forecast.advisoryNumber}` : ""}. NHC normally issues full advisories every six hours, with intermediate updates when needed.</p>
       </div>
     </section>
   )}

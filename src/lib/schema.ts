@@ -1,4 +1,5 @@
 import { site } from "../data/site";
+import { contentModifiedFor } from "../data/contentDates";
 
 type Faq = {
   question: string;
@@ -57,7 +58,7 @@ export function articleSchema(params: {
     url: params.url,
     image: params.image,
     datePublished: params.datePublished,
-    dateModified: params.dateModified ?? new Date().toISOString(),
+    dateModified: contentModifiedFor(params.url, params.dateModified ?? site.contentLastModified),
     author: organizationSchema(),
     publisher: organizationSchema(),
     about: ["Hurricane tracking", "Emergency management", "Weather alerts"]

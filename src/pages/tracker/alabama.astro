@@ -1,5 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import FaqBlock from "../../components/FaqBlock.astro";
+import StatePreparednessEvidence from "../../components/StatePreparednessEvidence.astro";
+import { stateEvidence, stateEvidenceFaqs } from "../../data/stateEvidence";
 import StateAlerts from "../../components/StateAlerts.astro";
 import StateActionPaths from "../../components/StateActionPaths.astro";
 import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
@@ -17,16 +20,17 @@ const region = state.region;
 const title = `${name} Hurricane Tracker – Live NHC Data & Alerts`;
 const description = `${name} real-time hurricane tracking with NOAA data, NWS alerts, evacuation info, and live updates for ${region}.`;
 const canonical = `${site.url}/tracker/${state.slug}/`;
-const lastModified = site.contentLastModified;
+const lastModified = "2026-11-04T00:00:00.000Z";
 const currentStatus = await getStateCurrentStatus(code);
 
-const intro = `Alabama's coastline is the second-shortest among Gulf states at about 53 miles, centered on Mobile Bay and the white-sand communities of Baldwin County. Yet that compact shore sits where easterly Gulf storms often slow and pivot, and Mobile Bay's funnel shape can concentrate storm surge. Inland river systems then carry flooding far beyond the beach. In 2020, Hurricane Sally crawled along the Alabama coast and produced extreme rainfall and flooding around Mobile and Gulf Shores, one of the most damaging recent storms for the state. The 2026 Atlantic hurricane season runs June 1 through November 30, with Gulf risk highest from August through September, so Mobile Bay residents—especially those in mobile homes—should stage plans early.`;
+const evidence = stateEvidence[code];
+const intro = evidence.intro;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const stateActionPaths = [
   {
     name: `${name} local risk action plan`,
-    description: `Build a 72/48/24-hour household action plan from ${name} alerts, coastal hazards, and local constraints.`,
+    description: `Read ${name} alerts and record hazard-specific actions with official local instructions and deadlines.`,
     url: `${site.url}/tools/local-risk-plan/?state=${code}`
   },
   {
@@ -47,20 +51,7 @@ const stateActionPaths = [
 ];
 const adjacent = ["florida", "mississippi"];
 
-const faqs = [
-  {
-    question: `When is hurricane season in ${name}?`,
-    answer: `Alabama's season runs June 1–November 30, with the greatest threat from August through September as Gulf storms approach from the south and southeast. Mobile Bay communities should stay prepared throughout that period.`
-  },
-  {
-    question: `What was the worst hurricane to hit ${name}?`,
-    answer: `Hurricane Sally (2020) stalled along the Alabama coast and produced extreme rainfall and flooding around Mobile and Baldwin counties, with a slow, destructive crawl. It was among the most damaging recent storms for the state.`
-  },
-  {
-    question: `Does ${name} have hurricane evacuation routes?`,
-    answer: `Yes. Alabama's coastal counties use evacuation zones and coordinate Contraflow on I-10 and I-65. Mobile Bay residents, including those in mobile homes, should decide early because surge and flooding can cut routes before peak wind.`
-  }
-];
+const faqs = stateEvidenceFaqs(name, evidence);
 
 const jsonLd = graph(
   websiteSchema(),
@@ -88,6 +79,8 @@ const jsonLd = graph(
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
       <StateAlerts state={code} />
 
+      <StatePreparednessEvidence code={code} name={name} />
+
       <h2 id="city-trackers">{name} City Hurricane Trackers</h2>
       <p class="source-note">Open city guides for local surge, flooding, evacuation-route, and outage planning notes within {name}.</p>
       <div class="grid-3" style="margin-top: 18px;">
@@ -114,6 +107,7 @@ const jsonLd = graph(
       </ul>
     </div>
   </article>
+  <FaqBlock faqs={faqs} />
 </BaseLayout>
 
 <style>

@@ -75,7 +75,7 @@ import { states } from "../data/site";
 </section>
 
 <script>
-  import { advisoryUrl, type AdvisoryLink } from "../lib/weather";
+  import { advisoryUrl, decisionLevel, type AdvisoryLink } from "../lib/weather";
   import { isStormFeedAvailable, isAlertFeedAvailable } from "../lib/weatherFeedStatus";
   type Storm = {
     name?: string;
@@ -168,7 +168,7 @@ import { states } from "../data/site";
     const alerts = alertsAvailable ? alertsData?.alerts ?? [] : [];
     stormCount.textContent = stormsAvailable ? String(storms.length) : "N/A";
     alertCount.textContent = alertsAvailable ? String(alerts.length) : "N/A";
-    const decision = alertsAvailable ? alertsData!.decisionLevel! : "Unavailable";
+    const decision = alertsAvailable ? decisionLevel(alertsData!.alerts!, []) : "Unavailable";
     decisionEl.textContent = decision;
     decisionEl.className = alertsAvailable ? decisionClass(decision) : "";
     function checkedAt(value: string | undefined) {

@@ -51,7 +51,7 @@ const cityUpdates = hurricaneCities.slice(-12).reverse().map((city) => ({
 const stormUpdates = stormTrackerPages.map((storm) => ({
   title: `Hurricane ${storm.name} Tracker`,
   href: `/hurricane-tracker/storm/${storm.slug}/`,
-  description: storm.searchDemandNote,
+  description: storm.overview,
   date: lastModified,
   type: "Storm Tracker"
 }));

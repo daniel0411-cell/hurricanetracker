@@ -1,95 +1,18 @@
 ---
 import type { CoastalState } from "../data/states";
 import type { HurricaneCity } from "../data/cities";
-import { topicPages } from "../data/topicPages";
-
-type Props = {
-  state: CoastalState;
-  cities: HurricaneCity[];
-};
-
-const { state, cities } = Astro.props;
-const featuredCities = cities.slice(0, 4);
-const primaryRisks = state.risks.slice(0, 4);
-const priorityTopics = ["live-tracker", "map", "radar", "spaghetti-models", "evacuation-zones", "storm-surge-map", "preparedness-checklist"]
-  .map((slug) => topicPages.find((page) => page.slug === slug))
-  .filter((page): page is NonNullable<typeof page> => Boolean(page));
+type Props = { state: CoastalState; cities: HurricaneCity[] };
+const { state } = Astro.props;
 ---
-<section class="state-seo-block" aria-labelledby="state-seo-heading">
-  <div class="grid-2 section-grid">
-    <article class="panel">
-      <p class="eyebrow">Local resources</p>
-      <h2 id="state-seo-heading">Use This {state.name} Tracker With Local Pages</h2>
-      <p>{state.preparednessNote}</p>
-      <ul class="check-list">
-        <li><a href="/hurricane-tracker/live/">Check the live hurricane tracker map</a></li>
-        <li><a href="/local-hurricane-risk/">Check local hurricane risk by ZIP, city, or state</a></li>
-        <li><a href="/alerts/">Review active NWS alerts by state</a></li>
-        <li><a href="/tools/local-risk-plan/">Build a local 72-hour action plan</a></li>
-        <li><a href="/hurricane-tracker/map/">Compare hurricane tracker map options</a></li>
-        <li><a href="/learn/">Learn how to read hurricane tracker products</a></li>
-      </ul>
-    </article>
-    <article class="panel">
-      <p class="eyebrow">Risk context</p>
-      <h2>{state.name} Hurricane Planning Signals</h2>
-      <p>State trackers are broad screens. Pair this page with city trackers, county emergency management, and official weather.gov alerts before making evacuation or shelter decisions.</p>
-      <div class="risk-tags">
-        {primaryRisks.map((risk) => <span class="risk-tag">{risk}</span>)}
-      </div>
-    </article>
-  </div>
-
-  <div class="state-seo-cities" aria-labelledby="state-topic-shortcuts-heading">
-    <h2 id="state-topic-shortcuts-heading">{state.name} Hurricane Topic Shortcuts</h2>
-    <p class="source-note">Compare forecast maps, check evacuation-zone guidance, or review household supplies.</p>
-    <div class="grid-3 section-grid">
-      {priorityTopics.map((topic) => (
-        <article class="panel compact-panel">
-          <p class="eyebrow">{topic.intent}</p>
-          <h3><a href={`/hurricane-tracker/${topic.slug}/`}>{topic.title}</a></h3>
-          <p>{topic.description}</p>
-        </article>
-      ))}
-    </div>
-  </div>
-
-  <div class="state-seo-cities" aria-labelledby="state-risk-shortcuts-heading">
-    <h2 id="state-risk-shortcuts-heading">{state.name} Hurricane Risk Shortcuts</h2>
-    <div class="grid-3 section-grid">
-      <article class="panel compact-panel">
-        <h3><a href="/local-hurricane-risk/">Local hurricane risk</a></h3>
-        <p>Use ZIP, city, state, storm surge, evacuation-zone, and household planning paths for {state.name} risk checks.</p>
-      </article>
-      <article class="panel compact-panel">
-        <h3><a href="/hurricane-tracker/evacuation-zones/">Evacuation zones</a></h3>
-        <p>Understand how local evacuation zones, official orders, surge risk, and household constraints fit together.</p>
-      </article>
-      <article class="panel compact-panel">
-        <h3><a href="/hurricane-tracker/storm-surge-map/">Storm surge map</a></h3>
-        <p>Review why surge risk is local and separate from hurricane category, especially for coastal counties.</p>
-      </article>
-    </div>
-  </div>
-
-  {featuredCities.length ? (
-    <div class="state-seo-cities" aria-labelledby="state-city-shortcuts-heading">
-      <h2 id="state-city-shortcuts-heading">Local Guides in {state.name}</h2>
-      <div class="grid-2 section-grid">
-        {featuredCities.map((city) => (
-          <article class="panel compact-panel">
-            <h3><a href={`/hurricane-tracker/city/${city.slug}/`}>{city.name} Hurricane Tracker</a></h3>
-            <p>{city.planningNote}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  ) : null}
-</section>
-
+<nav class="state-reading" aria-label={`${state.name} map reading guides`}>
+  <h2>Read the Products Behind This Check</h2>
+  <ul>
+    <li><a href="/hurricane-tracker/map/">Track and cone: probable center positions</a></li>
+    <li><a href="/hurricane-tracker/storm-surge-map/">Surge map: above-ground inundation and its legend</a></li>
+    <li><a href="/hurricane-tracker/evacuation-zones/">Evacuation zones: local instructions for your address</a></li>
+  </ul>
+</nav>
 <style>
-  .state-seo-block { margin-top: 34px; }
-  .state-seo-cities { margin-top: 28px; }
-  .compact-panel h3 { margin-top: 0; }
-  .compact-panel p { margin-bottom: 0; }
+  .state-reading { margin: 28px 0; border-top: 1px solid var(--line); padding-top: 20px; }
+  .state-reading ul { display: grid; gap: 10px; padding-left: 1.2rem; }
 </style>

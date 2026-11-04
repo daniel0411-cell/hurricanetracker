@@ -56,7 +56,7 @@ const pages: Entry[] = [
   { title: "HurricaneHub Terms of Use", url: "/terms/", description: "Review the terms, safety limits, acceptable use, external-link, advertising, and liability information for HurricaneHub.", category: "About", body: "terms of use safety limits acceptable use external links advertising liability" },
   { title: "Hurricane Tools", url: "/tools/", description: "Decision-support tools and search-intent paths for live tracking, radar, evacuation zones, storm surge, preparedness checklists, and household plans.", category: "Tools", body: "tools checklist calculator planner live tracker radar evacuation zones storm surge preparedness checklist household decision path" },
   { title: "My Hurricane Dashboard", url: "/tools/my-hurricane-dashboard/", description: "A personalized hurricane dashboard that tracks your saved locations and active threats.", category: "Tools", body: "dashboard saved locations threats watchlist" },
-  { title: "Impact Window Estimator", url: "/tools/impact-window-estimator/", description: "Estimate the window of time before hurricane impacts reach your area.", category: "Tools", body: "impact window estimator time before landfall" },
+  { title: "State Alert and Action Summary", url: "/tools/impact-window-estimator/", description: "Read state NWS alerts and protective actions; alert expiration is not storm arrival.", category: "Tools", body: "state weather alerts protective actions warning area expiration official instructions" },
   { title: "Local Risk Plan", url: "/tools/local-risk-plan/", description: "Build a localized hurricane risk plan from your address or ZIP code.", category: "Tools", body: "local risk plan address zip code" },
   { title: "County Hurricane Risk Lookup", url: "/tools/county-hurricane-risk/", description: "Screen point-based NWS alerts by ZIP code and verify county evacuation, shelter, road, and emergency management sources.", category: "Tools", body: "county hurricane risk lookup zip code county emergency management evacuation zone alerts shelters" },
   { title: "Preparedness Checklist Generator", url: "/tools/preparedness-checklist/", description: "Generate a personalized hurricane preparedness checklist.", category: "Tools", body: "preparedness checklist generator supply kit" },
@@ -96,7 +96,7 @@ const blogCategoryEntries: Entry[] = BLOG_CATEGORY_PAGES.map((category) => ({
 const stormEntries: Entry[] = stormTrackerPages.map((storm) => ({
   title: `Hurricane ${storm.name} Tracker`,
   url: `/hurricane-tracker/storm/${storm.slug}/`,
-  description: cleanText(storm.searchDemandNote, 220),
+  description: cleanText(storm.overview, 220),
   category: "Storm Tracker",
   body: [storm.name, storm.basin, storm.primaryKeywords.join(" "), storm.trackerFocus.join(" ")].join(" ")
 }));

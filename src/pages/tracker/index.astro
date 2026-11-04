@@ -8,6 +8,8 @@ import { coastalStates } from "../../data/states";
 import { topicPages } from "../../data/topicPages";
 import { articleSchema, faqSchema, governmentServiceSchema, graph, websiteSchema } from "../../lib/schema";
 import { summarizeStorm, type NhcStorm, type NwsAlert } from "../../lib/weather";
+import { decisionLevel as classifyAlerts } from "../../lib/weather";
+import { isAlertFeedAvailable, isStormFeedAvailable } from "../../lib/weatherFeedStatus";
 
 type StormFeed = {
   storms?: Array<NhcStorm & { summary?: string }>;
@@ -30,7 +32,7 @@ const url = `${site.url}/tracker/`;
 
 async function loadJson<T>(path: string): Promise<T | null> {
   try {
-    const response = await fetch(new URL(path, Astro.url));
+    const response = await fetch(new URL(path, Astro.url), { signal: AbortSignal.timeout(12000) });
     if (!response.ok) {
       console.error("HurricaneHub tracker feed error", { path, status: response.status });
       return null;
@@ -47,10 +49,12 @@ const [stormFeed, alertFeed] = await Promise.all([
   loadJson<AlertFeed>("/api/nws/alerts.json?area=AL")
 ]);
 
-const storms = stormFeed?.storms ?? [];
-const alerts = alertFeed?.alerts ?? [];
-const decisionLevel = alertFeed?.decisionLevel ?? "Monitor";
-const lastModified = stormFeed?.updatedAt ?? alertFeed?.updatedAt ?? site.contentLastModified;
+const stormsAvailable = isStormFeedAvailable(stormFeed);
+const alertsAvailable = isAlertFeedAvailable(alertFeed);
+const storms = stormsAvailable ? stormFeed!.storms! : [];
+const alerts = alertsAvailable ? alertFeed!.alerts! : [];
+const decisionLevel = alertsAvailable ? classifyAlerts(alerts, []) : "Unavailable";
+const lastModified = "2026-11-04T00:00:00.000Z";
 const featuredCities = hurricaneCities.slice(0, 12);
 const stateDemandOrder = ["georgia", "north-carolina", "texas", "florida", "virginia", "south-carolina", "louisiana", "mississippi", "alabama"];
 const orderedStates = [...coastalStates].sort((a, b) => stateDemandOrder.indexOf(a.slug) - stateDemandOrder.indexOf(b.slug));
@@ -84,10 +88,10 @@ const jsonLd = graph(
         <p class="eyebrow">Current snapshot</p>
         <h2>Alabama: {decisionLevel}</h2>
         <div class="tracker-metrics">
-          <div class="metric"><strong>{storms.length}</strong><span>all NHC systems</span></div>
-          <div class="metric"><strong>{alerts.length}</strong><span>Alabama NWS alerts</span></div>
+          <div class="metric"><strong>{stormsAvailable ? storms.length : "—"}</strong><span>all NHC systems</span></div>
+          <div class="metric"><strong>{alertsAvailable ? alerts.length : "—"}</strong><span>Alabama NWS alerts</span></div>
         </div>
-        <p class="source-note">Updated {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC.</p>
+        <p class="source-note">NHC: {stormsAvailable ? `checked ${stormFeed!.fetchedAt}` : "unavailable or stale"}. NWS: {alertsAvailable ? `checked ${alertFeed!.fetchedAt}` : "unavailable or stale"}.</p>
       </aside>
     </div>
   </section>
@@ -97,7 +101,7 @@ const jsonLd = graph(
       <article class="panel">
         <p class="eyebrow">Live map hub</p>
         <h2 id="tracker-shortcuts-heading">Live Hurricane Tracker Map</h2>
-        <p>Use the keyword-focused live tracker hub for active storm checks, radar shortcuts, alerts, and local page links.</p>
+        <p>Open current system records, advisory links, radar, and local alerts together.</p>
         <a href="/hurricane-tracker/live/">Open live map hub</a>
       </article>
       <article class="panel">
@@ -134,13 +138,12 @@ const jsonLd = graph(
 
   <section class="band" aria-labelledby="tracker-topic-heading">
     <div class="inner">
-      <p class="eyebrow">Popular tracker intents</p>
-      <h2 id="tracker-topic-heading">Hurricane Tracker Topic Hubs</h2>
+      <p class="eyebrow">Forecast reading</p>
+      <h2 id="tracker-topic-heading">Understand the Map You Are Using</h2>
       <p class="answer">Open these pages when your question is about maps, path tracking, evacuation zones, or storm surge instead of one state.</p>
       <div class="grid-2 section-grid">
         {trackerTopicHubs.map((hub) => (
           <article class="panel">
-            <p class="eyebrow">{hub.intent}</p>
             <h3><a href={hub.href}>{hub.title}</a></h3>
             <p>{hub.description}</p>
           </article>
@@ -179,7 +182,7 @@ const jsonLd = graph(
             <span class="badge">NHC advisory feed</span>
           </div>
         </div>
-        <p class="source-note">Last checked: {new Date(lastModified).toLocaleString("en-US", { timeZone: "UTC" })} UTC</p>
+        <p class="source-note">NHC feed: {stormsAvailable ? `checked ${stormFeed!.fetchedAt}` : "unavailable or stale; check NHC directly"}.</p>
       </article>
 
       <article class="panel decision-panel">
@@ -215,8 +218,8 @@ const jsonLd = graph(
           </article>
         )) : (
           <article class="panel">
-            <h3>No Active NHC Storms</h3>
-            <p>No active NHC tropical cyclone is listed right now. Keep monitoring official advisories during hurricane season because tropical outlooks can change quickly.</p>
+            <h3>{stormsAvailable ? "No Active NHC Storms" : "NHC Status Unavailable"}</h3>
+            <p>{stormsAvailable ? "The verified feed lists no active NHC systems. Check the outlook and local alerts for developing or continuing hazards." : "The feed could not be verified. Check NHC directly; a failed or stale feed cannot establish no active storms."}</p>
           </article>
         )}
       </div>
@@ -242,8 +245,8 @@ const jsonLd = graph(
           </article>
         )) : (
           <article class="panel">
-            <h3>No Active Alabama Alerts</h3>
-            <p>No active NWS alerts were returned for Alabama. Use this as a monitoring state, not an all-clear for your county.</p>
+            <h3>{alertsAvailable ? "No Active Alabama Alerts" : "Alabama Alerts Unavailable"}</h3>
+            <p>{alertsAvailable ? "No active alerts were returned in the verified state query. Confirm local orders separately." : "Current alerts could not be verified. Read NWS directly for official instructions."}</p>
           </article>
         )}
       </div>

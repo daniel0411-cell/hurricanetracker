@@ -1,6 +1,7 @@
 ---
 import { breadcrumbSchema, graph, organizationSchema, websiteSchema } from "../lib/schema";
 import { site } from "../data/site";
+import { contentModifiedFor } from "../data/contentDates";
 
 type Props = {
   title: string;
@@ -16,7 +17,7 @@ type Props = {
 };
 
 const { title, description, canonical, siteName, jsonLd, lastModified, image, ogImage, imageAlt, publishedTime } = Astro.props;
-const modified = lastModified ?? site.contentLastModified;
+const modified = contentModifiedFor(canonical, lastModified ?? site.contentLastModified);
 const schema = jsonLd ?? graph(websiteSchema(), organizationSchema());
 
 // Canonicalize every page's canonical to https://www.<host>/... so it matches

@@ -7,6 +7,7 @@ import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "
 import { advisoryUrl, summarizeStorm, type NhcStorm } from "../lib/weather";
 import { readStormRegistry } from "../lib/stormRegistry";
 import { formatWind } from "../lib/wind-speed";
+import { isStormFeedAvailable } from "../lib/weatherFeedStatus";
 
 type StormFeed = {
   storms?: Array<NhcStorm & { summary?: string }>;
@@ -28,14 +29,15 @@ try {
   console.error("HurricaneHub storm archive feed failed", { error });
 }
 
-const storms = feed?.storms ?? [];
+const feedAvailable = isStormFeedAvailable(feed);
+const storms = feedAvailable ? feed!.storms! : [];
 const registryStorms = await readStormRegistry();
-const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
+const lastModified = "2026-11-04T00:00:00.000Z";
 const archiveIntents = [
   {
     title: "Find whether a named storm is active",
     body:
-      "Searchers often land here after hearing a storm name. Start with the current NHC records, then open the named-storm page for live status checks and advisory shortcuts.",
+      "Confirm the storm's year and basin, then read the current status or the dated official record. Repeated names can refer to different storms.",
     href: "/hurricane-tracker/storm/",
     label: "Browse named storm trackers"
   },
@@ -168,7 +170,7 @@ const jsonLd = graph(
   itemListSchema([
     ...stormTrackerPages.map((storm) => ({
       name: `Hurricane ${storm.name} Tracker`,
-      description: storm.searchDemandNote,
+      description: storm.overview,
       url: `${site.url}/hurricane-tracker/storm/${storm.slug}/`
     })),
     ...namedStormArchives.map((storm) => ({
@@ -205,7 +207,7 @@ const jsonLd = graph(
               <span class="badge warn">{storm.classification ?? "NHC"}</span>
             </header>
             <p>{summarizeStorm(storm)}</p>
-            <p class="small">Position: {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"} · Updated: {storm.lastUpdate ?? lastModified}</p>
+            <p class="small">Position: {storm.latitude ?? "pending"}, {storm.longitude ?? "pending"} · Advisory update: {storm.lastUpdate ?? "unavailable"}</p>
             <p>
               {advisoryUrl(storm.publicAdvisory) && <a href={advisoryUrl(storm.publicAdvisory)} rel="nofollow">NHC public advisory</a>}
               {advisoryUrl(storm.forecastAdvisory) && <> · <a href={advisoryUrl(storm.forecastAdvisory)} rel="nofollow">NHC forecast advisory</a></>}
@@ -213,8 +215,8 @@ const jsonLd = graph(
           </article>
         )) : (
           <article class="panel">
-            <h3>No Active NHC Storms</h3>
-            <p>No active NHC tropical cyclone is listed in the current feed. Use named-storm trackers, the learning center, and the live tracker for current storm context.</p>
+            <h3>{feedAvailable ? "No Active NHC Storms" : "Current NHC Feed Unavailable"}</h3>
+            <p>{feedAvailable ? "No active NHC tropical cyclone is listed in the verified feed. Check the outlook and local alerts for developing or continuing hazards." : "The current feed could not be verified. Check NHC directly; unavailable data cannot establish whether a storm is active."}</p>
           </article>
         )}
       </div>
@@ -288,7 +290,7 @@ const jsonLd = graph(
         </article>
         <article class="panel">
           <h3>Use Named Storm Pages</h3>
-          <p>Storm-name pages help searchers confirm whether Erin, Melissa, or another named storm is active and where to find current advisory links.</p>
+          <p>Confirm the year and basin before opening a storm-name page. Current status and a dated historical report describe different records.</p>
           <a href="/hurricane-tracker/storm/">Browse named storm trackers</a>
         </article>
         <article class="panel">
@@ -378,7 +380,7 @@ const jsonLd = graph(
           <article class="panel">
             <p class="eyebrow">{storm.basin}</p>
             <h3><a href={`/hurricane-tracker/storm/${storm.slug}/`}>Hurricane {storm.name} Tracker</a></h3>
-            <p>{storm.searchDemandNote}</p>
+            <p>{storm.overview}</p>
           </article>
         ))}
       </div>

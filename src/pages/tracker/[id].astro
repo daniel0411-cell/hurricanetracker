@@ -1,10 +1,12 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import FaqBlock from "../../components/FaqBlock.astro";
 import StormLocationCompare from "../../components/StormLocationCompare.astro";
 import { faqs, site } from "../../data/site";
 import { articleSchema, faqSchema, graph, websiteSchema } from "../../lib/schema";
 import { advisoryUrl, formatStormMotion, summarizeStorm, type NhcStorm } from "../../lib/weather";
 import { formatWind } from "../../lib/wind-speed";
+import { isStormFeedAvailable } from "../../lib/weatherFeedStatus";
 
 type StormFeed = {
   storms?: Array<NhcStorm & { summary?: string }>;
@@ -19,7 +21,7 @@ const url = `${site.url}/tracker/${encodeURIComponent(id)}/`;
 
 let feed: StormFeed | null = null;
 try {
-  const response = await fetch(new URL("/api/nhc/current.json", Astro.url));
+  const response = await fetch(new URL("/api/nhc/current.json", Astro.url), { signal: AbortSignal.timeout(12000) });
   if (response.ok) {
     feed = await response.json() as StormFeed;
   } else {
@@ -29,6 +31,7 @@ try {
   console.error("HurricaneHub storm detail feed failed", { id, error });
 }
 
+if (!isStormFeedAvailable(feed)) feed = null;
 const storm = (feed?.storms ?? []).find((item) => {
   const keys = [item.id, item.name, item.binNumber].filter(Boolean).map((value) => String(value).toLowerCase());
   return keys.includes(id.toLowerCase());
@@ -36,7 +39,7 @@ const storm = (feed?.storms ?? []).find((item) => {
 if (feed && !storm) return Astro.redirect("/tracker/", 302);
 const publicAdvisory = advisoryUrl(storm?.publicAdvisory);
 const forecastAdvisory = advisoryUrl(storm?.forecastAdvisory);
-const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? site.contentLastModified;
+const lastModified = "2026-11-04T00:00:00.000Z";
 const jsonLd = graph(
   websiteSchema(),
   articleSchema({ title, description, url, dateModified: lastModified }),
@@ -66,7 +69,7 @@ const jsonLd = graph(
                 <tr><th>Pressure</th><td>{storm.pressure ?? "pending"}</td></tr>
                 <tr><th>Position</th><td>{storm.latitude ?? "pending"}, {storm.longitude ?? "pending"}</td></tr>
                 <tr><th>Movement</th><td>{formatStormMotion(storm)}</td></tr>
-                <tr><th>NHC update</th><td>{storm.lastUpdate ?? feed?.updatedAt ?? "pending"}</td></tr>
+                <tr><th>NHC update</th><td>{storm.lastUpdate ?? "advisory time unavailable"}</td></tr>
               </tbody>
             </table>
             <p class="storm-detail-links">
@@ -103,6 +106,7 @@ const jsonLd = graph(
       </div>
     </section>
   )}
+  <FaqBlock faqs={faqs} />
 </Layout>
 
 <style>

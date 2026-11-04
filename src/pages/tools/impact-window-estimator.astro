@@ -4,17 +4,17 @@ import Layout from "../../layouts/Layout.astro";
 import { faqs, site, states } from "../../data/site";
 import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
 
-const title = "When Will a Hurricane Reach Me? Impact Window";
-const description = "Estimate when to monitor, prepare, act, or leave using active NWS alert timing and NHC storm context. This tool does not predict hurricane arrival or landfall.";
+const title = "State Weather Alerts and Hurricane Action Summary";
+const description = "Read active state NWS alerts, hazard-specific protective actions, and current NHC storm context. Check alert expiration separately from wind arrival.";
 const url = `${site.url}/tools/impact-window-estimator/`;
 const pageFaqs = [
   {
-    question: "Does the impact window estimator predict landfall?",
-    answer: "No. It uses active alert language, NWS timing fields, and NHC storm context to organize household action windows. It does not forecast landfall, wind arrival, or storm surge."
+    question: "Does the state alert summary predict landfall or wind arrival?",
+    answer: "No. This state alert summary lists active NWS alerts and NHC system counts. Alert expiration is when a listed alert ends or needs replacement; it is not the time a hurricane or its winds will arrive."
   },
   {
-    question: "What should I do if the estimator says Act or Leave?",
-    answer: "Read the official alert, check county emergency management, and follow evacuation or shelter instructions. Move vulnerable people earlier when needed."
+    question: "What should I do if the state summary says Act or Leave?",
+    answer: "Read each alert's affected area and instructions. Extreme Wind and Tornado Warnings call for immediate shelter; local evacuation orders have their own areas and deadlines. Follow the specific instruction rather than treating Act as a direction to travel."
   },
   ...faqs
 ];
@@ -25,7 +25,7 @@ const jsonLd = graph(
     name: title,
     description,
     url,
-    featureList: ["NWS alert timing summary", "Monitor/Prepare/Act/Leave window", "Household action guidance"]
+    featureList: ["State NWS alert summary", "Alert expiration labels", "Hazard-specific protective actions"]
   }),
   faqSchema(pageFaqs)
 );
@@ -33,28 +33,26 @@ const jsonLd = graph(
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified} showBottomAd={true}>
   <section class="band" aria-labelledby="window-title">
     <div class="inner">
-      <p class="eyebrow">Action timing</p>
-      <h1 id="window-title">When Will a Hurricane Reach My Location?</h1>
-      <p class="answer">Choose a state to estimate when your household should monitor, prepare, act, or leave from active NWS alert timing and current NHC storm context. This is an action window, not a prediction of hurricane arrival, landfall, or first winds.</p>
+      <p class="eyebrow">State alert check</p>
+      <h1 id="window-title">State Alerts and Protective Actions</h1>
+      <p class="answer">Choose a state to read active NWS alerts and their protective actions, with the NHC system count for context. Match each alert's affected area to your county. To find wind-arrival guidance, open the storm's official NHC advisory and wind-arrival products.</p>
     </div>
   </section>
 
   <section class="band" aria-labelledby="window-form-heading">
     <div class="inner grid-2">
       <form class="panel window-form" id="window-form">
-        <h2 id="window-form-heading">Estimate Action Window</h2>
+        <h2 id="window-form-heading">Check a State</h2>
         <label for="window-state">State</label>
         <select id="window-state">
           {states.map(([code, name]) => <option value={code} selected={code === "FL"}>{name}</option>)}
         </select>
-        <label for="window-location">City or ZIP code <span class="small">(optional)</span></label>
-        <input id="window-location" type="text" autocomplete="postal-code" maxlength="80" placeholder="Miami or 33101" />
-        <button type="submit">Estimate window</button>
+        <button type="submit">Check alerts</button>
         <p id="window-status" class="small" role="status">Uses active NWS alerts and current NHC storm count.</p>
       </form>
 
       <article class="panel" aria-live="polite">
-        <p class="eyebrow">Estimated window</p>
+        <p class="eyebrow">State-level summary</p>
         <h2 id="window-level">Waiting for state</h2>
         <p id="window-summary">Select a state to load official alert timing.</p>
         <ul id="window-actions" class="check-list"></ul>
@@ -66,8 +64,8 @@ const jsonLd = graph(
     <div class="inner grid-2">
       <article>
         <p class="eyebrow">Next step</p>
-        <h2 id="window-next-heading">Turn the Window Into a Plan</h2>
-        <p class="answer">An action window is easier to use when it connects to your household, route, and local alert context. Use these pages to move from timing to a more complete hurricane plan.</p>
+        <h2 id="window-next-heading">Record the Instruction, Area, and Deadline</h2>
+        <p class="answer">Copy the alert event, affected county or zone, protective action, and issuing office into your household plan. An alert expiration can change when a warning is extended or replaced. Use <a href="https://www.weather.gov/alerts">the full NWS alert</a> for instructions and <a href="https://www.nhc.noaa.gov/aboutnhcgraphics.shtml#TOA">NHC wind-arrival product guidance</a> for the separate arrival question.</p>
       </article>
       <div class="link-grid" aria-label="Related hurricane planning tools">
         <a href="/decision-guide/">
@@ -76,7 +74,7 @@ const jsonLd = graph(
         </a>
         <a href="/tools/local-risk-plan/">
           <strong>Local Risk Plan</strong>
-          <span>Build a location-aware checklist for evacuation zones, supplies, and contacts.</span>
+          <span>Read state alerts and record your household's local instructions.</span>
         </a>
         <a href="/tools/hurricane-brief/">
           <strong>Hurricane Brief</strong>
@@ -94,12 +92,13 @@ const jsonLd = graph(
 </Layout>
 
 <script>
+  import { alertActionGuidance, decisionLevel } from "../../lib/weather";
+  import { isAlertFeedAvailable, isStormFeedAvailable } from "../../lib/weatherFeedStatus";
   type AlertFeed = { alerts?: Array<{ event?: string; headline?: string; effective?: string; expires?: string; severity?: string; urgency?: string }>; decisionLevel?: string; updatedAt?: string; fetchedAt?: string };
-  type StormFeed = { storms?: unknown[]; updatedAt?: string; fetchedAt?: string };
+  type StormFeed = { storms?: Array<{ id?: string }>; updatedAt?: string; fetchedAt?: string };
 
   const form = document.querySelector<HTMLFormElement>("#window-form");
   const stateSelect = document.querySelector("#window-state") as HTMLSelectElement | null;
-  const locationInput = document.querySelector("#window-location") as HTMLInputElement | null;
   const statusEl = document.querySelector<HTMLElement>("#window-status");
   const levelEl = document.querySelector<HTMLElement>("#window-level");
   const summaryEl = document.querySelector<HTMLElement>("#window-summary");
@@ -110,38 +109,37 @@ const jsonLd = graph(
     return String(value ?? "").replace(/[&<>"']/g, (char) => replacements[char] ?? char);
   }
 
-  function actionSet(level: string, alertCount: number, stormCount: number) {
-    if (level === "Leave") return ["Follow official evacuation instructions immediately if safe.", "Use official routes and avoid flooded roads.", "Take medicine, IDs, documents, chargers, pets, water, and cash."];
-    if (level === "Act") return ["Read active warning instructions now.", "Move vulnerable people and pets early.", "Secure the home only while conditions are safe."];
-    if (level === "Prepare") return ["Finish water, food, medicine, documents, fuel, and routes.", "Generate a hurricane brief and family communication plan.", stormCount ? "Monitor NHC advisories at least twice daily." : "Keep checking official outlooks during hurricane season."];
-    return alertCount ? ["Read every active alert and watch for escalation.", "Confirm evacuation zone and shelter rules.", "Keep supplies and contacts ready."] : ["No active high-priority alert returned.", "Review evacuation zone, supplies, and contacts.", "Monitor official advisories during hurricane season."];
-  }
 
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const state = stateSelect?.value ?? "FL";
-    const location = locationInput?.value.trim();
+    if (levelEl) levelEl.textContent = "Loading";
+    if (summaryEl) summaryEl.textContent = "Checking state feeds...";
+    if (actionsEl) actionsEl.innerHTML = "";
     try {
       if (statusEl) statusEl.textContent = "Loading official feeds...";
       const [alertResponse, stormResponse] = await Promise.all([
-        fetch(`/api/nws/alerts.json?area=${encodeURIComponent(state)}`),
-        fetch("/api/nhc/current.json")
+        fetch(`/api/nws/alerts.json?area=${encodeURIComponent(state)}`, { signal: AbortSignal.timeout(12000) }),
+        fetch("/api/nhc/current.json", { signal: AbortSignal.timeout(12000) })
       ]);
       if (!alertResponse.ok || !stormResponse.ok) throw new Error("Feed unavailable");
       const alerts = await alertResponse.json() as AlertFeed;
       const storms = await stormResponse.json() as StormFeed;
+      if (!isAlertFeedAvailable(alerts) || !isStormFeedAvailable(storms)) throw new Error("Feed malformed or stale");
       const alertCount = alerts.alerts?.length ?? 0;
       const stormCount = storms.storms?.length ?? 0;
-      const level = alerts.decisionLevel ?? "Monitor";
+      const level = decisionLevel(alerts.alerts ?? [], []);
       const expires = alerts.alerts?.map((alert) => Date.parse(alert.expires ?? "")).filter(Number.isFinite).sort((a, b) => a - b)[0];
       const expireText = expires ? ` Next listed alert expiration: ${new Date(expires).toLocaleString([], { dateStyle: "medium", timeStyle: "short" })}.` : "";
       if (levelEl) levelEl.textContent = level;
-      if (summaryEl) summaryEl.textContent = `${location ? `${location}: ` : ""}${alertCount} active state alert${alertCount === 1 ? "" : "s"} and ${stormCount} active NHC system${stormCount === 1 ? "" : "s"} were returned.${expireText} State-level results must be checked against local NWS and emergency-management instructions.`;
-      if (actionsEl) actionsEl.innerHTML = actionSet(level, alertCount, stormCount).map((action) => `<li>${escapeHtml(action)}</li>`).join("");
-      if (statusEl) statusEl.textContent = "Impact window updated. Verify official local instructions before acting.";
+      if (summaryEl) summaryEl.textContent = `${state}: ${alertCount} active state alert${alertCount === 1 ? "" : "s"} and ${stormCount} active NHC system${stormCount === 1 ? "" : "s"} were returned.${expireText} Expiration is not wind arrival. Read affected areas in the full alerts.`;
+      if (actionsEl) actionsEl.innerHTML = alertActionGuidance(alerts.alerts ?? []).map((action) => `<li>${escapeHtml(action)}</li>`).join("");
+      if (statusEl) statusEl.textContent = `NWS checked ${new Date(alerts.fetchedAt!).toLocaleString()} · NHC checked ${new Date(storms.fetchedAt!).toLocaleString()}`;
     } catch (error) {
       console.error("HurricaneHub impact window failed", error);
-      if (statusEl) statusEl.textContent = "Impact window unavailable. Check weather.gov and retry shortly.";
+      if (levelEl) levelEl.textContent = "Unavailable";
+      if (summaryEl) summaryEl.textContent = "The feeds could not be verified. No current risk or empty-feed conclusion is available.";
+      if (statusEl) statusEl.textContent = "State summary unavailable. Check weather.gov and retry shortly.";
     }
   });
 </script>

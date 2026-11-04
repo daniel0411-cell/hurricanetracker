@@ -11,9 +11,9 @@ const { initialState = "FL" } = Astro.props;
   <div class="inner">
     <div class="risk-planner-header">
       <div>
-        <p class="eyebrow">Location-based decision support</p>
-        <h2 id="risk-planner-title">Check My Local Hurricane Risk</h2>
-        <p class="answer">Enter a ZIP code or choose a state to see active NWS alerts, the main hazard types, and the next household actions for your area.</p>
+        <p class="eyebrow">State alert screening</p>
+        <h2 id="risk-planner-title">Check State Alerts and Household Actions</h2>
+        <p class="answer">Enter a ZIP code to select its state, or choose a state directly. Read the returned alerts' affected areas to determine which instructions apply to your location.</p>
       </div>
       <p class="source-note">State-level screening only. County evacuation orders and evacuation zones always take priority.</p>
     </div>
@@ -34,7 +34,7 @@ const { initialState = "FL" } = Astro.props;
     <div id="risk-result" class="risk-result" hidden aria-live="polite">
       <div class="risk-result-top">
         <div>
-          <p class="eyebrow">Current local screen</p>
+          <p class="eyebrow">State-level screen</p>
           <h3 id="risk-location">Florida</h3>
           <p id="risk-location-note" class="small"></p>
         </div>
@@ -51,7 +51,7 @@ const { initialState = "FL" } = Astro.props;
           <p id="risk-explanation" class="source-note"></p>
         </article>
         <article class="panel">
-          <h3>72 / 48 / 24 hour plan</h3>
+          <h3>Actions and local deadlines</h3>
           <ol id="risk-plan" class="risk-plan"></ol>
         </article>
       </div>
@@ -62,6 +62,8 @@ const { initialState = "FL" } = Astro.props;
 </section>
 
 <script>
+  import { alertActionGuidance, decisionLevel } from "../lib/weather";
+  import { isAlertFeedAvailable } from "../lib/weatherFeedStatus";
   import { trackToolResult } from "../lib/toolAnalytics";
   type Alert = {
     event?: string;
@@ -143,43 +145,21 @@ const { initialState = "FL" } = Astro.props;
 
   function levelAction(level: string) {
     if (level === "Leave") return "Follow official evacuation instructions now";
-    if (level === "Act") return "Move vulnerable people and finish protective actions";
+    if (level === "Act") return "Follow the protective action for the specific warning now";
     if (level === "Prepare") return "Finish supplies, fuel, documents, and routes";
     return "Monitor official advisories and confirm your zone";
   }
 
-  function planFor(level: string, hasAlerts: boolean) {
-    if (level === "Leave") {
-      return [
-        ["Now", "Follow local evacuation orders, use official routes, and take medication, IDs, chargers, water, pets, and cash."],
-        ["Before travel", "Tell a contact where you are going. Do not drive through flooded roads or wait for peak wind."],
-        ["After arrival", "Do not return until local officials confirm roads and utilities are safe."]
-      ];
-    }
-    if (level === "Act") {
-      return [
-        ["Within 24 hours", "Move medically vulnerable people early, secure windows and outdoor items, and keep vehicles ready."],
-        ["Within 48 hours", "Confirm shelter or destination, fuel vehicles, charge devices, and pack documents and medicine."],
-        ["Now", "Follow every warning and county instruction. Stop nonessential travel when conditions deteriorate."]
-      ];
-    }
-    if (level === "Prepare") {
-      return [
-        ["Within 72 hours", "Check the emergency kit, insurance records, prescriptions, evacuation zone, and family contacts."],
-        ["Within 48 hours", "Fuel vehicles, buy missing supplies, protect documents, and confirm a destination or shelter option."],
-        ["Within 24 hours", "Secure loose objects, charge phones, move vehicles, and be ready to act if a warning is issued."]
-      ];
-    }
+  function planFor(alerts: Alert[]) {
     return [
-      ["Within 72 hours", "Review your evacuation zone, emergency kit, medication needs, and family communication plan."],
-      ["Within 48 hours", "Check official outlooks and local emergency management information if a tropical system develops."],
-      ["Within 24 hours", hasAlerts ? "Read every active alert and be ready to move from monitoring to preparation." : "Keep checking official alerts during hurricane season; no active high-priority alert was returned."]
+      ...alertActionGuidance(alerts).map((action) => ["Current action", action]),
+      ["Local deadline", "Record the issuing authority, affected zone, instruction, and next update time from the full alert. This tool does not calculate arrival or evacuation deadlines."]
     ];
   }
 
   async function lookupZip(zip: string): Promise<LocationResult | null> {
     if (!zip) return null;
-    const response = await fetch(`/api/location/zip?zip=${encodeURIComponent(zip)}`);
+    const response = await fetch(`/api/location/zip?zip=${encodeURIComponent(zip)}`, { signal: AbortSignal.timeout(12000) });
     if (!response.ok) throw new Error("ZIP code lookup failed");
     return await response.json() as LocationResult;
   }
@@ -187,6 +167,7 @@ const { initialState = "FL" } = Astro.props;
   async function loadRisk() {
     if (!stateSelect || !resultEl || !locationEl || !locationNoteEl || !levelEl || !levelValueEl || !levelActionEl || !hazardsEl || !explanationEl || !planEl || !sourceEl) return;
     setStatus("Loading official NWS alerts...");
+    resultEl.hidden = true;
     const zip = zipInput?.value.trim() ?? "";
     let state = stateSelect.value;
     let stateName = stateNames[state] ?? state;
@@ -204,15 +185,15 @@ const { initialState = "FL" } = Astro.props;
       stateSelect.value = state;
     }
 
-    const response = await fetch(`/api/nws/alerts.json?area=${encodeURIComponent(state)}`);
+    const response = await fetch(`/api/nws/alerts.json?area=${encodeURIComponent(state)}`, { signal: AbortSignal.timeout(12000) });
     if (!response.ok) throw new Error("NWS alert feed failed");
     const data = await response.json() as AlertFeed;
-    if (!Array.isArray(data.alerts)) throw new Error("NWS alert list unavailable");
+    if (!isAlertFeedAvailable(data)) throw new Error("NWS alert list unavailable or stale");
     const alerts = data.alerts ?? [];
-    const level = data.decisionLevel ?? (alerts.length ? "Prepare" : "Monitor");
+    const level = decisionLevel(alerts, []);
     const hazards = riskTypes(alerts);
-    const plan = planFor(level, alerts.length > 0);
-    const updated = data.updatedAt ?? data.fetchedAt;
+    const plan = planFor(alerts);
+    const updated = data.fetchedAt;
 
     locationEl.textContent = city ? `${city}, ${stateName}` : stateName;
     locationNoteEl.textContent = zip
@@ -223,7 +204,7 @@ const { initialState = "FL" } = Astro.props;
     levelActionEl.textContent = levelAction(level);
     hazardsEl.innerHTML = hazards.map((hazard) => `<li>${escapeHtml(hazard)}</li>`).join("");
     explanationEl.textContent = alerts.length
-      ? `${alerts.length} active NWS alert${alerts.length === 1 ? "" : "s"} returned. Read the official alert headline and instructions before acting.`
+      ? `${alerts.length} active NWS alert${alerts.length === 1 ? "" : "s"} returned across this state. This level summarizes the state, not your address. Check affected areas and instructions in the full alerts at weather.gov/alerts.`
       : "No active NWS alerts were returned for this state. This is a monitoring result, not an all-clear for a specific county or evacuation zone.";
     planEl.innerHTML = plan.map(([window, action]) => `<li><strong>${escapeHtml(window)}</strong><span>${escapeHtml(action)}</span></li>`).join("");
     sourceEl.textContent = `Source: National Weather Service active alerts · ${updated ? `checked ${new Date(updated).toLocaleString()}` : "check time unavailable"} · Verify county instructions at weather.gov.`;

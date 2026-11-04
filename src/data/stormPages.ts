@@ -88,7 +88,25 @@ export const stormTrackerPages: StormTrackerPage[] = [
     searchDemandNote:
       "Melissa searches show strong live-tracker intent, especially for live maps, satellite context, and rapid status checks.",
     overview:
-      "Check Melissa's current-feed status and verify dated advisories with NHC. Confirm the storm year before comparing maps or reports. When no active Melissa record is available, use the official archive for historical observations and current local alerts for present-day safety decisions.",
+      "Check the current-feed status separately from the Melissa 2019 report below (AL142019). This historical record covers a subtropical-to-tropical transition offshore of New England, not a hurricane landfall or a current storm. Confirm the year and basin identifier whenever the same name appears in a screenshot or search result.",
+    historicalReport: {
+      year: 2019,
+      stormId: "AL142019",
+      title: "NHC Tropical Cyclone Report: Tropical Storm Melissa, 11-14 October 2019",
+      url: "https://www.nhc.noaa.gov/data/tcr/AL142019_Melissa.pdf",
+      reportDate: "2019-12-31",
+      checkedOn: "2026-11-04",
+      summary: "NHC's report describes a low transitioning from extratropical to subtropical and then tropical while offshore of New England. Its estimated peak intensity was 55 kt as a subtropical storm; it was not a hurricane in this 2019 record. The following sequence is from Synoptic History (PDF page 2); wind and water comparisons are from Meteorological Statistics (PDF pages 3-4).",
+      timeline: [
+        { date: "11 October 2019, 0600 UTC", event: "Became a subtropical storm about 180 nautical miles south-southeast of Nantucket, with an estimated 55 kt peak intensity." },
+        { date: "12 October 2019, 1200 UTC", event: "Became a tropical storm after the convection and wind field contracted, about 230 nautical miles south-southeast of Nantucket." },
+        { date: "14 October 2019, 1200 UTC", event: "Became a gale-force extratropical low while merging with a front; its circulation opened and dissipated later that day." }
+      ],
+      lessons: [
+        { heading: "Classification Changed Without Becoming a Hurricane", body: "The 2019 sequence separates structural classification from wind intensity: subtropical, tropical, and extratropical are not successive hurricane categories. Record the year, AL142019 identifier, issue time, classification, and wind unit before comparing it with another Melissa record. Use the 2019 advisory archive for operational bulletins and this post-season report for the analyzed history." },
+        { heading: "Keep Four Wind and Water Metrics Separate", body: "The report gives a 55 kt cyclone peak estimate and separate Wellfleet land observations of 43 kt sustained wind and a 57 kt gust. The gust is not a contradiction of the cyclone's sustained-wind estimate. For water, the report separately describes surge above predicted tide, storm tide relative to a datum, and inundation above ground. A gauge number cannot be copied into an address's indoor flood depth. This comparison explains the historical measurements, not today's conditions." }
+      ]
+    },
     trackerFocus: [
       "Look for active NHC Melissa records in the current storm feed.",
       "Open radar and satellite views to compare storm structure with official advisories.",

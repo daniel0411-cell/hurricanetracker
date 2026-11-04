@@ -1,10 +1,11 @@
 import { summarizeStorm, type NhcStorm } from "./weather";
 import { recordActiveStorms } from "./stormRegistry";
 import { cachedWeather } from "./weatherCache";
+import { isStormFeedAvailable } from "./weatherFeedStatus";
 
 export const NHC_CURRENT_STORMS = "https://www.nhc.noaa.gov/CurrentStorms.json";
 export const NHC_CURRENT_CACHE_TTL_SECONDS = 600;
-const CACHE_KEY = "nhc:current-storms:motion-mph-v2";
+const CACHE_KEY = "nhc:current-storms:validated-v3";
 
 export type NhcCurrentFeed = {
   source: string;
@@ -27,6 +28,7 @@ export async function getNhcCurrentFeed(): Promise<{ feed: NhcCurrentFeed; cache
 
     const raw = await response.json() as { activeStorms?: NhcStorm[] };
     if (!Array.isArray(raw.activeStorms)) throw new Error("NHC feed is missing activeStorms");
+    if (!raw.activeStorms.every((storm) => storm && typeof storm.id === "string" && /^[A-Z]{2}\d{6}$/i.test(storm.id))) throw new Error("NHC feed contains a malformed storm record");
     const fetchedAt = new Date().toISOString();
     const result: NhcCurrentFeed = {
       source: NHC_CURRENT_STORMS,
@@ -35,6 +37,7 @@ export async function getNhcCurrentFeed(): Promise<{ feed: NhcCurrentFeed; cache
       cacheTtlSeconds: NHC_CURRENT_CACHE_TTL_SECONDS,
       storms: raw.activeStorms.map((storm) => ({ ...storm, movementSpeedUnit: "mph", summary: summarizeStorm(storm) }))
     };
+    if (!isStormFeedAvailable(result)) throw new Error("NHC feed contains invalid storm positions");
     await recordActiveStorms(result.storms, fetchedAt);
     return result;
   });

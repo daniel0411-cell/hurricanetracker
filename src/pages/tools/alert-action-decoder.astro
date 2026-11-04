@@ -47,9 +47,11 @@ const jsonLd = graph(
           <select name="alert">
             <option value="watch">Hurricane or tropical storm watch</option>
             <option value="hurricane-warning">Hurricane warning</option>
-            <option value="surge">Storm surge watch or warning</option>
+            <option value="surge-watch">Storm surge watch</option>
+            <option value="surge">Storm surge warning</option>
             <option value="flood">Flash flood or flood warning</option>
             <option value="tornado">Tornado warning</option>
+            <option value="extreme-wind">Extreme wind warning</option>
             <option value="evacuation">Evacuation order</option>
           </select>
         </label>
@@ -107,40 +109,43 @@ const jsonLd = graph(
 </Layout>
 
 <script>
+  import { alertActionGuidance, decisionLevel, requiresImmediateShelter } from "../../lib/weather";
   const form = document.querySelector<HTMLFormElement>("#decoder-form");
   const levelEl = document.querySelector<HTMLElement>("#decoder-level");
   const summaryEl = document.querySelector<HTMLElement>("#decoder-summary");
   const actionsEl = document.querySelector<HTMLElement>("#decoder-actions");
-  const matrix: Record<string, { level: string; summary: string; actions: string[] }> = {
+  const matrix: Record<string, { event: string; summary: string }> = {
     watch: {
-      level: "Prepare",
-      summary: "Conditions are possible. Finish low-regret preparations before warnings or evacuation pressure increases.",
-      actions: ["Fuel vehicles and charge devices.", "Pack documents, medication, water, food, and pet supplies.", "Review evacuation zone and destination."]
+      event: "Hurricane Watch",
+      summary: "Hurricane conditions are possible in the watch area. The usual 48-hour lead time is measured before anticipated tropical-storm-force winds."
     },
     "hurricane-warning": {
-      level: "Act",
-      summary: "Hurricane conditions are expected. Finish protective actions and follow local instructions.",
-      actions: ["Secure windows and outdoor items while safe.", "Move vulnerable people early.", "Stop nonessential travel as conditions deteriorate."]
+      event: "Hurricane Warning",
+      summary: "Hurricane conditions are expected in the warning area. The usual 36-hour lead time is measured before anticipated tropical-storm-force winds."
+    },
+    "surge-watch": {
+      event: "Storm Surge Watch",
+      summary: "Life-threatening inundation is possible in the watch area, generally within 48 hours. Check your zone and local decision deadline."
     },
     surge: {
-      level: "Act",
-      summary: "Water can make routes unsafe before peak wind. Treat surge instructions separately from wind alerts.",
-      actions: ["Check your evacuation zone.", "Move vehicles and documents away from flood-prone areas.", "Leave if officials order your zone to evacuate."]
+      event: "Storm Surge Warning",
+      summary: "Life-threatening inundation is expected in the warned area, generally within 36 hours. Read local evacuation instructions and route conditions."
     },
     flood: {
-      level: "Act",
-      summary: "Floodwater can rise quickly and make roads deadly.",
-      actions: ["Avoid flooded roads.", "Move to higher ground if instructed.", "Keep phones charged and monitor local warnings."]
+      event: "Flash Flood Warning",
+      summary: "Read the full flood warning for its affected area and required protective action. Floodwater can rise quickly and make roads deadly."
     },
     tornado: {
-      level: "Act",
-      summary: "A tornado warning requires immediate sheltering action.",
-      actions: ["Go to an interior room on the lowest safe level.", "Stay away from windows.", "Keep shoes, flashlight, and phone nearby."]
+      event: "Tornado Warning",
+      summary: "If you are in the warned area, a tornado warning requires immediate sheltering action."
+    },
+    "extreme-wind": {
+      event: "Extreme Wind Warning",
+      summary: "If you are in the warned area, take immediate shelter in the interior of a well-built structure."
     },
     evacuation: {
-      level: "Leave",
-      summary: "Official evacuation language means you should follow local instructions immediately if you can do so safely.",
-      actions: ["Use official routes.", "Take medication, IDs, documents, pets, chargers, water, and cash.", "Tell a contact where you are going."]
+      event: "Evacuation Order",
+      summary: "Follow the issuing authority's instruction for your specified zone, deadline, and route."
     }
   };
 
@@ -155,16 +160,17 @@ const jsonLd = graph(
     const alert = String(data.get("alert") ?? "watch");
     const risk = String(data.get("risk") ?? "standard");
     const base = matrix[alert] ?? matrix.watch;
-    const actions = [...base.actions];
-    let level = base.level;
+    const alerts = [{ event: base.event }];
+    const actions = alertActionGuidance(alerts);
+    const level = decisionLevel(alerts, []);
     let summary = base.summary;
     if (risk === "coastal" && level === "Prepare") {
-      level = "Act";
-      summary = `${summary} Because you selected coastal or flood exposure, start action earlier and verify your evacuation zone.`;
+      summary = `${summary} Because you selected coastal or flood exposure, confirm your evacuation zone and local instructions now; the exposure choice does not turn a watch into a warning.`;
     }
-    if (risk === "vulnerable" && level !== "Leave") {
-      actions.push("Move people with medical, mobility, pet, transportation, or mobile-home vulnerability earlier than the public deadline.");
-      if (level === "Prepare") level = "Act";
+    if (risk === "vulnerable" && level === "Prepare") {
+      actions.push("Before conditions deteriorate, arrange medical support, accessible transport, and a destination. Record the local authority's actual deadline.");
+    } else if (risk === "vulnerable" && requiresImmediateShelter(alerts)) {
+      actions.push("Help household members reach the safest available interior shelter now. Keep essential medication and mobility aids with them if within reach.");
     }
     if (levelEl) levelEl.textContent = level;
     if (summaryEl) summaryEl.textContent = summary;

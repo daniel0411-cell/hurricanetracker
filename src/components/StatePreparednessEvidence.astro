@@ -1,0 +1,36 @@
+---
+import { stateEvidence } from "../data/stateEvidence";
+const { code, name } = Astro.props;
+const evidence = stateEvidence[code];
+---
+{evidence && <section class="state-evidence" aria-labelledby="local-task-heading">
+  <p class="eyebrow">Local preparation record</p>
+  <h2 id="local-task-heading">Three Checks for a {name} Household</h2>
+  <ol class="local-tasks">
+    {evidence.tasks.map((task) => <li><h3>{task.title}</h3><p>{task.body}</p><p><a href={task.href}>{task.label}</a></p></li>)}
+  </ol>
+  <h2>{evidence.history.title}</h2>
+  <p>{evidence.history.body}</p>
+  <div class="evidence-table"><table><caption>Historical example, not current conditions</caption><tbody>
+    {evidence.history.facts.map(([metric, value]) => <tr><th scope="row">{metric}</th><td>{value}</td></tr>)}
+  </tbody></table></div>
+  <p class="source-note"><a href={evidence.history.href}>{evidence.history.label}</a>. Historical excerpt checked November 4, 2026; current local orders are separate.</p>
+  <h2>Your Household Record</h2>
+  <p>Write these details on paper or in your household plan. Keep the official notice with its issue time so another household member can repeat the check.</p>
+  <dl class="household-record">{evidence.record.map((field) => <div><dt>{field}</dt><dd aria-label="Space for your record">________________________________</dd></div>)}</dl>
+  <p><a href="/tools/family-communication-plan/">Create a printable household contact record</a></p>
+</section>}
+<style>
+  .state-evidence { margin: 28px 0; border-top: 1px solid var(--line); padding-top: 24px; }
+  .local-tasks { padding-left: 1.4rem; }
+  .local-tasks li { margin: 20px 0; padding-left: 8px; }
+  .evidence-table { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  caption { text-align: left; color: var(--muted); padding: 8px 0; }
+  th, td { text-align: left; padding: 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { width: 35%; }
+  .household-record { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  dt { font-weight: 700; }
+  dd { margin: 12px 0 0; overflow-wrap: anywhere; color: var(--muted); }
+  @media (max-width: 640px) { .household-record { grid-template-columns: 1fr; } }
+</style>

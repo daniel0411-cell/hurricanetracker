@@ -187,7 +187,7 @@ const jsonLd = graph(
 
   <section class="band" aria-labelledby="featured-learn">
     <div class="inner">
-      <p class="eyebrow">High-intent explainers</p>
+      <p class="eyebrow">Reading essentials</p>
       <h2 id="featured-learn">Start With These Hurricane Tracker Guides</h2>
       <div class="grid-3 section-grid">
         {featuredPosts.map((post) => (
@@ -204,8 +204,8 @@ const jsonLd = graph(
 
   <section class="band" aria-labelledby="learn-by-topic">
     <div class="inner">
-      <p class="eyebrow">Topic clusters</p>
-      <h2 id="learn-by-topic">Learn by Search Intent</h2>
+      <p class="eyebrow">Browse by question</p>
+      <h2 id="learn-by-topic">Choose What You Need to Understand</h2>
       <div class="grid-2 section-grid">
         {categoryGroups.map((group) => (
           <article class="panel">
@@ -223,13 +223,12 @@ const jsonLd = graph(
 
   <section class="band" aria-labelledby="tracker-topic-hubs">
     <div class="inner">
-      <p class="eyebrow">Tracker keyword hubs</p>
+      <p class="eyebrow">Forecast products</p>
       <h2 id="tracker-topic-hubs">Hurricane Tracker Topics</h2>
-      <p class="answer">These pages connect high-intent searches to live tools, official-source context, city trackers, and household decision paths.</p>
+      <p class="answer">Choose the product you need to read: a forecast cone, satellite observation, surge map, or local alert.</p>
       <div class="grid-2 section-grid">
         {trackerTopicHubs.map((hub) => (
           <article class="panel">
-            <p class="eyebrow">{hub.intent}</p>
             <h3><a href={hub.href}>{hub.title}</a></h3>
             <p>{hub.description}</p>
             <p><a class="action-link" href={hub.href}>Open topic</a></p>
@@ -247,7 +246,6 @@ const jsonLd = graph(
       <div class="grid-2 section-grid">
         {learningPaths.map((path) => (
           <article class="panel">
-            <p class="eyebrow">{path.intent}</p>
             <h3>{path.title}</h3>
             <p>{path.summary}</p>
             <ol class="path-list">

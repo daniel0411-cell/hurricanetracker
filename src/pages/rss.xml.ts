@@ -92,7 +92,7 @@ export const GET: APIRoute = () => {
   const stormItems: FeedItem[] = stormTrackerPages.map((storm) => ({
     title: `Hurricane ${storm.name} Tracker`,
     url: `${site.url}/hurricane-tracker/storm/${storm.slug}/`,
-    description: storm.searchDemandNote,
+    description: storm.overview,
     date: site.contentLastModified
   }));
 

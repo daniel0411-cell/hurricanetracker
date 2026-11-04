@@ -420,7 +420,7 @@ function renderPage(lastModified: string) {
             <p>After generating a kit list, use local pages to understand whether your location needs evacuation-zone checks, flood awareness, outage planning, or alert interpretation.</p>
             <ul class="link-list">
               <li><a href="/hurricane-tracker/city/">Browse city hurricane trackers</a></li>
-              <li><a href="/tools/local-risk-plan/">Build a local 72-hour action plan</a></li>
+              <li><a href="/tools/local-risk-plan/">Build a state alert action plan</a></li>
               <li><a href="/tools/alert-action-decoder/">Decode watch and warning language</a></li>
             </ul>
           </article>

@@ -87,11 +87,12 @@ const { state } = Astro.props;
     const status = root.querySelector(".state-alerts-status");
     try {
       const res = await fetch(`https://api.weather.gov/alerts/active?area=${encodeURIComponent(state)}`, {
-        headers: { Accept: "application/geo+json" }
+        headers: { Accept: "application/geo+json" }, signal: AbortSignal.timeout(12000)
       });
       if (!res.ok) throw new Error(`status ${res.status}`);
       const data = await res.json();
-      const features = (data.features || []).slice(0, 12);
+      if (!Array.isArray(data?.features) || !data.features.every((f) => typeof f?.properties?.event === "string")) throw new Error("Malformed NWS alerts");
+      const features = data.features.slice(0, 12);
       if (!features.length) {
         root.innerHTML = `<p class="state-alerts-empty">No active NWS alerts for ${state} right now. Continue to monitor official advisories during hurricane season.</p>`;
         return;
@@ -114,7 +115,7 @@ const { state } = Astro.props;
       }).join("");
       root.innerHTML = `<div class="state-alerts-list">${rows}</div>`;
     } catch (err) {
-      if (status) status.textContent = `Live ${state} alerts could not be loaded. Check weather.gov for current alerts.`;
+      root.innerHTML = '<p class="state-alerts-status">Live alerts could not be verified. <a href="https://www.weather.gov/alerts">Check NWS directly</a> for current instructions.</p>';
     }
   }
   loadStateAlerts();

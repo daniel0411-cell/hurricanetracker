@@ -216,29 +216,10 @@ const jsonLd = graph(
     </div>
   </section>
 
-  <section class="band" aria-labelledby="city-cluster-links">
-    <div class="inner grid-2">
-      <article class="panel">
-        <h2 id="city-cluster-links">More {city.stateName} Hurricane Context</h2>
-        <ul class="check-list">
-          <li><a href={`/tracker/${stateSlug}/`}>Open the {city.stateName} state tracker</a></li>
-          <li><a href="/hurricane-tracker/city/">Browse all city hurricane trackers</a></li>
-          <li><a href="/hurricane-tracker/live/">Open the live hurricane tracker</a></li>
-          <li><a href="/storm-archive/">Compare current threats with past storms</a></li>
-        </ul>
-      </article>
-      <article>
-        <p class="eyebrow">Regional comparison</p>
-        <h2>Check Neighboring Coastal States</h2>
-        <p class="answer">Track shifts can move the highest wind, surge, tornado, or rainfall risk across state lines. These state pages help compare the broader coastal setup.</p>
-        <ul class="check-list">
-          {nextStateLinks.map((stateLink) => (
-            <li><a href={`/tracker/${stateLink.slug}/`}>{stateLink.name} hurricane tracker</a></li>
-          ))}
-        </ul>
-      </article>
-    </div>
-  </section>
+  <nav class="band" aria-label="Neighboring state checks"><div class="inner">
+    <h2>Neighboring State Alerts</h2>
+    <ul>{nextStateLinks.map((stateLink) => <li><a href={`/tracker/${stateLink.slug}/`}>{stateLink.name} hurricane tracker</a></li>)}</ul>
+  </div></nav>
 
   {city.officialResources?.length ? (
     <section class="band" aria-labelledby="official-resources">
@@ -274,11 +255,16 @@ const jsonLd = graph(
 </Layout>
 
 <script>
+  import { isStormFeedAvailable } from "../../../lib/weatherFeedStatus";
   const section = document.querySelector<HTMLElement>("[data-city-storm-relevance]");
   const list = section?.querySelector<HTMLElement>("[data-city-storm-list]");
   const answer = section?.querySelector<HTMLElement>("[data-city-storm-answer]");
   const distance = (a:number,b:number,c:number,d:number) => { const r=Math.PI/180; const x=Math.sin((c-a)*r/2)**2+Math.cos(a*r)*Math.cos(c*r)*Math.sin((d-b)*r/2)**2; return 3959*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x)); };
-  if (section && list) fetch("/api/nhc/current.json").then((response) => response.json() as Promise<{ storms?: any[] }>).then((feed) => {
+  if (section && list) fetch("/api/nhc/current.json", { signal: AbortSignal.timeout(12000) }).then((response) => {
+    if (!response.ok) throw new Error(`NHC HTTP ${response.status}`);
+    return response.json() as Promise<{ storms?: any[]; fetchedAt?: string }>;
+  }).then((feed) => {
+    if (!isStormFeedAvailable(feed)) throw new Error("NHC feed malformed or stale");
     const lat=Number(section.dataset.cityLat), lon=Number(section.dataset.cityLon);
     const storms=(feed.storms ?? []).filter((storm:any) => Number.isFinite(storm.latitudeNumeric) && Number.isFinite(storm.longitudeNumeric) && distance(lat,lon,storm.latitudeNumeric,storm.longitudeNumeric)<=500);
     if (!storms.length) { if (answer) answer.textContent=`No active NHC center is currently within 500 miles of this city check. That does not rule out hazards outside the center path or later forecast changes.`; return; }
@@ -358,13 +344,14 @@ const jsonLd = graph(
     var lon = el.dataset.lon;
     if (!lat || !lon) return;
     var url = "https://api.weather.gov/alerts/active?point=" + lat + "," + lon;
-    fetch(url, { headers: { Accept: "application/geo+json" } })
+    fetch(url, { headers: { Accept: "application/geo+json" }, signal: AbortSignal.timeout(12000) })
       .then(function (r) {
         if (!r.ok) throw new Error("bad status");
         return r.json();
       })
       .then(function (data) {
-        var features = (data && data.features) || [];
+        if (!Array.isArray(data?.features) || !data.features.every((f) => typeof f?.properties?.event === "string")) throw new Error("Malformed NWS alerts");
+        var features = data.features;
         if (!features.length) {
           el.innerHTML =
             '<p class="alert-feed-empty">No active NWS alerts for this area right now. Check back during a storm threat.</p>';

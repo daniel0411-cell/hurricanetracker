@@ -1,5 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import FaqBlock from "../../components/FaqBlock.astro";
+import StatePreparednessEvidence from "../../components/StatePreparednessEvidence.astro";
+import { stateEvidence, stateEvidenceFaqs } from "../../data/stateEvidence";
 import StateAlerts from "../../components/StateAlerts.astro";
 import StateActionPaths from "../../components/StateActionPaths.astro";
 import StateTrackerSeoLinks from "../../components/StateTrackerSeoLinks.astro";
@@ -19,16 +22,17 @@ const seo = getStateSeoProfile(state);
 const title = seo.title;
 const description = seo.description;
 const canonical = `${site.url}/tracker/${state.slug}/`;
-const lastModified = site.contentLastModified;
+const lastModified = "2026-11-04T00:00:00.000Z";
 const currentStatus = await getStateCurrentStatus(code);
 
-const intro = `Georgia's Atlantic coastline is short—about 100 miles—but densely developed from the Savannah metro down to Brunswick and the Golden Isles. Hurricanes usually reach Georgia after tracking up the Southeast seaboard or crossing Florida, often arriving as hurricanes or strong tropical storms with high rain rates and tornadoes. The coastal plain's rivers and tidal creeks flood readily, and wind-toppled trees are a major power-outage driver. In 2018, Hurricane Michael crossed into Georgia as a hurricane and inflicted historic wind damage across southwest Georgia's forests, the most damaging tropical cyclone in recent state memory. The 2026 Atlantic hurricane season runs June 1 through November 30, with its climatological peak in September, so the coast from Savannah to St. Simons should pair current NWS alerts with county instructions and keep an evacuation route ready.`;
+const evidence = stateEvidence[code];
+const intro = evidence.intro;
 
 const stateCities = hurricaneCities.filter((city) => city.stateCode === code);
 const stateActionPaths = [
   {
     name: `${name} local risk action plan`,
-    description: `Build a 72/48/24-hour household action plan from ${name} alerts, coastal hazards, and local constraints.`,
+    description: `Read ${name} alerts and record hazard-specific actions with official local instructions and deadlines.`,
     url: `${site.url}/tools/local-risk-plan/?state=${code}`
   },
   {
@@ -49,20 +53,7 @@ const stateActionPaths = [
 ];
 const adjacent = ["florida", "south-carolina"];
 
-const faqs = [
-  {
-    question: `When is hurricane season in ${name}?`,
-    answer: `Georgia's season runs June 1–November 30, with coastal risk highest from August through September as storms track up the Southeast seaboard. The coast from Brunswick to Savannah should monitor current tropical outlooks and local alerts throughout that period.`
-  },
-  {
-    question: `What was the worst hurricane to hit ${name}?`,
-    answer: `Hurricane Michael (2018) crossed into Georgia as a hurricane and produced historic wind damage in southwest Georgia, including widespread timber losses. It was the most damaging tropical cyclone to hit the state in modern memory.`
-  },
-  {
-    question: `Does ${name} have hurricane evacuation routes?`,
-    answer: `Yes. Georgia's coastal counties (Chatham, Glynn, Camden and neighbors) use evacuation zones and Contraflow on I-16 toward Macon. Residents should pair NWS alerts with county instructions and leave before coastal and river flooding peak.`
-  }
-];
+const faqs = stateEvidenceFaqs(name, evidence);
 
 const jsonLd = graph(
   websiteSchema(),
@@ -86,15 +77,12 @@ const jsonLd = graph(
       <p class="answer">{intro}</p>
       <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
 
-      <section class="intent-answer" aria-labelledby="georgia-intent-heading">
-        <h2 id="georgia-intent-heading">Check Georgia Hurricane Risk Now</h2>
-        <p>Start with the live status above, then compare the current NHC track with Georgia NWS alerts and local context for Savannah, Brunswick, and the Golden Isles.</p>
-        <p><a href="/hurricane-tracker/live/">Open the live NHC hurricane map</a>, save Georgia locations in the <a href="/tools/my-hurricane-dashboard/">hurricane tracking dashboard</a>, or use the <a href="/tools/evacuation-decision-helper/">evacuation assessment tool</a> for zone, housing, transport, pet, and medical planning.</p>
-      </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
       <StateAlerts state={code} />
+
+      <StatePreparednessEvidence code={code} name={name} />
 
       <h2 id="city-trackers">{name} City Hurricane Trackers</h2>
       <p class="source-note">Open city guides for local surge, flooding, evacuation-route, and outage planning notes within {name}.</p>
@@ -122,6 +110,7 @@ const jsonLd = graph(
       </ul>
     </div>
   </article>
+  <FaqBlock faqs={faqs} />
 </BaseLayout>
 
 <style>

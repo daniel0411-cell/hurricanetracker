@@ -282,7 +282,7 @@ export const topicPages: TopicPage[] = [
     shortTitle: "Hurricane Warning",
     description: "Understand what a hurricane warning means, how it differs from a watch, and how to turn NWS alerts into a household action plan.",
     eyebrow: "Warning language guide",
-    intro: "A hurricane warning means hurricane conditions are expected in the specified area, usually within 36 hours. A watch means conditions are possible. Always read the full local NWS product and follow emergency management instructions.",
+    intro: "A hurricane warning means hurricane conditions are expected in the specified area. Its usual 36-hour lead time is measured before the anticipated onset of tropical-storm-force winds, when preparations become difficult. A hurricane watch is generally issued 48 hours before that onset. Read the complete local product for its area and instructions.",
     primaryAction: { label: "Check active alerts", href: "/alerts/" },
     secondaryAction: { label: "Decode an alert", href: "/tools/alert-action-decoder/" },
     intent: "what is a hurricane warning, hurricane watch vs warning, NWS hurricane alert",
@@ -292,7 +292,7 @@ export const topicPages: TopicPage[] = [
       { title: "Take the Next Action", body: "Use the alert decoder and local orders to decide whether to monitor, prepare, act, or leave.", href: "/tools/alert-action-decoder/", label: "Decode the alert" }
     ],
     sections: [
-      { eyebrow: "Definitions", title: "Watch Versus Warning", body: "A watch means conditions are possible and preparation should be underway. A warning means dangerous conditions are expected and protective action may be needed.", bullets: ["Hurricane watch: possible hurricane conditions", "Hurricane warning: expected hurricane conditions", "Storm surge warning: life-threatening water possible", "Flood and tornado warnings: separate immediate hazards"] },
+      { eyebrow: "Definitions", title: "Watch Versus Warning", body: "A watch means conditions are possible; a warning means they are expected. For hurricane watch/warning lead times, the 48/36-hour reference is the anticipated onset of tropical-storm-force winds, not arrival of the hurricane-force core.", bullets: ["Hurricane watch: possible hurricane conditions", "Hurricane warning: expected hurricane conditions", "Storm surge warning: life-threatening inundation expected, generally within 36 hours", "Storm surge watch: life-threatening inundation possible, generally within 48 hours", "Extreme Wind and Tornado Warnings: immediate shelter instructions"] },
       { eyebrow: "Action", title: "The Alert Is Not the Whole Plan", body: "Pair the alert with local evacuation orders, your zone, housing type, mobility, medical needs, pets, and route timing.", bullets: ["Follow local emergency management", "Do not wait for the center line", "Leave early if your household needs more time", "Use official shelter and road information"] }
     ],
     nextLinks: [
@@ -302,7 +302,7 @@ export const topicPages: TopicPage[] = [
       { name: "Evacuation Zones", href: "/hurricane-tracker/evacuation-zones/", description: "Find the right local zone source." }
     ],
     faqs: [
-      { question: "What is a hurricane warning?", answer: "A hurricane warning means hurricane conditions are expected in the specified area, generally within 36 hours. Follow the complete NWS product and local instructions." },
+      { question: "What is a hurricane warning?", answer: "Hurricane conditions are expected in the specified area. The warning is normally issued 36 hours before anticipated tropical-storm-force winds begin, because preparation becomes difficult then. It is not a 36-hour forecast of hurricane-force wind arrival. Follow the full NWS product and local instructions." },
       { question: "What is the difference between a hurricane watch and warning?", answer: "A watch means hurricane conditions are possible; a warning means they are expected. Use a watch to finish preparation and a warning to act on official instructions." },
       { question: "Does a hurricane warning mean everyone must evacuate?", answer: "Not automatically. Evacuation orders are local, and decisions depend on zone, surge, flooding, housing, transport, and household needs." }
     ]
@@ -430,7 +430,7 @@ export const topicPages: TopicPage[] = [
     intro:
       "A hurricane path tracker helps answer where the storm may go next and whether the current track matters for your location. For a real planning decision, compare the path with forecast uncertainty, local alerts, storm timing, and your evacuation or shelter constraints.",
     primaryAction: { label: "Open current NHC tracks", href: "/hurricane-tracker/live/" },
-    secondaryAction: { label: "Estimate impact window", href: "/tools/impact-window-estimator/" },
+    secondaryAction: { label: "Read state alerts and actions", href: "/tools/impact-window-estimator/" },
     intent: "hurricane path tracker, hurricane storm path, track hurricane path",
     steps: [
       {
@@ -446,10 +446,10 @@ export const topicPages: TopicPage[] = [
         label: "Read cone guide"
       },
       {
-        title: "Translate Path Into Timing",
-        body: "Use an impact window and local alerts to decide when monitoring becomes preparation or action.",
+        title: "Read the Local Instruction",
+        body: "Match each alert's affected area and protective action to your location. Record the issuing authority's deadline separately from any forecast center position.",
         href: "/tools/impact-window-estimator/",
-        label: "Estimate timing"
+        label: "Read state alerts"
       }
     ],
     sections: [
@@ -480,7 +480,7 @@ export const topicPages: TopicPage[] = [
     ],
     nextLinks: [
       { name: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Current NHC storm positions, advisory times, radar, satellite, and active tracking links." },
-      { name: "Impact Window Estimator", href: "/tools/impact-window-estimator/", description: "Estimate when impacts may matter for a location." },
+      { name: "State Alert and Action Summary", href: "/tools/impact-window-estimator/", description: "Read state alert areas, protective instructions, and expiration times; this tool does not calculate arrival." },
       { name: "Named Hurricane Trackers", href: "/hurricane-tracker/storm/", description: "Standing storm-name pages with live NHC source checks." },
       { name: "Cone of Uncertainty Guide", href: "/blog/how-to-read-the-hurricane-cone-of-uncertainty/", description: "Learn what the NHC cone does and does not show." },
       { name: "Evacuation Decision Helper", href: "/tools/evacuation-decision-helper/", description: "Turn orders, zone, housing, and household needs into a planning level." }
@@ -754,7 +754,7 @@ export const topicPages: TopicPage[] = [
       { name: "How Hurricanes Are Tracked", href: "/hurricane-tracker/how-hurricanes-are-tracked/", description: "See how observations, models, and forecaster analysis become an official advisory." },
       { name: "Hurricane Path Tracker", href: "/hurricane-tracker/path/", description: "Connect model guidance with official path, timing, and local action steps." },
       { name: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Current storm status, NHC checks, radar shortcuts, alerts, and local tracker paths." },
-      { name: "Impact Window Estimator", href: "/tools/impact-window-estimator/", description: "Turn storm timing into a practical household planning window." }
+      { name: "State Alert and Action Summary", href: "/tools/impact-window-estimator/", description: "Read state NWS alerts and protective actions, with expiration labeled separately from storm arrival." }
     ],
     faqs: [
       {

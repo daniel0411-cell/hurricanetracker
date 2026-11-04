@@ -64,14 +64,14 @@ export const GET: APIRoute = async ({ url }) => {
   let scope: Record<string, string>;
   if (point) {
     source = `https://api.weather.gov/alerts/active?point=${point.lat},${point.lon}`;
-    cacheKey = `nws:alerts:point:${point.lat},${point.lon}`;
+    cacheKey = `nws:alerts:v2:point:${point.lat},${point.lon}`;
     scope = { point: `${point.lat},${point.lon}`, state: "" };
   } else {
     if (!VALID_AREA.test(area)) {
       return jsonResponse({ error: "Use a two-letter US state or territory area code, or a point=lat,lon query." }, { status: 400 });
     }
     source = `https://api.weather.gov/alerts/active?area=${area}`;
-    cacheKey = `nws:alerts:${area}`;
+    cacheKey = `nws:alerts:v2:${area}`;
     scope = { area, state: area, point: "" };
   }
 
@@ -92,6 +92,7 @@ export const GET: APIRoute = async ({ url }) => {
 
       const raw = (await response.json()) as { features?: any[]; updated?: string };
       if (!Array.isArray(raw.features)) throw new Error("NWS alert feed is missing features");
+      if (!raw.features.every((feature) => typeof feature?.properties?.event === "string" && feature.properties.event.length > 0)) throw new Error("NWS alert feed contains a malformed alert");
       const alerts = raw.features.map(normalizeAlert);
       const fetchedAt = new Date().toISOString();
       return JSON.stringify({

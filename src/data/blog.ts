@@ -26,19 +26,23 @@ export type BlogPost = {
 export const blogPosts: BlogPost[] = [
   {
     slug: "hurricane-eyewall-replacement-cycle-explained",
-    sources: [{ href: "https://www.aoml.noaa.gov/hrd-faq/", label: "NOAA Hurricane Research Division: hurricane structure and eyewall FAQ" }],
+    sources: [{ href: "https://www.aoml.noaa.gov/hrd-faq/", label: "NOAA Hurricane Research Division: hurricane structure and eyewall FAQ" }, { href: "https://www.nhc.noaa.gov/archive/2017/al11/al112017.discus.028.shtml", label: "NHC Irma discussion 28: September 5, 2017, concentric eyewall evidence and conditional forecast" }, { href: "https://www.weather.gov/tae/HurricaneMichael2018", label: "NWS Michael historical radar example, not evidence of a replacement cycle" }],
     title: "Eyewall Replacement Cycle Explained: Why Hurricane Winds Can Change",
     description: "Learn what an eyewall replacement cycle is, why hurricane winds can weaken then rebound, and how to read the signal in NHC forecasts and satellite imagery.",
     datePublished: "2026-09-14",
-    dateModified: "2026-10-24",
-    image: "/images/blog/hurricane-rapid-intensification.png",
-    imageAlt: "A coastal resident checks hurricane satellite imagery and forecast information on a phone before a storm.",
+    dateModified: "2026-11-04",
+    sourceCheck: { date: "2026-11-04", scope: "Irma discussion 28's conditional eyewall language and Michael historical radar labels. This is not a current structure or intensity diagnosis." },
+    image: "/images/blog/external/nws-michael-2018-radar-eye.png",
+    imageAlt: "Historical Michael radar comparison showing an eye and surrounding precipitation, alongside radial velocity.",
+    imageCaption: "Historical NWS Michael radar, October 10, 2018. An eye/eyewall reading example, not evidence of an eyewall replacement cycle or a current observation.",
     sections: [
       { heading: "Direct Answer", body: "An eyewall replacement cycle happens when a hurricane's original eyewall is surrounded by a new outer ring of thunderstorms. The inner eyewall can weaken, the wind field can expand, and maximum winds may later strengthen again after the outer eyewall contracts. It is a structural change, not a reliable sign that the storm is becoming safe." },
       { heading: "What the Eyewall Does", body: "The eyewall is the ring of intense thunderstorms around a hurricane's eye. It usually contains the strongest sustained winds and the most violent convection. When the inner ring is disrupted, pressure, wind speed, rainfall placement, and the storm's area of damaging wind can all change at once.", bullets: ["The eye can become larger or less distinct.", "Peak winds may temporarily decrease.", "The wind field can spread over a wider area.", "Rain bands and surge risk do not disappear during a weakening phase."] },
       { heading: "How a Replacement Cycle Forms", body: "Powerful hurricanes often generate an outer band of thunderstorms at the edge of their wind field. That band can organize into a second eyewall and begin drawing energy and angular momentum away from the original core. Aircraft reconnaissance, microwave satellite imagery, radar, and forecaster analysis help identify the process, but timing the next intensity change remains difficult." },
       { heading: "Why Wind Speed Can Drop Then Rebound", body: "During the transition, the inner eyewall may collapse before the outer eyewall becomes dominant. Maximum sustained wind can fall even while the storm grows larger. Once the outer ring contracts, the pressure gradient can tighten again and the peak wind can recover. Do not interpret a short-term category change as a complete reset of the hazard.", bullets: ["A weaker peak wind can coexist with a broader wind field.", "Storm surge depends on size, track, speed, and coastline shape as well as intensity.", "Rainfall and tornado threats can continue outside the eyewall."] },
-      { heading: "How to Read the Signal Safely", body: "Look for the latest NHC discussion and advisory, not only a colored category label. Compare the official intensity forecast with satellite structure, radar where available, wind radii, storm surge products, and local NWS alerts. HurricaneHub's live tracker can help you find those layers, but local watches, warnings, and evacuation instructions control household action.", bullets: ["Check the advisory timestamp before comparing two images.", "Watch the wind field and hazard products, not only the eye.", "Keep monitoring after a temporary weakening.", "Follow local emergency management instructions first."] }
+      { heading: "Read a Real Forecaster's Conditional Diagnosis", body: "NHC's Irma discussion 28, issued at 1100 PM AST on September 5, 2017 (AL112017), says radar imagery suggested a concentric eyewall structure and aircraft observations hinted at a secondary wind maximum. It then says that if replacement became more definitive, additional strengthening would likely halt and weakening could occur. This is a dated diagnosis with uncertainty, not a promise of a weakening schedule. The discussion's 160 kt current intensity belongs to Irma at that issue time; it is not a wind measurement from the Michael image above.", bullets: ["Identity: Irma, AL112017, discussion 28; keep this with the issue time.", "Evidence: radar structure plus an aircraft secondary wind maximum, not the appearance of an ordinary satellite cloud ring alone.", "Forecast language: suggested, hinted, and if more definitive are conditional words. Do not turn them into a confirmed cycle or fixed duration."], links: [{ href: "https://www.nhc.noaa.gov/archive/2017/al11/al112017.discus.028.shtml", label: "Read Irma discussion 28 in the original NHC archive" }] },
+      { heading: "Build a Two-Advisory Comparison", body: "For a real comparison, copy the storm ID, issue time, forecaster's structure wording, maximum sustained wind, and 34/50/64-kt wind radii from the corresponding official advisories. Repeat at the next advisory. Keep quadrants and units the same; a larger radius in one quadrant does not prove every part of the storm expanded. If a field is missing, record it as unavailable rather than filling it from a different storm or image.", bullets: ["Reading check: does Irma discussion 28 guarantee a completed replacement? No; it explicitly describes conditional evidence and possible consequences.", "An eye in one image does not show how many wind maxima aircraft measured.", "If the forecast category falls while wind radii increase, check the separate surge and local-warning products; a smaller peak intensity does not define a smaller local impact area."], links: [{ href: "https://www.nhc.noaa.gov/aboutnhcprod.shtml", label: "NHC advisory product guide" }, { href: "/hurricane-tracker/what-does-a-hurricane-look-like/", label: "Read actual radar product labels before interpreting an eye" }] },
+      { heading: "How to Read the Signal Safely", body: "Use the current NHC discussion's actual structure assessment, then check the matching advisory, wind field, surge products, and local warnings. Keep the historical Irma example separate from today's storm. An uncertain structure diagnosis is a reason to preserve forecast uncertainty, not to delay an official protective action." }
     ],
     faqs: [
       { question: "What is an eyewall replacement cycle?", answer: "It is a hurricane structural change in which a new outer eyewall forms around the original eyewall, often causing a temporary wind decrease followed by possible reintensification as the outer ring contracts." },
@@ -3342,7 +3346,7 @@ export const BLOG_CATEGORY_PAGES = [
     description:
       "Hurricane preparedness articles for emergency kits, home protection, evacuation timing, family communication, pets, medical needs, and household readiness.",
     intent:
-      "hurricane preparedness checklist, emergency kit, home preparation, family plan",
+      "Supplies, home protection, and family plans",
     actionHref: "/tools/preparedness-checklist/",
     actionLabel: "Generate a preparedness checklist"
   },
@@ -3353,7 +3357,7 @@ export const BLOG_CATEGORY_PAGES = [
     description:
       "Plain-language guides for hurricane watches, warnings, storm surge alerts, evacuation zones, flood alerts, and household safety decisions.",
     intent:
-      "hurricane watch warning meaning, storm surge warning, evacuation zone, NWS alerts",
+      "Alerts, evacuation zones, and protective actions",
     actionHref: "/tools/alert-action-decoder/",
     actionLabel: "Decode an alert"
   },
@@ -3364,7 +3368,7 @@ export const BLOG_CATEGORY_PAGES = [
     description:
       "Hurricane recovery articles for flood insurance, deductibles, claim documentation, damage records, food safety, cleanup, and post-storm steps.",
     intent:
-      "hurricane insurance claim, flood insurance, recovery checklist, damage documentation",
+      "Coverage, damage records, and recovery decisions",
     actionHref: "/tools/power-outage-planner/",
     actionLabel: "Build an outage and recovery plan"
   },
@@ -3375,7 +3379,7 @@ export const BLOG_CATEGORY_PAGES = [
     description:
       "Hurricane tracking guides on live maps, forecast cones, radar, satellite, spaghetti models, rapid intensification, surge forecasts, and inland impacts.",
     intent:
-      "live hurricane tracker, cone of uncertainty, spaghetti models, radar satellite",
+      "Read maps, forecast guidance, and observations",
     actionHref: "/hurricane-tracker/live/",
     actionLabel: "Open the live tracker"
   },
@@ -3386,7 +3390,7 @@ export const BLOG_CATEGORY_PAGES = [
     description:
       "Beginner-friendly hurricane explainers for categories, storm types, wind scales, tropical cyclone terms, surge basics, and risk vocabulary.",
     intent:
-      "hurricane category explained, typhoon vs cyclone, Saffir Simpson scale",
+      "Storm structure, wind scales, and terminology",
     actionHref: "/learn/",
     actionLabel: "Open the learning center"
   }

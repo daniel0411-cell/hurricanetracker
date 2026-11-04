@@ -1,0 +1,21 @@
+<section class="model-exercise" aria-labelledby="model-time-heading">
+  <p class="eyebrow">Illustrative exercise, not forecast guidance</p>
+  <h2 id="model-time-heading">Compare the Same Valid Time</h2>
+  <p>These invented model rows describe times only. They do not show a storm, a real model run, a track, or a landfall probability. Add forecast lead hours to initialization time before comparing positions.</p>
+  <div class="time-rows" role="img" aria-label="Run A starts at 00 UTC August 1 and reaches August 4 at 00 UTC after 72 hours. Run B starts 12 hours later and reaches that same valid time after 60 hours.">
+    <div><strong>Run A</strong><span>Aug 1 · 00 UTC</span><span class="lead">+72 hours</span><strong>Aug 4 · 00 UTC</strong></div>
+    <div><strong>Run B</strong><span>Aug 1 · 12 UTC</span><span class="lead">+60 hours</span><strong>Aug 4 · 00 UTC</strong></div>
+  </div>
+  <h3>Which positions belong in one comparison?</h3>
+  <p><strong>Answer:</strong> Run A's +72-hour position and Run B's +60-hour position both represent August 4 at 00 UTC. Run B's +72-hour position represents August 4 at 12 UTC, twelve hours later. Comparing both +72 endpoints would mix two different future times.</p>
+  <p>For a real plot, record the storm/year, model ID, initialization, forecast hour, valid time, and source URL. Counting visible tracks that cross a city does not provide a city landfall probability.</p>
+  <p><a href="https://www.nhc.noaa.gov/modelsummary.shtml">NHC model types and early/late guidance</a> · <a href="https://www.weather.gov/media/tbw/workouts/2021feb09_ww_models.pdf#page=7">Historical Danny plot in NWS teaching slide 7</a></p>
+</section>
+<style>
+  .model-exercise { margin: 28px 0; }
+  .time-rows { display: grid; gap: 16px; margin: 24px 0; }
+  .time-rows > div { display: grid; grid-template-columns: 70px 1fr 1fr 1fr; align-items: center; gap: 12px; padding: 16px 0; border-block: 1px solid var(--line); }
+  .lead { border-bottom: 3px solid #147d75; padding: 10px 0; text-align: center; }
+  .time-rows > div + div .lead { border-color: #bd526a; }
+  @media (max-width: 600px) { .time-rows > div { grid-template-columns: 1fr 1fr; } .lead { text-align: left; } }
+</style>
