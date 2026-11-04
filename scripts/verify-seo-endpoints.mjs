@@ -6,15 +6,16 @@
  */
 
 const site = process.env.SITE_URL || "https://www.hurricanetracker.cc";
-const publisherId = "pub-9796748281026165";
+const publisherId = "pub-1321310404115919";
 const adsTxtEntry = `google.com, ${publisherId}, DIRECT, f08c47fec0942fa0`;
+const adsenseScriptUrl = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${publisherId}`;
 const crawlerUserAgents = [
   "Mediapartners-Google",
   "AdsBot-Google (+http://www.google.com/adsbot.html)",
   "Googlebot/2.1 (+http://www.google.com/bot.html)",
 ];
 const endpoints = [
-  { path: "/", contentType: "text/html", marker: "<main", userAgent: "Mediapartners-Google" },
+  { path: "/", contentType: "text/html", marker: adsenseScriptUrl, userAgent: "Mediapartners-Google" },
   { path: "/robots.txt", contentType: "text/plain", marker: "Sitemap:" },
   { path: "/ads.txt", contentType: "text/plain", marker: adsTxtEntry },
   { path: "/favicon.ico", contentType: "image/", marker: null },
@@ -91,7 +92,7 @@ async function verifyAdSenseEntry() {
           const body = method === "GET" ? await response.text() : "";
           if (method === "GET") {
             const isAdsTxt = path === "/ads.txt";
-            const validContent = isAdsTxt ? body.trim() === adsTxtEntry : body.includes("<main");
+            const validContent = isAdsTxt ? body.trim() === adsTxtEntry : body.includes("<main") && body.includes(adsenseScriptUrl);
             const expectedType = isAdsTxt ? "text/plain" : "text/html";
             const type = response.headers.get("content-type") || "";
             if (!validContent || !type.includes(expectedType) || /Just a moment|cf-chl-/i.test(body)) {
