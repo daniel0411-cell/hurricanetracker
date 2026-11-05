@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" font-family="Arial, Helvetica, sans-serif" fill="#202d32">
+    <title id="title">Hurricane eyewall replacement cycle</title><desc id="desc">Three conceptual stages of eyewall replacement. The original red inner ring is surrounded by a new teal outer ring. The red inner ring fades as the teal ring becomes the primary eyewall. Peak winds may weaken temporarily while the wind field broadens. This is not an observation or forecast, and is not to scale.</desc>
+    <rect width="1600" height="900" fill="#fff"/>
+  <text x="56" y="45" font-size="16" fill="#52646b" font-weight="700">HURRICANEHUB / STORM STRUCTURE</text>
+  <text x="56" y="108" font-size="46" font-weight="700">Hurricane Eyewall Replacement Cycle</text>
+  <text x="56" y="151" font-size="24" fill="#52646b">Peak winds may weaken temporarily; the wind field may broaden.</text>
+  <path d="M56,183 H1544" stroke="#cbd7db"/>
+  <g transform="translate(56,252)">
+    <text x="0" y="-36" font-size="15" fill="#52646b" font-weight="700">STAGE 01</text>
+    <text x="0" y="0" font-size="27" font-weight="700">Original eyewall</text>
+    <text x="0" y="38" font-size="20" fill="#52646b">One eyewall surrounds the eye.</text>
+    <g data-stage="1">
+    <circle cx="236" cy="228" r="69" fill="#f0f5f6"/>
+    <circle id="desktop-1-original" data-ring="original" cx="236" cy="228" r="74" fill="none" stroke="#c54a3f" stroke-width="7" />
+
+    <text x="236" y="236" font-size="24" text-anchor="middle" font-weight="700">Eye</text><g data-label="desktop-1-original"><path d="M32,376 L116,376 L183.6740981921955,280.3259018078045" fill="none" stroke="#fff" stroke-width="6"/>
+    <path d="M32,376 L116,376 L183.6740981921955,280.3259018078045" fill="none" stroke="#202d32" stroke-width="2"/>
+    <circle data-leader-target="desktop-1-original" cx="183.6740981921955" cy="280.3259018078045" r="5" fill="#a6372e" stroke="#fff" stroke-width="2"/>
+    <text x="32" y="406" font-size="20" fill="#a6372e" font-weight="700">Original eyewall</text></g></g>
+  </g><g transform="translate(568,252)">
+    <text x="0" y="-36" font-size="15" fill="#52646b" font-weight="700">STAGE 02</text>
+    <text x="0" y="0" font-size="27" font-weight="700">Concentric eyewalls</text>
+    <text x="0" y="38" font-size="20" fill="#52646b">A second eyewall forms farther out.</text>
+    <g data-stage="2">
+    <circle cx="236" cy="228" r="69" fill="#f0f5f6"/>
+    <circle id="desktop-2-original" data-ring="original" cx="236" cy="228" r="74" fill="none" stroke="#c54a3f" stroke-width="7" />
+    <circle id="desktop-2-outer" data-ring="outer" cx="236" cy="228" r="132" fill="none" stroke="#007e83" stroke-width="9"/>
+    <text x="236" y="236" font-size="24" text-anchor="middle" font-weight="700">Eye</text><g data-label="desktop-2-original"><path d="M32,376 L116,376 L183.6740981921955,280.3259018078045" fill="none" stroke="#fff" stroke-width="6"/>
+    <path d="M32,376 L116,376 L183.6740981921955,280.3259018078045" fill="none" stroke="#202d32" stroke-width="2"/>
+    <circle data-leader-target="desktop-2-original" cx="183.6740981921955" cy="280.3259018078045" r="5" fill="#a6372e" stroke="#fff" stroke-width="2"/>
+    <text x="32" y="406" font-size="20" fill="#a6372e" font-weight="700">Inner eyewall</text></g><g data-label="desktop-2-outer"><path d="M280,85 L346,85 L329.3380951166243,134.6619048833757" fill="none" stroke="#fff" stroke-width="6"/>
+    <path d="M280,85 L346,85 L329.3380951166243,134.6619048833757" fill="none" stroke="#202d32" stroke-width="2"/>
+    <circle data-leader-target="desktop-2-outer" cx="329.3380951166243" cy="134.6619048833757" r="5" fill="#00676b" stroke="#fff" stroke-width="2"/>
+    <text x="280" y="72" font-size="20" fill="#00676b" font-weight="700">Outer eyewall</text></g></g>
+  </g><g transform="translate(1080,252)">
+    <text x="0" y="-36" font-size="15" fill="#52646b" font-weight="700">STAGE 03</text>
+    <text x="0" y="0" font-size="27" font-weight="700">Outer eyewall replaces inner</text>
+    <text x="0" y="38" font-size="20" fill="#52646b">The old inner eyewall dissipates.</text>
+    <g data-stage="3">
+    <circle cx="236" cy="228" r="127" fill="#f0f5f6"/>
+    <circle id="desktop-3-original" data-ring="original" cx="236" cy="228" r="74" fill="none" stroke="#c54a3f" stroke-width="7" stroke-dasharray="10 10" opacity="0.55"/>
+    <circle id="desktop-3-outer" data-ring="outer" cx="236" cy="228" r="132" fill="none" stroke="#007e83" stroke-width="9"/>
+    <text x="236" y="236" font-size="24" text-anchor="middle" font-weight="700">Eye</text><g data-label="desktop-3-original"><path d="M32,376 L116,376 L183.6740981921955,280.3259018078045" fill="none" stroke="#fff" stroke-width="6"/>
+    <path d="M32,376 L116,376 L183.6740981921955,280.3259018078045" fill="none" stroke="#202d32" stroke-width="2"/>
+    <circle data-leader-target="desktop-3-original" cx="183.6740981921955" cy="280.3259018078045" r="5" fill="#96554f" stroke="#fff" stroke-width="2"/>
+    <text x="32" y="406" font-size="20" fill="#96554f" font-weight="700">Fading inner eyewall</text></g><g data-label="desktop-3-outer"><path d="M280,85 L346,85 L329.3380951166243,134.6619048833757" fill="none" stroke="#fff" stroke-width="6"/>
+    <path d="M280,85 L346,85 L329.3380951166243,134.6619048833757" fill="none" stroke="#202d32" stroke-width="2"/>
+    <circle data-leader-target="desktop-3-outer" cx="329.3380951166243" cy="134.6619048833757" r="5" fill="#00676b" stroke="#fff" stroke-width="2"/>
+    <text x="280" y="72" font-size="20" fill="#00676b" font-weight="700">Primary eyewall</text></g></g>
+  </g>
+  <g fill="none" stroke="#74858c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M530,480 H553 M545,472 L553,480 L545,488"/><path d="M1042,480 H1065 M1057,472 L1065,480 L1057,488"/></g>
+  <rect y="694" width="1600" height="146" fill="#edf5f4"/>
+  <path d="M56,720 V811" stroke="#007e83" stroke-width="5"/>
+  <text x="82" y="749" font-size="28" font-weight="700">Lower peak winds do not necessarily mean lower overall risk.</text>
+  <text x="82" y="793" font-size="23" >A replacement cycle can change storm size as well as peak wind speed.</text>
+  <text x="56" y="875" font-size="18" fill="#52646b">Conceptual sequence, not observations or a forecast. Not to scale.</text>
+  <text x="1544" y="875" font-size="16" fill="#52646b" text-anchor="end">HurricaneHub | Original diagram</text>
+</svg>

@@ -672,10 +672,10 @@ export const topicPages: TopicPage[] = [
     title: "Hurricane Spaghetti Models",
     shortTitle: "Spaghetti Models",
     description:
-      "Learn how hurricane spaghetti models, GFS, ECMWF, ICON, AI guidance, and model spread fit with the official NHC forecast and local alerts.",
+      "Practice reading a real historical Joaquin spaghetti plot: identify model codes, chart time, missing forecast hours, and the limits of model-track comparisons.",
     eyebrow: "Forecast model hub",
     intro:
-      "Hurricane spaghetti models plot many forecast tracks together to show where guidance agrees and where uncertainty remains. They are not one forecast and should not replace the official NHC cone. Start with the newest model initialization time, compare the cluster instead of one line, then use the NHC forecast and local alerts for decisions.",
+      "Hurricane spaghetti models plot forecast tracks together to show where guidance agrees and differs. Read the storm, chart cycle, and complete model identifiers first; then match valid times before comparing positions. The historical Joaquin exercise below shows what a real chart supplies and what it leaves out. Use current NHC advisories and local alerts for today's decisions.",
     primaryAction: { label: "Open live tracker", href: "/hurricane-tracker/live/" },
     secondaryAction: { label: "Read model guide", href: "/blog/how-to-read-hurricane-spaghetti-models/" },
     intent: "hurricane spaghetti models, GFS vs Euro hurricane model, hurricane model tracks",
@@ -688,7 +688,7 @@ export const topicPages: TopicPage[] = [
       },
       {
         title: "Compare Model Spread",
-        body: "Check that model lines use the same initialization time. Wide spread means track uncertainty is high; a tight cluster shows agreement about the center path, but it can still miss surge, rain bands, tornadoes, and outages.",
+        body: "Compare positions at the same valid time. A shared chart cycle does not prove all models have the same native initialization: interpolated guidance can start from older runs. Spread describes differing center-track scenarios, not calibrated city probabilities or the full extent of hazards.",
         href: "/blog/how-to-read-hurricane-spaghetti-models/",
         label: "Learn model spread"
       },

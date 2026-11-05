@@ -1,3 +1,52 @@
+---
+import ContentFigure from "./ContentFigure.astro";
+
+const imageRoot = "/images/guides/joaquin-2015";
+const details = [
+  { id: "cycle", title: "01 · Chart date-time group", width: 450, height: 108, alt: "Title fragment from the original Joaquin chart reading 2015100100.", text: "The title strip says 2015100100: October 1, 2015, hour 00 under the ATCF UTC convention. The raster does not print a timezone. This chart cycle does not establish every model's native initialization." },
+  { id: "hwfi", title: "02 · Read the complete model ID", width: 528, height: 306, alt: "Green HWFI identifier at a track endpoint in the original Joaquin chart.", text: "Upper-left endpoint region: HWFI identifies interpolated HWRF guidance (six-hour interpolation in NHC's technique list). Keep the final letter: it distinguishes this aid from other HWRF products." },
+  { id: "emx2", title: "03 · A different interpolation", width: 552, height: 384, alt: "Pink EMX2 identifier at the offshore endpoint in the original Joaquin chart.", text: "Offshore endpoint region: EMX2 identifies twelve-hour-interpolated ECMWF guidance. The embedded original says EMX2, not EMXI. Those identifiers are not interchangeable." },
+  { id: "tvca", title: "04 · Identify a consensus aid", width: 648, height: 420, alt: "Orange TVCA identifier and neighboring tracks in the original Joaquin chart.", text: "Mid-Atlantic endpoint region: TVCA is a consensus aid. Its exact 2015 membership and weights are not established here; a later technique list cannot prove its historical composition." }
+];
+---
+<section class="model-exercise" aria-labelledby="historical-model-heading">
+  <p class="eyebrow">Historical example · Joaquin, 2015 · Not a current forecast</p>
+  <h2 id="historical-model-heading">Read a Real Historical Spaghetti Plot</h2>
+  <p>Use the numbered chart and enlarged details to identify what is actually printed. The original is embedded on slide 15 of Michael J. Brennan's April 20, 2017 NHC presentation. HurricaneHub added numbered boxes and explanatory margins; the tracks, identifiers, coordinates, and official marks remain unchanged.</p>
+  <ContentFigure src={`${imageRoot}/reading-annotated.webp`} width={1800} height={1400} alt="Original historical Joaquin ATCF model chart with numbered callouts around the chart-cycle code, HWFI, EMX2 and TVCA; original tracks are unchanged." caption="Historical Joaquin (AL112015), chart header 2015100100. Original chart: NOAA/NWS National Hurricane Center. Annotations: HurricaneHub. No point-specific forecast-hour or valid-time labels are supplied. No endorsement implied." sourceUrl="https://www.nhc.noaa.gov/outreach/presentations/NHC2017_TrackForecasting.pdf#page=15" sourceLabel="NHC original presentation, slide 15" fullSize={true} />
+  <p><a href={`${imageRoot}/original.png`}>Open the unannotated full chart with its original title and ATCF/KNHC marks</a></p>
+
+  <div class="model-details">
+    {details.map((detail) => (
+      <figure>
+        <h3>{detail.title}</h3>
+        <div class="detail-image"><img src={`${imageRoot}/detail-${detail.id}.png`} width={detail.width} height={detail.height} alt={detail.alt} loading="lazy" decoding="async" /></div>
+        <figcaption>{detail.text} Each detail comes from the same historical chart linked above.</figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <h3>What This Historical Example Teaches</h3>
+  <div class="historical-reading">
+    <p>This is a historical guidance plot for Hurricane Joaquin, AL112015, preserved in National Hurricane Center training material. Start with the header: 2015100100 identifies the chart's date-time group, October 1, 2015, hour 00 under ATCF conventions. It is not a publication date for this webpage, and it does not establish the native initialization of every model shown.</p>
+    <p>Next, read complete identifiers. HWFI is an interpolated HWRF aid; EMX2 is a twelve-hour-interpolated ECMWF aid. TVCA is a consensus aid. These are different kinds of guidance, not simply interchangeable members of one ensemble. NHC's technique list explains the codes, but its later consensus membership should not be applied retrospectively to 2015.</p>
+    <p>The original contains symbols along the tracks, but no printed forecast-hour labels or point-specific valid times. Do not label a square as +72 hours or compare endpoints as though they necessarily represent one moment. Different native initializations require matching valid times before comparing positions; this image alone does not supply that match.</p>
+    <p>The spread illustrates differing track scenarios, not equal-probability outcomes. Counting tracks across a city cannot produce a landfall percentage, and none of these lines defines an official NHC cone. For present-day decisions, use current NHC advisories, hazard products, and local emergency guidance.</p>
+  </div>
+
+  <h3>Reading Check</h3>
+  <p>Which identifier marks interpolated HWRF guidance, and can you assign a +72-hour valid time to an unlabeled square?</p>
+  <details class="reading-answer"><summary>Show the answer</summary><p><strong>HWFI.</strong> No: the original has no forecast-hour or symbol-interval key. The chart-cycle code alone does not identify the valid time of an individual square. Use the separate illustrative exercise below to practice the arithmetic.</p></details>
+
+  <details class="source-record">
+    <summary>Source notes and remaining uncertainties</summary>
+    <p>Checked November 5, 2026. Original header: <code>al112015 - JOAQUIN 2015100100</code>. The printed identifiers include HWFI, GFDI, GFSI, TVCA, EMX2, and EGR2: a mixture of model-derived and consensus guidance, not one ensemble. The chart has no conventional color-legend box; read the identifiers attached to the lines.</p>
+    <p>The presentation's later large overlay labels differ from the embedded original in two places: EMXI versus EMX2, and ERGI versus EGR2. This reading copy preserves the embedded chart's EMX2 and EGR2. Chart-generation time, full native-run history, symbol timing, exact 2015 consensus membership, and the identity of the unlabeled black-symbol series were not independently established.</p>
+    <p><a href="https://ftp.nhc.noaa.gov/atcf/docs/nhc_techlist.dat">NHC technique definitions</a> · <a href="https://ftp.nhc.noaa.gov/atcf/README">ATCF archive and interpolation notes</a> · <a href="https://www.nhc.noaa.gov/modelsummary.shtml">NHC early and late guidance explanation</a> · <a href="https://www.weather.gov/disclaimer">NWS reuse policy</a></p>
+    <p>Original NOAA/NWS chart retained with attribution; only explanatory annotations and magnified crops were added. No agency affiliation or endorsement is implied.</p>
+  </details>
+</section>
+
 <section class="model-exercise" aria-labelledby="model-time-heading">
   <p class="eyebrow">Illustrative exercise, not forecast guidance</p>
   <h2 id="model-time-heading">Compare the Same Valid Time</h2>
@@ -9,13 +58,25 @@
   <h3>Which positions belong in one comparison?</h3>
   <p><strong>Answer:</strong> Run A's +72-hour position and Run B's +60-hour position both represent August 4 at 00 UTC. Run B's +72-hour position represents August 4 at 12 UTC, twelve hours later. Comparing both +72 endpoints would mix two different future times.</p>
   <p>For a real plot, record the storm/year, model ID, initialization, forecast hour, valid time, and source URL. Counting visible tracks that cross a city does not provide a city landfall probability.</p>
-  <p><a href="https://www.nhc.noaa.gov/modelsummary.shtml">NHC model types and early/late guidance</a> · <a href="https://www.weather.gov/media/tbw/workouts/2021feb09_ww_models.pdf#page=7">Historical Danny plot in NWS teaching slide 7</a></p>
+  <p><a href="https://www.nhc.noaa.gov/modelsummary.shtml">NHC model types and early/late guidance</a> · <a href="https://www.nhc.noaa.gov/outreach/presentations/NHC2017_TrackForecasting.pdf#page=15">Original historical Joaquin teaching source</a></p>
 </section>
 <style>
   .model-exercise { margin: 28px 0; }
+  .model-exercise h3 { font-size: 1.15rem; line-height: 1.4; margin-top: 24px; }
+  .model-exercise p, .model-exercise figcaption { line-height: 1.65; }
+  .model-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-block: 28px; }
+  .model-details figure { margin: 0; min-width: 0; }
+  .model-details h3 { margin: 0 0 12px; }
+  .detail-image { height: 220px; background: #fff; border: 1px solid var(--line); }
+  .detail-image img { display: block; width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+  .model-details figcaption { margin-top: 12px; }
+  .historical-reading { max-width: 75ch; }
+  .reading-answer, .source-record { border-block: 1px solid var(--line); padding-block: 16px; margin-block: 20px; }
+  summary { cursor: pointer; font-weight: 700; }
+  code { overflow-wrap: anywhere; }
   .time-rows { display: grid; gap: 16px; margin: 24px 0; }
   .time-rows > div { display: grid; grid-template-columns: 70px 1fr 1fr 1fr; align-items: center; gap: 12px; padding: 16px 0; border-block: 1px solid var(--line); }
   .lead { border-bottom: 3px solid #147d75; padding: 10px 0; text-align: center; }
   .time-rows > div + div .lead { border-color: #bd526a; }
-  @media (max-width: 600px) { .time-rows > div { grid-template-columns: 1fr 1fr; } .lead { text-align: left; } }
+  @media (max-width: 600px) { .model-details { grid-template-columns: minmax(0, 1fr); } .time-rows > div { grid-template-columns: 1fr 1fr; } .lead { text-align: left; } }
 </style>

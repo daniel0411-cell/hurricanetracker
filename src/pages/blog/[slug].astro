@@ -118,7 +118,7 @@ const jsonLd = graph(
   </article>
 
   <section class="band article-body" aria-labelledby="post-title">
-    <div class="inner grid-2 article-grid">
+    <div class:list={["inner grid-2 article-grid", { "diagram-article": post.slug === "hurricane-eyewall-replacement-cycle-explained" }]}>
       <div class="stack">
         <nav class="article-contents" aria-label="Article contents">
           <details>
@@ -189,6 +189,8 @@ const jsonLd = graph(
   .article-intro h1 { font-size: 2.5rem; line-height: 1.15; max-width: 30ch; }
   .article-intro p { margin-block: 16px; }
   .article-grid h2 { font-size: 1.5rem; line-height: 1.3; }
+  .diagram-article { grid-template-columns: minmax(0, 1fr); }
+  .diagram-article section > p, .diagram-article section > ul, .diagram-article > aside { max-width: 75ch; }
   .source-check summary { cursor: pointer; padding-block: 6px; }
   .source-check p { margin-top: 8px; }
   .article-contents { border-block: 1px solid var(--line); padding-block: 16px; }

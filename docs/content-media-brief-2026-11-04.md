@@ -6,6 +6,11 @@ Produce media only when it lets the reader answer a concrete question that the t
 
 ## Priority 1: Eyewall replacement concept sequence
 
+- Status, November 5, 2026: approved original concept diagram integrated into the destination article with responsive desktop/mobile exports, text equivalent, historical source context and a reading check. Use the Codex vector set below rather than the earlier Yuanbao generated images with incorrect labels. Release provenance is recorded in `docs/teaching-media-integration-2026-11-05.md`.
+- Retained local handoff directory: `/Users/daniel/Documents/hurricanetracker/scratch/media-handoff/eyewall-cycle-codex-2026-11-05/`.
+- Ready files: `eyewall-cycle-desktop.svg` / `.png` / `.webp` (1600 x 900); `eyewall-cycle-mobile.svg` / `.png` / `.webp` (1080 x 1800). `preview.html` supplies responsive selection, text equivalent and reading check; `README.md` records sources, alt, caption, rights and validation. `render.mjs` regenerates the files using installed dependencies.
+- Integration reminder: retrieve these files automatically when editing the destination article. Copy only the required approved exports into public assets at integration time; retain separate mobile selection, conceptual/no-scale labeling, red-original/teal-outer identity, sources and written reading task. Use the diagram within the explanatory body; keep actual historical imagery clearly separate. Do not treat the circles as measured wind radii or observed Irma frames.
+- Checked supporting source: NHC Irma final report, printed page 3, <https://www.nhc.noaa.gov/data/tcr/AL112017_Irma.pdf>, records concentric eyewalls, slight weakening and a larger wind field. This is dated context, not a measured three-frame sequence. NOAA supplementary FAQ access failures are recorded in the handoff README.
 - Destination: `/blog/hurricane-eyewall-replacement-cycle-explained/`.
 - Deliverable: three clearly labeled panels: original eyewall; two concentric eyewalls; outer ring replaces the inner ring. Show the eye, inner eyewall, outer eyewall, and a shared scale or explicit conceptual/no-scale label.
 - Reader question: why can maximum sustained wind decrease while the wind field expands?
