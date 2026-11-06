@@ -2,6 +2,12 @@ import { topicPages } from "./topicPages";
 
 // Editorial revisions only. Feed fetch times and advisory issue times belong to their products.
 const revisions: Record<string, string> = {
+  "hurricane-tracker/path/": "2026-11-06T00:00:00.000Z",
+  "hurricane-tracker/radar/": "2026-11-06T00:00:00.000Z",
+  "hurricane-tracker/live-tracker/": "2026-11-06T00:00:00.000Z",
+  "hurricane-tracker/city/charleston/": "2026-11-06T00:00:00.000Z",
+  "hurricane-tracker/city/wilmington/": "2026-11-06T00:00:00.000Z",
+  "hurricane-tracker/city/port-charlotte/": "2026-11-06T00:00:00.000Z",
   "hurricane-tracker/why-hurricane-forecasts-change/": "2026-11-06T00:00:00.000Z",
   "hurricane-tracker/evacuation-zones/": "2026-11-06T00:00:00.000Z",
   "hurricane-tracker/spaghetti-models/": "2026-11-05T00:00:00.000Z",
@@ -15,7 +21,7 @@ const revisions: Record<string, string> = {
   "decision-guide/": "2026-11-04T00:00:00.000Z",
   "site-map/": "2026-11-04T00:00:00.000Z",
   "storm-archive/": "2026-11-04T00:00:00.000Z",
-  "tools/": "2026-11-04T00:00:00.000Z",
+  "tools/": "2026-11-06T00:00:00.000Z",
   "tools/local-risk-plan/": "2026-11-04T00:00:00.000Z",
   "tools/impact-window-estimator/": "2026-11-04T00:00:00.000Z",
   "tools/hurricane-brief/": "2026-11-04T00:00:00.000Z",

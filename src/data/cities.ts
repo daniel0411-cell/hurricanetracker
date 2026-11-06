@@ -948,6 +948,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "charleston",
+    dateModified: "2026-11-06",
+    sourceCheck: { date: "2026-11-06", scope: "Read Charleston County's hurricane page, its linked Evacuation Areas PDF (including the A/B/C legend and zone-change notice), and SCEMD's address-lookup instructions. The PDF has no visible publication date; access date is not a map edition. No address result, current order, bridge status, shelter or transport service was verified." },
     name: "Charleston",
     stateCode: "SC",
     stateName: "South Carolina",
@@ -973,11 +975,27 @@ export const hurricaneCities: HurricaneCity[] = [
         heading: "Evacuation Traffic",
         body:
           "Charleston evacuations can place pressure on I-26 and inland routes. Households with pets, medical needs, or limited transportation should decide before traffic peaks."
+      },
+      {
+        heading: "Read the County's Evacuation Areas Legend",
+        body: "The Evacuation Areas PDF linked by Charleston County shows red for A, yellow for B and orange for C. Its text places areas in and around Edisto Island and immediate-coast islands in A; areas in and around Mount Pleasant, James Island and Johns Island in B; and other described inland areas in C. Those broad descriptions are not an address determination: some place names span more than one description. Use SCEMD's exact-address lookup, check the returned location against landmarks, and keep the county and zone with the result. Do not assign a whole island or municipality from its name alone."
+      },
+      {
+        heading: "Keep the Zone Revision With Your Record",
+        body: "The PDF explicitly says zone changes were made using updated NHC storm-surge model data. The copy checked November 6, 2026 has no visible publication date. Record its title, official URL and access date, and mark edition date not stated rather than calling it a 2026 edition. Reopen the official county and SCEMD resources before relying on an older saved map. A colored planning zone describes an evacuation area; it does not show that an evacuation has been ordered for an event."
+      },
+      {
+        heading: "Charleston Reading Task: Is FEMA Zone AE an Evacuation Result?",
+        body: "Question: your property document says FEMA Zone AE, while the county evacuation PDF uses A/B/C. Can you record evacuation Zone A by dropping the E? Answer: no. The county hurricane page separately discusses FEMA flood-insurance zones, while its evacuation map uses the A/B/C legend. The labels belong to different products. Complete a separate record: exact address and jurisdiction; official evacuation lookup and zone; map title or revision if given; lookup date; current order issuer, issue time and affected zones; and transport or receiving arrangements still unconfirmed."
+      },
+      {
+        heading: "Match the Current Order, Not the Map Color Alone",
+        body: "After finding the official zone, read the current event's order for named zones, effective time, any housing-specific instructions and return restrictions. A red A on the standing map is not a red warning polygon or a command to drive immediately. Keep road and bridge restrictions in another record from the relevant authority; do not infer an open I-26 route or causeway from the evacuation-zone map. If a result is near a boundary or the address marker is wrong, ask the responsible local agency to resolve it."
       }
     ],
     evacuationFocus: [
       "Check Charleston County evacuation zones and local emergency management updates.",
-      "Leave early from barrier islands, mobile homes, or surge-prone neighborhoods.",
+      "Follow the current order's affected zones, housing instructions and departure timing; confirm help before it is needed.",
       "Plan around I-26 traffic, lodging, fuel, pets, and medication needs.",
       "Move vehicles from low streets and avoid flooded roads after rainfall or tide peaks."
     ],
@@ -1003,13 +1021,31 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "Is downtown Charleston hurricane risk mostly wind or water?",
         answer:
           "Water is often the primary concern downtown because tidal flooding, surge, and heavy rain can combine. Wind and outages still matter."
+      },
+      {
+        question: "Can I convert FEMA Zone AE into Charleston evacuation Zone A?",
+        answer: "No. The county's evacuation PDF uses A/B/C for its evacuation areas; FEMA AE is a flood-insurance map designation. Use the exact-address evacuation lookup and then read the current order separately."
+      },
+      {
+        question: "Is the linked Charleston evacuation map a verified 2026 edition?",
+        answer: "The PDF checked November 6, 2026 says zones changed, but has no visible publication date. The check date is not an edition date. Reopen the current official resource and record its actual revision if one is provided."
       }
     ],
     officialResources: [
       {
         name: "Charleston County Emergency Management",
         description: "Official Charleston County evacuation, shelter, alerts, and hurricane preparedness information.",
-        url: "https://www.charlestoncounty.org/departments/emergency-management/"
+        url: "https://www.charlestoncounty.gov/departments/emergency-management/hurricane.php"
+      },
+      {
+        name: "Charleston County Evacuation Areas PDF",
+        description: "County-linked A/B/C map, written area descriptions and notice that evacuation zones changed; no visible edition date in the checked copy.",
+        url: "https://www.charlestoncounty.gov/departments/emergency-management/files/Charleston-County-Evac-Zones.pdf?v=271"
+      },
+      {
+        name: "SCEMD Know Your Zone",
+        description: "Official instructions and lookup entry for an exact address; check the actual returned location before recording its zone.",
+        url: "https://www.scemd.org/prepare/know-your-zone/"
       },
       {
         name: "NWS Charleston",
@@ -1027,6 +1063,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "wilmington",
+    dateModified: "2026-11-06",
+    sourceCheck: { date: "2026-11-06", scope: "Read NWS Wilmington's historical Florence summary (Pender County river/road account), New Hanover's Flooding and Evacuation & Shelters pages, the NWPS Burgaw station identity and DriveNC entry. No live gauge values, current road or shelter status, address zone or individual route were verified." },
     name: "Wilmington",
     stateCode: "NC",
     stateName: "North Carolina",
@@ -1052,6 +1090,22 @@ export const hurricaneCities: HurricaneCity[] = [
         heading: "Tree Damage and Outages",
         body:
           "Saturated soil and tropical wind can bring down trees across New Hanover and surrounding counties. Prepare for blocked roads, outages, and communication disruption."
+      },
+      {
+        heading: "Florence 2018: River Flooding Continued After Landfall",
+        body: "NWS Wilmington's historical Florence summary dates landfall to September 14, 2018. Its Pender County account reports that the Northeast Cape Fear River gauge at Burgaw reached 25.58 feet early September 19. It also describes a roughly 300-foot washout of U.S. 421 near the New Hanover County line as water flowed between the Cape Fear and Northeast Cape Fear rivers. These are historical observations and damage reports for named locations, not today's water level or road restrictions. The sequence explains why a weakening wind forecast did not complete the region's flood and access checks."
+      },
+      {
+        heading: "Read a River Record Before Applying It to Wilmington",
+        body: "Open the NWPS Northeast Cape Fear River near Burgaw entry, BGWN7, and verify the station identity first. For a current reading, record its observation time, units and reference; for a forecast, separately record the issue time and future valid times. Retain the site's stated flood-stage thresholds. Do not treat the historical 25.58-foot Burgaw stage as water 25.58 feet above a Wilmington floor, a forecast for every Cape Fear gauge or a road-depth measurement. Comparing an elevation with a building requires compatible vertical references and qualified interpretation."
+      },
+      {
+        heading: "Wilmington Reading Task: Does a Falling Gauge Reopen U.S. 421?",
+        body: "No. The historical NWS account describes physical road damage as well as river flooding. A falling water-level observation is a different record from a transportation authority's reopening notice. Keep three records: river station, time, units and observed/forecast status; the exact road segment and current DriveNC restriction/update; and the local evacuation or reentry instruction and issuer. If one record is unavailable, mark that part unresolved instead of drawing a safe route through the gap. A blank traffic layer is not confirmation that a road is open."
+      },
+      {
+        heading: "An Identified Shelter Is Not an Open Destination",
+        body: "New Hanover's Evacuation & Shelters page distinguishes predetermined planning locations from event-specific openings and says shelters need not open or close together. Before using a listed facility as your destination, check the latest county notice for that facility, timing and acceptance requirements. Keep pet, accessibility, care and transport confirmations with the plan. The page's standing list, a river forecast and an old Florence report cannot establish today's space or services."
       }
     ],
     evacuationFocus: [
@@ -1082,13 +1136,46 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "What should Wilmington residents monitor besides the cone?",
         answer:
           "Monitor NWS flood alerts, river forecasts, local evacuation orders, road closures, and county emergency management updates."
+      },
+      {
+        question: "Does Burgaw's historical 25.58-foot stage mean that depth at my home?",
+        answer: "No. It is the stage reported for a named Northeast Cape Fear gauge early September 19, 2018. Keep the station and measurement reference; it is not inundation above a Wilmington floor, a present forecast or a road-depth measurement."
+      },
+      {
+        question: "Does a falling river or a listed shelter prove I can return or travel?",
+        answer: "No. Check the exact road segment's current restriction and local reentry instruction. Confirm any receiving shelter is actually open and able to meet the household's needs; a standing facility list is planning information."
       }
     ],
     officialResources: [
       {
         name: "New Hanover County Emergency Management",
         description: "Official New Hanover County emergency alerts, evacuation, shelter, and preparedness information.",
-        url: "https://em.nhcgov.com/"
+        url: "https://www.nhcgov.com/196/Emergency-Management/"
+      },
+      {
+        name: "NWS Wilmington: Historical Hurricane Florence",
+        description: "September 2018 account; the Pender County section identifies the Burgaw crest and U.S. 421 washout used in this reading exercise.",
+        url: "https://www.weather.gov/ilm/HurricaneFlorence"
+      },
+      {
+        name: "NWPS Northeast Cape Fear River near Burgaw",
+        description: "BGWN7 station entry; inspect observation/forecast times and units on the current product rather than carrying the historical crest forward.",
+        url: "https://water.noaa.gov/gauges/BGWN7"
+      },
+      {
+        name: "DriveNC Road Conditions",
+        description: "Look up the exact road segment and its current incident/restriction record; this page has not verified a safe route.",
+        url: "https://www.drivenc.gov/"
+      },
+      {
+        name: "New Hanover Evacuation & Shelters",
+        description: "County guidance distinguishing planning locations and actual shelter openings, with event-specific instructions checked separately.",
+        url: "https://www.nhcgov.com/203/Evacuation-Shelters"
+      },
+      {
+        name: "New Hanover Flooding Guidance",
+        description: "Local flood preparation, warning actions and instructions to avoid flooded roads and barricades.",
+        url: "https://www.nhcgov.com/213/Flooding"
       },
       {
         name: "NWS Wilmington NC",
@@ -2313,6 +2400,7 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "port-charlotte",
+    dateModified: "2026-11-06",
     name: "Port Charlotte",
     stateCode: "FL",
     stateName: "Florida",
@@ -2322,7 +2410,7 @@ export const hurricaneCities: HurricaneCity[] = [
     planningNote:
       "Port Charlotte residents should use official Charlotte County evacuation zones, NWS Tampa Bay alerts, and NHC advisories to compare harbor, river, housing, and outage risk.",
     overview:
-      "Port Charlotte hurricane risk comes from Charlotte Harbor, the Peace River, canals, low roads, and neighborhoods that may face surge, rain flooding, wind damage, or long outages. This page gives searchers a local Port Charlotte hurricane tracker hub while keeping evacuation, shelter, and road decisions tied to official county and weather sources.",
+      "Port Charlotte hurricane risk comes from Charlotte Harbor, the Peace River, canals, low roads, and neighborhoods that may face surge, rain flooding, wind damage, or long outages. Start with Charlotte County's evacuation resources for your address, check current local warnings, and confirm transport and a receiving destination before they are needed.",
     localHazards: [
       {
         heading: "Charlotte Harbor and Peace River Water",

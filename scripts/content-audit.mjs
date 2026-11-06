@@ -30,11 +30,17 @@ const correctedArticles = {
     forbidden: /narrow continental shelf|#1\s+(?:hurricane-season|killer)|why Alabama and Georgia beaches are vulnerable/i
   }
 };
+const revisedTopicChecks = {
+  "/hurricane-tracker/path/": ["Transcribe Three Rows", "21 hours", "al112017.discus.026.shtml"],
+  "/hurricane-tracker/radar/": ["DBZ and KTS", "KEOX", "michael-2018-reflectivity-detail.png", "michael-2018-velocity-detail.png"],
+  "/hurricane-tracker/live-tracker/": ["Empty Active-Storm List", "060509", "current-storms-20261106-094422Z.json", "twoat-20261106-saved-094422Z.txt"]
+};
 const routes = [...new Set([
-  "/hurricane-tracker/live/", "/learn/", "/blog/", "/radar/", "/compare/",
+  "/hurricane-tracker/live/", "/learn/", "/blog/", "/radar/", "/compare/", "/tools/",
   "/tools/preparedness-checklist/", "/tools/storm-surge-checker/", "/tools/evacuation-decision-helper/",
   "/about/", "/storm/2026-bertha/", "/storm/2026-cristobal/",
   ...standaloneBlogRoutes,
+  ...Object.keys(revisedTopicChecks),
   ...stormTrackerPages.map((storm) => `/hurricane-tracker/storm/${storm.slug}/`),
   ...hurricaneCities.map((city) => `/hurricane-tracker/city/${city.slug}/`),
   ...BLOG_CATEGORY_PAGES.map((category) => `/blog/category/${category.slug}/`),
@@ -82,6 +88,19 @@ for (const route of routes) {
       findings.push(`${route}: unsupported forecast verification reintroduced`);
     }
     const correction = correctedArticles[route];
+    for (const required of revisedTopicChecks[route] ?? []) {
+      if (!html.includes(required)) findings.push(`${route}: missing product-reading evidence: ${required}`);
+    }
+    if (route === "/blog/how-to-use-hurricane-tracker-live-tools/" && !html.includes("Hand Off Sources, Changes and Unfinished Work")) findings.push(`${route}: missing independent household handoff task`);
+    if (/Search intent|People search live tracker|gives searchers a local|Radar search hub|Preparedness search hub/.test(html)) findings.push(`${route}: internal content-planning language exposed to readers`);
+    for (const [city, required] of [
+      ["charleston", ["Charleston Reading Task", "Charleston-County-Evac-Zones.pdf", "edition date not stated"]],
+      ["wilmington", ["Wilmington Reading Task", "25.58", "BGWN7", "HurricaneFlorence"]]
+    ]) {
+      if (route === `/hurricane-tracker/city/${city}/`) for (const marker of required) {
+        if (!html.includes(marker)) findings.push(`${route}: missing local reading task or source: ${marker}`);
+      }
+    }
     if (correction) {
       for (const required of ['id="article-sources"', `id="${correction.exercise}"`, correction.source]) {
         if (!html.includes(required)) findings.push(`${route}: missing corrected source or reading exercise: ${required}`);

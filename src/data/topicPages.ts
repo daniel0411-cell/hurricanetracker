@@ -8,6 +8,9 @@ export type TopicPage = {
   primaryAction: { label: string; href: string };
   secondaryAction: { label: string; href: string };
   intent: string;
+  sourceCheck?: string;
+  sources?: Array<{ href: string; label: string }>;
+  figures?: Array<{ src: string; alt: string; caption: string; width: number; height: number; sourceUrl: string; sourceLabel: string }>;
   steps: Array<{ title: string; body: string; href: string; label: string }>;
   sections: Array<{ eyebrow: string; title: string; body: string; bullets: string[] }>;
   nextLinks: Array<{ name: string; href: string; description: string }>;
@@ -426,28 +429,33 @@ export const topicPages: TopicPage[] = [
   },
   {
     slug: "path",
-    title: "Hurricane Path Tracker",
+    title: "Hurricane Path: Read Positions and Forecast Times",
     shortTitle: "Path Tracker",
     description:
-      "Track a hurricane path with live NHC storm context, current storm position, forecast cone explainers, city trackers, radar, and impact-window tools.",
-    eyebrow: "Forecast path hub",
+      "Read an actual NHC forecast-position table: identify the initial position, match valid times, preserve coordinates and units, and keep local hazards separate.",
+    eyebrow: "Forecast-position reading guide",
     intro:
-      "A hurricane path tracker helps answer where the storm may go next and whether the current track matters for your location. For a real planning decision, compare the path with forecast uncertainty, local alerts, storm timing, and your evacuation or shelter constraints.",
+      "Read a hurricane path as a set of dated predictions. First identify the storm and bulletin; then separate the initial position from each future position and its valid time. Work through the actual Irma forecast below to make a position record. Use the current NHC track and local hazard products for a present threat.",
+    sourceCheck: "Checked November 6, 2026: Irma Discussion 26's forecast table and NHC's cone explanation. The exercise is historical; no current track, local arrival time or road was verified.",
+    sources: [
+      { href: "https://www.nhc.noaa.gov/archive/2017/al11/al112017.discus.026.shtml", label: "NHC Irma Discussion 26: original forecast-position table" },
+      { href: "https://www.nhc.noaa.gov/aboutcone.shtml", label: "NHC: what the forecast cone represents" }
+    ],
     primaryAction: { label: "Open current NHC tracks", href: "/hurricane-tracker/live/" },
     secondaryAction: { label: "Read state alerts and actions", href: "/tools/impact-window-estimator/" },
     intent: "hurricane path tracker, hurricane storm path, track hurricane path",
     steps: [
       {
-        title: "Check the Active Track",
-        body: "Open current storms and official advisory links before relying on screenshots or social posts.",
-        href: "/hurricane-tracker/live/",
-        label: "Track current hurricanes"
+        title: "Identify the Original Table",
+        body: "Open historical Irma Discussion 26, AL112017, issued September 5, 2017 at 1500 UTC. Find FORECAST POSITIONS AND MAX WINDS; keep the storm ID, year and issue time with the rows.",
+        href: "https://www.nhc.noaa.gov/archive/2017/al11/al112017.discus.026.shtml",
+        label: "Open Irma's original table"
       },
       {
-        title: "Read the Cone Correctly",
-        body: "The cone describes forecast uncertainty for the storm center, not the full area of hazards.",
-        href: "/blog/how-to-read-the-hurricane-cone-of-uncertainty/",
-        label: "Read cone guide"
+        title: "Separate Initial and Future Positions",
+        body: "The INIT row is the initial estimate. The 24H row is a prediction valid 06/1200Z, not an observed landfall. Use the explicit valid-time column instead of adding the printed horizon to the public issue time.",
+        href: "/hurricane-tracker/why-hurricane-forecasts-change/",
+        label: "Compare forecasts at one valid time"
       },
       {
         title: "Read the Local Instruction",
@@ -457,6 +465,24 @@ export const topicPages: TopicPage[] = [
       }
     ],
     sections: [
+      {
+        eyebrow: "Historical example: Irma 2017",
+        title: "Transcribe Three Rows Without Changing Their Meaning",
+        body: "The full month and year for these rows come from Discussion 26: September 2017. These are the initial estimate and predictions available in that bulletin, not later analyzed positions or proof of impacts at those coordinates. Preserve the row label, N/W coordinates and printed wind units together; do not treat longitude as an unsigned distance or a connected map line as observed travel.",
+        bullets: ["INIT: 05/1500Z; 16.8N, 58.4W; 155 KT / 180 MPH. Initial estimate at September 5, 15:00 UTC.", "24H: 06/1200Z; 18.1N, 63.0W; 150 KT / 175 MPH. Forecast valid September 6, 12:00 UTC.", "36H: 07/0000Z; 19.1N, 65.9W; 145 KT / 165 MPH. Forecast valid September 7, 00:00 UTC."]
+      },
+      {
+        eyebrow: "Time fields",
+        title: "The Printed 24H Label Is Not 24 Hours After Public Issuance",
+        body: "The public issue time is September 5 at 1500 UTC. The row labeled 24H is valid September 6 at 1200 UTC, which is 21 hours later. NHC's printed forecast horizon and public issue time are different fields; retain both rather than correcting the official row label or replacing its target with 1500 UTC. A conversion to local time must also retain the date and the correct seasonal UTC offset for the location.",
+        bullets: ["UTC calculation: 9 hours to midnight plus 12 hours = 21 hours.", "06/1200Z means September 6 at 12:00 UTC in this bulletin.", "A different bulletin's 24H row can target a different time; match valid dates before comparing revisions."]
+      },
+      {
+        eyebrow: "Reading check",
+        title: "Which Position Belongs to September 6 at 1200 UTC?",
+        body: "Question: should your record use 16.8N, 58.4W, or 18.1N, 63.0W for that target? Answer: the 24H forecast row gives 18.1N, 63.0W and 150 kt / 175 mph. The 16.8N, 58.4W coordinate belongs to INIT at September 5 at 1500 UTC. Neither row establishes the eventual observed position; verifying forecast accuracy requires the later official analysis for the same valid time.",
+        bullets: ["Your completed record: AL112017; Discussion 26; issued September 5 1500 UTC; printed 24H; valid September 6 1200 UTC; 18.1N, 63.0W; 150 kt / 175 mph.", "Unresolved in this record: actual outcome, local hazard timing, travel conditions and evacuation instructions."]
+      },
       {
         eyebrow: "Path vs impacts",
         title: "The Forecast Path Is Only One Layer",
@@ -476,8 +502,8 @@ export const topicPages: TopicPage[] = [
           "Forecast paths can shift. Households with medical needs, pets, limited transport, or long evacuation routes should use official guidance early rather than waiting for perfect certainty.",
         bullets: [
           "Confirm your evacuation zone",
-          "Fuel and pack before warnings peak",
-          "Move vulnerable household members early",
+          "Record the authority, affected area and timing of each local instruction",
+          "Confirm transport and care arrangements with their providers",
           "Keep checking local emergency updates"
         ]
       }
@@ -911,28 +937,39 @@ export const topicPages: TopicPage[] = [
   },
   {
     slug: "radar",
-    title: "Hurricane Radar and Satellite Tracker",
+    title: "Hurricane Radar: Read Reflectivity and Velocity",
     shortTitle: "Radar Tracker",
     description:
-      "Use hurricane radar and satellite with NHC storm context, rain bands, wind timing, local NWS alerts, and city tracker links.",
-    eyebrow: "Radar search hub",
+      "Read Michael's historical radar panels: identify the station label, time, dBZ and velocity scales, and distinguish weak echoes from missing data.",
+    eyebrow: "Radar product reading guide",
     intro:
-      "Radar and satellite help show what is happening now: rain bands, storm structure, cloud tops, and nearby severe weather. For hurricane decisions, combine those live layers with NHC advisory context and local alerts.",
+      "Before interpreting a radar color, identify the product, station, time and units. Michael's historical image below pairs reflectivity and radial velocity: the same-looking color can mean different things in the two panels. Complete the product-reading task here, then open the interactive radar for a separate check of current observations and warnings.",
+    sourceCheck: "Checked November 6, 2026: the retained NWS Michael figure, its image labels and parent-page caption, and NWS reflectivity/radial-velocity glossary entries. The parent caption says KEOX while the image says KEVX; that discrepancy is retained. No current radar coverage or surface wind was verified.",
+    sources: [
+      { href: "https://www.weather.gov/tae/HurricaneMichael2018", label: "NWS Tallahassee Michael event summary, figure 8" },
+      { href: "https://forecast.weather.gov/glossary.php?word=reflectivity", label: "NWS glossary: reflectivity and the dBZ scale" },
+      { href: "https://forecast.weather.gov/glossary.php?word=radial%20velocity", label: "NWS glossary: radial velocity and its directional limits" }
+    ],
+    figures: [
+      { src: "/images/blog/external/nws-michael-2018-radar-eye.png", width: 975, height: 564, alt: "Historical Michael radar pair, October 10, 2018: a DBZ reflectivity legend at left and KTS radial-velocity legend at right; the image headers label KEVX.", caption: "Historical example, not current conditions. Original NWS-hosted figure 8 retained in full. The image headers say KEVX; the parent page's caption says KEOX, an unresolved source discrepancy. Use the image's own product labels for this exercise. No timezone is added to its printed clock labels.", sourceUrl: "https://www.weather.gov/tae/HurricaneMichael2018", sourceLabel: "NWS source page and original figure context" },
+      { src: "/images/guides/michael-2018-reflectivity-detail.png", width: 490, height: 564, alt: "Unaltered left panel cropped from the full Michael image, retaining KEVX, DBZ legend and the printed 2018/10/10 16:46:41 label.", caption: "Reading detail: left panel of the full image above. Lossless crop only; original legend, numbers and time label retained. This is reflectivity, not wind speed or rainfall accumulated at a home.", sourceUrl: "/images/blog/external/nws-michael-2018-radar-eye.png", sourceLabel: "Compare with the complete image" },
+      { src: "/images/guides/michael-2018-velocity-detail.png", width: 485, height: 564, alt: "Unaltered right panel cropped from the same Michael image, retaining KEVX, KTS legend and the partially clipped original time header.", caption: "Reading detail: right panel of the same full image. Lossless crop only; the original's partly clipped time header has not been repaired. KTS is a velocity unit, not the DBZ scale at left; this panel does not certify sustained surface wind at a property.", sourceUrl: "/images/blog/external/nws-michael-2018-radar-eye.png", sourceLabel: "Open the complete historical pair" }
+    ],
     primaryAction: { label: "Open hurricane radar", href: "/radar/" },
     secondaryAction: { label: "Open live tracker", href: "/hurricane-tracker/live/" },
     intent: "hurricane radar, hurricane satellite tracker, live storm radar",
     steps: [
       {
-        title: "Open the Live Radar Layer",
-        body: "Use radar to see rain bands, local heavy rain, and approaching weather that may not be obvious from a track map alone.",
-        href: "/radar/",
-        label: "Open radar"
+        title: "Read the Product Identity",
+        body: "Find KEVX in the original image header and DBZ at the left panel's scale. The right scale says KTS. Preserve these as separate product records even though both panels show the same storm.",
+        href: "https://www.weather.gov/tae/HurricaneMichael2018",
+        label: "Inspect NWS figure 8"
       },
       {
-        title: "Compare With NHC Context",
-        body: "Radar shows current weather, while NHC advisories explain storm status, forecast direction, watches, warnings, and uncertainty.",
-        href: "/hurricane-tracker/live/",
-        label: "Open tracker"
+        title: "Record the Observation Time",
+        body: "The left header prints 2018/10/10 16:46:41. The right time header is partly clipped. Do not invent the missing digits or timezone, or treat a page's load time as either panel's observation time.",
+        href: "/hurricane-tracker/live-tracker/",
+        label: "Check source and display times"
       },
       {
         title: "Check Local Alerts",
@@ -942,6 +979,24 @@ export const topicPages: TopicPage[] = [
       }
     ],
     sections: [
+      {
+        eyebrow: "Product and scale",
+        title: "DBZ and KTS Answer Different Questions",
+        body: "NWS defines reflectivity through the returned radar signal, commonly expressed on the logarithmic dBZ scale. It is useful for precipitation structure but is not a hurricane wind category. Radial velocity is the component of motion along the radar beam, toward or away from the radar; motion perpendicular to that beam is not measured by that component. Read the actual legend instead of assuming red always means heavy rain or a particular wind direction.",
+        bullets: ["Left panel: DBZ legend, precipitation-echo structure and a relatively weak-echo eye.", "Right panel: KTS legend, a different measured quantity and color scale.", "The cursor readout in the velocity panel is not a maximum sustained surface-wind report or a household forecast."]
+      },
+      {
+        eyebrow: "Reading check",
+        title: "Does the Same Color Have the Same Meaning in Both Panels?",
+        body: "No. The left scale is reflectivity and the right scale is radial velocity. A reader who copies a color without its product and units loses the meaning of the observation. For the left panel, record the image's KEVX label, historical date, printed 16:46:41 time, DBZ scale and the weak-echo center offshore near Mexico Beach. Keep the right panel in a second record, including that its time header is partly clipped.",
+        bullets: ["The image establishes a historical eye/eyewall appearance, not safe conditions inside the eye.", "The parent-page KEOX caption and image's KEVX header disagree; record both rather than silently renaming the image.", "Do not translate the velocity color or cursor into an observed hurricane category."]
+      },
+      {
+        eyebrow: "Weak echoes or unavailable data",
+        title: "A Blank Part of a Map Needs a Coverage Check",
+        body: "In this particular image the darker center is surrounded by stronger reflectivity echoes, supporting an eye-reading exercise. That does not make every blank part of another radar display an eye or a rain-free location. First inspect whether the layer loaded, which station or mosaic is selected, its coverage and last observation time. An unavailable or stale layer is an unknown observation, not evidence that weather hazards ended.",
+        bullets: ["Satellite cloud imagery, radar reflectivity and a forecast cone are separate products.", "Low reflectivity does not establish no wind, no surge or no floodwater.", "Follow current short-fuse warnings without waiting for a radar image to refresh."]
+      },
       {
         eyebrow: "Radar use",
         title: "Radar Is Best for Near-Term Weather",
@@ -993,73 +1048,91 @@ export const topicPages: TopicPage[] = [
   },
   {
     slug: "live-tracker",
-    title: "How to Use a Live Hurricane Tracker",
+    title: "Live Hurricane Tracker: Check Sources and Times",
     shortTitle: "Live Tracker Guide",
     description:
-      "Learn how to use a live hurricane tracker with NHC advisories, radar, alerts, city pages, and local decision tools, then open the current storm map.",
-    eyebrow: "Live tracker hub",
+      "Check a hurricane feed's source and timestamps, distinguish no active cyclones from no development areas, and recognize failed or unverified data.",
+    eyebrow: "Source and freshness reading guide",
     intro:
-      "Use the live hurricane tracker when you want current storm status and the next useful action. The goal is not only watching the map; it is moving from official storm context to local risk and household planning.",
+      "A map that just loaded can still display an older advisory. Check the original source, product issue time and what the feed actually covers before using it. The saved NHC example below shows why an empty active-storm list and a tropical development area can coexist. This page teaches data checking; the separate household workflow guide helps you organize the actions that follow.",
+    sourceCheck: "Checked November 6, 2026: CurrentStorms JSON and Atlantic TWO fetched at approximately 09:44:22 UTC. These are saved examples, not a continuing current-status claim. The JSON has no source issue timestamp; retrieval time alone does not establish its upstream freshness. The TWO retains its original heading and time labels.",
+    sources: [
+      { href: "https://www.nhc.noaa.gov/CurrentStorms.json", label: "NHC CurrentStorms: rolling active-system JSON" },
+      { href: "https://www.nhc.noaa.gov/text/MIATWOAT.shtml", label: "NHC: rolling Atlantic Tropical Weather Outlook" },
+      { href: "/examples/nhc/current-storms-20261106-094422Z.json", label: "Saved original CurrentStorms JSON, retrieved November 6, 2026 at 09:44:22 UTC" },
+      { href: "/examples/nhc/twoat-20261106-saved-094422Z.txt", label: "Saved complete Atlantic TWO text from the same retrieval" }
+    ],
     primaryAction: { label: "Open live tracker map", href: "/hurricane-tracker/live/" },
     secondaryAction: { label: "Check local risk", href: "/local-hurricane-risk/" },
     intent: "live hurricane tracker, hurricane tracker live, current hurricane tracker",
     steps: [
       {
-        title: "Check Current NHC Systems",
-        body: "Start with active storms and official advisory links so the rest of your planning is anchored to current information.",
+        title: "Identify What Each Source Covers",
+        body: "The saved CurrentStorms JSON contains an empty activeStorms array. That field answers a different question from the Atlantic outlook's development-area forecast; inspect both original records.",
+        href: "/examples/nhc/current-storms-20261106-094422Z.json",
+        label: "Read the saved active-system record"
+      },
+      {
+        title: "Read the Separate Outlook",
+        body: "The saved Atlantic TWO prints 100 AM EST Friday November 6, 2026 and describes a non-tropical low south of Bermuda, with 48-hour 20% and 7-day 30% formation chances. Preserve the area and window with each number.",
+        href: "/examples/nhc/twoat-20261106-saved-094422Z.txt",
+        label: "Read the saved outlook text"
+      },
+      {
+        title: "Start a New Current Check",
+        body: "For a present threat, reopen current NHC products and the full local warning. Keep the issuer's time and scope with each record; the saved November 6 files do not update as conditions change.",
         href: "/hurricane-tracker/live/",
-        label: "Open live map"
-      },
-      {
-        title: "Move to Your State or City",
-        body: "Use state and city pages to compare storm context with local alerts, surge exposure, evacuation routes, bridges, and outage planning.",
-        href: "/hurricane-tracker/city/",
-        label: "Browse cities"
-      },
-      {
-        title: "Use the Right Decision Tool",
-        body: "Once you know the storm and location context, use an action plan, evacuation helper, outage planner, or brief generator.",
-        href: "/tools/",
-        label: "Open tools"
+        label: "Open the current tracker"
       }
     ],
     sections: [
       {
-        eyebrow: "Search intent",
-        title: "Live Tracking Should Lead to Local Context",
+        eyebrow: "Reading check: saved November 6 example",
+        title: "Does an Empty Active-Storm List Mean No Development Area?",
         body:
-          "People search live tracker when they need current storm information. The highest-value next step is usually a local page, alert feed, or planning tool for the place that matters.",
+          "No. The saved JSON lists no active systems while the separately issued Atlantic outlook describes the non-tropical low and its formation chances. Those are compatible statements about different products. The 20% and 30% values belong to one named area and two formation windows; they are not a chance of Bermuda, Florida or any U.S. city receiving a hurricane. An active-system list also does not cancel local flood, surf or marine warnings.",
         bullets: [
-          "Current NHC storm status",
-          "Radar and satellite shortcuts",
-          "State and city tracker links",
-          "Household action tools"
+          "Answer record: activeStorms = []; outlook area = Western and Central Atlantic, south of Bermuda; formation = 20% through 48 hours, 30% through 7 days.",
+          "The TWO also discusses gale-force winds and points to High Seas Forecasts; an unnamed system can still require marine information.",
+          "These saved files teach a distinction, not today's Atlantic status."
         ]
       },
       {
-        eyebrow: "Decision flow",
-        title: "Do Not Stop at the Map",
+        eyebrow: "Source time versus retrieval time",
+        title: "Record Three Clocks Separately",
         body:
-          "A map can confirm that a storm exists and where it may go. Watches, warnings, evacuation orders, surge zones, and household needs turn that information into a plan.",
+          "A product's issue time says when the issuer released that message; its valid time or period says when the observation or forecast applies; retrieval time says when your device or HurricaneHub obtained the response. In the saved example, the JSON has no issue timestamp at all. Its November 6 09:44:22 UTC retrieval cannot prove the upstream source was freshly updated at that instant. Preserve missing or inconsistent time fields as unresolved rather than inventing an issue time from the download clock.",
         bullets: [
-          "Check NWS alerts near your location",
-          "Confirm official local evacuation information",
-          "Prepare before roads or power become unreliable",
-          "Keep checking official updates as advisories change"
+          "Keep the issuer's printed timezone and full date, including date changes around midnight.",
+          "Timing discrepancy: the saved TWO's WMO header reads 060509, while its printed 1 AM EST issue label corresponds to 06:00 UTC on November 6. The header and printed label do not agree; preserve that discrepancy rather than certifying one exact issue time from this copy.",
+          "A successful page refresh does not prove every feed, map layer or local warning refreshed together."
         ]
+      },
+      {
+        eyebrow: "Unavailable is not empty",
+        title: "A Failed Check Cannot Establish No Storm",
+        body: "An HTTP error, timeout, invalid JSON, missing expected field or old retained record cannot be interpreted as an empty active-storm array. Even a successful empty response is limited to that source's scope. If you cannot verify a current message, record the source, last confirmed issue time if known, retrieval failure and the unanswered question, then open NHC or the local issuing office directly. Continue following immediate official warnings already received.",
+        bullets: ["Do not turn a missing timestamp into 'updated now'.", "Compare matching products and issue times before calling a site/source difference a new forecast change.", "A short cache interval is an implementation detail, not a guarantee that the upstream source has issued new data."]
+      },
+      {
+        eyebrow: "Complete your check",
+        title: "Make a Source Record Before Sharing a Screenshot",
+        body: "Record the source URL and issuer, storm ID or outlook area, product name, source issue label, valid period, retrieval time and what remains unknown. The completed historical answer above supports 'no systems in the saved list, one development area in the saved TWO'; it does not support 'no Atlantic risk'. For a household plan, follow the separate location workflow and attach the current local instruction and its own timestamp.",
+        bullets: ["Keep the original link with a screenshot so someone else can reopen the source.", "If a label is cropped, record it as missing; do not infer a timezone from the viewer's location.", "Use the household workflow for contacts, tasks and next-check triggers after the source check."]
       }
     ],
     nextLinks: [
       { name: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Active storm checks, NHC links, radar shortcuts, alerts, city pages, and decision tools." },
       { name: "Local Hurricane Risk", href: "/local-hurricane-risk/", description: "ZIP, city, state, storm surge, evacuation-zone, and household planning paths." },
       { name: "Hurricane Tracker Map", href: "/hurricane-tracker/map/", description: "Map-focused hub for storm position, radar, satellite, and local tracker paths." },
-      { name: "My Hurricane Dashboard", href: "/tools/my-hurricane-dashboard/", description: "Build a saved-location dashboard for storm season." }
+      { name: "My Hurricane Dashboard", href: "/tools/my-hurricane-dashboard/", description: "Build a saved-location dashboard for storm season." },
+      { name: "Household Tracking Workflow", href: "/blog/how-to-use-hurricane-tracker-live-tools/", description: "Turn verified source records into assigned household tasks and an update handoff." }
     ],
     faqs: [
       {
         question: "What should a live hurricane tracker show first?",
         answer:
-          "It should show current official storm context, then make it easy to open radar, alerts, state pages, city pages, and household planning tools."
+          "Look for the source, product identity, issue time and any unavailable or retained-data status. A load time alone cannot establish that the advisory is current."
       },
       {
         question: "Is a live hurricane tracker enough for evacuation decisions?",
@@ -1070,6 +1143,10 @@ export const topicPages: TopicPage[] = [
         question: "How often should I check a live tracker during a threat?",
         answer:
           "Check official updates regularly during an active threat, especially around NHC advisory cycles and when local watches or warnings change."
+      },
+      {
+        question: "Does no active storm mean no development area?",
+        answer: "No. In the saved November 6, 2026 example, CurrentStorms is empty while the Atlantic outlook describes a low south of Bermuda with 20% through 48 hours and 30% through 7 days. Those saved values are not a current forecast."
       }
     ]
   },
@@ -1079,7 +1156,7 @@ export const topicPages: TopicPage[] = [
     shortTitle: "Preparedness Checklist",
     description:
       "Build a hurricane preparedness checklist for supplies, documents, pets, medical needs, power outages, family communication, and evacuation timing.",
-    eyebrow: "Preparedness search hub",
+    eyebrow: "Household preparation guide",
     intro:
       "A useful hurricane preparedness checklist is more than bottled water. It should connect supplies, documents, medicine, pets, power, transport, alerts, and evacuation timing into a plan your household can actually follow.",
     primaryAction: { label: "Generate checklist", href: "/tools/preparedness-checklist/" },

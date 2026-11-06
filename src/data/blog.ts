@@ -2841,63 +2841,72 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "how-to-use-hurricane-tracker-live-tools",
-    sources: [{ href: "https://www.nhc.noaa.gov/", label: "NHC advisories: verify tracker context" }, { href: "https://www.weather.gov/", label: "NWS: verify local warnings" }],
-    title: "How to Use a Live Hurricane Tracker for Your Location",
-    description: "Learn how to use a live hurricane tracker: set your location, read the cone, compare alerts, check surge context, and know when official orders matter most.",
+    sources: [{ href: "https://www.nhc.noaa.gov/", label: "NHC: current tropical cyclone products" }, { href: "https://www.weather.gov/", label: "NWS: local warning source" }, { href: "https://www.nhcgov.com/203/Evacuation-Shelters", label: "New Hanover County: planning locations and actual shelter openings are separate" }],
+    sourceCheck: { date: "2026-11-06", scope: "Checked the named official entry points and New Hanover's distinction between shelter planning locations and event openings. The household log and handoff are illustrative editorial worksheets, not official emergency protocols. No current warning, address, facility or transport arrangement was verified." },
+    title: "Household Hurricane Tracking: Roles and an Update Log",
+    description: "Turn verified hurricane updates into a household log: assign contacts, separate facts from unfinished tasks, confirm arrangements, and hand off the next check.",
     datePublished: "2026-08-16",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-06",
     image: "/images/blog/real-time-hurricane-tracking-2026.png",
     imageAlt: "A person uses a live hurricane tracker map on a laptop while checking weather alerts on a phone.",
     sections: [
       {
-        heading: "Direct Answer",
-        body: "A live hurricane tracker helps you connect official storm data to your location: forecast cone, storm position, radar, satellite, watches, warnings, surge context, and local preparedness paths. It should never override the National Hurricane Center, weather.gov, or local emergency management orders. Use it to understand the situation earlier and act on official instructions faster."
+        heading: "Finish With a Shared Record, Not Another Map Tab",
+        body: "After verifying the source and time of an update, write down what the household actually needs to do, who will do it and what remains unresolved. This guide organizes that handoff. The separate live-tracker reading guide teaches source identity, freshness and failed-data states; the path and radar guides teach their products. Here the useful result is a small shared record that another household member can read without reconstructing a conversation or guessing whether a task was completed.",
+        links: [{ href: "/hurricane-tracker/live-tracker/", label: "First verify the source and its time fields" }]
       },
       {
-        heading: "Set Your Location First",
-        body: "Start with the place you actually need to protect: home, work, school, family, or a coastal property. A hurricane's center can be far from the hazard that matters to you, so location context helps connect the map to alerts, evacuation zones, city pages, and household planning tools."
+        heading: "Agree Which Location and People the Record Covers",
+        body: "Name the household location and responsible jurisdiction, then identify separate work, school, care or family locations that need their own check. A city name, a ZIP representative point and a full street address are different location records. Use the responsible local agency's address lookup where required; do not assign every person the same evacuation zone because they share a city. Keep private addresses, medical details and contact numbers in a private household record, rather than in public comments or screenshots.",
+        bullets: ["Record the official source for each location and which household member will check it.", "Keep the current order's affected area separate from the standing evacuation-zone result.", "Choose a backup contact if the usual checker loses power or connectivity."]
       },
       {
-        heading: "Read the Cone as Uncertainty, Not a Safety Line",
-        body: "The forecast cone describes possible center-track error; it does not show every impact. Wind, rain, surge, and tornado risk can extend outside the cone. Use the cone to understand forecast uncertainty, then check separate alert, surge, radar, and rainfall information."
+        heading: "Separate a Verified Message From an Assigned Task",
+        body: "Use one line for the official message: issuer, original URL, product or order, issue time and timezone, affected area and protective instruction. Use another line for the household task: responsible person, required confirmation and status. Copy an official deadline with its source. If the household chooses an earlier check-in, label it a household check-in rather than an agency deadline. Do not let filling out this worksheet delay immediate protective action.",
+        bullets: ["Message: what the source says, for which area, and at what time.", "Task: what needs to be arranged, by whom, and what will count as confirmation.", "Status: unconfirmed, requested or confirmed, with the response time and source kept privately."]
       },
       {
-        heading: "Compare Watches, Warnings, and Local Alerts",
-        body: "A tracker is most useful when it surfaces official watches and warnings near your area. Read the alert name and the issuing office, then open the full weather.gov alert text for details. A warning or evacuation order should move you from watching the map to following the plan."
+        heading: "Worked Example: A Bookmarked Shelter Is Still Unconfirmed",
+        body: "Illustrative household log: one adult has saved the county's shelter-planning page; another has agreed to drive; no one has verified a facility's opening or receiving requirements. Mark 'official source saved' complete, but keep destination and transport arrangements unresolved until the relevant confirmations are obtained. New Hanover's real Evacuation & Shelters page explains that its predetermined locations are for planning and may not open or close together. The example does not identify an open shelter or tell a household to wait for an opening before following an evacuation instruction.",
+        bullets: ["Source task: reopen the current county notice and identify any actual opening, its time and facility.", "Destination task: confirm acceptance and any accessibility, care or pet requirements with the responsible provider.", "Transport task: confirm the driver or service, pickup and receiving destination; agreeing to help is not the entire arrangement."],
+        links: [{ href: "https://www.nhcgov.com/203/Evacuation-Shelters", label: "Read the county's planning-versus-opening distinction" }]
       },
       {
-        heading: "Check Surge, Flooding, Wind, and Tornado Context",
-        body: "Do not focus only on the storm center. Surge, rainfall flooding, tropical-storm-force winds, and tornado warnings can drive very different decisions. Use the live tracker with radar, city tracker pages, and the alert action decoder to understand which hazard is most relevant."
+        heading: "Reading Check: What Can the Next Person Mark Complete?",
+        body: "Question: the handoff says 'Shelter page saved; driver asked; no reply; current order not checked.' Are transport, destination and official status confirmed? Answer: none of those three is confirmed. The completed item is finding a source page. The next checker should read the current instruction and obtain the missing arrangements, while following any immediate warning already received. An unchecked item means unresolved information; it is not a recommendation to stay, leave or drive a particular route."
       },
       {
-        heading: "Build a Tracking Routine",
-        body: "In calm weather, learn the interface and save key pages. When a storm forms, check official advisories and tracker context at a steady rhythm. When a watch or warning appears, increase attention and finish planning steps before power, roads, or data service become unreliable."
+        heading: "Use Event Triggers for the Next Check",
+        body: "Record the next official advisory or update time if the issuing agency provides one. Separately list events that require another check: a new local warning, changed evacuation instruction, provider reply, power loss or route restriction. Keep alert delivery enabled and choose an alternate official channel for an outage. A scheduled household check is not permission to ignore a warning until that time; short-fuse messages require their stated action when received.",
+        bullets: ["Keep an official update schedule distinct from the household's chosen check-in.", "If a source fails, log the failure and last confirmed message rather than recording no alert.", "Save key official contacts and a paper copy of essential instructions before connectivity is lost."]
       },
       {
-        heading: "Share One Source of Truth With Your Household",
-        body: "A tracker reduces confusion only if everyone is looking at the same information. Share the live tracker, city tracker, and family communication plan with household members so decisions are based on current official context rather than scattered screenshots or rumors."
+        heading: "Hand Off Sources, Changes and Unfinished Work",
+        body: "A useful handoff names the last original messages checked, their source times, the difference from the previous message, actions already completed and the people responsible for the unfinished items. Preserve the older message with its timestamp rather than silently overwriting the reason for a decision. Send a concise factual update with original links, avoiding cropped or undated maps. Ask the receiving person to confirm they understood which tasks are still open.",
+        bullets: ["Last checked: source, issuer, product, issue time, affected area and retrieval time.", "Change: the exact instruction or field that changed, or a note that the comparison is not yet verified.", "Handoff: task owner, confirmation needed, next-check trigger and backup contact."]
       },
       {
-        heading: "Use HurricaneHub Tools After the Map",
-        body: "After checking the live tracker, move to the preparedness checklist, local risk plan, storm distance calculator, city trackers, and alert action decoder. That path turns map-reading into concrete planning without pretending the map itself is an evacuation order."
+        heading: "Use a Tool Only for the Remaining Task",
+        body: "Use the evacuation instructions checklist to separate the official status you entered from housing, care, animal and transport arrangements. Use an outage planner for power and cooling questions or a preparedness checklist for supplies. A tool result is not a new warning or provider confirmation. Record what you learned and what still needs a direct reply, rather than treating all outputs as a completed plan.",
+        links: [{ href: "/tools/evacuation-decision-helper/", label: "Record instructions and unresolved arrangements" }, { href: "/tools/power-outage-planner/", label: "Work through outage needs separately" }]
       },
       {
-        heading: "Official Source Check",
-        body: "Use the National Hurricane Center for tropical cyclone advisories, weather.gov for local watches and warnings, and local emergency management for evacuation instructions. HurricaneHub summarizes and links context, but official sources control life-safety decisions."
+        heading: "Before Calling the Plan Ready",
+        body: "Ask the next household member to locate the original official instruction, identify who owns each unresolved task and explain how a new warning will reach them. If they cannot, clarify the record while there is time. This is a communication check, not certification that a home, route or destination is safe. NHC, local NWS offices, emergency management and the relevant receiving providers remain the sources for their respective messages and arrangements."
       }
     ],
     faqs: [
       {
-        question: "Is a live hurricane tracker more important than official alerts?",
-        answer: "No. A tracker helps you interpret official data for your location, but NHC advisories, weather.gov warnings, and local evacuation orders are the authoritative sources."
+        question: "What belongs in a household hurricane update log?",
+        answer: "Keep the original source, issuer, product, issue time, affected area and instruction, then separately record the household task, responsible person and missing confirmation. Label your own check-in time separately from any official deadline."
       },
       {
-        question: "What does the hurricane cone not show?",
-        answer: "The cone does not show the full wind field, storm surge, rainfall flooding, tornado risk, or every local impact. Those hazards require separate alerts and map layers."
+        question: "Does assigning someone a task mean it is complete?",
+        answer: "No. A request, an accepted application and a confirmed arrangement are different statuses. Keep the missing reply, pickup, receiving requirement or current instruction unresolved until the relevant source confirms it."
       },
       {
-        question: "How often should I check a hurricane tracker?",
-        answer: "Check more often as risk increases. During an active threat, follow official advisory schedules and local alerts rather than relying on a single old map view."
+        question: "What should trigger the next household check?",
+        answer: "Record the agency's next update time if provided, plus triggers such as a new warning, local order, provider reply or route restriction. A household check-in schedule must not delay action on an immediate warning."
       },
       {
         question: "Can I use HurricaneHub on a phone?",
@@ -2905,7 +2914,11 @@ export const blogPosts: BlogPost[] = [
       },
       {
         question: "What should I do after checking the live tracker?",
-        answer: "Open the relevant city tracker, alerts page, preparedness checklist, or decision tool so the storm context turns into a household action plan."
+        answer: "Keep the source and issue time, record the relevant local instruction, assign unfinished household tasks and identify the next-check trigger. Ask the receiving household member to confirm which arrangements are still unresolved."
+      },
+      {
+        question: "Does finding a shelter on a county list complete the destination plan?",
+        answer: "No. Confirm its actual opening and receiving requirements through the current county notice and relevant provider. The county page used in this guide explicitly distinguishes planning locations from event openings."
       }
     ]
   },
