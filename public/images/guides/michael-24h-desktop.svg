@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc" font-family="Arial, Helvetica, sans-serif" fill="#192e35">
+<title id="title">Michael (2018): A 24-Hour Wind Increase</title><desc id="desc">Historical Michael (2018) NHC best-track entries: 90 kt at October 9 12:00 UTC, 100 kt at October 9 18:00 UTC, and 125 kt at October 10 12:00 UTC. The full 24-hour increase is 35 kt; the final 18-hour increase is 25 kt. Time spacing is proportional. Not a current forecast.</desc><rect width="1600" height="1000" fill="#fff"/>
+<text x="64" y="54" font-size="23" fill="#006d70" font-weight="700">HURRICANEHUB / HISTORICAL READING EXERCISE</text>
+<text x="64" y="124" font-size="53" font-weight="700">Michael (2018): A 24-Hour Wind Increase</text>
+<text x="64" y="177" font-size="30" fill="#4e6269">NHC post-storm best-track analysis | AL142018</text>
+<text x="64" y="223" font-size="28" fill="#4e6269">Maximum sustained wind (kt). All dates and times UTC.</text>
+<text x="800" y="298" font-size="28" fill="#006d70" text-anchor="middle" font-weight="700">24 HOURS / FIRST TO LAST ENTRY</text>
+<path d="M150 357 V326 H1450 V357" fill="none" stroke="#006d70" stroke-width="4"/>
+<line x1="120" y1="466" x2="1480" y2="466" stroke="#a8b9bf" stroke-width="4" />
+<g data-entry="0" data-hour="0">
+<circle cx="150" cy="466" r="13" fill="#006d70" stroke="#fff" stroke-width="4"/>
+<text x="150" y="426" font-size="49" text-anchor="middle" font-weight="700" fill="#006d70">90 kt</text>
+<text x="150" y="522" font-size="30" text-anchor="middle">2018-10-09</text>
+<text x="150" y="565" font-size="30" text-anchor="middle">12:00 UTC</text>
+</g><g data-entry="1" data-hour="6">
+<circle cx="475" cy="466" r="13" fill="#aa451e" stroke="#fff" stroke-width="4"/>
+<text x="475" y="426" font-size="49" text-anchor="middle" font-weight="700" fill="#aa451e">100 kt</text>
+<text x="475" y="522" font-size="30" text-anchor="middle">2018-10-09</text>
+<text x="475" y="565" font-size="30" text-anchor="middle">18:00 UTC</text>
+</g><g data-entry="2" data-hour="24">
+<circle cx="1450" cy="466" r="13" fill="#006d70" stroke="#fff" stroke-width="4"/>
+<text x="1450" y="426" font-size="49" text-anchor="middle" font-weight="700" fill="#006d70">125 kt</text>
+<text x="1450" y="522" font-size="30" text-anchor="middle">2018-10-10</text>
+<text x="1450" y="565" font-size="30" text-anchor="middle">12:00 UTC</text>
+</g>
+<text x="312.5" y="625" font-size="26" text-anchor="middle" fill="#4e6269">6 hours</text>
+<path d="M475 601 V628 H1450 V601" fill="none" stroke="#aa451e" stroke-width="3"/>
+<text x="962" y="677" font-size="31" text-anchor="middle" fill="#aa451e" font-weight="700">18 hours: 125 - 100 = +25 kt</text>
+<text x="962" y="721" font-size="28" text-anchor="middle" fill="#4e6269">Not a 24-hour comparison</text>
+<rect y="762" width="1600" height="151" fill="#eaf4f2"/>
+<text x="64" y="824" font-size="46" fill="#006d70" font-weight="700">24 hours: 125 - 90 = +35 kt</text>
+<text x="64" y="874" font-size="28" >Meets the NHC rapid-intensification threshold: at least 30 kt in 24 hours.</text>
+<text x="64" y="954" font-size="24" fill="#4e6269">Data: NOAA/NHC HURDAT2, release 2026-09-23. Design: HurricaneHub.</text>
+<text x="1536" y="954" font-size="24" text-anchor="end" fill="#4e6269">Not a current forecast.</text>
+</svg>

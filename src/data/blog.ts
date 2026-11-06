@@ -1190,13 +1190,24 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-rapid-intensification",
-    sources: [{ href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC glossary: rapid intensification" }],
+    sources: [{ href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC glossary: rapid intensification and best-track definitions" }, { href: "https://www.nhc.noaa.gov/data/hurdat/hurdat2-1851-2025-092326.txt", label: "NHC Atlantic HURDAT2, September 23, 2026 release: Michael AL142018 records" }, { href: "https://www.nhc.noaa.gov/data/", label: "NHC data archive: current HURDAT2 release and format documentation" }],
     title: "Hurricane Rapid Intensification: Observations and Forecasts",
     description: "Understand hurricane rapid intensification, how observed wind changes differ from forecasts, and what HurricaneHub's state monitoring can and cannot tell you.",
     datePublished: "2026-08-10",
-    dateModified: "2026-10-24",
-    image: "/images/blog/hurricane-rapid-intensification.png",
-    imageAlt: "A coastal resident holds a smartphone showing a hurricane tracker alert while standing on a wooden porch at sunset with storm clouds gathering over the Atlantic Ocean.",
+    dateModified: "2026-11-06",
+    sourceCheck: { date: "2026-11-06", scope: "NHC glossary and Michael AL142018 rows in the September 23, 2026 HURDAT2 release; checked UTC timestamps, sustained wind in knots and 24-hour subtraction. Best track is a post-storm analysis, not a raw instrument measurement or a current forecast. The separate site-monitoring description is not a forecast verification." },
+    image: "/images/guides/michael-24h-desktop.webp",
+    imageAlt: "Michael's historical NHC best-track winds: 90 kt, 100 kt and 125 kt across an exact 24-hour interval in October 2018.",
+    figures: [
+      {
+        src: "/images/guides/michael-24h-desktop.webp", mobileSrc: "/images/guides/michael-24h-mobile.webp", mobileBreakpoint: 767,
+        width: 1600, height: 1000, mobileWidth: 720, mobileHeight: 1480,
+        afterSection: "Work Through Michael's Actual 24-Hour Change",
+        alt: "Historical Michael (2018) NHC best-track entries: 90 kt at October 9 12:00 UTC, 100 kt at October 9 18:00 UTC, and 125 kt at October 10 12:00 UTC. The full 24-hour increase is 35 kt; the final 18-hour increase is 25 kt. Time spacing is proportional. Not a current forecast.",
+        caption: "Historical example, not a current forecast. Selected NOAA/NHC HURDAT2 best-track estimates for Michael (AL142018), 2018: +35 kt over 24 hours versus +25 kt over 18 hours. Line position represents elapsed time, not wind speed. Data release: September 23, 2026. Diagram by HurricaneHub.",
+        sourceUrl: "https://www.nhc.noaa.gov/data/hurdat/hurdat2-1851-2025-092326.txt", sourceLabel: "Original NHC HURDAT2 release: find AL142018"
+      }
+    ],
     sections: [
       {
         heading: "Direct Answer",
@@ -1215,6 +1226,28 @@ export const blogPosts: BlogPost[] = [
         heading: "Use Official Records for Historical Comparisons",
         body: "When comparing a current system with an earlier hurricane, use the NHC Tropical Cyclone Report for that storm. The report separates the observed intensity history, landfall details, and forecast evaluation. A headline about a category jump may refer to different start and end times from the 24-hour RI definition. Avoid copying a dramatic historical comparison without checking those timestamps. The forecast cone describes uncertainty in the future center track; it is not an intensity forecast or a map of every place that can be affected. Compare track, intensity, and local hazard products separately rather than saying that a cone predicted a specific peak wind speed.",
         links: [{ href: "https://www.nhc.noaa.gov/data/tcr/", label: "Find official NHC Tropical Cyclone Reports" }]
+      },
+      {
+        heading: "Work Through Michael's Actual 24-Hour Change",
+        body: "Historical example: Michael, AL142018. These entries come from NHC's September 23, 2026 Atlantic HURDAT2 release. They are post-storm best-track estimates of the cyclone's maximum sustained wind, not today's forecast or a home's wind reading. Keep the dates in UTC and the winds in knots:",
+        bullets: [
+          "Start: October 9, 2018, 1200 UTC; maximum sustained wind 90 kt.",
+          "Intermediate check: October 9, 2018, 1800 UTC; maximum sustained wind 100 kt.",
+          "End: October 10, 2018, 1200 UTC; maximum sustained wind 125 kt.",
+          "Elapsed time: October 9 at 1200 UTC to October 10 at 1200 UTC is exactly 24 hours. Wind change: 125 minus 90 equals 35 kt, exceeding the 30 kt threshold.",
+          "To verify: find AL142018 in the linked release. Each record starts with UTC date and time; the wind field in knots follows latitude and longitude, before pressure. Read the format guide rather than treating a pressure or wind-radius field as wind speed. Best track can differ from the advisories issued during the event."
+        ],
+        links: [{ href: "https://www.nhc.noaa.gov/data/hurdat/hurdat2-1851-2025-092326.txt", label: "Open the original HURDAT2 text and find AL142018" }, { href: "https://www.nhc.noaa.gov/data/", label: "Find NHC's HURDAT2 format documentation" }]
+      },
+      {
+        heading: "Reading Check: Which Pair Supports a 24-Hour Result?",
+        body: "Question: using the three entries above, which pair establishes a 24-hour increase, and does it meet the rapid-intensification threshold? Could the 100 kt to 125 kt pair be substituted? Work from the UTC dates before subtracting the wind speeds. Keep knots throughout the calculation: 30 kt is the definition, while 35 mph is only its approximate conversion.",
+        bullets: [
+          "Answer: the October 9 1200 UTC and October 10 1200 UTC entries form the exact 24-hour pair. The increase is 35 kt, so this historical interval meets the definition.",
+          "The 100 kt to 125 kt pair spans 18 hours, not 24. Its 25 kt increase alone cannot establish the exact 24-hour change. Do not scale that shorter change up as though strengthening were linear.",
+          "This is an analyzed historical change. A forecast of 125 kt tomorrow would answer a different question, and neither result gives a household evacuation deadline.",
+          "Your own record: storm ID/year; data product and release; start UTC and sustained wind/unit; end UTC and sustained wind/unit; elapsed hours; difference; observed/analyzed versus forecast; any missing field. An incomplete pair stays unverified."
+        ]
       },
       {
         heading: "What HurricaneHub's State Monitoring Measures",
@@ -1260,12 +1293,13 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "saffir-simpson-hurricane-wind-scale-explained",
-    sources: [{ href: "https://www.nhc.noaa.gov/aboutsshws.php", label: "NHC Saffir-Simpson Hurricane Wind Scale" }, { href: "https://www.nhc.noaa.gov/data/tcr/index.php?season=2020&basin=atl", label: "NHC 2020 archive: Sally intensity" }],
-    review: { date: "2026-10-24", scope: "Sally peak intensity and separation of wind categories from water hazards", correction: "Corrected Sally to Category 2 and removed generic surge heights from category descriptions." },
-    title: "Saffir-Simpson Hurricane Wind Scale Explained: What Each Category Really Means",
-    description: "A clear breakdown of hurricane Categories 1 through 5, their wind speeds, storm surge potential, and real-world damage so you can gauge risk during the 2026 Atlantic season.",
+    sources: [{ href: "https://www.nhc.noaa.gov/aboutsshws.php", label: "NHC Saffir-Simpson Hurricane Wind Scale: wind thresholds and potential damage" }, { href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC glossary: maximum sustained surface wind" }, { href: "https://www.nhc.noaa.gov/archive/2017/al11/al112017.discus.028.shtml", label: "Historical Irma discussion 28: September 6, 2017 at 0300 UTC" }, { href: "https://www.nhc.noaa.gov/data/hurdat/hurdat2-1851-2025-092326.txt", label: "NHC HURDAT2: Michael AL142018, October 10 at 1200 and 1730 UTC" }, { href: "https://www.nhc.noaa.gov/aboutcone.shtml", label: "NHC: the cone describes uncertainty in the center track" }],
+    review: { date: "2026-11-06", scope: "Wind categories, product interpretation and historical reading exercise", correction: "Replaced total-destruction shorthand, unsupported generic water-height and seasonal-share claims, and the suggestion that a cone establishes exact landfall intensity. Peak, landfall and local impacts remain distinct." },
+    title: "Hurricane Categories 1-5: Read the Wind Scale Correctly",
+    description: "Read hurricane Categories 1-5 using NHC wind thresholds and a real Irma advisory. Separate sustained wind, landfall intensity, surge and local damage.",
     datePublished: "2026-08-10",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-06",
+    sourceCheck: { date: "2026-11-06", scope: "NHC scale and glossary; Irma discussion 28 INIT and forecast rows; Michael AL142018 best-track entries at 1200 and 1730 UTC on October 10, 2018. Historical products only; no current forecast or property-specific damage assessment." },
     image: "/images/blog/saffir-simpson-scale.png",
     imageAlt: "A woman in a safety vest surveys hurricane damage in a residential neighborhood with a fallen oak tree, damaged roof, and emergency vehicles in the background.",
     sections: [
@@ -1275,7 +1309,9 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Why the Scale Exists and What It Measures",
-        body: "Civil engineer Herbert Saffir and meteorologist Robert Simpson developed the scale in the early 1970s to give emergency managers and the public a quick way to compare hurricane severity. The National Hurricane Center uses it today for every Atlantic and Eastern Pacific hurricane. The scale is purely wind-based: a Category 3 hurricane has sustained winds between 111 and 129 mph, regardless of how wide the storm is, how much rain it carries, or how high the surge will be. This is the scale's most important limitation. A slow-moving Category 1 can dump 30 inches of rain and cause catastrophic inland flooding, while a compact Category 4 can pass through with surprisingly little freshwater flooding."
+        body: "The scale provides a common vocabulary for a hurricane's maximum sustained wind, not a single score for every hazard. NHC defines maximum sustained surface wind as the highest one-minute average at 10 meters with unobstructed exposure. A short gust, a radar velocity sample and a station's different averaging period cannot simply be substituted. Read the advisory's sustained-wind field and its unit before choosing a category. A Category 3 hurricane has maximum sustained wind of 96-112 kt or 111-129 mph; that tells you neither its size nor the rainfall or water depth at a particular address.",
+        bullets: ["Category 1: 64-82 kt / 74-95 mph.", "Category 2: 83-95 kt / 96-110 mph.", "Category 3: 96-112 kt / 111-129 mph.", "Category 4: 113-136 kt / 130-156 mph.", "Category 5: at least 137 kt / at least 157 mph. Use the published thresholds in the original unit rather than repeatedly rounding conversions."],
+        links: [{ href: "/hurricane-tracker/hurricane-categories/#category-visual", label: "Compare the existing wind-threshold diagram" }, { href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "Check NHC's sustained-wind definition" }]
       },
       {
         heading: "Category 1: 74 to 95 mph",
@@ -1283,12 +1319,11 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Category 2: 96 to 110 mph",
-        body: "Category 2 storms are extremely dangerous. Well-constructed frame homes can sustain major roof and siding damage. Many shallowly rooted trees will be snapped or uprooted, blocking roads and taking down power lines. Near-total power loss is expected, and outages can last from several days to weeks. Hurricane Frances in 2004 was a Category 2 at Florida landfall and caused widespread damage across the state despite not being a major hurricane."
+        body: "Category 2 means maximum sustained winds of 83-95 kt or 96-110 mph. NHC describes potential major roof and siding damage to well-constructed frame homes, many uprooted or snapped shallow-rooted trees, and outages that could last days to weeks. Those descriptions identify serious wind consequences; they are not a forecast of the outage duration for every customer. Your utility's actual restoration estimate, local access conditions and household power needs require separate checks. A Category 2 designation also does not assign a generic surge height to the coast."
       },
       {
         heading: "Category 3: 111 to 129 mph (Major Hurricane)",
-        body: "Category 3 is the threshold for a major hurricane. Devastating wind damage is possible: well-built framed homes may lose roof decking or gable ends, and many trees can be snapped or uprooted. Electricity and water may be unavailable for days to weeks. Do not use Sally 2020 as a Category 3 example: NHC's 2020 season record lists its peak at 95 kt, Category 2. The distinction matters when comparing wind intensity with rainfall or flood consequences.",
-        links: [{ href: "https://www.nhc.noaa.gov/data/tcr/index.php?season=2020&basin=atl", label: "NHC 2020 season record: Sally peak intensity" }]
+        body: "Category 3 begins the major-hurricane range at 96 kt or 111 mph. NHC describes potential devastating wind damage, including major damage to well-built framed homes and loss of electricity or water for days to weeks. The word major is a wind-classification term, not permission to discount a weaker storm. When comparing past events, record the category at the relevant time and place. A storm's lifetime maximum and its intensity at one landfall are different records; the same storm can have more than one landfall."
       },
       {
         heading: "Category 4: 130 to 156 mph",
@@ -1296,22 +1331,34 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Category 5: 157 mph or Higher",
-        body: "Category 5 is the highest rating on the scale and means total destruction is likely. A high percentage of framed homes will be destroyed, with total roof failure and wall collapse. Fallen trees and power poles will isolate residential areas. Power outages will last for weeks to months, and most of the affected area will be uninhabitable. Hurricane Michael in 2018 and Hurricane Andrew in 1992 both made landfall as Category 5 storms in Florida. Only four Category 5 hurricanes have made continental U.S. landfall in recorded history."
+        body: "Category 5 begins at 137 kt or 157 mph. NHC describes catastrophic potential wind damage, including destruction of a high percentage of framed homes, isolation by fallen trees and power poles, and prolonged outages. The building type and damage context matter: the category does not mean every structure in an entire affected region will be destroyed. It is also the cyclone's maximum sustained wind, not a claim that every community receives that wind. Local exposure, building performance and the actual wind field are needed to understand a particular location."
       },
       {
         heading: "What the Scale Does Not Tell You",
-        body: "The Saffir-Simpson scale captures wind but leaves out three killers that often matter more.",
-        bullets: ["Storm surge: A Category 2 hurricane can push a deadly wall of water 10 feet or higher ashore. The NHC issues separate storm surge warnings precisely because wind category alone does not predict surge height.", "Rainfall flooding: A slow-moving Category 1 can produce more inland flooding than a fast-moving Category 4. Hurricane Harvey in 2017 was a Category 4 at landfall, but its catastrophic 60-inch rainfall happened after it weakened to a tropical storm.", "Tornado risk: Hurricane rain bands spawn tornadoes, especially in the right-front quadrant. These tornadoes can occur hundreds of miles from landfall and are not reflected in the category number."]
+        body: "Use the category to answer a wind-intensity question, then switch products for water and other hazards. An unsourced water-depth number attached to a category cannot establish local inundation. A useful historical water comparison must identify the event, location, measurement time and reference level: storm surge, storm tide and depth above ground are not interchangeable.",
+        bullets: ["Surge and inundation: read the matching NHC water product and local evacuation instruction. Category alone supplies no residential water depth.", "Rainfall and river flooding: check official rainfall forecasts and local NWS flood warnings, including inland areas after the center moves away.", "Tornadoes and immediate wind hazards: read the current local warning and its protective action. A lower cyclone category does not cancel an applicable warning."]
       },
       {
-        heading: "How to Use the Scale During the 2026 Atlantic Hurricane Season",
-        body: "When a real-time hurricane tracker shows a storm approaching your area, use the Saffir-Simpson category as a starting point, not the whole story. Check the NHC forecast cone for the projected intensity at landfall, then look at the separate storm surge warning zones and rainfall estimates. If your area is under a hurricane warning, follow evacuation orders regardless of the category number. A Category 1 can still be deadly if you are in a storm surge zone. Bookmark HurricaneHub to track storm intensity changes in real time and pair the category information with surge alerts, radar, and satellite imagery on a single map."
+        heading: "Read a Real Wind Field in Irma Discussion 28",
+        body: "Historical example, not today's forecast: NHC Irma discussion 28 was issued at 1100 PM AST on September 5, 2017, equivalent to September 6 at 0300 UTC. Its INIT row gives 160 KT / 185 MPH. Those are two units for the same maximum sustained wind estimate, not sustained wind plus a gust. Both fall in Category 5. Its separate 24H row is valid at September 7, 0000 UTC and predicts 150 KT / 175 MPH. That is a future estimate at a printed valid time, not another measurement at issuance or a promise of landfall intensity.",
+        bullets: ["Question: what category does the INIT row establish, and can either row tell you the water depth at a home?", "Answer: Category 5 at the INIT time; neither row gives residential water depth. Keep the forecast row labeled as forecast and use separate water and local-warning products.", "Forecast-hour labels are reproduced as printed in the NHC table. Read the full valid date/time; do not assume every horizon label counts directly from the public issue time."],
+        links: [{ href: "https://www.nhc.noaa.gov/archive/2017/al11/al112017.discus.028.shtml", label: "Find INIT and FORECAST POSITIONS AND MAX WINDS in the original Irma discussion" }, { href: "/hurricane-tracker/why-hurricane-forecasts-change/", label: "Compare two actual forecasts for the same valid time" }]
+      },
+      {
+        heading: "Separate a Pre-Landfall Estimate From Landfall",
+        body: "Michael's AL142018 entries in NHC's September 23, 2026 HURDAT2 release illustrate why timestamps matter. On October 10, 2018, the 1200 UTC best-track entry gives 125 kt, Category 4. The 1730 UTC entry has the L landfall identifier and gives 140 kt, Category 5. These are post-storm analyzed estimates 5 hours 30 minutes apart, not competing labels for the same time and not a measurement of the wind at every Florida house. When an archive says Category 5 landfall, retain that event time; do not replace an earlier Category 4 value as though the earlier timestamp did not exist.",
+        links: [{ href: "https://www.nhc.noaa.gov/data/hurdat/hurdat2-1851-2025-092326.txt", label: "Check Michael AL142018, October 10 at 1200 and 1730 UTC" }, { href: "/blog/hurricane-rapid-intensification/", label: "Calculate Michael's separate 24-hour wind change" }]
+      },
+      {
+        heading: "Make a Five-Field Intensity Record",
+        body: "For the next advisory you read, save the storm ID/year, product and issue time, the wind field and unit, the valid time, and whether the value is current, forecast or post-storm analysis. Then classify it using the matching unit thresholds. If you need intensity near a predicted coastal crossing, read the NHC forecast/advisory and discussion with their valid times and uncertainty. Some track graphics include intensity symbols at forecast points, but the cone's purpose is center-track uncertainty; it cannot establish exact landfall time, intensity or a local wind measurement. Finally, check the actual hazards and instructions for your location.",
+        links: [{ href: "https://www.nhc.noaa.gov/aboutcone.shtml", label: "Read NHC's definition of the center-track cone" }, { href: "/hurricane-tracker/live/", label: "Find current NHC storm context" }, { href: "/alerts/", label: "Check location-specific NWS alerts" }]
       }
     ],
     faqs: [
       {
         question: "What wind speed is a Category 5 hurricane?",
-        answer: "A Category 5 hurricane has maximum sustained winds of 157 mph or higher. This is the highest rating on the Saffir-Simpson Hurricane Wind Scale and indicates catastrophic to total destruction at landfall."
+        answer: "Category 5 begins at 137 kt or 157 mph maximum sustained wind. NHC describes catastrophic potential wind damage; the category does not predict that every structure in an affected region will be destroyed or specify local water depth."
       },
       {
         question: "Does the Saffir-Simpson scale include storm surge?",
@@ -1319,7 +1366,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         question: "What is a major hurricane?",
-        answer: "A major hurricane is any storm rated Category 3, 4, or 5 on the Saffir-Simpson scale, meaning sustained winds of at least 111 mph. Major hurricanes can cause devastating to catastrophic damage even though they represent only about a fifth of all named storms in a typical season."
+        answer: "A major hurricane is Category 3, 4 or 5, with maximum sustained wind of at least 96 kt or 111 mph. It is a wind classification; a lower-category storm can still produce dangerous surge, flooding and tornadoes."
       }
     ]
   },
@@ -1342,7 +1389,7 @@ export const blogPosts: BlogPost[] = [
     "title": "How to Read Hurricane Spaghetti Models: A Practical Guide",
     "description": "Read hurricane spaghetti plots by checking initialization time, model families and forecast hours. Work through a historical Danny example and separate guidance from warnings.",
     "datePublished": "2026-08-10",
-    "dateModified": "2026-10-27",
+    "dateModified": "2026-11-06",
     "image": "/images/blog/hurricane-spaghetti-models.png",
     "imageAlt": "Editorial illustration of a meteorologist reviewing colorful hurricane model tracks on a monitor.",
     "imageCaption": "AI-generated editorial illustration, not an observed operations-center photograph or current forecast. The worked example links to an original NWS teaching slide.",
@@ -1368,6 +1415,11 @@ export const blogPosts: BlogPost[] = [
           "A 72-hour point from a 00Z run and a 72-hour point from a 12Z run refer to different valid times.",
           "If the screenshot cuts off the title, cycle, legend or forecast hours, find the original before sharing a location-specific interpretation."
         ]
+      },
+      {
+        "heading": "Practice With the On-Page Joaquin Plot",
+        "body": "For an exercise you can read directly on HurricaneHub, open the original NHC Joaquin 2015 chart and its numbered desktop and mobile views. Identify a model ID and the chart-cycle label, then check the supplied answer. This particular original does not give a forecast-hour or symbol-interval key for each point, so it cannot establish the valid time of an individual square. The separate arithmetic exercise is explicitly illustrative. Use the Danny teaching slide below when practicing with its printed forecast-hour labels; the two historical charts have different information and should not be treated as interchangeable evidence.",
+        "links": [{ "href": "/hurricane-tracker/spaghetti-models/#historical-model-heading", "label": "Open the actual Joaquin plot, phone crops and reading question" }, { "href": "/hurricane-tracker/spaghetti-models/#model-time-heading", "label": "Practice valid-time arithmetic in the separate hypothetical example" }]
       },
       {
         "heading": "Read the Historical Danny Teaching Example",
@@ -2502,12 +2554,13 @@ export const blogPosts: BlogPost[] = [
   },
   {
     "slug": "hurricane-flood-insurance-guide-nfip",
-    sources: [{ href: "https://agents.floodsmart.gov/topics/flood-loss-avoidance", label: "NFIP loss avoidance: eligibility and receipts" }, { href: "https://www.floodsmart.gov/how-do-i-start-my-flood-claim", label: "NFIP: start a flood claim and confirm required documents" }, { href: "https://www.floodsmart.gov/", label: "NFIP flood coverage and policy limits" }],
-    review: { date: "2026-10-24", scope: "Loss-avoidance evidence requirements and policy-dependent coverage wording", correction: "Removed the no-proof reimbursement claim. Waiting periods, settlement, and Proof of Loss requirements now identify policy conditions and possible exceptions or FEMA extensions." },
-    "title": "Hurricane Flood Insurance: What NFIP and Private Policies Cover, and How to File a Claim",
-    "description": "Separate flood from wind coverage, check NFIP waiting-period exceptions and loss-avoidance requirements, and prepare evidence for a flood claim.",
+    sources: [{ href: "https://www.floodsmart.gov/get-insured/buy-a-policy", label: "NFIP: coverage, separate deductibles, exclusions and waiting-period exceptions" }, { href: "https://www.floodsmart.gov/claims-checklist", label: "NFIP Claims Checklist: declarations, damage evidence and contact records" }, { href: "https://www.floodsmart.gov/recover/start-a-claim", label: "NFIP: report a loss, work with the adjuster and review coverage" }, { href: "https://agents.floodsmart.gov/topics/flood-loss-avoidance", label: "NFIP loss avoidance: eligibility and receipts" }],
+    sourceCheck: { date: "2026-11-06", scope: "Read FloodSmart's buy-a-policy page, Claims Checklist and start-a-claim page for coverage fields, separate deductibles, exclusions and documentation. The worksheet is invented teaching material, not a real policy, quote, coverage determination or review of private-policy wording. Loss-avoidance conditions were checked in the earlier October 24 review." },
+    review: { date: "2026-11-06", scope: "Policy-record task, damage-cause wording and safe claim documentation", correction: "Replaced the universal wind-versus-water-line claim and fixed storm countdown with policy-specific questions and an evidence record. Retained waiting-period exceptions and requirements to verify applicable Proof of Loss terms and FEMA notices." },
+    "title": "Hurricane Flood Insurance: Check Coverage and Claim Evidence",
+    "description": "Use an NFIP and private flood policy checklist to record coverage, dates, limits, deductibles and claim evidence, with a worked example and questions for your agent.",
     "datePublished": "2026-08-14",
-    "dateModified": "2026-10-24",
+    "dateModified": "2026-11-06",
     "image": "/images/blog/hurricane-flood-insurance-guide-nfip.png",
     "imageAlt": "A homeowner photographs flood damage and insurance documents with a tablet after a hurricane flooded the ground floor of a house.",
     "sections": [
@@ -2516,88 +2569,87 @@ export const blogPosts: BlogPost[] = [
         "body": "Standard homeowners policies generally exclude flooding, including storm surge. Flood coverage is usually purchased separately through NFIP or a private insurer; wind coverage has its own terms. NFIP generally has a 30-day waiting period, with exceptions, so confirm the actual effective date with the agent rather than assuming an approaching storm is covered. A flood policy does not pay every loss: building and contents coverage, limits, deductibles, exclusions, and settlement conditions matter. This guide helps organize questions and evidence; the applicable policy and insurer determine coverage."
       },
       {
-        "heading": "Hurricane Preparedness Checklist: Insurance Documents",
-        "body": "Flood claims move faster when your paperwork is ready before the water rises. Pair this with the general emergency kit checklist for evacuation supplies.",
+        "heading": "Start With the Policy, Not the Storm Category",
+        "body": "Find the declarations page and the policy wording it refers to. The declarations summarize who and what is insured, dates, selected coverages and deductibles; endorsements and the policy form supply further conditions. A mortgage statement or a premium payment by itself does not answer every coverage question. Keep a private copy offline and use the following fields to prepare a conversation with the agent. Do not publish policy numbers, your home address or claim documents on a public forum.",
         "bullets": [
-          "Your flood policy number, insurer, and claims phone number in a waterproof pouch and cloud storage.",
-          "A copy of the declarations page showing building and contents limits.",
-          "A home inventory with photos or video of every room, appliance, and stored item.",
-          "Receipts for major purchases and any flood-mitigation improvements (vents, barriers).",
-          "Mortgage and deed documents, and proof of prior flood claims if any.",
-          "A printed insurance documentation checklist to follow on claim day."
+          "Policy identity: NFIP or private flood, insurer, form/endorsements, property and policy number kept privately, agent and claims contact.",
+          "Dates: written effective date/time and expiration; any waiting-period exception and who confirmed it. Record an unresolved date as unconfirmed.",
+          "Selected protection: building limit and deductible; contents limit and deductible. Do not fill the contents field using the building limit.",
+          "Terms to ask about: settlement basis, basement or lower-enclosure limitations, excluded property, temporary housing, and other coverage you may need.",
+          "Follow-up: question, named contact, date asked, written answer and the policy provision it identifies."
+        ],
+        "links": [{ "href": "https://www.floodsmart.gov/get-insured/buy-a-policy", "label": "Read NFIP coverage options and exclusions" }]
+      },
+      {
+        "heading": "Worked Example: A Limit Is Not a Payment Estimate",
+        "body": "Illustrative policy record (invented): Household A lists $200,000 building coverage with a $2,000 building deductible, and $50,000 contents coverage with a $1,000 contents deductible. Coverage is active for the example's loss date; settlement terms and treatment of belongings in a lower enclosure remain unconfirmed. These are example selections, not recommended limits or a payment estimate.",
+        "bullets": [
+          "Question: can Household A use the $200,000 building limit as the amount available for furniture? Answer: no. The example lists a separate contents limit and deductible; whether an item is covered still depends on the form, location and cause of loss.",
+          "Question: can the household calculate its claim payment from these four amounts? Answer: no. Covered damage, exclusions, settlement terms and evidence are still needed.",
+          "Unfinished task: ask the agent to identify the applicable lower-enclosure provision and settlement basis in writing. Until answered, those fields remain unconfirmed."
         ]
       },
       {
-        "heading": "Room-by-Room Documentation Plan",
-        "body": "Photograph the house room by room while it is dry so a adjuster can verify pre-loss condition. A fuller interior walkthrough is in the room-by-room preparedness guide.",
-        "bullets": [
-          "Ground floor and basement: Capture walls, flooring, appliances, and stored boxes at ankle, knee, and waist heights you may later claim.",
-          "Kitchen: Photo the fridge, washer, furnace, and water heater—these are common flood losses.",
-          "Living areas: Record electronics, furniture, and stored items with serial numbers where possible.",
-          "Attic and upper floors: Document anything you will move up to stay dry.",
-          "Exterior: Photo the grade, foundation, and any installed flood vents or barriers."
-        ]
+        "heading": "Compare NFIP and Private Policies by the Same Questions",
+        "body": "NFIP has standard policy forms, while a private insurer's wording and endorsements may differ. Compare the actual documents using the same fields: flood definition, effective date, building and contents limits, deductibles, settlement, lower-floor restrictions, temporary housing and claims requirements. Do not label all private policies broader or all NFIP policies sufficient for a household. If a private policy includes a benefit missing from NFIP, record its exact limit and conditions. If you cannot find a term, ask for the relevant provision instead of treating an advertisement as the answer."
       },
       {
-        "heading": "Protecting Vulnerable Family Members",
-        "body": "Flood recovery is harder on seniors, children, and people with disabilities, who are more sensitive to contaminated water and displacement. Keep their medical and mobility needs in the same waterproof file as your policy, and plan accessible temporary housing in advance. Our seniors, children, and disability guide covers registries and transport; the medical-needs preparedness guide adds equipment power planning."
+        "heading": "Separate Damage Evidence From a Coverage Decision",
+        "body": "Wind, rain entry, rising floodwater and other causes can affect the same property. A visible water mark is useful evidence, but it is not a universal line that assigns every item above or below it to an insurer. Keep photos, timing, repair records and a description of what happened, then report the loss to the relevant insurers and ask how they will investigate and coordinate. Record each claim number and contact separately. Ask for the policy basis of a coverage decision, including any applicable exclusions; do not assign the cause yourself from a hurricane category or one photograph."
       },
       {
-        "heading": "Pet Safety and Flood Claims",
-        "body": "Keep evacuation and animal-care planning separate from coverage assumptions. Do not delay leaving an unsafe area to preserve claim evidence. Confirm any boarding or temporary-housing expense with the insurer rather than assuming a flood policy pays it. Plan pet-friendly transport and accommodation before a storm, and keep veterinary records available offline."
-      },
-      {
-        "heading": "Insurance: Documents and Coverage",
+        "heading": "What NFIP Coverage Fields Mean",
         "body": "For eligible one-to-four-family residential properties, NFIP offers up to $250,000 in building coverage and $100,000 in contents coverage, purchased separately. Other building and policy types have different limits. Contents generally settle at actual cash value; qualifying primary-residence buildings may receive replacement-cost settlement subject to policy conditions. Basement restrictions, deductibles, and excluded property can change a claim. Private policies vary. Ask the agent to identify the form, limits, effective date, and settlement basis in writing; vehicles and many living expenses need separate coverage."
       },
       {
-        "heading": "Recovery After the Storm",
+        "heading": "Loss Avoidance: Save the Expense Record",
         "body": "When safe, photograph water lines and damaged items and keep an inventory, receipts, and contact log. Remove immediate health hazards safely rather than waiting in an unsafe building for an adjuster. NFIP flood-loss-avoidance coverage can reimburse up to $1,000 for qualifying reasonable expenses to protect insured property from flooding or imminent flooding, subject to the policy. It is not a blanket allowance for any disaster repair. FloodSmart specifically instructs policyholders to retain receipts and work-time records for the adjuster; separate coverage may apply to moving insured property. Ask which provision applies before assuming reimbursement.",
         "links": [{ "href": "https://agents.floodsmart.gov/topics/flood-loss-avoidance", "label": "NFIP: eligible loss-avoidance expenses and required records" }]
       },
       {
-        "heading": "The 48-Hour Preparedness Timeline",
-        "body": "The 72/48/24-hour timeline covers the full household sequence.",
+        "heading": "Build a Safe Loss Inventory",
+        "body": "NFIP's Claims Checklist says a claim can be filed before you return to the property. Report the loss promptly; enter and photograph only when it is safe. Do not delay an evacuation or keep contaminated material solely to preserve a claim. Follow local health and disposal requirements, document safely and tell the adjuster when dangerous material must be removed.",
         "bullets": [
-          "48 hours out: Confirm policy is active (not in a wait period), move contents upstairs, and stage sandbags or barriers.",
-          "24 hours out: Back up photos and the inventory to cloud; charge your phone for claim-day documentation.",
-          "Immediately after: Photograph flood lines and damage; contact the insurer to open the claim; request an adjuster.",
-          "Ask the insurer immediately for the applicable Proof of Loss requirements and deadline. The standard NFIP form generally requires it within 60 days of loss, but FEMA may issue event-specific extensions or waivers; confirm any applicable written notice."
-        ]
+          "Building record: room/location, damage description, wide and close photos, visible water marks, date recorded, and any emergency work and receipts.",
+          "Contents record: item, quantity, approximate age, make/model/serial number when available, photographs and purchase or replacement-cost documentation.",
+          "Contact log: date/time, representative and role, claim number, documents requested, next action and promised follow-up.",
+          "Disposal or urgent repairs: photograph and list safely, preserve available receipts and explain what was removed and why. Ask what additional evidence the insurer needs."
+        ],
+        "links": [{ "href": "https://www.floodsmart.gov/claims-checklist", "label": "Follow NFIP's official damage-documentation checklist" }]
       },
       {
-        "heading": "Track the Storm With HurricaneHub Tools",
-        "body": "Flood risk is about surge and rainfall, not just the cone center. The HurricaneHub real-time tracker shows the NHC cone and wind radii so you can judge arrival; pair it with storm-surge vs. hurricane warnings to see whether water—not wind—is your real threat. Reading the cone of uncertainty helps you prepare for the wide possible track, because flood zones often sit far from where the eye makes landfall."
+        "heading": "Report the Loss and Confirm the Document Deadline",
+        "body": "Opening a claim and submitting a signed Proof of Loss are different steps. Notify the insurance provider promptly when safe, save the claim number and ask how to send documentation securely. The standard NFIP form generally requires a Proof of Loss within 60 days of loss, but FEMA may issue event-specific extensions or waivers. Obtain the applicable form, deadline and written notice; do not assume a phone report replaces a required signed submission. Private policies may have different requirements. Keep delivery confirmation and a copy of what you sent, then review the adjuster's estimate for missing or misidentified items.",
+        "links": [{ "href": "https://www.floodsmart.gov/recover/start-a-claim", "label": "Read NFIP's claim process and adjuster guidance" }, { "href": "https://www.floodsmart.gov/claims-checklist", "label": "Check NFIP's documentation and estimate-review steps" }]
       },
       {
-        "heading": "Common Hurricane Preparedness Mistakes",
+        "heading": "Check the Assumptions That Change the Answer",
         "body": "",
         "bullets": [
-          "Assuming homeowners insurance covers flood. It does not. You need a separate policy.",
+          "Assuming standard homeowners coverage includes rising floodwater or storm surge. It generally excludes flood; check separate flood coverage and the actual wording.",
           "Assuming a newly purchased policy is already effective. NFIP generally has a 30-day wait with exceptions; confirm the effective date and terms.",
-          "Skipping contents coverage. Structure-only policies leave your furniture and appliances unprotected.",
+          "Copying a building limit into the contents field, or assuming the same deductible applies to both.",
           "Discarding evidence unnecessarily, or keeping dangerous contaminated material solely for a claim. Document safely and ask about required records.",
           "Missing the applicable Proof of Loss deadline. Ask the insurer about the policy requirement and any FEMA event-specific extension."
         ]
       },
       {
-        "heading": "Official Resources and Where to Get Help",
-        "body": "Before any life-safety or financial decision, check weather.gov, your local emergency management agency, and current NHC advisories.",
+        "heading": "Take the Unanswered Questions to the Right Contact",
+        "body": "Use the insurer or agent for policy interpretation and claim status, and the state insurance department for its complaint process. Ask the flood and wind insurers which damage they are investigating and how to dispute an unresolved decision. Forecast maps do not decide coverage. Keep emergency instructions separate: use current NWS and local emergency-management guidance for safe access and protective action.",
         "bullets": [
-          "National Flood Insurance Program: https://www.floodsmart.gov — policies, limits, and agents.",
-          "FEMA flood maps: https://www.fema.gov/flood-maps — your zone and risk.",
-          "National Hurricane Center: https://www.nhc.noaa.gov — official forecasts and surge guidance.",
-          "National Weather Service: https://www.weather.gov — local alerts.",
-          "Your state insurance department: claim-handling rules and private-policy complaints."
-        ]
+          "For each unanswered coverage question, request the form or endorsement, provision, contact name and written response.",
+          "For each claim, retain its separate identifier, submission method, requested documents and applicable deadlines.",
+          "A FEMA flood-map zone informs risk and insurance questions; it does not establish current evacuation instructions or determine every claim."
+        ],
+        "links": [{ "href": "/blog/hurricane-flood-zone-map-fema-understanding/", "label": "Read an actual FEMA map example and record its version" }, { "href": "/blog/hurricane-insurance-deductibles-guide/", "label": "Work through separate hurricane insurance deductible questions" }]
       },
       {
-        "heading": "Final Checklist and Take Action",
-        "body": "Review coverage before a flood threatens, including outside hurricane season. This week, confirm the effective date, building and contents limits, deductibles, basement limitations, and claims contact. Photograph an inventory and keep an offline copy of the policy. After a loss, report it promptly when safe, save evidence and expense records, and obtain the applicable document deadlines in writing. Keep questions about wind, flood, temporary housing, and vehicles separate so each insurer can explain the relevant coverage."
+        "heading": "Your Completed Policy and Claim Record",
+        "body": "The useful result is a short private record you can reopen or give to the agent, not a predicted payout. Before a threat, complete the policy identity, effective dates, separate limits and deductibles, key terms and contacts. Put unresolved questions next to the person responsible for answering them. After a loss, add the report date, claim number, safe damage inventory, applicable document deadline and proof of submission. Keep an offline copy with essential documents. Mark a field confirmed only when the relevant document or responsible provider supports it."
       },
       {
-        "heading": "Avoiding Contractor Fraud During Recovery",
-        "body": "After a flood, unscrupulous \"storm chasers\" demand large deposits, promise fast NFIP paperwork, or inflate estimates. Protect your claim: use licensed, local contractors with verifiable references; never pay the full amount up front; get three written estimates; and report pressure tactics to your state insurance department. Insist that any repair aligns with the adjuster's scope so your reimbursement is not reduced. Fraud also hurts your wind vs. water claim—keep every document clean and itemized."
+        "heading": "Before Agreeing to Paid Cleanup or Repairs",
+        "body": "Ask the agent or adjuster about coverage before signing a cleaning or repair contract. Keep the written scope, charges and receipts, and verify the contractor's identity through the appropriate local licensing or consumer-protection service. A contractor's promise that insurance will pay is not a coverage decision. Immediate safety and health needs still come first: the purpose of documentation is to preserve an accurate account without requiring anyone to remain in a dangerous building."
       }
     ],
     "faqs": [
@@ -2615,7 +2667,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         "question": "Is wind damage billed on the same claim as flood?",
-        "answer": "No. Wind and water are different perils with different policies and often different deductibles. Adjusters separate them by the \"wind versus water\" line; keep documentation that shows which damage came from which source."
+        "answer": "Wind and flood commonly involve separate coverages and claims, but the actual policy arrangement controls. Report the loss to the relevant insurers and retain each claim number. Photographs and water marks are evidence, not a universal dividing line that assigns all damage; the cause, policy terms and investigation matter."
       },
       {
         "question": "Can I buy flood insurance after a hurricane is forecast?",

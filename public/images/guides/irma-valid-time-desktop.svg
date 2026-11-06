@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1320" viewBox="0 0 1600 1320" role="img" aria-labelledby="title desc" font-family="Arial, Helvetica, sans-serif" fill="#192e35"><title id="title">Irma (2017): Compare the Same Valid Time</title><desc id="desc">Historical Irma (AL112017), 2017. Discussion 26, issued September 5 at 15:00 UTC, has a 24H row for September 6 at 12:00 UTC predicting 150 kt at 18.1N, 63.0W. Discussion 28, issued September 6 at 03:00 UTC, has a 12H row for that same valid time predicting 155 kt at 18.1N, 63.1W. The forecast revision is +5 kt and 0.1 degree west, not observed intensification. Discussion 28&apos;s 24H row targets September 7 at 00:00 UTC, 12 hours later. Not a current forecast.</desc><rect width="1600" height="1320" fill="#fff"/>
+<text x="64" y="54" font-size="23" fill="#006d70" font-weight="700">HURRICANEHUB / HISTORICAL FORECAST EXERCISE</text>
+<text x="64" y="124" font-size="53" font-weight="700">Irma (2017): Compare the Same Valid Time</text>
+<text x="64" y="183" font-size="34" >Match the valid time, not just the horizon label.</text>
+<text x="64" y="229" font-size="27" fill="#4e6269">AL112017 | Transcribed from NHC Forecast Discussions 26 and 28.</text>
+<path d="M800,272 L800,795" stroke="#cbd7db" fill="none" stroke-width="2"/>
+<g data-discussion="26">
+<text x="64" y="297" font-size="36" font-weight="700">Earlier forecast / Discussion 26</text>
+<text x="64" y="351" font-size="24" fill="#4e6269">ISSUED (UTC)</text>
+<text x="64" y="397" font-size="33" font-weight="700">2017-09-05 15:00 UTC</text>
+<text x="64" y="441" font-size="26" fill="#4e6269">Sep 5, 2017, 11:00 AM AST</text>
+<text x="64" y="505" font-size="24" fill="#4e6269">PRINTED HORIZON</text>
+<text x="360" y="505" font-size="24" fill="#4e6269">VALID-TIME CODE</text>
+<rect x="54" y="523" width="115" height="58" rx="4" fill="#edf2f3"/>
+<rect x="350" y="523" width="250" height="58" rx="4" fill="#eaf4f2"/>
+<text x="64" y="567" font-size="40" font-family="Courier New, monospace" font-weight="700" data-field="horizon">24H</text>
+<text x="360" y="567" font-size="40" font-family="Courier New, monospace" fill="#006d70" font-weight="700" data-field="valid-code">06/1200Z</text>
+<text x="64" y="625" font-size="29" font-family="Courier New, monospace" data-field="position-wind">18.1N 63.0W 150 KT 175 MPH</text>
+<text x="64" y="687" font-size="24" fill="#4e6269">VALID TIME (UTC)</text>
+<text x="64" y="735" font-size="33" fill="#006d70" font-weight="700" data-field="valid-utc">2017-09-06 12:00 UTC</text>
+<text x="64" y="786" font-size="27" fill="#4e6269">21 hours after public issuance</text>
+</g>
+<g data-discussion="28">
+<text x="848" y="297" font-size="36" font-weight="700">Later forecast / Discussion 28</text>
+<text x="848" y="351" font-size="24" fill="#4e6269">ISSUED (UTC)</text>
+<text x="848" y="397" font-size="33" font-weight="700">2017-09-06 03:00 UTC</text>
+<text x="848" y="441" font-size="26" fill="#4e6269">Sep 5, 2017, 11:00 PM AST</text>
+<text x="848" y="505" font-size="24" fill="#4e6269">PRINTED HORIZON</text>
+<text x="1144" y="505" font-size="24" fill="#4e6269">VALID-TIME CODE</text>
+<rect x="838" y="523" width="115" height="58" rx="4" fill="#edf2f3"/>
+<rect x="1134" y="523" width="250" height="58" rx="4" fill="#eaf4f2"/>
+<text x="848" y="567" font-size="40" font-family="Courier New, monospace" font-weight="700" data-field="horizon">12H</text>
+<text x="1144" y="567" font-size="40" font-family="Courier New, monospace" fill="#006d70" font-weight="700" data-field="valid-code">06/1200Z</text>
+<text x="848" y="625" font-size="29" font-family="Courier New, monospace" data-field="position-wind">18.1N 63.1W 155 KT 180 MPH</text>
+<text x="848" y="687" font-size="24" fill="#4e6269">VALID TIME (UTC)</text>
+<text x="848" y="735" font-size="33" fill="#006d70" font-weight="700" data-field="valid-utc">2017-09-06 12:00 UTC</text>
+<text x="848" y="786" font-size="27" fill="#4e6269">9 hours after public issuance</text>
+</g>
+<rect y="829" width="1600" height="177" fill="#eaf4f2"/>
+<text x="64" y="875" font-size="29" fill="#006d70" font-weight="700">SAME VALID TIME: SEPTEMBER 6, 2017, 12:00 UTC</text>
+<text x="64" y="933" font-size="40" fill="#006d70" font-weight="700">Forecast wind revised: 150 to 155 kt (+5 kt)</text>
+<text x="64" y="982" font-size="27" >Forecast center: 0.1 degree west, from 63.0W to 63.1W; latitude remains 18.1N.</text>
+<text x="64" y="1058" font-size="26" fill="#aa451e" font-weight="700">WHY NOT COMPARE BOTH 24H ROWS?</text>
+<text x="64" y="1106" font-size="28" font-family="Courier New, monospace">Discussion 28: 24H 07/0000Z 19.1N 65.9W 150 KT 175 MPH</text>
+<text x="64" y="1154" font-size="29" >Valid September 7, 2017, 00:00 UTC: 12 hours later than our target time.</text>
+<path d="M64,1188 L1536,1188" stroke="#cbd7db" fill="none" stroke-width="2"/>
+<text x="64" y="1234" font-size="27" font-weight="700">Forecast revision, not observed intensification. Not a current forecast.</text>
+<text x="64" y="1280" font-size="22" fill="#4e6269">Data: NOAA/NHC | Diagram: HurricaneHub</text>
+</svg>

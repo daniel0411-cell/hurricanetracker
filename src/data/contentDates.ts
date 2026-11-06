@@ -2,6 +2,8 @@ import { topicPages } from "./topicPages";
 
 // Editorial revisions only. Feed fetch times and advisory issue times belong to their products.
 const revisions: Record<string, string> = {
+  "hurricane-tracker/why-hurricane-forecasts-change/": "2026-11-06T00:00:00.000Z",
+  "hurricane-tracker/evacuation-zones/": "2026-11-06T00:00:00.000Z",
   "hurricane-tracker/spaghetti-models/": "2026-11-05T00:00:00.000Z",
   "blog/hurricane-eyewall-replacement-cycle-explained/": "2026-11-05T00:00:00.000Z",
   "": "2026-11-02T00:00:00.000Z",

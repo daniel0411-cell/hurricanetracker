@@ -78,6 +78,20 @@ const jsonLd = graph(
     <ContentFigure src="/images/blog/external/nws-ian-2022-radar-visible-1301z.jpg" width={737} height={485} alt="Ian historical visible-satellite and radar composite, with cloud texture and colored precipitation bands near Charleston and Wilmington." caption="Contrasting example: NWS Wilmington's Ian composite, September 30, 2022, labeled 13:01Z (UTC). The satellite clouds and radar echoes are different layers. A clearly exposed circular eye is not required in every image. Legend text is partly clipped in the original, so no numerical color readings are assigned here." sourceUrl="https://www.weather.gov/ilm/HurricaneIan" sourceLabel="NWS Ian summary and original animation" fullSize={true} />
   </div></section>}
   {page.slug === "spaghetti-models" && <section class="band"><div class="inner"><ModelTimingExercise /></div></section>}
+  {page.slug === "why-hurricane-forecasts-change" && <section class="band" aria-labelledby="irma-comparison"><div class="inner">
+    <p class="eyebrow">Historical forecast exercise</p>
+    <h2 id="irma-comparison">Irma: Match the Valid Time Before Comparing</h2>
+    <p>Find the shared September 6, 2017, 12:00 UTC target below. The printed 24H and 12H labels belong to different discussions; they do not count directly from each public issue time.</p>
+    <ContentFigure
+      src="/images/guides/irma-valid-time-desktop.webp" mobileSrc="/images/guides/irma-valid-time-mobile.webp" mobileBreakpoint={767}
+      width={1600} height={1320} mobileWidth={720} mobileHeight={2080}
+      alt="Historical Irma (AL112017), 2017. Discussion 26, issued September 5 at 15:00 UTC, predicts 150 kt at 18.1N, 63.0W for September 6 at 12:00 UTC in its 24H row. Discussion 28, issued September 6 at 03:00 UTC, predicts 155 kt at 18.1N, 63.1W for that same valid time in its 12H row. The revision is +5 kt and 0.1 degree west, not observed intensification. Not a current forecast."
+      caption="Historical example. Fields transcribed and regrouped from NOAA/NHC Irma Forecast Discussions 26 and 28 (2017); original horizon labels and numerical values are preserved, with dates expanded in UTC. These are official NHC forecasts, not individual model runs. The +5 kt change is a forecast revision, not observed strengthening or a forecast-accuracy score. Diagram by HurricaneHub."
+      sourceUrl="https://www.nhc.noaa.gov/archive/2017/al11/al112017.discus.026.shtml" sourceLabel="Original NHC Discussion 26" fullSize={true}
+    />
+    <p><a href="https://www.nhc.noaa.gov/archive/2017/al11/al112017.discus.028.shtml">Original NHC Discussion 28</a> · <a href="/images/guides/irma-valid-time-mobile.webp">Open the stacked reading version</a></p>
+    <details><summary>Reading check: can you compare both 24H rows directly?</summary><p>No. Discussion 26's 24H row targets September 6 at 12:00 UTC; Discussion 28's 24H row targets September 7 at 00:00 UTC, twelve hours later. Match Discussion 26's 24H row with Discussion 28's 12H row. Their common target is 21 and 9 hours after public issuance, respectively.</p></details>
+  </div></section>}
   {page.slug === "storm-surge-map" && <section class="band" aria-labelledby="surge-example"><div class="inner">
     <h2 id="surge-example">Read NHC's Hurricane X Teaching Map</h2>
     <ContentFigure src="/images/blog/external/nhc-surge-charleston-teaching-example.jpg" width={1650} height={1275} alt="Fictional NHC Hurricane X map near Charleston, with a legend for above-ground inundation and gray intertidal wetlands." caption="Fictional NHC teaching scenario, Hurricane X, not a current Charleston forecast, observed storm, or evacuation order. The source graphic has no printed issue date. Existing local copy is resized/compressed with labels retained; original linked below." sourceUrl="https://www.nhc.noaa.gov/surge/inundation/images/inundation-charleston-example.jpg" sourceLabel="Original NHC teaching image" fullSize={true} />

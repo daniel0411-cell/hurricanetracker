@@ -834,40 +834,49 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
   {
     kind: "city", slug: "savannah", name: "Savannah", stateName: "Georgia", stateSlug: "georgia",
     title: "Savannah Hurricane Preparedness 2026: Evacuation & Safety",
-    description: "Savannah hurricane preparedness for 2026: official alerts, Chatham evacuation zones, I-16 routes, surge, flooding, and safety.",
+    description: "Build a Savannah hurricane record using Chatham's official zones, transport and care confirmations, and a sourced Matthew water-level example.",
+    dateModified: "2026-11-06",
+    sourceCheck: { date: "2026-11-06", scope: "CEMA's current EvacuationZones and EvacuationResources explanation pages and their linked map entry; NWS Charleston's Matthew summary and preliminary Fort Pulaski storm-tide report. Replaced the older soft-404 zone link. No address lookup, current order, assembly-area activation, ride, shelter, road condition or medical arrangement was verified." },
+    planningRecord: {
+      title: "Savannah: Confirm the Zone, Instruction and Transport Handoff",
+      intro: "Keep one private record that separates a map result from an official instruction and from an agreed way to travel. CEMA's zone page lists A, B and C; its assistance page describes an assembly-area process and a separate Hurricane Registry. Reading those pages is preparation, not confirmation that either service is activated or that an individual has a place. Use the exact county source and write unconfirmed beside arrangements that have not been agreed.",
+      steps: [
+        { name: "Save the Chatham map result with its source", text: "Open CEMA's official zone page and follow its interactive-map link for the property. Record the address privately, returned designation, map version if displayed, source URL and lookup date. CEMA describes Zone A east of the Truman Parkway and Vernon River, Zone B west of the Truman Parkway but east of I-95, and Zone C west of I-95. Those descriptions help identify the local system; use the official map or CEMA to resolve a boundary rather than assigning a zone from a nearby landmark or a ZIP point." },
+        { name: "Read the actual instruction for that area", text: "During a threat, save the notice's issuing authority, original URL, issue time and timezone, affected area, action and any stated timing. CEMA's standing explanation distinguishes an Evacuation Order encouraging departure from a Mandatory Evacuation Order requiring the targeted area to evacuate. Read the specific notice for its scope and wording; a stored zone result alone does not show an order. If the notice has not been checked, write not checked, rather than no order." },
+        { name: "Confirm the assistance process before treating it as transport", text: "CEMA's standing resource page describes CAT transport to an assembly area at Enmarket Arena and onward buses to inland public shelter. It explicitly says this process is for people with no other means of transport, is a last option, and does not provide parking for people who drive there expecting a bus. Before using it, confirm current activation, pickup, accessibility, baggage and assembly instructions with the responsible service. Record the contact and reply. The named arena on a standing page is not evidence it is open today." },
+        { name: "Resolve care, animals and the destination separately", text: "Ask CEMA or the health department whether the Hurricane Registry is the right process for a household with functional, access or medical needs. Record application status separately from confirmed instructions, transport and care placement. The standing assistance page also says pets travel separately and stay in a separate shelter in the destination area. Ask about the actual animal arrangement, required records and care continuity rather than assuming an ordinary passenger seat or general shelter supplies everything needed." },
+        { name: "Make the route and arrival check a named task", text: "Assign someone to check the current local departure instructions, transport agency road restrictions and destination acceptance. Record a fallback contact and an offline copy of the essential information. I-16's presence on a map does not establish activated contraflow, open access or a safe travel time. Never drive through floodwater. If an immediate warning requires shelter, follow it; this long-term worksheet is not a reason to begin a dangerous trip." }
+      ],
+      example: "Hypothetical record, not a current order: a Savannah household has saved a result from CEMA's linked map and a relative has agreed to receive the family. A household member has read the standing Enmarket assembly process but has not confirmed its activation or suitable transport for a mobility device. The record therefore marks destination agreed, current local instruction not checked, and transport/accessibility unconfirmed. One contact verifies CEMA's actual instruction and assistance process while another reconfirms the receiving household's access and equipment needs. Neither a registry application nor the known zone changes those open fields to confirmed. No address, individual transport entitlement or present-day service availability is asserted here."
+    },
     risk: [
       "Savannah sits along the tidal Savannah River near marshes, creeks, barrier islands, and low coastal communities. Storm surge can enter from the Atlantic through sounds and waterways, while heavy rainfall and high tide slow drainage across Chatham County.",
       "Tybee Island, eastern islands, riverfront areas, and low roads face different access and water risks from inland neighborhoods. Tropical storms passing offshore or striking Florida and South Carolina can still produce serious coastal flooding, tornadoes, wind, and outages.",
-      "Historic trees and overhead utilities add wind vulnerability, while ports, tourism, and limited island bridges complicate evacuation. Residents and visitors should know their zone and county alert source before a storm appears in the short-range forecast."
+      "Historic trees and overhead utilities add wind vulnerability, while ports, tourism, and limited island bridges complicate evacuation. Residents and visitors should know their zone and county alert source before a storm appears in the short-range forecast.",
+      "Historical evidence: NWS Charleston's Matthew summary reports a preliminary Fort Pulaski storm tide of 12.56 feet relative to Mean Lower Low Water (MLLW) at 0742 UTC on October 8, 2016, equivalent to 3:42 AM EDT. Storm tide includes astronomical tide and surge; 12.56 feet MLLW is not 12.56 feet of water above ground at a Savannah home. The same summary's maximum surge occurred at a different time. Use this distinction when reading coastal measurements, then use the county's map and actual instruction for the property. The linked NWS event page preserves the source's preliminary status; this guide does not present it as today's water level or a current all-time record."
     ],
     history: [
-      { storm: "Sea Islands hurricane (1893)", detail: "Produced catastrophic surge and loss of life across coastal Georgia and South Carolina." },
-      { storm: "Georgia hurricane (1898)", detail: "A major coastal hurricane caused severe regional wind and water damage." },
-      { storm: "Cedar Keys hurricane (1896)", detail: "Crossed Florida and brought damaging wind and rain into Georgia." },
-      { storm: "David (1979)", detail: "Moved along the Georgia coast after crossing Florida." },
-      { storm: "Hugo (1989)", detail: "Made landfall north of Savannah but brought regional wind and surge effects." },
-      { storm: "Floyd (1999)", detail: "Prompted a large Chatham County evacuation before turning north." },
-      { storm: "Charley (2004)", detail: "Crossed the Southeast and produced tropical effects in coastal Georgia." },
-      { storm: "Matthew (2016)", detail: "Passed offshore with damaging wind, surge, flooding, and extensive tree loss." },
-      { storm: "Irma (2017)", detail: "Produced exceptional Savannah River and coastal flooding despite an inland track." },
-      { storm: "Dorian (2019)", detail: "Passed offshore with coastal flooding, wind, and tornado concerns." }
+      { storm: "Matthew (2016)", detail: "NWS Charleston's event summary reports preliminary Fort Pulaski storm tide of 12.56 feet MLLW at 0742 UTC on October 8. This is water level relative to a tidal datum, not depth above residential ground." }
     ],
     evacuation: [
-      "Chatham County uses evacuation zones that officials may call in sequence. Check the address and give extra time for Tybee Island and other bridge-dependent communities.",
-      "I-16 is the principal westbound evacuation route, with I-95, US 80, US 17, US 204, and local roads feeding it. Contraflow occurs only when the state activates the plan.",
-      "Leave during the assigned window, take identification and medicine, and choose an inland destination outside the forecast rain and wind threat. Never wait on an island for water to cover the approach road."
+      "Use CEMA's official Evacuation Zones page and its linked map to check the exact address. Chatham's A-C system and map boundaries belong to the county; neither a FEMA flood zone nor a ZIP representative point assigns the result.",
+      "Keep the current order's area and timing separate from road and transport confirmations. Check official route restrictions and destination acceptance before travel. I-16 contraflow is an event-specific official decision, not an automatic feature of every hurricane threat.",
+      "Follow the applicable local evacuation or shelter instruction. Give transport and care arrangements an explicit contact and backup; a submitted assistance application is not the same as confirmed current instructions. Stop unsafe outdoor tasks and never enter flooded roads."
     ],
     resources: [
       { label: "Chatham Emergency Management Agency", href: "https://chathamemergency.org/" },
-      { label: "Chatham evacuation zones", href: "https://chathamemergency.org/prepare-now/evacuation-zones/" },
+      { label: "CEMA evacuation zones and interactive-map entry", href: "https://chathamemergency.org/PrepareNow/EvacuationZones" },
+      { label: "CEMA evacuation transport and Hurricane Registry procedures", href: "https://chathamemergency.org/PrepareNow/EvacuationResources" },
+      { label: "NWS Matthew 2016: Fort Pulaski storm-tide measurement and datum", href: "https://www.weather.gov/chs/HurricaneMatthew-Oct2016" },
       { label: "NWS Charleston", href: "https://www.weather.gov/chs/" },
       { label: "American Red Cross Georgia", href: "https://www.redcross.org/local/georgia.html" }
     ],
     faqs: [
       { question: "Is Savannah at risk from the current storm?", answer: "Compare the live NHC advisory with NWS Charleston and Chatham County alerts. This page alone does not indicate a current threat." },
-      { question: "What Chatham County evacuation zone am I in?", answer: "Use CEMA's address-based zone map and follow the current order for that zone." },
+      { question: "What Chatham County evacuation zone am I in?", answer: "Open CEMA's official zone page and follow its interactive-map link for the exact property. The county lists zones A-C. Save the result and lookup date, then check the current instruction separately; this guide has not assigned a zone to your address." },
       { question: "Does I-16 always use contraflow?", answer: "No. Georgia activates I-16 contraflow only for specific evacuations and announces the timing and access rules." },
-      { question: "Can Savannah flood without a direct landfall?", answer: "Yes. Matthew and Irma showed that offshore or indirect storms can still produce damaging coastal and river flooding." }
+      { question: "Can Savannah flood without a direct landfall?", answer: "Yes. NWS Charleston's Matthew summary documents significant coastal and freshwater flooding while the storm moved off Georgia. Its preliminary Fort Pulaski storm tide is expressed relative to MLLW, not as water depth above ground at an individual home." },
+      { question: "Does knowing my zone confirm evacuation transport?", answer: "No. Check the actual local instruction and current assistance process, then confirm transport, access and destination arrangements. Reading the standing assembly-area page or submitting a registry application alone is not a confirmed ride or care placement." }
     ]
   },
   {

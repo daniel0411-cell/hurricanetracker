@@ -26,14 +26,17 @@ export const topicPages: TopicPage[] = [
     secondaryAction: { label: "Understand the forecast cone", href: "/blog/how-to-read-the-hurricane-cone-of-uncertainty/" },
     intent: "why hurricane forecast changed, hurricane path shift, forecast error over time",
     steps: [
-      { title: "Check the Advisory Time", body: "Compare forecasts from their issue times. An old screenshot can show a path that newer observations and guidance have replaced.", href: "/hurricane-tracker/live/", label: "Open current advisory" },
-      { title: "Compare the Cone and Discussion", body: "Use the cone for center-track uncertainty and the forecast discussion for the reasons forecasters changed track, intensity, or confidence.", href: "/hurricane-tracker/path/", label: "Read path guidance" },
+      { title: "Read the Earlier Historical Forecast", body: "Start with Irma discussion 26, issued September 5, 2017 at 1500 UTC. Find its row valid September 6 at 1200 UTC, then keep that valid time fixed for the comparison below.", href: "https://www.nhc.noaa.gov/archive/2017/al11/al112017.discus.026.shtml", label: "Open Irma discussion 26" },
+      { title: "Find the Same Valid Time in the Update", body: "Irma discussion 28 was issued September 6, 2017 at 0300 UTC. Its 12H row has the same September 6 1200 UTC valid time as discussion 26's 24H row. Compare those rows, not two different 24H rows.", href: "https://www.nhc.noaa.gov/archive/2017/al11/al112017.discus.028.shtml", label: "Open Irma discussion 28" },
       { title: "Keep Local Hazards Separate", body: "A track adjustment can change local timing, but surge, rainfall, tornado, wind, and evacuation decisions still require their own official products.", href: "/alerts/", label: "Check local alerts" }
     ],
     sections: [
       { eyebrow: "New evidence", title: "Observations Reset the Starting Point", body: "Satellite, aircraft reconnaissance, radar, buoys, ships, weather stations, and atmospheric observations help estimate the storm and its environment. When the estimated center, structure, steering flow, or intensity changes, the next forecast begins from a different analysis.", bullets: ["Updated storm center and motion", "Changes in surrounding winds and pressure", "Ocean and atmospheric conditions", "New aircraft or satellite measurements"] },
       { eyebrow: "Forecast horizon", title: "Uncertainty Grows With Time", body: "Small differences in the starting analysis or future steering pattern can produce larger track differences several days later. This is why the cone widens with forecast time and why one exact five-day point should not drive a local decision.", bullets: ["Near-term positions usually carry less track uncertainty", "Longer-range paths have a wider range of outcomes", "Intensity and storm size have separate uncertainty", "Local hazards can extend outside the center-track cone"] },
-      { eyebrow: "Model guidance", title: "Models Can Converge, Diverge, or Trend", body: "Forecasters compare deterministic models, ensembles, recent performance, observations, and continuity from the previous advisory. One dramatic model run is less useful than a persistent shift supported by several guidance sources and new evidence.", bullets: ["Compare runs from the same initialization cycle", "Watch trends across multiple advisories", "Treat outliers as possibilities, not answers", "Use the NHC forecast as the public baseline"] }
+      { eyebrow: "Model guidance", title: "Models Can Converge, Diverge, or Trend", body: "Forecasters compare deterministic models, ensembles, recent performance, observations, and continuity from the previous advisory. Read a chart's cycle and each model's native initialization or interpolation details; a shared chart cycle does not prove all lines came from the same original run. For comparisons across updates, match valid times before describing a change.", bullets: ["Record product identity, issue time and forecast valid time", "Match valid times, not just forecast-hour labels or line endpoints", "Watch trends across multiple advisories", "Use the NHC forecast as the public baseline"] },
+      { eyebrow: "Historical example: Irma 2017", title: "Two Forecasts for September 6 at 1200 UTC", body: "These are predictions made before the target time, not two observed positions. In the original FORECAST POSITIONS AND MAX WINDS tables, retain the printed horizon labels and full date/time. Discussion 26 was issued at 1100 AM AST September 5 (1500 UTC); discussion 28 at 1100 PM AST September 5 (0300 UTC September 6). AST here is UTC minus four hours. Public issue times and printed forecast-hour labels are different fields: use the explicit valid-time column rather than assuming a label counts from public issuance.", bullets: ["Earlier forecast, discussion 26: printed 24H row; valid 06/1200Z; 18.1N, 63.0W; 150 KT / 175 MPH.", "Later forecast, discussion 28: printed 12H row; valid 06/1200Z; 18.1N, 63.1W; 155 KT / 180 MPH.", "Same target time: the later forecast is 0.1 degree farther west and 5 kt stronger. These are forecast revisions, not observed 12-hour intensification, a probability change or a new household departure deadline."] },
+      { eyebrow: "Read the explanation", title: "A Numerical Change Needs the Forecaster's Context", body: "Discussion 26 describes favorable environmental conditions and says intensity fluctuations are likely as eyewall replacement cycles occur. Discussion 28 adds aircraft and radar evidence, including a hinted secondary wind maximum, and says an eyewall replacement could halt strengthening if it becomes more definitive. Its exact wording includes: 'The official intensity forecast is near or above the model consensus.' This is conditional reasoning, not proof that one structural process alone caused the 5 kt revision. Neither text certifies how much wind a particular home will receive.", bullets: ["Separate newly assessed current intensity from future forecast rows", "Preserve words such as suggests, hinted and if", "Do not treat the historical discussion's model preferences or error statistics as current rankings", "A forecast-versus-forecast comparison is not forecast verification; checking accuracy requires the later analyzed outcome at that same time"] },
+      { eyebrow: "Reading check", title: "Can You Compare Both 24H Rows?", body: "Question: discussion 28's 24H row is valid September 7 at 0000 UTC and predicts 150 kt. Is it the correct counterpart to discussion 26's 24H row valid September 6 at 1200 UTC? Answer: no; the target times are 12 hours apart. Use discussion 28's 12H row above for the matched comparison. Matching the label alone would hide the actual 5 kt forecast revision.", bullets: ["Your comparison record: storm ID/year; earlier product and issue time; later product and issue time; common valid UTC; position and wind/unit in each; numerical change; discussion explanation", "If either product lacks the common valid time, record that limit instead of inventing a point between printed rows", "For a current threat, return to the latest NHC forecast and local warnings; the Irma example teaches a method, not today's conditions"] }
     ],
     nextLinks: [
       { name: "Hurricane Spaghetti Models", href: "/hurricane-tracker/spaghetti-models/", description: "Understand clusters, ensembles, and outlier tracks." },
@@ -43,6 +46,7 @@ export const topicPages: TopicPage[] = [
     ],
     faqs: [
       { question: "Why did the hurricane path change?", answer: "The path can change when newer observations alter the estimated storm position or when updated guidance changes the expected steering pattern. Compare advisory times and use the latest NHC forecast." },
+      { question: "Should I compare two advisories' 24-hour rows?", answer: "Only if they refer to the same valid date and time. In the historical Irma example, discussion 26's 24H row matches discussion 28's 12H row at September 6, 2017, 1200 UTC. Two identically labeled rows can target different times." },
       { question: "Does a changed forecast mean the earlier forecast was wrong?", answer: "A forecast is an estimate made with the information available at that time. New observations and guidance can narrow or shift the range of likely outcomes, especially several days ahead." },
       { question: "Why does the hurricane cone get wider?", answer: "Track uncertainty generally increases farther into the future. The wider cone represents a broader range of probable storm-center positions, not the size of the storm or every hazard." },
       { question: "Should I wait for the forecast to stop changing before preparing?", answer: "No. Follow official watches, warnings, evacuation orders, and local guidance. Preparation often needs to begin while some forecast uncertainty remains." }
@@ -508,31 +512,31 @@ export const topicPages: TopicPage[] = [
     title: "Hurricane Evacuation Zones",
     shortTitle: "Evacuation Zones",
     description:
-      "Learn how hurricane evacuation zones fit with local orders, storm surge risk, city trackers, alerts, and household evacuation planning tools.",
+      "Find official Miami-Dade, Hillsborough and Chatham evacuation resources, then record your zone, current order, transport confirmations and unresolved questions.",
     eyebrow: "Local decision hub",
     intro:
-      "Hurricane evacuation zones are local planning zones, not a national map layer. Use this hub to understand what to check, where HurricaneHub can help, and which official local sources should make the final call.",
-    primaryAction: { label: "Use evacuation helper", href: "/tools/evacuation-decision-helper/" },
+      "Find the official zone for the address, then separately check the current local instruction. The useful result is a dated record of your zone, the order's affected area and timing, and the arrangements still unconfirmed. The county examples below show how to build that record; they do not establish a current order or a zone for any reader.",
+    primaryAction: { label: "Read the address-lookup walkthrough", href: "/blog/how-to-check-your-hurricane-evacuation-zone/" },
     secondaryAction: { label: "Browse city trackers", href: "/hurricane-tracker/city/" },
     intent: "hurricane evacuation zones, evacuation zone lookup, hurricane evacuation map",
     steps: [
       {
         title: "Find the Official Local Zone",
-        body: "Use your county or city emergency management site for the authoritative evacuation zone, order status, shelter rules, and route information.",
-        href: "/hurricane-tracker/city/",
-        label: "Find local tracker"
+        body: "Use the exact property and correct jurisdiction. Miami-Dade's official page explains its five storm-surge planning zones and links Know Your Zone. It is one county's system, not a national A-E rule.",
+        href: "https://www.miamidade.gov/global/emergency/hurricane/storm-surge-zones.page",
+        label: "Open Miami-Dade's official zone entry"
       },
       {
-        title: "Check Current Alerts",
-        body: "Compare your zone with storm surge, hurricane, tropical storm, flood, and tornado alerts from the National Weather Service.",
-        href: "/alerts/",
-        label: "Check alerts"
+        title: "Save the Map Version and Local Instruction",
+        body: "Hillsborough's official page links HEAT, a five-zone legend and 2025/2026 map comparisons. Save the map version and lookup date, then separately check the issuing agency's current order, area and action time.",
+        href: "https://www.hcfl.gov/residents/public-safety/emergency-management/find-evacuation-information",
+        label: "Open Hillsborough's official lookup entry"
       },
       {
-        title: "Plan the Household Decision",
-        body: "Use a decision helper for medical needs, pets, housing type, transport, and route timing after confirming official instructions.",
-        href: "/tools/evacuation-decision-helper/",
-        label: "Open helper"
+        title: "Confirm Assistance Separately",
+        body: "Chatham's CEMA distinguishes its local zones and publishes evacuation assistance procedures. Record whether transport and destination arrangements are confirmed; a map result or assistance application alone does not complete them.",
+        href: "https://chathamemergency.org/PrepareNow/EvacuationResources",
+        label: "Read CEMA's assistance procedures"
       }
     ],
     sections: [
@@ -542,10 +546,10 @@ export const topicPages: TopicPage[] = [
         body:
           "Zone names, maps, and order language vary by county or city. HurricaneHub can organize local tracker links and decision prompts, but official evacuation zones and orders come from local emergency management.",
         bullets: [
-          "County evacuation zone lookup",
-          "Local shelter and route information",
-          "Official order status",
-          "Bridge, road, and transit updates"
+          "Miami-Dade: the official page describes five storm-surge planning zones A-E and links its address tool. A storm-surge planning zone is not a FEMA insurance flood zone.",
+          "Hillsborough: the official page links its five-zone HEAT lookup, printable maps and HART evacuation transport information. A saved older map needs a version check.",
+          "Chatham: CEMA lists A, B and C and links an interactive map. Its letter A must not be assigned from another county's map or a ZIP representative point.",
+          "Source check November 6, 2026: county explanation pages and linked service entries only. No household address, interactive result, current order, bus activation or shelter availability was verified."
         ]
       },
       {
@@ -559,6 +563,18 @@ export const topicPages: TopicPage[] = [
           "Mobile homes, RVs, boats, and temporary housing",
           "Low-lying, surge, river, or barrier-island exposure"
         ]
+      },
+      {
+        eyebrow: "A record to keep privately",
+        title: "Copy These Fields Before the Next Threat",
+        body: "Keep the exact address and household details offline or in private storage. The record is complete only when you can distinguish confirmed information from open questions; this page does not need to collect your address. A lookup error or unreadable boundary stays unresolved until the responsible agency clarifies it.",
+        bullets: ["Location: property and jurisdiction; official map URL; displayed map version or publication date if given; lookup date; zone result or unresolved question", "Instruction: issuing agency and original notice URL; issue time and timezone; affected zone/area; required action and any stated deadline; applicability to your address", "Arrangements: driver/provider and confirmation; destination and acceptance; care/equipment and animal arrangements; fallback contact", "Next check: named household contact, unanswered question and where to obtain the answer. 'Not yet checked' is different from 'checked and no applicable order found'."]
+      },
+      {
+        eyebrow: "Worked example, not a current order",
+        title: "A Saved Zone Does Not Confirm a Ride",
+        body: "Hypothetical Chatham household: the family has saved a result from CEMA's linked map, but has only read the standing assistance page. It has not checked a current order, current assembly instructions or a confirmed ride. Its record therefore says zone lookup saved; current instruction not checked; assistance arrangement unconfirmed. One person checks CEMA's current notices and contacts the responsible service while another confirms the destination. No address, zone assignment, active bus or present-day order is asserted by this example.",
+        bullets: ["Reading check: is the household ready merely because it knows its zone? No; instruction applicability and assistance are separate unfinished checks.", "If the map does not load, open the county emergency agency directly and ask how to confirm the address. Do not replace a failed lookup with a no-risk conclusion.", "Current local warnings may require immediate shelter or other protective action. A planning worksheet never overrides those instructions."]
       }
     ],
     nextLinks: [
