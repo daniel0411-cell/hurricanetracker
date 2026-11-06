@@ -2218,12 +2218,13 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-insurance-claim-guide-documentation",
-    sources: [{ href: "https://www.floodsmart.gov/how-do-i-start-my-flood-claim", label: "NFIP: starting and documenting a flood claim" }, { href: "https://content.naic.org/state-insurance-departments", label: "NAIC: state insurance department contacts" }],
-    review: { date: "2026-10-24", scope: "Claim evidence, reporting priority, and safe cleanup wording", correction: "Removed unsupported claims about the most common underpayment cause and adjuster assignment order; urgent health measures take priority over preserving damaged items." },
+    sources: [{ href: "https://www.floodsmart.gov/recover/start-a-claim", label: "NFIP: starting a flood claim and resolving questions" }, { href: "https://www.floodsmart.gov/claims-checklist", label: "NFIP: claim documentation and separate submission steps" }, { href: "https://content.naic.org/consumer/natural-disasters", label: "NAIC: disaster claims and consumer resources" }, { href: "https://content.naic.org/state-insurance-departments", label: "NAIC: state insurance department contacts" }],
+    sourceCheck: { date: "2026-11-06", scope: "Read NFIP's Start a Claim and Claims Checklist and NAIC's natural-disaster resource page. The record exercise is illustrative. No individual policy, state-specific filing or suit deadline, wind exclusion, coverage determination or claim settlement was verified." },
+    review: { date: "2026-11-06", scope: "Reporting, proof-of-loss and dispute deadlines; policy-specific wind and flood coverage", correction: "Removed generic days-to-weeks and one-year claim deadlines, a fixed 24-48-hour reporting window, and unconditional wind-coverage language. Retained the earlier corrections on safe cleanup and adjuster priority; added a separate deadline and coverage record." },
     title: "Hurricane Insurance Claims: Documentation and Step-by-Step Process",
     description: "How to document hurricane damage, contact the insurer, organize receipts, prepare for the adjuster, review an estimate, and ask about dispute options.",
     datePublished: "2026-08-13",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-06",
     image: "/images/blog/hurricane-insurance-claim-guide-documentation.png",
     imageAlt: "A homeowner documents storm damage with a smartphone in a living room where rain water has soaked the floor and furniture is pushed aside.",
     sections: [
@@ -2243,7 +2244,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Before the Storm: Build Your Pre-Storm Proof",
-        body: "The most powerful evidence in any claim is what you can show existed before the storm. A pre-storm record makes the adjuster's job easier and removes most arguments about what was lost.",
+        body: "A pre-storm inventory helps document what was present and its condition. Keep it with receipts, photographs and your declarations page so you can compare the insurer's estimate with your records. An inventory supports the claim; it does not establish coverage or guarantee a payment.",
         bullets: [
           "Walk every room and record video with a steady voice-over naming each item and its approximate value.",
           "Photograph serial numbers of major appliances and electronics.",
@@ -2256,9 +2257,9 @@ export const blogPosts: BlogPost[] = [
         heading: "Immediately After the Storm: Report Early and Report Right",
         body: "Report damage as soon as it is safe and follow your insurer's reporting instructions. Have the policy number, contact details, and an initial description ready. Ask how the claim will be assigned and when to expect the next contact; filing order alone does not establish an adjuster schedule or payment priority.",
         bullets: [
-          "Call your insurer or use their app within the first 24-48 hours after it is safe.",
+          "Notify the relevant insurer promptly when safe, using its official reporting channel; ask for written confirmation of the next steps.",
           "Write down the claim number, the adjuster's name, and every phone number you are given.",
-          "Ask specifically whether wind and flood damage are being handled in one claim or two.",
+          "Identify the applicable wind, homeowners and flood policies and ask each insurer which damage it needs you to report.",
           "If you have flood coverage, file the flood claim separately with the NFIP or your flood insurer.",
           "Keep a claim log: date, time, who you spoke to, and what was said each call."
         ]
@@ -2276,21 +2277,21 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Create a Room-by-Room Inventory",
-        body: "Adjusters pay from your inventory. A detailed, honest list of every item lost or damaged gives them what they need and prevents the 'we had to take your word for it' conversation.",
+        body: "Give the adjuster an accurate list of damaged items with supporting photographs and receipts. Record what you know and label estimates or missing documents clearly. The insurer evaluates the evidence under the applicable policy; listing an item or expense does not by itself make it covered.",
         bullets: [
           "List each room and every damaged item with its age, brand, model, and approximate purchase price.",
           "Note whether items were destroyed, damaged, or only wet and salvageable.",
           "Use the insurer's own inventory worksheet if they provide one.",
           "Separate 'replacement cost' items from 'actual cash value' items so the math is clear.",
-          "Include out-of-pocket costs: tree removal, tarps, hotel receipts, and emergency repairs."
+          "Keep a separate expense log for tree removal, tarps, lodging and temporary repairs; ask which expenses the applicable policy covers."
         ]
       },
       {
         heading: "Make Emergency Repairs—But Save Every Receipt",
         body: "Policies commonly require reasonable steps to prevent further damage when safe. Ask your insurer which temporary measures and expenses may be covered, retain receipts, and photograph work before and after. Coverage, limits, and authorization depend on the policy; reimbursement is not guaranteed.",
         bullets: [
-          "Tarp a damaged roof and board broken windows to keep rain out.",
-          "Turn off water at the main valve if pipes are broken.",
+          "Arrange qualified help for roof tarping or damaged openings when safe; do not climb onto a damaged roof.",
+          "If pipes are broken, follow the utility's safe shutoff instructions without entering flooded or electrically hazardous areas.",
           "Keep every receipt for materials, labor, tarps, generators, and lodging.",
           "Photograph the damage before and after each repair.",
           "Do not make permanent repairs before the adjuster visits unless an emergency demands it."
@@ -2309,7 +2310,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "If the Settlement Seems Low: Understand and Appeal",
-        body: "A first offer is rarely a final offer. You can push back, but you need evidence and a clear understanding of how the number was calculated.",
+        body: "Request a written explanation of the coverage decision and estimate. Identify omitted damage or disputed amounts with photographs, inventory entries and qualified repair estimates. Available review, appraisal, appeal and legal options depend on the policy and jurisdiction; ask the insurer or state insurance department which procedure and deadline applies.",
         bullets: [
           "Compare the adjuster's estimate line by line with your own inventory and contractor quotes.",
           "Ask the insurer to explain anything you do not understand in writing.",
@@ -2330,6 +2331,21 @@ export const blogPosts: BlogPost[] = [
         ]
       },
       {
+        heading: "Keep Three Deadline Types Separate",
+        body: "Opening a claim, submitting required supporting documents or a proof of loss, and challenging a decision are different steps. NFIP's Claims Checklist discusses documentation submission and a separate appeal following a denial; a homeowners or private flood policy can use other procedures. Do not transfer a time limit from one policy or step to another. Record the loss date, relevant letter dates, the actual policy provision, due date, submission method and the person who confirmed it. Ask the insurer to clarify an unclear deadline in writing promptly; do not assume that asking a question extends it.",
+        bullets: [
+          "Notification: record when and how you reported the loss, the policy and claim number, and the insurer's acknowledgment.",
+          "Documents or proof of loss: ask what must be signed or submitted, by whom, and by which exact date under that policy and any applicable written extension.",
+          "Dispute: retain the written decision and its date, ask for the applicable review route and deadline, and seek appropriate professional advice if legal action is being considered."
+        ],
+        links: [{ href: "https://www.floodsmart.gov/claims-checklist", label: "Read the NFIP claim steps without applying them to every insurance policy" }]
+      },
+      {
+        heading: "Worked Record: A Claim Number Is Not a Completed Claim",
+        body: "Illustrative example: a household has a homeowners claim number and a separate flood policy, but no written list of required flood documents. Mark 'homeowners loss reported' complete only after retaining the acknowledgment. Mark 'flood loss reported' and 'flood proof-of-loss requirements and due date' unresolved until the flood insurer confirms them. Keep the photographed damage and expense log linked to the relevant claims. Completing one phone call does not complete every policy's reporting, evidence or dispute requirements.",
+        links: [{ href: "/blog/hurricane-flood-insurance-guide-nfip/", label: "Record separate flood coverages, limits and deductibles" }]
+      },
+      {
         heading: "Stay Informed With HurricaneHub",
         body: "HurricaneHub's storm and alert pages provide context, not proof of a property's damage cause or coverage. Preserve dated property photographs, receipts, official local weather reports, and insurer correspondence. Ask the adjuster to explain how wind, flood, and other causes were assessed under the policy."
       }
@@ -2337,15 +2353,15 @@ export const blogPosts: BlogPost[] = [
     faqs: [
       {
         question: "How long do I have to file a hurricane insurance claim?",
-        answer: "Most policies require you to report damage within days to a few weeks, and state deadlines vary—many are one year, but some are much shorter. Report your claim as soon as it is safe to do so, and confirm the deadline in writing with your insurer. FEMA assistance windows also close, so apply early."
+        answer: "Report the loss promptly when safe and ask the relevant insurer to confirm the applicable requirements and dates in writing. Notice of loss, proof-of-loss or other document submission, and review or legal deadlines are separate. They depend on the policy, jurisdiction, loss and any applicable written extension. Do not use a generic number of days or wait for a FEMA assistance decision to contact the insurer."
       },
       {
         question: "Does my homeowners policy cover hurricane damage and flooding?",
-        answer: "Standard homeowners policies cover wind damage from hurricanes but exclude flood damage. Flood coverage comes from the National Flood Insurance Program (NFIP) or a private flood policy. If your home flooded, file both your wind claim and your flood claim as soon as possible—they are handled separately."
+        answer: "Check the actual declarations, exclusions and endorsements. Wind coverage can be limited, excluded or provided separately, and a hurricane or wind deductible may apply. Homeowners insurance generally excludes flood damage; NFIP or private flood coverage is separate. Notify each potentially relevant insurer and ask how the cause and damage will be evaluated. A storm name or water line alone does not establish coverage."
       },
       {
         question: "What if I disagree with the insurance settlement?",
-        answer: "You can dispute it. Review the adjuster's estimate line by line, submit contractor bids and your own documentation, and request a reinspection. If you still disagree, hire a public adjuster or contact your state insurance department. Keep every document and note every call to back up your appeal."
+        answer: "Ask for the written coverage decision and estimate, identify specific disputed items with evidence, and request the available review process and deadline. Contact your state insurance department for consumer help; NFIP has its own claim-review and appeal procedures. If considering professional assistance, check licensing, fees and authority before signing. A complaint or request for review should not be assumed to extend a separate deadline."
       }
     ]
   },

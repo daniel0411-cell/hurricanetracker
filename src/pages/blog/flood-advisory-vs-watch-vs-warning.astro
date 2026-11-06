@@ -6,82 +6,84 @@ import { blogPostingSchema } from "../../lib/schema";
 const slug = "flood-advisory-vs-watch-vs-warning";
 const title = "Flood Advisory vs Flood Watch vs Flood Warning Explained";
 const description =
-  "NWS flood terms are a three-step scale: advisory, watch, and warning. Understand what each means for Louisiana and Mississippi residents and when to move to higher ground.";
+  "Read NWS flood advisories, watches and warnings, distinguish flash flooding from storm surge, and record the location, timing and protective instructions.";
 const canonical = `${site.url}/blog/${slug}/`;
 const date = "2026-08-07";
+const modified = "2026-11-06";
 const jsonLd = blogPostingSchema({
   title,
   description,
   url: canonical,
   datePublished: date,
-  dateModified: date,
+  dateModified: modified,
   authorName: "HurricaneHub team"
 });
 ---
 
-<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={date} ogImage="https://www.hurricanetracker.cc/images/blog/og/flood-advisory-vs-watch-vs-warning.png">
-  <main class="prose">
+<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={modified} ogImage="https://www.hurricanetracker.cc/images/blog/og/flood-advisory-vs-watch-vs-warning.png">
+  <div class="prose">
     <article>
       <h1>{title}</h1>
       <p class="lead">
-        Flooding causes more hurricane deaths than wind. Yet the three NWS flood terms —
-        <strong>advisory</strong>, <strong>watch</strong>, and <strong>warning</strong> — are routinely mixed
-        up. Each step up the scale means water is closer to you and you have less time to react.
+        A <strong>flood watch</strong> means conditions favor flooding; a <strong>flood warning</strong>
+        means flooding is imminent or occurring. A <strong>flood advisory</strong> concerns flooding not
+        expected to reach warning criteria, but careless action can still threaten life or property.
+        These products describe different situations, not a required sequence. Read the full message for
+        your location and the action it requires.
       </p>
+      <p>By HurricaneHub · Published August 7, 2026 · Updated November 6, 2026.</p>
+      <p class="small">Correction: removed the fixed escalation ladder, the claim that a watch proves flooding has not begun, and a universal instruction to travel when a warning appears. Definitions checked against NWS; the historical example below is not a current alert.</p>
 
-      <h2>Flood Advisory: Nuisance, But Pay Attention</h2>
-      <p>
-        A <strong>flood advisory</strong> is the lowest tier. It means minor flooding is occurring or expected
-        — the kind that pools on roads, fills ditches, and turns low underpasses into hazards. No immediate
-        threat to life is expected, but driving through standing water is never safe. "Turn around, don't
-        drown" applies even at the advisory level.
-      </p>
-      <p>
-        Along the low-lying parishes tracked on the
-        <a href="/tracker/louisiana/">Louisiana flood risk</a> page, advisories are common during
-        routine summer storms. Treat them as a reminder to avoid flood-prone commutes and to keep drains clear.
-      </p>
+      <h2>Compare the Product, Not Just the Word</h2>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Flood product definitions and actions">
+        <table>
+          <caption>Based on NWS flood safety definitions; consult the actual product for its area and instructions.</caption>
+          <thead><tr><th scope="col">Product</th><th scope="col">Meaning</th><th scope="col">What to check</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Flood Advisory</th><td>Flooding below warning criteria can cause significant inconvenience and dangerous situations.</td><td>Low roads, crossings and the stated precautions. Never enter floodwater.</td></tr>
+            <tr><th scope="row">Flood Watch</th><td>Conditions favor flooding; occurrence is possible, not certain.</td><td>Prepare your household and monitor new messages. The watch does not establish conditions at your address.</td></tr>
+            <tr><th scope="row">Flood Warning</th><td>Flooding is imminent or occurring.</td><td>Affected locations, onset, water forecasts and protective instructions.</td></tr>
+            <tr><th scope="row">Flash Flood Warning</th><td>Rapid flooding is imminent or occurring, including places not receiving rain.</td><td>Act immediately. NWS says people in flood-prone areas should move to high ground.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>An advisory need not precede a warning, and a watch does not promise that a warning will follow. A broad watch and a more specific warning may also cover different areas. Compare their locations and times rather than treating the labels as steps on a household countdown.</p>
 
-      <h2>Flood Watch: Be Ready to Act</h2>
-      <p>
-        A <strong>flood watch</strong> means conditions are favorable for flooding within the next several
-        hours to a day. Flooding is not happening yet, but the atmosphere is primed for it — heavy rain rates,
-        saturated ground, or a surge scenario. During a watch, move valuables off the floor, charge devices,
-        and identify higher ground.
-      </p>
-      <p>
-        Because the <a href="/tracker/mississippi/">Mississippi hurricane tracker</a> coastline sits
-        at the confluence of river and Gulf systems, a flood watch there can escalate quickly when rainfall
-        bands stall. A watch is the time to decide: if water starts rising, where will my household go?
-      </p>
+      <h2>Rainfall Flooding, River Flooding and Storm Surge Need Different Records</h2>
+      <p>A river forecast may give a named gauge, flood stage and expected crest time. Those fields refer to that river location and measurement reference, not the depth of water inside a nearby house. Flash flooding can develop much faster and require immediate protective action. Do not wait for a river crest forecast when a flash flood warning covers you.</p>
+      <p>A storm surge watch or warning is a separate coastal product about water moving inland from the shoreline. It is not another name for a rainfall flood warning. Read the surge product and the local evacuation order separately: their boundaries and purpose differ. The <a href="/blog/storm-surge-warning-vs-hurricane-warning/">surge and wind warning guide</a> explains that comparison.</p>
+      <p>In <a href="/tracker/louisiana/">Louisiana</a> and <a href="/tracker/mississippi/">Mississippi</a>, a coastal hurricane bulletin and a local NWS flood product can be relevant at the same time. A change to one does not cancel the other. Check the current local warning even after NHC ends tropical cyclone advisories.</p>
 
-      <h2>Flood Warning: Water Is Here or Imminent</h2>
-      <p>
-        A <strong>flood warning</strong> means flooding is occurring, is imminent, or has a very high
-        probability. This is the act-now tier. If you are in a warned area — especially a flash-flood or storm-
-        surge warning zone — move to higher ground immediately and do not wait for the water to arrive.
-      </p>
-      <p>
-        Storm-surge flood warnings deserve special respect: surge can outrun a car and arrives ahead of peak
-        winds. When a warning names your zone, evacuation orders are often already in effect.
-      </p>
+      <h2>Historical Reading Exercise: One Bulletin, Continuing Flood Risk</h2>
+      <p>Open <a href="https://www.nhc.noaa.gov/archive/2026/al09/al092026.public.015.shtml">NHC Isaias Advisory 15, AL092026</a>, issued October 10, 2026 at 4 AM CDT / 0900 UTC. This archived public advisory describes a post-tropical cyclone. Its watches-and-warnings section says the Storm Surge and Tropical Storm Warnings were discontinued. Its rainfall section still describes flash, urban and river flooding and possible Appalachian landslides. Its final section hands subsequent public advisories to WPC.</p>
+      <p>This is an example of reading the scope of a statement. It is not a local Flood Warning and does not establish whether a particular county was warned. The phrase about discontinued coastal products cannot be expanded into a claim that every inland flood hazard ended.</p>
+      <details id="flood-reading-answer">
+        <summary>Question: Does the discontinued-warning statement establish that inland travel was safe?</summary>
+        <p><strong>No.</strong> It refers to the coastal products named in that bulletin. The same bulletin retains flood-risk language. A traveler needed the relevant local NWS warning, road status and emergency instructions; neither the post-tropical classification nor the coastal cancellation supplied that information.</p>
+      </details>
 
-      <h2>How to Read the Three Tiers at a Glance</h2>
+      <h2>Make a Five-Field Warning Record</h2>
       <ul>
-        <li><strong>Advisory</strong> — minor flooding likely; avoid water on roads, stay aware.</li>
-        <li><strong>Watch</strong> — flooding possible; prepare, move items up, pick higher ground.</li>
-        <li><strong>Warning</strong> — flooding happening or imminent; move to safety now.</li>
+        <li><strong>Product and issuer:</strong> copy the full product name and issuing NWS office.</li>
+        <li><strong>Time:</strong> record issue time, time zone, valid period and the newest update. An expiration time is not a road-reopening certificate.</li>
+        <li><strong>Location:</strong> match the named area, warning boundary or river point to your home and route.</li>
+        <li><strong>Hazard:</strong> record what is expected or occurring. Preserve units and reference levels for any river or water measurement.</li>
+        <li><strong>Action:</strong> copy the protective instruction, then record any separate local order and assistance needed.</li>
       </ul>
-      <p>
-        The simplest memory aid: advisory is "be careful," watch is "get ready," warning is "go." When in doubt
-        during a hurricane, always defer to the more serious term and to local official instructions.
-      </p>
+      <p>Act on an immediate warning while checking the full message; do not delay protective action to finish a worksheet. Never walk or drive through floodwater or around barricades. If trapped by rising water, seek a higher safe level and call 911 for immediate danger. A warning is not a general instruction to start a car journey through an unknown route.</p>
+      <p>Use <a href="/alerts/">current NWS alerts</a> and <a href="/blog/how-to-check-your-hurricane-evacuation-zone/">your local evacuation-zone record</a> for present decisions. This article teaches product reading; it has not checked an address, current warning, order or road.</p>
 
-      <p class="byline">
-        This article was updated for the 2026 hurricane season by the HurricaneHub team.
-      </p>
+      <section id="article-sources" aria-labelledby="flood-sources">
+        <h2 id="flood-sources">Sources and Correction Scope</h2>
+        <ul>
+          <li><a href="https://www.weather.gov/safety/flood-watch-warning">NWS: Flood Watch, Advisory and Warning definitions</a>.</li>
+          <li><a href="https://www.weather.gov/safety/flood-during">NWS: During a Flood</a>.</li>
+          <li><a href="https://www.nhc.noaa.gov/archive/2026/al09/al092026.public.015.shtml">NHC: Isaias public advisory 15, October 10, 2026</a>.</li>
+        </ul>
+        <p class="byline">Checked November 6, 2026: product definitions, NWS flood precautions and the specified archived bulletin. The example is historical, not a current forecast or a verification of later outcomes.</p>
+      </section>
     </article>
-  </main>
+  </div>
 </BaseLayout>
 
 <style>
@@ -108,6 +110,12 @@ const jsonLd = blogPostingSchema({
     color: var(--accent, #1f6feb);
     text-decoration: underline;
   }
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  caption { text-align: left; padding: .5rem 0; }
+  th, td { text-align: left; vertical-align: top; padding: .65rem; border: 1px solid var(--border, #e2e8f0); min-width: 9rem; }
+  details { margin-block: 1rem; }
+  summary { cursor: pointer; font-weight: 600; }
   .byline {
     margin-top: 2.5rem;
     padding-top: 1rem;

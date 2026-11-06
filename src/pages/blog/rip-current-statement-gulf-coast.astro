@@ -6,84 +6,85 @@ import { blogPostingSchema } from "../../lib/schema";
 const slug = "rip-current-statement-gulf-coast";
 const title = "Rip Current Statement: What Gulf Coast Families Need to Know";
 const description =
-  "A rip current statement warns of dangerous surf along the Gulf Coast. Learn how to spot a rip current, why Alabama and Georgia beaches are vulnerable, and how to escape one.";
+  "Read Gulf Coast rip current forecasts, match the beach and valid period, understand low risk, and plan safe family actions using NWS and NOAA guidance.";
 const canonical = `${site.url}/blog/${slug}/`;
 const date = "2026-08-07";
+const modified = "2026-11-06";
 const jsonLd = blogPostingSchema({
   title,
   description,
   url: canonical,
   datePublished: date,
-  dateModified: date,
+  dateModified: modified,
   authorName: "HurricaneHub team"
 });
 ---
 
-<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={date} ogImage="https://www.hurricanetracker.cc/images/blog/og/rip-current-statement-gulf-coast.png">
-  <main class="prose">
+<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={modified} ogImage="https://www.hurricanetracker.cc/images/blog/og/rip-current-statement-gulf-coast.png">
+  <div class="prose">
     <article>
       <h1>{title}</h1>
       <p class="lead">
-        You do not need a named storm to drown at the beach. A <strong>rip current statement</strong> — issued
-        by the National Weather Service when strong, life-threatening rip currents are likely — is one of the
-        most underrated coastal hazards of hurricane season.
+        Check the <strong>local beach forecast, its valid period and lifeguard instructions</strong> before
+        entering the surf. Rip currents are narrow currents flowing away from shore that can carry a swimmer
+        beyond the breaking waves. They can occur without a named hurricane. Neither a quiet storm map nor a
+        low-risk label guarantees safe swimming at a particular beach.
       </p>
+      <p>By HurricaneHub · Published August 7, 2026 · Updated November 6, 2026.</p>
+      <p class="small">Correction: removed the unsupported fatality ranking and Gulf-wide shelf explanation. Georgia has an Atlantic coast; the Gulf example here covers Alabama beaches. Safety guidance and the specific NWS forecast fields below were checked November 6, 2026.</p>
 
-      <h2>What a Rip Current Statement Means</h2>
-      <p>
-        A rip current statement is a targeted NWS product warning that surf zone conditions will produce
-        powerful, channelized currents pulling away from shore. These are most common when a distant hurricane
-        or tropical storm sends long-period swells toward the coast, even hundreds of miles from the storm
-        center. The water looks inviting; the pull is not.
-      </p>
-      <p>
-        On the <a href="/tracker/alabama/">Alabama beach safety</a> page, rip current risk climbs
-        whenever a system churns in the eastern Gulf. The same distant swells that create photogenic waves also
-        build the currents that drag swimmers seaward.
-      </p>
+      <h2>A Rip Current Statement and a Surf Forecast Have Different Jobs</h2>
+      <p>A rip current statement calls attention to a rip-current hazard for a specified area and period. A surf zone forecast also provides beach conditions and a risk category for named coastal areas. Open the full local product rather than relying on a short notification. Record the issuing office, covered beaches, issue time, forecast period and instructions; do not assume a risk label applies to every beach along the Gulf.</p>
+      <p>A forecast's issue time and its period labels answer different questions. A message issued in the evening may list several daytime and nighttime periods. Match the period to your planned visit, and obtain the latest forecast before leaving. An old screenshot can omit a newer statement, an updated risk or a beach closure.</p>
 
-      <h2>Why Gulf Coast Beaches Are Especially Vulnerable</h2>
-      <p>
-        The Gulf's gentle slope and narrow continental shelf let wave energy concentrate into strong, shallow
-        rip channels. Beaches along the <a href="/tracker/georgia/">Georgia coast alerts</a> zone and
-        the central Gulf see elevated risk during any active tropical pattern. Rip currents are the #1
-        hurricane-season killer away from the storm itself — responsible for more deaths than many landfalling
-        systems.
-      </p>
+      <h2>Read the Risk Key Before Interpreting the Surf Height</h2>
+      <p>The NWS Mobile surf forecast includes the following category explanations. These are qualitative hazard categories, not a percentage chance of drowning or a promise about a particular swimmer.</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="NWS Mobile rip current risk categories">
+        <table>
+          <caption>Paraphrased from the risk key in the NWS Mobile surf zone forecast.</caption>
+          <thead><tr><th scope="col">Category</th><th scope="col">Interpretation</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Low</th><td>Risk is low, but life-threatening currents can occur near groins, jetties, reefs and piers.</td></tr>
+            <tr><th scope="row">Moderate</th><td>Life-threatening rip currents are possible in the surf zone.</td></tr>
+            <tr><th scope="row">High</th><td>Life-threatening rip currents are likely in the surf zone.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Surf height is another field, not a substitute for the risk assessment. A small wave-height number does not cancel a local restriction or establish that a current is absent. Swimmer ability, a nearby structure and local conditions still matter. Ask the lifeguard about the actual beach rather than converting a regional risk category into permission to swim.</p>
 
-      <h2>How to Spot and Survive a Rip Current</h2>
+      <h2>Reading Exercise: Why Low Does Not Mean None</h2>
+      <p>Historical saved example, not today's beach conditions: the NWS Mobile <strong>SRFMOB</strong> surf zone forecast issued <strong>8:53 PM CST November 5, 2026</strong> contains an Alabama section, <strong>ALZ265-266</strong>, naming Dauphin Island, Fort Morgan, Gulf Shores and Orange Beach. Its printed <strong>TODAY</strong> period lists low rip current risk and 1 to 2 feet surf. The risk key below the forecast explicitly retains a warning about currents near structures even at low risk.</p>
+      <p>The <a href="https://forecast.weather.gov/product.php?site=MOB&amp;issuedby=MOB&amp;product=SRF&amp;format=CI&amp;version=1&amp;glossary=1">NWS Mobile surf forecast link</a> is rolling and may now show another issue. The fields above describe the saved issue, not the conditions displayed when you reopen it. For today's visit, use the latest local forecast and the beach operator's instructions.</p>
+      <p><a href="/examples/nws/srfmob-20261106-0253Z.txt">Read the saved NWS bulletin text, November 6 at 0253 UTC</a>. It retains the complete product, including both coastal sections and its risk key; only the website's glossary-link markup has been removed. The local issue date is November 5 CST.</p>
+      <details id="rip-reading-answer">
+        <summary>Question: Did the low category establish that swimming beside a pier was safe?</summary>
+        <p><strong>No.</strong> The same product's risk key says life-threatening currents can occur near piers and other structures even when regional risk is low. The answer comes from the risk key, not from the 1 to 2 feet surf field. Ask the lifeguard and follow current restrictions.</p>
+      </details>
+
+      <h2>What to Do Before Entering the Water</h2>
       <ul>
-        <li>
-          <strong>Spot it:</strong> look for a gap of darker, choppier water, a line of foam or debris moving
-          steadily seaward, or a break in the wave pattern.
-        </li>
-        <li>
-          <strong>Don't fight it:</strong> swimming straight back to shore exhausts you. Swim parallel to the
-          beach until you escape the channel, then angle in.
-        </li>
-        <li>
-          <strong>Float and signal:</strong> if you cannot escape, tread water, face the shore, and wave for
-          help. Rip currents narrow and dissipate farther out.
-        </li>
-        <li>
-          <strong>Plan ahead:</strong> check the daily rip current risk before any beach day and never swim
-          alone or without a lifeguard.
-        </li>
+        <li>Choose a lifeguarded beach, check the local forecast and speak to the lifeguard. Follow closure signs and the site's current flag instructions.</li>
+        <li>Agree which adult is watching children and where the family will meet. An escape technique is not a replacement for supervision.</li>
+        <li>Avoid swimming near piers and jetties. Do not enter to test a suspected current or assume a gap in breaking waves is safe.</li>
+        <li>If the current statement or beach staff advises staying out, choose an activity out of the water. Recheck instructions when conditions change.</li>
       </ul>
+      <h2>If Caught, Conserve Energy and Signal for Help</h2>
+      <p>NOAA advises not fighting the current. If able, swim parallel to the shore to escape the current, then at an angle toward shore. NWS says that if you feel you cannot reach shore, relax, face the shore and call or wave for help. Do not assume the current ends at a fixed distance or that every swimmer can complete a parallel swim.</p>
+      <p>If another person is in trouble, alert a lifeguard or call 911. Do not enter a current to attempt an untrained rescue. Read the <a href="https://www.weather.gov/safety/ripcurrent-surviving">NWS survival instructions</a> before a beach visit and discuss them with your family.</p>
+      <p>For other hazards on the trip, check <a href="/tracker/alabama/">Alabama's local planning resources</a> and <a href="/alerts/">current NWS alerts</a>. A hurricane center remaining offshore does not answer whether a particular beach is open or safe.</p>
 
-      <h2>What Families Should Do When a Statement Is Active</h2>
-      <p>
-        When a rip current statement is in effect, the safest choice is to stay out of the water entirely.
-        Supervise children constantly, heed flag systems, and share the escape technique above with everyone in
-        your group. A statement is a forecast of danger, not a reason to cancel the trip — just keep your feet
-        on the sand until conditions improve.
-      </p>
-
-      <p class="byline">
-        This article was updated for the 2026 hurricane season by the HurricaneHub team.
-      </p>
+      <section id="article-sources" aria-labelledby="rip-sources">
+        <h2 id="rip-sources">Sources and Check Scope</h2>
+        <ul>
+          <li><a href="https://www.weather.gov/safety/ripcurrent">NWS: checking beach conditions and consulting lifeguards</a>.</li>
+          <li><a href="https://oceanservice.noaa.gov/facts/ripcurrent.html">NOAA Ocean Service: rip currents and survival</a>.</li>
+          <li><a href="https://www.weather.gov/safety/ripcurrent-surviving">NWS: surviving a rip current</a>.</li>
+          <li><a href="https://forecast.weather.gov/product.php?site=MOB&amp;issuedby=MOB&amp;product=SRF&amp;format=CI&amp;version=1&amp;glossary=1">NWS Mobile: rolling surf zone forecast and risk key</a>.</li>
+        </ul>
+        <p class="byline">Checked November 6, 2026: general NOAA/NWS guidance and the specified saved SRFMOB issue. No current lifeguard staffing, beach closure, flag or individual swimming ability was verified.</p>
+      </section>
     </article>
-  </main>
+  </div>
 </BaseLayout>
 
 <style>
@@ -110,6 +111,12 @@ const jsonLd = blogPostingSchema({
     color: var(--accent, #1f6feb);
     text-decoration: underline;
   }
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  caption { text-align: left; padding: .5rem 0; }
+  th, td { text-align: left; vertical-align: top; padding: .65rem; border: 1px solid var(--border, #e2e8f0); min-width: 8rem; }
+  details { margin-block: 1rem; }
+  summary { cursor: pointer; font-weight: 600; }
   .byline {
     margin-top: 2.5rem;
     padding-top: 1rem;

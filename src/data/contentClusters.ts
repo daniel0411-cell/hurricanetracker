@@ -108,7 +108,7 @@ export const contentClusters: ContentCluster[] = [
       cityLink("houston"),
       cityLink("new-orleans"),
       { title: "Storm Surge ZIP Checker", href: "/tools/storm-surge-checker/", description: "Check active NWS storm surge watches and warnings near a ZIP code." },
-      { title: "Evacuation Decision Helper", href: "/tools/evacuation-decision-helper/", description: "Turn orders, zone, housing, pets, transport, and medical needs into a planning level." }
+      { title: "Evacuation Instructions and Checklist", href: "/tools/evacuation-decision-helper/", description: "Record official instructions and unresolved housing, transport, medical and pet arrangements." }
     ])
   },
   {

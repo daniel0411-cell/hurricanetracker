@@ -1558,6 +1558,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "brunswick",
+    dateModified: "2026-11-06",
+    sourceCheck: { date: "2026-11-06", scope: "Read Glynn County EMA's current landing and Evacuation pages, including alert channels and the ride-assistance entry. No individual zone lookup, current evacuation order, bridge status, registry eligibility, application acceptance, ride or shelter arrangement was verified." },
     name: "Brunswick",
     stateCode: "GA",
     stateName: "Georgia",
@@ -1571,11 +1573,14 @@ export const hurricaneCities: HurricaneCity[] = [
     localHazards: [
       { heading: "Golden Isles Access", body: "St. Simons, Sea Island, Jekyll Island, and nearby communities rely on routes that can be limited by flooding, wind, and official orders." },
       { heading: "Marsh and Tidal Flooding", body: "Tidal creeks and marshes can flood roads and neighborhoods when surge, tide, and rainfall overlap." },
-      { heading: "Trees and Utility Damage", body: "Wind and saturated soil can bring down trees and lines across coastal Georgia." }
+      { heading: "Trees and Utility Damage", body: "Wind and saturated soil can bring down trees and lines across coastal Georgia." },
+      { heading: "Read Glynn's Notification and Evacuation Instructions Together", body: "Glynn County's Evacuation page describes Emergency Alert System broadcasts, phone and community notifications, and arranging a neighbor contact if messages may be missed. Before a threat, identify your notification channel and a backup person. During a threat, record which neighborhood or group a new instruction names, its issue time, the protective action and the departure or reentry instruction. The standing webpage describes a process; it does not itself order today's evacuation or establish that a causeway is open." },
+      { heading: "Turn the Assistance Entry Into a Confirmed Arrangement", body: "The same county page links ride assistance and functional-access-needs information. Ask the responsible program about current eligibility, application steps and what it can provide. Record the contact, reply date, pickup instructions if assigned, destination and who will recheck activation. Keep 'form submitted' separate from 'ride and receiving arrangements confirmed'. Resolve unknowns with the agency before hazardous conditions; a form link cannot guarantee a particular vehicle, medical service or shelter placement." },
+      { heading: "Brunswick Reading Task: What Is Still Missing?", body: "Illustrative household record: you have bookmarked Glynn's evacuation page and submitted a ride request, but have no pickup instructions. Can you mark transport complete? No. The unresolved fields are the service's confirmation, pickup plan, destination and activation instructions. Next, compare a current official notice with the household's location; never substitute a neighboring county's zone labels or a past storm's island restrictions for Glynn's present instructions." }
     ],
     evacuationFocus: [
       "Check Glynn County evacuation and reentry guidance.",
-      "Leave early from barrier islands, mobile homes, and surge-prone areas.",
+      "Confirm the applicable local instruction and arrange transport early for barrier-island, mobile-home or surge-exposed households; follow its timing.",
       "Plan around causeways, fuel, lodging, pets, medicine, and documents.",
       "Prepare for outages, debris, road closures, and delayed return."
     ],
@@ -1589,10 +1594,12 @@ export const hurricaneCities: HurricaneCity[] = [
     faqs: [
       { question: "Is Brunswick vulnerable to storm surge?", answer: "Yes. Brunswick, marsh communities, and the Golden Isles can face surge and tidal flooding during coastal tropical systems." },
       { question: "Why do causeways matter for Brunswick evacuations?", answer: "Barrier-island and coastal routes can be affected by flooding, wind, traffic, and official restrictions." },
-      { question: "Can Brunswick have impacts without a direct landfall?", answer: "Yes. Nearby tracks can still bring surge, rain, tornado warnings, tree damage, and outages." }
+      { question: "Can Brunswick have impacts without a direct landfall?", answer: "Yes. Nearby tracks can still bring surge, rain, tornado warnings, tree damage, and outages." },
+      { question: "Does a Glynn County ride-assistance form confirm a pickup?", answer: "No. Confirm eligibility, acceptance, pickup, destination and activation instructions with the responsible program. Record the actual reply and unresolved needs; the standing evacuation page is not a current dispatch or shelter assignment." }
     ],
     officialResources: [
       { name: "Glynn County Emergency Management", description: "Official Glynn County emergency alerts, evacuation, and preparedness information.", url: "https://www.glynncounty.org/government/departments/emergency-management-agency-ema" },
+      { name: "Glynn County Evacuation and Ride Assistance", description: "Read the county's notification process, functional-access-needs information and ride-assistance entry, then confirm current instructions with the agency.", url: "https://www.glynncounty.org/government/departments/emergency-management-agency-ema/evacuation" },
       { name: "NWS Jacksonville", description: "Official National Weather Service alerts and forecasts for coastal Georgia.", url: "https://www.weather.gov/jax/" },
       { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
     ],
@@ -1888,6 +1895,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "baton-rouge",
+    dateModified: "2026-11-06",
+    sourceCheck: { date: "2026-11-06", scope: "Read the East Baton Rouge MOHSEP page and its linked Red Stick Ready landing page, including the communication-plan and hazard-guide entries. No PDF contents, subscriber alert delivery, live warning, road, shelter or household care arrangement was verified." },
     name: "Baton Rouge",
     stateCode: "LA",
     stateName: "Louisiana",
@@ -1913,11 +1922,23 @@ export const hurricaneCities: HurricaneCity[] = [
         heading: "Evacuation Traffic and Shelters",
         body:
           "Traffic from southeast Louisiana and the coast can affect fuel, lodging, shelter capacity, work schedules, and route timing before landfall."
+      },
+      {
+        heading: "Use Red Stick Ready for a Household Contact Record",
+        body: "East Baton Rouge's MOHSEP page links Red Stick Ready. Its current landing page offers a family emergency communication plan, hurricane and flooding guides, and app information. Start from those official entries, then make a paper record of your household contacts, a backup contact outside the affected area, destination and missed-contact action. Test that the selected people can be reached. The existence of an app or downloaded plan does not establish that a warning reached every household member."
+      },
+      {
+        heading: "Separate a Flood Recovery Notice From a Current Warning",
+        body: "The Red Stick Ready page includes recovery resources labeled for the May 17-20 severe-weather event. An event-specific recovery notice answers a different question from whether flooding is imminent at your address. Record the event date and eligibility information when using recovery resources; obtain current NWS New Orleans/Baton Rouge warnings separately. For a route, check present road conditions rather than inferring access from an older recovery page or the hurricane center's distance."
+      },
+      {
+        heading: "Baton Rouge Reading Task: Is the Communication Plan Complete?",
+        body: "Illustrative record: the household has saved Red Stick Ready and the primary contact number, but the backup contact has not agreed to help and the destination is unconfirmed. Those two fields remain unresolved. Assign someone to confirm them and write the replies on paper. Keep today's warning, any local order and medical or cooling arrangements beside the plan. A communication worksheet helps coordinate a decision; it does not certify a shelter, road or home's safety."
       }
     ],
     evacuationFocus: [
       "Check East Baton Rouge emergency updates and NWS flood alerts.",
-      "Avoid unnecessary evacuation unless officials advise it or household risk requires it.",
+      "Match the latest official protective instruction to your location, housing, flood exposure and assistance needs rather than assuming an inland home can always shelter safely.",
       "Prepare for outages with cooling, medicine, chargers, food safety, and safe generator placement.",
       "Do not drive through flooded streets, bayou crossings, or blocked roads."
     ],
@@ -1943,9 +1964,18 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "What is the biggest Baton Rouge hurricane preparation issue?",
         answer:
           "Power outages, tree damage, flooded roads, heat, medicine, communication, and safe generator use are often the most practical household concerns."
+      },
+      {
+        question: "Is a Red Stick Ready recovery notice a current flood warning?",
+        answer: "No. Check which event and dates the notice covers. Obtain the latest NWS warning and local emergency instructions separately, and record their affected area and action before using them for today's travel or shelter decision."
       }
     ],
     officialResources: [
+      {
+        name: "Red Stick Ready: East Baton Rouge Preparedness",
+        description: "Official local entry for the family communication plan, hazard guides and event-specific resources; verify each item's date and scope.",
+        url: "https://www.brla.gov/3407/Red-Stick-Ready"
+      },
       {
         name: "East Baton Rouge Homeland Security and Emergency Preparedness",
         description: "Official East Baton Rouge emergency preparedness, response, warning, and disaster planning information.",

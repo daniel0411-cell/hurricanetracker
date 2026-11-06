@@ -105,7 +105,7 @@ const advisoryChanges = advisoryHistory.map((item, index) => {
   };
 });
 const riSignal = advisoryHistory.length ? detectRapidIntensification(advisoryHistory) : null;
-const lastModified = "2026-11-04T00:00:00.000Z";
+const lastModified = "2026-11-06T00:00:00.000Z";
 const title = activeStorm
   ? isPostTropical ? `${stormName} Post-Tropical Cyclone: Latest Advisory & Track` : `${stormName} ${classification} Tracker: Current Position & NHC Update`
   : isArchived ? `${stormName}: Last Recorded Status & Official Sources` : `${stormName}: NHC Status & Official Sources`;

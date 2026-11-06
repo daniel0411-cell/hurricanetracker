@@ -13,11 +13,29 @@ async function loadTsModule(file) {
 }
 const { BLOG_CATEGORY_PAGES, blogPosts, getBlogOgImage } = await loadTsModule("src/data/blog.ts");
 const { hurricaneCities } = await loadTsModule("src/data/cities.ts");
+const { stormTrackerPages } = await loadTsModule("src/data/stormPages.ts");
 const findings = [];
+const standaloneBlogRoutes = fs.readdirSync(path.join(root, "src/pages/blog"))
+  .filter((file) => file.endsWith(".astro") && file !== "index.astro" && !file.startsWith("["))
+  .map((file) => `/blog/${file.slice(0, -6)}/`);
+const correctedArticles = {
+  "/blog/flood-advisory-vs-watch-vs-warning/": {
+    source: "https://www.weather.gov/safety/flood-watch-warning",
+    exercise: "flood-reading-answer",
+    forbidden: /three-step scale|Each step up the scale|Flooding is not happening yet|No immediate threat to life is expected|warning is (?:&quot;|")go/i
+  },
+  "/blog/rip-current-statement-gulf-coast/": {
+    source: "https://www.weather.gov/safety/ripcurrent-surviving",
+    exercise: "rip-reading-answer",
+    forbidden: /narrow continental shelf|#1\s+(?:hurricane-season|killer)|why Alabama and Georgia beaches are vulnerable/i
+  }
+};
 const routes = [...new Set([
   "/hurricane-tracker/live/", "/learn/", "/blog/", "/radar/", "/compare/",
-  "/tools/preparedness-checklist/", "/tools/storm-surge-checker/",
+  "/tools/preparedness-checklist/", "/tools/storm-surge-checker/", "/tools/evacuation-decision-helper/",
   "/about/", "/storm/2026-bertha/", "/storm/2026-cristobal/",
+  ...standaloneBlogRoutes,
+  ...stormTrackerPages.map((storm) => `/hurricane-tracker/storm/${storm.slug}/`),
   ...hurricaneCities.map((city) => `/hurricane-tracker/city/${city.slug}/`),
   ...BLOG_CATEGORY_PAGES.map((category) => `/blog/category/${category.slug}/`),
   ...blogPosts.map((post) => `/blog/${post.slug}/`)
@@ -33,7 +51,12 @@ for (const post of blogPosts) {
   if (!fs.existsSync(path.join(root, "public", getBlogOgImage(post)))) findings.push(`${post.slug}: missing OG asset`);
   if (post.review && post.review.date > post.dateModified) findings.push(`${post.slug}: correction newer than modification date`);
   for (const pattern of [/without further proof/i, /evacuation overlays/i, /single most common reason/i, /uses this ensemble information to build the official forecast cone/i]) {
-    if (pattern.test(JSON.stringify(post.sections))) findings.push(`${post.slug}: corrected misleading claim reintroduced (${pattern})`);
+    if (pattern.test(JSON.stringify([post.sections, post.faqs]))) findings.push(`${post.slug}: corrected misleading claim reintroduced (${pattern})`);
+  }
+  if (post.slug === "hurricane-insurance-claim-guide-documentation") {
+    const article = JSON.stringify([post.sections, post.faqs]);
+    if (/within days to a few weeks|many are one year|within the first 24-48 hours|Standard homeowners policies cover wind damage/i.test(article)) findings.push(`${post.slug}: unsupported general claim deadline or coverage reintroduced`);
+    if (!post.sections.some((section) => section.heading === "Keep Three Deadline Types Separate")) findings.push(`${post.slug}: missing separate deadline record`);
   }
 }
 let checked = 0;
@@ -57,6 +80,27 @@ for (const route of routes) {
     }
     if (route === "/storm/2026-bertha/" && /a forecast verified as the storm/i.test(html)) {
       findings.push(`${route}: unsupported forecast verification reintroduced`);
+    }
+    const correction = correctedArticles[route];
+    if (correction) {
+      for (const required of ['id="article-sources"', `id="${correction.exercise}"`, correction.source]) {
+        if (!html.includes(required)) findings.push(`${route}: missing corrected source or reading exercise: ${required}`);
+      }
+      if (correction.forbidden.test(html)) findings.push(`${route}: corrected safety claim reintroduced`);
+    }
+    if (route === "/tools/evacuation-decision-helper/") {
+      for (const required of ['value="unknown"', 'id="pending-arrangements"', 'Official status has not been confirmed']) {
+        if (!html.includes(required)) findings.push(`${route}: missing unconfirmed-status or arrangement record: ${required}`);
+      }
+      if (/name="(?:locationRisk|housingRisk)"|household score [024]|Recommended Planning Level|Calculate Decision/i.test(html)) findings.push(`${route}: unsupported household scoring reintroduced`);
+    }
+    const storm = stormTrackerPages.find((item) => route === `/hurricane-tracker/storm/${item.slug}/`);
+    if (storm?.historicalReport) {
+      const report = storm.historicalReport;
+      for (const source of [report.url, ...(report.relatedSources ?? []).map((item) => item.href)]) {
+        if (!html.includes(source.replaceAll("&", "&amp;"))) findings.push(`${route}: historical original source not rendered: ${source}`);
+      }
+      if (report.kind === "advisory" && /Selected Events From the Post-Season Analysis|\(original PDF\)/i.test(html)) findings.push(`${route}: operational bulletin mislabeled as a post-season PDF`);
     }
     const post = blogPosts.find((item) => route === `/blog/${item.slug}/`);
     if (post) {

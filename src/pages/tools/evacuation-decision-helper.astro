@@ -3,16 +3,18 @@ import FaqBlock from "../../components/FaqBlock.astro";
 import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
 import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
+import { evacuationDecision } from "../../lib/evacuationDecision";
 
-const title = "Hurricane Evacuation Assessment Tool & Decision Helper";
-const description = "Use this hurricane evacuation assessment tool to sort risk into Monitor, Prepare, Act, or Leave using orders, surge zone, housing, pets, transport and medical needs.";
+const title = "Hurricane Evacuation Instructions & Household Checklist";
+const description = "Record official hurricane instructions and unresolved transport, medical, pet and housing arrangements. Follow local orders and hazard-specific actions.";
 const url = `${site.url}/tools/evacuation-decision-helper/`;
-const lastModified = "2026-10-23T00:00:00.000Z";
+const lastModified = "2026-11-06T00:00:00.000Z";
+const initial = evacuationDecision("unknown");
 const pageFaqs = [
   {
     question: "Should I evacuate for a hurricane watch?",
     answer:
-      "A watch means hurricane conditions are possible. Evacuate during a watch if your local officials tell you to leave, you live in a surge zone, or your household needs extra travel time for medical, mobility, pet, or transportation reasons."
+      "A hurricane watch means hurricane conditions are possible in the specified area. Read the current local evacuation order and confirm transport, housing and assistance needs early. A watch or surge-zone label alone does not supply your departure deadline. Leave when directed, and do not delay action to finish this checklist."
   },
   {
     question: "What is the safest evacuation decision?",
@@ -28,7 +30,7 @@ const jsonLd = graph(
     name: title,
     description,
     url,
-    featureList: ["Evacuation decision scoring", "Household vulnerability prompts", "Monitor/Prepare/Act/Leave recommendation"]
+    featureList: ["Official instruction record", "Hazard-specific protective actions", "Unconfirmed household arrangements"]
   }),
   faqSchema(pageFaqs)
 );
@@ -36,21 +38,22 @@ const jsonLd = graph(
 <Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified} showBottomAd={true}>
   <section class="band" aria-labelledby="helper-title">
     <div class="inner">
-      <p class="eyebrow">Household decision support</p>
-      <h1 id="helper-title">Hurricane Evacuation Assessment and Decision Helper</h1>
-      <p class="answer">Use this assessment to organize hurricane watches, warnings, evacuation orders, surge exposure, housing vulnerability, pets, transport, and medical needs into a Monitor, Prepare, Act, or Leave planning level. Local officials always control evacuation orders.</p>
+      <p class="eyebrow">Household planning record</p>
+      <h1 id="helper-title">Hurricane Evacuation Instructions and Household Checklist</h1>
+      <p class="answer">Start with the latest official instruction for your location, then confirm any transport, medical, pet or housing arrangements. If a warning requires immediate action, act first. Local officials set evacuation instructions and deadlines.</p>
     </div>
   </section>
 
   <section class="band" aria-labelledby="helper-form">
     <div class="inner grid-2 helper-layout">
       <form class="panel decision-tool" id="evacuation-tool">
-        <h2 id="helper-form">Check Your Decision Level</h2>
+        <h2 id="helper-form">Official Instruction Record</h2>
 
         <label>
           Official local status
           <select name="officialStatus">
-            <option value="none">No watch, warning, or evacuation order</option>
+            <option value="unknown">Not yet checked or unclear</option>
+            <option value="none">No alert found in the official sources I checked</option>
             <option value="watch">Hurricane or tropical storm watch</option>
             <option value="hurricane">Hurricane warning</option>
             <option value="surge">Storm surge warning</option>
@@ -61,64 +64,55 @@ const jsonLd = graph(
         </label>
 
         <label>
-          Home location
-          <select name="locationRisk">
-            <option value="0">Inland, outside known flood or surge zone</option>
-            <option value="1">Coastal county or low-lying area</option>
-            <option value="2">Flood zone, barrier island, bay, river, or surge zone</option>
-          </select>
-        </label>
-
-        <label>
-          Housing type
-          <select name="housingRisk">
-            <option value="0">Site-built home in good condition</option>
-            <option value="1">Older home, apartment, or many trees nearby</option>
-            <option value="2">Mobile home, RV, boat, or temporary housing</option>
-          </select>
+          Source, issue time and affected area (optional)
+          <input type="text" id="official-record" autocomplete="off" />
         </label>
 
         <fieldset>
-          <legend>Household needs</legend>
-          <label><input type="checkbox" name="medical" /> Medical equipment, mobility needs, or refrigerated medicine</label>
-          <label><input type="checkbox" name="pets" /> Pets or livestock need transport planning</label>
-          <label><input type="checkbox" name="transport" /> Limited vehicle access, fuel, or long evacuation route</label>
+          <legend>Arrangements still to confirm</legend>
+          <label><input type="checkbox" name="housing" /> Address, housing instructions or receiving destination</label>
+          <label><input type="checkbox" name="medical" /> Medical equipment, mobility support or medicine arrangements</label>
+          <label><input type="checkbox" name="pets" /> Pet or livestock transport and receiving arrangements</label>
+          <label><input type="checkbox" name="transport" /> Driver, accessible vehicle, fuel or pickup confirmation</label>
         </fieldset>
 
-        <button type="submit">Calculate Decision</button>
+        <button type="submit">Update Action Record</button>
       </form>
 
       <article class="panel" aria-live="polite">
-        <h2>Recommended Planning Level</h2>
+        <h2>Action for the Selected Official Status</h2>
         <div class="metric" style="margin-top: 14px;">
-          <strong id="decision-level">Monitor</strong>
-          <span id="decision-summary">No high-risk choices selected yet. Keep checking official NHC/NWS and local emergency updates.</span>
+          <strong id="decision-level">{initial.level}</strong>
+          <span id="decision-summary">{initial.summary}</span>
         </div>
         <h3 style="margin-top: 18px;">Action List</h3>
         <ul class="check-list" id="decision-actions">
-          <li>Check your county emergency management page.</li>
-          <li>Review your evacuation zone and shelter options.</li>
-          <li>Keep a 3-day water, food, medicine, and document kit ready.</li>
+          {initial.actions.map((action) => <li>{action}</li>)}
         </ul>
-        <p class="source-note">This tool is a planning aid only. Evacuation orders and shelter rules come from local officials and weather.gov alerts.</p>
+        <h3>Arrangements Still to Confirm</h3>
+        <ul class="check-list" id="pending-arrangements"><li>No unresolved arrangements selected. Unchecked boxes do not confirm a ride, destination or care plan.</li></ul>
+        <p class="source-note">The selected status is your record, not an automatic check of current alerts. Confirm each arrangement with its provider. Notes stay in this form and are not saved or submitted.</p>
       </article>
     </div>
   </section>
 
   <section class="band" aria-labelledby="method-heading">
     <div class="inner">
-      <h2 id="method-heading">How the Decision Helper Works</h2>
-      <p>Mandatory evacuation orders take precedence over the household score. Tornado warnings require immediate shelter; flood, storm surge, and hurricane warnings require prompt action specific to the warning. Follow the full official warning and local instructions when several hazards overlap.</p>
+      <h2 id="method-heading">Official Instructions and Unfinished Arrangements</h2>
+      <p>The action follows the official status you select. Household checkboxes only list unfinished arrangements; they do not calculate a risk score or create an evacuation order. Read the full warning and current local instructions, especially when hazards overlap. If travel is unsafe during an immediate tornado or flood threat, follow the immediate protective instructions and seek emergency help rather than starting a trip.</p>
       <table style="margin-top: 18px;">
         <thead><tr><th>Situation</th><th>Level</th><th>Meaning</th></tr></thead>
         <tbody>
-          <tr><td>Mandatory evacuation order</td><td>Leave</td><td>Follow local evacuation instructions regardless of score.</td></tr>
+          <tr><td>Not yet checked or unclear</td><td>Unconfirmed</td><td>Check the original official message; do not assume no alert.</td></tr>
+          <tr><td>Mandatory evacuation order</td><td>Leave</td><td>Follow the order and its timing; unfinished arrangements do not cancel it.</td></tr>
           <tr><td>Tornado, flood, surge, or hurricane warning</td><td>Act</td><td>Take the protective action required for that hazard.</td></tr>
-          <tr><td>Watch, or household score 2-3</td><td>Prepare</td><td>Prepare transport, supplies, and a destination.</td></tr>
-          <tr><td>Household score 4+</td><td>Act</td><td>Arrange assistance early; the score alone is not an evacuation order.</td></tr>
-          <tr><td>No official alert and household score 0-1</td><td>Monitor</td><td>Keep checking official alerts; this is not an all-clear.</td></tr>
+          <tr><td>Hurricane or tropical storm watch</td><td>Prepare</td><td>Prepare supplies, transport and a destination; check local instructions.</td></tr>
+          <tr><td>No alert found in checked sources</td><td>Monitor</td><td>Keep checking; this is not an all-clear.</td></tr>
         </tbody>
       </table>
+      <h3>Example: An Accepted Application Is Not a Pickup Plan</h3>
+      <p>Illustrative household record: a county program has received your transport application but has not assigned a pickup or destination. Keep transport marked unresolved. Ask the provider for the current arrangement and record its reply. If an evacuation instruction arrives first, follow it and contact local emergency management for unmet assistance needs; do not wait for a calculated household threshold.</p>
+      <p>Use <a href="/alerts/">current NWS alert messages</a>, the <a href="/blog/how-to-check-your-hurricane-evacuation-zone/">local zone and order record</a>, and <a href="/blog/hurricane-medical-needs-registry-preparedness/">medical continuity planning</a>. Background definitions: <a href="https://www.weather.gov/safety/hurricane-ww">NWS hurricane watches and warnings</a> and <a href="https://www.weather.gov/safety/flood-watch-warning">NWS flood products</a>. These general definitions do not verify the status entered here.</p>
     </div>
   </section>
 
@@ -142,6 +136,7 @@ const jsonLd = graph(
   const levelEl = document.querySelector<HTMLElement>("#decision-level");
   const summaryEl = document.querySelector<HTMLElement>("#decision-summary");
   const actionsEl = document.querySelector<HTMLElement>("#decision-actions");
+  const pendingEl = document.querySelector<HTMLElement>("#pending-arrangements");
 
   function render(recommendation: EvacuationRecommendation) {
     if (!levelEl || !summaryEl || !actionsEl || !recommendation) {
@@ -150,17 +145,35 @@ const jsonLd = graph(
     }
     levelEl.textContent = recommendation.level;
     summaryEl.textContent = recommendation.summary;
-    actionsEl.innerHTML = recommendation.actions.map((action) => `<li>${action}</li>`).join("");
+    actionsEl.replaceChildren(...recommendation.actions.map((action) => {
+      const item = document.createElement("li");
+      item.textContent = action;
+      return item;
+    }));
     trackToolResult("evacuation_decision", "success");
   }
 
+  function updateRecord() {
+    if (!form || !pendingEl) return;
+    const data = new FormData(form);
+    render(evacuationDecision(data.get("officialStatus") as OfficialStatus));
+    const arrangements = [
+      ["housing", "Confirm the address or zone, applicable housing instructions and a destination able to receive you."],
+      ["medical", "Confirm equipment power, medication, mobility support and receiving care with the relevant providers."],
+      ["pets", "Confirm animal transport and acceptance at the destination."],
+      ["transport", "Confirm the driver or service, vehicle, pickup instructions, fuel and receiving destination."]
+    ];
+    const pending = arrangements.filter(([key]) => data.has(key)).map(([, action]) => action);
+    if (!pending.length) pending.push("No unresolved arrangements selected. Unchecked boxes do not confirm a ride, destination or care plan.");
+    pendingEl.replaceChildren(...pending.map((action) => {
+      const item = document.createElement("li");
+      item.textContent = action;
+      return item;
+    }));
+  }
+  form?.addEventListener("change", updateRecord);
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
-    const data = new FormData(form);
-    const baseScore =
-      Number(data.get("locationRisk") ?? 0) +
-      Number(data.get("housingRisk") ?? 0);
-    const needsScore = ["medical", "pets", "transport"].reduce((total, key) => total + (data.get(key) ? 1 : 0), 0);
-    render(evacuationDecision(data.get("officialStatus") as OfficialStatus, baseScore + needsScore));
+    updateRecord();
   });
 </script>

@@ -10,6 +10,7 @@ export type StormTrackerPage = {
   overview: string;
   trackerFocus: string[];
   historicalReport?: {
+    kind?: "advisory";
     year: number;
     stormId: string;
     title: string;
@@ -17,6 +18,7 @@ export type StormTrackerPage = {
     reportDate: string;
     checkedOn: string;
     summary: string;
+    relatedSources?: Array<{ href: string; label: string }>;
     timeline: Array<{ date: string; event: string }>;
     lessons: Array<{ heading: string; body: string }>;
   };
@@ -135,16 +137,35 @@ export const stormTrackerPages: StormTrackerPage[] = [
     slug: "isaias",
     name: "Isaias",
     basin: "Atlantic",
-    title: "Isaias 2026 Tracker: Post-Tropical Status & Flood Risk",
-    description: "Review Isaias's 2026 post-tropical status, final NHC advisory, continuing WPC updates, inland flood risk, local alerts and hurricane recovery resources.",
+    title: "Isaias 2026: Final NHC Bulletin and Flood-Risk Reading",
+    description: "Read Isaias public Advisory 15 with its time, classification, coastal cancellations and continuing flood hazards, separately from the current storm feed.",
     primaryKeywords: ["tropical storm isaias tracker", "hurricane isaias path", "isaias live tracker", "where is tropical storm isaias now"],
     searchDemandNote:
-      "Use this page for Isaias's 2026 observed track, post-tropical status, final NHC advisory, continuing WPC updates and inland flood-risk context.",
+      "Use the dated public bulletin to distinguish classification, coastal-warning changes, continued flood hazards and the announced WPC handoff.",
     overview:
-      "Isaias formed from Tropical Depression Nine in the southwestern Gulf on October 7, 2026, and later became a hurricane. NHC's final Advisory 15 on October 10 classified it as post-tropical over Alabama. WPC took over continuing updates; flooding and other local hazards can persist after the tropical phase ends.",
+      "Read the dated Isaias record separately from today's feed. NHC's final public Advisory 15, AL092026, issued October 10, 2026 at 0900 UTC, describes a post-tropical cyclone over Alabama and hands subsequent public advisories to WPC. Its rainfall and tornado sections retain hazards after the coastal products end.",
+    historicalReport: {
+      kind: "advisory",
+      year: 2026,
+      stormId: "AL092026",
+      title: "NHC archived public advisory 15: Post-Tropical Cyclone Isaias",
+      url: "https://www.nhc.noaa.gov/archive/2026/al09/al092026.public.015.shtml",
+      reportDate: "2026-10-10, 0900 UTC (4 AM CDT)",
+      checkedOn: "2026-11-06",
+      summary: "Historical operational bulletin, not a post-season analysis or current forecast. NHC reported Isaias at 32.0N, 86.5W with maximum sustained winds near 35 mph and central pressure 1002 mb. The bulletin discontinues the coastal Storm Surge and Tropical Storm Warnings while continuing to describe rainfall, tornado and surf hazards. Its measurements, forecasts and product cancellations have different meanings.",
+      timeline: [
+        { date: "10 October 2026, 0900 UTC", event: "Advisory 15 identifies a post-tropical cyclone about 25 miles south-southwest of Montgomery, Alabama, moving north near 14 mph. This is the position in this bulletin, not the position in a later retained feed observation." },
+        { date: "Advisory 15, watches and warnings", event: "NHC discontinues all Storm Surge and Tropical Storm Warnings. That section does not cancel local NWS flood or tornado products." },
+        { date: "Advisory 15, next advisory", event: "The bulletin says this is NHC's last public advisory and directs subsequent information to WPC public advisories beginning at 10 AM CDT. This is the announced handoff, not verification of every later WPC bulletin." }
+      ],
+      lessons: [
+        { heading: "The Rainfall Section Outlives the Coastal Warning", body: "The same public advisory forecasts flash, urban and river flooding, including possible considerable flash flooding and landslides in the Southern Appalachians. These are forecasts written at the issue time, not measured rainfall totals or evidence that every named location flooded. Read the full dated bulletin and obtain present local warnings separately." },
+        { heading: "Reading Task: Match a Position to Its Source", body: "Copy the storm ID, 0900 UTC issue time, 32.0N 86.5W position and 35 mph sustained-wind field from the original. Can a later feed position be labeled the position in NHC Advisory 15? No: it is a different record and needs its own issuer and timestamp. Similarly, the discontinued coastal warnings do not establish that an inland route was safe." }
+      ]
+    },
     trackerFocus: [
       "Check the displayed position and advisory time, then verify continuing post-tropical forecasts with the Weather Prediction Center and local National Weather Service office.",
-      "NHC's final Advisory 15, issued at 0900 UTC on October 10, reported Post-Tropical Cyclone Isaias over central Alabama with 30 kt winds and 1002 mb pressure. Later WPC observations are separate updates, not the final NHC position.",
+      "NHC's final public Advisory 15, issued at 0900 UTC on October 10, reported Post-Tropical Cyclone Isaias over central Alabama with 35 mph sustained winds and 1002 mb pressure. Preserve the units printed in that public bulletin; later observations are separate records.",
       "At Advisory 15, all coastal watches and warnings had been discontinued. This does not mean local flood warnings or other hazards have ended; check current NWS products before returning home or driving.",
       "The final NHC discussion highlighted heavy rain spreading into the Tennessee Valley, Southern Appalachians and Southeast, with flash and urban flooding and possible Appalachian landslides. Use current WPC rainfall forecasts and local alerts rather than treating earlier storm-total forecasts as new rainfall still to come.",
       "Swells can create life-threatening surf and rip currents far from the center. Compare the forecast track with the cone, wind field, rainfall, surge, surf, and local-alert products rather than using the center line as an impact boundary.",
@@ -159,7 +180,7 @@ export const stormTrackerPages: StormTrackerPage[] = [
       {
         question: "Did Isaias become a hurricane in 2026?",
         answer:
-          "Yes. NHC Advisory 12 on October 9 identified Isaias as a Category 3 hurricane with 120 mph sustained winds. It later weakened inland and became post-tropical; that earlier hurricane intensity is historical, not its current strength."
+          "The source excerpt on this page verifies the post-tropical classification in NHC public Advisory 15, not the storm's peak category or complete intensity history. Use the year-specific NHC archive and post-season report when available before assigning an earlier peak or landfall category."
       },
       {
         question: "Are watches or warnings in effect for Isaias?",
@@ -237,19 +258,38 @@ export const stormTrackerPages: StormTrackerPage[] = [
     slug: "edouard",
     name: "Edouard",
     basin: "Atlantic",
-    title: "Tropical Storm Edouard 2026: Final Path & Updates",
-    description: "Review Tropical Storm Edouard's 2026 Gulf path, final NHC status, Texas and Louisiana impacts, rainfall, radar, and archived advisory links.",
+    title: "Edouard 2026: Read the NHC Name and Warning Changes",
+    description: "Compare AL052026 public advisories 2 and 3: depression to named storm, local and UTC dates, and separate wind and surge areas. Historical reading example.",
     primaryKeywords: ["tropical storm edouard tracker", "hurricane edouard path", "edouard live tracker", "where is storm edouard now"],
     searchDemandNote:
-      "Use this page for Tropical Storm Edouard live tracker, Gulf path, Texas and Louisiana warning, storm surge, rainfall, and NHC advisory searches.",
+      "Read the two linked AL052026 advisories with their original classifications, time zones and hazard boundaries; check current feed status separately.",
     overview:
-      "Tropical Storm Edouard formed from AL97 in the northwestern Gulf on August 31, 2026 and is no longer listed in the current NHC feed. Use this page for its final observed track, archived advisory context, and Texas and Louisiana rainfall, flooding, radar, and local-alert resources.",
+      "The dated NHC AL052026 record shows Tropical Depression Five in public Advisory 2 and Tropical Storm Edouard in Advisory 3. Read the original classification, time and warning boundaries rather than applying the later name to every earlier bulletin. The retained feed observation and the two archived advisories below are separate records, not a complete best track.",
+    historicalReport: {
+      kind: "advisory",
+      year: 2026,
+      stormId: "AL052026",
+      title: "NHC archived public advisory 2: Tropical Depression Five",
+      url: "https://www.nhc.noaa.gov/archive/2026/al05/al052026.public.002.shtml",
+      relatedSources: [{ href: "https://www.nhc.noaa.gov/archive/2026/al05/al052026.public.003.shtml", label: "NHC public Advisory 3: Tropical Storm Edouard, September 1 at 0300 UTC" }],
+      reportDate: "2026-08-31, 2100 UTC (4 PM CDT)",
+      checkedOn: "2026-11-06",
+      summary: "Historical operational bulletin, not a current forecast or post-season report. Advisory 2 still calls AL052026 Tropical Depression Five, with 35 mph sustained winds at 28.2N, 91.5W. It lists a Tropical Storm Warning from Port Bolivar to the Vermilion/Iberia Parish Line and a Storm Surge Watch from High Island to the Vermilion/Cameron Parish Line. Different hazard boundaries must be read separately.",
+      timeline: [
+        { date: "31 August 2026, 2100 UTC", event: "Public Advisory 2 reports Tropical Depression Five with 35 mph winds and 1011 mb pressure. Its outlook forecasts strengthening; that forecast does not make the system a named storm at this time." },
+        { date: "1 September 2026, 0300 UTC", event: "Public Advisory 3, issued at 10 PM CDT on August 31, names Tropical Storm Edouard and reports 40 mph winds and 1005 mb pressure. UTC has crossed midnight while the printed local date has not." }
+      ],
+      lessons: [
+        { heading: "Use the Same Storm Identifier Across a Name Change", body: "Open Advisory 2 and the separately linked Advisory 3. Both carry AL052026. The sustained-wind field changes from 35 to 40 mph across six hours; this is a comparison of operational estimates, not a post-season verification or a 24-hour rapid-intensification calculation. Preserve the issuer, number, issue time, classification and units with each entry." },
+        { heading: "Reading Task: Are the Two Hazard Areas Identical?", body: "No. In Advisory 2 the wind warning begins at Port Bolivar and ends at the Vermilion/Iberia line; the surge watch begins at High Island and ends at the Vermilion/Cameron line. Record each hazard and its own endpoints. Do not copy one boundary into the other or turn the historical coastal segments into today's evacuation order. Advisory 3 changes the surge product to a warning; that later change belongs to a later issue time." }
+      ]
+    },
     trackerFocus: [
-      "NHC designated AL97 as Tropical Depression Five and then Tropical Storm Edouard on August 31, 2026, over the northwestern Gulf.",
+      "Use AL052026 to pair the public advisories. Advisory 2 is Tropical Depression Five; Advisory 3 names Edouard. The latter is dated August 31 locally but September 1 in UTC.",
       "Use the official NHC forecast path together with the cone, wind field, rainfall, and surge products — not a single model or the center line.",
       "During the advisory cycle, a Tropical Storm Warning covered Port Bolivar, Texas, to the Vermilion/Iberia Parish Line, Louisiana, and a Storm Surge Watch covered High Island to the Vermilion/Cameron Parish Line.",
       "Edouard is no longer listed in the current NHC feed. Check current NWS alerts and local emergency management updates for any remaining rainfall, flooding, or recovery concerns.",
-      "Historical Edouard storms include 1996 (Hurricane Edouard, a major hurricane that paralleled the U.S. East Coast and brushed Cape Hatteras and New England) and 2014 (Hurricane Edouard, the first major hurricane of that season, which stayed over the open Atlantic). The name's past intensity does not predict the 2026 system."
+      "A repeated storm name is not a forecast. Match the year and basin identifier before comparing any historical Edouard record."
     ],
     faqs: [
       {
@@ -260,7 +300,7 @@ export const stormTrackerPages: StormTrackerPage[] = [
       {
         question: "Has Edouard ever hit the United States?",
         answer:
-          "Past Edouard storms have mostly stayed offshore or weakened before landfall; 1996 Hurricane Edouard brushed Cape Hatteras and New England as a major hurricane without a direct landfall, and 2014 Edouard remained over the open Atlantic. The 2026 system is documented here from its own NHC data."
+          "Use a year-specific official report to answer a landfall question. The two 2026 operational bulletins quoted here establish classifications and forecasts at their issue times, not the final landfall outcome or a comparison of every storm named Edouard."
       },
       {
         question: "What happened to Tropical Storm Edouard?",
@@ -273,13 +313,32 @@ export const stormTrackerPages: StormTrackerPage[] = [
     slug: "fay",
     name: "Fay",
     basin: "Atlantic",
-    title: "Tropical Storm Fay 2026: Final Track & NHC Update",
-    description: "Review Tropical Storm Fay's 2026 final NHC status, post-tropical transition, last observed track, advisory context, and official source links.",
+    title: "Fay 2026: Final NHC Bulletin and Historical Status",
+    description: "Read Fay public Advisory 39: post-tropical classification, position, wind and motion, and the marine information handoff. Separate forecasts from outcomes.",
     primaryKeywords: ["tropical storm fay tracker", "hurricane fay path", "fay live tracker map", "where is storm fay now"],
     searchDemandNote:
-      "Fay was the sixth named storm of the 2026 Atlantic season. Use this page for its final NHC status, post-tropical transition, observed track, and advisory context.",
+      "Use the linked AL062026 public Advisory 39 to read the classification, timestamp, motion, wind and announced end of NHC public advisories.",
     overview:
-      "Tropical Storm Fay became post-tropical and received its final NHC advisory on September 29, 2026. This page preserves its final observed position, track, advisory context, and official source links as a stable storm reference.",
+      "NHC public Advisory 39, AL062026, issued September 29, 2026 at 2100 UTC, identifies Post-Tropical Cyclone Fay and explicitly ends NHC public advisories. Read that operational bulletin below alongside, but separately from, HurricaneHub's retained feed observation. Neither record supplies a complete post-season track.",
+    historicalReport: {
+      kind: "advisory",
+      year: 2026,
+      stormId: "AL062026",
+      title: "NHC archived public advisory 39: Post-Tropical Cyclone Fay",
+      url: "https://www.nhc.noaa.gov/archive/2026/al06/al062026.public.039.shtml",
+      reportDate: "2026-09-29, 2100 UTC (5 PM AST)",
+      checkedOn: "2026-11-06",
+      summary: "Historical operational bulletin, not a current forecast or post-season report. Advisory 39 places Fay at 23.7N, 48.2W, with maximum sustained winds near 30 mph, movement west-southwest near 12 mph and pressure 1011 mb. It says no coastal watches or warnings were in effect, lists no hazards affecting land and directs additional marine information to NWS High Seas Forecasts.",
+      timeline: [
+        { date: "29 September 2026, 2100 UTC", event: "NHC classifies Fay as post-tropical in public Advisory 39. The printed 5 PM AST and 2100 UTC are the same issue time, not two different observations." },
+        { date: "Advisory 39, outlook", event: "The bulletin forecasts dissipation in about a day. This is a forecast at that time; it does not verify the eventual dissipation time." },
+        { date: "Advisory 39, next advisory", event: "NHC says this is its last public advisory and names NWS High Seas Forecasts, AWIPS NFDHSFAT1 / WMO FZNT01 KWBC, for additional information." }
+      ],
+      lessons: [
+        { heading: "Classification, Wind and Motion Are Separate Fields", body: "Post-tropical describes the cyclone's structure. The 30 mph maximum sustained wind and 12 mph movement describe different quantities; they cannot be substituted for each other. The location in the bulletin is an operational center estimate, not a measurement of the wind or water at a household." },
+        { heading: "Reading Task: Was Dissipation Already Verified?", body: "No. The outlook says Fay is forecast to dissipate in a day or so. The next-advisory section verifies that NHC was ending its public advisory series, not that the system had already disappeared. Copy the classification, wind, motion, time and announced information source into separate fields. Use later official records to establish an eventual outcome." }
+      ]
+    },
     trackerFocus: [
       "Check the NHC advisory timestamp before comparing Fay positions, intensity, or forecast tracks.",
       "Compare the NHC forecast track with the cone and wind field, and remember that hazards can extend outside the center line.",
@@ -300,7 +359,7 @@ export const stormTrackerPages: StormTrackerPage[] = [
       {
         question: "Where should I follow Tropical Storm Fay updates?",
         answer:
-          "Review Fay's final NHC advisory and archived storm context on this page. For current tropical cyclones and local hazards, use the live tracker, NWS alerts, and local emergency management guidance."
+          "The linked 2026 public Advisory 39 directs further marine information to NWS High Seas Forecasts. That historical handoff does not establish current conditions. Use today's NHC products, local NWS alerts and emergency management instructions for present hazards."
       }
     ]
   }

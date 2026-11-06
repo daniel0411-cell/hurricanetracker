@@ -487,7 +487,7 @@ export const topicPages: TopicPage[] = [
       { name: "State Alert and Action Summary", href: "/tools/impact-window-estimator/", description: "Read state alert areas, protective instructions, and expiration times; this tool does not calculate arrival." },
       { name: "Named Hurricane Trackers", href: "/hurricane-tracker/storm/", description: "Standing storm-name pages with live NHC source checks." },
       { name: "Cone of Uncertainty Guide", href: "/blog/how-to-read-the-hurricane-cone-of-uncertainty/", description: "Learn what the NHC cone does and does not show." },
-      { name: "Evacuation Decision Helper", href: "/tools/evacuation-decision-helper/", description: "Turn orders, zone, housing, and household needs into a planning level." }
+      { name: "Evacuation Instructions and Checklist", href: "/tools/evacuation-decision-helper/", description: "Record official instructions and unresolved housing, transport, medical and pet arrangements." }
     ],
     faqs: [
       {
@@ -578,7 +578,7 @@ export const topicPages: TopicPage[] = [
       }
     ],
     nextLinks: [
-      { name: "Evacuation Decision Helper", href: "/tools/evacuation-decision-helper/", description: "Sort risk into Monitor, Prepare, Act, or Leave planning levels." },
+      { name: "Evacuation Instructions and Checklist", href: "/tools/evacuation-decision-helper/", description: "Keep official warning actions separate from arrangements still to confirm." },
       { name: "City Hurricane Trackers", href: "/hurricane-tracker/city/", description: "Local planning pages for coastal cities and nearby counties." },
       { name: "Storm Surge ZIP Checker", href: "/tools/storm-surge-checker/", description: "Check active NWS storm surge watch or warning status near a ZIP code." },
       { name: "How to Check Your Evacuation Zone", href: "/blog/how-to-check-your-hurricane-evacuation-zone/", description: "Step-by-step guide for finding and confirming evacuation zone information." }

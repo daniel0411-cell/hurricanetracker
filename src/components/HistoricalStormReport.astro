@@ -6,17 +6,19 @@ interface Props {
   report: NonNullable<StormTrackerPage["historicalReport"]>;
 }
 const { name, report } = Astro.props;
+const isAdvisory = report.kind === "advisory";
 ---
 
 <section class="band history-report" aria-labelledby="historical-report-title">
   <div class="inner">
     <p class="eyebrow">Historical record · {report.stormId}</p>
-    <h2 id="historical-report-title">{name} {report.year}: What the Official Report Establishes</h2>
+    <h2 id="historical-report-title">{name} {report.year}: What the {isAdvisory ? "Archived Bulletin" : "Official Report"} Establishes</h2>
     <p class="history-summary">{report.summary}</p>
-    <p><a href={report.url}>{report.title} (original PDF)</a></p>
-    <p class="source-note">Report version: {report.reportDate}. Historical source checked: {report.checkedOn}. This check does not verify current weather, warnings or road conditions.</p>
-    <h3>Selected Events From the Post-Season Analysis</h3>
-    <p>This is a selected timeline. Open the report's best-track table for the full observation series.</p>
+    <p><a href={report.url}>{report.title} ({isAdvisory ? "original bulletin" : "original PDF"})</a></p>
+    {report.relatedSources?.length && <ul>{report.relatedSources.map((source) => <li><a href={source.href}>{source.label}</a></li>)}</ul>}
+    <p class="source-note">{isAdvisory ? "Bulletin issued" : "Report version"}: {report.reportDate}. Historical source checked: {report.checkedOn}. This check does not verify current weather, warnings or road conditions.</p>
+    <h3>{isAdvisory ? "Read the Dated Operational Record" : "Selected Events From the Post-Season Analysis"}</h3>
+    <p>{isAdvisory ? "The entries below describe the selected operational bulletin or bulletins. They are not a complete track or verification of subsequent outcomes." : "This is a selected timeline. Open the report's best-track table for the full observation series."}</p>
     <ol class="history-timeline">
       {report.timeline.map((item) => <li><strong>{item.date}</strong><p>{item.event}</p></li>)}
     </ol>
