@@ -904,11 +904,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "real-time-hurricane-tracking-2026",
-    sources: [{ href: "https://www.nhc.noaa.gov/", label: "NHC current tropical cyclone advisories" }, { href: "https://www.weather.gov/", label: "NWS local hazard warnings" }],
+    sources: [{ href: "https://www.nhc.noaa.gov/", label: "NHC current tropical cyclone advisories" }, { href: "https://www.weather.gov/", label: "NWS local hazard warnings" }, { href: "https://www.nhc.noaa.gov/climo/", label: "NHC Atlantic season dates and historical activity peak" }, { href: "https://www.nhc.noaa.gov/archive/xgtwo/gtwo_archive.php?basin=atlc&fdays=7&current_issuance=202611080000", label: "NHC November 8, 2026, 00:00 UTC outlook: AL94" }],
     title: "Real-Time Hurricane Tracking: 2026 Late-Season Guide",
     description: "Track late-season hurricane risks with NHC outlooks, radar, satellite imagery, and local alerts. Learn why low formation odds can still mean coastal danger.",
     datePublished: "2026-08-06",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-08",
     image: "/images/blog/real-time-hurricane-tracking-2026.png",
     imageAlt: "A person views a live hurricane tracking dashboard on a large monitor showing satellite, radar, and a forecast cone.",
     sections: [
@@ -917,11 +917,20 @@ export const blogPosts: BlogPost[] = [
         body: "Real-time hurricane tracking starts with the latest National Hurricane Center outlook or advisory, then adds radar, satellite imagery, and local National Weather Service alerts. The Atlantic season continues through November 30. Late in the season, check coastal flooding and marine warnings even when no named tropical cyclone appears on the tracker. A low chance of tropical or subtropical development does not mean a low chance of strong winds, dangerous surf, or coastal flooding. Use HurricaneHub to organize the available observations and planning links, and follow official warnings and local evacuation instructions for action."
       },
       {
-        heading: "October 18, 2026 Outlook: East Coast Impacts Without a Named Storm",
-        body: "In its 2:00 a.m. EDT October 18 outlook (06:00 UTC), NHC expected a storm-force non-tropical low to form later that day or night off the southeastern United States. It forecast slow, erratic movement through the middle of the following week, with some subtropical development possible. Formation chances were near 0 percent through 48 hours and 30 percent through seven days. NHC also warned of high winds, coastal flooding, and dangerous surf along portions of the East Coast regardless of development. Those percentages describe classification potential during that bulletin's forecast windows, not the probability of flooding at a particular address. This is a dated outlook example, not a continuously updated forecast or a named-storm designation. Open the newest NHC outlook, local NWS statements, WPC guidance, and Ocean Prediction Center marine forecasts before making plans.",
+        heading: "Is November a Peak Month for Atlantic Hurricanes?",
+        body: "No. NHC climatology places the Atlantic activity peak near September 10, with most activity between mid-August and mid-October. November is the late season, although the official season continues through November 30. Those dates describe the usual seasonal window, not a guarantee that storms cannot form outside it. A historical activity curve also cannot predict whether a specific coast will face a storm this November. Keep checking current outlooks and local warnings rather than using the calendar as an all-clear. The 2026 season page separates current Atlantic systems from Pacific systems and explains the limits of its recorded storm totals.",
+        links: [
+          { href: "https://www.nhc.noaa.gov/climo/", label: "Check NHC season dates and the historical Atlantic activity curve" },
+          { href: "/2026-hurricane-season/", label: "Review 2026 Atlantic season dates and current systems" }
+        ]
+      },
+      {
+        heading: "November 8, 2026 Outlook Example: Near-Zero Formation Odds and Gale Warnings",
+        body: "In the outlook issued at 7:00 p.m. EST on November 7 (00:00 UTC November 8), NHC described AL94 as a broad, non-tropical low several hundred miles south-southeast of Bermuda. Its circulation had become less defined near fronts, and subtropical development was not expected as it moved generally eastward and merged with a frontal system over the next day or two. Formation chances were near 0 percent through both 48 hours and seven days. The same bulletin directed readers to National Weather Service High Seas Forecasts, including Gale Warnings. AL94 was a disturbance identifier, not a named hurricane. These percentages concern tropical or subtropical formation within that bulletin's windows; they do not measure the chance of hazardous seas or flooding at an address. This is a dated reading example, checked November 8, not an automatically refreshed forecast. Use the newest outlook and the warning area and valid time in the marine forecast before making plans.",
         links: [
           { href: "https://www.nhc.noaa.gov/text/MIATWOAT.shtml", label: "Read the latest official Atlantic Tropical Weather Outlook" },
-          { href: "https://www.nhc.noaa.gov/archive/xgtwo/gtwo_archive.php?basin=atl&fdays=7&current_issuance=202610180600", label: "Read the October 18, 2026, 06:00 UTC NHC outlook used in this example" },
+          { href: "https://www.nhc.noaa.gov/archive/xgtwo/gtwo_archive.php?basin=atlc&fdays=7&current_issuance=202611080000", label: "Read the November 8, 2026, 00:00 UTC NHC outlook used in this example" },
+          { href: "https://ocean.weather.gov/shtml/NFDHSFAT1.php", label: "Read the Atlantic High Seas Forecast referenced by NHC" },
           { href: "https://www.weather.gov/", label: "Find your local NWS coastal flood, wind, and surf alerts" },
           { href: "https://www.wpc.ncep.noaa.gov/", label: "Check Weather Prediction Center rainfall and weather guidance" },
           { href: "https://ocean.weather.gov/", label: "Check Ocean Prediction Center marine forecasts" },
@@ -977,8 +986,12 @@ export const blogPosts: BlogPost[] = [
         answer: "No. Formation probability describes the chance of tropical or subtropical development within a specified period. A non-tropical low can still bring strong winds, coastal flooding, and dangerous surf. Check local NWS and marine warnings regardless of whether a system receives a name."
       },
       {
-        question: "Are the October 18 formation percentages a live forecast?",
-        answer: "No. They describe the NHC outlook issued at 2:00 a.m. EDT on October 18, 2026. They illustrate why development probability and coastal impacts are different questions. Open the latest official outlook and local warnings for current conditions."
+        question: "Is November a peak month for Atlantic hurricanes?",
+        answer: "No. The historical peak is near September 10, with most activity between mid-August and mid-October. November remains part of the official Atlantic season through November 30, and tropical cyclones can occur outside those dates. Follow current forecasts and warnings."
+      },
+      {
+        question: "Are the November 8 AL94 formation percentages a live forecast?",
+        answer: "No. They describe the NHC outlook issued at 7:00 p.m. EST November 7, 2026, equivalent to 00:00 UTC November 8. Both the 48-hour and seven-day formation chances were near 0 percent in that bulletin. The example is dated; use the latest NHC outlook and local or marine warnings for current decisions."
       },
       {
         question: "Does the Saffir-Simpson scale measure storm surge?",
