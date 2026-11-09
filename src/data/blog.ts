@@ -1834,17 +1834,24 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "below-normal-hurricane-season-2026-real-time-tracker",
+    sourceCheck: { date: "2026-11-09", scope: "Read CPC's Atlantic outlook issued August 6, 2026 for basin category probabilities, 70% activity ranges, already-recorded storms and landfall limitations. This is a dated forecast summary, not verification of final season totals or current local conditions. Other retained historical and climate examples were not reverified in this check." },
     sources: [{ href: "https://www.cpc.ncep.noaa.gov/products/outlooks/hurricane.shtml", label: "NOAA Climate Prediction Center: dated seasonal outlook" }, { href: "https://www.nhc.noaa.gov/data/tcr/index.php?season=2026&basin=atl", label: "NHC 2026 season summary, subject to revision" }],
     title: "Below-Normal Hurricane Season 2026: Why You Still Need a Real-Time Tracker",
     description: "Understand what a below-normal Atlantic hurricane outlook means, how El Nino can affect activity, and why current NHC forecasts still guide local preparation.",
     datePublished: "2026-08-12",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-09",
     image: "/images/blog/below-normal-hurricane-season-2026-tracker.png",
     imageAlt: "A coastal resident in a plaid shirt checks a hurricane alert on his smartphone while standing on a wooden deck overlooking an overcast Atlantic coastline, grey storm clouds gathering on the horizon.",
     sections: [
       {
         heading: "Direct Answer",
         body: "A below-normal Atlantic hurricane outlook describes the expected level of activity across an entire basin. It does not mean that a particular town will escape a storm, that a developing system cannot intensify, or that flood and storm surge warnings are less urgent. This article was first published in August 2026 and has been updated to separate seasonal background from current storm information. Earlier references to a possible Cristobal formation were an August outlook discussion, not a forecast for this week. For today's systems and formation chances, use the live hurricane tracker and the latest NHC Tropical Weather Outlook. Use this guide to understand what seasonal forecasts can and cannot tell you."
+      },
+      {
+        heading: "NOAA's August 6, 2026 Outlook: The Actual Numbers",
+        body: "NOAA's Climate Prediction Center issued the outlook summarized here on August 6, 2026. It assigned a 75% chance of a below-normal Atlantic season, 20% near-normal, and 5% above-normal. Those probabilities describe basin-wide seasonal activity categories, not the chance that a particular home will be hit. The numerical ranges each carry 70% probability; that is a different statement from the 75% below-normal probability. The ranges describe the whole season, including activity already observed when the outlook was issued. They are not forecasts of additional storms after August 6, and they are not observed or final 2026 totals.",
+        bullets: ["7-13 named storms, including the two named storms already recorded as of the August 6 issue date", "2-6 hurricanes", "0-2 major hurricanes (Category 3 or higher)", "Each range has 70% probability under the outlook's assumptions; outcomes outside a range remain possible"],
+        links: [{ href: "https://www.cpc.ncep.noaa.gov/products/outlooks/hurricane.shtml", label: "Read CPC's dated Atlantic outlook and interpretation notes (checked November 9, 2026)" }]
       },
       {
         heading: "How to Read a Seasonal Outlook After Its Issue Date",

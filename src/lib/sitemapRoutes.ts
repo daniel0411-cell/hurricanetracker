@@ -44,7 +44,7 @@ const pageRoutes: SitemapRoute[] = [
   { path: "storm/2026-cristobal/", lastmod: updated, priority: "0.7", changefreq: "weekly", section: "pages" },
   ...localPreparednessPages.map((page) => ({
     path: page.kind === "state" ? `state/${page.slug}/preparedness/` : `city/${page.slug}/hurricane-tracker/`,
-    lastmod: updated,
+    lastmod: page.dateModified ?? updated,
     priority: page.kind === "state" ? "0.8" : "0.7",
     changefreq: "monthly",
     section: "pages" as const
@@ -78,7 +78,7 @@ const toolRoutes: SitemapRoute[] = [
 const locationRoutes: SitemapRoute[] = [
   ...coastalStates.map((state) => ({ path: `tracker/${state.slug}/`, lastmod: updated, priority: "0.9", changefreq: "hourly", section: "locations" as const })),
   { path: "hurricane-tracker/city/", lastmod: updated, priority: "0.8", changefreq: "weekly", section: "locations" },
-  ...hurricaneCities.map((city) => ({ path: `hurricane-tracker/city/${city.slug}/`, lastmod: updated, priority: "0.8", changefreq: "daily", section: "locations" as const })),
+  ...hurricaneCities.map((city) => ({ path: `hurricane-tracker/city/${city.slug}/`, lastmod: city.dateModified ?? updated, priority: "0.8", changefreq: "daily", section: "locations" as const })),
   { path: "hurricane-tracker/storm/", lastmod: updated, priority: "0.8", changefreq: "daily", section: "locations" },
   ...stormTrackerPages.map((storm) => ({ path: `hurricane-tracker/storm/${storm.slug}/`, lastmod: updated, priority: "0.8", changefreq: "daily", section: "locations" as const }))
 ];

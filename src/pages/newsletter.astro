@@ -9,7 +9,7 @@ const title = "Hurricane Readiness Newsletter";
 const description =
   "Subscribe to HurricaneHub's hurricane-season email list for preparedness timing, official-alert explainers, and evacuation-decision checklists — practical, low-volume, no spam.";
 const url = `${site.url}/newsletter/`;
-const lastModified = site.contentLastModified;
+const lastModified = "2026-11-09T00:00:00.000Z";
 const pageFaqs = [
   {
     question: "How often will you email me?",
@@ -28,7 +28,11 @@ const pageFaqs = [
   },
   {
     question: "How do I unsubscribe?",
-    answer: "Every email includes an unsubscribe link. We store only your email address and the signup source."
+    answer: "Use the unsubscribe link in a readiness email, or contact weather-data@hurricanetracker.cc to request removal. You can use all public guides without subscribing."
+  },
+  {
+    question: "What subscription information is stored?",
+    answer: "We store your email address, signup source and page, selected email preferences, and subscription timestamp in Cloudflare storage. The record expires three years after the latest signup unless removed earlier. See the privacy policy for other site services and deletion requests."
   },
   {
     question: "Can I use HurricaneHub without joining the newsletter?",

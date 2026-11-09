@@ -3,6 +3,11 @@ import { topicPages } from "./topicPages";
 // Editorial revisions only. Feed fetch times and advisory issue times belong to their products.
 const revisions: Record<string, string> = {
   "hurricane-tracker/path/": "2026-11-06T00:00:00.000Z",
+  "hurricane-tracker/tropical-disturbances/": "2026-11-09T00:00:00.000Z",
+  "hurricane-tracker/hurricane-categories/": "2026-11-09T00:00:00.000Z",
+  "2026-hurricane-season/": "2026-11-09T00:00:00.000Z",
+  "newsletter/": "2026-11-09T00:00:00.000Z",
+  "privacy/": "2026-11-09T00:00:00.000Z",
   "hurricane-tracker/radar/": "2026-11-06T00:00:00.000Z",
   "hurricane-tracker/live-tracker/": "2026-11-06T00:00:00.000Z",
   "hurricane-tracker/city/charleston/": "2026-11-06T00:00:00.000Z",
@@ -33,12 +38,16 @@ const revisions: Record<string, string> = {
 
 export function contentModifiedFor(pathOrUrl: string, fallback: string) {
   const path = new URL(pathOrUrl, "https://www.hurricanetracker.cc/").pathname.replace(/^\//, "");
-  if (revisions[path]) return revisions[path];
+  const isCityGuide = /^hurricane-tracker\/city\/.+/.test(path);
+  if (revisions[path] && !isCityGuide) return revisions[path];
   // These templates received material action, status, reading, or local-resource revisions.
-  if (/^tracker\//.test(path)
+  const templateRevision = /^tracker\//.test(path)
     || /^hurricane-tracker\/(city|storm)\/.+/.test(path)
     || ["hurricane-tracker/live/", "hurricane-tracker/storm/"].includes(path)
     || topicPages.some((page) => path === `hurricane-tracker/${page.slug}/`)
-    || /^blog\/category\/[^/]+\/$/.test(path)) return "2026-11-04T00:00:00.000Z";
-  return fallback;
+    || /^blog\/category\/[^/]+\/$/.test(path) ? "2026-11-04T00:00:00.000Z" : undefined;
+  if (!isCityGuide) return templateRevision ?? fallback;
+  // A material template revision must not hide a later page-specific revision.
+  const timestamps = [fallback, revisions[path], templateRevision].filter((date): date is string => Boolean(date)).map(Date.parse).filter(Number.isFinite);
+  return timestamps.length ? new Date(Math.max(...timestamps)).toISOString() : fallback;
 }

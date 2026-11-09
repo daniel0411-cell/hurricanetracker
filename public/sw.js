@@ -4,19 +4,21 @@
  *    assets, with a cached offline fallback page.
  */
 const RUNTIME_CACHE = "hurricanehub-runtime-v1";
+const HH_STATE = "hurricanehub-state-v1";
 const OFFLINE_URL = "/offline";
-const PRECACHE = [OFFLINE_URL, "/icons/app-icon-maskable.svg"];
+// Refresh corrected safety guidance for returning visitors on this release.
+const PRECACHE = [OFFLINE_URL, "/icons/app-icon-maskable.svg", "/images/guides/tropical-development-stages.svg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(RUNTIME_CACHE).then((cache) => cache.addAll(PRECACHE)).then(() => self.skipWaiting())
+    caches.open(RUNTIME_CACHE).then((cache) => cache.addAll(PRECACHE.map((url) => new Request(url, { cache: "reload" })))).then(() => self.skipWaiting())
   );
 });
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== RUNTIME_CACHE).map((k) => caches.delete(k)))
+      Promise.all(keys.filter((k) => k.startsWith("hurricanehub-runtime-") && k !== RUNTIME_CACHE).map((k) => caches.delete(k)))
     ).then(() => self.clients.claim())
   );
 });
@@ -68,7 +70,6 @@ self.addEventListener("fetch", (event) => {
  * appears. Triggered by (a) a foreground page poll, (b) Periodic Background Sync
  * on Chromium, or (c) an explicit check after (re)subscribing.
  */
-const HH_STATE = "hurricanehub-state-v1";
 const HH_RELEVANT = /hurricane|tropical storm|storm surge|potential tropical/i;
 
 async function hhGet(key) {

@@ -36,14 +36,10 @@ const seasonRegistry = registryStorms.filter((storm) => storm.id?.toUpperCase().
 const endedStorms = seasonRegistry.filter((storm) => !storm.active).sort((a, b) => b.lastSeen.localeCompare(a.lastSeen));
 const activeNames = new Set(storms.map((storm) => storm.name?.toLowerCase()).filter(Boolean));
 const archivedNames = new Set([...seasonRegistry.map((storm) => storm.name?.toLowerCase()).filter(Boolean), "arthur", "bertha", "cristobal", "dolly"]);
-const lastUsedIndex = names2026.reduce((last, name, index) => activeNames.has(name.toLowerCase()) || archivedNames.has(name.toLowerCase()) ? index : last, -1);
-const nextName = feedAvailable && seasonRegistry.length > 0 ? names2026[lastUsedIndex + 1] : undefined;
-const nextNameAnswer = !feedAvailable || seasonRegistry.length === 0
-  ? "The next unused Atlantic name could not be verified from the available records."
-  : nextName ? `The next name after the latest recorded 2026 Atlantic system is ${nextName}.` : "The standard 2026 name list has been used.";
+const nextNameAnswer = "The next unused Atlantic name is not verified here: this site's observed records may omit earlier systems. Check the official NHC season record before treating a name as unused.";
 const nameRows = names2026.map((name) => ({
   name,
-  status: activeNames.has(name.toLowerCase()) ? "active" : archivedNames.has(name.toLowerCase()) ? "recorded" : name === nextName ? "next" : "not recorded"
+  status: activeNames.has(name.toLowerCase()) ? "active" : archivedNames.has(name.toLowerCase()) ? "recorded" : "not recorded"
 }));
 const stormNameLinks: Record<string, string> = {
   Arthur: "/storm/2026-arthur/", Bertha: "/storm/2026-bertha/", Cristobal: "/storm/2026-cristobal/",
@@ -51,16 +47,17 @@ const stormNameLinks: Record<string, string> = {
   Isaias: "/hurricane-tracker/storm/isaias/"
 };
 const namedStorms = new Set([...activeNames, ...archivedNames]).size;
-const lastModified = feed?.updatedAt ?? feed?.fetchedAt ?? "2026-11-08T00:00:00.000Z";
+const lastModified = "2026-11-09T00:00:00.000Z";
+const feedCheckedAt = feed?.updatedAt ?? feed?.fetchedAt;
 const activeStormNames = storms.map((storm) => storm.name).filter(Boolean);
 const currentAnswer = !feedAvailable
   ? "Current NHC data is temporarily unavailable. Check official NHC advisories and local NWS alerts for current conditions."
   : storms.length ? `The latest NHC Atlantic feed lists ${storms.length} active system${storms.length === 1 ? "" : "s"}${activeStormNames.length ? `: ${activeStormNames.join(", ")}` : ""}.` : "The latest NHC Atlantic feed lists no active Atlantic tropical cyclones.";
 const title = "2026 Hurricane Season: Dates, Storms & Live Tracker";
 const description = feedAvailable
-  ? `The 2026 Atlantic hurricane season runs June 1-November 30. ${storms.length ? `${storms.length} active system${storms.length === 1 ? "" : "s"}${activeStormNames.length ? `: ${activeStormNames.join(", ")}` : ""}.` : "No active Atlantic systems."} Track NHC updates, storms and names. Updated ${new Date(lastModified).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}.`
+  ? `The 2026 Atlantic hurricane season runs June 1-November 30. ${storms.length ? `${storms.length} active system${storms.length === 1 ? "" : "s"}${activeStormNames.length ? `: ${activeStormNames.join(", ")}` : ""}.` : "No active Atlantic systems."} Track NHC updates, storms and names.`
   : "The 2026 Atlantic hurricane season runs June 1-November 30. Current NHC data is temporarily unavailable; check official advisories, storm names and local alerts.";
-const verifiedLabel = new Date(lastModified).toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit", timeZone: "UTC" });
+const verifiedLabel = feedCheckedAt ? new Date(feedCheckedAt).toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit", timeZone: "UTC" }) : "unavailable";
 const faqs = [
   { question: "When is the 2026 hurricane season?", answer: "The Atlantic hurricane season runs from June 1 through November 30. Tropical cyclones can occur outside those dates, so official outlooks remain the source for current conditions." },
   { question: "How many storms are predicted for 2026?", answer: "Seasonal outlooks can change as ocean and atmospheric conditions evolve. Check NOAA's current Atlantic outlook rather than relying on an older forecast total." },
@@ -108,7 +105,7 @@ const jsonLd = graph(
 
   <section class="band" aria-labelledby="november-risk"><div class="inner"><p class="eyebrow">Late-season planning</p><h2 id="november-risk">Can Hurricanes Still Form in November?</h2><p class="answer">Yes. November is part of the Atlantic hurricane season, but it is not the main activity peak. <a href="https://www.nhc.noaa.gov/climo/" rel="noopener nofollow">NHC climatology</a> places the peak near September 10, with most activity between mid-August and mid-October. The official June 1-November 30 window is not a boundary outside which tropical cyclones are impossible.</p><p>Check the latest <a href="https://www.nhc.noaa.gov/text/MIATWOAT.shtml" rel="noopener nofollow">Atlantic Tropical Weather Outlook</a> for two-day and seven-day development chances. Then read local NWS and marine warnings for your location and travel period. A non-tropical low can produce dangerous winds and seas even when tropical development is unlikely. A quiet active-storm list does not establish that a beach or harbor is safe.</p><p><a href="/blog/real-time-hurricane-tracking-2026/">Read the late-season tracking guide and dated November AL94 outlook example.</a></p></div></section>
 
-  <section class="band" aria-labelledby="name-list"><div class="inner"><p class="eyebrow">Official sequence</p><h2 id="name-list">2026 Atlantic Storm Name List</h2><p class="answer">Names follow the <a href="https://www.nhc.noaa.gov/aboutnames.shtml" rel="noopener nofollow">official NHC 2026 Atlantic list</a>. Active and recorded labels reflect observed feed or registry records; “next” follows the latest recorded name. An unrecorded name does not prove that a storm has never formed. {nextNameAnswer}</p><ol class="name-grid">{nameRows.map((item) => <li>{stormNameLinks[item.name] ? <a href={stormNameLinks[item.name]}><span>{item.name}</span><small class:list={["status", item.status]}>{item.status}</small></a> : <span class="name-row"><span>{item.name}</span><small class:list={["status", item.status]}>{item.status}</small></span>}</li>)}</ol></div></section>
+  <section class="band" aria-labelledby="name-list"><div class="inner"><p class="eyebrow">Official sequence</p><h2 id="name-list">2026 Atlantic Storm Name List</h2><p class="answer">Names follow the <a href="https://www.nhc.noaa.gov/aboutnames.shtml" rel="noopener nofollow">official NHC 2026 Atlantic list</a>. Active and recorded labels reflect observed feed or registry records. An unrecorded name does not prove that a storm has never formed. {nextNameAnswer} <a href="https://www.nhc.noaa.gov/data/tcr/index.php?season=2026&amp;basin=atl" rel="noopener nofollow">Review NHC's 2026 Atlantic season record</a>; reports may be added or revised.</p><ol class="name-grid">{nameRows.map((item) => <li>{stormNameLinks[item.name] ? <a href={stormNameLinks[item.name]}><span>{item.name}</span><small class:list={["status", item.status]}>{item.status}</small></a> : <span class="name-row"><span>{item.name}</span><small class:list={["status", item.status]}>{item.status}</small></span>}</li>)}</ol></div></section>
 
   <section class="band" aria-labelledby="state-impact"><div class="inner"><p class="eyebrow">Local planning</p><h2 id="state-impact">State-by-State Hurricane Impact</h2><p class="answer">Pair the season outlook with local NWS alerts, evacuation zones, surge risk, and county emergency instructions.</p><div class="state-grid">{coastalStates.map((state) => <article class="season-card"><h3>{state.name}</h3><p>{state.risks.slice(0, 3).join(" · ")}</p><a href={`/tracker/${state.slug}/`}>Open {state.name} tracker</a></article>)}</div></div></section>
 

@@ -155,6 +155,8 @@ export const topicPages: TopicPage[] = [
   },
   {
     slug: "hurricane-categories",
+    sources: [{ href: "https://www.nhc.noaa.gov/aboutsshws.php", label: "NHC Saffir-Simpson wind scale: thresholds and potential wind damage" }],
+    sourceCheck: "Checked November 9, 2026: NHC's Saffir-Simpson Hurricane Wind Scale HTML table for wind thresholds and potential damage. These are general scale descriptions, not a forecast of damage or outage duration at any address.",
     title: "Hurricane Categories 1-5: Wind & Damage",
     shortTitle: "Hurricane Categories",
     description: "Compare hurricane categories 1 through 5, wind speed thresholds, likely wind damage, and why category does not measure surge or rainfall risk.",
@@ -170,6 +172,7 @@ export const topicPages: TopicPage[] = [
     ],
     sections: [
       { eyebrow: "Category thresholds", title: "Hurricane Category Wind Speeds", body: "The scale uses one-minute maximum sustained wind. Major hurricanes are Category 3, 4, or 5, but all hurricanes can produce dangerous conditions.", bullets: ["Category 1: 74-95 mph", "Category 2: 96-110 mph", "Category 3: 111-129 mph", "Category 4: 130-156 mph", "Category 5: 157 mph or higher"] },
+      { eyebrow: "Potential wind damage", title: "How Wind Damage Changes Across Categories", body: "NHC's scale describes potential property damage from wind, including effects on frame homes, trees and utilities. The summaries below are paraphrases of its official table. They are not a building inspection, a promise of a particular outage duration, or a measure of surge and rainfall flooding. Construction, exposure and the wind actually experienced at a location matter.", bullets: ["Category 1 (74-95 mph): roof coverings, siding and gutters can be damaged; large branches can break and shallow-rooted trees can fall. Power interruptions can last a few to several days.", "Category 2 (96-110 mph): major roof and siding damage becomes possible, with many fallen trees blocking roads. Widespread power loss can last days to weeks.", "Category 3 (111-129 mph): well-built frame homes may lose roof decking or gable ends. Fallen trees can block roads, and electricity and water can be unavailable for days to weeks.", "Category 4 (130-156 mph): severe damage can include loss of most roof structure or some exterior walls. Trees and poles can isolate neighborhoods; disruption and uninhabitable conditions can persist for weeks or months.", "Category 5 (157 mph or higher): a high percentage of frame homes can be destroyed, with roof failure and wall collapse. Extensive isolation, outages and uninhabitable conditions can last weeks or months."] },
       { eyebrow: "Scale limits", title: "Category Does Not Equal Total Risk", body: "A lower-category storm can be catastrophic when it is large, slow, rain-heavy, or pushing water into a vulnerable coastline.", bullets: ["No storm surge measurement", "No rainfall or inland flood measurement", "No tornado or wave measurement", "No storm size or duration measurement"] }
     ],
     nextLinks: [
