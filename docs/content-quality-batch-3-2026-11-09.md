@@ -27,7 +27,11 @@ Did not read or submit registry forms, linked PDFs or private medical informatio
 
 - Build passed, including city-data verification and OG generation; no tracked generated-asset changes. Astro check: 225 files, zero errors/warnings and four existing hints. FAQ, internal-link, metadata and media audits passed; diff whitespace check passed.
 - Built Worker preview at localhost:8840: all three pages checked at 1440x900 and 390x844 without horizontal overflow. Article hero loaded with accurate illustration alt; desktop/mobile screenshots visually inspected. Correct www trailing-slash canonicals and revised source notes. FAQ schema counts 4/5/4 (timeline/standing guide/tracker); the guide's HowTo uses the same five steps shown in its household record. Mobile guide-record screenshot and desktop guide-record screenshot checked for readable wrapping.
-- Release pending. Record content commit, fresh remote comparison, actual Worker identity and production observations after deployment.
+- Content commit 68d879270cd5b704d035bde79439e6bbea425654 pushed to origin/main. Fresh fetch before push found the baseline unchanged; another fresh fetch before deployment confirmed HEAD/origin/main equal at 68d8792, ahead/behind 0/0 and clean worktree.
+- `npm run deploy` completed successfully. Actual Wrangler output identified Worker hurricanehub version d0480166-9fb6-4bf7-878f-356d55747b73 serving https://www.hurricanetracker.cc/ and the configured apex route, from the build for 68d8792. This version identity comes from deployment output, not inference from Git.
+- Production browser verified all three URLs' new content, November 9 revision and limited source notes, www trailing-slash canonicals and FAQ schema counts 4/5/4. The standing guide's HowTo contains five steps matching its record. These production observations are separate from the local responsive screenshot checks above.
+- Production SEO endpoints and crawler GET/HEAD checks passed, including ads.txt. IndexNow submitted 210 unique URLs with HTTP 200. Google Indexing API skipped for lack of configured service-account credentials. These results do not establish indexing or AdSense approval.
+- This final release record is documentation only; its follow-up commit does not require rebuilding or redeploying the Worker.
 
 ## Remaining work
 
