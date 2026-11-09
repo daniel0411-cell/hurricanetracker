@@ -26,7 +26,7 @@ The owner selected Codex to carry out the continuing article improvements direct
 - Checked scope: license and insurance checks, multiple written estimates, written contract details, upfront and final payments, financing pressure, and dispute records. No state-specific law, contractor or insurance policy was checked.
 - Added an explicitly hypothetical $6,000/$8,000 bid comparison, signing and payment checkpoints, a private verification record, and a dispute documentation path. Clarified safe ground-level damage photography and that receipts do not establish coverage.
 - Keep the example amounts separate from market prices. Do not publish nationwide deposit, cancellation or assignment rules from this general source.
-- Validation: `npm run build`, `npm run faq:audit`, `npm run links:audit`, `npm run metadata:audit`, and `git diff --check` passed. Article data parses successfully with 13 sections and six FAQs. This follow-up is a local change, not yet committed or deployed.
+- Initial contractor validation: `npm run build`, `npm run faq:audit`, `npm run links:audit`, `npm run metadata:audit`, and `git diff --check` passed. Article data parses successfully with 13 sections and six FAQs. It was subsequently included in the verified three-article release at content commit 614eef0, Worker version 466f391a-0948-410e-a7d6-5d2bb7962785.
 - School/daycare reunification and apartment renters are now included in the same three-article batch; see content-quality-batch-2026-11-09.md for sources, scope and validation. The contractor-only validation above predates the combined batch.
 
 ## Scope estimate and batch plan - 2026-11-09
