@@ -1,0 +1,43 @@
+HURRICANE COMMUNICATION CHECK-IN RECORD
+Private household aid - not an emergency dispatch or alert service.
+
+Plan owner / revision date: ______________________________________
+Local contact / number: __________________________________________
+Out-of-area contact / number / backup method: _____________________
+Local meeting place / alternative if unsafe: _____________________
+Confirmed evacuation destination / confirmation date: _____________
+Official local alert source: _____________________________________
+Accessible format / language / communication helper: ______________
+Paper-copy locations: ____________________________________________
+
+FOR EACH MESSAGE
+Date / time / time zone: _________________________________________
+Sender / people accounted for: ___________________________________
+Current status / private location if needed: ______________________
+Immediate help needed: ___________________________________________
+Next check-in date / time / time zone: ____________________________
+Recipient / method / sent time: __________________________________
+Human acknowledgement / time / what was understood: _______________
+Relay contact / confirmed relay OR pending: _______________________
+Open task / responsible person / next action: _____________________
+
+AGREED FALLBACK BEFORE A STORM
+Who retries / agreed interval / backup contact or method: _________
+_________________________________________________________________
+What to do if still unacknowledged: _______________________________
+Charge / compatible cable / power-bank check: _____________________
+Provider pickup authorizations checked separately with: ___________
+
+A sent or delivered indicator does not confirm human understanding,
+a pickup agreement or a completed relay. Texts can fail too.
+A missed check-in alone is not proof that rescue is needed. Do not
+drive into hazardous conditions to investigate or find a signal.
+For known immediate danger, contact emergency services and provide
+the last known exact location and needs. Keep private information
+limited to trusted people who need it; protect document backups.
+
+Sources read November 9, 2026:
+https://www.ready.gov/plan (updated September 1, 2026)
+https://www.ready.gov/get-tech-ready (updated March 13, 2026)
+No carrier, alert subscription, emergency texting or PDF was tested.
+HurricaneHub editorial worksheet revised November 9, 2026.

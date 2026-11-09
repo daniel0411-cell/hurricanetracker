@@ -278,23 +278,24 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-emergency-kit-checklist",
-    sources: [{ href: "https://www.ready.gov/kit", label: "Ready.gov: basic disaster supplies kit" }, { href: "https://www.ready.gov/water", label: "Ready.gov: emergency water supply" }],
+    sourceCheck: { date: "2026-11-09", scope: "Read Ready.gov Build A Kit (updated July 1, 2026) for several-day supplies, one gallon of water per person per day, household-specific items, maintenance and storage locations. The inventory worksheet, supply-gap arithmetic and packing exercise are editorial aids. No individual's prescription quantity, equipment runtime, water safety or actual kit was verified; linked PDFs were not reviewed." },
+    sources: [{ href: "https://www.ready.gov/kit", label: "Ready.gov: basic supplies, maintenance and storage (updated July 1, 2026)" }, { href: "https://www.ready.gov/water", label: "Ready.gov: emergency water supply" }],
     title: "Hurricane Emergency Kit Checklist",
     description: "A decision-focused hurricane emergency kit checklist covering water, food, medicine, documents, power, pets, and evacuation bags.",
     datePublished: "2026-07-29",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-09",
     image: "/images/blog/hurricane-emergency-kit-checklist.png",
     imageAlt: "A family in a kitchen checks a hurricane emergency kit laid out on a table with water, food, first aid, flashlight, and pet supplies.",
     sections: [
       {
         heading: "Direct Answer",
         body:
-          "A hurricane emergency kit should include at least 3 days of water, shelf-stable food, medication, first aid, flashlights, batteries, chargers, documents, cash, sanitation supplies, and pet or infant items."
+          "Prepare water, shelf-stable food and essential supplies for several days, adjusted to the household and local guidance. Ready.gov uses one gallon of water per person per day for drinking and sanitation. Add medicines, first aid, lights, communication power, documents, cash and pet or infant needs. A three-day calculation is a starting exercise, not a guarantee that three days is enough. Keep home reserves separate from what each person can actually carry during evacuation."
       },
       {
         heading: "Core Supplies",
         body: "Build the kit around people first, then power, documents, and cleanup.",
-        bullets: ["One gallon of water per person per day.", "Ready-to-eat food and a manual can opener.", "Seven days of critical medicine when possible.", "IDs, insurance, prescriptions, and emergency contacts.", "Flashlights, battery packs, radio, and spare batteries."]
+        bullets: ["One gallon of water per person per day for several days, with extra needs considered.", "Ready-to-eat food and a manual can opener.", "Prescription supplies, storage and refill arrangements confirmed with the pharmacist or clinician.", "IDs, insurance, prescriptions, and emergency contacts.", "Flashlights, battery packs, radio, and spare batteries."]
       },
       {
         heading: "Decision Note",
@@ -312,19 +313,49 @@ export const blogPosts: BlogPost[] = [
         bullets: ["Count the people and days, then add household-specific needs.", "Write quantity on hand and expiry or rotation date beside each supply.", "Choose food that can be eaten without fuel or mains power.", "Ask the pharmacist about prescriptions and the clinician about equipment needs; never ration essential treatment to fit a generic kit."]
       },
       {
+        heading: "Read the Official List as a Starting Point",
+        body: "Ready.gov's Build A Kit page calls for several days of food, water and supplies, then asks households to account for their own needs. It includes a battery-powered or hand-crank radio, flashlight, first aid, spare batteries, sanitation items, a manual can opener, maps and a phone with backup power. Its maintenance advice is as important as the shopping list: replace expired items, protect food in suitable storage and rethink needs every year. A sealed store-bought kit may lack prescriptions, usable cables, suitable food or pet supplies. Check each category against the people who will use it rather than treating the package label as proof of readiness.",
+        links: [{ href: "https://www.ready.gov/kit", label: "Compare your supplies with Ready.gov's current kit guidance" }]
+      },
+      {
+        heading: "Count the Gap Before Buying More",
+        body: "Use a dated inventory with item, target quantity, usable quantity on hand, shortfall, storage place, review or expiry date, and person responsible. In a hypothetical four-person, three-day water exercise, the baseline is 12 gallons. If eight usable gallons are already stored, the baseline shortfall is four gallons, before adding any extra needs. If you instead plan seven days, the baseline becomes 28 gallons and the same eight gallons leave a 20-gallon gap. These are alternative planning horizons, not quantities to add together. Count only water actually available to the household; an empty container or an expected shop delivery is not stock on hand.",
+        links: [{ href: "/downloads/hurricane-kit-gap-record.txt", label: "Open the blank kit inventory and shortfall record" }, { href: "/blog/hurricane-water-storage-purification-emergency/", label: "Review water containers, rotation and advisory limits" }]
+      },
+      {
+        heading: "Pack for How You Will Leave",
+        body: "Lay out the home reserve, the carry bag and any vehicle supplies separately. Assign the bag to someone who can carry it along the actual exit route, accounting for a cane, wheelchair, infant or pet carrier. Test the load in ordinary safe conditions before a storm, not on flooded stairs. If transport is by bus or assisted vehicle, confirm baggage and equipment arrangements with that service. Do not count the same water bottle in both the home and travel inventories unless the plan explicitly moves it. Keep a short last-minute list for medicines or equipment still in use so they are not forgotten, and assign a person to each item. Do not delay an ordered departure to finish packing optional supplies."
+      },
+      {
+        heading: "Test Food, Light and Power Without Utility Service",
+        body: "Choose a sample meal that the household can open and eat without mains power, refrigeration or a cooking flame. Check the opener, dietary restrictions and utensils together. Then test each flashlight and radio, match the spare batteries to the devices and connect the actual phone cable to its charged power bank. A battery percentage does not establish how long a medical device will run. Ask its provider about an appropriate backup and a destination if power cannot be maintained. Avoid turning a supply shortage into another hazard: do not use a fuel-burning generator indoors or on an apartment balcony, and follow the separate generator guidance rather than improvising a cooking or charging arrangement.",
+        links: [{ href: "/tools/power-outage-planner/", label: "Plan essential-device and household outage needs" }, { href: "/blog/apartment-hurricane-preparedness-renters-checklist/", label: "Check apartment outage and balcony-generator limits" }]
+      },
+      {
+        heading: "Close the Open Tasks",
+        body: "Mark items as packed, awaiting confirmation or missing. 'Refill requested' is not the same as medicine collected; 'charger ordered' is not the same as a cable tested. Give each unresolved essential need an owner and next action, such as asking the pharmacy about lawful refill options or confirming transport for equipment. Do not change doses or ration treatment to make an inventory look complete. After a practice pack, put borrowed items back in their assigned place and update the sheet. Store sensitive medical and identity details privately; the inventory can say where a protected record is kept without repeating its full contents."
+      },
+      {
         heading: "Where to Store It",
         body:
           "Keep home supplies in a dry, reachable place and evacuation supplies in bags that can leave quickly. Put medication, IDs, contacts, and keys where they are accessible in darkness. Set a household reminder to check batteries, food dates, container condition, prescriptions, and children's changing needs. Repack after using any item; a purchased kit is not necessarily a complete or maintained kit."
       }
+    ],
+    faqs: [
+      { question: "Is a three-day hurricane kit always enough?", answer: "No. Ready.gov calls for several days of supplies and household-specific planning. Three days is one arithmetic example; local guidance, access, health needs and likely disruption can require a different plan." },
+      { question: "How much water is a four-person household short if it has eight gallons?", answer: "For a three-day exercise at one gallon per person per day, the baseline target is 12 gallons and the shortfall is four. A seven-day exercise gives a 28-gallon target and 20-gallon shortfall. Add extra household needs separately." },
+      { question: "Should I carry the whole home kit when evacuating?", answer: "Prepare a manageable carry bag and confirm the actual transport and equipment arrangements. Home reserves and travel supplies serve different needs. Do not delay an ordered departure to load optional items." },
+      { question: "How many days of prescription medicine should I pack?", answer: "Confirm quantity, refills, storage and transport with your pharmacist or clinician. A generic checklist cannot determine an individual's treatment needs, and you should not change doses to fit a kit." }
     ]
   },
   {
     slug: "hurricane-evacuation-checklist",
-    sources: [{ href: "https://www.ready.gov/evacuation", label: "Ready.gov: before, during, and after evacuation" }],
+    sourceCheck: { date: "2026-11-09", scope: "Read Ready.gov Evacuation (updated March 20, 2026) for destinations, transport planning, carry bags, local instructions, recommended routes, flooded-road avoidance and return checks. Departure records and the hypothetical route-change exercise are editorial aids, not a current order or route recommendation. No live shelter, road, transport booking, reentry permission or household's departure deadline was verified." },
+    sources: [{ href: "https://www.ready.gov/evacuation", label: "Ready.gov: before, during and after evacuation (updated March 20, 2026)" }],
     title: "Hurricane Evacuation Checklist",
     description: "A practical hurricane evacuation checklist for when to leave, what to pack, how to choose routes, and how to protect vulnerable household members.",
     datePublished: "2026-07-29",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-09",
     image: "/images/blog/hurricane-evacuation-checklist.png",
     imageAlt: "A family loads go-bags and a pet carrier into an SUV while preparing to evacuate before a hurricane.",
     sections: [
@@ -336,7 +367,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Before You Leave",
         body: "Do the fast, high-value tasks before roads become crowded.",
-        bullets: ["Pack IDs, medicine, documents, chargers, water, food, and pet supplies.", "Fuel the vehicle and choose two routes.", "Tell a contact your destination.", "Unplug nonessential electronics if time allows.", "Never drive through flooded roads."]
+        bullets: ["Pack IDs, medicine, documents, chargers, water, food, and pet supplies.", "Fuel the vehicle early and review official routes and alternatives.", "Tell a contact your confirmed destination and transport assignment.", "Do optional property tasks only if safe time remains; do not delay an ordered departure.", "Never drive through flooded roads or around a closure barrier."]
       },
       {
         heading: "Who Should Leave Early",
@@ -346,7 +377,12 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Route Planning",
         body:
-          "Choose a primary route and a backup route before local traffic builds. Avoid routes that cross low bridges, flood-prone roads, or areas that frequently lose power at intersections."
+          "Review the routes recommended by local officials and the current road restrictions. Ready.gov says to follow recommended evacuation routes and not take shortcuts, which may be blocked. A navigation app's faster estimate does not override a closure, barricade or official traffic arrangement. Keep an alternative in your plan, but use it only consistently with current instructions and conditions. Do not reject an official route solely because it crosses a bridge, or assume a familiar back road is safe because it avoids traffic."
+      },
+      {
+        heading: "Read the Order Before Choosing a Departure Time",
+        body: "Save the issuing agency, notice time and date, affected zones or addresses, instructed action and any stated deadline. Compare the notice with your actual location and housing type; do not substitute a ZIP code or a shared storm-map image for the order's scope. Distinguish an evacuation instruction from a forecast update or a shelter opening announcement. If instructions apply and say to leave now, go; do not turn the following planning record into another prerequisite. Before an order, discuss earlier departure when accessible transport, equipment, pets or limited route options need more lead time. This article cannot calculate a safe latest departure from distance to the storm center.",
+        links: [{ href: "/blog/how-to-check-your-hurricane-evacuation-zone/", label: "Find your official evacuation zone and distinguish it from insurance maps" }, { href: "/blog/what-to-do-during-a-hurricane-warning/", label: "Prioritize actions when a warning is issued" }]
       },
       {
         heading: "Confirm the Destination Before Loading the Car",
@@ -354,10 +390,33 @@ export const blogPosts: BlogPost[] = [
         bullets: ["Departure trigger: record the official order or agreed earlier safety trigger.", "Driver and passengers: list who is collecting each person and pet.", "Route: check current road closures and save an offline alternative.", "Arrival contact: text the destination and the out-of-area contact when safely parked."]
       },
       {
+        heading: "Make a Departure Handoff Record",
+        body: "Write one current destination, the person who confirmed it and when, the driver or transport provider, passengers, pets, essential equipment and arrival contact. Mark each arrangement confirmed or unresolved. A shelter listed in an old directory is not proof of opening today; a relative's spare room is not confirmation that equipment or animal needs can be accommodated. If the family must use more than one vehicle, make assignments explicit and agree on a destination rather than relying on staying in sight of one another. Ready.gov encourages one car per family to reduce congestion; use that where it fits the household's actual capacity and access needs.",
+        links: [{ href: "/downloads/hurricane-departure-handoff.txt", label: "Open the blank departure and arrival handoff record" }]
+      },
+      {
+        heading: "Practice a Closed-Route Change Before the Storm",
+        body: "In a hypothetical exercise, a family has a confirmed host and packed medicine, but a navigation app proposes a shortcut after the intended route closes. The exercise is complete only when the family identifies an officially permitted alternative, updates the destination contact and resolves any transport change. A screenshot taken earlier is not evidence that a road remains open, and another driver's successful trip does not establish current safety. Do not bypass a barrier or enter floodwater to test the route. If safe travel options are unclear, seek current instructions from local authorities from a safe location; this example is not advice to start driving while conditions are hazardous."
+      },
+      {
+        heading: "If You Do Not Have a Car",
+        body: "Ready.gov recommends arranging with family, friends or the local emergency management office to identify available resources before evacuation is needed. Ask about the actual request process, pickup point, operating window, accessibility, equipment and pet arrangements. Record whether a request has merely been received or a ride has been confirmed; joining a registry is not proof that a vehicle is on its way. Keep the provider's published contact on paper and check what to do if plans change. A preparedness transport request is separate from emergency rescue. If danger is immediate, contact emergency services and give your exact location and needs rather than assuming an earlier transport request will handle it."
+      },
+      {
+        heading: "The Final Check Is About People",
+        body: "Before moving, account for every passenger, pet, medicine bag, mobility aid, key and phone. Confirm that someone can access the destination address and contact information offline. Send a short departure message while safely parked; the driver should not manage group messages while driving. Skip low-value property tasks if they would delay leaving. Ready.gov's utility advice is conditional: do not turn a general checklist into an instruction to shut off every service or handle damaged equipment. Follow the relevant official or utility instructions, and do not enter a hazardous area to unplug an appliance. On arrival, confirm who is with you, what essential support is still missing and the next check-in."
+      },
+      {
         heading: "After You Arrive",
         body: "Your evacuation plan should include communication and return rules.",
-        bullets: ["Text a contact when you leave and when you arrive.", "Keep receipts for possible insurance or assistance records.", "Do not return until local officials say roads and utilities are safe.", "Avoid floodwater, downed lines, and generator exhaust."]
+        bullets: ["Text a contact when safely parked before leaving and after arrival.", "Keep receipts for possible insurance or assistance records; receipts do not establish eligibility or coverage.", "Check official reentry guidance and conditions both where you are staying and back home before return travel.", "Avoid floodwater, downed lines, and generator exhaust."]
       }
+    ],
+    faqs: [
+      { question: "Can I use a navigation shortcut during a hurricane evacuation?", answer: "Follow current official routes and restrictions. Ready.gov warns against shortcuts because they may be blocked. A faster app estimate does not override a barricade, closure or official traffic arrangement." },
+      { question: "Does an evacuation-zone map mean I must leave for every storm?", answer: "A planning zone identifies an area to check against the actual order. Read the issuing agency's current scope, housing instructions and deadline; the map alone does not establish an order for every event." },
+      { question: "Does registering for evacuation assistance confirm a ride?", answer: "Do not assume so. Ask the program about confirmation, pickup, operating times, accessibility and what to do if circumstances change. A transport request and emergency rescue are different processes." },
+      { question: "Can I return as soon as the storm has passed?", answer: "Check official reentry instructions and conditions both at your current location and back home. A quieter forecast does not establish safe roads, a safe building or functioning essential services." }
     ]
   },
   {
@@ -670,11 +729,12 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-family-communication-plan",
-    sources: [{ href: "https://www.ready.gov/plan", label: "Ready.gov: household emergency plan" }],
+    sourceCheck: { date: "2026-11-09", scope: "Read Ready.gov Make A Plan (updated September 1, 2026) and Get Tech Ready (updated March 13, 2026) for household needs, contacts, practice, short texts, power and protected records. The check-in protocol and fictional exercise are editorial aids. No carrier delivery, emergency texting service, live alert subscription, household plan or linked PDF was tested." },
+    sources: [{ href: "https://www.ready.gov/plan", label: "Ready.gov: household planning (updated September 1, 2026)" }, { href: "https://www.ready.gov/get-tech-ready", label: "Ready.gov: communication and power (updated March 13, 2026)" }],
     title: "Hurricane Family Communication Plan",
     description: "Build a hurricane family communication plan with contacts, meeting places, evacuation destinations, medication notes, pets, and check-in times.",
     datePublished: "2026-08-04",
-    dateModified: "2026-10-27",
+    dateModified: "2026-11-09",
     image: "/images/blog/hurricane-family-communication-plan.png",
     imageAlt: "A multigenerational family plans communication together, smartphones and a handwritten contact list on the table.",
     sections: [
@@ -697,6 +757,28 @@ export const blogPosts: BlogPost[] = [
         bullets: ["Keep their names and numbers on paper as well as on phones.", "Agree that short texts are often more reliable than long calls during disruptions.", "Tell children, older relatives, and caregivers who will communicate updates.", "Confirm who can make decisions if the household becomes separated."]
       },
       {
+        heading: "Separate Household Updates From Official Alerts",
+        body: "Ready.gov asks families to plan for alerts, shelter, evacuation and communication as related but separate needs. A relative's message can report that they arrived; it cannot establish that your route is open or cancel an evacuation instruction. Keep the responsible local agency's official alert source on the contact card and review current instructions directly. An out-of-area contact may help relay household updates when local connections are disrupted, but that person is not a substitute for local emergency management. Assign someone to check official notices when safely able, while another person relays family status. Do not require the driver to monitor messages while moving."
+      },
+      {
+        heading: "Ask for a Human Acknowledgement",
+        body: "Agree on a short message format before a storm: date and time zone, sender, people accounted for, present status, any immediate help needed and next check-in. Share exact locations privately with the people who need them. Ask the recipient to acknowledge what they understood and say whether they relayed it. A phone's sent or delivered indicator is not proof that the intended person read the message, understood the assignment or accepted a pickup. Keep an unanswered task marked unresolved. Avoid filling group chats with repeated all-clear messages when an essential transport or health need still lacks confirmation.",
+        links: [{ href: "/downloads/hurricane-communication-checkin-record.txt", label: "Open the blank check-in and acknowledgement record" }]
+      },
+      {
+        heading: "Practice the Difference Between Sent and Confirmed",
+        body: "Fictional practice exchange, not a storm report: at 14:00 on an agreed exercise date in Eastern Standard Time, Alex sends, 'With Sam at our agreed host. No immediate help needed. Next update 17:00 EST. Please acknowledge and relay to Jo.' At 14:05, Lee replies, 'Received: you and Sam arrived. Jo has not replied; relay is pending.' The household should record arrival acknowledged and relay unresolved, rather than claiming everyone has been reached. At the next check-in, use the full date and time zone again if people are traveling or daylight-saving changes could cause confusion. The example times are practice choices, not recommended waiting intervals for an emergency.",
+        bullets: ["Sender: distinguish arrival, departure, a request for help and a change of plan.", "Recipient: acknowledge who and what you understood; name any open task.", "Relay contact: confirm the relay separately instead of assuming a forwarded message was read.", "Plan owner: revise the current destination and contact card when an arrangement changes."]
+      },
+      {
+        heading: "Plan for No Connection and Limited Power",
+        body: "Ready.gov explains that texts use less bandwidth than calls and can work better under congestion; that does not guarantee delivery. Agree in advance who retries, which backup contact or method to use, and what happens if no acknowledgement arrives. Keep a charged power bank, compatible cable and paper contact card available. Reduce unnecessary phone use while preserving the ability to receive urgent information. Airplane mode can prevent current calls, messages and cellular alerts while enabled; it is not a way to stay continuously reachable. Do not move into floodwater or hazardous travel simply to find signal. A known immediate threat needs emergency assistance, not another routine check-in attempt."
+      },
+      {
+        heading: "Make the Plan Usable Without One Person's Phone",
+        body: "Check the plan with each person who will use it. Ready.gov highlights ages, caregiving, medical and disability needs, languages, schools and pets. Use a readable paper copy, an accessible format or the household's preferred language as needed, and confirm who can help someone who cannot call or read a text independently. A phone contact list locked behind an unavailable caregiver's account is not a usable backup. Keep sensitive documents in protected storage with an appropriate backup; the contact card can identify where they are held without displaying full ID or medical records. Test access in ordinary conditions and replace old copies when phone numbers or arrangements change."
+      },
+      {
         heading: "Write Down the Plan",
         body: "Use the existing plan generator to record contacts, destinations, transport, check-in times and essential needs. Print a copy for each person who needs it and keep an offline copy available. Avoid including more medical or identifying information than a helper needs, and do not post the completed plan publicly.",
         links: [{ href: "/tools/family-communication-plan/", label: "Fill in and print your household communication plan" }, { href: "https://www.ready.gov/plan", label: "Ready.gov: household planning and official fillable resources" }]
@@ -714,12 +796,16 @@ export const blogPosts: BlogPost[] = [
     faqs: [
       {
         question: "What if my family has no local meeting place?",
-        answer: "Choose an approved shelter, a trusted relative, or another safe location outside the evacuation zone, then confirm it is available before relying on it."
+        answer: "Agree on a familiar local meeting place and an alternative if that area is unsafe or inaccessible. Confirm an evacuation destination separately using current host or shelter information. A meeting-place name does not prove a shelter is open or a route is safe."
       },
       {
         question: "Should hurricane communication plans include pets?",
         answer: "Yes. Include carriers, food, records, transport, and a pet-friendly destination so pets do not delay a safety decision."
-      }
+      },
+      { question: "Does a delivered text confirm a pickup?", answer: "No. Ask the intended person to acknowledge the assignment and confirm availability. A delivery indicator does not establish that a person read, understood or accepted it." },
+      { question: "What should a missed check-in trigger?", answer: "Use the agreed retry and backup-contact process. A missed message alone does not prove danger or justify hazardous travel. For known immediate danger, contact emergency services with the last known exact location and needs." },
+      { question: "Can short texts always get through during a hurricane?", answer: "No. Ready.gov says texts use less bandwidth and can work better under congestion, but outages and power loss can still prevent delivery. Keep paper contacts, backup power and an agreed fallback plan." },
+      { question: "Should I post the completed plan publicly?", answer: "No. Share only the information each trusted helper needs. Protect addresses, identification, medical details and children's pickup information; confirm provider authorization separately." }
     ]
   },
   {
