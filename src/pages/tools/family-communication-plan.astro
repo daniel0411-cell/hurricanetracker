@@ -7,10 +7,11 @@ import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } 
 const title = "Hurricane Family Communication Plan Generator";
 const description = "Create a printable hurricane family communication plan with contacts, meeting places, evacuation destination, pets, medication notes, and check-in times.";
 const url = `${site.url}/tools/family-communication-plan/`;
+const lastModified = "2026-11-09";
 const pageFaqs = [
   {
     question: "What should a hurricane family communication plan include?",
-    answer: "Include an out-of-area contact, local contact, meeting place, evacuation destination, pet plan, medical notes, school or work pickup rules, and check-in times."
+    answer: "Include contacts, meeting places, destinations, transport and care needs, plus a dated check-in schedule with its time zone. Agree who acknowledges each message, who relays status, and what to do after a missed check-in. A sent message alone does not confirm it was received."
   },
   {
     question: "Why use an out-of-area contact during a hurricane?",
@@ -20,17 +21,17 @@ const pageFaqs = [
 ];
 const jsonLd = graph(
   websiteSchema(),
-  articleSchema({ title, description, url, dateModified: site.contentLastModified }),
+  articleSchema({ title, description, url, dateModified: lastModified }),
   webApplicationSchema({
     name: title,
     description,
     url,
-    featureList: ["Printable family communication plan", "Contact and meeting-place fields", "Evacuation destination and needs notes"]
+    featureList: ["Printable family communication plan", "Contact and meeting-place fields", "Evacuation destination and needs notes", "Dated check-ins, acknowledgement and missed-contact arrangements"]
   }),
   faqSchema(pageFaqs)
 );
 ---
-<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified} showBottomAd={true}>
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified} showBottomAd={true}>
   <section class="band" aria-labelledby="plan-title">
     <div class="inner">
       <p class="eyebrow">Family coordination</p>
@@ -49,7 +50,11 @@ const jsonLd = graph(
         <label>Evacuation destination<input name="destination" placeholder="Address or town" /></label>
         <label>Backup destination<input name="backupDestination" placeholder="Second safe address, shelter, or town" /></label>
         <label>Transport and pickup plan<textarea name="transport" placeholder="Driver, vehicle, transit, school pickup, accessible transport, or neighbor plan"></textarea></label>
-        <label>Check-in times<input name="checkIn" placeholder="For example: 8 a.m., before leaving, and on arrival" /></label>
+        <label>Plan date<input name="planDate" type="date" /></label>
+        <label>Time zone<input name="timeZone" placeholder="For example: Eastern Standard Time (UTC-5)" /></label>
+        <label>Check-in times<input name="checkIn" placeholder="Date and time, before leaving, and on arrival" /></label>
+        <label>Receipt and relay agreement<textarea name="acknowledgement" placeholder="Who replies to confirm receipt? Who relays status to whom, and how soon? Distinguish sent, received and relayed."></textarea></label>
+        <label>Missed check-in and backup channel<textarea name="fallback" placeholder="Who retries, after how long, using which backup number or channel? Name the next contact if no reply arrives."></textarea></label>
         <label>Important needs<textarea name="needs" placeholder="Medication, pets, mobility, pickup, school, work, or equipment notes"></textarea></label>
         <button type="submit">Generate plan</button>
       </form>
@@ -60,6 +65,7 @@ const jsonLd = graph(
         <p>Add contacts and destinations, then print or copy the plan for your household.</p>
       </article>
     </div>
+    <div class="inner"><p class="source-note">Plan details stay in this page; this tool does not send messages or monitor replies. Print a copy before closing or reloading.</p><p><a href="/downloads/hurricane-communication-checkin-record.txt" download>Download the blank check-in and acknowledgement record (TXT)</a> &middot; <a href="/blog/hurricane-family-communication-plan/">Review the family check-in protocol</a></p></div>
   </section>
 
   <FaqBlock faqs={pageFaqs} />
@@ -81,7 +87,11 @@ const jsonLd = graph(
     const destination = String(data.get("destination") || "Not set");
     const backupDestination = String(data.get("backupDestination") || "Not set");
     const transport = String(data.get("transport") || "Not set");
-    const checkIn = String(data.get("checkIn") || "At watch, before leaving, and after arrival");
+    const planDate = String(data.get("planDate") || "Not set - agree a plan date");
+    const timeZone = String(data.get("timeZone") || "Not set - agree the time zone");
+    const checkIn = String(data.get("checkIn") || "Not set - agree dates and check-in times");
+    const acknowledgement = String(data.get("acknowledgement") || "Not set - agree who confirms receipt and relays status");
+    const fallback = String(data.get("fallback") || "Not set - agree a retry interval, backup channel and next contact");
     const needs = String(data.get("needs") || "No special notes added");
     if (!output) return;
     output.innerHTML = `
@@ -95,13 +105,19 @@ const jsonLd = graph(
           <tr><th>Evacuation destination</th><td>${escapeHtml(destination)}</td></tr>
           <tr><th>Backup destination</th><td>${escapeHtml(backupDestination)}</td></tr>
           <tr><th>Transport and pickup</th><td>${escapeHtml(transport)}</td></tr>
+          <tr><th>Plan date</th><td>${escapeHtml(planDate)}</td></tr>
+          <tr><th>Time zone</th><td>${escapeHtml(timeZone)}</td></tr>
           <tr><th>Check-in times</th><td>${escapeHtml(checkIn)}</td></tr>
+          <tr><th>Receipt and relay agreement</th><td>${escapeHtml(acknowledgement)}</td></tr>
+          <tr><th>Missed check-in and backup channel</th><td>${escapeHtml(fallback)}</td></tr>
           <tr><th>Important needs</th><td>${escapeHtml(needs)}</td></tr>
         </tbody>
       </table>
       <h3 style="margin-top: 18px;">Check-in rules</h3>
       <ul class="check-list">
         <li>Use text first when calls are congested, and tell the out-of-area contact if plans change.</li>
+        <li>A sent message is not confirmed receipt. Record the human reply and distinguish received from relayed status.</li>
+        <li>Use the agreed retry and backup contact plan after a missed check-in; silence alone does not establish safety or harm.</li>
         <li>Do not make an unplanned pickup or return trip during unsafe conditions.</li>
         <li>Leave a paper copy with each household member and emergency documents.</li>
       </ul>
@@ -116,5 +132,9 @@ const jsonLd = graph(
   .family-plan-form { display: grid; gap: 14px; align-content: start; }
   .family-plan-form label { display: grid; gap: 7px; font-weight: 800; }
   .family-plan-form textarea { min-height: 120px; padding: 10px 12px; }
+  #family-plan-output { min-width: 0; }
+  #family-plan-output :global(table) { table-layout: fixed; }
+  #family-plan-output :global(th) { width: 42%; font-size: 0.875rem; text-transform: none; letter-spacing: 0; }
+  #family-plan-output :global(th), #family-plan-output :global(td) { overflow-wrap: anywhere; white-space: pre-wrap; }
   @media print { .site-header, .disclaimer, .family-plan-form, .site-footer, .ad-slot { display: none !important; } }
 </style>

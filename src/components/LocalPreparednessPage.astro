@@ -23,6 +23,15 @@ const jsonLd = graph(
 <Layout title={page.title} description={page.description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
   <section class="band local-hero" aria-labelledby="local-title"><div class="inner"><p class="eyebrow">2026 Atlantic season readiness</p><h1 id="local-title">{page.name} Hurricane {page.kind === "state" ? "Preparedness" : "Preparedness and Evacuation"} Guide</h1><p class="answer">Use this standing guide to prepare supplies, transport, evacuation arrangements, and official contacts before a storm. It does not describe a current threat to {page.name}.</p>{page.dateModified && <p>Guide revised <time datetime={page.dateModified}>{page.dateModified}</time>.</p>}<p class="section-actions"><a class="action-link" href="/2026-hurricane-season/">2026 season hub</a><a class="action-link secondary-action" href={page.kind === "city" ? `/hurricane-tracker/city/${page.slug}/` : `/tracker/${page.stateSlug}/`}>Current {page.name} storm context and alerts</a></p></div></section>
 
+  <nav class="local-sections inner" aria-label={`${page.name} guide sections`}>
+    <a href="#official-resources">Official resources</a>
+    <a href="#evacuation-plan">Evacuation guidance</a>
+    <a href={record ? "#household-record" : "#kit-checklist"}>{record ? "Household planning record" : "Supply checklist"}</a>
+    <a href="#local-risk">Local risks</a>
+    {!record && <a href="#storm-history">Storm history</a>}
+    <a href="#faq-heading">FAQs</a>
+  </nav>
+
   <section class="band" aria-labelledby="local-risk"><div class="inner"><p class="eyebrow">Local vulnerability</p><h2 id="local-risk">Why {page.name} Faces Hurricane Risk</h2>{page.risk.map((paragraph) => <p class="answer">{paragraph}</p>)}</div></section>
 
   {record ? <section class="band" aria-labelledby="household-record"><div class="inner"><p class="eyebrow">Household planning record</p><h2 id="household-record">{record.title}</h2><p class="answer">{record.intro}</p><ol class="record-steps">{record.steps.map((step) => <li><h3>{step.name}</h3><p>{step.text}</p></li>)}</ol><h3>Worked Record: Confirmed and Unfinished Arrangements</h3><p>{record.example}</p><p><a href="/tools/preparedness-checklist/">Build the separate household supply checklist</a> &middot; <a href="/blog/hurricane-medical-needs-registry-preparedness/">Work through medical and equipment confirmations</a></p></div></section> : <section class="band muted" aria-labelledby="storm-history"><div class="inner"><p class="eyebrow">Historical context</p><h2 id="storm-history">Past Storms and {page.name} Planning</h2><p>These events illustrate different planning hazards, not a forecast of the next storm. A storm's peak category is not necessarily the wind experienced in {page.name}, and does not measure rainfall, surge, or community impact.</p><div class="history-grid">{page.history.map((item) => <article><h3>{item.storm}</h3><p>{item.detail}</p></article>)}</div><p class="source-note">Source context: <a href="https://www.nhc.noaa.gov/data/tcr/" rel="noopener nofollow">NHC Tropical Cyclone Reports</a> and official state emergency guidance.</p></div></section>}
@@ -41,6 +50,10 @@ const jsonLd = graph(
 <style>
   .local-hero { background: #123644; color: #fff; }
   .local-hero .answer { color: #e1edf1; }
+  .local-sections { display: flex; flex-wrap: wrap; gap: 12px 24px; padding-block: 20px; }
+  .local-sections a { text-decoration: underline; text-underline-offset: 3px; }
+  .local-sections a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+  h2[id] { scroll-margin-top: 88px; }
   .muted { background: var(--surface, #f3f6f7); }
   .history-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 24px; }
   .history-grid article { padding: 18px; border-left: 4px solid var(--ocean); background: var(--bg, #fff); }

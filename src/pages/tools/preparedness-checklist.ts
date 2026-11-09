@@ -453,9 +453,9 @@ function renderPage(lastModified: string) {
         const waterGallons = people * 3;
         const meals = people * 9;
         const items = [
-          ["Water", waterGallons + " gallons of drinking water for a 3-day minimum"],
+          ["Water", waterGallons + " gallons as a 3-day base for drinking and sanitation (1 gallon per person per day). Follow local guidance for supply duration; add water for heat, health needs and pets"],
           ["Food", meals + " shelf-stable meals plus manual can opener"],
-          ["Medicine", "7-day medication supply, prescriptions list, first-aid kit"],
+          ["Medicine", "Confirm medication quantity, refill timing, storage and transport with your pharmacist or clinician; pack the prescription list and first-aid kit"],
           ["Power", "Flashlights, spare batteries, power banks, weather radio"],
           ["Documents", "IDs, insurance, medical records, cash, printed contacts"],
           ["Hygiene", "Soap, sanitizer, wipes, trash bags, menstrual supplies"],
