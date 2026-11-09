@@ -30,7 +30,11 @@ Only the named HTML-page claims were checked. Linked forms/PDFs, actual kits, pr
 - Astro check: 225 files, zero errors/warnings and four existing hints.
 - FAQ, internal-link, metadata and media audits passed; git diff --check passed.
 - Built Worker preview on localhost:8840 with local bindings and explicit localhost upstream. Browser inspected all three at desktop 1440x900 and mobile 390x844: no horizontal overflow, correct headings/modification dates, www trailing-slash canonicals, loaded hero images with alt text, FAQ schema counts 4/4/6. Mobile screenshots and kit desktop screenshot visually checked. All three plain-text assets displayed their full expected records through local HTTP.
-- Release pending. Record actual content commit, deployment version and production checks after completion.
+- Content commit 6bada02746508bf14cf834a20fdc8576054001e9 pushed to origin/main. Fresh fetch before push found the baseline unchanged; fresh fetch before deployment confirmed HEAD/origin/main equal at the content commit, ahead/behind 0/0 and clean worktree.
+- `npm run deploy` completed successfully. Actual Wrangler output identified Worker hurricanehub version e679984f-3e73-4efc-b76f-5d58c4fba2a5 serving https://www.hurricanetracker.cc/ and the configured apex route, from the build for 6bada02. This deployment identity is not inferred from Git.
+- Production browser verified all three articles' new headings, November 9 revision and limited source notes, www canonicals, download links and FAQ schema counts 4/4/6. All three production plain-text records displayed their expected heading and revision. Local rendering checks above are distinguished from these production observations.
+- Production SEO endpoints and crawler GET/HEAD checks passed, including ads.txt. IndexNow submitted 210 unique URLs with HTTP 200. Google Indexing API skipped for lack of configured service-account credentials. These results do not establish indexing or AdSense approval.
+- This final release record is documentation only; its follow-up commit does not require rebuilding or redeploying the Worker.
 
 ## Remaining work
 
