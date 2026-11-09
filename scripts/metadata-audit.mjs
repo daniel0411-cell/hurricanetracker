@@ -25,6 +25,7 @@ function sourceCandidatesFor(pathname) {
 
   if (segments.length === 0) {
     candidates.push(path.join(pagesDir, "index.astro"));
+    candidates.push(path.join(root, "src", "components", "Homepage.astro"));
   } else {
     candidates.push(path.join(pagesDir, ...segments) + ".astro");
     candidates.push(path.join(pagesDir, ...segments) + ".ts");
@@ -85,7 +86,8 @@ const findings = [];
 for (const page of staticPages) {
   const html = readText(page.file);
   const title = firstMatch(html, /<title>(.*?)<\/title>/is).trim();
-  const description = firstMatch(html, /<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i).trim();
+  const descriptionMatch = html.match(/<meta\s+name=["']description["']\s+content=(?:"([^"]*)"|'([^']*)')/i);
+  const description = (descriptionMatch?.[1] ?? descriptionMatch?.[2] ?? "").trim();
   const canonical = firstMatch(html, /<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i).trim();
   const robots = firstMatch(html, /<meta\s+name=["']robots["']\s+content=["']([^"']+)["']/i).trim();
   const jsonLdCount = (html.match(/type=["']application\/ld\+json["']/gi) ?? []).length;

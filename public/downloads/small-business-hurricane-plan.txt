@@ -1,0 +1,55 @@
+SMALL-BUSINESS HURRICANE PLANNING RECORD
+HurricaneHub | Revised November 8, 2026
+
+General planning aid. Follow current official protective instructions.
+This record is not building, utility, insurance or reopening approval.
+Keep completed copies private; do not include passwords, payment details,
+customer lists or private medical information.
+
+Business/site: _______________________ Record updated: _______________
+Decision lead / backup: _____________________________________________
+Staff communication lead / backup: __________________________________
+Records and systems lead / backup: __________________________________
+Building manager / contact: _________________________________________
+
+OFFICIAL INSTRUCTIONS AND CLOSURE
+Local emergency-management source URL/contact: ______________________
+Message issue time and time zone: ___________________________________
+Area covered / required action / action time: _______________________
+Closure decision and staff departure plan: __________________________
+Staff message / acknowledgment gaps: ________________________________
+Customer notice / deliveries to stop: ________________________________
+Pending tasks / owner / next check: __________________________________
+
+CRITICAL PROCESS AND RECOVERY TEST (repeat for each critical process)
+Process / system / authorized owner / backup: _______________________
+Backup location (no credentials): ___________________________________
+Last completed backup / last successful restore test: ________________
+Sample checked / time taken / result: _______________________________
+Access or authentication dependency still unresolved: ________________
+Approved alternative if power/connectivity fails: ___________________
+
+SUPPLIERS, FUNDS AND EVIDENCE
+Critical supplier / contact / delivery status confirmed at: __________
+Continuing costs / payroll dates / person responsible: _______________
+Policy and claim contacts / secure records location: ________________
+Coverage questions still pending: ___________________________________
+Do not count unapproved assistance or insurance as available funds.
+
+REOPENING CONFIRMATIONS (pending until actually confirmed)
+Item                         Who/source        When        Limitation
+Official reentry             __________        ______      __________
+Building/landlord assessment  __________        ______      __________
+Utilities and water          __________        ______      __________
+Contamination response       __________        ______      __________
+Systems and staffing         __________        ______      __________
+Supplies and access          __________        ______      __________
+Decision lead / decision / time / remaining restrictions: ____________
+
+EXERCISE AND FOLLOW-UP
+Scenario tested / date: _____________________________________________
+What failed / corrective task / owner / due date: ____________________
+
+Basis: Ready.gov Business Continuity Planning (read November 8, 2026)
+https://www.ready.gov/business-continuity-plan
+Guide: https://www.hurricanetracker.cc/blog/hurricane-small-business-preparedness-plan/

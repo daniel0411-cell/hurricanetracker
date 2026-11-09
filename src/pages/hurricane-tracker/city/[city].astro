@@ -2,7 +2,7 @@
 import FaqBlock from "../../../components/FaqBlock.astro";
 import Layout from "../../../layouts/Layout.astro";
 import { hurricaneCities, getCityBySlug } from "../../../data/cities";
-import { faqs, site } from "../../../data/site";
+import { site } from "../../../data/site";
 import { coastalStates, getStateByCode } from "../../../data/states";
 import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../../lib/schema";
 
@@ -38,37 +38,32 @@ const nextStateLinks = coastalStates
   .slice(0, 4);
 const actionPaths = [
   {
-    name: `${city.name} local risk action plan`,
-    description: `Record ${city.name} alerts, current local instructions and household constraints in a local action plan.`,
+    name: "Interactive Local Risk Action Plan",
+    description: `Record active ${city.region} alerts, verify county emergency directives, and log critical household departure deadlines.`,
     href: `/tools/local-risk-plan/?state=${city.stateCode}`
   },
   {
-    name: `${city.name} evacuation decision helper`,
-    description: `Organize ${city.name} housing, flood exposure, transport, pets, medical needs and local instructions for an evacuation plan.`,
+    name: "Evacuation Zone & Route Decision Helper",
+    description: "Evaluate your housing structure, local flood exposure, bridge access, and transportation requirements against official orders.",
     href: "/tools/evacuation-decision-helper/"
   },
   {
-    name: `${city.name} alert action decoder`,
-    description: `Translate hurricane, surge, flood, tornado, and evacuation alert language into plain-language next actions for ${city.name}.`,
+    name: "Official Alert Decoder & Action Steps",
+    description: "Translate complex NWS hurricane, storm surge, flood, and tornado advisory language into direct safety milestones.",
     href: "/tools/alert-action-decoder/"
   },
   {
-    name: `${city.name} power outage planner`,
-    description: `Plan charging, food safety, generator placement, refrigerated medicine, and communication backup for ${city.name} outages.`,
+    name: "Grid Outage & Emergency Backup Planner",
+    description: "Organize medical equipment power backup, food preservation timing, safe generator ventilation, and family communications.",
     href: "/tools/power-outage-planner/"
   }
 ];
 const pageFaqs = [
-  {
-    question: `Is HurricaneHub an official ${city.name} evacuation source?`,
-    answer: `No. HurricaneHub helps ${city.name} households organize official weather information, but evacuation zones, road closures, shelters, and orders come from local emergency management and weather.gov.`
-  },
-  {
-    question: `What should ${city.name} residents check first during a hurricane threat?`,
-    answer: `Check your exact evacuation zone, active NWS alerts for ${city.stateName}, current NHC advisory context, and whether your household needs extra time for medical, mobility, pet, or transportation needs.`
-  },
   ...city.faqs,
-  ...faqs
+  {
+    question: `How does HurricaneHub verify official ${city.name} hurricane data?`,
+    answer: `All real-time storm coordinates and advisories are pulled directly from the NOAA National Hurricane Center, while local watches, warnings, and flash flood statements originate from regional National Weather Service forecast offices covering ${city.name} and surrounding counties.`
+  }
 ];
 const jsonLd = graph(
   websiteSchema(),

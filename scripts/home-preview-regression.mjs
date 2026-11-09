@@ -13,6 +13,7 @@ vm.runInNewContext(transpile(read("../src/data/blog.ts")), blogContext);
 const now = Date.parse("2026-10-28T12:00:00Z");
 class TestDate extends Date { static now() { return now; } }
 const fetchedAt = new Date(now).toISOString();
+const testStorm = { id: "al012026", latitudeNumeric: 26, longitudeNumeric: -87 };
 const nhc = { storms: [], fetchedAt };
 const nws = { alerts: [], decisionLevel: "Monitor", fetchedAt };
 const outlook = { issuedAt: fetchedAt, issued: "800 AM EDT Wed Oct 28 2026", text: "Test outlook", formationChance7d: 80 };
@@ -46,6 +47,18 @@ async function preview(stormData = nhc, alertData = nws, outlookData = outlook, 
 }
 assert.match((await preview()).stormHeading, /No active Atlantic/);
 assert.equal((await preview()).stormStatusClass, "status-calm");
+// Exercise the actual template condition against validated frontmatter states.
+const prepCondition = page.match(/\{([^{}\n]+) && \(\s*<div class="calm-prep-box"/)[1];
+const showsEmptyFeedPlanning = (state) => vm.runInNewContext(prepCondition, state);
+assert.equal(showsEmptyFeedPlanning(await preview()), true);
+assert.equal(showsEmptyFeedPlanning(await preview({ ...nhc, storms: [testStorm] })), false);
+assert.equal(showsEmptyFeedPlanning(await preview({ ...nhc, storms: [{ ...testStorm, id: "ep012026" }] })), true);
+for (const failure of [null, new Error("Timeout"), {}, { ...nhc, cacheStatus: "stale" }, { ...nhc, fetchedAt: new Date(now - 16 * 60_000).toISOString() }]) {
+  assert.equal(showsEmptyFeedPlanning(await preview(failure)), false, "Unavailable feeds must not display an empty-basin claim");
+}
+assert.doesNotMatch(page, /Basin Calm|No Active Named Storms in the Atlantic Basin|Calculate potential wind-loss|confirm bridge departure checkpoints/);
+assert.match(page, /generally has a 30-day waiting period, with exceptions/);
+assert.match(page, /does not rule out developing disturbances/);
 assert.match(read("../src/pages/design-preview/homepage-v2.astro"), /Astro.response.headers.set\("X-Robots-Tag", "noindex, nofollow"\)/);
 assert.equal((await preview(nhc, nws, outlook, false)).robots, null, "Production homepage must remain indexable");
 for (const failure of [null, new Error("Timeout"), {}, { ...nhc, storms: {} }, { ...nhc, storms: [null] }, { ...nhc, storms: [{ name: "Missing identity" }] }, { ...nhc, fetchedAt: "invalid" }, { ...nhc, fetchedAt: new Date(now - 16 * 60_000).toISOString() }, { ...nhc, fetchedAt: new Date(now + 16 * 60_000).toISOString() }]) {
@@ -61,7 +74,7 @@ for (const failure of [null, new Error("Timeout"), {}, { ...nws, alerts: [null] 
 for (const failure of [null, { ...outlook, issuedAt: null }, { ...outlook, issuedAt: new Date(now - 13 * 60 * 60_000).toISOString() }]) {
   assert.equal((await preview(nhc, nws, failure)).outlookAvailable, false);
 }
-const mixed = await preview({ ...nhc, storms: [{ id: "al012026" }, { id: "ep012026" }] });
+const mixed = await preview({ ...nhc, storms: [testStorm, { ...testStorm, id: "ep012026" }] });
 assert.equal(mixed.atlanticStorms.length, 1);
 assert.equal(mixed.stormStatusClass, "status-active");
 assert.equal(mixed.pacificStorms.length, 1);
@@ -71,7 +84,7 @@ for (const guide of (await preview()).selectedGuides) {
   assert(guide.figure.width > 0 && guide.figure.height > 0);
   assert(guide.figure.src.startsWith("/images/blog/external/"));
   assert.match(guide.imageLabel, /2022|2024/);
-  assert.equal(guide.post.dateModified, "2026-10-27", "Featuring an article must not manufacture a new revision date");
+  assert.equal(guide.post.dateModified, blogContext.exports.blogPosts.find((post) => post.slug === guide.slug).dateModified, "Featuring an article must retain its recorded revision date");
 }
 assert.equal((await preview()).selectedGuides.length, 3);
 assert.doesNotMatch(page, /simulated-radar|40% - 55%|atlanticOutlook \? "Low"/);

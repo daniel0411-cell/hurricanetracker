@@ -19,7 +19,13 @@ const pages = [
 
 const results = pages.map((page) => {
   const abs = path.join(root, page);
-  const source = fs.readFileSync(abs, "utf8");
+  let source = fs.readFileSync(abs, "utf8");
+  if (page === "src/pages/index.astro" && source.includes("<Homepage")) {
+    const homepageAbs = path.join(root, "src/components/Homepage.astro");
+    if (fs.existsSync(homepageAbs)) {
+      source += "\n" + fs.readFileSync(homepageAbs, "utf8");
+    }
+  }
   return {
     page,
     hasFaqBlock: source.includes("<FaqBlock"),

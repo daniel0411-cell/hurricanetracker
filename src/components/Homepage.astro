@@ -60,7 +60,7 @@ const selectedGuides = [
   if (!post?.figures?.[0]) throw new Error(`Missing sourced figure for ${guide.slug}`);
   return { ...guide, post, figure: post.figures[0] };
 });
-const lastModified = "2026-11-02T00:00:00.000Z";
+const lastModified = "2026-11-09T00:00:00.000Z";
 const atlanticNames = atlanticStorms.map((storm) => storm.name).filter(Boolean);
 const title = atlanticNames.length
   ? `Hurricane Tracker: ${atlanticNames.slice(0, 2).join(", ")} & NHC Map`
@@ -129,6 +129,34 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
             </div>
           </article>
         ))}</div>}
+        {stormsAvailable && atlanticStorms.length === 0 && (
+          <div class="calm-prep-box">
+            <div class="calm-prep-header">
+              <span class="badge" style="background:#e0f2fe;color:#0369a1;font-weight:600;padding:3px 8px;border-radius:4px;font-size:0.75rem;">Preparedness Planning</span>
+              <h3 style="margin-top:8px;">No Active Atlantic Systems in This Feed</h3>
+              <p class="source-note">Feed checked {checked(stormFeed?.fetchedAt)}. An empty active-system list does not rule out developing disturbances, dangerous surf, flooding, or local warnings. Review the separate NHC outlook and local alerts.</p>
+              <p>Use the time available to review household preparations, insurance coverage, and official evacuation resources.</p>
+            </div>
+            <div class="calm-prep-grid">
+              <div class="calm-step">
+                <h4><i class="fa-solid fa-house-chimney-crack" aria-hidden="true"></i> Wind Mitigation &amp; Roof Straps</h4>
+                <p>Compare a savings scenario using your annual wind premium and an additional discount confirmed by your insurer.</p>
+                <a href="/tools/wind-mitigation-calculator/">Wind mitigation tool &rarr;</a>
+              </div>
+              <div class="calm-step">
+                <h4><i class="fa-solid fa-water" aria-hidden="true"></i> 30-Day Flood Insurance Rule</h4>
+                <p>NFIP flood coverage generally has a 30-day waiting period, with exceptions. Confirm your policy's actual effective date with your insurance agent.</p>
+                <a href="https://www.floodsmart.gov/get-insured/buy-a-policy">Official NFIP waiting-period guidance &rarr;</a>
+                <a href="/blog/hurricane-flood-insurance-guide-nfip/">Review flood insurance guide &rarr;</a>
+              </div>
+              <div class="calm-step">
+                <h4><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i> Evacuation Zone Clarification</h4>
+                <p>Distinguish flood hazard zones from evacuation zones. Check current evacuation instructions and bridge or road restrictions with local emergency management.</p>
+                <a href="/tools/evacuation-decision-helper/">Evacuation planning helper &rarr;</a>
+              </div>
+            </div>
+          </div>
+        )}
         <div class="outlook-layout">
           <div class="outlook-copy">
             <h3>7-day Atlantic outlook</h3>
@@ -594,6 +622,60 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
   /* ── Current Band (Outlook & State Example) ── */
   .current-band {
     border-top: 1px solid var(--preview-border);
+  }
+  .calm-prep-box {
+    margin: 20px 0 24px;
+    padding: 22px;
+    background: #f8fafc;
+    border: 1px solid var(--preview-border);
+    border-radius: 8px;
+  }
+  .calm-prep-header h3 {
+    margin: 8px 0 6px;
+    font-size: 1.25rem;
+    color: #0f172a;
+  }
+  .calm-prep-header p {
+    margin: 0 0 16px;
+    color: #475569;
+    font-size: 0.925rem;
+    line-height: 1.5;
+  }
+  .calm-prep-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .calm-step {
+    background: #ffffff;
+    padding: 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .calm-step h4 {
+    margin: 0 0 6px;
+    font-size: 0.95rem;
+    color: #0f172a;
+  }
+  .calm-step p {
+    margin: 0 0 12px;
+    font-size: 0.85rem;
+    color: #64748b;
+    line-height: 1.45;
+  }
+  .calm-step a {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #0284c7;
+    text-decoration: underline;
+  }
+  @media (max-width: 768px) {
+    .calm-prep-grid {
+      grid-template-columns: 1fr;
+    }
   }
   .storm-links {
     display: grid;

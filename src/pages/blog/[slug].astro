@@ -85,7 +85,14 @@ const nextActions = [...matchedActions, ...defaultActions]
 const ogImage = getBlogOgImage(post);
 const jsonLd = graph(
   websiteSchema(),
-  blogPostingSchema({ title, description, url, datePublished: new Date(post.datePublished).toISOString(), dateModified: lastModified, image: new URL(ogImage, site.url).href }),
+  blogPostingSchema({
+    title,
+    description,
+    url,
+    datePublished: new Date(post.datePublished).toISOString(),
+    dateModified: lastModified,
+    image: new URL(ogImage, site.url).href
+  }),
   itemListSchema([
     ...nextActions.map((action) => ({
       name: action.name,

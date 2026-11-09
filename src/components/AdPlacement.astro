@@ -5,31 +5,13 @@ type Props = {
 };
 
 const { placement, enabled = false } = Astro.props;
-const isNative = placement === "in-content";
-const isRectangle = placement === "bottom";
 ---
-{enabled && (isNative || isRectangle) && (
-  <aside class:list={["ad-placement", `ad-placement-${placement}`]} aria-label="Advertisement">
-    <span class="ad-label">Advertisement</span>
-    {isNative ? (
-      <div class="ad-content ad-content-native">
-        <script is:inline async="async" data-cfasync="false" src="https://bicea.org/21/ccd5895056df0eea83904a04dfd8fef0"></script>
-        <div id="container-ccd5895056df0eea83904a04dfd8fef0"></div>
-      </div>
-    ) : (
-      <div class="ad-content ad-content-rectangle">
-        <script is:inline>
-          Object.assign(window, { atOptions: {
-            key: "1f2c96be021fc96b643773fdf72d67e7",
-            format: "iframe",
-            height: 250,
-            width: 300,
-            params: {}
-          }});
-        </script>
-        <script is:inline src="https://bicea.org/22/1f2c96be021fc96b643773fdf72d67e7"></script>
-      </div>
-    )}
+{enabled && (
+  <aside class:list={["ad-placement", `ad-placement-${placement}`]} aria-label="Sponsor Notice">
+    <span class="ad-label">Partner Notice</span>
+    <div class="ad-content">
+      <!-- Reserved for policy-compliant editorial partners -->
+    </div>
   </aside>
 )}
 

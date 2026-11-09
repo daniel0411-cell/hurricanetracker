@@ -24,6 +24,7 @@ function sourceCandidatesFor(pathname) {
   const candidates = [];
   if (!segments.length) {
     candidates.push(path.join(pagesDir, "index.astro"));
+    candidates.push(path.join(root, "src", "components", "Homepage.astro"));
   } else {
     candidates.push(path.join(pagesDir, ...segments) + ".astro");
     candidates.push(path.join(pagesDir, ...segments) + ".ts");

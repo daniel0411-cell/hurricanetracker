@@ -52,9 +52,22 @@ assert.equal(status.isAlertFeedAvailable({ alerts: [], decisionLevel: "Monitor",
 assert.equal(status.isAlertFeedAvailable({ alerts: [], decisionLevel: "Monitor", fetchedAt: old() }), false);
 assert.equal(status.isOutlookAvailable({ text: "Official outlook", issuedAt: fresh() }), true);
 assert.equal(status.isOutlookAvailable({ text: "Official outlook", issuedAt: "2020-01-01" }), false);
-assert.equal(contentModifiedFor("/", "old"), "2026-11-02T00:00:00.000Z");
+assert.equal(contentModifiedFor("/", "old"), "2026-11-09T00:00:00.000Z");
 assert.equal(contentModifiedFor("/hurricane-tracker/city/miami/", "old"), "2026-11-04T00:00:00.000Z");
 for (const route of ["/privacy/", "/hurricane-tracker/city/", "/hurricane-tracker/tropical-disturbances/", "/blog/unchanged-article/"]) assert.equal(contentModifiedFor(route, "old"), "old");
+
+const about = fs.readFileSync(path.join(root, "src/pages/about.astro"), "utf8");
+const blogTemplate = fs.readFileSync(path.join(root, "src/pages/blog/[slug].astro"), "utf8");
+assert.match(about, /AI tools assist with drafting, coding and editing/);
+assert.match(about, /A source-check note describes exactly what was checked/);
+for (const source of [about, blogTemplate]) {
+  assert.doesNotMatch(source, /Meteorological Data Desk|Preparedness Research Group|Editorial Review Board|Fact-checked by|dedicated group of meteorological/);
+}
+assert.match(blogTemplate, /post.sourceCheck.scope/);
+const { blogPostingSchema } = load("src/lib/schema.ts");
+const author = blogPostingSchema({ title: "Test", description: "Test", url: "https://www.hurricanetracker.cc/blog/test/", datePublished: "2026-11-09", dateModified: "2026-11-09" }).author;
+assert.equal(author["@type"], "Organization");
+assert.equal(author.name, "HurricaneHub");
 
 function dom(initial = {}) {
   const els = new Map();

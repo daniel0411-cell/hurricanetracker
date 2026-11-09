@@ -15,6 +15,8 @@ const nhc = { storms: [], fetchedAt };
 const nws = { alerts: [], decisionLevel: "Monitor", fetchedAt };
 const statusContext = { exports: {}, Date: TestDate };
 vm.runInNewContext(transpile(read("../src/lib/weatherFeedStatus.ts")), statusContext);
+const weatherContext = { exports: {} };
+vm.runInNewContext(transpile(read("../src/lib/weather.ts")), weatherContext);
 
 assert.match(read("../src/pages/index.astro"), /<Homepage\s*\/>/);
 assert.match(read("../src/pages/design-preview/homepage-v2.astro"), /<Homepage preview\s*\/>/);
@@ -27,7 +29,11 @@ let dashboardAlerts = nws;
 const dashboardContext = {
   Date: TestDate, AbortSignal, exports: {},
   document: { querySelector: (selector) => nodes[selector.slice(1)] ?? null },
-  require: () => statusContext.exports,
+  require: (name) => {
+    if (name.endsWith("/weatherFeedStatus")) return statusContext.exports;
+    if (name.endsWith("/weather")) return weatherContext.exports;
+    throw new Error(`Unexpected import: ${name}`);
+  },
   async fetch(path) {
     const data = path.includes("/nhc/") ? dashboardStorms : dashboardAlerts;
     if (data instanceof Error) throw data;

@@ -12,7 +12,7 @@ const revisions: Record<string, string> = {
   "hurricane-tracker/evacuation-zones/": "2026-11-06T00:00:00.000Z",
   "hurricane-tracker/spaghetti-models/": "2026-11-05T00:00:00.000Z",
   "blog/hurricane-eyewall-replacement-cycle-explained/": "2026-11-05T00:00:00.000Z",
-  "": "2026-11-02T00:00:00.000Z",
+  "": "2026-11-09T00:00:00.000Z",
   "blog/": "2026-11-04T00:00:00.000Z",
   "updates/": "2026-11-04T00:00:00.000Z",
   "learn/": "2026-11-04T00:00:00.000Z",

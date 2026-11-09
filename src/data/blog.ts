@@ -860,26 +860,27 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "nws-hurricane-alert-meanings",
-    sources: [{ href: "https://www.weather.gov/safety/hurricane-ww", label: "NWS hurricane watches and warnings" }, { href: "https://www.weather.gov/", label: "NWS: read the complete local warning" }],
+    sources: [{ href: "https://www.weather.gov/safety/hurricane-ww", label: "NWS: separate wind and storm surge products" }, { href: "https://www.weather.gov/safety/flood-watch-warning", label: "NWS: flood, flash flood, watch and advisory distinctions" }, { href: "https://www.weather.gov/safety/tornado-ww", label: "NWS: tornado watches and warnings" }, { href: "https://www.nhc.noaa.gov/archive/2026/al09/al092026.public.015.shtml", label: "Historical NHC Isaias Advisory 15: October 10, 2026, 0900 UTC, cancellations and continuing hazards" }],
     title: "NWS Hurricane Alert Meanings: Watch, Warning, Surge, Flood, Tornado",
     description: "Decode common NWS hurricane-related alerts and learn which ones should trigger monitoring, preparation, action, or evacuation review.",
     datePublished: "2026-08-05",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-08",
+    sourceCheck: { date: "2026-11-08", scope: "Read NWS hurricane warnings/watches, flood alert distinctions and tornado alert guidance, plus historical Isaias Advisory 15 at 0900 UTC October 10, 2026. Checked cancellation scope and continuing rainfall, tornado and surf text. No current local warning, evacuation order, route or shelter was verified." },
     image: "/images/blog/nws-hurricane-alert-meanings.png",
     imageAlt: "Close-up of hands holding a smartphone showing color-coded NWS alert banners for watch, warning, surge, and advisory.",
     sections: [
       {
         heading: "Direct Answer",
-        body: "A hurricane watch means conditions are possible, a hurricane warning means conditions are expected, storm surge alerts focus on life-threatening coastal water, flood warnings focus on rising water, tornado warnings require immediate shelter, and evacuation orders come from local officials."
+        body: "Several alerts can apply to one location at once because wind, coastal water, rainfall flooding and tornadoes are different hazards. Read each product's issuing agency, affected area, issue time, validity and instructions. A newer message about one hazard does not cancel another. This guide focuses on keeping those messages separate; use the linked watch/warning and surge guides for detailed definitions."
       },
       {
-        heading: "Common Alert Types",
-        body: "Read the full alert text, not only the headline.",
-        bullets: ["Watch: finish supplies, routes, documents, and fuel.", "Warning: complete protective action and follow local instructions.", "Storm surge: check your evacuation zone and leave if ordered.", "Flash flood: avoid flooded roads and move to safer ground if instructed.", "Tornado warning: shelter immediately in an interior room."]
+        heading: "Give Each Hazard Its Own Record",
+        body: "Do not place all products on one mild-to-severe ladder. A hurricane watch can coexist with a flash flood warning or a tornado warning that requires action now. Keep the issuer, area, time and action together in separate rows.",
+        bullets: ["Hurricane or tropical-storm wind product: read the named wind area and expected arrival timing; wind-warning lead time is not a landfall countdown.", "Storm surge product: read the coastal inundation area and check the responsible local authority's evacuation orders.", "Flood or flash flood product: read the specific area and instructions. NWS says people in a flood-prone area under a flash flood warning should move immediately to high ground; never drive through floodwater.", "Tornado warning: NWS directs immediate shelter in an interior room on the lowest floor of a sturdy building, away from windows. It is not a cue to finish shopping or start a long drive.", "Local evacuation order: record the issuing authority, zones or groups covered, and required action separately from the NWS weather products."]
       },
       {
         heading: "What Changes the Action Level",
-        body: "A household with medical equipment, mobility limits, pets, no vehicle, mobile-home exposure, or a long route may need to act earlier than a standard household."
+        body: "Medical equipment, mobility, transport and animal-care needs change the arrangements a household must confirm; they do not downgrade an official warning. Plan those arrangements early. When immediate shelter and travel concerns overlap, read the current protective instructions and contact local emergency officials for the actual situation rather than treating a generic checklist as a rule for resolving every conflict."
       },
       {
         heading: "Read the Full Alert in This Order",
@@ -887,8 +888,19 @@ export const blogPosts: BlogPost[] = [
         bullets: ["Hurricane or tropical-storm watch/warning: read the wind-arrival timing and preparation instructions.", "Storm surge warning: check the coastal area and local evacuation order.", "Flash flood warning: avoid flooded roads and follow instructions for higher ground.", "Tornado warning: take shelter immediately; do not continue routine errands.", "Evacuation order: issued by the responsible local authority, separate from the NWS weather alert."]
       },
       {
-        heading: "Use the Alert Decoder",
-        body: "HurricaneHub's Alert Action Decoder turns the alert type and household risk into a practical action list, while still pointing users back to official weather.gov and local emergency management instructions."
+        heading: "Historical Reading Exercise: A Cancellation Is Not an All-Clear",
+        body: "NHC Isaias Advisory 15, issued October 10, 2026 at 4 AM CDT (0900 UTC), discontinued all storm surge and tropical storm warnings and listed no watches or warnings in its summary. But its hazards section continued to describe flash, urban and river flooding, a tornado risk in parts of the eastern Florida Panhandle, Georgia and the Carolinas, and dangerous surf and rip currents. The next-advisory section handed subsequent public advisories to WPC. This is a historical reading example, not today's situation.",
+        bullets: ["Question: does the summary establish that every local flood or tornado warning has ended? No. Its cancellation names particular tropical-cyclone products; read local NWS products separately.", "Question: does a forecast of tornado risk establish an active tornado warning for a particular home? No. Risk language is not a verified address-level warning.", "Question: where would the reader go next at that time? Follow the bulletin's announced WPC handoff and local NWS hazards, with local officials for evacuation and access instructions.", "Record: product and issue time; exactly what ended; hazards still described; next issuing source; local facts still unknown. Do not copy the historic locations or rainfall amounts into a current alert."],
+        links: [{ href: "https://www.nhc.noaa.gov/archive/2026/al09/al092026.public.015.shtml", label: "Read the original historical Isaias Advisory 15" }]
+      },
+      {
+        heading: "Check Cancellation Scope Before Removing a Task",
+        body: "Match an update to the same hazard, area and event before treating it as a replacement. A forecast discussion, a canceled coastal warning and a local flood warning can legitimately describe different parts of the situation. Record an explicit cancellation or expiration for the relevant product and reopen the official source for changes. If the feed or map fails, mark current status unconfirmed; missing data is not an all-clear. Never wait to finish this record before following an immediate protective instruction."
+      },
+      {
+        heading: "Choose the Guide for the Decision You Still Need",
+        body: "Use the individual guides for the remaining question rather than repeating the same definitions across every article. HurricaneHub tools organize information; the original official message controls the protective action.",
+        links: [{ href: "/blog/what-hurricane-watch-warning-means/", label: "Read one hurricane message's issuer, area and timing" }, { href: "/blog/storm-surge-warning-vs-hurricane-warning/", label: "Compare wind exposure with coastal inundation decisions" }, { href: "/tools/alert-action-decoder/", label: "Organize actions for an alert while retaining official instructions" }]
       }
     ],
     faqs: [
@@ -1071,11 +1083,13 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-insurance-deductibles-guide",
-    sources: [{ href: "https://content.naic.org/state-insurance-departments", label: "NAIC: find your state insurance department for local policy rules" }, { href: "https://www.floodsmart.gov/", label: "NFIP: separate flood coverage" }],
+    sources: [{ href: "https://www.tdi.texas.gov/tips/deductibles.html", label: "TDI: dollar versus percentage deductibles and worked examples" }, { href: "https://www.tdi.texas.gov/tips/what-is-windstorm-insurance.html", label: "TDI: Texas wind coverage and TWIA purchase restrictions" }, { href: "https://www.tdi.texas.gov/tips/additional-living-expenses.html", label: "TDI: separate wind and flood coverage questions" }, { href: "https://content.naic.org/state-insurance-departments", label: "NAIC: find your state insurance regulator" }],
     title: "Hurricane Insurance Deductibles: What Coastal Homeowners Should Know",
     description: "Understand percentage hurricane deductibles, named-storm versus windstorm deductibles, flood coverage gaps, and how to review your policy before a storm.",
     datePublished: "2026-08-07",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-08",
+    sourceCheck: { date: "2026-11-08", scope: "Read TDI deductible examples (October 14, 2024), windstorm coverage (June 1, 2026) and ALE guide (April 10, 2025). Texas/TWIA examples are labeled, not nationwide triggers. No individual contract, moratorium, credit or claim was verified." },
+    review: { date: "2026-11-08", scope: "Coverage and purchase restrictions", correction: "Removed a universal named-storm moratorium claim and the implication that an inventory establishes replacement-cost coverage or guarantees faster settlement." },
     image: "/images/blog/hurricane-insurance-deductibles-guide.png",
     imageAlt: "A homeowner reviews an insurance policy document with a calculator and pen at a dining table, coastal house visible through the window.",
     sections: [
@@ -1086,18 +1100,23 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Named-Storm, Windstorm, and Hurricane Deductibles",
-        body: "Coastal states use different triggers for these special deductibles. Know which one applies in your policy and when it is activated.",
+        body: "Treat these as policy labels to investigate, not a universal trigger chart. Find the deductible endorsement as well as the declarations summary, and ask the insurer to identify the wording that applies to your state, location and loss.",
         bullets: [
           "Named-storm deductibles use a defined named-storm trigger; naming alone does not establish how your policy applies at your location.",
           "Hurricane deductibles use policy and state definitions that may include an official warning, location, and specified time window.",
           "Windstorm deductible may apply to any damaging wind, named or not.",
-          "Trigger rules vary by state and insurer, so read the declarations page carefully."
+          "Record the policy's start and end of the trigger window, the coverage base used for the percentage, and whether the deductible applies per event or another period. Do not assume those fields from the storm's category."
         ]
       },
       {
         heading: "Flood Coverage Is Separate",
         body:
-          "Standard homeowners insurance generally excludes storm surge and other flooding. Separate flood coverage is available through NFIP or private insurers. NFIP generally has a 30-day waiting period with exceptions; private policy waiting periods vary. Confirm the effective date and the building and contents coverages in writing before relying on a policy."
+          "Most homeowners policies do not cover flood damage; identify any separate NFIP or private flood policy or explicit flood coverage. Wind coverage can also be separate in some locations, as TDI explains for the Texas coast. A wind deductible calculation cannot establish flood payment. Confirm each policy's effective date, building and contents coverage, exclusions and deductible separately.",
+        links: [{ href: "/blog/hurricane-flood-insurance-guide-nfip/", label: "Check flood policy coverage and waiting-period questions" }]
+      },
+      {
+        heading: "Complete the Missing Fields Before Using the Calculation",
+        body: "In the $400,000 example, knowing 2% gives the $8,000 arithmetic but does not prove that this deductible applies. Make a policy record: dwelling limit and policy period; endorsement name; deductible percentage and dollar conversion; trigger area and time wording; per-event or other application; insurer confirmation date. If the endorsement is missing, mark the trigger unconfirmed. Compare that dollar exposure with available funds before choosing a deductible, and review it again when the coverage limit changes."
       },
       {
         heading: "Prepare Before Storm Season",
@@ -1113,17 +1132,18 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "After a Storm: Document and Claim",
         body:
-          "Once it is safe, photograph all damage before cleanup, keep receipts for emergency repairs, and contact your insurer promptly. A well-documented inventory will speed the claim process and help justify replacement-cost coverage."
+          "Once it is safe, photograph damage, keep emergency-repair receipts and report the loss under the policy's requirements. An inventory helps describe belongings and support claimed amounts; it does not create replacement-cost coverage, remove depreciation or guarantee settlement speed. Ask how the loss will be valued and which deductible and endorsement the insurer is applying.",
+        links: [{ href: "/blog/hurricane-insurance-claim-guide-documentation/", label: "Organize claim evidence and the applicable deadlines" }]
       }
     ],
     faqs: [
       {
         question: "Is storm surge covered by homeowners insurance?",
-        answer: "No. Storm surge is considered flooding and is excluded from standard homeowners policies. You need a separate flood insurance policy to cover surge-related damage."
+        answer: "Most homeowners policies do not cover flood damage, including storm surge. Identify any separate flood policy or explicit flood endorsement and verify its terms; the presence of a hurricane deductible does not establish flood coverage."
       },
       {
         question: "Can I change my hurricane deductible right before a storm?",
-        answer: "Usually no. Insurers place moratoriums on new or changed coverage once a storm is named or threatens an area. Make deductible and coverage decisions well before hurricane season."
+        answer: "Do not assume a last-minute change is available or effective for the approaching storm. Ask the insurer about its actual binding restrictions, change rules and effective date. For a specific Texas example, TDI says a TWIA policy cannot be obtained when a hurricane is in the Gulf of Mexico. That is not a universal rule for every carrier or deductible change."
       },
       {
         question: "What records should I keep for a hurricane insurance claim?",
@@ -1785,7 +1805,7 @@ export const blogPosts: BlogPost[] = [
     title: "What to Do After a Hurricane: A Step-by-Step Recovery Guide",
     description: "Returning home after a hurricane? Follow this step-by-step recovery guide: safety checks, insurance claims, FEMA help, and safe flood cleanup.",
     datePublished: "2026-08-12",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-08",
     image: "/images/blog/what-to-do-after-a-hurricane.jpg",
     imageAlt: "A homeowner carries water-damaged belongings out of a flood-damaged house after a hurricane while a neighbor stacks storm debris.",
     sections: [
@@ -1914,12 +1934,9 @@ export const blogPosts: BlogPost[] = [
         heading: "Use This Recovery Hub With Related Guides",
         body: "For a fuller recovery path, pair this page with the hurricane insurance claim documentation guide, Additional Living Expenses coverage guide, generator safety guide, power outage planner, and live hurricane tracker. Those pages break out high-risk topics so this article can remain a navigation hub rather than an overconfident replacement for official instructions.",
         bullets: [
-          "Insurance documents and claim photos: /blog/hurricane-insurance-claim-guide-documentation/",
-          "Additional living expenses: /blog/hurricane-additional-living-expenses-ale-coverage/",
-          "Generator safety: /blog/hurricane-generator-safety-carbon-monoxide/",
-          "Power outage planning: /tools/power-outage-planner/",
-          "Live tracker and alerts: /hurricane-tracker/live/"
-        ]
+          "Keep the claim record separate from coverage decisions and cleanup safety."
+        ],
+        links: [{ href: "/blog/hurricane-insurance-claim-guide-documentation/", label: "Organize claim documents and damage photos" }, { href: "/blog/hurricane-additional-living-expenses-ale-coverage/", label: "Separate additional living expenses from normal costs" }, { href: "/blog/hurricane-generator-safety-carbon-monoxide/", label: "Check generator and carbon-monoxide precautions" }, { href: "/tools/power-outage-planner/", label: "Plan household needs during a power outage" }]
       },
       {
         heading: "Official Resources to Check First",
@@ -1960,10 +1977,12 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "hurricane-pet-safety",
     sources: [{ href: "https://www.ready.gov/pets", label: "Ready.gov: pets and animals in an emergency" }],
-    title: "Hurricane Pet Safety: A Complete Preparedness Guide for Dogs, Cats, and Livestock",
+    title: "Hurricane Pet Safety: Evacuation, Kits and Animal Care",
     description: "How to prepare dogs, cats, and backyard livestock for a hurricane: pet go-bags, ID and microchips, pet-friendly evacuation, and post-storm hazards to avoid.",
     datePublished: "2026-08-12",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-08",
+    sourceCheck: { date: "2026-11-08", scope: "Read Ready.gov Pets and Animals, updated March 20, 2026: evacuation, buddy system, supplies, carriers and large-animal transport. The confirmation record is an editorial example. No shelter availability, individual animal's medical needs or transport arrangement was verified." },
+    review: { date: "2026-11-08", scope: "Evacuation and animal-care wording", correction: "Removed unsupported claims about rescue frequency, the most dangerous period and the strongest reunion method. Replaced generic livestock shelter advice with species-specific planning questions." },
     image: "/images/blog/hurricane-pet-safety.png",
     imageAlt: "A family secures a dog in a crate while packing an emergency pet bag during hurricane preparations at home.",
     sections: [
@@ -1975,7 +1994,7 @@ export const blogPosts: BlogPost[] = [
         heading: "Build a Pet Go-Bag",
         body: "Pack a dedicated emergency kit for each pet so you are not scrambling at the last minute.",
         bullets: [
-          "Food and water for at least 5-7 days, plus bowls.",
+          "Several days of food and water, plus bowls; check quantities and medication needs with your veterinarian.",
           "Medications, a copy of veterinary records, and proof of rabies vaccination.",
           "Leashes, harnesses, and a sturdy carrier or crate labeled with your phone number.",
           "A photo of you with each pet to prove ownership if separated.",
@@ -1984,37 +2003,44 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "ID and Microchip Before the Storm",
-        body: "A collar tag with a working phone number is the fastest way to reunite. Microchipping is the backup that cannot fall off. Make sure your microchip registration points to a current phone number and address, because after a storm many families relocate temporarily and shelters scan chips to match animals with owners."
+        body: "Use both a visible ID tag and current microchip registration rather than assuming either guarantees reunion. Check that your phone number, address and an emergency contact outside the area are current in the registry. Keep a photo of you with each animal and copies of registration and veterinary records in the evacuation bag. A chip does not arrange transport, reserve a shelter space or replace a carrier."
       },
       {
         heading: "Know Your Pet-Friendly Evacuation Options",
         body: "Do not assume your regular shelter accepts household pets. Local shelter arrangements vary by event and may use separate co-located areas or designated facilities. Confirm current pet, service-animal, carrier, vaccination, and supply rules with local emergency management, and identify backup pet-friendly lodging or boarding outside the evacuation zone. Take pets with you when evacuating unless officials provide another safe arrangement."
       },
       {
+        heading: "Confirm a Destination, a Driver and a Backup Caregiver",
+        body: "A list of pet-friendly hotels is only a starting point. Ask the actual destination about the species, number and size of animals it accepts, space for the event, reservation requirements, carriers, vaccination records and fees. Record who answered and when, then recheck when conditions change. Arrange a neighbor, friend or relative who can help if you cannot reach home; make sure that person can access the supplies and knows where the animals hide.",
+        bullets: ["Illustrative record: two cats; carriers located and practiced; driver assigned; destination acceptance not yet confirmed; backup caregiver contacted but transport not tested.", "The unresolved destination remains a task even though the bag is packed. A search result saying pets allowed is not a confirmed placement.", "Discuss service-animal access separately with the receiving facility; do not assume household-pet boarding rules answer that question.", "Practice leaving a carrier open with familiar bedding and treats before an emergency, as Ready.gov recommends. Do not wait until departure to discover an animal cannot be loaded safely."],
+        links: [{ href: "https://www.ready.gov/pets", label: "Ready.gov: evacuation planning, carrier practice and animal supplies" }]
+      },
+      {
         heading: "During the Storm: Keep Pets Indoors and Calm",
-        body: "Bring outdoor pets inside well before wind and rain arrive. Keep cats and small animals in carriers so they cannot bolt if a door blows open. Close off unsafe rooms, and never let dogs out unsupervised during the eye, when calm weather tricks animals into wandering. Play soft radio or white noise to mask frightening sounds."
+        body: "Ready.gov advises bringing pets indoors at the first sign or warning of a storm or disaster. Keep them with you in the safe location identified by your household plan, with suitable carriers and leashes available. Follow local evacuation instructions rather than continuing a shelter-at-home plan after officials tell you to leave. Ask your veterinarian beforehand about species-specific handling, medication and stress needs; do not improvise sedatives during an evacuation."
       },
       {
         heading: "After the Storm: Hazards That Hurt Pets",
-        body: "The hours after landfall are the most dangerous for animals. Floodwater hides sharp debris and carries bacteria, downed lines still carry current, and displaced wildlife may be aggressive. Keep pets leashed and on high ground, and check their paws for cuts before walking them on broken pavement or glass."
+        body: "Return only under local reentry instructions. Keep animals away from floodwater, damaged electrical equipment and debris, and use a leash or suitable carrier while their surroundings are disrupted. This guide does not establish that a yard, building or water supply is safe. Contact a veterinarian if an animal is injured or may have contacted contaminated water; contact local animal control or shelters if you are separated."
       },
       {
         heading: "Special Cases: Livestock and Backyard Animals",
-        body: "For horses, chickens, and other livestock, early movement is the safest option because trailering during a storm is dangerous. If you cannot relocate them, provide high ground, sturdy shelter, and several days of feed and clean water that will survive flooding. Mark animals with halters or tags where possible so they can be identified if fences fail."
+        body: "Ready.gov recommends arranging identification, early evacuation when possible, primary and secondary routes, appropriate vehicles and trailers, experienced handlers and drivers, and a destination with feed, water, veterinary care and handling equipment. Horses, poultry and other livestock need different transport and housing. Work out those details with your veterinarian, local agricultural extension or animal emergency officials before a storm. This household-pet guide cannot decide whether a particular barn, pasture, restraint or release arrangement is safe.",
+        bullets: ["Record the animal count, transport capacity and who can load each species safely.", "Confirm the receiving site's actual capacity and care requirements; owning a trailer alone does not complete the plan.", "If evacuation may be impossible, seek a local, species-specific contingency plan in advance instead of treating high ground as a universal solution."]
       }
     ],
     faqs: [
       {
         question: "Should I evacuate with my pet even if the storm looks weak?",
-        answer: "Yes if local officials order evacuation. A weak-looking storm can still produce deadly surge, inland flooding, and tornadoes. Take every pet with you - shelters, hotels, and boarding options fill up fast, and leaving animals behind usually ends badly."
+        answer: "If local officials tell you to evacuate, Ready.gov says your pets should evacuate too. Plan transport and an accepted destination before the order. A storm's category alone does not establish local flood, surge or tornado risk."
       },
       {
         question: "What should I do if my pet is lost after the hurricane?",
-        answer: "Search nearby shelters and post on local lost-pet networks immediately, and make sure your microchip and tag information is current. Animals displaced by storms are often scanned at intake, so an up-to-date chip is the strongest reunion tool."
+        answer: "Contact local animal control and shelters, provide identifying photos and registration information, and check that your tag and microchip contacts are current. Follow local reentry rules while searching. No identification method guarantees reunion."
       },
       {
         question: "Can I leave pets at home if I have to evacuate?",
-        answer: "No. Pets left behind during a mandatory evacuation are rarely rescued and face flooding, heat, starvation, and loose debris. Plan to take them with you or place them with a caregiver outside the danger zone before roads close."
+        answer: "Plan to take them with you or arrange care outside the danger zone before evacuation becomes urgent. Ready.gov warns that pets left behind may be lost or injured. Arrange a backup caregiver if you cannot get home; do not assume a rescue team will collect them."
       }
     ]
   },
@@ -2784,11 +2810,12 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-additional-living-expenses-ale-coverage",
-    sources: [{ href: "https://content.naic.org/state-insurance-departments", label: "NAIC: state insurance department consumer help" }, { href: "https://www.floodsmart.gov/", label: "NFIP: coverage and exclusions" }],
+    sources: [{ href: "https://www.tdi.texas.gov/tips/additional-living-expenses.html", label: "Texas Department of Insurance: extra costs, covered damage, limits and NFIP exclusion" }, { href: "https://content.naic.org/state-insurance-departments", label: "NAIC directory: find your own state's insurance regulator" }],
     title: "Hurricane Additional Living Expenses Coverage After Displacement",
     description: "Learn how additional living expenses coverage may help after hurricane displacement, what receipts to keep, and why policy terms control the claim.",
     datePublished: "2026-08-16",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-08",
+    sourceCheck: { date: "2026-11-08", scope: "Read TDI When do policies pay for additional living expenses? (updated April 10, 2025). Used its explanation of extra costs, covered damage, receipts and NFIP exclusion; did not generalize its Texas wind rules or typical limits nationwide. Calculations and records are hypothetical, not a coverage decision." },
     image: "/images/blog/hurricane-insurance-claim-guide-documentation.png",
     imageAlt: "A family reviews hurricane insurance documents and temporary lodging receipts after an evacuation.",
     sections: [
@@ -2801,16 +2828,23 @@ export const blogPosts: BlogPost[] = [
         body: "The key word is extra. ALE is generally about the difference between normal living costs and the added costs caused by being unable to live at home. Keep receipts, dates, claim numbers, and notes explaining why each cost was necessary. Ask the insurer how it wants expenses submitted before sending a large pile of documents."
       },
       {
+        heading: "Worked Example: Extra Meals Are Not the Entire Food Bill",
+        body: "Hypothetical record, not a payout estimate: a household normally spends $210 on food over seven days. While displaced without a kitchen it spends $350, with itemized receipts. The increase is $350 minus $210, or $140. It also has a separate $840 lodging bill for those seven days. Record the food difference and lodging in separate rows; do not present the full $350 food bill as all additional, or assume the $140 and $840 will be paid. The insurer still has to determine coverage, necessity, reasonable amounts, applicable limits and any other policy conditions.",
+        bullets: ["Food row: seven-day dates; usual cost $210 with its basis; actual cost $350; increase $140; receipt references; insurer decision pending.", "Lodging row: same dates; $840 itemized bill; reason the home could not be occupied; household needs; insurer decision pending.", "Do not count the same expense twice or assume a continuing mortgage payment is an added lodging cost.", "If the insurer accepts $980 for this hypothetical period against a confirmed $5,000 ALE limit, arithmetic leaves $4,020 before other accepted expenses. Neither number predicts how long repairs will take."]
+      },
+      {
         heading: "Limits, Time Caps, and Policy Terms",
         body: "ALE is not unlimited. Some policies use a dollar limit, a percentage of dwelling coverage, a time limit, or a combination. Renters policies may include loss-of-use coverage with different caps. Read the declarations page and ask the insurer or agent for the exact limit before assuming a hotel, rental, or meal cost will be reimbursed."
       },
       {
         heading: "Wind, Flood, and Habitability Questions",
-        body: "Hurricane claims often involve separate causes of loss, including wind, rain intrusion, storm surge, or flood. Standard homeowners policies often treat flood differently from wind, and a separate flood policy may be involved. Ask the insurer which policy applies and whether the home is considered uninhabitable under the policy terms."
+        body: "Separate the cause of damage from the fact that you left home. TDI explains ALE in connection with damage from an event covered by the policy, and explicitly says NFIP policies do not pay additional living expenses. A private flood policy or endorsement may have different terms, so identify the actual contract instead of assuming all flood insurance includes lodging. For a power outage without home damage, an evacuation order or prohibited access, ask which exact clause, if any, applies; these are not interchangeable triggers. Do not wait for a reimbursement answer before following an evacuation order.",
+        links: [{ href: "https://www.tdi.texas.gov/tips/additional-living-expenses.html", label: "Read TDI's covered-damage explanation and NFIP limitation" }, { href: "/blog/hurricane-flood-insurance-guide-nfip/", label: "Review building and contents flood coverage separately" }]
       },
       {
         heading: "Build a Claim-Ready Record",
-        body: "Save receipts digitally and on paper, photograph damage before cleanup when safe, keep all insurer messages, and write a simple date log of where you stayed and why. The cleaner the record, the easier it is for an adjuster to understand the displacement timeline."
+        body: "Keep a dated record with the policy and claim number, cause of loss as reported, occupancy restriction, expense category, normal baseline, actual cost, receipt reference, submission date and insurer response. Mark disputed or unanswered items pending. Keep safe copies of the evidence; the record explains a request rather than proving entitlement. When two insurers are involved, record which expense was submitted to which claim so the same receipt is not treated as two separate costs.",
+        bullets: ["Before booking a long stay: request written confirmation of lodging parameters, any approval requirement and the applicable dollar and time limits.", "When extending a stay: record why repairs or access restrictions continue and ask whether the extension is accepted.", "When submitting expenses: retain itemized bills and the normal-spending basis, not only a credit-card total.", "When a request is denied: retain the written reason and cited policy clause; use your state regulator's consumer help for unresolved questions."]
       },
       {
         heading: "Before the Storm: Confirm Coverage",
@@ -2822,17 +2856,22 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Use HurricaneHub to Prepare Documents",
-        body: "Pair this guide with the hurricane documents and insurance checklist, evacuation-zone guide, preparedness checklist, and live hurricane tracker. Those pages help you pack policy documents before leaving and organize the evidence you may need after the storm."
+        body: "Keep the declarations page and applicable loss-of-use wording with the expense log. Use the related guides for packing records and handling claim evidence; a tracker or preparedness checklist cannot decide whether a cost is insured.",
+        links: [{ href: "/blog/hurricane-documents-insurance-checklist/", label: "Pack policies, identity records and insurance contacts" }, { href: "/blog/hurricane-insurance-claim-guide-documentation/", label: "Separate claim notices, proof requirements and dispute deadlines" }]
       },
       {
         heading: "Official Source Check",
-        body: "For coverage decisions, the policy and insurer are authoritative. For disaster assistance, use DisasterAssistance.gov, FEMA, your state insurance department, and local emergency management. This article is general information, not legal, financial, or insurance advice."
+        body: "The cited TDI page is a Texas regulator's consumer explanation. Its Texas coastal wind arrangements and typical coverage percentages are not nationwide policy rules. Your contract, endorsements and applicable state law govern the claim; an insurer's response may be questioned through the available complaint or dispute process. FEMA assistance is a separate program, not another name for ALE. This article provides general information and a recordkeeping example, not a settlement or eligibility determination."
       }
     ],
     faqs: [
       {
         question: "Does hurricane ALE cover hotel costs?",
         answer: "It may, if a covered loss makes the home uninhabitable and the hotel cost is a reasonable extra expense. Confirm the limit, cause of loss, and documentation rules with the insurer."
+      },
+      {
+        question: "Does NFIP flood insurance pay additional living expenses?",
+        answer: "No. TDI's consumer guide states that NFIP policies do not pay ALE. Check any separate homeowners coverage, private flood contract or endorsement on its own terms rather than assuming flood-related displacement includes a lodging benefit."
       },
       {
         question: "How long does additional living expenses coverage last?",
@@ -2937,11 +2976,13 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-mold-prevention-after-flood",
-    sources: [{ href: "https://www.epa.gov/mold", label: "EPA: mold cleanup and professional help" }, { href: "https://www.cdc.gov/floods/safety/", label: "CDC: floodwater and cleanup hazards" }],
+    sources: [{ href: "https://www.epa.gov/mold/mold-cleanup-your-home", label: "EPA: cleanup size, contaminated water and HVAC limits" }, { href: "https://www.epa.gov/mold/brief-guide-mold-moisture-and-your-home", label: "EPA: protective equipment, moisture control and limits of biocides" }],
     title: "How to Prevent Mold After a Hurricane Flood",
     description: "A cautious, official-source-oriented guide to reducing mold risk after hurricane flooding, including safe reentry, drying, cleanup, documentation, and when to call professionals.",
     datePublished: "2026-08-17",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-08",
+    sourceCheck: { date: "2026-11-08", scope: "Read EPA Mold Cleanup in Your Home (updated June 4, 2026) and A Brief Guide to Mold, Moisture and Your Home (updated February 18, 2026), including contaminated water, HVAC, PPE and biocides. No building, contamination, medical condition or completed remediation was assessed." },
+    review: { date: "2026-11-08", scope: "Flood cleanup boundaries", correction: "Removed routine disinfection as a universal mold-cleanup step. Explained that EPA's small-area guidance is not clearance for sewage or contaminated floodwater, and added HVAC and professional-help limits." },
     image: "/images/blog/hurricane-mold-prevention-after-flood.jpg",
     imageAlt: "A homeowner wearing protective gear checks flood-damaged flooring and ventilation after a hurricane.",
     sections: [
@@ -2956,12 +2997,18 @@ export const blogPosts: BlogPost[] = [
           "Warm, humid air and wet porous materials can allow mold to grow quickly after flooding. Drying early can reduce risk, but floodwater may contain sewage, chemicals, debris, or other contaminants, so cleanup should follow EPA, CDC, local health department, and insurance guidance rather than improvised shortcuts."
       },
       {
+        heading: "A Small Patch Is Not Proof of a Small Flood Problem",
+        body: "EPA says a moldy area below about 10 square feet can often be handled by a homeowner, but explicitly separates extensive water damage, contaminated water and HVAC contamination. That area is a screening consideration, not a flood-cleanup permission threshold. If sewage or other contaminated water caused the damage, EPA calls for a professional experienced with that contamination. A visible patch does not establish what is behind a wall or beneath flooring.",
+        bullets: ["Contaminated water: arrange an experienced professional instead of choosing a cleaning method by patch size.", "Suspected mold in HVAC: do not run that system; it could spread mold through the building. Seek assessment before using it for drying.", "Large water damage, hidden growth or repeated growth: consult the EPA guidance and an experienced remediation provider.", "Health concerns: consult a health professional before cleanup. A respirator does not resolve every flood-related hazard."],
+        links: [{ href: "https://www.epa.gov/mold/mold-cleanup-your-home", label: "Read EPA's exceptions to the small-area cleanup guidance" }]
+      },
+      {
         heading: "First Cleanup Priorities",
         body: "Use these steps as a planning checklist after officials clear reentry. Stop and get professional help if electricity, structural damage, sewage, chemical contamination, or health conditions make cleanup unsafe.",
         bullets: [
           "Document damage with photos and video before moving items when it is safe to do so.",
           "Remove standing water with pumps, wet/dry vacuums, or professional services only when electricity and structure are safe.",
-          "Increase ventilation and dehumidification when outdoor conditions and power safety allow.",
+          "Plan ventilation and dehumidification only after electrical and contamination checks; do not run HVAC suspected of mold contamination.",
           "Separate porous materials that stayed wet from hard surfaces that may be cleaned and dried.",
           "Keep receipts for equipment, supplies, lodging, and professional cleanup."
         ]
@@ -2974,34 +3021,40 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Cleaning Hard Surfaces",
         body:
-          "Hard, non-porous surfaces may be cleaned with detergent and water, then disinfected with an appropriate product used exactly as labeled. Never mix bleach with ammonia or other cleaners. When the affected area is large, recurring, inside walls, or connected to HVAC, use qualified remediation help."
+          "For appropriate household mold cleanup, EPA describes scrubbing hard surfaces with detergent and water and drying them completely. Its brief guide does not recommend biocides such as chlorine bleach as a routine mold-cleanup practice: killing mold alone does not remove it, and dead mold may still cause allergic reactions. Contaminated floodwater may require a different professional cleanup plan. Do not infer a chemical or dilution from this article; follow the applicable guidance and product label, provide ventilation if a product requires it, and never mix bleach with ammonia or other cleaners."
       },
       {
-        heading: "Health-Sensitive Households",
+        heading: "Protective Equipment Has Limits",
         body:
-          "People with asthma, allergies, immune conditions, pregnancy, respiratory symptoms, or other medical concerns should be cautious around damp or mold-affected buildings. Follow CDC and local health department guidance and ask a medical professional before participating in cleanup."
+          "EPA's household mold guide describes a properly fitting N-95 respirator to reduce airborne mold exposure, gloves extending to the middle of the forearm, and goggles without ventilation holes. Glove material must suit the cleaning product; follow its label and the equipment instructions. These measures address mold exposure, not electrical hazards, structural instability or every chemical in floodwater. Workplace respirator use has additional OSHA requirements. If you have asthma, allergies, immune conditions or other health concerns, ask a health professional before participating rather than assuming protective gear makes the job suitable.",
+        links: [{ href: "https://www.epa.gov/mold/brief-guide-mold-moisture-and-your-home#tab-4", label: "EPA: what to wear when cleaning moldy areas" }]
+      },
+      {
+        heading: "Worked Decision: A Small Patch After Contaminated Water",
+        body: "Illustrative scenario: water entered a ground-floor room, sewage contamination is suspected, and the visible mold patch is only 4 square feet. The small patch does not override the contamination concern. The next task is arranging experienced help and confirming building and utility safety, not selecting bleach strength or running a potentially contaminated HVAC system. Record the water source as suspected, the rooms affected, photos taken safely, and who will assess the unresolved hazards. Do not write cleared until the appropriate assessment actually occurs."
       },
       {
         heading: "Insurance and Recovery Documentation",
         body:
-          "Coverage depends on policy language, the cause of water damage, flood coverage, and required mitigation steps. Standard homeowners policies often treat flood differently from wind-driven rain. Review your policy, contact your insurer, and keep a dated cleanup log. Related guides: /blog/what-to-do-after-a-hurricane/, /blog/hurricane-insurance-claim-guide-documentation/, and /blog/hurricane-flood-insurance-guide-nfip/."
+          "Keep a dated cleanup log, safe-to-take photographs, contractor assessments and receipts. Ask the insurer how to document necessary mitigation and any items that must be discarded. Do not delay urgent protective action to get a perfect inventory. Documentation supports the claim record; it does not establish that mold, flood or any particular expense is covered.",
+        links: [{ href: "/blog/hurricane-insurance-claim-guide-documentation/", label: "Organize damage evidence and separate claim deadlines" }, { href: "/blog/hurricane-flood-insurance-guide-nfip/", label: "Check flood coverage separately from homeowners insurance" }]
       },
       {
         heading: "Official Resources to Check",
         body:
-          "Use EPA mold cleanup guidance, CDC flood cleanup health guidance, local health department instructions, FEMA disaster assistance resources, and your local emergency management office. HurricaneHub can organize recovery steps, but official agencies and licensed professionals should guide safety-critical decisions."
+          "EPA says moisture control is essential: removing visible mold without fixing the water problem can allow it to return. Record the repair, drying and removal work and check for recurring moisture, visible growth or odor after cleanup. Appearance alone is not a clearance certificate for a flood-damaged home. Use local health and building instructions and experienced professionals for unresolved contamination, hidden damage or occupancy questions."
       }
     ],
     faqs: [
       {
         question: "How fast can mold grow after hurricane flooding?",
         answer:
-          "Mold can begin growing quickly in warm, humid, wet buildings, often within a couple of days. Exact timing depends on materials, temperature, humidity, airflow, and how long moisture remains."
+          "EPA recommends drying water-damaged areas and items within 24-48 hours to help prevent mold growth. That is a prevention target, not a guarantee or permission to enter an unsafe home; contamination and structural or electrical hazards come first."
       },
       {
         question: "Can I clean hurricane mold myself?",
         answer:
-          "Small, simple areas may be manageable with protective gear and official cleanup guidance, but large areas, recurring growth, HVAC contamination, sewage, chemicals, or health-sensitive households should involve qualified professionals."
+          "Size alone cannot answer that question after flooding. EPA directs people to experienced professional help for sewage or other contaminated water and warns against running mold-contaminated HVAC. Extensive damage, hidden growth and health concerns require further guidance even when the visible patch is small."
       },
       {
         question: "Does insurance cover mold after hurricane flooding?",
@@ -3026,8 +3079,8 @@ export const blogPosts: BlogPost[] = [
     title: "How to Read a FEMA Flood Zone Map Before Hurricane Season",
     description: "Learn what FEMA flood zone letters, base flood elevation, and map updates mean for hurricane preparedness, flood insurance questions, and local evacuation planning.",
     datePublished: "2026-08-17",
-    dateModified: "2026-10-27",
-    sourceCheck: { date: "2026-10-27", scope: "FEMA's January 2022 tutorial, its Zone AE teaching screenshot and linked tutorial directory. No current property determination, effective panel, insurance quote or evacuation order verified." },
+    dateModified: "2026-11-08",
+    sourceCheck: { date: "2026-10-27", scope: "FEMA's January 2022 tutorial, its Zone AE teaching screenshot and linked tutorial directory. No current property determination, effective panel, insurance quote or evacuation order verified. November 8 changes only improve link text; the FEMA sources were not rechecked that day." },
     image: "/images/blog/hurricane-flood-zone-map-fema-understanding.png",
     imageAlt: "A coastal homeowner reviews a digital flood zone map with property documents on a desk.",
     figures: [{ src: "/images/blog/external/fema-flood-map-tutorial-zone-ae.jpg", width: 940, height: 716, afterSection: "Read FEMA's Zone AE Teaching Example", alt: "Map detail from FEMA's tutorial: arrow 1 marks an approximate pin, arrow 2 marks the map number and effective date, and arrow 3 marks Zone AE.", caption: "Historical teaching screenshot from FEMA's January 2022 How to Read a Flood Map, printed slide 11 (PDF page 12). Cropped to the map detail for readability, with FEMA's three original arrows and map labels retained. This is not a current property lookup; the screenshot's small map-date text should be checked in the original rather than guessed.", sourceUrl: "https://www.fema.gov/sites/default/files/documents/how-to-read-flood-insurance-rate-map-tutorial.pdf#page=12", sourceLabel: "Open FEMA's original tutorial at PDF page 12" }],
@@ -3081,12 +3134,14 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Insurance Planning Questions",
         body:
-          "The teaching slide's brief insurance footnote is not a complete rule for every property. FEMA's earlier tutorial slide explains the federal mandatory-purchase context for structures in Special Flood Hazard Areas with mortgages from federally regulated or insured lenders in participating communities. Confirm the actual lender requirement and policy terms rather than inferring them from a colored pin. Flood insurance waiting periods, deductibles and premiums depend on the program, property and policy; the map alone is not a quote. Related guides: /blog/hurricane-flood-insurance-guide-nfip/, /blog/hurricane-insurance-deductibles-guide/, and /blog/hurricane-documents-insurance-checklist/."
+          "The teaching slide's brief insurance footnote is not a complete rule for every property. FEMA's earlier tutorial slide explains the federal mandatory-purchase context for structures in Special Flood Hazard Areas with mortgages from federally regulated or insured lenders in participating communities. Confirm the actual lender requirement and policy terms rather than inferring them from a colored pin. Flood insurance waiting periods, deductibles and premiums depend on the program, property and policy; the map alone is not a quote.",
+        links: [{ href: "/blog/hurricane-flood-insurance-guide-nfip/", label: "Review flood coverage and policy questions" }, { href: "/blog/hurricane-insurance-deductibles-guide/", label: "Convert a percentage deductible into dollars" }]
       },
       {
         heading: "Use Maps With Live Storm Context",
         body:
-          "During an active storm, pair your flood-zone knowledge with /hurricane-tracker/live/, /radar/, local NWS alerts, NHC storm surge products, and local emergency instructions. Map risk should become a preparedness prompt, not a single decision rule."
+          "During an active storm, pair your flood-zone knowledge with current storm observations, local NWS alerts, NHC storm surge products, and local emergency instructions. Map risk should become a preparedness prompt, not a single decision rule.",
+        links: [{ href: "/hurricane-tracker/live/", label: "Check current storm context" }, { href: "/radar/", label: "Inspect radar observations separately from the flood map" }]
       }
     ],
     faqs: [
@@ -3119,11 +3174,12 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-small-business-preparedness-plan",
-    sources: [{ href: "https://www.ready.gov/business", label: "Ready.gov business preparedness" }, { href: "https://www.sba.gov/funding-programs/disaster-assistance", label: "SBA disaster assistance and eligibility" }],
+    sources: [{ href: "https://www.ready.gov/business-continuity-plan", label: "Ready.gov: continuity teams, planning process and test resources" }, { href: "https://www.ready.gov/business", label: "Ready.gov: business preparedness resources" }, { href: "https://www.sba.gov/funding-programs/disaster-assistance", label: "SBA: disaster assistance program information, not guaranteed funding" }],
     title: "Hurricane Preparedness Plan for Small Businesses",
     description: "A practical hurricane planning guide for small businesses covering staff communication, records backup, building checks, closure triggers, insurance, and reopening.",
     datePublished: "2026-08-17",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-08",
+    sourceCheck: { date: "2026-11-08", scope: "Read Ready.gov Business Continuity Planning, updated March 25, 2026, including its team, process and test-resource descriptions. Did not claim to have watched training videos or tested an actual business. The shop scenario and printable record are editorial examples, not legal, engineering or insurance approval." },
     image: "/images/blog/hurricane-small-business-preparedness-plan.png",
     imageAlt: "A small business team reviews a hurricane preparedness checklist beside a laptop and printed records.",
     sections: [
@@ -3138,6 +3194,11 @@ export const blogPosts: BlogPost[] = [
           "Name a primary decision lead and backups for staff communication, facilities, records, technology, vendors, and customer updates. Keep the plan short enough that employees can find it on a phone during a stressful week."
       },
       {
+        heading: "Worked Plan: A Small Shop With Three Staff",
+        body: "Illustrative scenario, not an actual business assessment: a shop has one owner, two employees, a cloud sales system and a landlord-managed building. The owner decides closure, one employee handles staff and customer messages, and the other checks records and supplier contacts. Each role has a named backup. The plan records the local emergency-management source and the building manager's contact instead of waiting for a particular hurricane category. An evacuation instruction covering the shop triggers closure and departure under that instruction; the team may need to stop earlier to allow safe travel.",
+        bullets: ["Owner: read the actual local order, record its area and required action, stop appointments and deliveries, and tell staff when work ends.", "Communication lead: send the agreed closure message, request acknowledgments, and call any staff member who cannot access the normal channel. Keep private contact details out of public posts.", "Records lead: confirm the last completed backup and test result, document inventory only while safe, and give the owner a list of unresolved tasks.", "Any unfinished property task remains unfinished when protective action is required. A checklist does not authorize staff to stay in unsafe conditions."]
+      },
+      {
         heading: "Protect Records and Systems",
         body: "Data loss can slow claims, payroll, customer communication, and reopening. Prepare backups before tropical weather threatens your area.",
         bullets: [
@@ -3146,6 +3207,11 @@ export const blogPosts: BlogPost[] = [
           "Test remote access, passwords, two-factor authentication, and emergency contact lists.",
           "Document equipment, inventory, and tenant improvements with photos or video."
         ]
+      },
+      {
+        heading: "Test Recovery Before You Need the Backup",
+        body: "A backup-complete notification is not a restoration test. In the shop example, the records lead restores a non-sensitive sample file to a separate test location, opens it, checks the date and expected contents, and records the time taken and result. The owner also confirms that a second authorized person can access the recovery instructions without sharing passwords in the plan. If authentication depends on a phone held by the unavailable owner, that is an unresolved dependency, not a successful test.",
+        bullets: ["Record the critical process: taking payments, finding orders, paying staff or contacting customers.", "For each process, note the system, authorized owner, backup, recovery location and last successful test date.", "Keep payment and customer information inside approved secure systems; use sample data for the exercise.", "Ready.gov provides continuity test resources. Its page says the older Business Continuity Planning Suite is no longer supported or downloadable; do not depend on finding that old software during an emergency."]
       },
       {
         heading: "Use Official Closure and Evacuation Signals",
@@ -3160,7 +3226,12 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Power, Connectivity, and Generator Safety",
         body:
-          "Plan for payment systems, phones, refrigeration, security, payroll, and customer service during outages. Generators must stay outdoors and away from openings because carbon monoxide can be deadly; review /blog/hurricane-generator-safety-carbon-monoxide/ before relying on backup power."
+          "List which operations depend on electricity, connectivity or refrigeration, and decide what must stop if a dependency fails. In the shop example, inability to authorize payments is not permission to write down customers' card details. Arrange an approved alternative or pause the transaction. A portable generator needs its own safe operating plan, manufacturer instructions and carbon-monoxide precautions; possession of a generator does not mean the shop can reopen.",
+        links: [{ href: "/blog/hurricane-generator-safety-carbon-monoxide/", label: "Check generator placement and carbon-monoxide precautions" }]
+      },
+      {
+        heading: "Confirm Suppliers and Cash Commitments",
+        body: "In the example, the owner records the next supplier delivery, a cancellation contact, payroll due dates and the costs that continue while closed. Ask the supplier whether a changed delivery date is confirmed; do not treat a sent email as acceptance. Review business-interruption and extra-expense terms before relying on insurance for wages, spoiled stock or temporary premises. Put assistance applications in a separate task list rather than counting unapproved grants or loans as cash on hand."
       },
       {
         heading: "Insurance and Financial Continuity",
@@ -3170,7 +3241,13 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Reopening After the Storm",
         body:
-          "Before reopening, confirm local reentry rules, building safety, utilities, water, mold risk, staffing, inventory, and customer communication. Related pages: /blog/what-to-do-after-a-hurricane/, /blog/hurricane-mold-prevention-after-flood/, /tools/power-outage-planner/, and /hurricane-tracker/live/."
+          "The owner records each required confirmation: official reentry, landlord or qualified building assessment as appropriate, safe utilities and water, any contamination response, usable systems, staffing and supply status. A reopened road does not certify the building, and a working payment terminal does not establish safe occupancy. In the shop example, electricity returns but a water restriction remains unresolved: the plan stays pending until the appropriate guidance for that business activity is obtained. Record who confirmed each item, when, and what limitations remain.",
+        links: [{ href: "/blog/what-to-do-after-a-hurricane/", label: "Review recovery priorities before returning" }, { href: "/blog/hurricane-mold-prevention-after-flood/", label: "Identify contaminated-water and mold cleanup limits" }]
+      },
+      {
+        heading: "Keep a Short Record the Team Can Reach",
+        body: "Use the printable record for contacts, decisions, dependencies and pending confirmations. Keep a paper copy and an approved offline copy where authorized staff can find them. Store passwords, customer lists, payment details and private medical information elsewhere in secure systems. Run a short exercise before the season: assume the owner and normal internet connection are unavailable, then check whether the backup can find the closure message and restoration instructions. Record failures as tasks with an owner and follow-up date.",
+        links: [{ href: "/downloads/small-business-hurricane-plan.txt", label: "Open the printable small-business hurricane planning record" }, { href: "https://www.ready.gov/business-continuity-plan", label: "Find Ready.gov continuity planning and test resources" }]
       }
     ],
     faqs: [
@@ -3207,7 +3284,7 @@ export const blogPosts: BlogPost[] = [
     title: "Apartment Hurricane Preparedness Checklist for Renters",
     description: "A renter-focused hurricane checklist for apartment go-bags, renters insurance, building rules, pets, documents, outages, and safe evacuation decisions.",
     datePublished: "2026-08-17",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-08",
     image: "/images/blog/apartment-hurricane-preparedness-renters-checklist.png",
     imageAlt: "Apartment renters organize hurricane supplies, documents, and a go-bag on a kitchen table.",
     sections: [
@@ -3216,9 +3293,9 @@ export const blogPosts: BlogPost[] = [
       { heading: "Build a Renter Go-Bag", body: "Keep a bag where each household member can grab it quickly if your building loses power, floods, or receives an evacuation order.", bullets: ["Photo ID, lease copy, renters insurance information, medications, chargers, and emergency contacts.", "Water, no-cook food, flashlight, batteries, radio, basic first aid, and cash in small bills.", "Pet food, carriers, vaccination records, leashes, and a pet-friendly destination plan.", "Comfort items for children and written care notes for seniors, disabled household members, or medical needs."] },
       { heading: "Room-by-Room Apartment Checks", body: "Move valuables and electronics away from windows and low floors when safe. Bring balcony items indoors, keep shoes and flashlights near beds, know two stairwell routes, and photograph every room before storm season or before damage cleanup when safe." },
       { heading: "Elevators, Upper Floors, and Shared Buildings", body: "Power outages can stop elevators, card access, water pumps, and air conditioning. Upper floors may avoid some flooding but can face stronger wind, broken glass, stairwell access issues, and heat after outages. Ask property management about emergency procedures before a storm threatens." },
-      { heading: "Renters Insurance and Flood Coverage", body: "A landlord policy usually covers the building, not your belongings. Renters insurance may cover personal property and loss-of-use, but flood damage often requires separate coverage. Review policy terms with your insurer and see /blog/hurricane-flood-insurance-guide-nfip/ and /blog/hurricane-additional-living-expenses-ale-coverage/." },
-      { heading: "After the Storm", body: "Return only when local officials and building management allow it. Watch for electrical hazards, water damage, elevator outages, mold, and unsafe repairs. Photograph damage before cleanup and report issues to the landlord and insurer. Recovery context is available at /blog/what-to-do-after-a-hurricane/ and /blog/hurricane-mold-prevention-after-flood/." },
-      { heading: "Use Local Tracker and Preparedness Tools", body: "Pair your apartment plan with /hurricane-tracker/live/, /hurricane-tracker/city/, /tools/preparedness-checklist/, and /tools/local-risk-plan/. HurricaneHub helps organize context, but local officials control evacuation, reentry, shelter, and road decisions." }
+      { heading: "Renters Insurance and Flood Coverage", body: "A landlord policy usually covers the building, not your belongings. Renters insurance may cover personal property and loss-of-use, but flood damage often requires separate coverage. Review policy terms with your insurer.", links: [{ href: "/blog/hurricane-flood-insurance-guide-nfip/", label: "Check flood coverage separately" }, { href: "/blog/hurricane-additional-living-expenses-ale-coverage/", label: "Record additional living expenses and coverage questions" }] },
+      { heading: "After the Storm", body: "Return only when local officials and building management allow it. Watch for electrical hazards, water damage, elevator outages, mold, and unsafe repairs. Photograph damage before cleanup and report issues to the landlord and insurer.", links: [{ href: "/blog/what-to-do-after-a-hurricane/", label: "Review recovery priorities after a hurricane" }, { href: "/blog/hurricane-mold-prevention-after-flood/", label: "Check flood cleanup and mold safety limits" }] },
+      { heading: "Use Local Tracker and Preparedness Tools", body: "Use storm context and a separate household checklist to organize preparations. HurricaneHub helps organize context, but local officials control evacuation, reentry, shelter, and road decisions.", links: [{ href: "/hurricane-tracker/live/", label: "Open current hurricane tracking" }, { href: "/hurricane-tracker/city/", label: "Find city-specific planning resources" }, { href: "/tools/preparedness-checklist/", label: "Organize the household preparation checklist" }] }
     ],
     faqs: [
       { question: "Does my landlord's insurance cover my belongings during a hurricane?", answer: "Usually no. A landlord policy generally covers the building, not a renter's personal property or temporary living costs. Review renters insurance and flood coverage with your insurer." },
@@ -3234,7 +3311,7 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane School and Daycare Emergency Plan for Families",
     description: "A family-focused hurricane guide for school closures, daycare pickup, child go-bags, communication plans, documents, pets, and post-storm routines.",
     datePublished: "2026-08-17",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-08",
     image: "/images/blog/hurricane-school-daycare-emergency-plan.png",
     imageAlt: "A parent reviews a hurricane family communication plan and school pickup contacts with a child.",
     sections: [
@@ -3242,10 +3319,10 @@ export const blogPosts: BlogPost[] = [
       { heading: "Child-Focused Go-Bag", body: "Children need basic supplies plus familiar items that reduce stress during sheltering, evacuation, or extended closures.", bullets: ["Medications, written care notes, allergy information, insurance cards, and copies of school or daycare contacts.", "Comfort items, simple games, books, chargers, headphones, and child-friendly no-cook food.", "Diapers, formula, wipes, special foods, mobility supplies, or device chargers when needed.", "A paper contact card with authorized pickup adults and an out-of-area family contact."] },
       { heading: "Pickup and Reunification", body: "Confirm who can pick up each child, what ID the school requires, where students are moved if campus closes, and how the district communicates changes. Keep a backup adult on the list in case traffic, work, or evacuation routes prevent one caregiver from arriving." },
       { heading: "Complete a Pickup Record for Each Child", body: "Record the child's campus, classroom or program, official notification channel, primary pickup adult, authorized backup adult, required ID, and the school's published reunification procedure. Keep sensitive custody and medical records private. Confirm the backup adult is actually authorized in the school's system, not just listed on your household sheet. After an early-release notice, have one caregiver confirm the assignment with the other before traveling; record who collected the child and where they are going. If a phone fails or a route closes, contact the school through its published channel rather than arriving at an assumed alternate campus." },
-      { heading: "Children With Medical, Disability, or Sensory Needs", body: "Coordinate with the school nurse, daycare director, medical provider, or support team before hurricane season. Written instructions should cover medication, mobility, device power, communication needs, and backup care locations. See /blog/hurricane-safety-seniors-children-disability/ for broader household planning." },
-      { heading: "Pets and Service Animals", body: "If a child depends on a service animal or household pet, include food, medications, records, carriers, and a pet-friendly destination. Check shelter and hotel rules early, because animal policies differ. Related planning: /blog/hurricane-pet-safety/." },
+      { heading: "Children With Medical, Disability, or Sensory Needs", body: "Coordinate with the school nurse, daycare director, medical provider, or support team before hurricane season. Written instructions should cover medication, mobility, device power, communication needs, and backup care locations.", links: [{ href: "/blog/hurricane-safety-seniors-children-disability/", label: "Plan household medical, mobility and communication needs" }] },
+      { heading: "Pets and Service Animals", body: "Include animal supplies and care responsibilities in the household plan. Confirm service-animal access separately with the receiving facility rather than treating household-pet boarding rules as the answer. For pets, check the actual destination's acceptance, carrier and record requirements early.", links: [{ href: "/blog/hurricane-pet-safety/", label: "Confirm animal transport, supplies and destination arrangements" }] },
       { heading: "After the Storm", body: "Return children to routine when roads, homes, and school buildings are safe. Expect schedule changes, transport disruption, stress reactions, or temporary childcare gaps. Limit repeated storm footage, keep communication calm, and watch official school district updates." },
-      { heading: "Track Weather and Local Decisions", body: "Use /hurricane-tracker/live/, /alerts/, and your city tracker for storm context, then rely on the school district, local emergency management, NWS, and NHC for official closure, weather, and evacuation information." }
+      { heading: "Track Weather and Local Decisions", body: "Use current tracking and alerts for storm context, then rely on the school district, local emergency management, NWS, and NHC for official closure, weather, and evacuation information.", links: [{ href: "/hurricane-tracker/live/", label: "Check current storm context" }, { href: "/alerts/", label: "Read weather alerts separately from school decisions" }] }
     ],
     faqs: [
       { question: "Who can pick up my child during a hurricane closure?", answer: "Only the adults listed in the school's or daycare's official authorization system. Keep that list current and make sure backup caregivers know pickup rules and ID requirements." },
@@ -3261,7 +3338,7 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Contractor Scams: Protect Your Insurance Claim",
     description: "How to reduce post-hurricane contractor fraud risk with damage documentation, license checks, written estimates, claim logs, and official reporting channels.",
     datePublished: "2026-08-17",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-08",
     image: "/images/blog/hurricane-contractor-scams-insurance-claim.png",
     imageAlt: "A homeowner reviews contractor paperwork, insurance documents, and storm damage photos after a hurricane.",
     sections: [
@@ -3272,7 +3349,7 @@ export const blogPosts: BlogPost[] = [
       { heading: "Assignment of Benefits and Claim Paperwork", body: "Some documents can transfer claim payment rights or control to a contractor or third party. Rules vary by state and policy, so do not sign claim-rights paperwork under pressure. Ask your insurer, state insurance department, or a qualified professional if you do not understand a form." },
       { heading: "Temporary Repairs and Permits", body: "Reasonable temporary measures may help prevent further damage, but permanent work should follow local permit and inspection rules. Coordinate tarping, drying, demolition, mold remediation, and rebuild steps with your insurer and local building department when required." },
       { heading: "Protect Seniors and Vulnerable Neighbors", body: "Older adults, non-English speakers, disabled residents, and people under severe stress may be targeted after disasters. Offer to help review written estimates, verify licenses, call the insurer, or report suspicious activity through official channels." },
-      { heading: "Related Recovery Guides", body: "Use /blog/what-to-do-after-a-hurricane/ for recovery order of operations, /blog/hurricane-insurance-claim-guide-documentation/ for claim documentation, /blog/hurricane-mold-prevention-after-flood/ for damp-building cleanup context, and /hurricane-tracker/live/ to understand the official storm record." }
+      { heading: "Related Recovery Guides", body: "Keep contractor checks separate from claim documentation and cleanup decisions. Use the guide matching the next task.", links: [{ href: "/blog/what-to-do-after-a-hurricane/", label: "Review recovery priorities and safe reentry" }, { href: "/blog/hurricane-insurance-claim-guide-documentation/", label: "Organize claim evidence before hiring repairs" }, { href: "/blog/hurricane-mold-prevention-after-flood/", label: "Identify flood cleanup limits and professional-help conditions" }] }
     ],
     faqs: [
       { question: "How do I verify a contractor after a hurricane?", answer: "Check the state licensing board, local permit office, proof of insurance, references, written estimates, and your insurer's guidance before signing or paying." },

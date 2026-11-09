@@ -11,6 +11,7 @@ const excludedSourcePatterns = [
   /^404\.astro$/,
   /^api\//,
   /^embed\//,
+  /^design-preview\//,
   /^robots\.txt\.ts$/,
   /^rss\.xml\.ts$/,
   /^search-index\.json\.ts$/,
