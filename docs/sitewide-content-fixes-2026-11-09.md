@@ -34,4 +34,14 @@ Observation date: November 9, 2026. Local resource pages and NHC scale did not d
 - No newsletter signup was submitted. Delivery and unsubscribe processing were not tested end to end.
 - Two local guides were deepened in this batch; remaining local pages still need gradual individual source-based improvements. This release does not guarantee AdSense approval.
 
-Deployment identifiers and final verification are recorded separately after publication.
+## Production release
+
+- Code commit: `c9ac3fb` (`fix: correct audited hurricane guidance and editorial dates`).
+- Guarded `npm run ship` completed successfully: final build passed, freshly fetched origin/main, pushed main and deployed production.
+- Cloudflare Worker version reported by deploy: `644f4dda-f52d-4468-b930-236ce0d62d6c`, worker `hurricanehub`, routes `hurricanetracker.cc/*` and `www.hurricanetracker.cc/*`.
+- Site: https://www.hurricanetracker.cc/ . This version-to-commit mapping is established by the completed release command, not inferred from the branch.
+- Production browser verification confirmed PTC guidance, removal of NEXT status, Orlando visible date and Article dateModified of November 9, expanded Gulf Shores/Norfolk guidance, the dated seasonal probability/range summary, newsletter disclosures and corrected offline instructions.
+- Production endpoint verification passed for Googlebot, AdsBot-Google and Mediapartners-Google GET/HEAD requests to the homepage and ads.txt through each configured host/scheme; robots, policy, contact and sitemap endpoints passed.
+- IndexNow accepted 210 unique URLs (HTTP 200). Google Indexing API submission was skipped because no service-account credential was configured; this does not mean crawling or indexing failed.
+- The first sandboxed release attempt stopped during local build with a localhost-listen permission error before push/deploy. The authorized elevated retry completed successfully.
+- This documentation update does not change the deployed site and does not require another deployment.
