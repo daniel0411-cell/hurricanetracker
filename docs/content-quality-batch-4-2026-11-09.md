@@ -38,4 +38,12 @@ Located through a background in-app browser Google search and followed official 
 - Astro check: 225 files, zero errors, zero warnings, four existing hints. FAQ, internal-link and metadata audits passed; whitespace diff check passed. Generic audits do not by themselves establish the guide's factual accuracy.
 - Built Worker preview at localhost:8840: canonical is the www production URL with trailing slash; substantive date November 9; six visible steps exactly match HowTo names/text; all seven FAQ schema questions/answers appear in the page.
 - Desktop 1440x900 and mobile 390x844: no horizontal overflow; screenshots of the household record and mobile official resources inspected for readable wrapping. Local preview stopped after checking.
-- Commit, push, deployment identity and production verification pending at this checkpoint.
+- Content commit c12681f409af8ec576e71ba97dc858a68437267e pushed to origin/main. Fresh fetch before push found the baseline unchanged; another fresh fetch before deployment confirmed HEAD/origin/main equal at c12681f, 0/0 and clean worktree.
+- `npm run deploy` completed successfully. Actual Wrangler output identified Worker hurricanehub version 67dbfbeb-d937-47e6-9c8a-c32fd0ed4ff3 serving the configured apex and www routes. This deployment used the verified build for c12681f; the Worker identity comes from release output, not inference from Git.
+- Production browser observed https://www.hurricanetracker.cc/city/jacksonville/hurricane-tracker/ with the new record, November 9 revision, limited source note and correct zone link. Canonical uses www and a trailing slash; all six HowTo steps match visible text, and all seven FAQ questions and answers are present. These observations are separate from local responsive screenshot checks.
+- Production SEO endpoints and crawler GET/HEAD checks passed, including ads.txt. IndexNow submitted 210 unique URLs with HTTP 200. Google Indexing API skipped because no service-account credential is configured; these results are not proof of indexing or AdSense approval.
+- This final release record and plan status are documentation only and do not require rebuilding or redeploying the Worker.
+
+## Next work
+
+Four batches now address seven blog articles and three local URLs, including one focused Orlando tracker update. Continue inspecting high-use local guides and overlapping evacuation topics for specific decision gaps. The 60-85-page / 25-35-batch allowance remains provisional; an unchanged page or absent source-check field is not a confirmed quality defect.
