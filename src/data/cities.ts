@@ -32,6 +32,8 @@ export type HurricaneCity = {
 export const hurricaneCities: HurricaneCity[] = [
   {
     slug: "orlando",
+    dateModified: "2026-11-09",
+    sourceCheck: { date: "2026-11-09", scope: "Read Orange County's Shelters and Persons with Special Needs Program HTML pages (no visible revision dates) for official shelter and assistance contacts. No current opening, application, pickup, route or local weather was verified; retained hazard background was not reverified." },
     name: "Orlando",
     stateCode: "FL",
     stateName: "Florida",
@@ -43,7 +45,8 @@ export const hurricaneCities: HurricaneCity[] = [
     localHazards: [
       { heading: "Rain and Freshwater Flooding", body: "Tropical systems can produce heavy rain across Central Florida after landfall. Avoid flooded roads and low-water crossings, and check local flood alerts even when winds are weakening." },
       { heading: "Tornadoes in Outer Bands", body: "Fast-moving rain bands can produce short-fuse tornado warnings far from the storm center. Keep phones charged and use official NWS warnings rather than relying on the hurricane category." },
-      { heading: "Heat and Extended Outages", body: "Power loss after a storm can create dangerous indoor heat and disrupt refrigeration, medication, traffic signals, and communications. Prepare for several days of backup power and cooling needs." }
+      { heading: "Heat and Extended Outages", body: "Power loss after a storm can create dangerous indoor heat and disrupt refrigeration, medication, traffic signals, and communications. If electricity is necessary for care, contact the care or equipment provider early and ask Orange County about suitable assistance; do not assume a household battery or a shelter label establishes adequate power." },
+      { heading: "Check the County for Shelter Activation", body: "A storm track near Orlando does not establish which shelters are open. Orange County officials select active special-needs sites. Use the county's current announcements or 311 to check a specific destination, and confirm caregiver, transport and pet arrangements separately. The resources below describe the process, not today's available beds or rides." }
     ],
     evacuationFocus: [
       "Follow Orange County and local emergency management instructions rather than coastal evacuation assumptions.",
@@ -58,7 +61,9 @@ export const hurricaneCities: HurricaneCity[] = [
       { question: "What is the main hurricane risk in Orlando?", answer: "Freshwater flooding, tornadoes in rain bands, falling trees, heat, and extended power outages are often more relevant than storm surge in inland Orlando." }
     ],
     officialResources: [
-      { name: "Orange County Emergency Management", description: "Official Orlando-area emergency alerts, shelters, preparedness, and storm information.", url: "https://www.ocfl.net/EmergencySafety/" },
+      { name: "Orange County Emergency Management", description: "Official Orlando-area emergency information; check event-specific announcements for protective actions.", url: "https://www.orangecountyfl.net/EmergencySafety/EmergencyManagement.aspx" },
+      { name: "Orange County Shelters", description: "Standing shelter requirements and pet-friendly distinctions. Confirm current openings with the county before traveling.", url: "https://www.orangecountyfl.net/EmergencySafety/shelters.aspx" },
+      { name: "Orange County Persons with Special Needs", description: "Registration and assistance information, including 311 / 407-836-3111. Confirm individual status, destination and transport with the county.", url: "https://www.orangecountyfl.net/EmergencySafety/EmergencyMedicalServices/SpecialNeedsProgram.aspx" },
       { name: "NWS Melbourne", description: "Official National Weather Service alerts and forecasts for Orlando and Central Florida.", url: "https://www.weather.gov/mlb/" },
       { name: "National Hurricane Center", description: "Official tropical cyclone advisories, watches, warnings, and forecasts.", url: "https://www.nhc.noaa.gov/" }
     ],

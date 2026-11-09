@@ -590,13 +590,14 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-preparation-timeline-72-48-24-hours",
-    sources: [{ href: "https://www.ready.gov/hurricanes", label: "Ready.gov: hurricane preparation" }, { href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC: wind arrival and warning terminology" }],
+    sources: [{ href: "https://www.nhc.noaa.gov/arrivaltimes/", label: "NHC: arrival time of tropical-storm-force winds, updated June 5, 2019" }, { href: "https://www.ready.gov/hurricanes", label: "Ready.gov: hurricane preparation" }],
     title: "Hurricane Preparation Timeline: 72, 48, and 24 Hours",
     description: "Use a 72-, 48-, and 24-hour hurricane preparation timeline for supplies, evacuation routes, pets, documents, home protection, and final safety decisions.",
     datePublished: "2026-08-04",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-09",
+    sourceCheck: { date: "2026-11-09", scope: "Read the NHC wind-arrival product explanation, updated June 5, 2019: earliest reasonable versus most likely arrival, forecast uncertainty, printed time zone and full-advisory updates. Household schedules below are fictional editorial exercises. No current forecast, local order, route, shelter or household deadline was checked; retained Ready.gov background was not newly verified." },
     image: "/images/blog/hurricane-preparation-timeline-72-48-24-hours.png",
-    imageAlt: "A homeowner nails plywood storm shutters over windows while a neighbor helps, staged 48 hours before a storm.",
+    imageAlt: "Illustration of two people fitting protective plywood over a home's windows.",
     sections: [
       {
         heading: "Direct Answer",
@@ -607,18 +608,35 @@ export const blogPosts: BlogPost[] = [
         body: "Begin with the earliest relevant official wind-arrival or local departure deadline, then work backward for travel, pickup, and loading time. Suppose officials require your zone to leave by noon and you need two hours to collect a relative: that collection cannot start at noon. Do not convert a storm's distance into an arrival time by dividing by its present speed; tracks and motion change. Recheck the forecast and confirm the destination before committing to a departure time."
       },
       {
+        heading: "Read the Wind-Arrival Graphic Before Starting the Clock",
+        body: "NHC publishes two different wind-arrival products. Earliest reasonable arrival means there is still up to a 10 percent chance that sustained tropical-storm-force winds begin before the displayed time. It is not a guaranteed wind-free period. Most likely arrival means onset is equally likely before or after that time; it is a riskier target for unfinished preparation. NHC explains that preparation generally becomes dangerous or difficult once sustained tropical-storm-force winds begin.",
+        bullets: ["Read the product title, advisory issue date and printed time zone. NHC uses a consistent zone tied to the cyclone at issuance; it may differ from your destination's local time.", "Check a new full advisory for a revised arrival estimate. A faster or larger storm can reduce the available window; an old screenshot does not update itself.", "Compare wind timing with local evacuation instructions, flooding and the whole route. Water, road controls or household needs can require action earlier.", "A location without a displayed arrival time is not an all-clear for flooding, tornadoes or other hazards. The wind product addresses one threshold, not every household risk."],
+        links: [{ href: "https://www.nhc.noaa.gov/arrivaltimes/", label: "Read NHC's explanation of both wind-arrival products" }]
+      },
+      {
         heading: "72 Hours: Remove Friction",
-        body: "This is the best window to complete low-regret actions before stores and roads become stressed.",
-        bullets: ["Review your evacuation zone, destination, and communication plan.", "Refill critical medicine and check medical or pet needs.", "Build water, food, sanitation, battery, and document supplies.", "Photograph property and read insurance contacts."]
+        body: "Use an early safe window to remove dependencies that could delay departure. The 72-hour label is an example checkpoint, not a reason to wait for a forecast countdown. Identify which tasks require another person, an open business or a working vehicle.",
+        bullets: ["Confirm who can receive the household, including pets, equipment and an arrival window. A possible hotel is not a confirmed destination.", "Ask the pharmacy or clinician about medication and equipment needs; record an unresolved refill or power requirement instead of marking it complete.", "Compare actual water, food, sanitation and battery supplies with household needs. Separate what can travel from what stays at home.", "Arrange a driver and backup, school or care pickup, documents and contacts before those arrangements become urgent."],
+        links: [{ href: "/blog/hurricane-emergency-kit-checklist/", label: "Find supply gaps with the household kit record" }, { href: "/blog/hurricane-family-communication-plan/", label: "Agree on check-ins and a backup contact" }]
       },
       {
         heading: "48 Hours: Prepare to Move",
-        body: "Shift from general readiness to the actions that protect your household if a warning arrives.",
-        bullets: ["Fuel the vehicle and choose a primary and backup route.", "Pack go-bags, including medication, IDs, chargers, cash, and pet supplies.", "Secure windows and outdoor items while conditions are safe.", "Confirm school, work, shelter, and care plans."]
+        body: "Turn possible arrangements into acknowledged ones. Put the source, time checked, responsible person and next action beside each essential task. If something is still pending, move the follow-up earlier or use a confirmed alternative; a request sent is not a ride booked.",
+        bullets: ["Check official route information and the destination's risk as well as the route out. Do not assume a navigation shortcut will remain passable.", "Pack the carry bag and confirm space for passengers, medication, equipment and pet carriers before loading time.", "Complete safe property protection early. Do not let a contractor visit or an unfinished outdoor job consume the departure window.", "Check the current shelter announcement if that is the plan. A familiar school or last year's shelter may not be open for this event."],
+        links: [{ href: "/blog/hurricane-evacuation-checklist/", label: "Record confirmed transport and destination handoffs" }]
       },
       {
         heading: "24 Hours: Follow Official Decisions",
-        body: "At this point, focus on official warnings, evacuation-zone instructions, local flood and surge risk, and whether your household needs to leave earlier. Stop outdoor work when wind or conditions make it unsafe."
+        body: "This checkpoint may already be too late for a household that needs transport assistance or faces an earlier local order. Follow current instructions rather than finishing a checklist in sequence. Prioritize people, necessary medication and equipment, essential documents and confirmed transport. Stop unsafe outdoor work; do not delay an ordered departure to protect possessions. If conditions are already dangerous or someone needs emergency help, contact local emergency services rather than treating this example schedule as permission to travel."
+      },
+      {
+        heading: "Worked Schedule: Find the Missing Dependency",
+        body: "Fictional exercise only: a local instruction requires departure by noon Tuesday, while a wind graphic shows earliest reasonable arrival at 6 p.m. in the same local time zone. The household first writes 'leave at noon.' That plan fails to allow a two-hour relative pickup before everyone can depart together. Working backward places the start of that pickup no later than 10 a.m. even before adding any allowance for loading, delays or changing conditions. This arithmetic exposes an incomplete plan; 10 a.m. is not a recommended or guaranteed safe departure time.",
+        bullets: ["Monday evening: the host has acknowledged the visit and pet, and the driver has confirmed the pickup. Save those replies and the checked official instruction.", "Unfinished: an equipment battery has not been tested. Assign a follow-up with the supplier and a confirmed alternative rather than assuming it lasts the journey.", "Tuesday: recheck the official order, wind forecast, roads and destination before using the plan. Earlier flooding or a changed instruction invalidates the original schedule.", "If the host or driver cancels, recalculate the whole arrangement. Do not keep the same start time simply because it is written down."]
+      },
+      {
+        heading: "When the Storm Skips Your Checkpoints",
+        body: "A rapidly developing system may leave no distinct 72- or 48-hour window. Start with the current local warning or order and the household's immediate needs. Contact the responsible local agency early for unresolved assistance, confirm a reachable destination and carry essential supplies. Defer optional shopping and property work. Keep one short record of the official source and time, the next required action, who owns it and what remains unconfirmed. Reassess after a new advisory, a local instruction or a failed arrangement; the elapsed countdown alone cannot tell you whether to stay or leave."
       }
     ],
     faqs: [
@@ -629,6 +647,14 @@ export const blogPosts: BlogPost[] = [
       {
         question: "What changes the hurricane timeline for my household?",
         answer: "Medical needs, limited mobility, pets, long travel routes, flood exposure, mobile homes, and evacuation-zone instructions can all require an earlier timeline."
+      },
+      {
+        question: "Is earliest reasonable wind arrival a safe deadline?",
+        answer: "No. NHC's product still allows up to a 10 percent chance of earlier tropical-storm-force wind onset. Local orders, flooding, route conditions and household needs can require earlier action."
+      },
+      {
+        question: "Can I use the most likely wind-arrival time to finish preparations?",
+        answer: "NHC describes onset as equally likely before or after that time, so waiting until then increases the risk of unfinished preparation. Check the earliest reasonable product and current local instructions, including the printed time zone."
       }
     ]
   },

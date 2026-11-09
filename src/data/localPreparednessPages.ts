@@ -625,11 +625,25 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
     kind: "city", slug: "orlando", name: "Orlando", stateName: "Florida", stateSlug: "florida",
     title: "Orlando Hurricane Preparedness 2026: Flood & Safety Guide",
     description: "Orlando hurricane preparedness for 2026: official alerts, inland wind, tornadoes, flooding, shelters, emergency kits, and local safety.",
+    dateModified: "2026-11-09",
+    sourceCheck: { date: "2026-11-09", scope: "Read Orange County's Shelters and Persons with Special Needs Program HTML pages; neither displayed a revision date. Checked registration contacts, caregiver/equipment planning, county selection of open sites and pet-friendly shelter distinctions. No application, eligibility decision, current opening, pickup, address or route was verified. Other local and historical background was not reverified." },
     risk: [
       "Orlando is inland and outside coastal storm-surge zones, but that does not make it hurricane-proof. Tropical cyclones crossing the peninsula can retain hurricane or tropical-storm wind, produce tornadoes in rain bands, overwhelm drainage, and knock trees onto homes and power lines.",
-      "Central Florida often receives evacuees from both coasts, so hotels, roads, fuel, shelters, and medical services may be busy before local conditions deteriorate. Residents should protect their own household while avoiding travel that interferes with coastal evacuation flows.",
+      "Central Florida often receives evacuees from both coasts, so hotels, roads, fuel, shelters, and medical services may be busy before local conditions deteriorate. A reservation or a relative's address still needs a check of local risk, access, pets and medical requirements; an inland destination is not automatically a safe one.",
       "Lakes, low roads, construction, saturated soil, mobile homes, and extended heat after power loss are important Orlando risks. Theme parks and airports make their own operational decisions, while Orange County and local officials control public shelter information."
     ],
+    planningRecord: {
+      title: "Orlando Housing, Shelter and Assistance Record",
+      intro: "Decide whether the household has a suitable place to stay, then resolve any care, transport and pet requirements for that specific destination. Keep personal medical information in a private record and share it through the county's official process. This is a planning exercise, not an application or confirmation of shelter access.",
+      steps: [
+        { name: "Record the household's reason to move", text: "Write the full address, housing type, known flood or access concerns, and the current local instruction with its source and time. Inland Orlando's lack of coastal surge does not settle whether a mobile home, flood-prone building or power-dependent household can remain there. If you need building-specific advice, contact the property manager and responsible local agency before conditions deteriorate." },
+        { name: "Separate a possible shelter from an open destination", text: "Orange County officials decide which special-needs sites open. Check the current county announcement or contact 311; record the exact open site, opening time and confirmed requirements. Do not travel to a remembered school, last season's address or a location mentioned only on social media. A designated site in a standing guide is not an opening notice." },
+        { name: "Discuss medical needs with the county early", text: "The county's Persons with Special Needs program serves eligible residents and visitors who need a shelter environment with assistance from a caregiver or home health aide. Use the linked county program page or call 311 / 407-836-3111 about registration and keeping details current. Ask how your specific care and equipment needs will be handled. Keep registration, the county's response, shelter activation and transport confirmation as separate entries; do not infer all four from submitting a form." },
+        { name: "Confirm the caregiver, equipment and journey", text: "The county asks people to bring their caregiver if they have one, identification and medical information, medication, daily medical equipment and supplies, bedding and personal items. Ask the care provider about equipment power and the journey's requirements; a shelter label alone does not answer those questions. If you need transport, contact the county about current arrangements and record who confirmed the pickup, when, where and what equipment or companion can travel. A pending request is an unresolved task." },
+        { name: "Check pets and the return separately", text: "The county distinguishes pet-friendly shelters from general public shelters; do not assume every open site accepts household pets. Confirm the selected site's rules and prepare a carrier, vaccination records, food, water and medication. Service animals have a different role from household pets. Before returning, check official local instructions and whether your street, building, power and essential care arrangements permit return; the center moving away does not establish that." }
+      ],
+      example: "Fictional household: an Orlando renter uses powered medical equipment and has a cat. The record says 'county registration submitted,' 'sister agreed to accompany,' and 'pet carrier packed.' Those are useful steps, but the destination and ride remain unconfirmed. The next action is to contact the county about program status, the active shelter and transport, and ask the equipment provider about power needs. Write the response and time beside each item. Do not mark the household ready because a form was submitted, assume a hospital is a storm shelter, or publish the renter's medical details in a shared neighborhood document."
+    },
     history: [
       { storm: "Donna (1960)", detail: "Crossed central Florida and brought hurricane conditions into the peninsula." },
       { storm: "David (1979)", detail: "Affected central Florida after tracking along the Atlantic side of the state." },
@@ -644,12 +658,15 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
     ],
     evacuation: [
       "Orlando residents generally do not evacuate for coastal surge, but mobile-home residents, people in flood-prone housing, and those with medical or power needs may need a sturdy shelter or planned destination.",
-      "I-4, Florida's Turnpike, SR 408, SR 417, SR 528, US 17-92, US 441, and local roads carry both local and coastal traffic. Do not make unnecessary long-distance trips across evacuation routes.",
-      "Orange County announces shelters and any local protective actions for the event. Confirm pet, accessibility, identification, bedding, and medication requirements before traveling to a shelter."
+      "I-4, Florida's Turnpike and the metro toll-road network carry both local and coastal traffic. Their names are geographic context, not recommended routes for a current event. Use current official instructions and road information; check the destination as well as the route, and do not drive into water or depend on a navigation shortcut.",
+      "Orange County announces shelters and local protective actions for the event. Its standing shelter page lists three days of food and water and two weeks of prescription and nonprescription medicines among items to bring. Discuss medication availability and individual needs with the pharmacist or clinician in advance; this list is not a prescription or a reason to delay an ordered departure. Confirm caregiver, accessibility and pet arrangements for the actual open site.",
+      "Hospitals are not general hurricane shelters. The county directs shelter seekers to designated public or special-needs shelters, while hospitals need capacity for serious illness and injury. An urgent medical emergency requires emergency medical help; it should not be handled by waiting on a registry application. People living in a care facility should discuss that facility's emergency plan with its staff rather than substituting this household record."
     ],
     resources: [
       { label: "Orange County emergency management", href: "https://www.orangecountyfl.net/EmergencySafety/EmergencyManagement.aspx" },
       { label: "Orange County hurricane safety", href: "https://www.orangecountyfl.net/EmergencySafety/HurricaneSafetyGuide.aspx" },
+      { label: "Orange County shelter requirements", href: "https://www.orangecountyfl.net/EmergencySafety/shelters.aspx" },
+      { label: "Orange County Persons with Special Needs program", href: "https://www.orangecountyfl.net/EmergencySafety/EmergencyMedicalServices/SpecialNeedsProgram.aspx" },
       { label: "NWS Melbourne", href: "https://www.weather.gov/mlb/" },
       { label: "American Red Cross Central Florida", href: "https://www.redcross.org/local/florida/central-florida.html" }
     ],
@@ -657,7 +674,8 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
       { question: "Can a hurricane reach Orlando?", answer: "Yes. Orlando is inland, but hurricanes and tropical storms can retain damaging wind and produce tornadoes, flooding, and extended outages." },
       { question: "Is Orlando in a hurricane evacuation zone?", answer: "Orlando is not in a coastal surge zone. Local shelter or evacuation guidance may still apply to mobile homes, flood-prone housing, or medical needs." },
       { question: "Which NWS office covers Orlando?", answer: "NWS Melbourne provides forecasts and warnings for Orange County and much of east-central Florida." },
-      { question: "What was Orlando's most damaging recent hurricane?", answer: "Charley in 2004 brought destructive wind through the city, while Ian in 2022 demonstrated severe inland flood risk." }
+      { question: "Does a special-needs registration confirm my shelter and ride?", answer: "Keep these as separate confirmations. Contact Orange County at 311 or 407-836-3111 about your status, the current open shelter and transport arrangements. This guide has not verified an individual application, opening or pickup." },
+      { question: "Can I take my pet to any Orange County shelter?", answer: "Check the specific open site's designation and requirements. The county distinguishes pet-friendly shelters from general public shelters and asks for a carrier, vaccination records, food, water and any medication. Do not treat household pets and service animals as interchangeable." }
     ]
   },
   {
