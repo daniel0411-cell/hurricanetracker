@@ -65,6 +65,10 @@ export const topicPages: TopicPage[] = [
     primaryAction: { label: "Check all active NHC systems", href: "/hurricane-tracker/live/" },
     secondaryAction: { label: "Review the 2026 Atlantic season", href: "/2026-hurricane-season/" },
     intent: "Atlantic vs Pacific hurricane basin, hurricane name lists, who names hurricanes",
+    sourceCheck: "Checked November 10, 2026: NHC Tropical Cyclone Naming page, including the Atlantic and eastern Pacific six-year rotations, retirement explanation and separate Central Pacific lists. The page's name lists are planning references, not observations of formed storms. Forecast-center context is retained; no active cyclone or crossing event was verified.",
+    sources: [
+      { href: "https://www.nhc.noaa.gov/aboutnames.shtml", label: "NHC: Tropical cyclone names, rotating lists and retirement" }
+    ],
     steps: [
       { title: "Identify the Basin", body: "Use the storm identifier, position, and official advisory source to distinguish Atlantic, Eastern Pacific, and Central Pacific systems.", href: "/hurricane-tracker/live/", label: "Open all-basin tracker" },
       { title: "Check the Official Forecast Center", body: "NHC issues Atlantic and Eastern Pacific advisories; CPHC handles Central Pacific systems within its area of responsibility.", href: "https://www.nhc.noaa.gov/", label: "Open NHC" },
@@ -73,7 +77,40 @@ export const topicPages: TopicPage[] = [
     sections: [
       { eyebrow: "Atlantic basin", title: "Atlantic, Caribbean, and Gulf Systems", body: "The Atlantic basin includes the North Atlantic Ocean, Caribbean Sea, and Gulf. Atlantic advisories use the basin's name list and can affect the Americas, Caribbean, Atlantic shipping, and nearby islands.", bullets: ["North Atlantic Ocean", "Caribbean Sea", "Gulf", "NHC official advisories"] },
       { eyebrow: "Pacific basins", title: "Eastern and Central Pacific Systems", body: "Eastern Pacific and Central Pacific systems use separate name lists and forecast responsibilities. A cyclone can cross a basin boundary, so the responsible forecast center and advisory source may change while the storm remains the same system.", bullets: ["Eastern North Pacific advisories from NHC", "Central North Pacific advisories from CPHC", "Separate naming sequences", "All-basin status belongs on the live tracker"] },
-      { eyebrow: "Naming", title: "A Name Does Not Show Strength or Risk", body: "Names make communication easier after tropical-storm strength is reached. They do not describe category, forecast confidence, size, surge, rainfall, or whether a location is threatened.", bullets: ["Check classification and advisory time", "Use the forecast path and hazard products", "Verify local alerts separately", "Retired names are replaced after especially destructive storms"] }
+      { eyebrow: "Naming", title: "A Name Does Not Show Strength or Risk", body: "Names make communication easier after tropical-storm strength is reached. They do not describe category, forecast confidence, size, surge, rainfall, or whether a location is threatened.", bullets: ["Check classification and advisory time", "Use the forecast path and hazard products", "Verify local alerts separately", "Retired names are replaced after especially destructive storms"] },
+      {
+        eyebrow: "Read the official list",
+        title: "A 2026 Column Is Not a Record of 2026 Activity",
+        body: "The NHC naming page displays lists prepared for use, including future seasons. Its Atlantic explanation says six lists rotate every six years and gives 2026 and 2032 as the reuse example. That is a schedule for names, not a forecast of six-year weather patterns. A name in a column establishes neither that a storm formed nor that it reached hurricane strength. For a season summary, match actual advisories or the official season record to the basin and year instead of counting every printed name as a cyclone.",
+        bullets: [
+          "Record the table heading and year before copying a name. Atlantic and eastern Pacific lists are separate.",
+          "Record whether your source is a scheduled list, a current advisory or a historical storm report; each supports a different claim.",
+          "A list position is not a storm's category, peak wind, eventual track or expected landfall.",
+          "Use the live tracker for current systems and a dated archive for historical activity. Keep both distinct from the preassigned list."
+        ]
+      },
+      {
+        eyebrow: "Retirement and reuse",
+        title: "Why a Familiar Name Needs a Year",
+        body: "The NHC explains that a name can be removed when a storm is so deadly or costly that reuse would be inappropriate. A World Meteorological Organization committee selects a replacement. Many other names remain in rotation, so the name alone may refer to different cyclones in different years. A search result with a familiar name can therefore lead to an old storm, an upcoming name list or an active advisory. Confirm the year and basin before sharing its map or describing its impacts.",
+        bullets: [
+          "Use a reference such as storm name + year + basin, and retain the official identifier when provided.",
+          "Retirement is a communication decision described by the naming authority, not a real-time measurement of wind speed.",
+          "Do not infer that an unretired name identifies a harmless storm or that a replacement name forecasts exceptional danger.",
+          "If two archive pages use the same name, compare their dates and identifiers before combining a timeline or damage figures."
+        ]
+      },
+      {
+        eyebrow: "Name-list exercise",
+        title: "Does a Repeated List Predict the Same Storms?",
+        body: "Question: the official page says the Atlantic 2026 list will be used again in 2032. Does that establish that the two seasons will have the same number of storms or similar paths? Answer: no. It describes reuse of a naming list, subject to replacements, not future storm occurrence. The eastern Pacific explanation also describes a six-year rotation, while Central Pacific names appear in their own tables. Check that table's rules rather than applying an Atlantic assumption to every basin worldwide.",
+        bullets: [
+          "Your completed record should say which basin and year you read and whether the source describes a list or an actual system.",
+          "For an active advisory, add the issue time, classification, location and responsible forecast center.",
+          "For a historical comparison, add the year and source report to every reused name.",
+          "This exercise uses a verifiable scheduling statement and makes no claim about which future names will be used."
+        ]
+      }
     ],
     nextLinks: [
       { name: "Live Hurricane Tracker", href: "/hurricane-tracker/live/", description: "See active Atlantic, Eastern Pacific, and Central Pacific systems." },
@@ -212,6 +249,10 @@ export const topicPages: TopicPage[] = [
     primaryAction: { label: "Open live hurricane map", href: "/hurricane-tracker/live/" },
     secondaryAction: { label: "Check North Carolina", href: "/tracker/north-carolina/" },
     intent: "southeast hurricane tracker, east coast hurricane tracker, hurricane near Georgia and Carolinas",
+    sourceCheck: "Checked November 10, 2026: Ian public advisory 32, issued September 30, 2022 at 1100 AM EDT / 1500 UTC. Reviewed its warning areas, forecast rainfall, continuing Florida river flooding and regional surf language. All values below are historical operational forecasts or statements, not final measured totals or current warnings.",
+    sources: [
+      { href: "https://www.nhc.noaa.gov/archive/2022/al09/al092022.public.032.shtml", label: "NHC: Historical Ian advisory 32, September 30, 2022" }
+    ],
     steps: [
       { title: "Check the Atlantic Track", body: "Start with current NHC systems and the official forecast path before focusing on one state or model run.", href: "/hurricane-tracker/live/", label: "Check current storms" },
       { title: "Compare the Carolinas and Virginia", body: "Open North Carolina for Outer Banks timing, South Carolina for Lowcountry surge, and Virginia for Hampton Roads and Chesapeake Bay alerts.", href: "/tracker/north-carolina/", label: "Check North Carolina" },
@@ -219,6 +260,39 @@ export const topicPages: TopicPage[] = [
     ],
     sections: [
       { eyebrow: "Current question", title: "Is a Hurricane Heading Toward the Southeast Coast?", body: "Use the latest NHC position and forecast cone to check whether an active system is approaching the Southeast. Do not treat the center line as an impact boundary.", bullets: ["Florida Atlantic coast context", "Georgia and South Carolina coastal alerts", "North Carolina and Outer Banks timing", "Virginia and Hampton Roads risk"] },
+      {
+        eyebrow: "Historical regional example",
+        title: "Ian's South Carolina Approach Did Not End Florida's Flooding",
+        body: "At 1500 UTC on September 30, 2022, Ian advisory 32 located the center at 32.4N, 79.0W, about 60 miles east-southeast of Charleston. Maximum sustained winds were estimated at 85 mph. The forecast center was approaching South Carolina, yet the same bulletin said major-to-record river flooding would continue across central Florida through the following week. This is a useful regional distinction: a center moving into another state does not end an earlier state's river response or establish that returning there is safe.",
+        bullets: [
+          "The bulletin's hurricane warning covered Savannah River to Cape Fear, North Carolina; that is a named coastal segment, not every address in two states.",
+          "Its rainfall forecast gave northeast South Carolina 4-8 inches with local maxima of 12 inches; central South Carolina, North Carolina and southern Virginia had 3-6 inches with local maxima of 8 inches.",
+          "Those are forecast storm totals with localized maxima, not observations proving that every town received those amounts.",
+          "The same bulletin described dangerous surf and rip currents along Florida, Georgia and the Carolinas. A beach hazard and an inland river hazard require different local products."
+        ]
+      },
+      {
+        eyebrow: "Make a regional brief",
+        title: "Follow Each Location's Hazard, Not One Statewide Label",
+        body: "For a trip, property or relative in another state, make a separate line for each relevant location. Record the county, official warning or forecast product, issue time, hazard, expected timing and the responsible local source. In the historical Ian example, Charleston's coastal warning, a central Florida river forecast and a Virginia rainfall concern cannot be summarized accurately as the storm has moved north. Their timelines differ, and none alone establishes that a road between those locations is open.",
+        bullets: [
+          "Coast: check the warning area and local surge or evacuation instructions.",
+          "Inland: check the local NWS rainfall, flash-flood or river product and its actual forecast period.",
+          "Travel: check official road and bridge information for the trip, including the receiving location.",
+          "Keep forecast, observed conditions and local orders in separate fields. If a source fails, mark that location unverified rather than borrowing another state's status."
+        ]
+      },
+      {
+        eyebrow: "Reading question",
+        title: "Could You Infer a Virginia Rainfall Total From Charleston's Wind?",
+        body: "Open the historical advisory and find the 85 mph maximum sustained wind estimate. Can that number tell you how much rain a Virginia household should expect? Answer: no. It estimates the cyclone's maximum sustained wind, while rainfall is described in a different section and over a different area and time period. Even the bulletin's 3-6 inch regional forecast does not establish one property's final total. The exercise teaches which field to consult, not a current forecast for Virginia.",
+        bullets: [
+          "Your answer should identify the rainfall section, its region, the storm-total period and its use of local maxima.",
+          "For present conditions, replace the historical bulletin with the latest NHC advisory and relevant local NWS product.",
+          "For reentry, consult the actual local instruction; the end of a coastal wind warning does not reopen a flooded road.",
+          "Use the state links below to narrow the regional overview to the location you need to act on."
+        ]
+      },
       { eyebrow: "Regional risk", title: "One Atlantic Storm Can Affect Several States", body: "Recurving storms can produce different hazards from Florida through Virginia even without a direct landfall in every state.", bullets: ["Storm surge and tidal flooding", "Freshwater and river flooding", "Rain-band tornadoes", "Bridge, ferry, and evacuation-route constraints"] }
     ],
     nextLinks: [
@@ -231,7 +305,8 @@ export const topicPages: TopicPage[] = [
     faqs: [
       { question: "Is a hurricane heading toward the East Coast?", answer: "Check the live NHC systems and forecast path, then open the relevant state tracker. Forecasts can shift, and impacts can occur outside the cone." },
       { question: "Which Southeast states should I monitor?", answer: "Monitor Florida, Georgia, South Carolina, North Carolina, and Virginia when an Atlantic system approaches, then verify local NWS alerts and emergency instructions." },
-      { question: "Can a hurricane affect the Carolinas without making landfall there?", answer: "Yes. Surge, heavy rain, tornadoes, waves, rip currents, and outages can occur even when the storm center stays offshore or lands elsewhere." }
+      { question: "Can a hurricane affect the Carolinas without making landfall there?", answer: "Yes. Surge, heavy rain, tornadoes, waves, rip currents, and outages can occur even when the storm center stays offshore or lands elsewhere." },
+      { question: "Does one discontinued warning end every hazard in that area?", answer: "No. In historical Ian advisory 32, the changes section discontinued the storm surge warning south of the Savannah River, while the full warning list still included a tropical storm warning from Altamaha Sound, Georgia, to Savannah River. That was a change to a particular hazard product and area, not a general all-clear. Read the full current list after checking the changes section, then consult the relevant local products for flooding, surf and access. This historical example does not establish the status of any warning today or authorize reentry." }
     ]
   },
   {
@@ -244,13 +319,51 @@ export const topicPages: TopicPage[] = [
     primaryAction: { label: "Open live hurricane map", href: "/hurricane-tracker/live/" },
     secondaryAction: { label: "Check current disturbances", href: "/hurricane-tracker/tropical-disturbances/" },
     intent: "Gulf hurricane tracker, hurricane in Gulf right now, tropical storm Gulf",
+    sourceCheck: "Checked November 10, 2026: Ian public advisory 22, issued September 28, 2022 at 500 AM EDT / 0900 UTC. Reviewed center position, maximum wind, warning geography and surge forecast wording. This is a historical operational bulletin, not today's Gulf status or final landfall analysis. Current status remains in the live feed and official NHC products.",
+    sources: [
+      { href: "https://www.nhc.noaa.gov/archive/2022/al09/al092022.public.022.shtml", label: "NHC: Historical Ian advisory 22, September 28, 2022" },
+      { href: "https://www.nhc.noaa.gov/", label: "NHC: Current systems and tropical weather outlooks" }
+    ],
     steps: [
-      { title: "Check Active Gulf Systems", body: "Start with the live NHC feed to see whether a named hurricane, tropical storm, or disturbance is currently in or approaching the Gulf.", href: "/hurricane-tracker/live/", label: "Check current storms" },
+      { title: "Separate Active Cyclones From Development Areas", body: "Check the current cyclone list for named systems and the separate Atlantic outlook for development areas. Read each area's location; an Atlantic probability is not automatically a Gulf probability.", href: "/hurricane-tracker/tropical-disturbances/", label: "Check development areas" },
       { title: "Compare Track and Radar", body: "Use the official forecast path for broad timing, then compare radar and satellite for rain bands and local weather changes.", href: "/radar/", label: "Open radar" },
       { title: "Move to Local Gulf Alerts", body: "Open Louisiana for surge and evacuation context, Mississippi for Gulfport and Biloxi flooding, or Texas for Houston, Galveston, and Corpus Christi alerts.", href: "/tracker/louisiana/", label: "Check Louisiana alerts" }
     ],
     sections: [
       { eyebrow: "Gulf questions", title: "Is There a Hurricane in the Gulf Right Now?", body: "Read the current Gulf check above and verify its timestamp against the NHC. The Atlantic outlook also covers the Caribbean and open Atlantic: a development percentage shown there does not automatically refer to the Gulf. Check the named area's location before interpreting its probability.", bullets: ["Active NHC hurricane and tropical-storm status", "Forecast path and advisory time", "Location of each Atlantic outlook development area", "Florida, Texas, Louisiana, Mississippi, and Alabama alerts"] },
+      {
+        eyebrow: "Historical Gulf example",
+        title: "Read Ian's Offshore Position Separately From Its Warning Areas",
+        body: "Ian advisory 22, issued at 0900 UTC on September 28, 2022, placed the center at 25.6N, 82.9W, about 75 miles west-southwest of Naples. It estimated maximum sustained winds of 140 mph and movement north-northeast at 10 mph. Those are three different fields: location, cyclone maximum wind and center motion. The wind number is not the speed at which the storm crosses the Gulf, and the offshore center position is not a boundary outside which households can ignore warnings.",
+        bullets: [
+          "The historical hurricane warning included Chokoloskee to Anclote River, including Tampa Bay, plus Dry Tortugas.",
+          "The surge warning included Suwannee River southward to Flamingo and Tampa Bay, but also Atlantic-side locations including the St. Johns River.",
+          "A Gulf center did not restrict every hazard to the Gulf-facing coast. Read the actual warning list rather than filtering by the water body in the headline.",
+          "These archived names and numbers are for reading practice; they are not active warnings or a map of current evacuation zones."
+        ]
+      },
+      {
+        eyebrow: "Three separate questions",
+        title: "Formation, Landfall and Local Flooding Need Different Evidence",
+        body: "An outlook answers whether a particular disturbance could become a tropical cyclone during a stated period. Once a cyclone exists, its advisory describes its position, intensity and forecast. Local flooding and evacuation questions then require hazard products and local instructions. Do not carry a formation percentage into a sentence about a city's landfall chance. Even a well-defined Gulf track cannot by itself supply the depth of water at a property or the opening status of a bridge.",
+        bullets: [
+          "Before formation: record the area's description, location, 48-hour and seven-day probabilities, and outlook issue time.",
+          "After formation: record the cyclone identifier, advisory number, issue time and relevant forecast point's valid time.",
+          "For the household: record the actual warning area, local order and destination or road information you still need.",
+          "If the cyclone feed is empty but the outlook has a development area, report both facts. If a feed fails, current status is unverified, not zero."
+        ]
+      },
+      {
+        eyebrow: "Reading check",
+        title: "Does 140 mph Mean Ian Was Moving at 140 mph?",
+        body: "In advisory 22, which field answers how quickly the center was moving? Answer: PRESENT MOVEMENT, printed as north-northeast at 10 mph. The separate 140 mph value is MAXIMUM SUSTAINED WINDS. Neither gives a household a departure deadline. To make a timing decision, read the applicable local instruction and current hazard timing rather than dividing distance to the center by either speed. Tracks can change, and hazardous weather can precede the center.",
+        bullets: [
+          "Keep units attached to values: both fields use mph, so units alone do not distinguish their meaning.",
+          "Keep the historical issue time with the answer; do not reuse the numbers in a current-status summary.",
+          "The bulletin's warning locations are a separate list. Locate the correct hazard before deciding which local source to consult.",
+          "For today's Gulf question, open the live map and outlook above, then use the relevant state page below for local context."
+        ]
+      },
       { eyebrow: "Risk distinction", title: "A Gulf Track Is Not a Landfall Prediction", body: "A storm can affect the Gulf Coast through surge, rain, tornadoes, or outages outside the center path. Local orders and warnings control what people should do.", bullets: ["Storm surge and bay flooding", "Freshwater and river flooding", "Rain-band tornadoes", "Evacuation zones and route constraints"] }
     ],
     nextLinks: [
@@ -266,7 +379,8 @@ export const topicPages: TopicPage[] = [
     faqs: [
       { question: "Is there a hurricane in the Gulf right now?", answer: "Check the current NHC storm list and Gulf tracker status above. A system's Gulf position does not by itself predict landfall or local impacts." },
       { question: "Is there a tropical storm in the Gulf?", answer: "Use the current NHC classification and advisory time. Tropical storms can produce dangerous rain, surge, tornadoes, and flooding before or without hurricane-force winds." },
-      { question: "Which Gulf Coast states should I check?", answer: "Check Florida, Alabama, Mississippi, Louisiana, and Texas state trackers, then verify county NWS alerts and local emergency management instructions." }
+      { question: "Which Gulf Coast states should I check?", answer: "Check Florida, Alabama, Mississippi, Louisiana, and Texas state trackers, then verify county NWS alerts and local emergency management instructions." },
+      { question: "Can I compare distances without checking their units?", answer: "No. Ian advisory 22 describes the center as about 75 MI or 125 KM west-southwest of Naples. Other hurricane products use nautical miles. Record the printed unit with every distance and convert before comparing different products. Also distinguish a distance from a named reference point from a wind radius or forecast-error radius: even if converted into the same unit, those quantities describe different things. None alone measures how far a household must travel to a suitable destination." }
     ]
   },
   {
@@ -279,6 +393,10 @@ export const topicPages: TopicPage[] = [
     primaryAction: { label: "Open live tracker", href: "/hurricane-tracker/live/" },
     secondaryAction: { label: "Read the path guide", href: "/hurricane-tracker/path/" },
     intent: "how are hurricanes tracked, how do scientists track hurricanes, hurricane forecast",
+    sourceCheck: "Checked November 10, 2026: Irma discussion 26, September 5, 2017 at 1100 AM AST / 1500 UTC. Reviewed the satellite description, aircraft SFMR measurements, initial intensity and forecast table. The example distinguishes observations, operational analysis and forecasts; it is not a verification of later outcomes or a ranking of current models.",
+    sources: [
+      { href: "https://www.nhc.noaa.gov/archive/2017/al11/al112017.discus.026.shtml", label: "NHC: Historical Irma discussion 26 and forecast table" }
+    ],
     steps: [
       { title: "Observe the System", body: "Satellites and aircraft help locate the circulation, estimate organization, and measure winds, pressure, temperature, and moisture.", href: "/learn/", label: "Open learning center" },
       { title: "Build the Forecast", body: "Forecasters combine observations with numerical models and official expertise to estimate movement and intensity uncertainty.", href: "/hurricane-tracker/path/", label: "Read path guide" },
@@ -286,6 +404,39 @@ export const topicPages: TopicPage[] = [
     ],
     sections: [
       { eyebrow: "Observation", title: "How Scientists Track a Hurricane", body: "No single instrument is enough. Repeated observations show where a system is, how strong it is, and whether the circulation is changing.", bullets: ["Geostationary and polar-orbiting satellites", "Hurricane hunter aircraft and dropsondes", "Coastal and land-based radar", "Buoys, ships, and surface weather stations"] },
+      {
+        eyebrow: "Follow a real evidence chain",
+        title: "What Irma's Forecaster Used in Discussion 26",
+        body: "In the September 5, 2017 discussion issued at 1500 UTC, NHC described a distinct 25-30 nautical mile eye in GOES-16 one-minute visible imagery. The same discussion reported an aircraft SFMR peak wind of 154 kt, with a few others of 149-150 kt, and set the initial intensity at 155 kt based on those data. These are connected but different claims: satellite imagery described structure, an aircraft instrument supplied wind measurements, and the forecaster made the operational intensity assessment. A round eye alone did not supply the wind value.",
+        bullets: [
+          "Observation: preserve the instrument, measured quantity and unit rather than summarizing every number as storm strength.",
+          "Analysis: retain the forecaster's initial intensity as an assessed value, not the largest number copied from any sensor.",
+          "Coverage: the text says aircraft had not yet sampled the northeastern eyewall during that discussion's preparation; the evidence was not a complete measurement of every point.",
+          "Forecast: the later table gives predictions for future valid times. They are not additional aircraft observations."
+        ]
+      },
+      {
+        eyebrow: "Read the forecast reasoning",
+        title: "Separate the Starting Estimate From the Future Path",
+        body: "The discussion describes a subtropical ridge as the steering influence and anticipates a later trough eroding part of that ridge. It says the new track forecast is close to a corrected consensus model and similar to the previous forecast. This is an explanation of how observations and guidance were interpreted in one historical case. It is not proof that the named model is always best, and the later forecast rows do not prove the predicted steering or intensity actually occurred. Checking accuracy requires the subsequent analyzed outcome at the same valid time.",
+        bullets: [
+          "Use the initial row to identify the starting analysis and its valid UTC.",
+          "Read the forecast row's explicit valid time before comparing two predictions; horizon labels alone can mislead.",
+          "Keep conditional phrases about future environmental changes and eyewall cycles; do not turn them into observed events.",
+          "Use current NHC discussions for current reasoning. A well-explained 2017 example is a reading lesson, not today's model guidance."
+        ]
+      },
+      {
+        eyebrow: "Evidence exercise",
+        title: "Which Irma Number Is a Measurement and Which Is a Forecast?",
+        body: "Find three entries in discussion 26: a reported peak SFMR wind of 154 kt, the INIT row of 155 KT at 05/1500Z, and the printed 24H row of 150 KT valid 06/1200Z. Classify them before drawing a trend. Answer: the first is a reported measurement, the second the operational initial intensity, and the third a forecast for a later time. Subtracting 150 from 155 describes a forecast change from the initial assessment, not an observed weakening that had already happened.",
+        bullets: [
+          "Write down the storm identifier AL112017, discussion number, issue date and source URL with the three entries.",
+          "Keep KT attached to each wind number; do not compare it directly with a value labeled MPH.",
+          "State which result is still unknown from this document alone: the later verified intensity at 06/1200Z.",
+          "The same habit applies to current tracking: distinguish measured data, analyzed present conditions and forecast outcomes before sharing a chart."
+        ]
+      },
       { eyebrow: "Forecast", title: "Tracking Is Different From Predicting", body: "Tracking describes the observed and forecast center. Prediction includes uncertainty, and impacts can extend far beyond the center line.", bullets: ["Official NHC forecast track", "Cone of uncertainty", "Intensity forecasts", "Local wind, surge, flood, and tornado alerts"] }
     ],
     nextLinks: [
@@ -297,7 +448,8 @@ export const topicPages: TopicPage[] = [
     faqs: [
       { question: "How are hurricanes tracked?", answer: "The NHC combines satellites, aircraft reconnaissance, radar, buoys, surface observations, forecast models, and forecaster analysis." },
       { question: "How often does the NHC update hurricane tracks?", answer: "NHC advisories follow scheduled cycles and may include intermediate updates when conditions require them. Always check the timestamp on the latest official advisory." },
-      { question: "Can hurricanes be predicted exactly?", answer: "No. Forecast uncertainty remains, especially farther into the future. Use the official cone and local alerts rather than treating one line as a guarantee." }
+      { question: "Can hurricanes be predicted exactly?", answer: "No. Forecast uncertainty remains, especially farther into the future. Use the official cone and local alerts rather than treating one line as a guarantee." },
+      { question: "What should I save to make a forecast comparison reproducible?", answer: "Save the original product URL, storm identifier, discussion or advisory number, issue time with its time zone, and the explicit valid time of the row you use. Copy latitude, longitude and wind with their units. For Irma discussion 26, INIT is 05/1500Z at 16.8N, 58.4W and 155 KT; the printed 24H row is valid 06/1200Z at 18.1N, 63.0W and 150 KT. Those are an initial analysis and a prediction, respectively. Preserve the printed labels instead of assuming forecast-hour labels count from the public issue time. A future comparison also needs a source for the later analyzed outcome, matched to that exact valid time." }
     ]
   },
   {
@@ -310,13 +462,50 @@ export const topicPages: TopicPage[] = [
     primaryAction: { label: "Check active alerts", href: "/alerts/" },
     secondaryAction: { label: "Decode an alert", href: "/tools/alert-action-decoder/" },
     intent: "what is a hurricane warning, hurricane watch vs warning, NWS hurricane alert",
+    sourceCheck: "Checked November 10, 2026: NWS hurricane watches and warnings page, limited to wind and surge definitions, 48/36-hour reference times and Extreme Wind Warning shelter instructions. Its older tropical-outlook period text was not used. The exercises below are HurricaneHub teaching examples, not actual alerts or verified local orders.",
+    sources: [
+      { href: "https://www.weather.gov/safety/hurricane-ww", label: "NWS: Hurricane watches, warnings and immediate extreme-wind shelter instructions" }
+    ],
     steps: [
       { title: "Read the Alert Type", body: "Identify whether the product is a watch, warning, advisory, surge warning, flood warning, or tornado warning.", href: "/alerts/", label: "Check alerts" },
       { title: "Check Your Location", body: "Read the counties, zones, timing, hazards, and instructions in the official local product.", href: "/local-hurricane-risk/", label: "Check local risk" },
-      { title: "Take the Next Action", body: "Use the alert decoder and local orders to decide whether to monitor, prepare, act, or leave.", href: "/tools/alert-action-decoder/", label: "Decode the alert" }
+      { title: "Match the Hazard to the Action", body: "Read the specific instruction rather than treating every warning as an evacuation signal. Extreme Wind Warnings require immediate interior shelter; local evacuation orders have separate departure instructions.", href: "/tools/alert-action-decoder/", label: "Decode the alert" }
     ],
     sections: [
       { eyebrow: "Definitions", title: "Watch Versus Warning", body: "A watch means conditions are possible; a warning means they are expected. For hurricane watch/warning lead times, the 48/36-hour reference is the anticipated onset of tropical-storm-force winds, not arrival of the hurricane-force core.", bullets: ["Hurricane watch: possible hurricane conditions", "Hurricane warning: expected hurricane conditions", "Storm surge warning: life-threatening inundation expected, generally within 36 hours", "Storm surge watch: life-threatening inundation possible, generally within 48 hours", "Extreme Wind and Tornado Warnings: immediate shelter instructions"] },
+      {
+        eyebrow: "Timing exercise",
+        title: "A Warning Lead Time Is Not Time Left on Your Clock",
+        body: "NWS describes the hurricane warning as issued 36 hours before anticipated tropical-storm-force winds, because preparation becomes difficult at those speeds. The reference is the forecast onset of those winds, not the center crossing the coast. It also is not 36 hours from whenever a reader discovers the message. Forecast timing can change and local instructions may require earlier action. Read the issue time, time zone and the current product instead of starting a personal countdown from an old screenshot.",
+        bullets: [
+          "Illustrative arithmetic only: a message issued Tuesday at 08:00 is read Tuesday at 20:00, using the same time zone. How old is that version?",
+          "Answer: 12 hours old. That subtraction measures message age, not time remaining to evacuate or the expected wind-arrival time.",
+          "The usual 36-hour definition alone cannot supply a household departure deadline. Find the current forecast timing and the separate local order.",
+          "If issue and reading times use different zones, convert them to the same zone before subtracting. Keep the date when the conversion crosses midnight."
+        ]
+      },
+      {
+        eyebrow: "Different hazards",
+        title: "Wind and Water Warnings Answer Different Questions",
+        body: "A hurricane warning concerns expected hurricane conditions somewhere in its specified area. A storm surge warning concerns the danger of life-threatening water moving inland from the shoreline, generally within 36 hours. The surge warning does not mean every part of that area will flood to one depth, and the wind warning does not identify which evacuation-zone labels have been ordered to leave. Read the geographic description and local emergency-management instructions for each relevant hazard, even if the storm center is forecast to pass elsewhere.",
+        bullets: [
+          "Record the hazard separately: wind, coastal surge, rainfall flooding or tornadoes.",
+          "Record the official affected area rather than replacing a coastal segment with the whole state.",
+          "Record an evacuation order's jurisdiction, zone or housing group, issue time and deadline on its own line.",
+          "When two messages appear to disagree, compare their hazards, areas and times before assuming one cancels the other."
+        ]
+      },
+      {
+        eyebrow: "Action exercise",
+        title: "Which Warning Calls for Immediate Shelter?",
+        body: "NWS describes an Extreme Wind Warning as extreme sustained winds of a major hurricane, 115 mph or greater, expected to begin within an hour, usually associated with the eyewall. Its action is immediate shelter in the interior of a well-built structure. This is a different situation from organizing an evacuation ahead of hazardous winds. A driver should not interpret the word warning as an instruction to start a long road journey. Follow the current product for the actual location and contact emergency services for an immediate emergency.",
+        bullets: [
+          "Practice A: a local order applies to the household's zone and gives a departure deadline before conditions become unsafe. Match the order to the address and follow those instructions.",
+          "Practice B: an Extreme Wind Warning applies at the household's location now. Choose immediate interior shelter, not departure based on the generic 36-hour hurricane-warning definition.",
+          "Answer: A concerns planned evacuation under a local order; B concerns immediate shelter from imminent extreme wind. The two products are not interchangeable.",
+          "These hypothetical messages establish no current order, safe route or suitable building. Use actual local instructions during an event."
+        ]
+      },
       { eyebrow: "Action", title: "The Alert Is Not the Whole Plan", body: "Pair the alert with local evacuation orders, your zone, housing type, mobility, medical needs, pets, and route timing.", bullets: ["Follow local emergency management", "Do not wait for the center line", "Leave early if your household needs more time", "Use official shelter and road information"] }
     ],
     nextLinks: [
@@ -341,6 +530,11 @@ export const topicPages: TopicPage[] = [
     primaryAction: { label: "Open radar and satellite", href: "/radar/" },
     secondaryAction: { label: "Open live tracker", href: "/hurricane-tracker/live/" },
     intent: "what does a hurricane look like, hurricane satellite image, hurricane radar",
+    sourceCheck: "Checked November 10, 2026: Irma discussion 26's satellite eye description and aircraft-based intensity reasoning. The retained NWS Michael radar image and parent-page labels were checked November 6; the KEVX image header and KEOX parent caption discrepancy remains unresolved. These historical examples are not current imagery or a property-level wind assessment.",
+    sources: [
+      { href: "https://www.nhc.noaa.gov/archive/2017/al11/al112017.discus.026.shtml", label: "NHC: Irma discussion 26, satellite appearance and aircraft evidence" },
+      { href: "https://www.weather.gov/tae/HurricaneMichael2018", label: "NWS: Historical Michael event page and radar figure context" }
+    ],
     steps: [
       { title: "Use Satellite", body: "Satellite imagery shows cloud structure, organization, outflow, and the shape of the larger tropical system.", href: "/radar/", label: "View satellite" },
       { title: "Use Radar", body: "Radar shows precipitation and rain-band timing when the system is close enough to radar coverage.", href: "/radar/", label: "View radar" },
@@ -348,17 +542,52 @@ export const topicPages: TopicPage[] = [
     ],
     sections: [
       { eyebrow: "Structure", title: "Eye, Eyewall, and Rain Bands", body: "The eye is calmer relative to the eyewall, where the strongest winds often occur. Outer rain bands can still bring flooding and tornadoes far from the center.", bullets: ["Eye and eyewall", "Spiral rain bands", "Central dense overcast", "Outflow and cloud-top structure"] },
+      {
+        eyebrow: "Use the real image above",
+        title: "Two Panels Can Show One Storm and Different Quantities",
+        body: "The retained Michael radar pair is an opportunity to read labels before describing colors. The left panel's DBZ legend identifies reflectivity; the right panel's KTS legend identifies radial velocity. The eye and surrounding eyewall appear in these products, but their colors represent different quantities. A color on the left is not a wind speed, and a velocity on the right is not automatically the maximum sustained surface wind used for a hurricane category. Read the product, legend and printed time before making a comparison.",
+        bullets: [
+          "Start with the full historical pair, not a crop stripped of its legend. Record which side you are describing.",
+          "The image says KEVX while its parent-page caption says KEOX. Preserve that source discrepancy rather than silently assigning a new radar identity.",
+          "A reflectivity gap can help identify the eye in this example, but does not establish safe conditions on the ground.",
+          "For a closer reading of the units and retained panel details, use the dedicated radar guide linked below."
+        ]
+      },
+      {
+        eyebrow: "Satellite evidence",
+        title: "A Clear Eye Was Only Part of Irma's Intensity Assessment",
+        body: "NHC's Irma discussion 26, issued September 5, 2017 at 1500 UTC, described a distinct 25-30 nautical mile eye in GOES-16 one-minute visible imagery. It also reported aircraft SFMR winds and set the initial intensity at 155 kt based on those data. The written example shows why appearance and intensity should not be collapsed into one claim. The eye's width described structure in the imagery; it did not tell the reader the wind at a house or provide the later storm track.",
+        bullets: [
+          "Distinguish a satellite channel's cloud view from radar's precipitation or velocity product.",
+          "Do not use one eye diameter as a rule for categorizing other hurricanes. This source describes one storm at one historical time.",
+          "The discussion also warns that hurricane-force winds and life-threatening surge extend far from the center.",
+          "An image comparison needs matching dates, times, products and geographic scales. A tighter crop alone can make an unchanged feature look larger."
+        ]
+      },
+      {
+        eyebrow: "Image-reading task",
+        title: "Can You Recover a Wind Speed From the Left Panel?",
+        body: "Question: a reader points at a bright color in the left Michael panel and calls it a 120-knot wind. What must be corrected? Answer: that panel is labeled DBZ, a reflectivity product, so its color cannot be read as knots. The right panel has a KTS velocity legend, but even that product does not by itself certify sustained wind at a property. A useful caption names the storm, year, panel, product, legend and source, then describes only what those fields support.",
+        bullets: [
+          "Your observation can say that the historical reflectivity image shows an eye and surrounding precipitation structure.",
+          "It cannot assign a household wind speed, evacuation zone or road condition from that appearance.",
+          "If a shared image lacks its product label or time, mark those fields missing and open the original source before interpreting it.",
+          "During a real event, use current warnings and local instructions; a clear-looking eye or a break in rain is not an all-clear."
+        ]
+      },
       { eyebrow: "Safety", title: "A Dramatic Image Does Not Show Every Hazard", body: "A storm can look organized without threatening your location, or look less symmetrical while producing dangerous local impacts. Use official data and local warnings.", bullets: ["Wind and gust forecasts", "Storm surge and coastal flooding", "Rainfall and river flooding", "Tornado and outage risk"] }
     ],
     nextLinks: [
       { name: "Interactive Radar", href: "/radar/", description: "Compare radar, satellite, wind, and alert layers." },
+      { name: "Read the Historical Radar Pair", href: "/hurricane-tracker/radar/", description: "Inspect the full Michael image, panel details, units and source-label discrepancy." },
       { name: "Live Hurricane Tracker", href: "/hurricane-tracker/live/", description: "Check current storms and NHC paths." },
       { name: "Hurricane Path Guide", href: "/hurricane-tracker/path/", description: "Understand forecast track and cone limits." }
     ],
     faqs: [
       { question: "What does a hurricane look like on satellite?", answer: "It often appears as a spiral cloud system with a central dense overcast, rain bands, and sometimes a visible eye. Satellite appearance is only one part of the risk picture." },
       { question: "What does a hurricane look like on radar?", answer: "Radar can show precipitation bands, the eyewall, and areas of heavy rain when the storm is within coverage. Radar does not replace the NHC forecast or local warnings." },
-      { question: "Does a visible eye mean the storm is safe?", answer: "No. The eyewall can contain the strongest winds, and conditions can change quickly. Follow official warnings even when the center appears calm." }
+      { question: "Does a visible eye mean the storm is safe?", answer: "No. The eyewall can contain the strongest winds, and conditions can change quickly. Follow official warnings even when the center appears calm." },
+      { question: "How should I caption a historical storm image when its labels are incomplete?", answer: "Name the storm and year, identify the image product and publisher, and keep the visible legend and timestamp with the full image. State which label is missing or inconsistent instead of repairing it by guesswork. For the Michael pair here, retain the KEVX image header and disclose the different KEOX caption on its source page. Do not add a time zone not established by that image. Link the original context and label any crop as a detail from the full image. A caption should separate what readers can see from measurements the image cannot establish." }
     ]
   },
   {
@@ -1206,6 +1435,10 @@ export const topicPages: TopicPage[] = [
     primaryAction: { label: "Generate checklist", href: "/tools/preparedness-checklist/" },
     secondaryAction: { label: "Open preparedness guide", href: "/preparedness/" },
     intent: "hurricane preparedness checklist, hurricane supply list, hurricane emergency kit",
+    sourceCheck: "Checked November 10, 2026: Ready.gov Build a Kit, including one gallon per person per day for several days for drinking and sanitation, extra pet supplies, portable documents, kit maintenance and storage locations. The five-day inventory example is an illustrative household choice, not a universal planning duration or a water-safety assessment. Linked PDFs and individual medical requirements were not reviewed.",
+    sources: [
+      { href: "https://www.ready.gov/kit", label: "Ready.gov: Build a Kit, quantities, maintenance and storage" }
+    ],
     steps: [
       {
         title: "Build the Household Kit",
@@ -1221,12 +1454,45 @@ export const topicPages: TopicPage[] = [
       },
       {
         title: "Tie Supplies to Timing",
-        body: "Use 72/48/24-hour planning so shopping, fueling, charging, document packing, and evacuation decisions happen before conditions worsen.",
+        body: "Finish supplies and arrangements in quiet weather. Treat 72/48/24-hour schedules as illustrative preparation windows, not warning definitions or a guarantee of time remaining; follow earlier local instructions and household assistance needs.",
         href: "/blog/hurricane-preparation-timeline-72-48-24-hours/",
         label: "Read timeline"
       }
     ],
     sections: [
+      {
+        eyebrow: "Quantity exercise",
+        title: "Calculate the Gap Before Shopping",
+        body: "Ready.gov lists one gallon of water per person per day for several days, for drinking and sanitation, plus extra water for pets. Use the people, duration and quantities actually in your household record. For a simple exercise, suppose three people choose a five-day planning period and have ten gallons of usable stored water. The human baseline calculation is 3 people multiplied by 5 days multiplied by 1 gallon: 15 gallons. The baseline inventory gap is therefore 5 gallons before additional needs are considered.",
+        bullets: [
+          "Five days is the scenario's assumption, not a universal official minimum. Check local guidance and the household's likely access constraints.",
+          "Pet water and individual needs are additional; do not count them as already covered by the three-person arithmetic.",
+          "List uncertain containers separately rather than assuming they are usable. This calculation does not assess contamination or make water safe.",
+          "Use the result as a shopping and storage task. Keep an accessible, manageable portable supply for evacuation rather than assuming the whole home stock can travel."
+        ]
+      },
+      {
+        eyebrow: "Usability check",
+        title: "Check the Item, Not Just the Box",
+        body: "A list can show everything purchased while the household still cannot use it. Record quantity, storage location, check date and the person responsible for each essential item. For lighting, match batteries to the actual flashlight and test it safely. For shelf-stable food, check whether it requires a manual can opener, water or cooking equipment you may not have during an outage. For personal medication and equipment, resolve storage, refill and power questions with the appropriate clinician, pharmacist or supplier rather than copying another household's instructions.",
+        bullets: [
+          "Water and food: note usable stock and dates, plus what preparation each item requires.",
+          "Documents: keep portable copies where the intended person can retrieve them, with appropriate privacy protection.",
+          "Alerts and contacts: verify access to the official channel and an offline contact record, not merely an installed app icon.",
+          "Transport and lodging: keep confirmation details outside the supply inventory. Buying a bag does not resolve a pending ride or destination."
+        ]
+      },
+      {
+        eyebrow: "Maintenance task",
+        title: "Turn a Full Shelf Into a Maintained Kit",
+        body: "Ready.gov recommends maintaining the kit and reconsidering needs as the family changes. Choose a review date and check the supplies in their actual locations, including home, work and vehicle arrangements where relevant. Replace or resolve items that are missing, unsuitable or no longer usable, and update responsibilities after a move or a change in care needs. A review is complete when the gaps have an owner and a next step; it is not a declaration that the household can safely remain in any building during any storm.",
+        bullets: [
+          "Practice result: ten gallons are recorded on paper, but two are stored somewhere the household cannot access. Recount the accessible inventory rather than retaining the old total.",
+          "Practice result: the flashlight works, but the backup batteries fit a different device. Record the mismatch and obtain compatible supplies.",
+          "Practice result: a portable bag is too difficult for the intended person to carry. Reorganize it and confirm the assistance arrangement before relying on it.",
+          "Keep the revised inventory private and offline-accessible. Revisit open items instead of resetting every line to complete at the next review."
+        ]
+      },
       {
         eyebrow: "Checklist scope",
         title: "The Best Checklist Matches Your Household",
@@ -1273,6 +1539,10 @@ export const topicPages: TopicPage[] = [
         question: "Should every household use the same checklist?",
         answer:
           "No. Adjust the checklist for household size, pets, medical needs, mobility, housing type, evacuation zone, outage risk, and local hazards."
+      },
+      {
+        question: "Is a home inventory the same as an evacuation bag?",
+        answer: "No. A home inventory may include bulk supplies that cannot be carried by the intended person or transport. Ready.gov recommends accessible storage and easy-to-carry containers. Test retrieval and portability in calm conditions, and identify which essentials travel with each person. Keep transport and receiving-facility requirements with the plan, especially for equipment and medication. Do not assume a shelter will replace supplies or provide care merely because its name appears on the checklist."
       }
     ]
   },
@@ -1286,14 +1556,40 @@ export const topicPages: TopicPage[] = [
     primaryAction: { label: "Check evacuation zones", href: "/hurricane-tracker/evacuation-zones/" },
     secondaryAction: { label: "Use evacuation decision helper", href: "/tools/evacuation-decision-helper/" },
     intent: "hurricane evacuation plan, evacuating for a hurricane, where to go in a hurricane",
+    sourceCheck: "Checked November 10, 2026: GEMA Make a Plan to Evacuate, covering destinations in different directions, alternate transport, local instructions, recommended routes and floodwater avoidance. This is standing planning guidance, not confirmation of a current order, road, shelter, booking or ride. The decision record and worked example are HurricaneHub teaching material; confirm animal policies with each receiving facility.",
+    sources: [
+      { href: "https://gema.georgia.gov/make-plan-plan-evacuate", label: "GEMA: Make a Plan to Evacuate" }
+    ],
     steps: [
-      { title: "Know Who and What Triggers Leaving", body: "Confirm the local evacuation zone for every location, identify mobile homes and medically vulnerable household members, and write the official order or warning that starts departure. Do not substitute an insurance flood zone for a local evacuation zone.", href: "/hurricane-tracker/evacuation-zones/", label: "Review zone guidance" },
-      { title: "Choose Two Safe Destinations", body: "Pick a primary and backup destination outside the threatened area. Confirm lodging, pets, accessibility, fuel, medications, charging, and whether the destination faces the same wind, surge, flood, or tornado risk.", href: "/tools/family-communication-plan/", label: "Record contacts and destinations" },
+      { title: "Know Who and What Triggers Leaving", body: "Confirm the local evacuation zone for every location, identify housing and assistance needs, and record the applicable local evacuation instruction or earlier household transport arrangement. Distinguish these from warnings that require immediate shelter. Do not substitute an insurance flood zone for a local evacuation zone.", href: "/hurricane-tracker/evacuation-zones/", label: "Review zone guidance" },
+      { title: "Check Primary and Backup Destinations", body: "Identify destinations in different directions, then confirm availability, pets, accessibility, medication and equipment needs. Recheck the receiving location's expected hazards and official instructions for the actual event.", href: "/tools/family-communication-plan/", label: "Record contacts and destinations" },
       { title: "Leave Before Routes Shrink", body: "Track the arrival of hazardous conditions, local orders, bridge restrictions, road flooding, traffic, shelter openings, and fuel. Leave at the locally directed time and never drive into floodwater or around a closure.", href: "/hurricane-tracker/live/", label: "Check current storm context" }
     ],
     sections: [
       { eyebrow: "Direct answer", title: "When Should You Evacuate for a Hurricane?", body: "Evacuate when local officials order your zone or when your preplanned trigger requires earlier movement for transport, medical, mobility, pet, or housing needs. Waiting for hurricane-force wind, an exact landfall point, or a dramatic category change can leave too little time. Tropical-storm-force winds, surge, rain, bridge restrictions, school closures, and traffic may begin well before the center arrives.", bullets: ["Follow the order for the exact address and zone", "Leave mobile or manufactured housing when locally directed", "Allow extra time for disability, medical equipment, children, pets, or no vehicle", "Do not wait for every household in the county to receive the same instruction"] },
       { eyebrow: "Destination", title: "Where To Go During a Hurricane", body: "The safest destination is not automatically the nearest inland town. It should be outside the ordered zone and expected hazard area, reachable before unsafe conditions, and suitable for the household. Options may include family or friends, a hotel, or a public shelter. Shelter locations and rules change by event, so verify openings with local emergency management rather than relying on an old list.", bullets: ["Choose primary and backup destinations", "Check pet, service-animal, accessibility, and medical policies", "Carry identification, medications, chargers, documents, and essential supplies", "Tell an out-of-area contact where the household is going"] },
+      {
+        eyebrow: "Destination record",
+        title: "Compare Options Before Choosing the Trip",
+        body: "GEMA recommends several possible destinations in different directions and familiarity with alternate routes and transport. Turn that advice into a private record for each candidate: receiving address and county, contact, confirmation date, household needs accepted, transport, and the official channels for conditions at both ends. An inland address can still face flooding or wind. A hotel reservation confirms a booking under its terms; it does not establish road access, backup power or capacity to meet medical needs during the event.",
+        bullets: [
+          "Availability: who confirmed that the household can arrive, and what changes could cancel that arrangement?",
+          "Suitability: verify pets, accessibility and essential equipment needs directly with the host or operator; do not infer them from a map icon.",
+          "Access: keep the proposed route separate from current closure information. Save the state road-information source and check it again before departure.",
+          "Backup: record an alternative with its own contact and transport arrangements, rather than listing a second town without a receiving location."
+        ]
+      },
+      {
+        eyebrow: "Worked decision",
+        title: "What Changes When the First Destination Falls Through?",
+        body: "Hypothetical planning exercise: a household has confirmed a stay with relatives west of home. Before departure, the relatives report a local evacuation order affecting their address. A second host north of home has offered space, but has not confirmed that required medical equipment can be supported. Can the household simply switch the destination in its navigation app? Answer: neither location is currently established as a suitable receiving arrangement. The first option conflicts with its local order; the second still needs direct confirmation of essential needs and an accessible trip.",
+        bullets: [
+          "Update the first option's status and record the new local instruction; an earlier invitation is no longer enough.",
+          "Contact the alternate host and, where needed, the care team or equipment provider to resolve essential support. Do not treat an unverified outlet or generator as confirmed medical power.",
+          "Recheck official road instructions and transport availability for the changed trip, then tell the household and out-of-area contact the agreed destination.",
+          "If departure instructions apply before the gap is resolved, contact local emergency management and the relevant care or transport provider about available arrangements. This exercise establishes no actual safe route or placement."
+        ]
+      },
       { eyebrow: "Route plan", title: "Plan More Than One Evacuation Route", body: "A reliable plan includes at least two routes and does not depend on one bridge, ferry, causeway, tunnel, or low road. Automatic navigation can send traffic toward flooding or closures, so compare it with official road information. Contraflow or lane reversal is used only when authorities activate it and should never be assumed in advance.", bullets: ["Download or print a route map", "Check official state road and local emergency updates", "Fuel early and keep the vehicle maintained", "Never drive through water, barricades, or closed roads"] },
       { eyebrow: "No-car plan", title: "Evacuation Without a Personal Vehicle", body: "People without a car should register for local transport assistance when offered and confirm pickup rules before a storm threatens. Ask local emergency management, transit, housing management, healthcare providers, schools, employers, or trusted contacts about accessible transport. A plan that depends on a last-minute ride is fragile when buses, bridges, fuel, and phone service become constrained.", bullets: ["Save local emergency management and transit contacts", "Ask about wheelchair and medical-equipment transport", "Pack a portable bag that one person can manage", "Arrange backup pickup people and meeting locations"] },
       { eyebrow: "Household needs", title: "Pets, Medication and Medical Equipment", body: "Pack prescriptions, a medication list, clinician and pharmacy contacts, identification, insurance information, device chargers, batteries, and instructions for medical equipment. Ask a doctor, pharmacist, or equipment provider about temperature-sensitive medicine and backup power. Bring pet food, medication, vaccination records, carriers, leashes, identification, and a destination that accepts animals.", bullets: ["Refill permitted prescriptions before demand peaks", "Keep essential records in a waterproof portable container", "Plan power and transport for medical devices", "Confirm pet-friendly lodging or shelter options"] },
@@ -1324,12 +1620,38 @@ export const topicPages: TopicPage[] = [
     primaryAction: { label: "Build a local risk plan", href: "/tools/local-risk-plan/" },
     secondaryAction: { label: "Review preparedness checklist", href: "/tools/preparedness-checklist/" },
     intent: "mitigation of hurricanes, hurricane mitigation strategies, mitigation strategies for hurricanes",
+    sourceCheck: "Checked November 10, 2026: Ready.gov Hurricanes, limited to its guidance on drains and gutters, outside furniture, considering shutters, insurance and document copies. Structural design, local codes, contractor qualifications, project costs, grant eligibility and insurance discounts were not verified. The project record and quote example are HurricaneHub planning exercises, not engineering specifications.",
+    sources: [
+      { href: "https://www.ready.gov/hurricanes", label: "Ready.gov: Preparing for hurricanes and protecting the household" }
+    ],
     steps: [
       { title: "Identify the Local Hazards", body: "Use official flood, surge, wind, evacuation, building, and infrastructure sources to identify the hazards for the exact property. Category and distance from the coast do not describe the whole risk.", href: "/local-hurricane-risk/", label: "Check local risk paths" },
-      { title: "Prioritize Life Safety and Structure", body: "Address evacuation, safe shelter, roof-to-wall connections, openings, drainage, utilities, generators, trees, and flood exposure with qualified guidance and current codes.", href: "/blog/hurricane-home-hardening-checklist/", label: "Review home hardening" },
+      { title: "Separate Maintenance From Building Work", body: "List accessible routine tasks separately from work requiring qualified assessment, permits or installation. Ask about the actual hazard and building before selecting roof, opening, drainage or utility projects.", href: "/blog/hurricane-home-hardening-checklist/", label: "Review home hardening" },
       { title: "Maintain and Reassess", body: "Inspect upgrades, update inventories and insurance, clear drainage, test communication and backup power, and revisit the plan after renovations, moves, code changes, or new hazard information.", href: "/tools/preparedness-checklist/", label: "Update readiness" }
     ],
     sections: [
+      {
+        eyebrow: "Start with a project record",
+        title: "Name the Hazard, Scope and Completion Evidence",
+        body: "Ready.gov recommends clearing drains and gutters, bringing in outside furniture and considering hurricane shutters. These are different tasks, with different limits. Removing loose furniture reduces a source of windborne debris; it does not improve the roof connection or prevent water from entering the building. A gutter task addresses drainage maintenance, not storm surge. For each proposed improvement, record the problem it addresses, who may perform it safely, what approval is needed and how completion will be checked. Keep building work for calm conditions and qualified advice.",
+        bullets: [
+          "Hazard and location: for example, loose objects on a patio versus protection for a specific window opening. Do not describe either as whole-house hurricane proofing.",
+          "Scope and responsibility: record the exact task, the responsible person or contractor and any landlord, association or building-department approval still needed.",
+          "Evidence: keep dated photos, a written scope, applicable product documents, installation records and required inspection results. A receipt alone does not demonstrate correct installation.",
+          "Maintenance: record how the equipment is stored, deployed or serviced and who can do it. A protective system that the household cannot safely operate leaves an unresolved planning task."
+        ]
+      },
+      {
+        eyebrow: "Quote-reading exercise",
+        title: "Is a Lower Price Enough to Choose Window Protection?",
+        body: "Hypothetical example: quote A says hurricane protection package and gives one total price. Quote B identifies the openings, proposed products, installation work, exclusions and who will address required approvals. Which quote is ready to evaluate? Answer: B supplies more of the information needed for comparison, but neither its detail nor its price establishes suitability for this building. Ask the relevant building authority and qualified contractor to resolve applicable requirements, product suitability and installation details before accepting work. This example recommends a review process, not a particular product.",
+        bullets: [
+          "Ask A for an itemized scope before comparing totals. Otherwise the two prices may cover different openings, labor or approvals.",
+          "Ask both providers about excluded repairs, deployment and maintenance, completion evidence and the written contract terms.",
+          "Keep structural suitability separate from insurance: obtain any claimed discount and required documentation directly from the insurer for the actual policy.",
+          "Your deliverable is a list of resolved and pending questions. There is no supported savings percentage, wind rating or guaranteed loss reduction in this hypothetical example."
+        ]
+      },
       { eyebrow: "Definition", title: "What Is Hurricane Mitigation?", body: "Mitigation is sustained action that reduces long-term risk to people, property, infrastructure, and services. Preparedness helps people respond to a near-term threat; mitigation changes the conditions that create recurring losses. Examples include stronger construction, protected openings, elevated equipment, improved drainage, safer land use, redundant communications, and utility resilience.", bullets: ["Reduce damage before the forecast exists", "Match the measure to a specific hazard", "Use current codes and qualified professionals", "Combine property and community actions"] },
       { eyebrow: "Wind", title: "Reduce Wind and Windborne-Debris Damage", body: "A building performs as a system: roof covering, roof deck, connections, walls, doors, garage doors, windows, and foundation transfer wind loads together. A weak opening or connection can allow pressure and water to enter. Building-specific work should follow permits, current codes, manufacturer instructions, and licensed professional guidance.", bullets: ["Inspect roof covering and flashing", "Use approved opening protection", "Secure garage and exterior doors", "Remove or anchor loose outdoor objects"] },
       { eyebrow: "Water", title: "Mitigate Surge, Flood and Rainfall Risk", body: "Storm surge and rainfall flooding require different information. Elevation, drainage, nearby water, foundation type, utilities, access roads, and local flood history all matter. Measures may include elevating equipment, flood-resistant materials, drainage maintenance, backflow protection, or larger property changes, but feasibility and safety depend on codes and qualified assessment.", bullets: ["Keep drains and flow paths clear", "Protect or elevate vulnerable utilities where permitted", "Store records and hazardous materials above likely water", "Never rely on temporary barriers without understanding their limits"] },
@@ -1362,6 +1684,11 @@ export const topicPages: TopicPage[] = [
     primaryAction: { label: "Create communication plan", href: "/tools/family-communication-plan/" },
     secondaryAction: { label: "Build business checklist", href: "/tools/business-preparedness/" },
     intent: "hurricane training, hurricane training center, hurricane drill, hurricane EMA",
+    sourceCheck: "Checked November 10, 2026: Ready.gov Make a Plan, covering household communication, meeting places, individual needs and practice; NWS hurricane warning definitions and Extreme Wind Warning shelter instructions. The tabletop sequence, timing and observation record below are HurricaneHub's educational design, not a FEMA-certified exercise or a current emergency message. Linked PDFs and formal organizational standards were not reviewed.",
+    sources: [
+      { href: "https://www.ready.gov/plan", label: "Ready.gov: Make a Plan, including household needs and practice" },
+      { href: "https://www.weather.gov/safety/hurricane-ww", label: "NWS: Match hurricane warning products with their instructions" }
+    ],
     steps: [
       { title: "Choose One Realistic Scenario", body: "Use a fictional exercise message clearly labeled as a drill. Test one location and a few decisions, such as a watch becoming a warning, a zone order, an outage, or a blocked route.", href: "/hurricane-tracker/hurricane-warning/", label: "Review warning language" },
       { title: "Run the Communication and Decision Tasks", body: "Ask participants to find official sources, contact their group, identify shelter or evacuation triggers, gather essential items, and explain their next action without creating unsafe movement.", href: "/tools/alert-action-decoder/", label: "Practice alert interpretation" },
@@ -1369,6 +1696,39 @@ export const topicPages: TopicPage[] = [
     ],
     sections: [
       { eyebrow: "Training goal", title: "What Hurricane Training Should Accomplish", body: "Training should build reliable decisions, not confidence based on a perfect script. Participants need to know where official NHC, NWS, and local emergency information comes from; who has authority; which conditions trigger closure, shelter, or evacuation; and how to communicate when normal tools fail.", bullets: ["Recognize official alert sources", "Know roles and backup decision owners", "Locate supplies, contacts, and routes", "Identify gaps without blaming participants"] },
+      {
+        eyebrow: "Ready-to-use tabletop",
+        title: "Try a 20-Minute Household Exercise",
+        body: "Ready.gov recommends a household communication plan, consideration of individual needs and practicing the plan. The following short sequence is our way of testing those arrangements at home. Twenty minutes is a suggested session length, not a safety standard or a deadline for real evacuation. Agree on participants and a stop rule first. Use paper prompts marked EXERCISE ONLY; discuss travel on a map instead of driving. Tell any participating contact in advance that the test is planned, and do not send simulated warnings to public channels.",
+        bullets: [
+          "Minutes 0-5: each person locates the household's saved county alert channel, contact record and meeting place. Note anything missing or inaccessible.",
+          "Minutes 5-10: the controller says, EXERCISE ONLY: imagine local officials have ordered your recorded zone to evacuate. Find the transport and destination confirmations; mark unresolved items rather than guessing availability.",
+          "Minutes 10-15: discuss how to retrieve contacts if the main phone is unavailable. Use the printed copy and identify who needs help accessing it; do not disable real alerts or medical devices.",
+          "Minutes 15-20: compare the intended actions with what participants could actually explain or retrieve. Choose one correction, an owner and a retest date."
+        ]
+      },
+      {
+        eyebrow: "Record what happened",
+        title: "Use an Observation Log Instead of a Readiness Score",
+        body: "Keep a private log with five fields: task, expected result, observed result, correction owner and retest date. Write down evidence of an arrangement, such as a printed contact card being found or a transport confirmation being available. Do not count a form submission as a booked ride, or a destination name as accepted lodging. A fast response does not establish that the selected action is correct. Avoid collecting sensitive medical details in a shared exercise report; record only the assistance arrangement that needs follow-up.",
+        bullets: [
+          "Worked example: task = retrieve backup contact; expected = each participant can find the paper card; observed = the only copy is in a locked drawer whose key holder is away.",
+          "Correction = agree on an accessible, private storage location and make participant copies. Owner = a named household member; retest = an agreed date after the change.",
+          "At the retest, ask participants to locate the record again. A new storage label alone does not demonstrate that the access problem was solved.",
+          "Keep pending items visible. This exercise produces a correction list, not a certification that a home, route or shelter is safe."
+        ]
+      },
+      {
+        eyebrow: "Decision check",
+        title: "Does a Packed Bag Prove the Drill Succeeded?",
+        body: "Hypothetical result: everyone finds the go-bag, but one person cannot retrieve the county alert source and the group's proposed driver has not accepted the ride. Should the controller mark the household ready? Answer: the bag task was demonstrated; source access and transport remain unresolved. Assign those two gaps separately. Finding the official source requires a retrievable link or contact; resolving the ride requires confirmation with the provider, not a faster bag-packing drill. Retest those specific arrangements after they change.",
+        bullets: [
+          "Distinguish demonstrated, pending and not tested; use those labels for individual tasks.",
+          "A tabletop discussion can identify a medical transport need but cannot establish a provider's acceptance or clinical suitability.",
+          "If a real warning or emergency starts, stop the drill and use current official instructions. Do not keep following the fictional scenario.",
+          "For workplace, school or care settings, use applicable local and organizational requirements; this household exercise does not replace a formal program."
+        ]
+      },
       { eyebrow: "Scenario design", title: "Build a Safe Hurricane Drill", body: "Label every exercise message with words such as EXERCISE or DRILL so nobody mistakes it for a real warning. Avoid sirens, public posts, calls to emergency numbers, actual evacuations, dangerous generator use, or activities that disrupt roads and responders. Pause immediately if real severe weather or an emergency begins.", bullets: ["State scope, participants, start, stop, and safety rules", "Use fictional names and locations where practical", "Assign an exercise controller and observers", "Keep emergency services and public channels out of the simulation"] },
       { eyebrow: "Family drill", title: "Family Hurricane Drill Checklist", body: "A household drill can take less than an hour. Test how everyone receives alerts, contacts an out-of-area person, reaches the safe room, finds go-bags and medication, handles pets, and names the evacuation destination. Children should receive age-appropriate tasks and reassurance rather than frightening storm imagery.", bullets: ["Send a test family message", "Find flashlights, shoes, medication, and documents", "Practice moving to the safe area", "Review two routes and two destinations"] },
       { eyebrow: "Workplace drill", title: "Workplace and Business Hurricane Training", body: "A workplace exercise should test closure authority, employee accountability, remote-work access, facility shutdown, records, vendors, customer messages, insurance contacts, and recovery leadership. Each location needs local triggers; a central office should not direct a coastal branch using conditions from another state.", bullets: ["Test primary and backup decision owners", "Confirm accessible employee communication", "Practice safe shutdown and records access", "Include payroll, vendors, customers, and reopening"] },
