@@ -36,4 +36,7 @@ No specific property zone, actual evacuation order, road/crossing status, shelte
 - Browser rendered both updated routes: Article dateModified and visible date November 10, 2026; Wilmington seven FAQs, Virginia Beach six. Main text approximately 1,517 and 1,540 words respectively, including shared sections; word count is not evidence of factual accuracy.
 - Desktop and 390x844 mobile checks found no horizontal overflow; Virginia Beach screenshot verified heading and action wrapping. No broken loaded images on the checked Wilmington page.
 - Local preview needed a restart after concurrent build/dev dependency optimization caused a missing optimized dependency. No config or dependencies changed.
-- Release identifiers and production observations follow after deployment.
+- Released content commit `9c1d346` through `npm run ship`; its build, fresh origin/main check and push passed. Cloudflare Worker version: `63de0764-57f6-4a0b-817b-c54e555780a7`, deployed to `https://www.hurricanetracker.cc/` (including the apex route).
+- Production browser checks confirmed both new planning records, visible and Article dates `2026-11-10`, Wilmington seven FAQs and Virginia Beach six. Confirmed Wilmington registry number and Virginia Beach crossing exclusion/medical scope text in the deployed pages.
+- Production SEO endpoint checks passed, including crawler GET/HEAD redirects and ads.txt. IndexNow accepted 210 URLs with HTTP 200; this is submission acceptance, not proof of indexing. Google service-account submission was skipped because credentials were unavailable; normal sitemap discovery remains separate.
+- This release record is a subsequent documentation-only commit; no further Worker deployment is needed for it.
