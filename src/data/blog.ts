@@ -178,28 +178,41 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "how-to-prepare-your-home-for-a-hurricane",
-    sources: [{ href: "https://www.ready.gov/hurricanes", label: "Ready.gov: hurricane preparation and protective actions" }],
+    sources: [{ href: "https://www.ready.gov/hurricanes", label: "Ready.gov: hurricane preparation and protective actions" }, { href: "https://ibhs.org/hurricanereadyhomebeforeevent", label: "IBHS: prepare an existing home before an event" }],
     title: "How to Prepare Your Home for a Hurricane",
-    description: "A homeowner checklist for shutters, drainage, documents, supplies, and evacuation timing before hurricane watches become warnings.",
+    description: "Prioritize safe home preparation before a hurricane: deploy existing protection, keep exits clear, assign unfinished work, and stop before departure is delayed.",
     datePublished: "2025-06-03",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-10",
+    review: { date: "2026-11-10", scope: "Editorial review of near-term property tasks, clear exits and stop-work decisions, using the existing November 2 research record for Ready.gov and IBHS. These sources were not newly read; no building, product installation, weather condition or local order was checked.", correction: "Removed warning upgrades as a universal work cutoff and separated existing protection from unfinished retrofit projects." },
     image: "/images/blog/how-to-prepare-your-home-for-a-hurricane.jpg",
     imageAlt: "Homeowners install storm shutters and stack sandbags while preparing a coastal home for an approaching hurricane.",
     sections: [
+      {
+        heading: "Choose the Safe Work Window First",
+        body: "Before moving anything, read the current local instructions and identify who needs transport, medication or help leaving. Property work belongs inside the time and conditions those needs allow. A storm's center position or forecast landfall time does not establish how long your yard, driveway or route remains safe. If officials require immediate evacuation or shelter, follow that instruction instead of starting this list. The purpose here is to deploy what is already available safely, not to complete a renovation under pressure.",
+        links: [{ href: "/blog/what-to-do-during-a-hurricane-warning/", label: "Prioritize immediate instructions when a warning is already issued" }]
+      },
       {
         heading: "Start Outside",
         body:
           "Use this guide for the near-term decision about securing the property or leaving. Structural retrofit projects belong in the separate home-hardening guide, and the room-by-room checklist covers an interior inventory. Walk the property in calm weather and list loose furniture, bins, toys, and tools that can be moved without climbing. Clear accessible drainage only when safe, and arrange qualified help for roof, electrical, or large-tree work rather than beginning those jobs as a storm approaches."
       },
       {
+        heading: "Separate Ready Protection From an Unfinished Project",
+        body: "Check that the existing shutter or panel system has its correct labeled parts, fasteners and installation instructions before the safe window narrows. A panel in the garage is not a protected opening until the appropriate installation is completed. If parts are missing, the system is unfamiliar or the work needs a ladder or professional help, mark that task unresolved and seek qualified advice early. Do not improvise fastening, substitute tape for rated protection or assume a purchase receipt proves installation.",
+        bullets: ["Ready: the correct protection, instructions, hardware and capable help are available, and conditions permit installation.", "Unresolved: a missing part, uncertain attachment or unavailable installer prevents completion. Do not label the opening protected.", "Deferred project: roof replacement, structural connections and major upgrades belong in calm-weather planning with qualified professionals.", "Departure: incomplete protection does not override an evacuation instruction or make late outdoor work safe."],
+        links: [{ href: "/blog/hurricane-home-hardening-checklist/", label: "Plan structural upgrades and check installation evidence separately" }]
+      },
+      {
         heading: "Protect Records and Utilities",
         body: "Prepare for power, water, and communication disruption.",
-        bullets: ["Store documents in waterproof bags.", "Move vehicles away from trees and flood-prone streets.", "Know how to shut off utilities if local officials advise it.", "Charge backup batteries and medical devices."]
+        bullets: ["Keep essential documents portable and protected from water; do not seal them behind stored furniture.", "Move vehicles away from trees and flood-prone streets only while conditions permit, keeping the departure route usable.", "Keep utility contacts and instructions available. Follow the utility or local officials; do not practice gas or electrical work from a general checklist.", "Charge approved backup batteries and medical devices; obtain device-specific outage instructions from the provider."]
       },
       {
         heading: "Inside the Home",
         body:
-          "Move valuables away from windows and low floors, freeze water containers to help preserve food, and keep shoes, flashlights, and a battery radio where you can reach them in darkness."
+          "Move portable valuables away from windows and low areas only while it is safe, without blocking doors, stairs or access to essential equipment. Keep shoes, flashlights and a battery radio within reach in darkness. Do not turn a sheltered room into a storage area that people or pets cannot enter. Handling belongings should not delay an ordered departure.",
+        links: [{ href: "/blog/hurricane-home-preparedness-room-by-room-checklist/", label: "Use the separate room-by-room inventory for supplies and interior tasks" }]
       },
       {
         heading: "Plan Florida Wind Mitigation Before a Storm",
@@ -213,10 +226,23 @@ export const blogPosts: BlogPost[] = [
         bullets: ["Confirm which openings already have approved protection and where the hardware is stored.", "Ask a landlord or association which exterior work residents may perform.", "Keep vehicle keys, shoes, and go-bags accessible after furniture is moved.", "If an evacuation order leaves no safe work window, leave rather than finishing property tasks."]
       },
       {
+        heading: "Walk the Exit After Moving the Furniture",
+        body: "Before checking the property task complete, walk the actual path from the living area to the departure vehicle or designated shelter space while conditions are still safe. Check it with the household's mobility equipment and pet carriers in mind. Furniture, a heavy shutter panel or a charging cable can create a new obstruction even when the yard looks tidier. Keep keys, medicines, shoes and portable records reachable without moving the stored items again. This is a usability check, not an inspection that certifies the structure or a route as storm-safe."
+      },
+      {
         heading: "When to Stop Preparing",
         body:
-          "Stop outdoor work when winds increase, watches turn into warnings, or local officials tell residents to shelter or leave. No object outside is worth working around flying debris."
+          "Stop when conditions become unsafe or current instructions require shelter or departure. Do not wait for a watch to become a warning before recognizing lightning, rising water, unstable footing or wind-blown objects. Conversely, the warning label alone does not tell every household the same remaining work time. Current instructions, actual conditions and the household's departure needs control. Leave an optional task unfinished rather than using the last safe travel window to protect property."
+      },
+      {
+        heading: "Readiness Check: Does the Home Task Delay the People Task?",
+        body: "Illustrative check, not a report from a real household: patio chairs have been moved indoors, but now block the door needed for a wheelchair. One window panel still lacks hardware and a driver is ready to depart under local instructions. The useful next step is to restore the exit and follow the departure instruction, not to search a hardware store to finish the panel. Record the incomplete protection honestly. A tidy yard, installed shutters and a charged phone are separate tasks; none proves the home is suitable for staying through surge, flooding or severe wind."
       }
+    ],
+    faqs: [
+      { question: "Should I finish shutters before following an evacuation instruction?", answer: "Do not delay required departure or shelter to finish property work. Install existing protection early while conditions are safe; unresolved parts or installation questions need advance attention." },
+      { question: "Does this checklist tell me whether my home is safe to shelter in?", answer: "No. It organizes near-term property tasks. Building condition, local hazards and current official instructions require separate assessment; shutters do not remove surge or flooding exposure." },
+      { question: "Can I use a hurricane warning as my outdoor-work stop time?", answer: "A warning is not a personal safe-work timer. Dangerous conditions or a local instruction can require stopping earlier. Do not use a forecast center time or an unfinished checklist to justify continued work." }
     ]
   },
   {
@@ -766,7 +792,8 @@ export const blogPosts: BlogPost[] = [
     title: "Storm Surge Warning vs. Hurricane Warning",
     description: "Understand the difference between storm surge and hurricane warnings, why water hazards can arrive before peak wind, and when to leave.",
     datePublished: "2026-08-04",
-    dateModified: "2026-10-27",
+    dateModified: "2026-11-10",
+    review: { date: "2026-11-10", scope: "Editorial review of independent water and wind messages, cancellation scope and household decisions using existing NWS/NHC research notes. Retained sources were not newly read; no current warning, evacuation order, address or forecast map was checked.", correction: "Clarified that a wind-warning change, cone position or missing water-map color does not independently clear coastal flooding risk." },
     image: "/images/blog/storm-surge-warning-vs-hurricane-warning.png",
     imageAlt: "A coastal homeowner studies an evacuation route sign while seawater begins lapping at the yard.",
     sections: [
@@ -780,6 +807,12 @@ export const blogPosts: BlogPost[] = [
         bullets: ["Read the water warning's named area and inundation guidance, not only the storm category.", "Compare the local evacuation order with your exact zone and travel needs.", "Do not substitute a FEMA insurance-zone label for the local evacuation-zone system.", "Treat the two warnings as separate information; the absence of one does not cancel the other."]
       },
       {
+        heading: "Read Water, Wind and Evacuation as Separate Messages",
+        body: "Keep the issuing agency, issue time, affected area and instruction with each message. A hurricane warning addresses wind conditions; a storm surge warning addresses coastal inundation; an evacuation order identifies the groups or zones instructed to leave. They can overlap without having identical boundaries or end times. A county-wide summary is not enough to decide whether a particular coastal segment or address is covered. Read each original message and the local order rather than converting the storm's category into a single stay-or-leave answer.",
+        bullets: ["Wind: does the named warning area cover the location, and what wind timing and protective instruction are given?", "Water: does the surge-warning area cover the coast or connected waterway, and which inundation guidance applies?", "Evacuation: which local jurisdiction issued the order, which zone or housing group is named, and what action time is stated?", "Other hazards: read flood and tornado warnings separately; absence of a surge warning does not clear rainfall flooding."],
+        links: [{ href: "/blog/what-hurricane-watch-warning-means/", label: "Record the issuer, area, time and instruction from the full message" }]
+      },
+      {
         heading: "Why Storm Surge Needs Its Own Decision",
         body: "Water changes travel and shelter decisions differently from wind.",
         bullets: ["Flooded roads can become impassable before the storm center arrives.", "Barrier islands, bays, rivers, and low-lying neighborhoods may need earlier decisions.", "Storm surge risk can vary sharply by evacuation zone.", "A wind-safe building may still be inaccessible after water rises."]
@@ -789,6 +822,16 @@ export const blogPosts: BlogPost[] = [
         body: "These are planning examples, not current forecasts. A bayfront household outside the cone may still be inside a surge-warning area: checking local zone orders matters more than the center line missing the home. An inland household under a hurricane warning may have no coastal surge exposure, but still needs wind-safe shelter and rainfall-flood and tornado alerts. The two households should not receive the same leave-or-stay answer from the storm's category.",
         bullets: ["Surge question: can rising coastal water affect this address or its access route? Read the inundation product and local zone instructions.", "Wind question: what conditions and arrival window are expected here? Read the local wind warning and shelter guidance.", "Rainfall question: could flooding affect this property or road independently of surge? Read local flood products.", "Evacuation question: which jurisdiction and order cover this address? A warning alone does not identify the household's zone."],
         links: [{ href: "https://www.nhc.noaa.gov/surge/inundation/", label: "NHC: what the potential storm surge flooding map includes and excludes" }]
+      },
+      {
+        heading: "Do Not Use One Product's Boundary as Another's",
+        body: "The forecast cone describes uncertainty in the center track, not the edge of storm surge or damaging winds. A local evacuation zone is a planning designation to compare with an actual order, not the cone or a FEMA insurance-zone label. The potential storm surge flooding map answers another question about possible water above ground under its stated assumptions. Its colors do not identify hurricane categories, open roads or shelter suitability. Read the map's legend and explanatory limits before treating an uncolored location as evidence of no flooding.",
+        links: [{ href: "/blog/hurricane-storm-surge-forecasting/", label: "Practice reading the NHC inundation legend and its limits" }, { href: "/blog/how-to-check-your-hurricane-evacuation-zone/", label: "Find the official local evacuation-zone lookup" }]
+      },
+      {
+        heading: "A Cancellation Applies to the Message It Changes",
+        body: "When a notification says a warning was canceled or downgraded, open the complete update and identify which hazard and geographic segment changed. Do not infer that a wind-warning cancellation also cancels surge, flood warnings or a local evacuation order. Recheck the other active messages with their own issuing agencies. A canceled warning also does not establish that roads, utilities or a damaged building are ready for return. Reentry instructions and actual access are separate checks.",
+        links: [{ href: "/hurricane-tracker/after-hurricane/", label: "Separate reentry permission from safe access and functioning services" }]
       },
       {
         heading: "What To Do",
@@ -807,6 +850,18 @@ export const blogPosts: BlogPost[] = [
       {
         question: "Can storm surge happen without a direct hurricane landfall?",
         answer: "Yes. Coastal water impacts can occur when a storm passes nearby. Check the official local forecast and alerts for your area."
+      },
+      {
+        question: "Does cancellation of a hurricane warning cancel a surge warning too?",
+        answer: "Do not assume so. Read the updated wind message's scope and check the separate surge and flood products and local order. Each message can have different areas and timing."
+      },
+      {
+        question: "Can an interior room protect me from storm surge?",
+        answer: "An interior room is not a substitute for leaving an area under applicable evacuation instructions. A room away from windows does not remove coastal inundation exposure. Plan the appropriate action before unsafe travel conditions arrive."
+      },
+      {
+        question: "Does a blank area on a surge map mean there is no flood risk?",
+        answer: "No such conclusion follows from a blank area alone. Read the product's coverage and limitations, then check separate rainfall-flood guidance and local instructions. It is not a map of passable roads or cleared homes."
       }
     ]
   },
