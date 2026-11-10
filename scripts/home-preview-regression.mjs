@@ -58,7 +58,9 @@ for (const failure of [null, new Error("Timeout"), {}, { ...nhc, cacheStatus: "s
   assert.equal(showsEmptyFeedPlanning(await preview(failure)), false, "Unavailable feeds must not display an empty-basin claim");
 }
 assert.doesNotMatch(page, /Basin Calm|No Active Named Storms in the Atlantic Basin|Calculate potential wind-loss|confirm bridge departure checkpoints/);
-assert.match(page, /generally has a 30-day waiting period, with exceptions/);
+assert.match(page, /Record Your Evacuation Zone/);
+assert.match(page, /Confirm Transport and Destination/);
+assert.match(page, /Test an Offline Contact Plan/);
 assert.match(page, /does not rule out developing disturbances/);
 assert.match(read("../src/pages/design-preview/homepage-v2.astro"), /Astro.response.headers.set\("X-Robots-Tag", "noindex, nofollow"\)/);
 assert.equal((await preview(nhc, nws, outlook, false)).robots, null, "Production homepage must remain indexable");

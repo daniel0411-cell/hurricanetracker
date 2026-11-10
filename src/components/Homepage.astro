@@ -157,24 +157,23 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
               <span class="badge" style="background:#e0f2fe;color:#0369a1;font-weight:600;padding:3px 8px;border-radius:4px;font-size:0.75rem;">Preparedness Planning</span>
               <h3 style="margin-top:8px;">No Active Atlantic Systems in This Feed</h3>
               <p class="source-note">Feed checked {checked(stormFeed?.fetchedAt)}. An empty active-system list does not rule out developing disturbances, dangerous surf, flooding, or local warnings. Review the separate NHC outlook and local alerts.</p>
-              <p>Use the time available to review household preparations, insurance coverage, and official evacuation resources.</p>
+              <p>Use quiet weather to finish three records you can retrieve without power: your local zone, a confirmed way to leave, and a household contact plan.</p>
             </div>
             <div class="calm-prep-grid">
               <div class="calm-step">
-                <h4><i class="fa-solid fa-house-chimney-crack" aria-hidden="true"></i> Wind Mitigation &amp; Roof Straps</h4>
-                <p>Compare a savings scenario using your annual wind premium and an additional discount confirmed by your insurer.</p>
-                <a href="/tools/wind-mitigation-calculator/">Wind mitigation tool &rarr;</a>
+                <h4><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i> Record Your Evacuation Zone</h4>
+                <p>Look up your address with local emergency management. Save the zone, source link, check date, and where you will check for orders.</p>
+                <a href="/hurricane-tracker/evacuation-zones/">Complete the zone-reading task &rarr;</a>
               </div>
               <div class="calm-step">
-                <h4><i class="fa-solid fa-water" aria-hidden="true"></i> 30-Day Flood Insurance Rule</h4>
-                <p>NFIP flood coverage generally has a 30-day waiting period, with exceptions. Confirm your policy's actual effective date with your insurance agent.</p>
-                <a href="https://www.floodsmart.gov/get-insured/buy-a-policy">Official NFIP waiting-period guidance &rarr;</a>
-                <a href="/blog/hurricane-flood-insurance-guide-nfip/">Review flood insurance guide &rarr;</a>
+                <h4><i class="fa-solid fa-car" aria-hidden="true"></i> Confirm Transport and Destination</h4>
+                <p>Ask your driver and destination host to confirm. Write down backup arrangements, pet needs, and any assistance request still awaiting acceptance.</p>
+                <a href="/tools/evacuation-decision-helper/">Organize confirmed arrangements &rarr;</a>
               </div>
               <div class="calm-step">
-                <h4><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i> Evacuation Zone Clarification</h4>
-                <p>Distinguish flood hazard zones from evacuation zones. Check current evacuation instructions and bridge or road restrictions with local emergency management.</p>
-                <a href="/tools/evacuation-decision-helper/">Evacuation planning helper &rarr;</a>
+                <h4><i class="fa-solid fa-phone" aria-hidden="true"></i> Test an Offline Contact Plan</h4>
+                <p>Save an out-of-area contact and meeting place on paper. Check how you will receive alerts and power essential devices during an outage.</p>
+                <a href="/tools/family-communication-plan/">Prepare your contact record &rarr;</a>
               </div>
             </div>
           </div>
@@ -288,7 +287,7 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
       <div class="inner">
         <h2 id="guides-heading">More Hurricane Coverage</h2>
         <nav class="text-links" aria-label="Hurricane coverage directories">
-          <a href="/hurricane-tracker/">Hurricane tracker directory</a>
+          <a href="/tracker/">Hurricane tracker directory</a>
           <a href="/hurricane-tracker/storm/">Named storm trackers</a>
           <a href="/updates/">Latest hurricane updates</a>
           <a href="/2026-hurricane-season/">2026 hurricane season</a>

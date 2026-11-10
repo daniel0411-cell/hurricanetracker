@@ -3,6 +3,19 @@ import { TRACKER_SLUG_SET } from "./data/trackerSlugs";
 
 const canonicalHost = "www.hurricanetracker.cc";
 const localHosts = new Set(["localhost", "127.0.0.1", "::1"]);
+const legacyPaths: Record<string, string> = {
+  "/hurricane-tracker": "/tracker/",
+  "/city": "/hurricane-tracker/city/",
+  "/state": "/tracker/",
+  "/storm": "/hurricane-tracker/storm/",
+  "/city/tampa": "/city/tampa/hurricane-tracker/",
+  "/city/charleston": "/city/charleston/hurricane-tracker/",
+  "/city/virginia-beach": "/city/virginia-beach/hurricane-tracker/",
+  "/state/texas": "/state/texas/preparedness/",
+  "/state/north-carolina": "/state/north-carolina/preparedness/",
+  "/state/virginia": "/state/virginia/preparedness/",
+  "/state/massachusetts": "/state/massachusetts/preparedness/"
+};
 
 /**
  * Global exception boundary for the whole Cloudflare Worker.
@@ -21,10 +34,19 @@ export const onRequest = defineMiddleware(async (context, next) => {
     // Legacy /hurricane-tracker/{state} -> /tracker/{state} (canonical state pages).
     // Combined with the www canonicalization into a single 301 when possible.
     const pathname = url.pathname.replace(/\/+$/, "");
+    const legacyDestination = legacyPaths[pathname];
+    if (legacyDestination) {
+      url.pathname = legacyDestination;
+      url.hostname = canonicalHost;
+      url.protocol = "https:";
+      return Response.redirect(url.toString(), 301);
+    }
     const match = pathname.match(/^\/hurricane-tracker\/([a-z-]+)$/i);
     if (match && TRACKER_SLUG_SET.has(match[1].toLowerCase())) {
       const destination = new URL(`/tracker/${match[1].toLowerCase()}/`, url);
       destination.hostname = canonicalHost;
+      destination.protocol = "https:";
+      destination.search = url.search;
       return Response.redirect(destination.toString(), 301);
     }
 

@@ -295,8 +295,23 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
   },
   {
     kind: "state", slug: "georgia", name: "Georgia", stateName: "Georgia", stateSlug: "georgia",
-    title: "Georgia Hurricane Preparedness 2026: Zones, Kits & Safety",
-    description: "Georgia hurricane preparedness for 2026: coastal evacuation zones, routes, emergency kits, official alerts, shelters, surge, inland wind, and flooding.",
+    title: "Georgia Hurricane Planning: County Zones and Transport",
+    description: "Build a Georgia hurricane plan with county zone checks, confirmed transport, alternate destinations, assistance contacts, and a worked household example.",
+    dateModified: "2026-11-10T00:00:00.000Z",
+    sourceCheck: { date: "2026-11-10", scope: "Read GEMA hurricane and evacuation planning guidance. Chatham and Glynn county resources were checked November 6, 2026. No current order, address lookup, shelter opening or assistance acceptance was verified. Retained historical background was not reverified. Check current county instructions again for each event." },
+    planningRecord: {
+      title: "Build a County-Specific Departure Record",
+      intro: "Georgia's coastal counties do not share one address lookup or assistance process. GEMA recommends several possible destinations, alternate routes and transport arrangements. Use your county's instructions to turn those choices into confirmed arrangements; inland households also need wind, flooding and outage plans.",
+      steps: [
+        { name: "Identify the authority", text: "Record the home address privately, its county, and the county EMA contact from GEMA's local agency directory. A Savannah-area place name alone does not establish jurisdiction." },
+        { name: "Save the zone evidence", text: "For Chatham, use county evacuation resources and record the zone returned for the address, lookup URL and check date. For a Glynn address, use Glynn's own resources rather than copying a Chatham zone label." },
+        { name: "Separate an order from a lookup", text: "A zone record describes the location. Record an actual evacuation order, its issuing authority and deadline separately when issued; a saved map does not establish today's order status." },
+        { name: "Confirm a ride", text: "Write down the driver, pickup arrangement and backup. If requesting county assistance, record the request and follow-up contact; a submitted request is still pending until arrangements are confirmed." },
+        { name: "Verify a destination", text: "Ask the host or facility about availability, pets, accessibility and medical equipment. Keep alternatives in different directions and use current official route instructions during an event." },
+        { name: "Share an offline copy", text: "Give household members a paper contact and destination record. Keep medications, identification and portable supplies ready, and tell an out-of-area contact when plans change." }
+      ],
+      example: "Practice example, not a current order: a Chatham household has saved its county zone result and packed supplies, but its driver has not replied. A relative in Glynn offers lodging without checking local conditions. What remains unfinished? Answer: transport and destination are both unconfirmed. Follow up with the driver or assistance provider, check the host location against current Glynn instructions, and retain alternate destinations. A packed kit and a different county do not establish a workable departure plan."
+    },
     risk: [
       "Georgia has a relatively short Atlantic shoreline but an intricate coast of barrier islands, sounds, marshes, tidal rivers, and low mainland communities. The shape of the coast can amplify surge around Savannah, Brunswick, St. Marys, and the Sea Islands even when the storm center lands elsewhere.",
       "Hurricanes approaching Florida or South Carolina can still bring Georgia dangerous onshore flow, tornadoes, heavy rainfall, and long power outages. Inland counties face tree damage and river flooding, while coastal evacuation depends on bridges and a limited number of westbound corridors.",
@@ -322,6 +337,10 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
     resources: [
       { label: "Georgia Emergency Management", href: "https://gema.georgia.gov/" },
       { label: "Georgia hurricane information", href: "https://gema.georgia.gov/hurricanes" },
+      { label: "GEMA: Make a plan to evacuate", href: "https://gema.georgia.gov/make-plan-plan-evacuate" },
+      { label: "Find your Georgia local emergency management agency", href: "https://gema.georgia.gov/locations" },
+      { label: "Chatham evacuation resources", href: "https://chathamemergency.org/PrepareNow/EvacuationResources" },
+      { label: "Glynn evacuation resources", href: "https://www.glynncounty.org/government/departments/emergency-management-agency-ema/evacuation" },
       { label: "FEMA Region 4", href: "https://www.fema.gov/about/organization/region-4" },
       { label: "American Red Cross Georgia", href: "https://www.redcross.org/local/georgia.html" }
     ],
@@ -330,7 +349,7 @@ export const localPreparednessPages: LocalPreparednessPage[] = [
       { question: "Where can I find Georgia evacuation zones?", answer: "Use county emergency management resources for the property address. Chatham and other coastal counties publish their own zone and route information." },
       { question: "Does Georgia reverse I-16 for every hurricane?", answer: "No. Contraflow is an event-specific decision. Follow current GEMA, county, and transportation announcements." },
       { question: "Has a major hurricane hit Georgia?", answer: "The 1898 Georgia hurricane was a major coastal strike. More recent Matthew and Irma showed that offshore or indirect storms can still cause severe coastal flooding." },
-      { question: "What belongs in a Georgia hurricane kit?", answer: "Include seven days of supplies, medications, documents, pet needs, outage and heat planning, weather alerts, cleanup safety gear, and an island evacuation bag." }
+      { question: "Does an assistance request confirm my ride?", answer: "No. Save the request details and contact the responsible provider to confirm pickup arrangements, timing, accessibility and what to bring. Keep a backup plan while the request is pending." }
     ]
   },
   {

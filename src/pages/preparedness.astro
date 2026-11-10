@@ -6,9 +6,9 @@ import { site } from "../data/site";
 import { articleSchema, faqSchema, graph, howToSchema, itemListSchema, websiteSchema } from "../lib/schema";
 
 const title = "Hurricane Preparedness Decision Matrix";
-const description = "Use a clear hurricane decision matrix for monitoring, preparing, acting, and leaving before tropical cyclone hazards arrive.";
+const description = "Match hurricane, surge, tornado and extreme wind warnings to the right household action, then confirm zones, transport, contacts and shelter arrangements.";
 const url = `${site.url}/preparedness/`;
-const lastModified = site.contentLastModified;
+const lastModified = "2026-11-10T00:00:00.000Z";
 const timelineWindows = [
   {
     window: "72 hours before possible impacts",
@@ -32,7 +32,7 @@ const timelineWindows = [
   },
   {
     window: "24 hours before possible impacts",
-    focus: "Final safety actions and no-risk decisions",
+    focus: "Final protective actions while conditions allow",
     body:
       "Finish protective actions that can be done safely, move vehicles away from flood-prone spots, charge devices, pack medications and documents, and stop outdoor work when conditions deteriorate.",
     links: [
@@ -52,7 +52,7 @@ const householdScenarios = [
   {
     title: "If you plan to shelter in place",
     body:
-      "Confirm you are outside surge and evacuation zones, identify an interior safe room, and prepare for outages, water disruption, heat, and limited communication.",
+      "Check local evacuation instructions and whether the building is suitable for the expected hazards. Identify an interior shelter location and prepare for outages, water disruption, heat, and limited communication. Being outside a mapped zone alone does not establish that a building is safe.",
     href: "/tools/power-outage-planner/",
     label: "Build outage plan"
   },
@@ -157,8 +157,8 @@ const jsonLd = graph(
         text: "Follow official warnings, complete protective actions, move vulnerable people early, and stop nonessential travel as conditions deteriorate."
       },
       {
-        name: "Leave when evacuation or life-threatening hazard language applies",
-        text: "Follow local evacuation instructions, use official routes, and tell contacts your route and destination before deadlines pass."
+        name: "Distinguish evacuation instructions from immediate shelter warnings",
+        text: "Follow local evacuation orders and deadlines before travel becomes unsafe. An Extreme Wind Warning or Tornado Warning calls for immediate shelter, not beginning a road evacuation."
       }
     ]
   }),
@@ -175,30 +175,45 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">Emergency decision support</p>
       <h1 id="preparedness-title">Hurricane Preparedness Decision Matrix</h1>
-      <p class="answer">Use monitor, prepare, act, and leave levels to convert official warnings into household actions before wind, surge, flooding, or road congestion removes good options.</p>
+      <p class="answer">Read the hazard and its specific instruction before choosing an action. Evacuating before a local deadline and taking immediate shelter during a wind or tornado warning are different decisions.</p>
     </div>
   </section>
   <section class="band" aria-labelledby="matrix-heading">
     <div class="inner">
-      <h2 id="matrix-heading">Decision Levels</h2>
+      <h2 id="matrix-heading">Match the Instruction to the Hazard</h2>
       <table>
         <thead>
-          <tr><th>Level</th><th>Trigger</th><th>Action</th></tr>
+          <tr><th>Situation</th><th>What to check</th><th>Action</th></tr>
         </thead>
         <tbody>
           <tr><td>Monitor</td><td>No local warning and no nearby active system</td><td>Review forecast twice daily and confirm contact list.</td></tr>
           <tr><td>Prepare</td><td>Tropical system active or watch/flood risk appears</td><td>Fuel vehicle, secure medication, document property, inspect supplies.</td></tr>
-          <tr><td>Act</td><td>Hurricane, surge, tornado, or flash flood warning</td><td>Move inland or shelter as directed; stop nonessential travel.</td></tr>
-          <tr><td>Leave</td><td>Evacuation, extreme wind, or life-threatening surge signal</td><td>Depart before deadline and tell contacts route and destination.</td></tr>
+          <tr><td>Hurricane or storm surge warning</td><td>Affected area, timing and local evacuation instructions</td><td>Complete protective actions while safe. If ordered to evacuate, follow the local deadline and recommended routes.</td></tr>
+          <tr><td>Local evacuation order</td><td>Your address or zone, deadline, transport and destination</td><td>Follow the order before travel becomes unsafe; communicate your destination and check current road instructions.</td></tr>
+          <tr><td>Extreme Wind Warning</td><td>NWS warning for your location</td><td>Take immediate shelter in an interior part of a well-built structure. Do not start a road evacuation into the extreme winds.</td></tr>
+          <tr><td>Tornado Warning</td><td>NWS warning for your location</td><td>Move immediately to a basement, safe room or interior room away from windows in a sturdy building.</td></tr>
+          <tr><td>Flash Flood Warning</td><td>Location-specific warning and safe access to higher ground</td><td>Follow the warning's instructions immediately. Stay out of floodwater and never drive across flooded roads.</td></tr>
         </tbody>
       </table>
+      <p class="source-note">Warning guidance checked November 10, 2026: <a href="https://www.weather.gov/safety/hurricane-ww">NWS hurricane watches and warnings</a> and <a href="https://www.weather.gov/safety/tornado-during">NWS tornado safety</a>. NWS describes an Extreme Wind Warning as major-hurricane sustained winds of 115 mph or greater expected within an hour, requiring immediate interior shelter.</p>
+    </div>
+  </section>
+  <section class="band" aria-labelledby="quiet-weather-record">
+    <div class="inner">
+      <h2 id="quiet-weather-record">A Useful Task Even When No Storm Is Active</h2>
+      <p>Make a private, dated household record. Save your county's address-based evacuation-zone result and official order channel; list a confirmed driver, a destination and backup; write down medication or equipment needs; and choose an out-of-area contact. Keep an offline copy. Recheck event-specific orders and availability when weather threatens.</p>
+      <p>Mark each arrangement as confirmed, pending or unknown. For transport and lodging, include who confirmed it, when, and how to reach them. A checklist tick should represent an actual arrangement, not just a website visited.</p>
+      <h3>Practice: Is This Household Ready to Leave?</h3>
+      <p>Hypothetical example: supplies are packed and the county zone lookup is saved, but the ride request is pending and the intended hotel has not confirmed pet accommodation. Which items need follow-up?</p>
+      <p><strong>Answer:</strong> transport and lodging remain unresolved. Confirm pickup with the provider, verify the destination's availability and pet arrangements, and retain alternatives. Packed supplies do not resolve either gap. If an order arrives first, contact local emergency management about available assistance and follow current instructions.</p>
+      <p>Planning sources: <a href="https://gema.georgia.gov/make-plan-plan-evacuate">GEMA evacuation planning</a> covers destinations, transport, alternate routes and pets; <a href="/tools/family-communication-plan/">the communication worksheet</a> helps retain contacts offline.</p>
     </div>
   </section>
   <section class="band" aria-labelledby="next-steps-heading">
     <div class="inner grid-2">
       <article>
         <h2 id="next-steps-heading">Turn the Matrix Into a Plan</h2>
-        <p>Use the decision level above with HurricaneHub tools that already organize local alerts, checklist items, outage planning, and household communication.</p>
+        <p>Use the hazard-specific instructions above with tools that organize local alerts, checklist items, outage planning, and household communication.</p>
         <ul class="check-list">
           <li><a href="/tools/local-risk-plan/">Build a state alert action plan</a></li>
           <li><a href="/local-hurricane-risk/">Check local hurricane risk</a></li>
@@ -219,8 +234,8 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">Time-based planning</p>
       <h2 id="preparedness-timeline">Hurricane Preparedness by Time Window</h2>
-      <p class="answer">The safest hurricane plan is staged before warnings compress your options. Use these windows with official alerts and local instructions.</p>
-      <ContentFigure src="/images/guides/hurricane-preparedness-timeline.svg" alt="Hurricane preparedness timeline covering quiet weather, 72 hours, 48 hours, and 24 hours before expected impacts" caption="This general sequence helps stage household tasks. Always follow current NHC forecasts, NWS alerts, evacuation orders, and local timing." />
+      <p class="answer">These are illustrative preparation windows, not watch or warning definitions and not a promise of time remaining. A rapidly changing event or a household's assistance needs can require earlier action. Local instructions take priority over this schedule.</p>
+      <ContentFigure src="/images/guides/hurricane-preparedness-timeline.svg" alt="Illustrative household preparation sequence from quiet weather through 72, 48 and 24 hour planning windows" caption="An illustrative task sequence, not a warning clock or guaranteed safe window. Follow current forecasts, alerts and local instructions even when they require earlier action." />
       <div class="grid-3 section-grid">
         {timelineWindows.map((item) => (
           <article class="panel">

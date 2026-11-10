@@ -373,6 +373,10 @@ export const topicPages: TopicPage[] = [
     primaryAction: { label: "Open live tracker map", href: "/hurricane-tracker/live/" },
     secondaryAction: { label: "Open radar map", href: "/radar/" },
     intent: "how to read a hurricane map, hurricane map layers, forecast cone map",
+    sourceCheck: "NHC cone definition and 2026 radii checked November 10, 2026. These annual reference values are not a current storm forecast.",
+    sources: [
+      { href: "https://www.nhc.noaa.gov/aboutcone.shtml", label: "NHC: Definition of the tropical cyclone track forecast cone and 2026 radius tables" }
+    ],
     steps: [
       {
         title: "Start With Current Storms",
@@ -394,6 +398,29 @@ export const topicPages: TopicPage[] = [
       }
     ],
     sections: [
+      {
+        eyebrow: "Verified numerical example",
+        title: "Read the 2026 Atlantic Cone Table",
+        body: "NHC's 2026 Atlantic table gives a 39-nautical-mile circle radius at 24 hours and 200 nautical miles at 120 hours. The radii use official track forecast errors from 2021-2025: approximately two-thirds of historical errors fall inside the corresponding circles. This describes center-track uncertainty, not the size of a storm or a city's landfall probability.",
+        bullets: [
+          "Read the basin first: the Atlantic and eastern/central Pacific tables have different radii.",
+          "Task: find the Atlantic 24-hour row. Is 39 a radius in nautical miles, a wind speed, or a probability?",
+          "Answer: a radius of 39 nautical miles. It is neither 39 percent nor a boundary of dangerous weather.",
+          "The 120-hour radius is 200 nautical miles; it does not say that a storm has grown to that size."
+        ]
+      },
+      {
+        eyebrow: "Make a map record",
+        title: "Keep Layer Time and Forecast Time Separate",
+        body: "Before comparing layers, write down the publisher, product, timestamp and time zone for each. An advisory issue time, a radar scan time and the forecast valid time answer different questions. A newer-looking animation cannot update an older advisory's forecast points.",
+        bullets: [
+          "Center and cone: record the NHC advisory issue time and the valid time of the forecast point you are reading.",
+          "Radar: record the displayed scan time and location of precipitation; do not use it as an evacuation-zone map.",
+          "Satellite: record the image time and channel; cloud coverage is not a surface wind measurement.",
+          "Local warning: record the issuing NWS office, affected area and expiration time. Check evacuation instructions separately with the responsible local authority.",
+          "If a layer has no usable timestamp or fails to load, mark it unverified and open the official source before comparing it."
+        ]
+      },
       {
         eyebrow: "What the map answers",
         title: "Use the Map for Orientation, Not the Whole Decision",
