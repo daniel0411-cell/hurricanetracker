@@ -36,4 +36,6 @@ Passed npm run build, metadata:audit (62 static / 127 dynamic source groups), sc
 
 Background browser review at localhost:4326 confirmed the new text, visible November 10 revision, production canonical, six visible/schema HowTo steps and seven visible/schema FAQs. Desktop screenshot at 1280px and a 390x844 mobile screenshot at the planning section showed readable wrapping; document widths 1265/375px respectively, with no horizontal overflow. Viewport reset after review. Local dev service stopped after QA. No business logic or type shape changed.
 
-Release pending; no new production version is claimed here.
+Released content commit 592b98e with npm run ship. The script rebuilt successfully, fetched origin/main, checked no remote-only commits, pushed and verified the exact GitHub main revision before deployment. Cloudflare reported Worker version f335d875-945e-4d7b-b5cc-3d26106bd1a2 for hurricanehub, with www.hurricanetracker.cc and apex routes.
+
+After deployment, the background browser opened https://www.hurricanetracker.cc/state/florida/preparedness/ and confirmed the new title, November 10 revision, six planning steps, registry eligibility limitation, canonical and seven schema FAQs. Production SEO endpoint checks passed. IndexNow accepted 210 URLs with HTTP 200; this confirms submission, not indexing. Google service-account submission was skipped because credentials are absent. A later docs-only checkpoint commit records these outcomes and does not require redeploying the same content.
