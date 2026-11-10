@@ -65,7 +65,12 @@ for (const source of [about, blogTemplate]) {
   assert.doesNotMatch(source, /Meteorological Data Desk|Preparedness Research Group|Editorial Review Board|Fact-checked by|dedicated group of meteorological/);
 }
 assert.match(blogTemplate, /post.sourceCheck.scope/);
-const { blogPostingSchema } = load("src/lib/schema.ts");
+const { blogPostingSchema, organizationSchema, governmentServiceSchema } = load("src/lib/schema.ts");
+assert.equal(organizationSchema().sameAs, undefined, "Official data suppliers are not publisher identities");
+const service = governmentServiceSchema();
+assert.equal(service["@type"], "Service");
+assert.equal(service.provider.name, "HurricaneHub");
+assert.equal(service.provider["@type"], "Organization");
 const author = blogPostingSchema({ title: "Test", description: "Test", url: "https://www.hurricanetracker.cc/blog/test/", datePublished: "2026-11-09", dateModified: "2026-11-09" }).author;
 assert.equal(author["@type"], "Organization");
 assert.equal(author.name, "HurricaneHub");
@@ -151,4 +156,59 @@ for (const [selection, expected] of [["tornado", "Act"], ["extreme-wind", "Act"]
   assert.equal(d.element("#window-level").textContent, "Unavailable");
   assert.equal(d.element("#window-actions").innerHTML, "");
 }
-console.log("Content trust regression passed: hazard actions, feed validation, city failure, live end-of-storm clearing, decoder, state summary, and editorial dates.");
+{
+  const d = dom({ "#distance-zip": { value: "33101" } });
+  let feed = { storms: [storm], fetchedAt: fresh(), updatedAt: fresh() };
+  let location = { city: "Synthetic ZIP", stateName: "Florida", latitude: "26", longitude: "-87" };
+  let failed = false;
+  let release;
+  let hold = false;
+  run("src/pages/tools/storm-distance-calculator.astro", 0, d, async (url) => {
+    const body = url.includes("location") ? location : feed;
+    if (hold && !url.includes("location")) await new Promise((resolve) => { release = resolve; });
+    return response(body, !failed);
+  });
+  const submit = () => d.element("#distance-form").submit({ preventDefault() {} });
+  await submit();
+  assert.match(d.element("#distance-result").innerHTML, /about 0 miles away/);
+  assert.match(d.element("#distance-result").innerHTML, /Position time: unavailable/);
+  assert.match(d.element("#distance-status").textContent, /not the storm position time/);
+  for (const badFeed of [
+    { storms: [], fetchedAt: old() },
+    { storms: [], fetchedAt: fresh(), cacheStatus: "stale" },
+    { storms: [{}], fetchedAt: fresh() },
+    { storms: [storm, { id: "AL022026" }], fetchedAt: fresh() },
+    { storms: [{ ...storm, latitudeNumeric: 91 }], fetchedAt: fresh() },
+    { storms: [] }
+  ]) {
+    feed = badFeed;
+    d.element("#distance-result").innerHTML = "OLD DISTANCE";
+    await submit();
+    assert.equal(d.element("#distance-result").innerHTML, "");
+    assert.match(d.element("#distance-status").textContent, /could not be verified/);
+  }
+  feed = { storms: [], fetchedAt: fresh() };
+  await submit();
+  assert.match(d.element("#distance-result").innerHTML, /No active NHC tropical cyclone is listed/);
+  for (const latitude of ["91", "26garbage", "", null]) {
+    location = { ...location, latitude };
+    await submit();
+    assert.equal(d.element("#distance-result").innerHTML, "");
+  }
+  location = { ...location, latitude: "26" };
+  failed = true;
+  await submit();
+  assert.equal(d.element("#distance-result").innerHTML, "");
+  failed = false;
+  feed = { storms: [storm], fetchedAt: fresh() };
+  hold = true;
+  const pending = submit();
+  await flush();
+  d.element("#distance-zip").value = "bad";
+  await submit();
+  release();
+  await pending;
+  assert.equal(d.element("#distance-result").innerHTML, "");
+  assert.match(d.element("#distance-status").textContent, /valid five-digit/);
+}
+console.log("Content trust regression passed: publisher identity, hazard actions, feed validation, distance failures and superseded requests, city failure, live clearing, decoder, state summary, and editorial dates.");

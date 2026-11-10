@@ -2,6 +2,7 @@ import { topicPages } from "./topicPages";
 
 // Editorial revisions only. Feed fetch times and advisory issue times belong to their products.
 const revisions: Record<string, string> = {
+  "tools/storm-distance-calculator/": "2026-11-10T00:00:00.000Z",
   "hurricane-tracker/southeast/": "2026-11-10T00:00:00.000Z",
   "hurricane-tracker/gulf/": "2026-11-10T00:00:00.000Z",
   "hurricane-tracker/nhc-hurricane-basins-and-names/": "2026-11-10T00:00:00.000Z",

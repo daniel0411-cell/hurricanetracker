@@ -10,8 +10,7 @@ export function organizationSchema() {
   return {
     "@type": "Organization",
     name: site.name,
-    url: site.canonicalUrl,
-    sameAs: site.sameAs
+    url: site.canonicalUrl
   };
 }
 
@@ -168,16 +167,12 @@ export function webApplicationSchema(params: {
 
 export function governmentServiceSchema(params?: { areaServed?: string }) {
   return {
-    "@type": "GovernmentService",
+    "@type": "Service",
     name: "Hurricane and tropical storm alerts and tracking",
     serviceType: "Emergency and public-safety information",
     description:
       "Aggregated official NOAA, National Hurricane Center, and National Weather Service hurricane tracking, alerts, and decision-support information for coastal North America.",
-    provider: {
-      "@type": "GovernmentOrganization",
-      name: "National Hurricane Center / National Weather Service",
-      sameAs: ["https://www.nhc.noaa.gov/", "https://www.weather.gov/"]
-    },
+    provider: organizationSchema(),
     areaServed: params?.areaServed ?? "Coastal North America (United States Atlantic and Gulf coasts)",
     availableChannel: {
       "@type": "ServiceChannel",

@@ -7,12 +7,7 @@ export const site = {
   canonicalUrl: "https://www.hurricanetracker.cc/",
   contentLastModified: "2026-09-01T00:00:00.000Z",
   description:
-    "HurricaneHub tracks North American hurricanes, official warnings, risk windows, and evacuation decisions from NOAA, NHC, and NWS data.",
-  sameAs: [
-    "https://www.nhc.noaa.gov/",
-    "https://www.weather.gov/",
-    "https://www.noaa.gov/"
-  ]
+    "HurricaneHub tracks North American hurricanes, official warnings, risk windows, and evacuation decisions from NOAA, NHC, and NWS data."
 };
 
 export const primaryNav = [

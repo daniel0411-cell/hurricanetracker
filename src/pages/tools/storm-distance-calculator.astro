@@ -104,6 +104,7 @@ const jsonLd = graph(
 
 <script>
   import { trackToolResult } from "../../lib/toolAnalytics";
+  import { isStormFeedAvailable } from "../../lib/weatherFeedStatus";
   type LocationResult = {
     zip: string;
     city?: string;
@@ -118,6 +119,8 @@ const jsonLd = graph(
     classification?: string;
     latitude?: string;
     longitude?: string;
+    latitudeNumeric?: number;
+    longitudeNumeric?: number;
     summary?: string;
     publicAdvisory?: string;
     lastUpdate?: string;
@@ -126,23 +129,24 @@ const jsonLd = graph(
     storms?: Storm[];
     updatedAt?: string;
     fetchedAt?: string;
+    cacheStatus?: string;
   };
 
   const form = document.querySelector<HTMLFormElement>("#distance-form");
   const zipInput = document.querySelector<HTMLInputElement>("#distance-zip");
   const statusEl = document.querySelector<HTMLElement>("#distance-status");
   const resultEl = document.querySelector<HTMLElement>("#distance-result");
+  let requestId = 0;
 
   function escapeHtml(value: unknown) {
     const replacements: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
     return String(value ?? "").replace(/[&<>"']/g, (char) => replacements[char] ?? char);
   }
 
-  function coordinate(value: unknown) {
-    const text = String(value ?? "").trim().toUpperCase();
-    const number = Number.parseFloat(text);
-    if (!Number.isFinite(number)) return null;
-    if (text.endsWith("S") || text.endsWith("W")) return -Math.abs(number);
+  function coordinate(value: unknown, limit: number) {
+    if (typeof value !== "string" || !/^[+-]?\d+(?:\.\d+)?$/.test(value.trim())) return null;
+    const number = Number(value);
+    if (!Number.isFinite(number) || Math.abs(number) > limit) return null;
     return number;
   }
 
@@ -152,11 +156,14 @@ const jsonLd = graph(
     const deltaLat = toRadians(lat2 - lat1);
     const deltaLon = toRadians(lon2 - lon1);
     const a = Math.sin(deltaLat / 2) ** 2 + Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(deltaLon / 2) ** 2;
-    return earthMiles * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const bounded = Math.max(0, Math.min(1, a));
+    return earthMiles * 2 * Math.atan2(Math.sqrt(bounded), Math.sqrt(1 - bounded));
   }
 
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
+    const currentRequest = ++requestId;
+    if (resultEl) resultEl.innerHTML = "";
     const zip = zipInput?.value.trim() ?? "";
     if (!/^\d{5}$/.test(zip)) {
       if (statusEl) statusEl.textContent = "Enter a valid five-digit ZIP code.";
@@ -171,23 +178,22 @@ const jsonLd = graph(
       if (!locationResponse.ok || !stormResponse.ok) throw new Error("Feed unavailable");
       const location = await locationResponse.json() as LocationResult;
       const stormFeed = await stormResponse.json() as StormFeed;
-      if (!Array.isArray(stormFeed.storms)) throw new Error("NHC storm list unavailable");
-      const userLat = coordinate(location.latitude);
-      const userLon = coordinate(location.longitude);
+      if (currentRequest !== requestId) return;
+      if (!isStormFeedAvailable(stormFeed)) throw new Error("Current NHC storm list unavailable");
+      const userLat = coordinate(location.latitude, 90);
+      const userLon = coordinate(location.longitude, 180);
       if (userLat === null || userLon === null) throw new Error("ZIP coordinates unavailable");
       const rows = (stormFeed.storms ?? [])
         .map((storm) => {
-          const stormLat = coordinate(storm.latitude);
-          const stormLon = coordinate(storm.longitude);
-          if (stormLat === null || stormLon === null) return null;
+          const stormLat = storm.latitudeNumeric!;
+          const stormLon = storm.longitudeNumeric!;
           return { storm, miles: Math.round(distanceMiles(userLat, userLon, stormLat, stormLon)) };
         })
-        .filter((item): item is { storm: Storm; miles: number } => Boolean(item))
         .sort((a, b) => a.miles - b.miles);
 
       if (!resultEl) return;
       if (!rows.length) {
-        resultEl.innerHTML = `<p class="eyebrow">No active storm distance</p><h2>${escapeHtml(location.city || location.stateName)}</h2><p>No active NHC tropical cyclone with usable coordinates is listed right now. Keep monitoring official outlooks during hurricane season.</p>`;
+        resultEl.innerHTML = `<p class="eyebrow">No active storm distance</p><h2>${escapeHtml(location.city || location.stateName)}</h2><p>No active NHC tropical cyclone is listed in the checked feed. This does not cancel local warnings. Keep monitoring official outlooks.</p>`;
       } else {
         const nearest = rows[0];
         resultEl.innerHTML = `
@@ -199,7 +205,7 @@ const jsonLd = graph(
               <article class="storm-row">
                 <header><h3>${escapeHtml(storm.name || storm.id || "Active storm")}</h3><span class="badge warn">${miles.toLocaleString("en-US")} mi</span></header>
                 <p>${escapeHtml(storm.summary || storm.classification || "NHC storm data loaded.")}</p>
-                <p class="small">Position: ${escapeHtml(storm.latitude)}, ${escapeHtml(storm.longitude)} · Updated: ${escapeHtml(storm.lastUpdate || stormFeed.updatedAt || "pending")}</p>
+                <p class="small">Position: ${escapeHtml(storm.latitudeNumeric)}, ${escapeHtml(storm.longitudeNumeric)} · Position time: ${escapeHtml(storm.lastUpdate || "unavailable")}</p>
                 ${storm.publicAdvisory ? `<a href="${escapeHtml(storm.publicAdvisory)}" rel="nofollow">Official NHC advisory</a>` : ""}
               </article>
             `).join("")}
@@ -207,12 +213,14 @@ const jsonLd = graph(
           <p class="source-note">Distance is straight-line context only. It does not represent forecast track, wind arrival, surge, rainfall, or evacuation need.</p>
         `;
       }
-      if (statusEl) statusEl.textContent = "Storm distance updated from current NHC data.";
+      if (statusEl) statusEl.textContent = `NHC feed checked: ${stormFeed.fetchedAt}. Feed check time is not the storm position time.`;
       trackToolResult("storm_distance", rows.length ? "success" : "no_data");
     } catch (error) {
+      if (currentRequest !== requestId) return;
+      if (resultEl) resultEl.innerHTML = "";
       trackToolResult("storm_distance", "error");
       console.error("HurricaneHub storm distance failed", error);
-      if (statusEl) statusEl.textContent = "Storm distance could not load right now. Try again shortly.";
+      if (statusEl) statusEl.textContent = "Current storm distance could not be verified. Check NHC and local NWS alerts directly; unavailable data is not an all-clear.";
     }
   });
 </script>

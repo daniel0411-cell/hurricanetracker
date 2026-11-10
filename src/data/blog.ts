@@ -425,22 +425,23 @@ export const blogPosts: BlogPost[] = [
     title: "What to Do During a Hurricane Warning: Immediate Actions",
     description: "Prioritize people, transport, medicines, pets, and safe shelter during a hurricane warning. Follow local deadlines instead of assuming 24 hours remain.",
     datePublished: "2026-08-04",
-    dateModified: "2026-10-27",
+    dateModified: "2026-11-10",
+    review: { date: "2026-11-10", scope: "Editorial review of action order, unsafe-task wording and a fictional household handoff. No current warning, local order, shelter or road was verified.", correction: "Removed the implied first-hour allowance and made optional preparation conditional on safe conditions and current instructions." },
     image: "/images/blog/what-to-do-during-a-hurricane-warning.png",
     imageAlt: "A couple sits in a living room during a hurricane warning, listening to a weather radio and checking a smartphone as rain streaks the window.",
     sections: [
       {
         heading: "Direct Answer",
-        body: "During a hurricane warning, finish the actions that become unsafe or impossible later: follow local orders, prepare to leave if directed, charge devices, pack medication and documents, secure the home, and stop outdoor work when conditions worsen."
+        body: "During a hurricane warning, read the current local instructions first. Leave when directed while safe travel is possible; an immediate tornado or extreme wind warning requires the shelter action in that warning. Only use a remaining safe window for medication, transport, documents and essential preparation. Do not delay a required departure or shelter action to shop, secure property or finish this checklist."
       },
       {
-        heading: "First Hour Priorities",
+        heading: "Start With the Instruction That Applies Now",
         body: "A warning does not guarantee another 24 hours of safe travel. Read the local order and expected onset of hazardous conditions before assigning jobs. If officials say to leave now, go; do not complete this list first. If safe time remains, prioritize people, transport, and essential records rather than shopping or property improvements.",
-        bullets: ["Read the full NWS alert and county emergency guidance.", "Contact anyone who needs help with transport, mobility, medication, or pets.", "Fuel the vehicle and choose a safe destination or shelter option.", "Pack IDs, prescriptions, insurance records, chargers, water, and pet supplies."]
+        bullets: ["Read the full NWS alert and county emergency guidance, including the named area, issue time and required action.", "Contact anyone who needs help with transport, mobility, medication, or pets; confirm who is responding.", "Confirm transport and a destination. A fuel stop is only an option if current conditions and instructions allow it without delaying departure.", "Collect essential medicines, IDs and ready supplies only as time and safety allow; an unfinished bag is not a reason to ignore immediate instructions."]
       },
       {
         heading: "Before Winds Increase",
-        body: "Complete outside work early and do not take risks to finish low-value tasks.",
+        body: "This section applies only while conditions are safe and no immediate departure or shelter action takes priority. A warning does not establish a new safe window for outdoor work. Do not climb onto a roof or attempt last-minute work in rising wind, lightning or flooding.",
         bullets: ["Bring in loose furniture, trash bins, tools, and decorations.", "Move vehicles away from trees and flood-prone streets when possible.", "Charge phones, battery packs, and essential devices.", "Set a family communication check-in time and an out-of-area contact."]
       },
       {
@@ -459,6 +460,12 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "https://www.ready.gov/evacuation", label: "Ready.gov: evacuation instructions and destination planning" }]
       },
       {
+        heading: "A Handoff That Exposes an Unfinished Plan",
+        body: "Fictional exercise: a household has a local instruction to depart, but its checklist says only 'driver contacted' and 'shelter selected.' Neither statement confirms a ride or an open destination. Ask who acknowledged the pickup, where everyone will go and whether the destination can meet medical and pet needs. Record the unresolved dependency and contact the responsible local assistance service promptly; do not keep doing property jobs while assuming transport will appear.",
+        bullets: ["Confirmed means a reply with usable arrangements, not a sent message or a bookmarked shelter list.", "If a new tornado or extreme wind warning covers the household, follow the immediate shelter instruction and reassess travel using current official guidance.", "If conditions prevent safe movement and there is immediate danger, contact emergency services with the exact location and assistance needed. A preparedness checklist cannot arrange a rescue."],
+        links: [{ href: "/blog/hurricane-evacuation-checklist/", label: "Check the transport, destination and route before departure" }]
+      },
+      {
         heading: "When To Leave",
         body: "Leave when officials order evacuation, when your evacuation zone is told to go, or earlier if your household needs extra travel time. A warning does not mean every area has the same risk, so use county instructions and evacuation-zone information."
       }
@@ -470,7 +477,15 @@ export const blogPosts: BlogPost[] = [
       },
       {
         question: "What should I do if I am not in an evacuation zone?",
-        answer: "Follow local instructions, finish preparations, and plan to shelter away from windows and flood-prone rooms. Inland flooding, tornadoes, and power outages can still be dangerous."
+        answer: "Follow current local instructions and prepare only while conditions remain safe. Plan appropriate shelter away from windows and potential flooding. Being outside an evacuation zone does not remove inland flooding, tornado or power-outage risks."
+      },
+      {
+        question: "Does a hurricane warning give me an hour to finish jobs?",
+        answer: "No. Read the actual warning and local instructions. The time needed for transport, earlier flooding and an immediate shelter warning can make optional jobs unsafe or inappropriate already."
+      },
+      {
+        question: "Should I drive to my evacuation destination during a tornado warning?",
+        answer: "Follow the immediate shelter instructions for the warning area. Do not start a drive through a tornado warning to complete an earlier plan. Reassess travel with current official guidance after the immediate threat."
       }
     ]
   },
@@ -549,7 +564,8 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Documents and Insurance Checklist",
     description: "Prepare a hurricane documents checklist with IDs, insurance details, property photos, prescriptions, contacts, and records needed before evacuation or damage.",
     datePublished: "2026-08-04",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-10",
+    review: { date: "2026-11-10", scope: "Editorial review of safe photography, private-record handling and a fictional offline retrieval exercise. The retained Ready.gov reference was not newly verified; no policy terms or claim eligibility were checked.", correction: "Limited exterior photography to safe ground-level views and added retrieval checks that do not require sharing credentials." },
     image: "/images/blog/hurricane-documents-insurance-checklist.png",
     imageAlt: "A person photographs home belongings with a smartphone for insurance while an insurance folder and ID cards sit on the table.",
     sections: [
@@ -560,7 +576,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "What To Photograph",
         body: "Create a dated visual record before conditions change.",
-        bullets: ["Exterior walls, roof, windows, doors, and outdoor equipment.", "Each room, major appliances, electronics, and valuable items.", "Vehicle condition and serial numbers when practical.", "Receipts, inventory lists, and repairs that are already in progress."]
+        bullets: ["Exterior walls, windows, doors, outdoor equipment and roof areas visible safely from ground level. Do not climb a roof or ladder for this checklist.", "Each room, major appliances, electronics, and valuable items.", "Vehicle condition and serial numbers when practical.", "Receipts, inventory lists, and repairs that are already in progress."]
       },
       {
         heading: "Make a Records Index That Works Offline",
@@ -571,6 +587,20 @@ export const blogPosts: BlogPost[] = [
         heading: "What To Take If You Evacuate",
         body: "Keep the documents you may need while away from home in your go-bag instead of a storage bin.",
         bullets: ["Photo IDs, insurance cards, policy contacts, and property address.", "Prescriptions, medical summaries, and device information.", "Emergency contacts, family meeting locations, and school or workplace details.", "Cash, cards, keys, and copies of important legal records."]
+      },
+      {
+        heading: "Test Retrieval Before You Need the Folder",
+        body: "A file saved in the cloud is not necessarily available during an outage. While conditions are safe, try opening the needed copies without a mobile signal. Check whether the document is actually downloaded, whether the device can unlock and whether another responsible household member knows the protected copy's location. Do not disable security or put passwords, recovery codes and identity records together to make this exercise easier.",
+        bullets: ["Open the actual document, not just its filename or a thumbnail. Confirm that names, dates and contact numbers are legible.", "Check access dependencies: a flat phone, unavailable second-factor device or forgotten account can block an otherwise valid backup.", "Keep a minimal paper contact sheet separate from detailed medical, identity and financial copies. A shared task list should point to protected records rather than expose them.", "Assign a person and next action to missing items; 'requested from insurer' is different from 'copy available offline.'"]
+      },
+      {
+        heading: "Worked Example: A Missing Flood Policy",
+        body: "Fictional exercise: a renter finds an auto insurance card and a home-related insurance email, but cannot locate the separate flood-policy record they expected. Do not fill the gap by assuming the email covers flooding or that a landlord's policy covers the renter's possessions. Before a threat becomes urgent, contact the relevant insurer or agent to clarify what records and coverage actually exist. Record an unanswered question as unresolved. This exercise checks document readiness; it cannot establish coverage or create it after a loss.",
+        links: [{ href: "/blog/hurricane-insurance-claim-guide-documentation/", label: "Use the separate guide for claim notices and post-loss documentation" }]
+      },
+      {
+        heading: "Check the Handoff Without Sharing Everything",
+        body: "Ask the person carrying the folder to locate the property address, insurer's official contact and medication contact without searching through a group chat. If someone else is helping, share only what that person needs and what you are authorized to disclose. Review copies after a policy renewal, household change, major purchase or repair. Store replaced sensitive copies securely rather than leaving them in an old shared download folder. Never delay an evacuation or return to an unsafe building for paperwork; safety takes priority over a complete record."
       },
       {
         heading: "After the Storm",
@@ -585,6 +615,14 @@ export const blogPosts: BlogPost[] = [
       {
         question: "When should I photograph my home for hurricane records?",
         answer: "Photograph it before a storm threat is imminent, when you can safely capture clear images. Update the record after major purchases or repairs."
+      },
+      {
+        question: "Is a cloud backup enough for evacuation?",
+        answer: "Test actual offline access before relying on it. A login, second-factor prompt or empty battery can prevent retrieval. Keep appropriate protected portable copies and essential paper contacts where practical."
+      },
+      {
+        question: "Does having receipts and photos guarantee an insurance payment?",
+        answer: "No. Records may help document a loss, but coverage, requirements and payment depend on the actual policy and claim. Ask the insurer about the specific situation rather than inferring coverage from this checklist."
       }
     ]
   },
@@ -664,7 +702,8 @@ export const blogPosts: BlogPost[] = [
     title: "How Far Is a Hurricane From Me?",
     description: "Learn what a hurricane's current distance from your location can tell you, what it cannot predict, and how to pair distance with official alerts.",
     datePublished: "2026-08-04",
-    dateModified: "2026-10-24",
+    dateModified: "2026-11-10",
+    review: { date: "2026-11-10", scope: "Reviewed the local distance-calculation implementation and added fictional number-reading examples. Retained NHC references were not newly read; no current storm position or household hazard was verified.", correction: "Separated rounded center distance from hazard arrival, travel distance and evidence of an all-clear." },
     image: "/images/blog/how-far-is-a-hurricane-from-me.png",
     imageAlt: "A resident stands on a porch looking at a distant hurricane spiral on the ocean horizon while holding a phone with a map.",
     sections: [
@@ -686,6 +725,24 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Why Distance Is Not Enough",
         body: "Hurricanes are large, moving systems. Their strongest impacts may occur far from the center, and water hazards can be dangerous well ahead of landfall. A current position cannot replace forecast cones, local flood guidance, or evacuation-zone instructions."
+      },
+      {
+        heading: "What the Calculator Measures",
+        body: "HurricaneHub calculates a straight-line great-circle distance between the approximate coordinates returned for a ZIP code and each listed storm center, then rounds the result to miles. It does not follow roads or the forecast track. A whole-mile result does not mean the location or storm position is accurate to one mile. Your actual home, evacuation route and destination can be in different hazard areas even when one ZIP-based number is displayed."
+      },
+      {
+        heading: "Worked Example: Two Numbers That Cannot Be Compared Yet",
+        body: "Fictional exercise: one screenshot shows a center 200 miles away at 8 a.m.; another shows 180 at 11 a.m. Before calling the storm 20 miles closer, confirm that both use miles, the same storm and the same location, and that each number corresponds to the official position time shown. One result might use a neighboring ZIP code or an older advisory. If those fields are missing, the change cannot be interpreted reliably. Even a valid distance decrease describes two center positions; it does not predict which hazard reaches the home first.",
+        bullets: ["Keep storm identity, advisory time, location and unit with the number when sharing it.", "Do not mix nautical miles, statute miles and kilometers without conversion.", "A page refresh time is not necessarily a new NHC position time.", "Use the official forecast and local warning for the next action; a changed number is geographic context."]
+      },
+      {
+        heading: "Why 200 Miles Divided by 10 mph Is Not 20 Hours of Safety",
+        body: "The arithmetic is correct for a point moving directly toward you at a constant speed, but those assumptions do not describe a hurricane forecast. The storm can change speed or direction, its forward speed is not necessarily its rate of approach to your location, and damaging winds or water can arrive before the center. Dividing distance by speed also ignores local road restrictions and evacuation needs. Use NHC wind-arrival products and local instructions instead of turning this fictional calculation into a departure deadline.",
+        links: [{ href: "/blog/hurricane-preparation-timeline-72-48-24-hours/", label: "Read wind-arrival uncertainty before planning household deadlines" }]
+      },
+      {
+        heading: "Missing Data Does Not Mean Missing Hazards",
+        body: "An error, an old result or an unavailable timestamp cannot establish that there are no active storms. Even a verified empty cyclone list would not cancel an existing local flood, coastal or other warning. Open the current NHC advisory and local NWS alerts separately if a result cannot be verified. Do not continue sharing a saved distance screenshot as current simply because the calculator is temporarily unavailable."
       },
       {
         heading: "Best Next Step",
