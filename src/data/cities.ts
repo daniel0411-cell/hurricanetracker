@@ -32,7 +32,7 @@ export type HurricaneCity = {
 export const hurricaneCities: HurricaneCity[] = [
   {
     slug: "orlando",
-    dateModified: "2026-11-09",
+    dateModified: "2026-11-10",
     sourceCheck: { date: "2026-11-09", scope: "Read Orange County's Shelters and Persons with Special Needs Program HTML pages (no visible revision dates) for official shelter and assistance contacts. No current opening, application, pickup, route or local weather was verified; retained hazard background was not reverified." },
     name: "Orlando",
     stateCode: "FL",
@@ -46,19 +46,24 @@ export const hurricaneCities: HurricaneCity[] = [
       { heading: "Rain and Freshwater Flooding", body: "Tropical systems can produce heavy rain across Central Florida after landfall. Avoid flooded roads and low-water crossings, and check local flood alerts even when winds are weakening." },
       { heading: "Tornadoes in Outer Bands", body: "Fast-moving rain bands can produce short-fuse tornado warnings far from the storm center. Keep phones charged and use official NWS warnings rather than relying on the hurricane category." },
       { heading: "Heat and Extended Outages", body: "Power loss after a storm can create dangerous indoor heat and disrupt refrigeration, medication, traffic signals, and communications. If electricity is necessary for care, contact the care or equipment provider early and ask Orange County about suitable assistance; do not assume a household battery or a shelter label establishes adequate power." },
-      { heading: "Check the County for Shelter Activation", body: "A storm track near Orlando does not establish which shelters are open. Orange County officials select active special-needs sites. Use the county's current announcements or 311 to check a specific destination, and confirm caregiver, transport and pet arrangements separately. The resources below describe the process, not today's available beds or rides." }
+      { heading: "Check the County for Shelter Activation", body: "A storm track near Orlando does not establish which shelters are open. Orange County officials select active special-needs sites. Use the county's current announcements or 311 to check a specific destination, and confirm caregiver, transport and pet arrangements separately. The resources below describe the process, not today's available beds or rides." },
+      { heading: "Orlando Reading Task: Is Registration a Confirmed Ride?", body: "Illustrative scenario: a household has saved the special-needs registration entry and plans to request transport for an adult using powered equipment. There is no completed assessment, receiving-site confirmation or pickup instruction. Is transport confirmed? No. A registration lead or request is different from the county's response and event-specific arrangements. Record the needed assistance, request date, response, destination, equipment requirements and pickup instructions separately. Keep private care information off public posts." }
     ],
     evacuationFocus: [
       "Follow Orange County and local emergency management instructions rather than coastal evacuation assumptions.",
       "Know alternate routes if flooding, trees, or traffic signals affect major roads.",
       "Prepare water, medication, cooling, chargers, and food for an extended outage.",
-      "Monitor tornado and flood warnings as rain bands move through Central Florida."
+      "Monitor tornado and flood warnings as rain bands move through Central Florida.",
+      "Separate a special-needs registration or request from the county's assessment and confirmed event pickup.",
+      "Check the actual facility's opening and arrangements for care, caregivers and animals before traveling."
     ],
     localSearches: ["Orlando hurricane tracker", "is there a hurricane today in Orlando FL", "Orlando hurricane today", "Orlando NWS hurricane alerts", "Orlando hurricane radar"],
     faqs: [
       { question: "Is there a hurricane in Orlando today?", answer: "Check the current NHC storm context and Central Florida NWS alerts. Orlando can face rain, tornadoes, flooding, and outages even when no hurricane center is over the city." },
       { question: "Does Orlando evacuate for hurricanes?", answer: "Evacuation decisions depend on local orders, housing, flooding, medical needs, transportation, and destination. Follow Orange County and local emergency management instructions." },
-      { question: "What is the main hurricane risk in Orlando?", answer: "Freshwater flooding, tornadoes in rain bands, falling trees, heat, and extended power outages are often more relevant than storm surge in inland Orlando." }
+      { question: "What is the main hurricane risk in Orlando?", answer: "Freshwater flooding, tornadoes in rain bands, falling trees, heat, and extended power outages are often more relevant than storm surge in inland Orlando." },
+      { question: "Does Orange County special-needs registration guarantee a ride?", answer: "Do not treat a registration entry or request as a confirmed booking. The county's program description includes an assessment; confirm the event-specific pickup, destination and individual arrangements with the county and care team." },
+      { question: "Are pet-friendly and special-needs shelters the same thing?", answer: "They describe different arrangements. Check the specific opened facility and the household's care and animal requirements. Ordinary pet acceptance and service-animal access are also different questions; do not infer either from a generic shelter label." }
     ],
     officialResources: [
       { name: "Orange County Emergency Management", description: "Official Orlando-area emergency information; check event-specific announcements for protective actions.", url: "https://www.orangecountyfl.net/EmergencySafety/EmergencyManagement.aspx" },
@@ -537,6 +542,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "fort-myers",
+    dateModified: "2026-11-10",
+    sourceCheck: { date: "2026-11-06", scope: "Read the City of Fort Myers' April 30, 2026 Emergency Debris Removal ROE notice. County emergency, evacuation and shelter entries redirected to leefl.gov and returned HTTP 403, so county rules and current status could not be checked. The task is illustrative; no signed form, authorized work, debris collection, safe road, building, current order or individual property was verified. Broader Ian and hazard background was not rechecked." },
     name: "Fort Myers",
     stateCode: "FL",
     stateName: "Florida",
@@ -562,13 +569,30 @@ export const hurricaneCities: HurricaneCity[] = [
         heading: "Long Recovery Needs",
         body:
           "Southwest Florida hurricanes can disrupt power, cell service, bridges, fuel, and medical access. Households should prepare documents, medicine, cooling plans, and backup destinations before a warning becomes urgent."
+      },
+      {
+        heading: "Read the City's April 30, 2026 ROE Notice",
+        body: "The City of Fort Myers published an Emergency Debris Removal Right of Entry notice for communities with gated access or private roadways. It asks residents or managers to arrange permission in advance so city staff and contractors can enter private roads for emergency debris work. The notice also asks for the community's HOA or condominium association insurance policy with the form. These are requirements described in that city notice, not universal rules for every Lee County property or a promise that work is scheduled."
+      },
+      {
+        heading: "Fort Myers Reading Task: Whose Entry Is Authorized?",
+        body: "Illustrative scenario: a community manager completes a debris-removal ROE, and a resident concludes that their flooded private road and home are safe to enter. Does the form establish that? No. The notice concerns permission for city staff and contractors to enter private roads for the stated work. It does not certify road conditions, authorize residents to disregard reentry restrictions, inspect a building or confirm a collection date. Keep the work permission separate from safety, access and service status."
+      },
+      {
+        heading: "Keep the Address and Jurisdiction With the Notice",
+        body: "Record whether the property is in the City of Fort Myers, another municipality or an unincorporated part of Lee County before applying an instruction. The City of Fort Myers notice is not automatically a Fort Myers Beach or Sanibel rule. For a private-road community, ask its authorized manager who handles the ROE, what was submitted, whether the city accepted it and what the actual work scope is. Do not place private insurance documents in a public household log."
+      },
+      {
+        heading: "Separate Four Recovery Confirmations",
+        body: "Keep four entries: local reentry permission for the actual location; exact public and private route conditions; qualified building and utility assessments; and debris-work request, acceptance and schedule. A successful entry in one column does not fill the others. If a county web entry is unavailable, use another official county contact or current announcement; a failed website check is not an all-clear. Save the response and its limits instead of assuming the restriction has ended."
       }
     ],
     evacuationFocus: [
       "Check the Lee County evacuation zone for your exact address.",
       "Leave early if you are on a barrier island, in a mobile home, or near surge-prone water.",
       "Plan for bridge access and post-storm reentry restrictions.",
-      "Pack insurance records, photos, prescriptions, chargers, cash, and pet supplies."
+      "Pack insurance records, photos, prescriptions, chargers, cash, and pet supplies.",
+      "Confirm which municipality or county instruction applies to the property; keep debris-work permission separate from reentry and road safety."
     ],
     localSearches: [
       "Fort Myers hurricane tracker",
@@ -592,9 +616,22 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "What should Fort Myers households prepare first?",
         answer:
           "Start with evacuation zone, documents, medication, fuel, pet supplies, chargers, and a destination outside the surge area."
+      },
+      {
+        question: "Does a debris-removal Right of Entry mean my property is safe?",
+        answer: "No. The City of Fort Myers notice addresses permission for staff and contractors to enter private roads for emergency debris removal. Reentry, route conditions, building safety and actual service scheduling require separate confirmation."
+      },
+      {
+        question: "Can I apply the City of Fort Myers ROE notice everywhere in Lee County?",
+        answer: "Do not assume so. Confirm the property's jurisdiction and the responsible authority. A city notice is not automatically a countywide policy or an instruction for Fort Myers Beach, Sanibel or every private-road community."
       }
     ],
     officialResources: [
+      {
+        name: "City of Fort Myers: April 30, 2026 Debris ROE Notice",
+        description: "Read the dated private-road work-permission notice and its linked form. This is not reentry permission, road certification or a current collection booking.",
+        url: "https://fortmyers.gov/CivicAlerts.aspx?AID=1841"
+      },
       {
         name: "Lee County Emergency Management",
         description: "Official Lee County evacuation zones, alerts, shelters, and hurricane preparedness information.",

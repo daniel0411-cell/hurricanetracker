@@ -60,7 +60,7 @@ const selectedGuides = [
   if (!post?.figures?.[0]) throw new Error(`Missing sourced figure for ${guide.slug}`);
   return { ...guide, post, figure: post.figures[0] };
 });
-const lastModified = "2026-11-09T00:00:00.000Z";
+const lastModified = "2026-11-10T00:00:00.000Z";
 const atlanticNames = atlanticStorms.map((storm) => storm.name).filter(Boolean);
 const title = atlanticNames.length
   ? `Hurricane Tracker: ${atlanticNames.slice(0, 2).join(", ")} & NHC Map`
@@ -129,6 +129,28 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
             </div>
           </article>
         ))}</div>}
+        <div class="outlook-layout">
+          <div class="outlook-copy">
+            <h3>7-day Atlantic outlook</h3>
+            <p class="source-note outlook-timestamp">{outlookAvailable ? `NHC issue time: ${outlook!.issued}` : "Current outlook unavailable or outside the 12-hour freshness window. Formation chances have not been verified."}</p>
+            {outlookAvailable && <p class="outlook-text">{outlook!.text}</p>}
+            <p class="source-note caution-note">The 7-day percentage describes tropical cyclone formation in a development area. Use local alerts to assess hazards at your location.</p>
+            <div class="text-links">
+              <a href="https://www.nhc.noaa.gov/text/MIATWOAT.shtml">Read official NHC outlook &rarr;</a>
+              <a href="/hurricane-tracker/tropical-disturbances/">Atlantic disturbances</a>
+              <a href="/hurricane-tracker/gulf/">Gulf status</a>
+            </div>
+          </div>
+          <aside class="state-example" aria-labelledby="state-example-heading">
+            <p class="eyebrow">State example · Not your location</p>
+            <h3 id="state-example-heading">Florida NWS alerts</h3>
+            <div class="state-count-box">
+              <p class="state-count">{alertsAvailable ? `${floridaAlertFeed!.alerts!.length} returned` : "Unavailable"}</p>
+            </div>
+            <p class="source-note">{alertsAvailable ? `Feed checked ${checked(floridaAlertFeed?.fetchedAt)}. Includes weather alerts across Florida, not only hurricanes.` : "Current Florida alerts could not be verified. Do not interpret this as no warnings."}</p>
+            <a class="state-link" href="/tracker/florida/">Read Florida alerts and local resources &rarr;</a>
+          </aside>
+        </div>
         {stormsAvailable && atlanticStorms.length === 0 && (
           <div class="calm-prep-box">
             <div class="calm-prep-header">
@@ -157,28 +179,6 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
             </div>
           </div>
         )}
-        <div class="outlook-layout">
-          <div class="outlook-copy">
-            <h3>7-day Atlantic outlook</h3>
-            <p class="source-note outlook-timestamp">{outlookAvailable ? `NHC issue time: ${outlook!.issued}` : "Current outlook unavailable or outside the 12-hour freshness window. Formation chances have not been verified."}</p>
-            {outlookAvailable && <p class="outlook-text">{outlook!.text}</p>}
-            <p class="source-note caution-note">The 7-day percentage describes tropical cyclone formation in a development area. Use local alerts to assess hazards at your location.</p>
-            <div class="text-links">
-              <a href="https://www.nhc.noaa.gov/text/MIATWOAT.shtml">Read official NHC outlook &rarr;</a>
-              <a href="/hurricane-tracker/tropical-disturbances/">Atlantic disturbances</a>
-              <a href="/hurricane-tracker/gulf/">Gulf status</a>
-            </div>
-          </div>
-          <aside class="state-example" aria-labelledby="state-example-heading">
-            <p class="eyebrow">State example · Not your location</p>
-            <h3 id="state-example-heading">Florida NWS alerts</h3>
-            <div class="state-count-box">
-              <p class="state-count">{alertsAvailable ? `${floridaAlertFeed!.alerts!.length} returned` : "Unavailable"}</p>
-            </div>
-            <p class="source-note">{alertsAvailable ? `Feed checked ${checked(floridaAlertFeed?.fetchedAt)}. Includes weather alerts across Florida, not only hurricanes.` : "Current Florida alerts could not be verified. Do not interpret this as no warnings."}</p>
-            <a class="state-link" href="/tracker/florida/">Read Florida alerts and local resources &rarr;</a>
-          </aside>
-        </div>
       </div>
     </section>
 

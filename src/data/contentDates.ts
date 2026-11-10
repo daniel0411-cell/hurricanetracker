@@ -2,9 +2,12 @@ import { topicPages } from "./topicPages";
 
 // Editorial revisions only. Feed fetch times and advisory issue times belong to their products.
 const revisions: Record<string, string> = {
+  "hurricane-tracker/hurricane-landfall-forecast/": "2026-11-10T00:00:00.000Z",
+  "hurricane-tracker/tropical-storm-vs-hurricane/": "2026-11-10T00:00:00.000Z",
+  "hurricane-tracker/after-hurricane/": "2026-11-10T00:00:00.000Z",
   "hurricane-tracker/path/": "2026-11-06T00:00:00.000Z",
   "hurricane-tracker/tropical-disturbances/": "2026-11-09T00:00:00.000Z",
-  "hurricane-tracker/hurricane-categories/": "2026-11-09T00:00:00.000Z",
+  "hurricane-tracker/hurricane-categories/": "2026-11-10T00:00:00.000Z",
   "2026-hurricane-season/": "2026-11-09T00:00:00.000Z",
   "newsletter/": "2026-11-09T00:00:00.000Z",
   "privacy/": "2026-11-09T00:00:00.000Z",
@@ -17,7 +20,7 @@ const revisions: Record<string, string> = {
   "hurricane-tracker/evacuation-zones/": "2026-11-06T00:00:00.000Z",
   "hurricane-tracker/spaghetti-models/": "2026-11-05T00:00:00.000Z",
   "blog/hurricane-eyewall-replacement-cycle-explained/": "2026-11-05T00:00:00.000Z",
-  "": "2026-11-09T00:00:00.000Z",
+  "": "2026-11-10T00:00:00.000Z",
   "blog/": "2026-11-04T00:00:00.000Z",
   "updates/": "2026-11-04T00:00:00.000Z",
   "learn/": "2026-11-04T00:00:00.000Z",

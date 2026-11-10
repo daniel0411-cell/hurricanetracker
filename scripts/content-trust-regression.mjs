@@ -52,9 +52,10 @@ assert.equal(status.isAlertFeedAvailable({ alerts: [], decisionLevel: "Monitor",
 assert.equal(status.isAlertFeedAvailable({ alerts: [], decisionLevel: "Monitor", fetchedAt: old() }), false);
 assert.equal(status.isOutlookAvailable({ text: "Official outlook", issuedAt: fresh() }), true);
 assert.equal(status.isOutlookAvailable({ text: "Official outlook", issuedAt: "2020-01-01" }), false);
-assert.equal(contentModifiedFor("/", "old"), "2026-11-09T00:00:00.000Z");
+assert.equal(contentModifiedFor("/", "old"), "2026-11-10T00:00:00.000Z");
 assert.equal(contentModifiedFor("/hurricane-tracker/city/miami/", "old"), "2026-11-04T00:00:00.000Z");
-for (const route of ["/privacy/", "/hurricane-tracker/city/", "/hurricane-tracker/tropical-disturbances/", "/blog/unchanged-article/"]) assert.equal(contentModifiedFor(route, "old"), "old");
+for (const route of ["/privacy/", "/hurricane-tracker/tropical-disturbances/"]) assert.equal(contentModifiedFor(route, "old"), "2026-11-09T00:00:00.000Z");
+for (const route of ["/hurricane-tracker/city/", "/blog/unchanged-article/"]) assert.equal(contentModifiedFor(route, "old"), "old");
 
 const about = fs.readFileSync(path.join(root, "src/pages/about.astro"), "utf8");
 const blogTemplate = fs.readFileSync(path.join(root, "src/pages/blog/[slug].astro"), "utf8");

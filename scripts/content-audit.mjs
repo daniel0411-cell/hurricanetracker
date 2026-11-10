@@ -31,6 +31,10 @@ const correctedArticles = {
   }
 };
 const revisedTopicChecks = {
+  "/hurricane-tracker/hurricane-landfall-forecast/": ["Before Landfall, Some Conditions Were Already Occurring", "al092022.public.032.shtml", "10%"],
+  "/hurricane-tracker/tropical-storm-vs-hurricane/": ["A Tropical Storm Bulletin With a Hurricane Warning", "al092022.public.028.shtml", "70 mph"],
+  "/hurricane-tracker/hurricane-categories/": ["Does a 160 kt Gust Make This Forecast Category 5?", "130 kt", "al112017.fstadv.026.shtml"],
+  "/hurricane-tracker/after-hurricane/": ["Does Reentry Permission Clear a Flooded Electrical Panel?", "Four Confirmations, Four Different Questions"],
   "/hurricane-tracker/path/": ["Transcribe Three Rows", "21 hours", "al112017.discus.026.shtml"],
   "/hurricane-tracker/radar/": ["DBZ and KTS", "KEOX", "michael-2018-reflectivity-detail.png", "michael-2018-velocity-detail.png"],
   "/hurricane-tracker/live-tracker/": ["Empty Active-Storm List", "060509", "current-storms-20261106-094422Z.json", "twoat-20261106-saved-094422Z.txt"]
@@ -64,6 +68,12 @@ for (const post of blogPosts) {
     if (/within days to a few weeks|many are one year|within the first 24-48 hours|Standard homeowners policies cover wind damage/i.test(article)) findings.push(`${post.slug}: unsupported general claim deadline or coverage reintroduced`);
     if (!post.sections.some((section) => section.heading === "Keep Three Deadline Types Separate")) findings.push(`${post.slug}: missing separate deadline record`);
   }
+  if (post.slug === "hurricane-pet-safety") {
+    const article = JSON.stringify([post.sections, post.faqs]);
+    if (/rarely rescued|most dangerous for animals|fastest way to reunite|strongest reunion tool/.test(article)) findings.push(`${post.slug}: unsupported pet rescue or reunion assertion reintroduced`);
+    if (!post.sections.some((section) => section.heading === "Service Animals Follow Different Access Rules")) findings.push(`${post.slug}: missing service-animal access distinction`);
+  }
+  if (post.slug === "hurricane-school-daycare-emergency-plan" && post.sections.some((section) => /service animal or household pet.*pet-friendly destination/.test(section.body ?? ""))) findings.push(`${post.slug}: service-animal and ordinary pet access conflated`);
 }
 let checked = 0;
 for (const route of routes) {
@@ -92,10 +102,19 @@ for (const route of routes) {
       if (!html.includes(required)) findings.push(`${route}: missing product-reading evidence: ${required}`);
     }
     if (route === "/blog/how-to-use-hurricane-tracker-live-tools/" && !html.includes("Hand Off Sources, Changes and Unfinished Work")) findings.push(`${route}: missing independent household handoff task`);
+    for (const [slug, markers] of [
+      ["below-normal-hurricane-season-2026-real-time-tracker", ["hurricane2026/August/hurricane.shtml", "75%", "70%", "Does 13 Plus 6 Plus 2 Mean 21 Storms?"]],
+      ["hurricane-school-daycare-emergency-plan", ["Practice a Two-Campus Pickup", "service-animals-faqs/", "pet-friendly hotel room"]],
+      ["what-to-do-after-a-hurricane", ["Worked Record: A Claim Number Is Not Permission To Repair", "after-applying"]]
+    ]) if (route === `/blog/${slug}/`) for (const marker of markers) {
+      if (!html.includes(marker)) findings.push(`${route}: missing checked evidence or task: ${marker}`);
+    }
     if (/Search intent|People search live tracker|gives searchers a local|Radar search hub|Preparedness search hub/.test(html)) findings.push(`${route}: internal content-planning language exposed to readers`);
     for (const [city, required] of [
       ["charleston", ["Charleston Reading Task", "Charleston-County-Evac-Zones.pdf", "edition date not stated"]],
-      ["wilmington", ["Wilmington Reading Task", "25.58", "BGWN7", "HurricaneFlorence"]]
+      ["wilmington", ["Wilmington Reading Task", "25.58", "BGWN7", "HurricaneFlorence"]],
+      ["orlando", ["Orlando Reading Task", "Special Needs Program", "shelters.aspx"]],
+      ["fort-myers", ["Fort Myers Reading Task", "AID=1841", "HTTP 403"]]
     ]) {
       if (route === `/hurricane-tracker/city/${city}/`) for (const marker of required) {
         if (!html.includes(marker)) findings.push(`${route}: missing local reading task or source: ${marker}`);

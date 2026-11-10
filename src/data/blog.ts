@@ -1834,33 +1834,28 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "below-normal-hurricane-season-2026-real-time-tracker",
-    sourceCheck: { date: "2026-11-09", scope: "Read CPC's Atlantic outlook issued August 6, 2026 for basin category probabilities, 70% activity ranges, already-recorded storms and landfall limitations. This is a dated forecast summary, not verification of final season totals or current local conditions. Other retained historical and climate examples were not reverified in this check." },
-    sources: [{ href: "https://www.cpc.ncep.noaa.gov/products/outlooks/hurricane.shtml", label: "NOAA Climate Prediction Center: dated seasonal outlook" }, { href: "https://www.nhc.noaa.gov/data/tcr/index.php?season=2026&basin=atl", label: "NHC 2026 season summary, subject to revision" }],
-    title: "Below-Normal Hurricane Season 2026: Why You Still Need a Real-Time Tracker",
-    description: "Understand what a below-normal Atlantic hurricane outlook means, how El Nino can affect activity, and why current NHC forecasts still guide local preparation.",
+    sourceCheck: { date: "2026-11-06", scope: "Read CPC's August 6, 2026 archived Atlantic outlook and archive index: category probabilities, ranges, range probabilities and the two named storms already included. This is a historical forecast-reading exercise, not a final season count, current ENSO diagnosis or local hazard check." },
+    sources: [{ href: "https://www.cpc.ncep.noaa.gov/products/outlooks/hurricane2026/August/hurricane.shtml", label: "CPC: archived August 6, 2026 Atlantic outlook" }, { href: "https://www.cpc.ncep.noaa.gov/products/outlooks/hurricane-archive.shtml", label: "CPC: seasonal outlook archive by year and release" }, { href: "https://www.nhc.noaa.gov/data/tcr/index.php?season=2026&basin=atl", label: "NHC: 2026 season records and post-storm reports" }],
+    title: "2026 Atlantic Outlook: Read NOAA's August Forecast",
+    description: "Read NOAA's archived August 2026 outlook: category probabilities, storm-count ranges and a worked question separating seasonal forecasts from local risk.",
     datePublished: "2026-08-12",
-    dateModified: "2026-11-09",
+    dateModified: "2026-11-10",
     image: "/images/blog/below-normal-hurricane-season-2026-tracker.png",
     imageAlt: "A coastal resident in a plaid shirt checks a hurricane alert on his smartphone while standing on a wooden deck overlooking an overcast Atlantic coastline, grey storm clouds gathering on the horizon.",
     sections: [
       {
         heading: "Direct Answer",
-        body: "A below-normal Atlantic hurricane outlook describes the expected level of activity across an entire basin. It does not mean that a particular town will escape a storm, that a developing system cannot intensify, or that flood and storm surge warnings are less urgent. This article was first published in August 2026 and has been updated to separate seasonal background from current storm information. Earlier references to a possible Cristobal formation were an August outlook discussion, not a forecast for this week. For today's systems and formation chances, use the live hurricane tracker and the latest NHC Tropical Weather Outlook. Use this guide to understand what seasonal forecasts can and cannot tell you."
+        body: "NOAA's Climate Prediction Center issued its updated 2026 Atlantic outlook on August 6, 2026. It assigned a 75% chance of below-normal basin-wide activity. This page teaches how to read that dated forecast; it is not a current development outlook or a final season score. Start with the exact year, basin and release date in the linked archive before interpreting its percentages. A household's current decisions still require current storm forecasts, local hazards and official instructions.",
+        links: [{ href: "https://www.cpc.ncep.noaa.gov/products/outlooks/hurricane2026/August/hurricane.shtml", label: "Open the original August 6, 2026 CPC forecast" }]
       },
       {
-        heading: "NOAA's August 6, 2026 Outlook: The Actual Numbers",
-        body: "NOAA's Climate Prediction Center issued the outlook summarized here on August 6, 2026. It assigned a 75% chance of a below-normal Atlantic season, 20% near-normal, and 5% above-normal. Those probabilities describe basin-wide seasonal activity categories, not the chance that a particular home will be hit. The numerical ranges each carry 70% probability; that is a different statement from the 75% below-normal probability. The ranges describe the whole season, including activity already observed when the outlook was issued. They are not forecasts of additional storms after August 6, and they are not observed or final 2026 totals.",
-        bullets: ["7-13 named storms, including the two named storms already recorded as of the August 6 issue date", "2-6 hurricanes", "0-2 major hurricanes (Category 3 or higher)", "Each range has 70% probability under the outlook's assumptions; outcomes outside a range remain possible"],
-        links: [{ href: "https://www.cpc.ncep.noaa.gov/products/outlooks/hurricane.shtml", label: "Read CPC's dated Atlantic outlook and interpretation notes (checked November 9, 2026)" }]
-      },
-      {
-        heading: "How to Read a Seasonal Outlook After Its Issue Date",
-        body: "NOAA seasonal outlooks give ranges and probabilities for basin-wide activity. They are issued on a particular date using the ocean and atmospheric conditions available at that time. An August outlook is historical context once you are making an October household decision; it cannot replace an updated storm advisory. Distinguish predicted totals from observed totals, and check which season, basin, issue date, and forecast period a number describes. A range is not a hard ceiling on storm activity or intensity. For current season records, use the 2026 hurricane season page and follow its official NHC source links rather than treating the totals in an older article as a live count.",
+        heading: "Read Two Different Probability Statements",
+        body: "The archived outlook assigns 75% to a below-normal season, 20% to near-normal and 5% to above-normal. Separately, it gives a 70% probability for each forecast activity range. These statements answer different questions: one describes the seasonal activity category, while the other describes a range of storm counts or accumulated cyclone energy. Neither is the chance that a named city will experience a hurricane, and the count ranges are not hard ceilings.",
         bullets: [
-          "Seasonal outlook: expected basin-wide activity over a stated period.",
-          "Observed season record: storms that have actually been identified, with historical intensity checked separately.",
-          "NHC Tropical Weather Outlook: formation potential over the next two and seven days.",
-          "Current advisory and local alerts: the forecast and hazards relevant to an active system."
+          "Season category: 75% below-normal, 20% near-normal, 5% above-normal.",
+          "Named storms: 7-13, including the two already recorded at the time of issuance.",
+          "Hurricanes: 2-6; major hurricanes: 0-2. These are subsets, not additional storms to add to the named-storm total.",
+          "Each stated range has 70% probability in the outlook; that is not 70% confidence in a local landfall prediction."
         ]
       },
       {
@@ -1868,16 +1863,18 @@ export const blogPosts: BlogPost[] = [
         body: "El Nino is a climate pattern involving the tropical Pacific Ocean and atmosphere. During many El Nino episodes, changes in large-scale circulation increase vertical wind shear over parts of the tropical Atlantic. Wind shear can tilt a developing circulation and separate thunderstorms from the center, making formation or intensification less likely. This is a statistical tendency, not a rule for every storm. Ocean temperatures, moisture, dry air, and the local wind environment also matter. The eastern Pacific can respond differently from the Atlantic. Read the companion guide, How El Nino Affects Atlantic Hurricane Activity, for the mechanism and its limits. Check NOAA's current ENSO discussion separately for the present climate state; this article does not provide a live ENSO diagnosis."
       },
       {
-        heading: "Keep Earlier Gulf Storms in Historical Context",
-        body: "The original August article discussed Arthur and Bertha as earlier-season Gulf systems. Those references belong to their dated storm archives, not to today's active-storm count. More recent systems also need their own advisory history rather than being combined into an undated statement that only two storms have occurred. The useful planning lesson survives those changes: a tropical storm can cause dangerous rainfall and coastal flooding without reaching hurricane strength. When reviewing a past event, check its year, basin, final official advisory, and historical peak intensity. When preparing for a new event, switch to the current forecast and local alerts instead of assuming the earlier storm's track or impacts will repeat."
+        heading: "Reading Task: Does 13 Plus 6 Plus 2 Mean 21 Storms?",
+        body: "Question: may a reader add the upper limits, 13 named storms + 6 hurricanes + 2 major hurricanes, and report a forecast of 21 storms? Answer: no. Hurricanes belong within the named-storm count, and major hurricanes belong within the hurricane count. The outlook also says the named-storm range already includes two storms recorded before the release; adding those two again would double-count them. Preserve each original range and its meaning instead of creating a combined total.",
+        bullets: ["Record: Atlantic; 2026 season; CPC; issued August 6, 2026.", "Copy the category probabilities separately from the activity ranges and their 70% probability.", "Mark the figures as forecasts issued on that date, not observations or current storm counts."]
       },
       {
-        heading: "Why an August Formation Forecast Is Not Today's Outlook",
-        body: "Formation probabilities apply to the disturbance and time window in a particular NHC outlook. They expire as that window passes; a percentage copied from an August bulletin should never be presented as a current October development chance. A development area also is not a named storm simply because the next name is known. NHC must identify and classify the system. The Atlantic season runs from June 1 through November 30, and the historical activity peak is near September 10. Passing that peak does not end the season. Continue checking the latest outlook for the Atlantic, Caribbean, and Gulf, and distinguish those areas from eastern Pacific systems listed in the all-basin tracker."
+        heading: "Seasonal Outlook, Development Outlook and Advisory",
+        body: "The CPC seasonal product describes basin-wide activity for a season. An NHC Tropical Weather Outlook describes formation potential for identified disturbances within two-day and seven-day windows. An established cyclone's advisory describes that system's position, intensity and forecast, while local NWS products and emergency management address local hazards and actions. A percentage cannot move between these products without changing its meaning. For today's development areas, leave the historical example and open the current NHC outlook.",
+        links: [{ href: "https://www.nhc.noaa.gov/text/MIATWOAT.shtml", label: "Current NHC Atlantic Tropical Weather Outlook" }]
       },
       {
-        heading: "The 1992 Lesson: Why 'Below Normal' Is Not 'No Risk'",
-        body: "Hurricane Andrew in 1992 is a useful historical example of why basin-wide activity and local consequences are different questions. A season with relatively few named storms still included a Category 5 Florida landfall. That history does not predict a repeat track, identify the next landfall location, or establish the cause of a 2026 storm. It shows why preparation cannot depend only on the expected number of storms. Local risk depends on the individual system, your exposure, and the hazards it produces. Wind category also cannot summarize rainfall, storm surge, tornadoes, or road access. Compare current official hazard products with your household needs instead of using a quiet seasonal label as reassurance."
+        heading: "A Second Reading Check: What Does 75% Say About Your City?",
+        body: "Question: does a 75% chance of a below-normal Atlantic season mean your city has a 75% chance of avoiding hurricane impacts? Answer: no. The event being assigned a probability is a basin-wide seasonal activity category, not freedom from local wind, flooding or evacuation. The August outlook separates activity forecasts from landfall predictions. Record local exposure, the current forecast and current instructions in a different part of the household plan."
       },
       {
         heading: "How to Track Hurricanes in a Low-Activity Season",
@@ -1902,41 +1899,48 @@ export const blogPosts: BlogPost[] = [
     faqs: [
       {
         question: "Does a below-normal hurricane season mean I do not need to prepare?",
-        answer: "No. A below-normal forecast means fewer storms are expected overall, but any single storm can still be devastating. The 1992 season produced only 7 named storms, but one of them was Category 5 Hurricane Andrew. Prepare every season regardless of the outlook."
+        answer: "No. The seasonal category describes basin-wide activity, not the chance of avoiding damage at an address. Keep preparation in place and follow current storm forecasts, local warnings and emergency instructions."
       },
       {
         question: "How does El Nino affect hurricane activity in the Atlantic?",
-        answer: "El Nino increases vertical wind shear over the tropical Atlantic, which disrupts the organized vertical structure hurricanes need to form and intensify. Strong wind shear can tear a developing storm apart or prevent it from forming at all. However, El Nino does not guarantee a quiet season—it only reduces the statistical odds."
+        answer: "El Nino often increases Atlantic vertical wind shear, making the environment less favorable for organized tropical cyclones. It is a statistical influence, not a guarantee about one season or a particular storm. Check a dated ENSO assessment for the climate state being discussed."
       },
       {
         question: "Where can I track hurricanes in real time during the 2026 season?",
         answer: "Use HurricaneHub's live tracker to find current NHC systems and official advisory links, then check local NWS alerts and emergency-management instructions. The 2026 season page provides dates and recorded activity; an older seasonal article does not provide today's forecast."
       },
       {
-        question: "Is the Cristobal formation discussion in this article a current forecast?",
-        answer: "No. It refers to the original August 2026 discussion. Formation chances apply only to the disturbance and time window in the issued outlook. Check the latest NHC Tropical Weather Outlook for current development areas."
+        question: "What is the difference between the 75% and 70% figures?",
+        answer: "In the archived August 6 forecast, 75% is the probability of a below-normal season. The 70% figure applies to each stated activity range. They do not describe a city's landfall probability."
       }
     ]
   },
   {
     slug: "what-to-do-after-a-hurricane",
-    sources: [{ href: "https://www.ready.gov/hurricanes", label: "Ready.gov: after a hurricane" }, { href: "https://www.disasterassistance.gov/", label: "Official federal disaster-assistance applications" }, { href: "https://www.cdc.gov/floods/safety/", label: "CDC: flood safety and recovery" }],
-    title: "What to Do After a Hurricane: A Step-by-Step Recovery Guide",
-    description: "Returning home after a hurricane? Follow this step-by-step recovery guide: safety checks, insurance claims, FEMA help, and safe flood cleanup.",
+    sourceCheck: { date: "2026-11-06", scope: "Read Ready.gov's after-hurricane precautions and FEMA's after-applying guidance. The recovery-file example is illustrative. No individual building, route, utility, insurance policy, claim deadline or assistance eligibility was verified. Existing specialist CDC references are retained, not rechecked in this revision." },
+    sources: [{ href: "https://www.ready.gov/hurricanes", label: "Ready.gov: after a hurricane" }, { href: "https://www.disasterassistance.gov/", label: "Official federal disaster-assistance applications" }, { href: "https://www.fema.gov/assistance/individual/after-applying", label: "FEMA: follow-up after an assistance application" }, { href: "https://www.cdc.gov/floods/safety/", label: "CDC: flood safety and recovery" }],
+    title: "Hurricane Recovery: Keep an Evidence and Contact File",
+    description: "Build a hurricane recovery file linking damage photos, insurer instructions, receipts and unfinished tasks, after official access and safety checks.",
     datePublished: "2026-08-12",
-    dateModified: "2026-11-08",
+    dateModified: "2026-11-10",
     image: "/images/blog/what-to-do-after-a-hurricane.jpg",
     imageAlt: "A homeowner carries water-damaged belongings out of a flood-damaged house after a hurricane while a neighbor stacks storm debris.",
     sections: [
       {
-        heading: "Direct Answer: Start With Official Re-Entry and Documentation",
-        body: "After a hurricane, treat recovery as a sequence: wait for local officials to say it is safe to return, check for immediate hazards from outside first, document damage before cleanup when safe, contact your insurer, and use official disaster-assistance channels if your area qualifies. This guide is an orientation hub, not a substitute for local emergency management, utility crews, insurance policy terms, medical advice, or contractor guidance."
+        heading: "Build a File Someone Else Can Continue",
+        body: "Once access and work are permitted and the relevant safety conditions are resolved, a useful recovery file connects evidence to actions: what was damaged, what you reported, who answered, what they actually confirmed and what remains pending. Keep insurance, local access, utilities and disaster assistance as separate processes. If return or building safety is unresolved, start with the access-check page before taking photographs or inspecting damage.",
+        links: [{ href: "/hurricane-tracker/after-hurricane/", label: "Check area, route, building and utility conditions first" }]
       },
       {
-        heading: "Your First 24 Hours: Stabilize People, Access, and Evidence",
-        body: "The first day is about preventing a second emergency. Confirm that everyone is accounted for, follow re-entry instructions, keep away from floodwater and utilities, and preserve evidence before cleanup. Do not make a risky repair simply to protect property or speed up a claim.",
+        heading: "Worked Record: A Claim Number Is Not Permission To Repair",
+        body: "Illustrative example, not a real claim: an insurer acknowledges a reported loss and provides a claim number. The owner has dated exterior photographs taken safely, but no building assessment and no answer about permanent repairs. Record the loss as reported and the claim number as received; leave access, repair authorization and coverage pending. An acknowledgement does not settle coverage or clear a building. Ask the relevant professional and insurer the specific remaining questions rather than marking the whole case complete.",
+        bullets: ["Evidence item: date/time/time zone, room or exterior location, file name, description and who recorded it safely.", "Contact item: organization, verified contact, case number, time, exact request and actual response.", "Task item: one owner, confirmed next step, applicable deadline source, unresolved dependency and next follow-up.", "Keep copies of messages, receipts and documents submitted; protect identity, account and health details."]
+      },
+      {
+        heading: "First Priorities: People, Access, Then Evidence",
+        body: "These are priorities, not a requirement to enter or finish paperwork within a fixed number of hours. Confirm people and urgent needs, follow reentry instructions and keep away from floodwater and utility hazards. Preserve evidence only when safe. Do not make a risky repair or return trip to speed up a claim.",
         bullets: [
-          "Confirm the official all-clear and that your exact route is open.",
+          "Confirm local reentry permission and the exact route separately from the building and utility checks.",
           "Check household members, pets, medications, and urgent medical needs.",
           "Photograph exterior, rooms, water lines, utilities, and damaged belongings when safe.",
           "Report gas leaks, downed lines, fires, and life-safety hazards from a safe location.",
@@ -1944,7 +1948,7 @@ export const blogPosts: BlogPost[] = [
         ]
       },
       {
-        heading: "Hours 24–72: Protect the Structure and Start the Recovery File",
+        heading: "Keep the Recovery File Through Stabilization",
         body: "Once officials and qualified professionals confirm that work can begin, separate urgent stabilization from permanent repairs. Keep a dated recovery log with photos, receipts, contractor details, utility calls, hotel costs, and assistance applications. This record helps your household coordinate and gives insurers or assistance programs a clearer timeline.",
         bullets: [
           "Use licensed help for electrical, gas, structural, roof, and major mold problems.",
@@ -1966,8 +1970,8 @@ export const blogPosts: BlogPost[] = [
         ]
       },
       {
-        heading: "Wait for the Official All-Clear Before Returning",
-        body: "Do not rush back while evacuation orders are still in effect or roads are blocked. Local officials lift orders only after they have checked routes, utilities, and major hazards. Use county emergency management, weather.gov, and local public-safety updates as the source of truth for re-entry.",
+        heading: "Read the Scope of the Local Reentry Announcement",
+        body: "Do not return while access restrictions or hazardous routes prevent it. Read the exact location and scope of the local announcement; an area reopening is not an inspection of every property or private road. Keep separate confirmation for utilities and building conditions. Use county emergency management and local public-safety updates for reentry, and weather.gov for weather hazards.",
         bullets: [
           "Confirm that your neighborhood or route is open before traveling.",
           "Avoid standing or moving floodwater and follow road-closure instructions.",
@@ -2041,7 +2045,7 @@ export const blogPosts: BlogPost[] = [
         bullets: [
           "Beware door-to-door contractors demanding upfront payment.",
           "Verify licenses and insurance before signing anything.",
-          "Collect at least three written estimates.",
+          "Compare written estimates with the same scope and ask your insurer about documentation requirements.",
           "Report price gouging to your state attorney general."
         ]
       },
@@ -2051,7 +2055,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Use This Recovery Hub With Related Guides",
-        body: "For a fuller recovery path, pair this page with the hurricane insurance claim documentation guide, Additional Living Expenses coverage guide, generator safety guide, power outage planner, and live hurricane tracker. Those pages break out high-risk topics so this article can remain a navigation hub rather than an overconfident replacement for official instructions.",
+        body: "At each handoff, send the next person the relevant record, not just a list of links. An adjuster may need the photo inventory and temporary-repair receipts; a utility needs the location and reported hazard; a caregiver needs the unresolved access and care arrangements. Name who owns the next call and when the answer must be checked again. The specialist guides below support those tasks without turning a completed log into a safety or coverage determination.",
         bullets: [
           "Keep the claim record separate from coverage decisions and cleanup safety."
         ],
@@ -2066,7 +2070,7 @@ export const blogPosts: BlogPost[] = [
           "Disaster assistance: https://www.disasterassistance.gov/",
           "FEMA: https://www.fema.gov/",
           "Ready.gov hurricane guidance: https://www.ready.gov/hurricanes",
-          "CDC floodwater and cleanup guidance: https://www.cdc.gov/floods/"
+          "CDC floodwater and cleanup guidance: https://www.cdc.gov/floods/safety/"
         ]
       }
     ],
@@ -2089,25 +2093,25 @@ export const blogPosts: BlogPost[] = [
       },
       {
         question: "Where should I check official recovery guidance?",
-        answer: "Start with local emergency management for re-entry, weather.gov for alerts, DisasterAssistance.gov and FEMA for assistance, and your insurer for coverage. Use this page as a navigation guide, not an official instruction."
+        answer: "Use local emergency management for reentry, weather.gov for alerts, official FEMA channels for assistance and your insurer for the policy or claim. Keep each authority's actual response beside the relevant task; one answer does not settle every recovery question."
       }
     ]
   },
   {
     slug: "hurricane-pet-safety",
-    sources: [{ href: "https://www.ready.gov/pets", label: "Ready.gov: pets and animals in an emergency" }],
+    sources: [{ href: "https://www.ready.gov/pets", label: "Ready.gov: pets and animals in an emergency" }, { href: "https://www.ada.gov/resources/service-animals-faqs/", label: "DOJ: service-animal access and handler responsibilities (checked November 6, 2026)" }],
     title: "Hurricane Pet Safety: Evacuation, Kits and Animal Care",
     description: "How to prepare dogs, cats, and backyard livestock for a hurricane: pet go-bags, ID and microchips, pet-friendly evacuation, and post-storm hazards to avoid.",
     datePublished: "2026-08-12",
-    dateModified: "2026-11-08",
-    sourceCheck: { date: "2026-11-08", scope: "Read Ready.gov Pets and Animals, updated March 20, 2026: evacuation, buddy system, supplies, carriers and large-animal transport. The confirmation record is an editorial example. No shelter availability, individual animal's medical needs or transport arrangement was verified." },
+    dateModified: "2026-11-10",
+    sourceCheck: { date: "2026-11-08", scope: "Read Ready.gov Pets and Animals, updated March 20, 2026: evacuation, buddy system, supplies, carriers and large-animal transport. DOJ service-animal FAQ Q7-12 and Q18-21 was checked November 6, 2026 for hotel access and handler responsibilities. The confirmation record is an editorial example. No shelter availability, individual animal's medical needs or transport arrangement was verified." },
     review: { date: "2026-11-08", scope: "Evacuation and animal-care wording", correction: "Removed unsupported claims about rescue frequency, the most dangerous period and the strongest reunion method. Replaced generic livestock shelter advice with species-specific planning questions." },
     image: "/images/blog/hurricane-pet-safety.png",
     imageAlt: "A family secures a dog in a crate while packing an emergency pet bag during hurricane preparations at home.",
     sections: [
       {
         heading: "Direct Answer: Prepare Your Pets Before You Need To",
-        body: "Pets cannot evacuate or shelter themselves, so their safety depends entirely on your plan. As soon as a hurricane threatens, assume you may have to leave with every animal in the household within a few hours. Build a pet go-bag now, confirm your pets are microchipped and tagged, and identify pet-friendly shelters or hotels along your evacuation route before the storm arrives."
+        body: "Ready.gov advises including pets in evacuation plans and arranging someone who can care for or evacuate them if you are unavailable. Start with the destination, the person transporting each animal and a backup. A saved hotel or shelter address is only a lead until you confirm the relevant animal arrangements. This guide helps turn that lead into a record; local instructions and the facility's actual event announcement determine what is available."
       },
       {
         heading: "Build a Pet Go-Bag",
@@ -2116,7 +2120,7 @@ export const blogPosts: BlogPost[] = [
           "Several days of food and water, plus bowls; check quantities and medication needs with your veterinarian.",
           "Medications, a copy of veterinary records, and proof of rabies vaccination.",
           "Leashes, harnesses, and a sturdy carrier or crate labeled with your phone number.",
-          "A photo of you with each pet to prove ownership if separated.",
+          "A photo of you with each pet to help identify the animal and document your connection if separated.",
           "Waste bags, litter and a small litter box, and a familiar blanket or toy for comfort."
         ]
       },
@@ -2125,8 +2129,9 @@ export const blogPosts: BlogPost[] = [
         body: "Use both a visible ID tag and current microchip registration rather than assuming either guarantees reunion. Check that your phone number, address and an emergency contact outside the area are current in the registry. Keep a photo of you with each animal and copies of registration and veterinary records in the evacuation bag. A chip does not arrange transport, reserve a shelter space or replace a carrier."
       },
       {
-        heading: "Know Your Pet-Friendly Evacuation Options",
-        body: "Do not assume your regular shelter accepts household pets. Local shelter arrangements vary by event and may use separate co-located areas or designated facilities. Confirm current pet, service-animal, carrier, vaccination, and supply rules with local emergency management, and identify backup pet-friendly lodging or boarding outside the evacuation zone. Take pets with you when evacuating unless officials provide another safe arrangement."
+        heading: "Service Animals Follow Different Access Rules",
+        body: "A service animal is not treated as an ordinary pet under the ADA. DOJ FAQ Q11 says a guest with a disability using a service animal must have the same opportunity to reserve an available hotel room and cannot be restricted to pet-friendly rooms. Covered facilities cannot require a service-animal certificate as proof. Ordinary local vaccination and dog-licensing requirements can still apply, and the handler remains responsible for care and control. Ask about the practical care and access arrangements without treating an ordinary no-pets policy as the answer to service-animal access. This is U.S. ADA guidance, not a guarantee about every animal, jurisdiction or situation.",
+        links: [{ href: "https://www.ada.gov/resources/service-animals-faqs/", label: "Read DOJ Q7-12 and Q18-21, including hotel access and documentation" }]
       },
       {
         heading: "Confirm a Destination, a Driver and a Backup Caregiver",
@@ -3433,12 +3438,12 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-school-daycare-emergency-plan",
-    sourceCheck: { date: "2026-11-09", scope: "Read Charleston County School District Family Reunification and School Closure and Delay Procedures for notification records, identification, emergency-contact records, offsite reunification and separate schedule changes. No visible publication dates; linked videos and transportation memos were not reviewed. Household records and the two-campus exercise are editorial planning aids. No current closure, individual child's authorization, custody arrangement or daycare procedure was verified." },
-    sources: [{ href: "https://www.ready.gov/kids", label: "Ready.gov: family and child preparedness" }, { href: "https://www.ready.gov/plan", label: "Ready.gov: communication and reunification planning" }, { href: "https://www.ccsdschools.com/departments2/operations/security-and-emergency-management-b6/emergency-preparedness-and-response-procedures/family-reunification", label: "Charleston County School District: family reunification procedures" }, { href: "https://www.ccsdschools.com/departments2/operations/security-and-emergency-management-b6/school-closure-and-delay-procedures", label: "Charleston County School District: closure, delay and activity procedures" }],
+    sourceCheck: { date: "2026-11-09", scope: "Read Charleston County School District Family Reunification and School Closure and Delay Procedures for notification records, identification, emergency-contact records, offsite reunification and separate schedule changes. DOJ service-animal FAQ Q11 was checked November 6, 2026 for the separate hotel-access answer. No visible publication dates on the district pages; linked videos and transportation memos were not reviewed. Household records and the two-campus exercise are editorial planning aids. No current closure, individual child's authorization, custody arrangement or daycare procedure was verified." },
+    sources: [{ href: "https://www.ready.gov/kids", label: "Ready.gov: family and child preparedness" }, { href: "https://www.ready.gov/plan", label: "Ready.gov: communication and reunification planning" }, { href: "https://www.ccsdschools.com/departments2/operations/security-and-emergency-management-b6/emergency-preparedness-and-response-procedures/family-reunification", label: "Charleston County School District: family reunification procedures" }, { href: "https://www.ccsdschools.com/departments2/operations/security-and-emergency-management-b6/school-closure-and-delay-procedures", label: "Charleston County School District: closure, delay and activity procedures" }, { href: "https://www.ada.gov/resources/service-animals-faqs/", label: "DOJ: service-animal hotel access (checked November 6, 2026)" }],
     title: "Hurricane School and Daycare Emergency Plan for Families",
     description: "A family-focused hurricane guide for school closures, daycare pickup, child go-bags, communication plans, documents, pets, and post-storm routines.",
     datePublished: "2026-08-17",
-    dateModified: "2026-11-09",
+    dateModified: "2026-11-10",
     image: "/images/blog/hurricane-school-daycare-emergency-plan.png",
     imageAlt: "A parent reviews a hurricane family communication plan and school pickup contacts with a child.",
     sections: [
@@ -3463,7 +3468,8 @@ export const blogPosts: BlogPost[] = [
       { question: "Should I send my child to school if a hurricane may affect the area later?", answer: "Follow district announcements and local emergency guidance. Weather may look calm before conditions deteriorate, so monitor official school, NWS, and emergency management updates." },
       { question: "What documents should parents save before hurricane season?", answer: "Save school contacts, pickup authorizations, custody documents if applicable, medical forms, insurance cards, immunization records, and emergency contact lists in cloud and paper copies." },
       { question: "How can I help children cope after a hurricane?", answer: "Restore predictable routines when safe, limit repeated storm footage, answer questions simply, reconnect with school or friends, and seek professional support if distress persists or worsens." },
-      { question: "Where should families check school closure information?", answer: "Use the official school district or daycare alert system, local emergency management, local news, and weather.gov alerts rather than social media rumors." }
+      { question: "Where should families check school closure information?", answer: "Use the official school district or daycare alert system, local emergency management, local news, and weather.gov alerts rather than social media rumors." },
+      { question: "Does a child using a service animal need a pet-friendly hotel room?", answer: "Not simply because they use a service animal. DOJ FAQ Q11 requires equal access to available rooms at ADA-covered hotels. Separately arrange animal care and the child's accommodations; ordinary pet rules do not define service-animal access." }
     ]
   },
   {

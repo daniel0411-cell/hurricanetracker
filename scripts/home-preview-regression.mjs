@@ -51,6 +51,7 @@ assert.equal((await preview()).stormStatusClass, "status-calm");
 const prepCondition = page.match(/\{([^{}\n]+) && \(\s*<div class="calm-prep-box"/)[1];
 const showsEmptyFeedPlanning = (state) => vm.runInNewContext(prepCondition, state);
 assert.equal(showsEmptyFeedPlanning(await preview()), true);
+assert.ok(page.indexOf('<div class="outlook-layout">') < page.indexOf('<div class="calm-prep-box">'), "Current outlook must precede routine planning even with an 80% development area and no active cyclone");
 assert.equal(showsEmptyFeedPlanning(await preview({ ...nhc, storms: [testStorm] })), false);
 assert.equal(showsEmptyFeedPlanning(await preview({ ...nhc, storms: [{ ...testStorm, id: "ep012026" }] })), true);
 for (const failure of [null, new Error("Timeout"), {}, { ...nhc, cacheStatus: "stale" }, { ...nhc, fetchedAt: new Date(now - 16 * 60_000).toISOString() }]) {
