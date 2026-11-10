@@ -13,6 +13,11 @@ vm.runInNewContext(ts.transpileModule(fs.readFileSync("src/middleware.ts", "utf8
     : { TRACKER_SLUG_SET: new Set(["florida", "texas"]) }
 });
 const handler = module.exports.onRequest;
+const assetRedirects = new Map(fs.readFileSync("public/_redirects", "utf8").trim().split("\n").map((line) => {
+  const [from, to, status] = line.trim().split(/\s+/);
+  assert.equal(status, "301");
+  return [from, to];
+}));
 const aliases = {
   "/hurricane-tracker/": "/tracker/",
   "/city/": "/hurricane-tracker/city/",
@@ -28,6 +33,11 @@ const aliases = {
   "/hurricane-tracker/florida/": "/tracker/florida/"
 };
 for (const [from, to] of Object.entries(aliases)) {
+  if (!from.startsWith("/hurricane-tracker/florida")) {
+    for (const path of [from, from.replace(/\/$/, "")]) {
+      assert.equal(assetRedirects.get(path), `https://www.hurricanetracker.cc${to}`, "Static asset fallback must also redirect unmatched routes");
+    }
+  }
   for (const method of ["GET", "HEAD"]) {
     for (const origin of ["http://hurricanetracker.cc", "https://www.hurricanetracker.cc"]) {
       const response = await handler({ request: new Request(`${origin}${from}?ref=old`, { method }) }, () => {

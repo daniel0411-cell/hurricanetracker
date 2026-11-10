@@ -9,6 +9,7 @@ Baseline: 9d755759a75825186eaafbd6fe95675cadedf53e. Read GSC and Bing reports in
 - Existing path, evacuation-zone, Orlando, Tampa and recently revised blog content already serve distinct reading or planning tasks. Retained them rather than arbitrarily shrinking the sitemap or applying noindex to every unindexed page.
 - Privacy remains an accessible policy page. Temporary tracker IDs are operational resources, not evergreen articles; current feed availability limits their interpretation.
 - Eleven reported short paths still returned 404. Added exact legacy aliases to relevant existing resources and corrected the two current links to the absent hurricane-tracker directory. Unknown paths retain normal 404 handling.
+- Production verification showed unmatched routes bypass Astro middleware. Cloudflare asset `_redirects` therefore provides the same exact mappings at the asset fallback; regression coverage checks parity with the middleware paths.
 
 ## Safety and quiet-weather usefulness
 
