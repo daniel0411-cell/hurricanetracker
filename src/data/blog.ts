@@ -1194,7 +1194,8 @@ export const blogPosts: BlogPost[] = [
     title: "Real-Time Hurricane Tracking: 2026 Late-Season Guide",
     description: "Track late-season hurricane risks with NHC outlooks, radar, satellite imagery, and local alerts. Learn why low formation odds can still mean coastal danger.",
     datePublished: "2026-08-06",
-    dateModified: "2026-11-08",
+    dateModified: "2026-11-10",
+    review: { date: "2026-11-10", scope: "Editorial review of product clocks and cross-basin identification, retaining the previously checked November 8 outlook example. Sources were not newly read; no present storm, warning or feed freshness was verified.", correction: "Added a fictional time-label exercise and a product-by-product handoff instead of assigning one freshness time to an entire dashboard." },
     image: "/images/blog/real-time-hurricane-tracking-2026.png",
     imageAlt: "A person views a live hurricane tracking dashboard on a large monitor showing satellite, radar, and a forecast cone.",
     sections: [
@@ -1229,6 +1230,20 @@ export const blogPosts: BlogPost[] = [
         heading: "How Real-Time Hurricane Tracking Works",
         body: "Different observations answer different questions. GOES satellite imagery shows cloud structure over broad areas, including locations beyond coastal radar coverage. Land-based Doppler radar shows precipitation and measured motion within its coverage. When available, aircraft reconnaissance samples wind, pressure, and the storm environment. Forecasters combine these observations rather than reading storm strength from a single image. Compare valid times before putting two products side by side; a newly loaded page can still contain an older observation.",
         bullets: ["GeoColor helps show cloud patterns; it is not a quantitative cloud-top-temperature map.", "Infrared imagery can show cloud-top brightness temperatures, but those temperatures alone do not determine surface wind speed.", "Radar coverage, beam height, and range limit what a coastal radar can observe over the ocean.", "Aircraft, buoy, and other ocean observations supplement satellite estimates when available."]
+      },
+      {
+        heading: "Four Clocks on One Tracking Screen",
+        body: "Keep the page retrieval time, observation time, bulletin issue time and forecast valid time in separate fields. A forecast can be current as a bulletin while describing a future position; an image can be the newest available frame while still being too old for the comparison you intended. A page-level updated label cannot establish the freshness of every layer. If a layer supplies no usable time, record that gap and open its official source rather than borrowing another layer's timestamp.",
+        bullets: ["Retrieval: when your device received the page or feed, not when the weather was observed.", "Observation: the time represented by the image or reported storm position.", "Issuance: when the agency released the bulletin; read its next-update instructions separately.", "Validity: the date and time a forecast position or warning period refers to, including the time zone."]
+      },
+      {
+        heading: "Reading Exercise: Which Item Is From 12:07 UTC?",
+        body: "Fictional screen: retrieved November 10 at 12:07 UTC; bulletin issued at 12:00 UTC; satellite frame labeled 11:40 UTC; forecast point valid November 11 at 12:00 UTC. Only retrieval occurred at 12:07. The satellite observation is 27 minutes earlier than retrieval; the forecast point describes the next day. Those differences alone do not prove an outage, an intensity change or a missed agency update. Check each product's own schedule and next-update text. Do not caption the forecast point as the storm's observed position at 12:07, or label the satellite frame with the bulletin's issue time.",
+        links: [{ href: "/blog/hurricane-radar-vs-satellite/", label: "Check image sequence times before interpreting movement" }]
+      },
+      {
+        heading: "Keep the Storm Identifier With the Handoff",
+        body: "When sharing a dashboard update, name the basin, storm identifier and year as well as the display name. A feed showing several basins can contain a valid Pacific advisory alongside an Atlantic outlook. Copy the source and time for each product, then state the local warning or household question that still needs checking. An outlook about formation, a named-storm advisory and a local coastal warning cannot replace one another merely because they are on the same screen. Keep the November 8 AL94 passage above labeled as a dated example when forwarding it; its presence on a newly opened page does not turn it into today's outlook."
       },
       {
         heading: "Reading Extreme Weather Alerts",
@@ -1282,6 +1297,10 @@ export const blogPosts: BlogPost[] = [
       {
         question: "Does the Saffir-Simpson scale measure storm surge?",
         answer: "No. The Saffir-Simpson scale rates hurricanes by wind speed only. Storm surge, rainfall flooding, and tornado risk are separate hazards that can be deadly even in lower-category storms."
+      },
+      {
+        question: "Can one dashboard update time certify every map layer?",
+        answer: "No. Read each layer's observation or valid time and the bulletin's issue time separately. Page retrieval time does not turn an older image into a new observation or a forecast point into the current position."
       }
     ]
   },
@@ -1535,7 +1554,8 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Rapid Intensification: Observations and Forecasts",
     description: "Understand hurricane rapid intensification, how observed wind changes differ from forecasts, and what HurricaneHub's state monitoring can and cannot tell you.",
     datePublished: "2026-08-10",
-    dateModified: "2026-11-06",
+    dateModified: "2026-11-10",
+    review: { date: "2026-11-10", scope: "Editorial review of interval arithmetic, category changes and operational versus best-track estimates, using the retained November 6 Michael evidence. Sources were not newly read; no current intensity forecast or additional historical interval was checked.", correction: "Replaced measured-change wording with observed or analyzed estimates and added explicit limits on extrapolating a historical wind increase." },
     sourceCheck: { date: "2026-11-06", scope: "NHC glossary and Michael AL142018 rows in the September 23, 2026 HURDAT2 release; checked UTC timestamps, sustained wind in knots and 24-hour subtraction. Best track is a post-storm analysis, not a raw instrument measurement or a current forecast. The separate site-monitoring description is not a forecast verification." },
     image: "/images/guides/michael-24h-desktop.webp",
     imageAlt: "Michael's historical NHC best-track winds: 90 kt, 100 kt and 125 kt across an exact 24-hour interval in October 2018.",
@@ -1552,12 +1572,12 @@ export const blogPosts: BlogPost[] = [
     sections: [
       {
         heading: "Direct Answer",
-        body: "The National Hurricane Center defines rapid intensification as an increase in a tropical cyclone's maximum sustained winds of at least 30 knots in 24 hours, approximately 35 mph. This describes a measured change over a period of time. It does not mean that a tracker can predict the next increase, identify an exact landfall, or decide whether a household should evacuate. Use the latest NHC advisory and discussion for the official intensity forecast, local NWS products for hazards near you, and emergency management instructions for evacuation decisions. HurricaneHub's state pages can add context from recent wind observations when a suitable history is available.",
+        body: "The National Hurricane Center defines rapid intensification as an increase in a tropical cyclone's maximum sustained winds of at least 30 knots in 24 hours, approximately 35 mph. A historical calculation may use observed or analyzed intensity estimates; best track is not a raw instrument measurement. The definition does not mean that a tracker can predict the next increase, identify an exact landfall, or decide whether a household should evacuate. Use the latest NHC advisory and discussion for the official intensity forecast, local NWS products for hazards near you, and emergency management instructions for evacuation decisions. HurricaneHub's state pages can add context from recent wind estimates when a suitable history is available.",
         links: [{ href: "https://www.nhc.noaa.gov/aboutgloss.shtml#RDEEP", label: "Read the NHC definition of rapid intensification" }]
       },
       {
         heading: "What Is Rapid Intensification?",
-        body: "Read a rapid-intensification statement together with its start time, end time, wind units, and source. A change between two observations around 24 hours apart is different from a forecast showing stronger winds tomorrow. It is also different from a storm crossing a category boundary: a category describes its maximum sustained wind at one time, while rapid intensification describes how much that wind changed. Tropical storms as well as hurricanes can strengthen rapidly. A storm that does not meet the threshold can still create dangerous wind, surge, rain, or tornado hazards. Avoid treating the presence or absence of an RI label as a complete local risk assessment."
+        body: "Read a rapid-intensification statement together with its start time, end time, wind units, and source. A historical 24-hour calculation needs a matching 24-hour pair; do not silently substitute an 18-hour interval or a forecast showing stronger winds tomorrow. It is also different from a storm crossing a category boundary: a category describes its maximum sustained wind at one time, while rapid intensification describes how much that wind changed. Tropical storms as well as hurricanes can strengthen rapidly. A storm that does not meet the threshold can still create dangerous wind, surge, rain, or tornado hazards. Avoid treating the presence or absence of an RI label as a complete local risk assessment."
       },
       {
         heading: "Environmental Clues Are Not a Forecast",
@@ -1589,6 +1609,15 @@ export const blogPosts: BlogPost[] = [
           "This is an analyzed historical change. A forecast of 125 kt tomorrow would answer a different question, and neither result gives a household evacuation deadline.",
           "Your own record: storm ID/year; data product and release; start UTC and sustained wind/unit; end UTC and sustained wind/unit; elapsed hours; difference; observed/analyzed versus forecast; any missing field. An incomplete pair stays unverified."
         ]
+      },
+      {
+        heading: "A Category Change and a Wind Change Answer Different Questions",
+        body: "Fictional exercise using the published wind thresholds: a storm rises from 90 kt to 100 kt over exactly 24 hours. It crosses from Category 2 to Category 3, but the increase is only 10 kt, below the 30 kt RI threshold. The real Michael interval above rises from 90 kt to 125 kt, a 35 kt increase. Both examples cross category boundaries; only the specified Michael interval meets the wind-change threshold. Classify the start and end separately, then calculate the elapsed time and difference. Counting category steps is not a substitute for that calculation.",
+        links: [{ href: "/blog/saffir-simpson-hurricane-wind-scale-explained/", label: "Use the original knot thresholds to classify each endpoint" }]
+      },
+      {
+        heading: "Do Not Turn the Historical Rate Into Tomorrow's Forecast",
+        body: "Michael's 35 kt increase over 24 hours is an average change across those two analyzed endpoints. It does not establish equal hourly increases or imply another 35 kt in the next day. Likewise, an operational estimate and a later best-track estimate should not be spliced together without identifying their different products. To check an old forecast, retain the forecast as issued and compare its stated valid time with the corresponding analyzed record; replacing the old forecast with the final analysis would erase the question you were trying to evaluate. This article's worked subtraction does not evaluate forecast skill."
       },
       {
         heading: "What HurricaneHub's State Monitoring Measures",
@@ -1635,11 +1664,11 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "saffir-simpson-hurricane-wind-scale-explained",
     sources: [{ href: "https://www.nhc.noaa.gov/aboutsshws.php", label: "NHC Saffir-Simpson Hurricane Wind Scale: wind thresholds and potential damage" }, { href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC glossary: maximum sustained surface wind" }, { href: "https://www.nhc.noaa.gov/archive/2017/al11/al112017.discus.028.shtml", label: "Historical Irma discussion 28: September 6, 2017 at 0300 UTC" }, { href: "https://www.nhc.noaa.gov/data/hurdat/hurdat2-1851-2025-092326.txt", label: "NHC HURDAT2: Michael AL142018, October 10 at 1200 and 1730 UTC" }, { href: "https://www.nhc.noaa.gov/aboutcone.shtml", label: "NHC: the cone describes uncertainty in the center track" }],
-    review: { date: "2026-11-06", scope: "Wind categories, product interpretation and historical reading exercise", correction: "Replaced total-destruction shorthand, unsupported generic water-height and seasonal-share claims, and the suggestion that a cone establishes exact landfall intensity. Peak, landfall and local impacts remain distinct." },
+    review: { date: "2026-11-10", scope: "Editorial review of category boundaries and downgrade interpretation, retaining the November 6 scale, Irma and Michael evidence. Sources were not newly read; no local wind or damage estimate was checked.", correction: "Added a one-knot classification exercise and clarified that category steps are not damage ratios. Earlier corrections separating peak, landfall and local impacts remain." },
     title: "Hurricane Categories 1-5: Read the Wind Scale Correctly",
     description: "Read hurricane Categories 1-5 using NHC wind thresholds and a real Irma advisory. Separate sustained wind, landfall intensity, surge and local damage.",
     datePublished: "2026-08-10",
-    dateModified: "2026-11-06",
+    dateModified: "2026-11-10",
     sourceCheck: { date: "2026-11-06", scope: "NHC scale and glossary; Irma discussion 28 INIT and forecast rows; Michael AL142018 best-track entries at 1200 and 1730 UTC on October 10, 2018. Historical products only; no current forecast or property-specific damage assessment." },
     image: "/images/blog/saffir-simpson-scale.png",
     imageAlt: "A woman in a safety vest surveys hurricane damage in a residential neighborhood with a fallen oak tree, damaged roof, and emergency vehicles in the background.",
@@ -1691,6 +1720,16 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "https://www.nhc.noaa.gov/data/hurdat/hurdat2-1851-2025-092326.txt", label: "Check Michael AL142018, October 10 at 1200 and 1730 UTC" }, { href: "/blog/hurricane-rapid-intensification/", label: "Calculate Michael's separate 24-hour wind change" }]
       },
       {
+        heading: "A One-Knot Boundary Is Not a Damage Multiplier",
+        body: "Fictional classification exercise: a bulletin reports 95 kt maximum sustained wind, then a later bulletin reports 96 kt. Under the knot thresholds above, the labels are Category 2 and Category 3. The category boundary changes, but this does not establish a sudden fixed increase in damage at a house. Conversely, a large wind increase can occur within one category. Use the actual wind estimate, time and scale for classification; use local hazards, exposure and building information for the household question. Do not convert a one-category rise or fall into a percentage change in total danger.",
+        bullets: ["95 kt: Category 2; 96 kt: Category 3. Keep the original unit rather than rounding through mph to decide the boundary.", "A category is a threshold label, not a ratio: Category 4 does not mean twice the damage of Category 2.", "Maximum storm wind is not the wind recorded at every address. A local gust and an advisory's sustained maximum are different quantities."]
+      },
+      {
+        heading: "Check What a Downgrade Actually Changes",
+        body: "Suppose an update changes the cyclone's wind category while the separate local surge warning remains in effect. The wind classification has changed; that fact alone supplies no cancellation of the water warning or local evacuation order. Read the updated advisory and the local messages for their own affected areas and valid times. When reporting a historical storm, specify whether the category is the lifetime peak, one landfall or an earlier advisory value. Michael's 1200 and 1730 UTC entries above are useful precisely because their timestamps remain attached rather than being collapsed into one timeless label.",
+        links: [{ href: "/blog/storm-surge-warning-vs-hurricane-warning/", label: "Check water, wind and evacuation messages separately" }]
+      },
+      {
         heading: "Make a Five-Field Intensity Record",
         body: "For the next advisory you read, save the storm ID/year, product and issue time, the wind field and unit, the valid time, and whether the value is current, forecast or post-storm analysis. Then classify it using the matching unit thresholds. If you need intensity near a predicted coastal crossing, read the NHC forecast/advisory and discussion with their valid times and uncertainty. Some track graphics include intensity symbols at forecast points, but the cone's purpose is center-track uncertainty; it cannot establish exact landfall time, intensity or a local wind measurement. Finally, check the actual hazards and instructions for your location.",
         links: [{ href: "https://www.nhc.noaa.gov/aboutcone.shtml", label: "Read NHC's definition of the center-track cone" }, { href: "/hurricane-tracker/live/", label: "Find current NHC storm context" }, { href: "/alerts/", label: "Check location-specific NWS alerts" }]
@@ -1730,7 +1769,7 @@ export const blogPosts: BlogPost[] = [
     "title": "How to Read Hurricane Spaghetti Models: A Practical Guide",
     "description": "Read hurricane spaghetti plots by checking initialization time, model families and forecast hours. Work through a historical Danny example and separate guidance from warnings.",
     "datePublished": "2026-08-10",
-    "dateModified": "2026-11-06",
+    "dateModified": "2026-11-10",
     "image": "/images/blog/hurricane-spaghetti-models.png",
     "imageAlt": "Editorial illustration of a meteorologist reviewing colorful hurricane model tracks on a monitor.",
     "imageCaption": "AI-generated editorial illustration, not an observed operations-center photograph or current forecast. The worked example links to an original NWS teaching slide.",
@@ -1739,9 +1778,9 @@ export const blogPosts: BlogPost[] = [
       "scope": "NHC model definitions and verification guidance, plus NWS slide 7 showing Danny guidance initialized August 22, 2015. No current storm/model-run comparison or forecast verification was performed."
     },
     "review": {
-      "date": "2026-10-27",
-      "scope": "Model interpretation and historical reading exercise.",
-      "correction": "Removed unqualified model rankings, the misclassification of NVGM as consensus, fixed-mile error claims and the suggestion that an isolated track can be dismissed automatically. HurricaneHub displays NHC guidance, not its own model consensus."
+      "date": "2026-11-10",
+      "scope": "Editorial review of valid-time arithmetic and displayed-track counts, retaining the October 27 model definitions and historical teaching evidence. Sources were not newly read; no current model run or forecast skill was checked.",
+      "correction": "Added explicit fictional 72-hour versus 60-hour time matching and an eight-of-ten reading exercise. Earlier model-identity and ranking corrections remain; HurricaneHub does not compute its own model consensus."
     },
     "sections": [
       {
@@ -1801,6 +1840,15 @@ export const blogPosts: BlogPost[] = [
       {
         "heading": "What Spread and Clusters Can Actually Tell You",
         "body": "Increasing separation tells you that displayed center-track predictions disagree at those lead times. Two clusters are a reason to examine the forecaster's explanation of alternative scenarios, not to draw a new warning area yourself. A tight cluster does not prove accuracy: related models can share data or errors, and omitted outcomes are not impossible. Do not turn the fraction of visible lines crossing a state into a landfall probability. Display choices, missing members and unequal model families make that arithmetic misleading. Likewise, do not discard an outlier solely because it is alone."
+      },
+      {
+        "heading": "Worked Time Match: 72 Hours Is Not Always the Same Future",
+        "body": "Fictional arithmetic exercise, not points extracted from the Danny or Joaquin charts: run A starts November 10 at 00 UTC. Its 72-hour point is valid November 13 at 00 UTC. Run B starts November 10 at 12 UTC. Its 72-hour point is valid November 13 at 12 UTC, twelve hours later. To compare the November 13 00 UTC prediction, look for run B's 60-hour point if the product supplies one. Keep both initialization times and the shared valid time beside the positions. If the chart does not label that lead, the comparison is unresolved; do not invent a point or silently treat its endpoint as the missing time.",
+        "bullets": ["Same lead, different cycle: can refer to different future times.", "Same valid time, different cycle: can show a forecast revision, not observed storm motion.", "Same valid time, different models: can show guidance disagreement, not a measured track error.", "Actual error: requires an appropriate observation or analyzed position for that valid time; two forecasts alone cannot establish it."]
+      },
+      {
+        "heading": "Reading Check: Does Eight Out of Ten Mean 80 Percent?",
+        "body": "Imagine a provider displays ten tracks and eight cross a state. The fraction is eight-tenths of the displayed lines, but it is not a verified 80 percent landfall probability. First ask whether those lines are related ensemble members, deterministic forecasts, consensus aids, duplicated guidance or a selected subset. This exercise does not supply a replacement probability; its answer is that the plotted count alone cannot establish one. Keep the official discussion's assessment and uncertainty distinct from your count, and use the applicable local warnings rather than drawing a new evacuation boundary around the cluster."
       },
       {
         "heading": "Read Speed From Time Labels, Not Line Shape",
@@ -1926,7 +1974,8 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Storm Surge Forecasts: Read Flood Maps and Alerts",
     description: "Learn how to read NHC storm surge forecasts, water depth above ground, watches and warnings, and local evacuation zones before coastal flooding arrives.",
     datePublished: "2026-08-11",
-    dateModified: "2026-10-27",
+    dateModified: "2026-11-10",
+    review: { date: "2026-11-10", scope: "Editorial review of water reference levels, coastline explanations and map comparisons, retaining the October 27 NHC teaching-map evidence. Sources were not newly read; no current surge, tide gauge, road or evacuation instruction was checked.", correction: "Removed deterministic coastline and speed comparisons and added an explicitly fictional datum calculation that cannot establish flood depth at a building." },
     image: "/images/blog/hurricane-storm-surge-forecasting.png",
     imageAlt: "A resident stands on a porch watching storm surge seawater rising over a coastal residential street while dark hurricane clouds gather over the ocean.",
     figures: [
@@ -1956,7 +2005,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Why the Same Hurricane Produces Different Surge Heights",
-        body: "Two identical hurricanes hitting slightly different coastlines can produce dramatically different surge. A broad, gently sloping continental shelf, like the northern Gulf Coast, allows wind to pile water up over a large area, producing higher surge. A steep shelf, like parts of the Atlantic coast, tends to limit surge height. Concave bays, inlets, and river mouths can funnel water inland and amplify flooding. The angle of approach matters too: a storm moving onshore perpendicular to the coast typically pushes more water directly inland than one skirting parallel to the shore. Even the shape of the storm matters. A large, slow-moving hurricane with a wide wind field can push more total water than a compact but intense hurricane, because the wind has more time and surface area to act on the ocean."
+        body: "Surge responds to the storm's wind field, track, size and timing as well as the shape and depth of the coast. Bays, inlets and connected waterways can change the local response. These factors interact, so a broad coastline label or one speed value cannot rank the water hazard at two addresses. A statement that one shelf shape can amplify surge is not a prediction that every location there receives more water than every location on another coast. Use the forecast for the named place and product time, with its tide and reference-level information, rather than deriving a residential depth from category, forward speed or a general geography rule."
       },
       {
         heading: "Read the Hurricane X Teaching Map",
@@ -1967,6 +2016,15 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "What a Yellow Patch Cannot Tell a Household",
         body: "Illustrative decision exercise: a household sees its neighborhood near yellow shading and a road on the base map. The supported reading is that this product shows potential water greater than 3 feet above ground in the yellow area under the product's planning assumptions. It does not establish the flood depth inside that home, when the access road becomes impassable, whether rain will flood another road, or whether a shelter is open. Resolve those questions with the current local warning and order, transportation notices and the shelter operator. If the map and order seem inconsistent, recheck the issue time, boundary and product type; do not use the illustration to override an order."
+      },
+      {
+        heading: "Worked Reference Check: Seven Feet Above What?",
+        body: "Fictional arithmetic exercise: a water level is 7 feet above a named vertical datum and a ground elevation is 4 feet above that same datum at the same location. Their difference is 3 feet. This only illustrates subtracting quantities with the same reference; it is not a forecast, survey, wave calculation or estimate of indoor depth. If the ground number uses another datum, refers to a different place or actually describes the floor, the subtraction no longer answers the stated ground-depth question. An NHC map already labeled depth above ground is a different quantity: do not subtract ground elevation from it again.",
+        bullets: ["Before arithmetic: identify quantity, location, units, reference level and time or forecast scenario.", "After arithmetic: keep the result's limited meaning. A computed ground-level difference cannot establish floor flooding, safe travel or structural safety.", "If the reference is missing: keep the comparison unresolved and use the official product explanation or qualified local help rather than supplying an assumed datum."]
+      },
+      {
+        heading: "Compare Map Issuances Without Turning Color Into a Trend Gauge",
+        body: "For two maps, first match the storm, product, geographic view, legend and displayed issue or valid period. Then describe the actual change at a named location and read the accompanying advisory. A change from yellow to orange in the retained teaching legend crosses depth thresholds; it is not a measured three-foot rise in real water. Different map extents or gray masks may also change what you see. Keep the old issuance with its labels and check local instructions separately. Do not treat fewer colored pixels as cancellation of a warning or as proof that a road is open."
       },
       {
         heading: "Reading Storm Surge Watches and Warnings",
@@ -1983,7 +2041,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Watch the Clock, Not Just the Track",
-        body: "Surge can arrive hours before the storm's center. In shallow bays and river mouths, water may begin rising well before peak winds reach the coast. This is why waiting until the last minute to leave can be fatal: the bridge or causeway you planned to use may already be underwater. If you live in an evacuation zone and are told to leave, go before the surge begins, not when you can see water rising. Track the storm's forward speed as closely as its category. A slow-moving storm can push water against the coast for many hours, while a fast-moving storm can drive a sudden pulse of water into bays and estuaries. Both scenarios are dangerous, but the timing of your evacuation decision changes."
+        body: "Water and travel hazards can develop before the center or peak winds reach the coast. If your zone is told to leave, follow the local action time rather than waiting to see water. A storm's forward speed alone does not calculate the last safe crossing of a bridge or causeway. Use official local instructions, hazard timing and road restrictions, allowing for household transport needs. If access becomes unavailable, seek current local guidance rather than choosing a shortcut through water. The map's depth thresholds do not supply a road-closing time or a guaranteed evacuation window."
       },
       {
         heading: "Prepare for Storm Surge by Evacuation Zone",
@@ -1991,8 +2049,8 @@ export const blogPosts: BlogPost[] = [
         bullets: [
           "If officials order or recommend evacuation for your zone: Follow their timing and destination instructions. Take essential medications, pets, and important documents, and allow time for transport needs.",
           "If your zone is not yet under an evacuation instruction: Prepare transport, a destination, charged devices, and essential supplies while monitoring official updates. Do not assume a zone label guarantees safety.",
-          "Outside mapped zones but near rivers or bays: Do not assume you are safe. Surge can travel up rivers, estuaries, and drainage canals. Check local flood maps and monitor real-time river gauges.",
-          "All coastal residents: Know at least two evacuation routes in case your primary route floods. Identify a destination outside the surge zone and confirm it accepts pets if needed."
+          "Outside mapped zones but near rivers or bays: Check current local warnings and official water forecasts; coastal and rainfall flooding need separate attention. A planning map or one nearby gauge does not certify the address or its access route.",
+          "Before travel: Identify routes and an alternative destination through official local guidance. Confirm actual access and receiving requirements, including care and pets. Never use a mapped road line as proof that a route is open."
         ]
       },
       {
@@ -3418,7 +3476,8 @@ export const blogPosts: BlogPost[] = [
     title: "How to Read a FEMA Flood Zone Map Before Hurricane Season",
     description: "Learn what FEMA flood zone letters, base flood elevation, and map updates mean for hurricane preparedness, flood insurance questions, and local evacuation planning.",
     datePublished: "2026-08-17",
-    dateModified: "2026-11-08",
+    dateModified: "2026-11-10",
+    review: { date: "2026-11-10", scope: "Editorial review of annual-chance wording, elevation arithmetic and unresolved map boundaries, retaining the October 27 FEMA tutorial evidence. Sources were not newly read; no property, effective panel, survey, premium or lender determination was checked.", correction: "Added a conditional probability exercise and same-datum elevation example without treating them as a property forecast or determination." },
     sourceCheck: { date: "2026-10-27", scope: "FEMA's January 2022 tutorial, its Zone AE teaching screenshot and linked tutorial directory. No current property determination, effective panel, insurance quote or evacuation order verified. November 8 changes only improve link text; the FEMA sources were not rechecked that day." },
     image: "/images/blog/hurricane-flood-zone-map-fema-understanding.png",
     imageAlt: "A coastal homeowner reviews a digital flood zone map with property documents on a desk.",
@@ -3445,6 +3504,15 @@ export const blogPosts: BlogPost[] = [
           "Base Flood Elevation (BFE) is the computed water-surface elevation for the mapped one-percent-annual-chance flood, not the water depth above your floor or yard. Before comparing a BFE with a building elevation, confirm units, vertical datum and the applicable location with the local floodplain administrator or a qualified professional. A number in feet is not automatically feet above ground. The reference can matter for building and insurance questions, but does not predict flooding from a specific approaching hurricane."
       },
       {
+        heading: "One Percent Annual Chance Is Not Once Every Hundred Years",
+        body: "The annual chance describes a probability for a year, not a timetable with a safe interval after a flood. For a mathematical illustration only, assume a constant 1 percent annual chance and independent years. The chance of at least one occurrence in 30 years is 1 minus 0.99 to the power 30, about 26 percent. The assumptions matter: this is not a new property-specific risk estimate, a claim that actual years are independent or a forecast that a particular home will flood. It explains why multiplying a return-period label into a guaranteed waiting time is wrong. A flood last year does not create a guaranteed flood-free period now.",
+        bullets: ["Annual chance: the period and event definition belong with the probability.", "Thirty-year illustration: about 26 percent under the stated assumptions, not exactly 30 percent and not a promise of one event.", "Mapped zone: a planning and regulatory classification, not the chance that today's hurricane floods the structure."]
+      },
+      {
+        heading: "Elevation Exercise: Keep the Datum Before Subtracting",
+        body: "Fictional example: a BFE of 12 feet and a surveyed floor elevation of 10 feet refer to the same location, units and vertical datum. The floor is 2 feet below that reference BFE. This arithmetic does not predict two feet of water during the next storm, determine code compliance or price a policy. If the survey uses a different datum, do not subtract until a qualified source resolves the reference. Likewise, a BFE and a ground elevation answer a different question from a BFE and a floor elevation. Keep the original survey and map identifiers with the comparison rather than sharing only the two numbers."
+      },
+      {
         heading: "Read FEMA's Zone AE Teaching Example",
         body: "Use the numbered arrows in FEMA's January 2022 tutorial, not a made-up residential address. Arrow 1 identifies a pin at an approximate location. Arrow 2 points to the map number and effective date. Arrow 3 identifies Zone AE. These are three separate checks: locating a pin does not establish the correct building footprint, the map date is not the date of today's storm, and a zone name does not describe an evacuation order. The screenshot also contains a hatched FLOODWAY area and elevation labels. Consult the complete legend instead of assuming that every blue or hatched area has the same meaning.",
         bullets: ["First: match the pin to roads, landmarks and the intended building, not merely the nearest address label. FEMA calls the pin approximate.", "Second: copy the map number and effective date from your own readable map result. The tutorial's small date text is not a reason to guess a year or reuse its panel for another location.", "Third: record the zone at the intended structure. In this tutorial the identified zone is AE; that does not establish any reader's current zone.", "Fourth: keep the legend and map notes with the result. A cropped zone color without the panel identification is an incomplete record."],
@@ -3469,6 +3537,11 @@ export const blogPosts: BlogPost[] = [
         heading: "Make a Record You Can Actually Recheck",
         body: "For a practice run, use the tutorial's Zone AE example to fill only the supported entry: 'Teaching example: Zone AE; approximate pin; current property status not checked.' Leave the reader's own address, effective panel and elevation fields blank until those have been verified. For a real lookup, keep the following record privately with your household documents rather than posting an address screenshot in a public discussion.",
         bullets: ["Property: full address, intended structure and whether the search pin was checked against landmarks.", "Map: panel identifier, effective date, zone at the structure, saved map/legend and date you accessed them.", "Changes: applicable amendment or revision identifiers, or a note that applicability still needs official confirmation.", "Elevation: any BFE, its units and vertical datum, plus the qualified source for the building elevation; do not subtract unlike references.", "Separate evacuation check: county, planning-zone result, lookup date and where current orders will be checked.", "Unresolved question: the exact item to ask the floodplain administrator, lender or insurer, with the response date and contact."]
+      },
+      {
+        heading: "If the Pin or Boundary Is Unclear, Preserve the Question",
+        body: "For a structure near a zone boundary, save a readable map with its legend, panel, effective date and any identified amendment. Describe which structure or part of the result is uncertain when asking the local floodplain administrator for clarification. A street address can represent a parcel with several buildings; an approximate search pin cannot decide every building's status. Avoid moving the pin until it lands in the preferred color or using a screenshot from a neighboring lot. An official clarification about mapped status still does not replace the separate storm warning or evacuation instruction.",
+        links: [{ href: "/blog/hurricane-documents-insurance-checklist/", label: "Keep map, survey and policy records in a protected household index" }]
       },
       {
         heading: "Insurance Planning Questions",
