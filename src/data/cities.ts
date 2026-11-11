@@ -832,6 +832,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "galveston",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read the City of Galveston's OEM and Hurricane Evacuation HTML: jurisdictional orders, Zip Zone Coastal, destination arrangements, alternate contacts and 211 information. No visible article revision date. Linked maps include different year labels and were not reviewed. No address lookup, present order, road, fuel supply, shelter, ride or accommodation was verified; retained hazard background was not reverified." },
     name: "Galveston",
     stateCode: "TX",
     stateName: "Texas",
@@ -857,10 +859,26 @@ export const hurricaneCities: HurricaneCity[] = [
         heading: "Bay and Mainland Impacts",
         body:
           "Nearby bay communities can experience surge and flooding even when island conditions differ. Galveston residents should track county alerts and Houston-area route conditions together."
+      },
+      {
+        heading: "Keep Zip Zone Coastal Beside the Actual Order",
+        body: "The city's Hurricane Evacuation page places all of Galveston Island in Zip Zone Coastal and says the mayor or county judge issues an evacuation call for the relevant jurisdiction. Save the full departure address, jurisdiction, zone source and current announcement as separate entries. A ZIP-zone map groups departures for planning; it does not give a building's flood depth or authorize entering a controlled road. The official pages link maps with different year labels. Open the responsible agency's current instructions rather than assigning an edition from a file name or copying a past storm's departure sequence."
+      },
+      {
+        heading: "Connect the Mainland Destination With a Receiving Person",
+        body: "The city recommends arranging a destination early, contacting family or friends before arrival, keeping an alternative and informing the original host if plans change. Record the actual host or lodging operator's reply, arrival contact, accessibility and animal arrangements. Check the receiving area's instructions as well as the island departure. A room search result or familiar Houston address is a lead to confirm, not a completed arrangement. If the first destination changes, update the driver, receiving contact and family contact together instead of editing only the route in a navigation app."
+      },
+      {
+        heading: "Ask 211 About Assistance, Then Confirm the Operator",
+        body: "Galveston's page lists 2-1-1 for evacuation routes, shelter information and special-needs transportation questions. Use that as an information contact, then establish who actually provides the required ride and receiving arrangement. Write down the provider, response time, pickup instructions if assigned, equipment needs and unresolved questions. A phone referral is not a dispatched vehicle, a shelter reservation or confirmation of ongoing medical care. Do not calculate a last safe departure from a landfall forecast: follow the applicable local timetable and check official road information for the actual journey."
+      },
+      {
+        heading: "Galveston Exercise: Which Part of the Trip Changed?",
+        body: "Fictional record: an island household has saved its coastal ZIP-zone map and a relative has agreed to receive them inland. The relative becomes unavailable, so someone replaces the destination with a hotel name found online. Is the record complete? No. The household needs acceptance at the replacement destination, an agreed arrival contact and the driver's updated plan; it should tell the original host and its family contact about the change. The saved zone still identifies the departure planning area, but cannot fill those missing receiving details. No current order, address, booking, route or service has been verified by this exercise."
       }
     ],
     evacuationFocus: [
-      "Know whether your address is under Galveston County evacuation guidance.",
+      "Keep the island address, Zip Zone Coastal source and current city or county instruction together; the map is not the order.",
       "Leave early when island or coastal zones are ordered out.",
       "Plan fuel, lodging, pets, medical equipment, and mainland destination before traffic builds.",
       "Do not drive through water on island, bay, or mainland roads."
@@ -887,13 +905,16 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "Should Galveston residents wait for a major hurricane forecast?",
         answer:
           "No. Evacuation decisions should follow official local orders and surge risk, not only category. Water can be dangerous in lower-category storms."
-      }
+      },
+      { question: "Does Galveston's Zip Zone Coastal identify my building's flood depth?", answer: "No. The city places the island in this evacuation planning group. Keep the map separate from a current order, a property flood assessment and the receiving arrangement. Verify the applicable instructions with city or county officials." },
+      { question: "Does calling 211 confirm an evacuation ride?", answer: "The city lists 211 for information about routes, shelters and special-needs transport. Confirm the actual operator, pickup, destination and individual requirements separately; an information referral is not a booking." }
     ],
     officialResources: [
+      { name: "City of Galveston Hurricane Evacuation", description: "Read the city's ZIP-zone explanation, jurisdictional order process, destination planning and 211 information; check event instructions separately.", url: "https://www.galvestontx.gov/496/Hurricane-Evacuation" },
       {
-        name: "Galveston County Emergency Management",
-        description: "Official Galveston County emergency alerts, evacuation, preparedness, and recovery information.",
-        url: "https://www.gcoem.org/"
+        name: "City of Galveston Office of Emergency Management",
+        description: "Official island agency entry and links to county, state and federal planning resources. Check the responsible jurisdiction's current instructions.",
+        url: "https://www.galvestontx.gov/154/Emergency-Management"
       },
       {
         name: "NWS Houston/Galveston",
@@ -911,6 +932,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "corpus-christi",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read Corpus Christi's current hurricane hub, Register with STEAR, Evacuation Routes and Maps, and Hurricane Reentry Request HTML. Checked annual registration, separate map/transport resources and company/organization reentry scope. No visible article revision dates. Linked PDFs and CCRTA rules were not reviewed. No registry submission, pickup, road, order, shelter, credential or medical arrangement was verified; retained hazard background was not reverified." },
     name: "Corpus Christi",
     stateCode: "TX",
     stateName: "Texas",
@@ -936,11 +959,27 @@ export const hurricaneCities: HurricaneCity[] = [
         heading: "Wind and Utility Recovery",
         body:
           "The Coastal Bend can experience damaging wind and long utility restoration timelines. Households should prepare water, food, cooling, medicine, communication, and generator safety plans."
+      },
+      {
+        heading: "Update STEAR and Identify the Remaining Arrangements",
+        body: "Corpus Christi's STEAR page describes a free registry for information about residents' emergency assistance needs and says residents must register annually. It includes mobility, communication, transport, personal-care and medical needs, and lists 2-1-1 for registration assistance. Record the registration date, contact and needs accurately, then ask the responsible local service about the assistance needed for a particular event. The registry entry and a confirmed ride are different records. Keep pickup, equipment, caregiver and receiving arrangements unresolved until the responsible people confirm them; submitting information does not itself establish those services."
+      },
+      {
+        heading: "Choose the Right Resource Before Choosing a Road",
+        body: "The city's routes page separately links an evacuation-zone map, surge scenarios, an I-37 evacuation-lane resource, a state route map and CCRTA evacuation guidelines. These resources answer different questions. Save which one you used, the issuing agency and the applicable event instruction beside the departure address. A surge scenario is not a live order, and an evacuation-lane planning resource is not authorization to use a shoulder or reversed lane. Confirm actual transport requirements with the operator rather than treating a bus guideline link as a pickup assignment. Use official controls for the journey instead of improvising a shortcut."
+      },
+      {
+        heading: "Separate Business Reentry From Household Return",
+        body: "The city's Hurricane Reentry Request page describes documents for companies or organizations requesting access to an evacuated area. Its links include tier definitions, agency credentials, residency evidence and a county plan; those documents were not reviewed here. A business request is not a general resident return pass or proof that a building is usable. A household should check the current official return instruction and transport access, then separately ask about utilities and continuing care at its own property. A business should confirm its request status and applicable instructions with the responsible agency."
+      },
+      {
+        heading: "Corpus Christi Exercise: Three Different Records",
+        body: "Fictional record: a resident has last year's STEAR entry, a screenshot of the I-37 planning map and an employer's reentry application. Which document confirms this year's assisted evacuation? None of the three. The annual registration needs attention, the map does not confirm a vehicle or operating lane, and the employer's application concerns a different request. The next tasks are to update the relevant registration information, confirm the required ride and receiving arrangements, and read the actual local instruction. Do not submit private care information to the employer merely to complete a travel checklist. No application, road or service was tested in this example."
       }
     ],
     evacuationFocus: [
       "Check Nueces County and city evacuation instructions for your exact location.",
-      "Leave early if you are on Padre Island, Mustang Island, or in a surge zone.",
+      "For a barrier-island or surge-exposed address, connect the current local departure instruction with a confirmed destination and transport.",
       "Plan fuel and inland lodging before Gulf threats become urgent.",
       "Secure outdoor items and prepare for multi-day power and water disruption."
     ],
@@ -966,14 +1005,19 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "What should Corpus Christi households prepare for after landfall?",
         answer:
           "Prepare for outages, limited fuel, water disruption, debris, heat, and communication problems, especially if power restoration takes several days."
-      }
+      },
+      { question: "Do Corpus Christi residents need to renew STEAR registration?", answer: "The city's STEAR page says residents must register annually and lists 211 for registration assistance. Updating a registry is separate from confirming an event's ride, pickup, destination and care arrangements." },
+      { question: "Is a company's hurricane reentry request a resident return pass?", answer: "No. The city's request page is for companies or organizations seeking access to an evacuated area. Check the current household return instructions separately; neither an application nor permission to enter establishes that a property or its utilities are usable." }
     ],
     officialResources: [
       {
         name: "Corpus Christi Emergency Management",
-        description: "Official Corpus Christi emergency alerts, evacuation, preparedness, and hurricane information.",
-        url: "https://www.cctexas.com/services/public-safety/emergency-management"
+        description: "Current city hurricane hub with separate planning, registration, route and recovery resources; consult event-specific announcements for action.",
+        url: "https://www.corpuschristitx.gov/beready"
       },
+      { name: "Corpus Christi STEAR Registration", description: "Annual assistance-needs registration and 211 information. Confirm transport and receiving arrangements separately.", url: "https://www.corpuschristitx.gov/department-directory/office-of-emergency-management-oem/prepare-for-disasters/hurricane-preparedness-response/register-with-stear/" },
+      { name: "Corpus Christi Routes and Maps", description: "Distinct zone, surge, evacuation-lane and CCRTA resources; a planning link does not establish an operating route or service.", url: "https://www.corpuschristitx.gov/department-directory/office-of-emergency-management-oem/evacuation-routes-and-maps/" },
+      { name: "Corpus Christi Business Reentry Requests", description: "Company and organization request entry; verify eligibility, documents and current access rules with the city.", url: "https://www.corpuschristitx.gov/department-directory/office-of-emergency-management-oem/prepare-for-disasters/hurricane-preparedness-response/hurricane-reentry-request/" },
       {
         name: "NWS Corpus Christi",
         description: "Official National Weather Service alerts and forecasts for the Coastal Bend.",
@@ -1314,6 +1358,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "mobile",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read Alabama EMA's County Contacts row for Mobile and the current Mobile County EMA homepage, Evacuation Routes and Shelters HTML. The former mcema.net returned an error page. No visible article revision dates. Checked the Zone 1 lookup entry, 211 assistance contact and as-needed shelter process; linked maps were not reviewed. No address, current order, transport, shelter opening or individual care was verified; retained hazard background was not reverified." },
     name: "Mobile",
     stateCode: "AL",
     stateName: "Alabama",
@@ -1328,7 +1374,7 @@ export const hurricaneCities: HurricaneCity[] = [
       {
         heading: "Mobile Bay Surge",
         body:
-          "The shape of Mobile Bay can concentrate water when Gulf winds push surge northward. Coastal and bayfront neighborhoods should follow evacuation-zone guidance and coastal flood alerts."
+          "Coastal and bayfront neighborhoods should compare official surge forecasts and coastal flood alerts with the applicable local evacuation guidance. Conditions around the bay vary with the storm; a general bay description cannot establish flood depth at a home."
       },
       {
         heading: "Rainfall and Tornado Bands",
@@ -1339,11 +1385,27 @@ export const hurricaneCities: HurricaneCity[] = [
         heading: "Outages and Heat",
         body:
           "Power outages after Gulf storms can last beyond the wind event. Mobile households should prepare for charging, cooling, food safety, medical equipment, and generator safety."
+      },
+      {
+        heading: "Use Mobile County's Own Lookup and Instruction",
+        body: "Mobile County EMA's current evacuation page links a Know Your Zone tool to determine whether an address is in Zone 1. Save the exact address privately, the lookup source, result and date, then keep any current evacuation announcement in a separate field. The state EMA contact directory identifies Mobile and Baldwin as separate county offices. Do not copy Baldwin's numbered zones, transport scenarios or shelter instructions onto a Mobile address because both counties face the bay. If the lookup is unclear, use the responsible county contact to resolve it rather than assigning the nearest mapped result."
+      },
+      {
+        heading: "A Shelter Page Requires an Opening Check",
+        body: "Mobile County's Shelters page says temporary emergency shelters are coordinated as needed and that additional openings will be listed there. The evacuation page also directs people to ask local officials about available shelter spaces. A school name, last year's location or a bookmarked shelter page is not an accepted destination. Ask about the actual opening, intake instructions, accessibility, caregiver, equipment and animal arrangements with the responsible operator. Keep essential receiving questions beside the journey plan so a driver does not arrive with needs the chosen facility cannot meet."
+      },
+      {
+        heading: "Turn a 211 Referral Into a Confirmed Journey",
+        body: "The county lists 2-1-1 for transportation needs on its evacuation page and for assistance on its shelter page. When asking for information, identify the county, the help required and how the operator can contact the household; keep personal care details private. Record who replied, which service is responsible, any assigned pickup, the receiving place and unresolved arrangements. A referral is the start of coordination, not proof of a dispatched accessible vehicle. Keep alternatives in different directions and follow the county's recommended routes and current controls rather than assuming a cross-bay journey will remain available."
+      },
+      {
+        heading: "Mobile Exercise: Is the Baldwin Plan Transferable?",
+        body: "Fictional record: a Mobile resident saves a relative's Baldwin evacuation map and a past shelter address, then calls 211 for information. There is no Mobile address result, active shelter confirmation or pickup instruction. Can the household mark departure ready? No. It needs the applicable Mobile instruction and address result, plus the actual operator's transport and receiving answers. The Baldwin record may help the relative, but does not answer those Mobile questions. After the storm, check official directions at both the receiving location and home before traveling back. No order, ride, shelter or road is verified by this exercise."
       }
     ],
     evacuationFocus: [
-      "Check Mobile County and Baldwin County evacuation guidance for your address.",
-      "Leave early from surge zones, mobile homes, and low-lying roads.",
+      "Identify the county responsible for the actual address; Mobile and Baldwin have separate offices and planning resources.",
+      "Follow the applicable evacuation instruction and timetable; connect any required assistance with an accepted destination before travel.",
       "Prepare a tornado shelter spot inside your home or destination.",
       "Plan for power outages, heat, medicine, pets, and safe generator placement."
     ],
@@ -1358,7 +1420,7 @@ export const hurricaneCities: HurricaneCity[] = [
       {
         question: "Why is Mobile Bay storm surge important?",
         answer:
-          "Mobile Bay can funnel water northward during Gulf hurricanes, raising surge risk for bayfront and low-lying communities."
+          "Bayfront and low-lying communities can face surge and coastal flooding. Use official surge forecasts and local instructions for the actual location; the storm category and a general bay description cannot establish a property's flood depth."
       },
       {
         question: "Can Mobile get tornado warnings during hurricanes?",
@@ -1369,14 +1431,19 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "Should Mobile residents prepare for outages?",
         answer:
           "Yes. Wind, trees, flooding, and utility damage can create multi-day outages, so plan for heat, charging, food, water, medicine, and generator safety."
-      }
+      },
+      { question: "Can I use Baldwin County's evacuation map for a Mobile address?", answer: "Use the responsible county's own resources. Mobile EMA links a Zone 1 lookup and its own evacuation and shelter information. A relative's Baldwin map or transport plan does not establish the instruction or available service for a Mobile address." },
+      { question: "Does Mobile County's shelter page mean a shelter is open?", answer: "The page describes an as-needed opening process. Confirm the actual site, opening and receiving arrangements before traveling. The county lists 211 for assistance; a general information call is not a transport booking or shelter acceptance." }
     ],
     officialResources: [
       {
         name: "Mobile County Emergency Management Agency",
-        description: "Official Mobile County emergency alerts, hurricane preparedness, shelter, and response information.",
-        url: "https://www.mcema.net/"
+        description: "Current county agency website; use its evacuation and shelter pages for the responsible local process.",
+        url: "https://www.mobilecountyema.gov/"
       },
+      { name: "Mobile County Evacuation Routes", description: "County zone-lookup entry, 211 transport information and local journey planning; check actual orders and controls separately.", url: "https://mobilecountyema.gov/evacuation-routes/" },
+      { name: "Mobile County Shelters", description: "County's as-needed shelter opening information and 211 contact. A planning page alone does not confirm a receiving place.", url: "https://mobilecountyema.gov/shelters/" },
+      { name: "Alabama EMA County Contacts", description: "Find the responsible county office; Mobile and Baldwin have separate directory entries.", url: "https://ema.alabama.gov/contact/county-contacts/" },
       {
         name: "NWS Mobile/Pensacola",
         description: "Official National Weather Service alerts and forecasts for the Alabama Gulf Coast.",
@@ -1393,6 +1460,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "biloxi",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read the City of Biloxi's Storm and Flood Preparedness HTML: separate evacuation/flood maps, Bmail/B-Alert entries, named river/tide station links and business-access entry. No visible article revision date. Harrison County's existing URL returned 403. Linked maps, newsletters, gauges, subscription delivery and business-access rules were not reviewed. No present warning, order, water level, road or reentry permission was verified; retained hazard background was not reverified." },
     name: "Biloxi",
     stateCode: "MS",
     stateName: "Mississippi",
@@ -1418,10 +1487,26 @@ export const hurricaneCities: HurricaneCity[] = [
         heading: "Outages and Reentry",
         body:
           "Storms on the Mississippi coast can disrupt power, water, debris removal, fuel, and reentry. Households should prepare for several days of self-sufficiency."
+      },
+      {
+        heading: "Keep Evacuation and Flood Maps as Separate Records",
+        body: "Biloxi's Storm and Flood Preparedness page provides separate Evacuation Map and Flood map entries, plus annual preparedness and insurance publications. Start with the full address and the purpose of the resource being opened. Keep the actual map title, issuing agency, edition if stated and applicable instruction with the result. An insurance-related flood map and an evacuation map answer different planning questions. A year in an upload path or newsletter list does not establish the edition of a linked map. Resolve an unclear address or instruction with local emergency management rather than transferring a result from a waterfront hotel."
+      },
+      {
+        heading: "Read the Station Identity Before the Water Number",
+        body: "The city links the Tchoutacabouffa River, Biloxi River near Lyman, Biloxi River near Wortham and the tide station at Popp's Ferry Bridge. These are different monitoring locations, not interchangeable measurements of water at a house. When using a linked product, record the station, observation or forecast time, units and reference level actually shown. Keep a coastal alert separate from an inland river product. This guide has not opened or checked those live readings. A familiar river name alone is not enough to assign a flood depth, road condition or return decision to a particular property."
+      },
+      {
+        heading: "Prepare City Notifications and a Separate Return Check",
+        body: "Biloxi's page offers Bmail and B-Alert entries and recommends radio and television for weather updates. Follow the city's current subscription instructions and keep a backup source; a saved signup page does not establish successful message delivery. Record an announcement's issuer, time, area and action before applying it to the household. The same page links business access information for assessments or insurance work. Do not treat a business-access lead as household reentry permission. Confirm the actual local access instruction and property conditions separately before a return journey."
+      },
+      {
+        heading: "Biloxi Exercise: Can One Gauge Clear the Trip Home?",
+        body: "Fictional record: a household hears that the Biloxi River near Lyman is falling, but has only an old evacuation-map screenshot for its coastal address. It has no local return notice or information about the last road to the property. Does the falling river clear the journey? No. The station identifies a different question from coastal conditions, route access and return authorization. The household needs the applicable official return instruction, current journey information and confirmation of essential services at the property. This exercise uses the real station name listed by the city, but supplies no observed reading, forecast, live warning or verified road."
       }
     ],
     evacuationFocus: [
-      "Check Harrison County evacuation instructions and local shelter information.",
+      "Use Biloxi's official preparation entry and applicable Harrison County instructions; keep the map purpose and current announcement separate.",
       "Leave early from surge zones, mobile homes, and low-lying coastal roads.",
       "Move vehicles away from waterfront and flood-prone areas when officials advise.",
       "Pack documents, prescriptions, chargers, cash, pet supplies, and recovery records."
@@ -1448,13 +1533,15 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "What should Biloxi residents prepare for after a hurricane?",
         answer:
           "Prepare for power and water disruption, debris, limited fuel, reentry delays, insurance documentation, and cleanup safety."
-      }
+      },
+      { question: "Does a Biloxi River reading tell me the flood depth at my house?", answer: "No. Check the station identity, time, units and reference level in the actual product. The city's links include different river locations and a tide station; none can be transferred directly to a property's flood depth or a road-access decision." },
+      { question: "Are Biloxi's evacuation map and flood map the same resource?", answer: "The city lists them separately. Read each product's actual purpose, title and edition, then check the current local instruction for the address. A saved map or year in a file path does not establish a present order." }
     ],
     officialResources: [
       {
-        name: "Harrison County Emergency Management",
-        description: "Official Harrison County emergency alerts, evacuation, shelter, and hurricane preparedness information.",
-        url: "https://harrisoncountyms.gov/departments/emergency-management-agency/"
+        name: "City of Biloxi Storm and Flood Preparedness",
+        description: "Official city entry for separate maps, river and tide station links, notification services and preparedness publications. Check each product's date and purpose.",
+        url: "https://biloxi.ms.us/residents/storm-and-flood-preparedness/"
       },
       {
         name: "NWS New Orleans/Baton Rouge",
@@ -1644,6 +1731,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "myrtle-beach",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read Horry County's Emergency Management, Evacuations and Shelters HTML: notification channels, departure-area route descriptions, conditional US 501 reversal, opening announcements and Coast RTA entry. No visible article revision dates. Did not adopt older agency names, medical admission details or a category-based shelter rule as present operations. Linked maps, bus routes and current openings were not reviewed. No address, order, road, shelter, ride or care arrangement was verified; retained hazard background was not reverified." },
     name: "Myrtle Beach",
     stateCode: "SC",
     stateName: "South Carolina",
@@ -1657,11 +1746,15 @@ export const hurricaneCities: HurricaneCity[] = [
     localHazards: [
       { heading: "Grand Strand Surge", body: "Oceanfront, low-lying, and marsh-adjacent areas can face surge, erosion, and road flooding." },
       { heading: "Tourist Evacuation Pressure", body: "Hotels, rentals, traffic, fuel, and unfamiliar routes can complicate evacuation decisions for visitors." },
-      { heading: "River Flooding After Landfall", body: "Flooding can continue after a storm moves inland as rainfall drains through regional rivers." }
+      { heading: "River Flooding After Landfall", body: "Flooding can continue after a storm moves inland as rainfall drains through regional rivers." },
+      { heading: "Match the Rental Address With the Departure Area", body: "Horry County's evacuation page separates departure areas using local landmarks, including Briarcliffe Acres, 10th Avenue North, Myrtle Beach International Airport and Surfside Beach. Its standing route descriptions differ between those areas. Save the exact accommodation address and relevant official instructions instead of choosing the first road associated with the phrase 'Myrtle Beach'. Ask the property manager about building arrangements, but keep the actual evacuation announcement and route controls as separate official records. A rental checkout message does not establish that another neighborhood's route or a remembered interchange applies to this trip." },
+      { heading: "A Reversal Pattern Is Not an Optional Shortcut", body: "The county describes conditional lane reversal on parts of US 501 and warns against entering a reversal pattern unless directed by law enforcement. It also warns that a driver cannot simply leave the pattern after entering it. Plan the receiving destination before the trip and follow the actual officers and signs on the day. An app's preferred exit, a past evacuation video or a planning map does not authorize a maneuver through a closed ramp. This guide does not reproduce turn-by-turn instructions or report that any reversal is currently operating." },
+      { heading: "Confirm the Receiving Site and Transport Separately", body: "Horry's shelter page says officials determine which facilities open and when, and directs readers to SCEMD or the Red Cross for active public shelter information. It also links Coast RTA for questions about bus routes and help with transport. Confirm the actual open site, intake instructions and household requirements with the responsible operators. A listed school and a bus map do not establish a usable trip or medical placement. Some standing shelter wording uses older agency names; verify current care arrangements directly rather than copying a saved phone instruction into the departure plan." },
+      { heading: "Myrtle Beach Exercise: Will the Familiar Exit Work?", body: "Fictional record: visitors have a host's acceptance and a navigation route from last summer, but the current official traffic instruction uses a controlled reversal pattern. The host expects them to take a familiar exit partway through it. What needs resolving? The driver must follow the official controls and confirm a permitted approach to the destination, updating the host or choosing an accepted alternate if needed. The route record should retain the departure address, actual instruction, destination and receiving contact together. Neither a hotel checkout nor the app settles lane access. This example verifies no order, reversal, road, bus or shelter." }
     ],
     evacuationFocus: [
       "Check Horry County evacuation zones and South Carolina emergency guidance.",
-      "Visitors should confirm hotel, rental, and route instructions early.",
+      "Keep the rental's exact address and departure area beside official route instructions; a manager's message is not a substitute for traffic controls.",
       "Plan around coastal routes, fuel, pets, medicine, and lodging.",
       "Do not return until local officials say roads and utilities are safe."
     ],
@@ -1675,10 +1768,14 @@ export const hurricaneCities: HurricaneCity[] = [
     faqs: [
       { question: "Do Myrtle Beach visitors need to follow evacuation orders?", answer: "Yes. Visitors should follow official Horry County and South Carolina guidance and leave early when visitor evacuation is ordered." },
       { question: "Can Myrtle Beach flood after a hurricane passes?", answer: "Yes. River and rainfall flooding can continue after landfall, especially when water drains through the region." },
-      { question: "What should Myrtle Beach residents check first?", answer: "Check evacuation zones, NWS alerts, hotel or rental guidance if applicable, and county emergency management updates." }
+      { question: "What should Myrtle Beach residents check first?", answer: "Check evacuation zones, NWS alerts, hotel or rental guidance if applicable, and county emergency management updates." },
+      { question: "Can a Myrtle Beach driver enter a reversed lane using a navigation app?", answer: "Follow officers and official controls. Horry County says not to enter a reversal pattern unless directed by law enforcement and warns that you cannot simply leave it once in the pattern. A planning map or app does not authorize entry or an exit." },
+      { question: "Does a Horry County shelter listing confirm a destination?", answer: "Officials determine which facilities open and when. Check the actual active site, intake and household arrangements with the responsible operator, and confirm any Coast RTA transport separately. A school listing or bus-route link is not a reservation." }
     ],
     officialResources: [
       { name: "Horry County Emergency Management", description: "Official Horry County emergency alerts, evacuation, and hurricane preparedness information.", url: "https://www.horrycountysc.gov/departments/emergency-management/" },
+      { name: "Horry County Evacuations", description: "Departure-area route descriptions and conditional US 501 reversal rules. Follow current officers, signs and official announcements.", url: "https://www.horrycountysc.gov/departments/emergency-management/hurricanes/evacuations/" },
+      { name: "Horry County Shelters", description: "Opening process and active-shelter and Coast RTA information entries. Reconfirm current operators, openings and household requirements.", url: "https://www.horrycountysc.gov/departments/emergency-management/hurricanes/shelters/" },
       { name: "NWS Wilmington NC", description: "Official National Weather Service alerts and forecasts for the Grand Strand.", url: "https://www.weather.gov/ilm/" },
       { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
     ],
@@ -1891,6 +1988,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "pensacola",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read Escambia County's BeReady, Evacuation Shelter List and Pets & Special Needs HTML. Checked event-specific shelter opening and dogs/cats planning wording only. No visible article revision dates. Templates contain old-event banner text and unrelated disability/farm sections; these were not adopted as current orders or specialist guidance. No address, order, bridge, open shelter, pet admission, pickup or clinical placement was verified; retained hazard background was not reverified." },
     name: "Pensacola",
     stateCode: "FL",
     stateName: "Florida",
@@ -1916,11 +2015,27 @@ export const hurricaneCities: HurricaneCity[] = [
         heading: "Tornado Bands and Outages",
         body:
           "Outer rain bands can produce quick tornado warnings, tree damage, and outages across Escambia and Santa Rosa counties before or after closest approach."
+      },
+      {
+        heading: "Verify the Opening Before Traveling to a Listed Shelter",
+        body: "Escambia County's Evacuation Shelter List says openings vary with each emergency and explicitly tells residents not to go until they have verified a site is open. Keep the facility name, actual announcement time, intake instructions and receiving contact together. A saved Bay Center or special-needs location is a planning lead, not an operating status. During a threat, use the county's current announcement and contact the responsible operator about access and household needs. A map marker, social post from a previous event or the storm's distance from Pensacola does not complete that opening check."
+      },
+      {
+        heading: "Confirm Animal and Care Arrangements Without Mixing Labels",
+        body: "The county's pet guidance describes a household-dog-and-cat shelter option and says the location will be posted for a disaster; it recommends arranging alternatives before relying on that option. Confirm the specific operator's opening, animal requirements and transport arrangements before counting it as a destination. A pet-friendly label is not a medical-care description, and a special-needs label does not settle every animal or caregiver question. For ongoing treatment or powered equipment, involve the person's care team and the actual receiving operator. This guide does not determine admission or an individual animal's medical requirements."
+      },
+      {
+        heading: "Keep the Shelter Confirmation Connected to the Bridge Trip",
+        body: "A Pensacola household may need both a crossing and a receiving place. Record the departure address and county, applicable local instruction, responsible driver or transport contact, accepted destination and where current road controls will be checked. If the destination changes, reconfirm transport and arrival arrangements together. The county shelter list includes medicines, essential papers, personal supplies and bedding among travel items; ask the receiving operator about the household's actual requirements. Do not infer an open bridge, a guaranteed ride or adequate equipment power from a facility name on that list."
+      },
+      {
+        heading: "Pensacola Exercise: What Does the Saved List Prove?",
+        body: "Fictional record: a family saves the county shelter list, sees a special-needs facility name and plans to take a relative using powered equipment and a dog. There is no opening announcement, care confirmation, animal arrangement or agreed ride. Can the family mark the destination ready? No. The saved page identifies contacts and planning options; the household still needs the actual operator's event instructions, suitable receiving arrangements and transport. Write each unanswered question beside a person who will resolve it. This exercise verifies no current order, shelter, bridge, treatment, animal admission or pickup."
       }
     ],
     evacuationFocus: [
       "Review Escambia hurricane preparedness guidance and local shelter updates.",
-      "Leave early from barrier islands, mobile homes, surge zones, or medically dependent households.",
+      "Follow the applicable local departure instruction, with advance transport and receiving arrangements for barrier-island, mobile-home or care-dependent households.",
       "Plan alternate routes in case bridges or coastal roads are restricted.",
       "Prepare chargers, prescriptions, documents, pet supplies, radio, and safe generator placement."
     ],
@@ -1946,14 +2061,17 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "Can Pensacola get tornado warnings during tropical storms?",
         answer:
           "Yes. Tropical rain bands can produce fast-moving tornado warnings across the western Florida Panhandle even when the storm center is offshore."
-      }
+      },
+      { question: "Can I go directly to a shelter on Escambia's saved list?", answer: "First verify it is open for the event. The county says openings vary and directs residents not to travel before confirming an opening. Check intake, care, equipment, animal and transport arrangements separately." },
+      { question: "Does pet-friendly mean a Pensacola shelter can provide medical care?", answer: "No. Animal admission and clinical capability are different questions. Confirm the actual opened facility and its arrangements with the responsible operator and care team; a dog-and-cat option is not confirmation of every species, care need or journey." }
     ],
     officialResources: [
       {
-        name: "Florida Health Escambia Hurricane Preparedness",
-        description: "Official Escambia County public health hurricane preparedness information and emergency planning resources.",
-        url: "https://escambia.floridahealth.gov/programs-and-services/public-health-preparedness/hurricane-preparedness/"
+        name: "Escambia County Evacuation Shelter List",
+        description: "County's explicit instruction to verify openings before traveling, plus planning items. Listed facilities are not proof of today's operation or admission.",
+        url: "https://myescambia.com/our-services/public-safety/beready/hurricane-shelters/evacuation-shelter-list"
       },
+      { name: "Escambia County Pet Shelter Planning", description: "Standing dog-and-cat shelter guidance; confirm the event location, opening and arrangements with the county.", url: "https://myescambia.com/our-services/public-safety/beready/pets-special-needs" },
       {
         name: "NWS Mobile/Pensacola",
         description: "Official National Weather Service alerts and forecasts for Pensacola and the western Panhandle.",
