@@ -463,6 +463,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "virginia-beach",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read the city's Evacuating and Evacuation Centers HTML for named crossings, conditional I-64 reversal and announced openings. No visible article revision dates. No current order, crossing, center opening or household arrangement was checked; retained hazard background was not reverified." },
     name: "Virginia Beach",
     stateCode: "VA",
     stateName: "Virginia",
@@ -475,19 +477,23 @@ export const hurricaneCities: HurricaneCity[] = [
       "Virginia Beach hurricane risk comes from Atlantic surge, Chesapeake Bay and tidal flooding, bridge-tunnel constraints, tree damage, and power outages as storms recurve up the coast or move inland from the Carolinas. A weakening tropical system can still push water into low-lying neighborhoods and create dangerous travel conditions across Hampton Roads.",
     localHazards: [
       {
-        heading: "Tidal Flooding and Storm Surge",
+        heading: "Identify the Crossing by Its Full Name",
         body:
-          "Virginia Beach can experience oceanfront surge, Chesapeake Bay backwater effects, and tidal flooding in low-lying neighborhoods. Residents should compare NWS coastal flood alerts with city evacuation-zone guidance."
+          "The city's evacuation page explicitly excludes the Chesapeake Bay Bridge-Tunnel as a designated hurricane evacuation route because of wind exposure. Its listed alternatives include I-664 North through the Monitor-Merrimac Memorial Bridge-Tunnel. These are different crossings, not interchangeable names for a route out of Hampton Roads. Write the full crossing name and road number into the journey record, then compare them with the current official instructions. A bridge appearing in a standing route list still needs an event-specific operating check."
       },
       {
-        heading: "Bridge-Tunnel and Route Constraints",
+        heading: "Separate a Reversal Plan From an Activated Lane",
         body:
-          "Hampton Roads travel depends on bridges, tunnels, and causeways that can become limited by wind, flooding, or official restrictions. Households should choose routes and destinations before conditions degrade."
+          "Virginia Beach describes I-64 lane reversal as conditional on a governor's order. The plan includes controlled entrances and exits, so a remembered ramp or ordinary navigation instruction cannot establish access to reversed lanes. Before departure, record the announced route, the lane-control instruction, the needed exits and the time checked. If traffic changes the journey, use current official directions and confirm the receiving destination can still accommodate the household. Do not select an exposed crossing solely because a navigation app estimates a shorter trip."
       },
       {
-        heading: "Trees, Power, and Inland Rain",
+        heading: "Confirm a Receiving Place Before Choosing the Route",
         body:
-          "Tropical systems moving into Virginia often cause tree damage, scattered tornado warnings, and outages even after losing hurricane strength. Generator safety and communication planning matter across the region."
+          "The city describes evacuation centers as a last resort and says only selected centers may open during a particular emergency. Locations and opening times are announced through city communications and local media. First confirm an accepting host or an activated center, then check transport, equipment, caregiver and animal arrangements with the responsible people. The standing Virginia Beach preparedness guide on this site explains the longer household record; the immediate task here is to match the destination and actual travel instruction rather than treating every route as equally usable."
+      },
+      {
+        heading: "Exercise: Two Bridge-Tunnels, One Wrong Assumption",
+        body: "Fictional example: a household reads that the Monitor-Merrimac Memorial Bridge-Tunnel appears in the city plan, but saves a navigation route through the Chesapeake Bay Bridge-Tunnel instead. It also assumes I-64 reversal is already active. What needs correction? Answer: the crossing identity and lane status. The city excludes the Chesapeake Bay crossing from designated hurricane evacuation routes, and reversal requires an actual order. Record the correct named route, current conditions, allowed entrances and an accepting destination. This exercise supplies no present crossing or evacuation status."
       }
     ],
     evacuationFocus: [
@@ -518,14 +524,24 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "Can a tropical storm still be dangerous for Virginia Beach?",
         answer:
           "Yes. Tropical storms can produce coastal flooding, tornado warnings, heavy rain, tree damage, and outages even without major-hurricane wind at landfall."
+      },
+      {
+        question: "Are the Chesapeake Bay and Monitor-Merrimac bridge-tunnels interchangeable evacuation routes?",
+        answer: "No. The city excludes the Chesapeake Bay Bridge-Tunnel from designated hurricane evacuation routes and lists I-664 North through the Monitor-Merrimac Memorial Bridge-Tunnel among alternatives. Check the actual event instructions and operating conditions."
+      },
+      {
+        question: "Does the I-64 reversal plan mean reversed lanes are open now?",
+        answer: "No. The city says only the governor can order reversal. Check the announced lane controls and entrances for the event instead of treating the standing plan as an activation notice."
       }
     ],
     officialResources: [
       {
         name: "Virginia Beach Emergency Management",
         description: "Official Virginia Beach emergency alerts, evacuation zone, shelter, and preparedness information.",
-        url: "https://emergency.vbgov.com/"
+        url: "https://emergency.virginiabeach.gov/"
       },
+      { name: "Virginia Beach Evacuating", description: "Named routes and conditional lane reversal; verify current instructions separately.", url: "https://oem.virginiabeach.gov/emergency-preparedness/during/evacuating" },
+      { name: "Virginia Beach Evacuation Centers", description: "How selected locations and opening times are announced.", url: "https://oem.virginiabeach.gov/emergency-preparedness/during/evacuation-centers" },
       {
         name: "NWS Wakefield",
         description: "Official National Weather Service alerts and forecasts for Virginia Beach and Hampton Roads.",
@@ -1295,6 +1311,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "savannah",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read CEMA Evacuation Zones, Hurricane Registry and Hurricane Re-Entry HTML. Checked A/B/C landmarks, application versus eligibility and separate staged return. Reentry text describes a process introduced in 2018; no visible article revision dates. Linked maps/forms and current state permit rules were not reviewed. No address, order, application, ride or return permission was checked; retained hazard background was not reverified." },
     name: "Savannah",
     stateCode: "GA",
     stateName: "Georgia",
@@ -1307,19 +1325,23 @@ export const hurricaneCities: HurricaneCity[] = [
       "Savannah hurricane risk comes from Atlantic surge, the Savannah River, tidal marshes, barrier islands, low-lying roads, and a tree canopy that can amplify outage problems. Storms tracking up the Southeast coast can bring water, wind, tornado warnings, and inland flooding even if landfall occurs in Florida or the Carolinas.",
     localHazards: [
       {
-        heading: "Coastal Surge and Marsh Flooding",
+        heading: "Match the Address to Chatham's A/B/C Zones",
         body:
-          "Chatham County's marshes, creeks, and low-lying roads can flood from surge and tide. Tybee Island and coastal communities should follow official evacuation guidance early."
+          "CEMA describes Zone A east of Truman Parkway and the Vernon River, Zone B west of Truman Parkway but east of I-95, and Zone C west of I-95. Use its linked address lookup to resolve a particular property instead of assigning the zone from a Savannah mailing address. The page distinguishes an evacuation order encouraging departure from a mandatory directive for everyone in the targeted area. Read the actual announcement's area, action and time; the zone map itself is not the announcement. Check a proposed local destination as well as the home."
       },
       {
-        heading: "Savannah River and Rain",
+        heading: "Apply for the Registry Through the Responsible Program",
         body:
-          "Heavy tropical rainfall can create river and drainage flooding around Savannah and nearby counties. Flood impacts may continue after the storm center passes."
+          "CEMA's Hurricane Registry entry describes a health-department list for residents with functional, access or medical needs who lack other help evacuating. Residents must apply and meet the criteria; the page separately describes basic inland sheltering and possible healthcare placement. Residents of nursing homes, assisted living or personal-care facilities must follow the facility's emergency plan. Ask the responsible program which process applies before a threat, then keep eligibility, event contact, transport and receiving instructions together. Downloading an application does not establish that any of those arrangements has been accepted."
       },
       {
-        heading: "Trees and Outages",
+        heading: "Use Return Phases for Return, Not Departure",
         body:
-          "Wind and saturated soil can bring down trees and power lines. Households should prepare for blocked roads, outages, communication issues, and generator safety."
+          "CEMA's reentry page describes five phases, moving from render-safe and emergency work toward local residents/property owners and later public access. It also says old green Chatham-specific early-entry passes no longer work and directs business applicants to the state process. This is separate from the three departure zones. Check the current return announcement's eligible people, geographic area and restrictions, then confirm the property and needed utilities are usable. A business credential or a phase number is not general permission for every family member to travel back."
+      },
+      {
+        heading: "Exercise: Zone B Does Not Mean Return Phase 2",
+        body: "Fictional example: a Savannah household in departure Zone B sees an announcement permitting Phase 2 reentry and plans to drive home. Is that a match? Answer: no. The letter identifies a departure area, while Phase 2 in CEMA's standing description concerns emergency response and life-safety workers. Find the instruction that actually covers local residents and the home's area, then check road access and occupancy needs. A safe receiving arrangement away from home remains useful until those checks are complete. No current phase or road status is established here."
       }
     ],
     evacuationFocus: [
@@ -1350,6 +1372,14 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "Can Savannah have hurricane impacts without a direct hit?",
         answer:
           "Yes. Storms passing near Florida or the Carolinas can still bring surge, rain, tornado warnings, tree damage, and outages to the Savannah area."
+      },
+      {
+        question: "Are Chatham evacuation zones and reentry phases the same system?",
+        answer: "No. CEMA describes three departure zones A/B/C and five separately defined return phases. Match the current announcement's area and eligible people rather than translating a zone letter into a phase number."
+      },
+      {
+        question: "Does every person with a disability automatically use the Hurricane Registry?",
+        answer: "The program has criteria, including the need for assistance and lack of other evacuation resources. Apply through the responsible health-department process; residents of care facilities follow their facility's emergency plan."
       }
     ],
     officialResources: [
@@ -1358,6 +1388,9 @@ export const hurricaneCities: HurricaneCity[] = [
         description: "Official Chatham County and Savannah area emergency alerts, evacuation, and preparedness information.",
         url: "https://www.chathamemergency.org/"
       },
+      { name: "Chatham Evacuation Zones", description: "A/B/C landmarks, address-lookup entry and order terminology.", url: "https://www.chathamemergency.org/PrepareNow/EvacuationZones" },
+      { name: "Chatham Hurricane Registry", description: "Application and eligibility information; event arrangements require follow-up.", url: "https://www.chathamemergency.org/PrepareNow/HurricaneRegistry" },
+      { name: "Chatham Reentry", description: "Distinct phased return and state early-entry process entry.", url: "https://www.chathamemergency.org/PrepareNow/HurricaneReEntry" },
       {
         name: "NWS Charleston",
         description: "Official National Weather Service alerts and forecasts for coastal Georgia and the Lowcountry.",
@@ -1575,6 +1608,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "fort-lauderdale",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read city Hurricane Preparedness and Alert FTL HTML, including cell-only registration, caller-ID/privacy settings and hotel-only access-pass entry. No visible revision dates. Broward's hurricane hub returned HTTP 403. Linked maps, pass rules, files and assistance forms were not reviewed. No address, order, delivery, placement or access permission was checked; retained hazard background was not reverified." },
     name: "Fort Lauderdale",
     stateCode: "FL",
     stateName: "Florida",
@@ -1586,9 +1621,10 @@ export const hurricaneCities: HurricaneCity[] = [
     overview:
       "Fort Lauderdale hurricane risk combines Atlantic beach exposure, Intracoastal and canal flooding, high-rise wind, dense evacuation traffic, and power outages across Broward County. A storm tracking near South Florida can create dangerous water and wind conditions even when the center passes north or south of the city.",
     localHazards: [
-      { heading: "Beach and Canal Flooding", body: "Storm surge, heavy rain, high tide, and canal drainage can combine around Fort Lauderdale beach, Las Olas Isles, and low-lying neighborhoods." },
-      { heading: "High-Rise Wind", body: "Condo and apartment residents should prepare for elevator outages, glass risk, garage flooding, and building-specific instructions." },
-      { heading: "Traffic and Shelter Timing", body: "Broward evacuation decisions should be made early for surge zones, mobile homes, pets, medical needs, and households without reliable transportation." }
+      { heading: "Check Alert FTL Registration for a Cell-Only Household", body: "The city says households and businesses using only cell phones should manually register those numbers for Alert FTL. It identifies phone, email and text delivery options and explains how to update an existing registration. Do not assume a utility account or a city newsletter has supplied the contact information needed for emergency messages. Review the current registration directly with the city, keep the selected contact methods current and maintain another weather-warning channel. This guide has not submitted a registration or tested message delivery." },
+      { heading: "Recognize the Caller Without Sharing Private Information Here", body: "Alert FTL says city notifications display 954-828-8000 on caller ID and notes that privacy-lock settings can block delivery. Its instructions suggest adjusting those settings or adding the number to a safe list, or registering a cell number. Use the official page to check the instructions for the actual phone service. Caller recognition is a communication task, not proof that a particular message establishes the home's evacuation zone. Keep addresses and care details in the official process and household record, not in a public comment or this site." },
+      { heading: "Separate Building Plans From County Evacuation and Return", body: "The city's hurricane page provides Broward evacuation information, a high-rise plan file and a barrier-island access-pass application explicitly labeled for hotels/motels only. These are different resources. Ask building management about elevator, stair and receiving arrangements, then check the actual county instruction for the address. A hotel application entry does not establish a resident credential or visitor permission to return. Because the county hub was blocked during this check and linked files were not reviewed, confirm those current rules directly rather than deriving them from a file title." },
+      { heading: "Exercise: The Newsletter Is Not the Alert Registration", body: "Fictional example: a cell-only condo resident receives city e-news and saves a hotel/motel access-pass link. Are emergency phone registration and household return access complete? Answer: no. Alert FTL calls for manual cell registration, while the pass entry names a different applicant group. Complete the official contact check, obtain the building's plan and read the actual departure or return instruction for the address. The useful output is two separate records: reliable warning channels and an applicable travel instruction. No account, pass eligibility or current order was tested here." }
     ],
     evacuationFocus: [
       "Check Broward County evacuation zone guidance for your address.",
@@ -1606,10 +1642,14 @@ export const hurricaneCities: HurricaneCity[] = [
     faqs: [
       { question: "Is Fort Lauderdale vulnerable to storm surge?", answer: "Yes. Beach, Intracoastal, canal, and low-lying neighborhoods can face surge and flooding depending on track, tide, and rainfall." },
       { question: "Should Fort Lauderdale condo residents prepare differently?", answer: "Yes. High-rise residents should plan for elevators, garages, windows, stair access, water pressure, and power outages." },
-      { question: "What should Broward residents check first?", answer: "Check Broward evacuation zone guidance, NWS alerts, local emergency management updates, and whether your household needs extra travel time." }
+      { question: "What should Broward residents check first?", answer: "Check Broward evacuation zone guidance, NWS alerts, local emergency management updates, and whether your household needs extra travel time." },
+      { question: "Does a cell-only household need to register for Alert FTL?", answer: "The city asks cell-only households and businesses to manually register their cell numbers. Follow its current registration and contact-update instructions; receiving a newsletter does not confirm emergency phone registration." },
+      { question: "Is the city's hotel/motel access-pass link a general resident pass?", answer: "The hurricane page labels that application for hotels/motels only. Its title does not establish resident or guest eligibility. Confirm the applicable current process and return instruction with the responsible authority." }
     ],
     officialResources: [
       { name: "Broward Emergency Management", description: "Official Broward County emergency alerts, evacuation, shelter, and hurricane preparedness information.", url: "https://www.broward.org/Hurricane/" },
+      { name: "Fort Lauderdale Hurricane Preparedness", description: "City planning, county map, building and service-resource entries; linked files need their own review.", url: "https://www.fortlauderdale.gov/Government/Departments/Fire-Rescue/Services-Resources/Community-Programs/Hurricane-Preparedness" },
+      { name: "Alert FTL", description: "Official phone, email and text registration and contact-setting instructions.", url: "https://www.fortlauderdale.gov/Government/Departments/Strategic-Communications/Alert-FTL" },
       { name: "NWS Miami-South Florida", description: "Official National Weather Service alerts and forecasts for Fort Lauderdale and South Florida.", url: "https://www.weather.gov/mfl/" },
       { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
     ],
@@ -1618,6 +1658,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "west-palm-beach",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read Palm Beach OEM home, Know Your Zone and Special Needs HTML. Checked separate evacuation/flood lookup, AlertPBC scope, limited shelter services and caregiver requirement. No visible article revision dates; old Irma homepage label not treated as current. No address, order, application, shelter opening, ride or treatment was checked; retained hazard background was not reverified." },
     name: "West Palm Beach",
     stateCode: "FL",
     stateName: "Florida",
@@ -1629,9 +1671,10 @@ export const hurricaneCities: HurricaneCity[] = [
     overview:
       "West Palm Beach hurricane risk includes Atlantic surge along barrier communities, heavy rainfall, tornado-producing rain bands, and long power outages across Palm Beach County. Storms approaching from the Bahamas or recurving along Florida's east coast can shift risk quickly across coastal and inland neighborhoods.",
     localHazards: [
-      { heading: "Atlantic Surge and Barrier Communities", body: "Palm Beach, Singer Island, and low coastal areas should watch evacuation zones and surge alerts separately from wind category." },
-      { heading: "Rain Bands and Tornadoes", body: "Outer bands can produce short-fuse tornado warnings and heavy rain before or after the closest approach." },
-      { heading: "Outages and Medical Needs", body: "Palm Beach County households with refrigerated medicine, oxygen, or mobility needs should plan power and transportation early." }
+      { heading: "Use the Right Lookup for the Decision", body: "Palm Beach's Know Your Zone page presents separate evacuation-zone and flood-zone tools. It describes evacuation zones in relation to storm surge and flood zones in relation to flooding from sources such as drainage, sheet flow and tides. Enter the actual address in the intended tool; the county asks users to omit punctuation. Save the tool name and result, then read the current instruction for that location. A West Palm Beach postal address or nearby coastal property's result cannot replace the home's own lookup." },
+      { heading: "Check What the Special Needs Shelter Does Not Supply", body: "The county says its Special Needs Shelter provides limited services and is not a medical facility. It explicitly says it does not supply medication, dialysis, oxygen or oxygen concentrators. A staffed site with auxiliary electricity therefore does not by itself establish continuity of a person's treatment. Discuss equipment, supplies and receiving care with the responsible program and clinical team before relying on it. Record what the household brings, what the receiving operator confirms, and the alternative if the required treatment is outside the site's scope." },
+      { heading: "Plan the Caregiver and the Alert Contact Together", body: "Palm Beach's program says caregivers must accompany their patients and describes limited space prioritized by need. Its page directs returning clients and providers to update or confirm their registry information. Keep application or client status, the accompanying person, transport and event instructions explicit. AlertPBC is a separate location-based notification system with phone, text and email options. Registering for alerts helps with communication but does not complete a special-needs application or establish a ride, receiving acceptance or clinical arrangement." },
+      { heading: "Exercise: Backup Power Does Not Supply the Treatment", body: "Fictional example: a household assumes that an auxiliary-powered Special Needs Shelter will provide a relative's oxygen concentrator and dialysis, and that AlertPBC signup reserves the place. What is wrong? Answer: the county specifically excludes those supplied services, and alert registration is a separate process. Confirm the actual equipment and treatment plan with the care team and receiving operator, arrange the accompanying caregiver and obtain the event's directions. This is a reading exercise about the county's stated scope, not an eligibility determination or medical placement." }
     ],
     evacuationFocus: [
       "Check Palm Beach County evacuation zone and shelter guidance.",
@@ -1649,10 +1692,14 @@ export const hurricaneCities: HurricaneCity[] = [
     faqs: [
       { question: "Does West Palm Beach face storm surge?", answer: "Yes. Coastal and barrier-island areas can face surge, while inland neighborhoods may face flooding, tornadoes, and outages." },
       { question: "Are tornado warnings common during Palm Beach hurricane threats?", answer: "They can occur in tropical rain bands, so residents should keep alerts enabled and know an interior shelter spot." },
-      { question: "What should West Palm Beach residents check first?", answer: "Check Palm Beach County evacuation zones, NWS alerts, NHC advisories, and household power or medical needs." }
+      { question: "What should West Palm Beach residents check first?", answer: "Check Palm Beach County evacuation zones, NWS alerts, NHC advisories, and household power or medical needs." },
+      { question: "Does Palm Beach's Special Needs Shelter provide dialysis or oxygen equipment?", answer: "The county page says it does not provide medication, dialysis, oxygen or oxygen concentrators. Confirm an appropriate equipment and treatment plan with the clinical team and receiving program; backup electricity alone does not resolve those needs." },
+      { question: "Is AlertPBC signup the same as Special Needs registration?", answer: "No. AlertPBC provides location-based notifications. The Special Needs program has a separate client process, limited services and a requirement that caregivers accompany their patients." }
     ],
     officialResources: [
-      { name: "Palm Beach County Emergency Management", description: "Official Palm Beach County evacuation, alerts, shelter, and hurricane preparedness information.", url: "https://discover.pbcgov.org/publicsafety/dem/Pages/default.aspx" },
+      { name: "Palm Beach County Emergency Management", description: "Official county planning and notification resources.", url: "https://discover.pbcgov.org/oem/" },
+      { name: "Palm Beach Know Your Zone", description: "Separate address lookups for evacuation and flood zones.", url: "https://discover.pbcgov.org/oem/Pages/Know-Your-Zone.aspx" },
+      { name: "Palm Beach Special Needs", description: "Limited services, caregiver requirement and client update instructions.", url: "https://discover.pbcgov.org/oem/Pages/Special-Needs.aspx" },
       { name: "NWS Miami-South Florida", description: "Official National Weather Service alerts and forecasts for Palm Beach County.", url: "https://www.weather.gov/mfl/" },
       { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
     ],
@@ -1919,6 +1966,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "gulfport",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read Gulfport's homepage, sandbag article R145, MEMA Hurricanes HTML and the state county-contact directory's Harrison row. City homepage dates sandbag item October 2, 2026; article itself has a relative weekend window. No visible revision dates on MEMA pages. Harrison site returned HTTP 403. Linked maps and current distribution were not checked. No address, order, shelter, road or assistance arrangement was verified; retained hazard background was not reverified." },
     name: "Gulfport",
     stateCode: "MS",
     stateName: "Mississippi",
@@ -1930,9 +1979,11 @@ export const hurricaneCities: HurricaneCity[] = [
     overview:
       "Gulfport hurricane risk is defined by open Gulf exposure, low elevation, port and waterfront infrastructure, and storm histories that show how surge can dominate coastal impacts. Residents should follow Harrison County guidance and prepare for disruption beyond landfall day.",
     localHazards: [
-      { heading: "Open Gulf Surge", body: "Gulfport's shoreline and low roads can flood from surge and wave action when central Gulf storms push water inland." },
-      { heading: "Port and Waterfront Disruption", body: "Industrial, port, marina, and waterfront areas can face debris, access limits, and recovery delays." },
-      { heading: "Outages and Heat", body: "Power, water, fuel, and communication problems may continue for days after a severe storm." }
+      { heading: "Choose the Harrison Product, Then Check Its Purpose", body: "MEMA's hurricane page separately lists Harrison evacuation-zone maps, surge-potential maps and a statewide evacuation map. Use the county-specific product for the question being asked, retaining its legend, source and edition. A surge-potential map is not a current forecast, and a regional route map does not show that a neighborhood road is open. For the actual home and proposed destination, obtain the applicable local instruction and current travel information. The linked maps were not read in this check, so no zone assignment or map edition is supplied here." },
+      { heading: "Date a Resource Notice Before Acting on It", body: "Gulfport's homepage lists a sandbag notice dated October 2, 2026. Its linked article says distribution continues 'through this weekend' as needed and conditions allow, with limited supplies and self-loading. That relative window cannot be applied to a later week merely because the article remains online. Find the current city announcement before planning a collection trip, including its location, time and assistance details. This older example explains how to read a service notice; it does not identify an operating distribution site today or replace the home's evacuation instruction." },
+      { heading: "Use the County Contact to Resolve Local Arrangements", body: "MEMA's county directory lists Harrison County Emergency Management at 228-865-4002. Use the official directory for planning questions about the responsible office when a saved county web link is unavailable. Ask the office or designated operator about the actual instruction, receiving location and assistance process; the existence of a contact number does not confirm a vehicle, bed or clinical service. For a household with refrigerated medication or powered equipment, MEMA's preparation guidance calls for an alternate plan. Confirm the required care and power arrangements with the provider and destination before relying on travel alone." },
+      { heading: "Exercise: What Does 'Through This Weekend' Mean?", body: "Fictional example: a resident finds Gulfport's October 2 sandbag item in November and assumes the listed sites operate every weekend. Is that supported? Answer: no. The article describes a limited, conditional window and supplies; it does not publish a repeating schedule. Find a current announcement or confirm the service with the responsible city office before travelling. Separately check the address's evacuation instruction and receiving plan. The exercise uses a real older notice without presenting its locations or operating hours as current services."
+      }
     ],
     evacuationFocus: [
       "Check Harrison County evacuation instructions and shelters.",
@@ -1950,10 +2001,15 @@ export const hurricaneCities: HurricaneCity[] = [
     faqs: [
       { question: "Is Gulfport vulnerable to storm surge?", answer: "Yes. Gulfport sits on a low Gulf-facing coast where surge can move across roads and waterfront areas." },
       { question: "Should Gulfport mobile-home residents leave early?", answer: "Yes. Mobile homes are vulnerable to wind and flooding, so residents should follow evacuation guidance early." },
-      { question: "What should Gulfport residents prepare for after landfall?", answer: "Prepare for outages, debris, limited fuel, reentry delays, insurance documentation, and cleanup hazards." }
+      { question: "What should Gulfport residents prepare for after landfall?", answer: "Prepare for outages, debris, limited fuel, reentry delays, insurance documentation, and cleanup hazards." },
+      { question: "Does an older city sandbag notice confirm distribution today?", answer: "No. The reviewed notice has a relative weekend window and conditional availability. Confirm a current announcement and service details rather than treating a retained article as a repeating schedule." },
+      { question: "Where can I find the county contact if the saved Harrison site fails?", answer: "MEMA maintains an official county emergency-management directory with a Harrison County entry. Use that for planning contacts; a contact entry is not confirmation of current shelter, transport or road availability." }
     ],
     officialResources: [
       { name: "Harrison County Emergency Management", description: "Official Harrison County emergency alerts, evacuation, shelter, and hurricane preparedness information.", url: "https://harrisoncountyms.gov/departments/emergency-management-agency/" },
+      { name: "MEMA County Emergency Contacts", description: "State directory including Harrison County's planning contact.", url: "https://www.msema.org/get-assistance/county-emergency-management-contacts" },
+      { name: "MEMA Hurricane Resources", description: "Separate county evacuation and surge-map entries and household preparation.", url: "https://www.msema.org/prepare/types-disasters/hurricanes" },
+      { name: "Gulfport Sandbag Notice: Older Reading Example", description: "Homepage dates this item October 2, 2026; its relative weekend window is not current service confirmation.", url: "https://www.gulfport-ms.gov/news_detail_T18_R145.php" },
       { name: "NWS New Orleans/Baton Rouge", description: "Official National Weather Service alerts and forecasts for coastal Mississippi.", url: "https://www.weather.gov/lix/" },
       { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
     ],
@@ -2504,6 +2560,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "naples",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read Collier's current Emergency Management, Special Needs and Hazard & Resources Lookup HTML. Checked annual registration, individual placement, care boundaries and distinct map entries. No visible article revision dates. Old emergency URL returned 404. Linked files and maps were not reviewed. No address, order, application, ride, opening or placement was checked; retained hazard background was not reverified." },
     name: "Naples",
     stateCode: "FL",
     stateName: "Florida",
@@ -2516,19 +2574,23 @@ export const hurricaneCities: HurricaneCity[] = [
       "Naples hurricane risk is shaped by the shallow Gulf shelf, low coastal neighborhoods, bays, canals, and north-south routes across Collier County. This local tracker page points residents toward official evacuation information, current weather alerts, live storm context, radar, outage planning, and household decision tools without replacing local emergency instructions.",
     localHazards: [
       {
-        heading: "Gulf Surge and Canal Water Levels",
+        heading: "Choose the Resource That Answers the Address Question",
         body:
-          "Naples, Marco Island, and nearby coastal neighborhoods can see water rise through bays, canals, and low roads. Use official evacuation-zone maps and local emergency updates for address-level decisions."
+          "Collier's current emergency hub provides a Determine my Evacuation Zone entry, while Hazard & Resources Lookup separately lists storm-surge information, flood maps and historical hurricane tracks. Identify the product before interpreting its colors or lines. A past storm's path answers a historical question; it does not identify today's evacuation instruction for a Naples address. Record the address, the actual lookup result and the applicable local announcement together. This guide reviewed the resource descriptions, not the embedded map results, so use the county's live tools for the property itself."
       },
       {
-        heading: "Road Timing and Shelter Planning",
+        heading: "Update the Registry Annually and Confirm Placement Separately",
         body:
-          "US-41, I-75, bridges, and causeways can become more difficult as watches, warnings, or local evacuation orders expand. Households with pets, medical needs, or transportation limits should monitor official guidance early."
+          "Collier says Special Needs registration must be completed annually and is reviewed by medical professionals. Registration does not guarantee placement: the county considers individual needs, current conditions and available resources, and may direct a person to a general shelter, special-needs shelter or medical facility. A disability alone does not determine the receiving option. Keep the registration year, contact information, review outcome and event instructions distinct. Residents of nursing homes and assisted living facilities follow their facility's emergency arrangements rather than treating the household registry as a replacement."
       },
       {
-        heading: "Outages, Heat, and Recovery Needs",
+        heading: "Match the Receiving Care to the Person, Not the Facility Label",
         body:
-          "Southwest Florida storms can leave debris, heat, limited fuel, and utility outages after the strongest weather exits. Charging, cooling, medication, food safety, and generator safety plans should be prepared before conditions worsen."
+          "Collier describes a special-needs shelter as a backup option with basic support, not hospital or complex medical care. It encourages caregivers to accompany people who need their help and tells residents to bring essential equipment and supplies. Ask the clinical team and receiving program about the actual treatment, equipment power, medication and handoff needs. Confirm travel and receiving instructions for the particular event. A named school in standing guidance is not proof that the site is open or suitable today; the county says the location can change."
+      },
+      {
+        heading: "Exercise: Last Year's Registration and a Historic Track",
+        body: "Fictional example: a Naples household has last year's registry receipt and a map of a previous hurricane's path. Can it use those to select today's evacuation destination? Answer: no. Collier requires annual registration, and a historical track is not a current zone result, order or care placement. Update the appropriate record, check the address using the intended county resource and follow the actual receiving instructions. Confirm the ride and required care separately. The exercise is about the documents' purposes and does not assign eligibility, a zone or current storm conditions."
       }
     ],
     evacuationFocus: [
@@ -2559,14 +2621,24 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "Which weather office covers Naples hurricane alerts?",
         answer:
           "Naples is covered by NWS Miami-South Florida for local weather alerts, while the National Hurricane Center provides official tropical cyclone advisories and forecast cones."
+      },
+      {
+        question: "Does Collier Special Needs registration need updating each year?",
+        answer: "The current county page says registration must be completed annually. It also says registration does not guarantee placement; follow the program's review and event instructions."
+      },
+      {
+        question: "Does a disability automatically require a Collier Special Needs Shelter?",
+        answer: "No. The county says receiving options depend on individual needs and available resources. Some people can use general shelters or other safe arrangements; complex care may require a medical facility. Confirm the plan with the responsible program and care team."
       }
     ],
     officialResources: [
       {
         name: "Collier County Emergency Management",
         description: "Official Collier County hurricane preparedness, evacuation, shelter, alert, and recovery information for Naples residents.",
-        url: "https://www.colliercountyfl.gov/government/county-manager-operations/divisions/emergency-management"
+        url: "https://www.collier.gov/Public-Safety/Emergency-Management"
       },
+      { name: "Collier Special Needs Program", description: "Annual registration, review and receiving-care limits.", url: "https://www.collier.gov/Public-Safety/Emergency-Management/Special-Needs" },
+      { name: "Collier Hazard & Resources Lookup", description: "Separate surge, flood and historical-track resource entries; check each product's purpose.", url: "https://www.collier.gov/Public-Safety/Emergency-Management/Hazard-Resources-Lookup" },
       {
         name: "NWS Miami-South Florida",
         description: "Official National Weather Service alerts and forecasts for Naples, Collier County, and South Florida.",
@@ -2583,6 +2655,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "sarasota",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read the City of Sarasota Hurricane Preparedness HTML for Alert Sarasota County's city selection, center pet scope and Medical Needs entry. City evacuation-level link resolved to a Zone Lookup app shell; no address result reviewed. County emergency entry returned HTTP 403. No visible article revision date. No alert delivery, order, ride, shelter opening, pet acceptance or eligibility was checked; retained hazard background was not reverified." },
     name: "Sarasota",
     stateCode: "FL",
     stateName: "Florida",
@@ -2592,22 +2666,26 @@ export const hurricaneCities: HurricaneCity[] = [
     planningNote:
       "Sarasota residents should use official Sarasota County evacuation levels, NWS Tampa Bay alerts, and NHC advisories to understand bayfront, barrier-island, rain, and outage risk.",
     overview:
-      "Sarasota hurricane risk is shaped by Sarasota Bay, barrier islands such as Siesta Key and Lido Key, low coastal roads, and inland neighborhoods that can flood during tropical rain bands. This page gives Sarasota residents a local search landing page for hurricane tracker queries while pointing decisions back to official county, NWS, and NHC sources.",
+      "Sarasota Bay, Lido Key, nearby barrier islands and inland drainage create different travel and water hazards across the area. Start with the actual address's evacuation level, then connect the current instruction with a receiving place, transport and any care needs. City notifications and county planning resources have different roles in completing that record.",
     localHazards: [
       {
-        heading: "Bayfront and Barrier-Island Water Risk",
+        heading: "Select City Updates Within the County Alert System",
         body:
-          "Sarasota Bay and nearby keys can experience dangerous water levels when Gulf winds push water inland. Official evacuation levels and county alerts should guide address-level decisions."
+          "The City of Sarasota directs residents to Alert Sarasota County and asks them to select the city for updates specific to its area. Review the location and notification preferences for the actual home or lodging rather than assuming a county account includes every municipal update. Keep phone, text or email contacts current and retain another weather-warning channel. A Sarasota mailing address does not by itself resolve municipal boundaries or an evacuation level; check the full address in the relevant lookup and read the actual local instruction."
       },
       {
-        heading: "Bridge and Route Constraints",
+        heading: "Read Pet Acceptance at the Level of the Animal",
         body:
-          "Barrier-island access, bridge timing, shelter availability, and local road conditions can change before the worst weather arrives. Check official Sarasota County updates before relying on any route."
+          "The city's hurricane page describes county evacuation centers as accepting domestic dogs and cats and asks owners to bring a crate and food. Do not stretch that statement into a promise for every species or a claim that all centers are currently open. Confirm the announced receiving location, the animal's acceptance, needed supplies and transport together. Service-animal access is a separate question from ordinary household-pet policy. For a barrier-island trip, add the actual bridge or road leg to this receiving record rather than choosing a center only by straight-line distance."
       },
       {
-        heading: "Rain, Outages, and Reentry",
+        heading: "Use the Medical Needs Entry Before Relying on a Center",
         body:
-          "Slow tropical systems can bring inland flooding, tornado warnings, debris, heat, and utility outages. Household plans should include charging, cooling, communication, medication, and safe generator placement."
+          "Sarasota's city page directs people with qualifying needs to apply in advance for the county Medical Needs Program, which identifies transport and sheltering needs. The page's link is a starting point for the responsible program, not an individual eligibility decision. Ask about current application status, required care, equipment, accompanying help, transport and the receiving instructions. Keep a household alternative with the care team where needed. Our county entry was blocked during this check, so this guide does not supply unverified application criteria or promise a vehicle, powered space or treatment."
+      },
+      {
+        heading: "Exercise: A County Account and an Unconfirmed Pet",
+        body: "Fictional example: a city resident has a county alert account, has not checked its city selection, and assumes a 'pet-friendly' center will receive a parrot. What remains unresolved? Answer: the city's notification preference, the receiving center's activation and the specific animal arrangement. The city page's stated ordinary-pet scope is dogs and cats. Confirm the parrot's appropriate receiving option separately, along with the household's transport and current evacuation instruction. No alert delivery, center or species acceptance was tested here."
       }
     ],
     evacuationFocus: [
@@ -2638,6 +2716,14 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "Which weather office covers Sarasota hurricane alerts?",
         answer:
           "Sarasota is covered by NWS Tampa Bay for local alerts and forecasts, while the National Hurricane Center issues official tropical cyclone advisories."
+      },
+      {
+        question: "Should city residents check a preference within Alert Sarasota County?",
+        answer: "The city asks subscribers to select the City of Sarasota for city-specific updates. Review the actual registration's locations and contact preferences; delivery was not tested for this guide."
+      },
+      {
+        question: "Does Sarasota's pet-friendly description cover all household species?",
+        answer: "The city hurricane page specifies domestic dogs and cats for county evacuation centers. Confirm the event's opening and the actual animal arrangement; do not infer acceptance for another species from that label."
       }
     ],
     officialResources: [
@@ -2646,6 +2732,7 @@ export const hurricaneCities: HurricaneCity[] = [
         description: "Official Sarasota County emergency preparedness, evacuation, shelter, alert, and recovery information.",
         url: "https://www.scgov.net/government/emergency-services"
       },
+      { name: "City of Sarasota Hurricane Preparedness", description: "Alert location selection, domestic-pet scope and the Medical Needs Program entry.", url: "https://www.sarasotafl.gov/Department-Pages/City-Manager/Communications/Hurricane-Preparedness" },
       {
         name: "NWS Tampa Bay",
         description: "Official National Weather Service alerts and forecasts for Sarasota and the west-central Florida coast.",
@@ -2662,7 +2749,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "port-charlotte",
-    dateModified: "2026-11-06",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read Charlotte Emergency Management, Know Your Zone, Special Needs Program and Shelter Listing HTML. Checked A-E zones, registration no-guarantee wording, care review and dated 2024 shelter statuses. No visible article revision dates except listed shelter status times. Old public-safety URL returned 404. No address, order, application, ride, shelter opening or care arrangement was verified; retained hazard background was not reverified." },
     name: "Port Charlotte",
     stateCode: "FL",
     stateName: "Florida",
@@ -2675,19 +2763,23 @@ export const hurricaneCities: HurricaneCity[] = [
       "Port Charlotte hurricane risk comes from Charlotte Harbor, the Peace River, canals, low roads, and neighborhoods that may face surge, rain flooding, wind damage, or long outages. Start with Charlotte County's evacuation resources for your address, check current local warnings, and confirm transport and a receiving destination before they are needed.",
     localHazards: [
       {
-        heading: "Charlotte Harbor and Peace River Water",
+        heading: "Read the Zone Letter With Its Legend",
         body:
-          "Wind direction and rainfall can raise water around Charlotte Harbor, the Peace River, canals, and low roads. Use official evacuation zones and NWS alerts for local water-risk context."
+          "Charlotte County's Know Your Zone page lists five zones: A red, B orange, C yellow, D green and E purple. It says zone assignment uses more than a home's elevation, including NHC data and evacuation routes, and warns against making the decision from storm category alone. Look up the full address and record the letter as well as the map source; a remembered color or waterfront distance is insufficient. Then read the actual emergency instruction. The zone legend describes planning geography, not a statement that a particular zone has been ordered to leave today."
       },
       {
-        heading: "Housing and Neighborhood Exposure",
+        heading: "Check the Timestamp Before Using a Shelter Status",
         body:
-          "Mobile homes, older buildings, canal-side streets, and flood-prone neighborhoods may need earlier planning. County instructions and shelter information should guide household choices."
+          "The county Shelter Listing page directs readers to current news releases and shows individual status updates dated October or November 2024. Those timestamps are part of the evidence: neither an old 'Closed' label nor a remembered facility list establishes today's situation. The page also says opening depends on the approaching storm and that local shelters may be unable to open. Confirm a current receiving place and an alternative destination outside the affected area before relying on a listed school. Check the actual journey and acceptance rather than assuming the nearest named site will operate."
       },
       {
-        heading: "Outage and Recovery Planning",
+        heading: "Separate Planning Registration From Confirmed Support",
         body:
-          "Trees, utility damage, heat, limited fuel, and debris can affect Port Charlotte after landfall. Safe generator placement, medication cooling, and communication backups belong in the plan."
+          "Charlotte's Special Needs page explicitly says registration is for planning and does not guarantee shelter space, transport or medical treatment. Applications are reviewed by the county health department; the receiving option depends on the person's needs. The program describes special-needs shelters as different from hospitals or skilled nursing facilities and requires an accompanying caregiver. Confirm the actual care, equipment, supplies, transport and receiving instructions with the program and clinical team. Ordinary pets and service animals also have different arrangements; ask how the specific animal will travel and be received rather than assuming it stays in the same room."
+      },
+      {
+        heading: "Exercise: A 2024 Status and a New Application",
+        body: "Fictional example: a Port Charlotte resident has a current registry application receipt but only a shelter screenshot marked October 25, 2024. Has the receiving plan been completed? Answer: no. The status is old, and registration does not guarantee the needed services. Obtain the event's opening and receiving instructions, confirm the suitable ride and caregiver, and check care requirements with the responsible provider. Record the address's zone and current instruction separately. No application, facility opening or current travel condition was verified by this exercise."
       }
     ],
     evacuationFocus: [
@@ -2718,14 +2810,25 @@ export const hurricaneCities: HurricaneCity[] = [
         question: "Which weather office covers Port Charlotte hurricane alerts?",
         answer:
           "Port Charlotte is generally covered by NWS Tampa Bay for local weather alerts, while the National Hurricane Center provides official tropical cyclone advisories."
+      },
+      {
+        question: "Do old status labels on Charlotte's shelter list establish current openings?",
+        answer: "No. The reviewed list includes 2024 update times and directs readers to current news releases. Check the actual event's opening and receiving instructions instead of treating an old screenshot as current status."
+      },
+      {
+        question: "Does Charlotte Special Needs registration guarantee transport or medical treatment?",
+        answer: "The county explicitly says registration guarantees neither shelter space, transport nor medical treatment. Follow the health-department review and confirm care, caregiver, ride and receiving arrangements for the actual event."
       }
     ],
     officialResources: [
       {
         name: "Charlotte County Emergency Management",
         description: "Official Charlotte County evacuation zones, alerts, shelter, preparedness, and recovery information for Port Charlotte.",
-        url: "https://www.charlottecountyfl.gov/departments/public-safety/emergency-management/"
+        url: "https://www.charlottecountyfl.gov/departments/emergency-management/"
       },
+      { name: "Charlotte Know Your Zone", description: "A-E zone legend and address-lookup entry; current orders are separate.", url: "https://www.charlottecountyfl.gov/departments/emergency-management/know-your-zone.stml" },
+      { name: "Charlotte Special Needs Program", description: "Planning registration, review and care/transport limitations.", url: "https://www.charlottecountyfl.gov/departments/emergency-management/special-needs-program.stml" },
+      { name: "Charlotte Shelter Listing", description: "Includes older status timestamps; follow its current-news direction to confirm openings.", url: "https://www.charlottecountyfl.gov/departments/emergency-management/shelter-listing.stml" },
       {
         name: "NWS Tampa Bay",
         description: "Official National Weather Service alerts and forecasts for Port Charlotte and the surrounding Southwest Florida area.",
