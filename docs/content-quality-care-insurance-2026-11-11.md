@@ -39,3 +39,7 @@ All six URLs were fetched successfully and their HTML body text parsed and read 
 - `git diff --check` passed. No commit, push, deployment or search submission performed for this batch.
 
 No new artwork is needed to understand these exercises. A future estimate comparison or roof-scope comparison graphic should reproduce these explicitly fictional records and add a clear visual relationship; decorative stock imagery would not supply further evidence. Validation is not a prediction of AdSense approval.
+
+## Release evidence
+
+The earlier pre-release statements above describe the validation checkpoint. Subsequently committed and pushed as `45086201d807659fa6ba9b4719e9c95042165ee0`. Built independently from a clean committed archive to exclude the unrelated tracked ReminderSignup and push/send work. Worker version `b5e9645f-3a34-43e2-995d-45c791200edb`, deployment `16399b86-33a0-4257-9045-4d79ae8779ec`, created November 11, 2026 at 02:45:52 UTC, 100% traffic. All six production articles returned HTTP 200 with their new decoded review scopes; production SEO endpoint checks passed. No search submission performed.
