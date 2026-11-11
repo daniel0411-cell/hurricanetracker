@@ -2432,7 +2432,8 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Home Preparedness: Room-by-Room Checklist",
     description: "Check rooms, supplies, documents and utility instructions before a hurricane. Track unfinished tasks without delaying evacuation or starting structural repairs.",
     datePublished: "2026-08-13",
-    dateModified: "2026-11-02",
+    dateModified: "2026-11-11",
+    review: { date: "2026-11-11", scope: "Read Ready.gov Safety Skills (updated March 20, 2026) for utility-specific practice and qualified gas restoration. Added an illustrative item-location and access exercise; the earlier hurricane and wind-arrival references were not reread. No home, utility system or departure route was inspected.", correction: "Distinguished a room checklist from a packing and access test, and clarified that identifying utility controls is not a reason to operate them during rehearsal." },
     sourceCheck: { date: "2026-11-02", scope: "Read Ready.gov hurricane and safety-skills guidance, including gas practice and qualified restart, plus NHC wind-arrival product definitions. The walkthrough and worked record are editorial planning examples, not a home inspection. No current warning, utility configuration, address, supply inventory or safe route was verified." },
     image: "/images/blog/hurricane-home-preparedness-room-by-room-checklist.png",
     imageAlt: "A homeowner walks through a bright living room with a clipboard, checking hurricane preparedness items while an emergency kit stands ready by the door.",
@@ -2525,6 +2526,12 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "https://www.nhc.noaa.gov/aboutnhcgraphics.shtml#TOA", label: "Check what NHC wind-arrival products do and do not establish" }]
       },
       {
+        heading: "Test the List Against the Items You Can Actually Reach",
+        body: "During a calm-weather walkthrough, pick one item in each occupied room and ask its intended user to find it using the method they normally use. Then record whether it stays in the home, travels in the departure bag, or needs a separate arrangement. One object cannot fill two locations at once: if the only light moves from the bedside to the travel bag, the bedside entry needs another light or a revised plan. Keep exit paths clear throughout; this is a location check, not a simulated blackout or an exercise in moving heavy objects.",
+        bullets: ["Illustrative list: one working flashlight is recorded in both the bedroom and departure bag; a second flashlight has no batteries. How many working lights have actually been confirmed? One, not three.", "Correct the record: name the working light's current location, decide where it belongs, and assign the missing light or batteries as an unfinished task.", "For utility entries, find the provider contact and agreed instructions. Ready.gov says gas shutoff procedures differ by meter and not to turn gas off during practice; only a qualified professional restores it after shutoff.", "Finish by asking another household member to retrieve the packed bag and its paper contact sheet. Note any inaccessible shelf, missing key or login-only record that blocks retrieval."],
+        links: [{ href: "/blog/hurricane-emergency-kit-checklist/", label: "Count supplies and close actual inventory gaps" }]
+      },
+      {
         heading: "Worked Record: A Missing Item Is an Unfinished Task",
         body: "Illustrative example, not an inspected home: a household finds a working kitchen flashlight, an empty medicine cooler and a utility sheet with no gas-provider number. The record can say 'light tested, complete'; 'cooling and transport plan, unresolved, ask pharmacist'; and 'utility contact and procedure, unresolved, contact provider'. Do not mark the room ready because the objects exist, or close a gas valve to demonstrate completion. Assign each unresolved task to a person and a next action; if an evacuation order arrives first, leave with the available essentials and seek official assistance for unmet needs.",
         links: [{ href: "/blog/how-to-check-your-hurricane-evacuation-zone/", label: "Make a separate address and evacuation-instruction record" }, { href: "/hurricane-tracker/live/", label: "Check current storm context and product timestamps" }]
@@ -2556,7 +2563,8 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Plans for Seniors, Children and Disabled People",
     description: "Assign care roles, test accessible alerts, confirm transport and shelter accommodations, and plan household handoffs for a hurricane evacuation.",
     datePublished: "2026-08-13",
-    dateModified: "2026-11-02",
+    dateModified: "2026-11-11",
+    review: { date: "2026-11-11", scope: "Read Ready.gov People with Disabilities (updated September 9, 2026), including printed communication cards, assistive-device replacement information, support networks and accessible transport. Added a fictional communication exercise, not an alert-delivery or service test. The previously cited DOJ access rules were not rechecked.", correction: "Made backup communication usable without the primary device and separated a person's communication needs from assumptions based on age or disability." },
     image: "/images/blog/hurricane-safety-seniors-children-disability.png",
     imageAlt: "A family with an older adult in a wheelchair and a young child packs an emergency go-bag together in a bright living room before a hurricane.",
     sections: [
@@ -2613,6 +2621,12 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "https://www.ada.gov/resources/service-animals-faqs/", label: "Read DOJ's service-animal FAQ, including Q7, Q8 and Q17-21" }, { href: "/blog/hurricane-pet-safety/", label: "Plan separate evacuation arrangements for household pets" }]
       },
       {
+        heading: "Try a Communication Handoff Without the Usual Device",
+        body: "Ready.gov recommends printed cards for communicating with responders and planning for an assistive device to be lost or damaged. Prepare a short backup with the person, in the format they choose. Include how they want to communicate, the assistance they request and a trusted contact. Keep a copy with them and make sure the helper knows where it is. The card supports a conversation; it should not replace the person's own choices or disclose a full medical history to everyone who sees it.",
+        bullets: ["Fictional exercise: a person normally types on a tablet. The tablet is unavailable and the backup plan is a QR code linking to the same account. Has an independent communication method been confirmed? No; the backup still requires a working device and access to the account.", "A possible improvement, chosen with the person: a printed card stating their preferred communication method, agreed phrases or pictograms, and a paper contact number. Check that they can reach and use it.", "Ask the receiving helper to explain what they understood. Correct unclear wording together; do not mark communication ready solely because the card was printed.", "Keep the device model and supplier contact in the private equipment record so replacement questions can be directed to the right provider."],
+        links: [{ href: "https://www.ready.gov/disability", label: "Read Ready.gov's communication and assistive-technology planning guidance" }]
+      },
+      {
         heading: "Worked Handoff: The Usual Helper Cannot Arrive",
         body: "Illustrative example, not a current service arrangement: an older adult uses a wheelchair and prefers written messages. Their daughter normally helps them leave the apartment, but cannot reach the building. The household record names a backup neighbor who has agreed to help with the door and carry the bag. That agreement does not establish that the neighbor can perform a transfer or that an accessible vehicle is booked. During a calm-weather rehearsal, the family marks the vehicle and destination assistance as 'not confirmed,' contacts the transport provider, and obtains a receiving helper's agreement. They also test a written message and a backup contact method. The completed plan records who confirmed each part and when to recheck; it does not treat the neighbor's willingness as proof the whole trip is ready."
       },
@@ -2641,11 +2655,11 @@ export const blogPosts: BlogPost[] = [
     slug: "hurricane-insurance-claim-guide-documentation",
     sources: [{ href: "https://www.floodsmart.gov/recover/start-a-claim", label: "NFIP: starting a flood claim and resolving questions" }, { href: "https://www.floodsmart.gov/claims-checklist", label: "NFIP: claim documentation and separate submission steps" }, { href: "https://content.naic.org/consumer/natural-disasters", label: "NAIC: disaster claims and consumer resources" }, { href: "https://content.naic.org/state-insurance-departments", label: "NAIC: state insurance department contacts" }],
     sourceCheck: { date: "2026-11-06", scope: "Read NFIP's Start a Claim and Claims Checklist and NAIC's natural-disaster resource page. The record exercise is illustrative. No individual policy, state-specific filing or suit deadline, wind exclusion, coverage determination or claim settlement was verified." },
-    review: { date: "2026-11-06", scope: "Reporting, proof-of-loss and dispute deadlines; policy-specific wind and flood coverage", correction: "Removed generic days-to-weeks and one-year claim deadlines, a fixed 24-48-hour reporting window, and unconditional wind-coverage language. Retained the earlier corrections on safe cleanup and adjuster priority; added a separate deadline and coverage record." },
+    review: { date: "2026-11-11", scope: "Reread NFIP's Claims Checklist for safe access, documentation, adjuster identification and correcting estimates. Added fictional quantity and unit-price arithmetic. Earlier NAIC references, individual policies and state-specific deadlines were not rechecked.", correction: "Removed the implication that readers assign settlement terms to items or must enter damaged areas with an adjuster. Replaced adversarial settlement wording with an itemized evidence comparison; prior deadline and coverage corrections remain." },
     title: "Hurricane Insurance Claims: Documentation and Step-by-Step Process",
     description: "How to document hurricane damage, contact the insurer, organize receipts, prepare for the adjuster, review an estimate, and ask about dispute options.",
     datePublished: "2026-08-13",
-    dateModified: "2026-11-06",
+    dateModified: "2026-11-11",
     image: "/images/blog/hurricane-insurance-claim-guide-documentation.png",
     imageAlt: "A homeowner documents storm damage with a smartphone in a living room where rain water has soaked the floor and furniture is pushed aside.",
     sections: [
@@ -2701,9 +2715,9 @@ export const blogPosts: BlogPost[] = [
         body: "Give the adjuster an accurate list of damaged items with supporting photographs and receipts. Record what you know and label estimates or missing documents clearly. The insurer evaluates the evidence under the applicable policy; listing an item or expense does not by itself make it covered.",
         bullets: [
           "List each room and every damaged item with its age, brand, model, and approximate purchase price.",
-          "Note whether items were destroyed, damaged, or only wet and salvageable.",
+          "Describe the observed condition and any disposal or professional assessment; do not assume a wet item is safe to keep or use.",
           "Use the insurer's own inventory worksheet if they provide one.",
-          "Separate 'replacement cost' items from 'actual cash value' items so the math is clear.",
+          "Record purchase evidence and current replacement estimates separately; ask the insurer which settlement basis, depreciation and conditions apply under the policy.",
           "Keep a separate expense log for tree removal, tarps, lodging and temporary repairs; ask which expenses the applicable policy covers."
         ]
       },
@@ -2720,14 +2734,20 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "The Adjuster Visit: What to Expect and How to Prepare",
-        body: "The adjuster's inspection sets the baseline for your settlement. Be present, be organized, and hand them your documentation instead of letting them start from scratch.",
+        body: "Arrange a safe inspection with the assigned adjuster and ask how to share evidence securely if you cannot attend. NFIP's Claims Checklist says its flood adjuster should show a Flood Control Number card and government-issued photo ID. Confirm the appointment through the insurer's known contact if identity is unclear. Other policies can use different identification procedures. The inspection contributes to the claim evaluation; it is not itself a final coverage or payment decision.",
         bullets: [
           "Meet the adjuster with your inventory, photos, receipts, and policy in hand.",
-          "Walk them through each damaged area rather than waiting in the driveway.",
-          "Show water lines, structural issues, and every item on your list.",
+          "Identify affected locations using your inventory and photographs; do not enter an unsafe area to accompany the inspection.",
+          "Point out documented water lines and missing or damaged items from a safe position, and flag areas requiring qualified assessment.",
           "Take your own notes and photos during the inspection.",
           "Ask when you can expect the written estimate and what the next steps are."
         ]
+      },
+      {
+        heading: "Compare Quantities Before Arguing About the Total",
+        body: "NFIP advises reviewing the adjuster's estimate for missing or misidentified damage and working to correct errors. Match each disputed line to a location, description, quantity, unit, rate and supporting record. Separate a quantity disagreement from a unit-price disagreement and from a coverage decision; each needs different evidence. A contractor's total and an insurer's total are not comparable until you know whether they describe the same work.",
+        bullets: ["Fictional arithmetic, not market pricing: an estimate lists 120 square feet at $4 per square foot, or $480. A contractor lists 150 square feet at the same rate, or $600. The $120 difference comes entirely from 30 additional square feet.", "If the second quote instead uses 120 square feet at $5, its $600 total comes from a different rate. The same total can hide a different disagreement.", "Reader task: for the first comparison, what should be checked first? The measured area and scope, with safe photographs or a qualified measurement record, rather than assuming the insurer used the wrong rate.", "Ask about demolition, materials, labor and other included work without counting the same task twice. Request a written explanation of exclusions, depreciation and deductibles separately; this arithmetic does not calculate the amount payable."],
+        links: [{ href: "https://www.floodsmart.gov/claims-checklist", label: "Check NFIP's estimate-review and additional-payment steps" }]
       },
       {
         heading: "If the Settlement Seems Low: Understand and Appeal",
@@ -2742,10 +2762,10 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Avoid Claim Mistakes That Delay or Reduce Payouts",
-        body: "Some errors cost real money. Knowing the common ones lets you steer around them before they happen.",
+        body: "Keep evidence, insurer correspondence and contracts together so you can identify what remains unresolved. A request to correct an estimate, a complaint, an appeal and a legal action are different processes; ask which applies and do not assume one pauses another deadline.",
         bullets: [
           "Photograph damaged items before disposal when safe; follow health instructions for contaminated or dangerous materials and tell the insurer what was discarded.",
-          "Do not agree to a lowball offer without reviewing the estimate and asking questions.",
+          "Review the estimate and ask for an explanation of specific missing items or disputed amounts before agreeing to settlement terms.",
           "Do not sign anything that releases the insurer from liability without reading it.",
           "If assistance is available for a declared disaster, check FEMA eligibility directly. Assistance cannot duplicate insurance and FEMA does not pay an insurance deductible as such.",
           "Do not delay. Most policies and state rules have strict deadlines for filing claims."
@@ -2792,7 +2812,8 @@ export const blogPosts: BlogPost[] = [
     "title": "Hurricane Home Hardening: Roof, Door and Window Checklist",
     "description": "Plan hurricane upgrades for roofs, garage doors and windows. Check ratings, installation records and contractor questions before a storm threatens your home.",
     "datePublished": "2026-08-14",
-    "dateModified": "2026-11-02",
+    "dateModified": "2026-11-11",
+    review: { date: "2026-11-11", scope: "Reread IBHS Home Upgrades for its roof-system, garage-door pressure-label and impact-protection distinctions. The proposal comparison is fictional and supplies no engineering design. Earlier NHC timing and Ready.gov references were not reread; no building, installation or local code requirement was checked.", correction: "Added a like-for-like proposal comparison separating roof-cover work from sealed-deck and attachment work, with missing scope left unresolved rather than inferred from a price or storm-category claim." },
     sourceCheck: { date: "2026-11-02", scope: "Read IBHS Home Upgrades and Just Before the Storm, Ready.gov hurricane guidance, and NHC cone and wind-arrival definitions. Product-record examples are illustrative, not engineering or a code assessment. No building, product approval, contractor, insurance discount, current forecast or evacuation instruction was verified." },
     "image": "/images/blog/hurricane-home-hardening-checklist.png",
     "imageAlt": "Editorial illustration of a person fitting a plywood panel over a window on a house.",
@@ -2819,6 +2840,12 @@ export const blogPosts: BlogPost[] = [
           "Request a written scope for deck attachment, edge details, water protection and applicable inspection, rather than a promise about one storm category.",
           "If pursuing a FORTIFIED designation, use the program's professional and independent evaluation process. A roofing sales description is not the designation."
         ]
+      },
+      {
+        "heading": "Compare Two Roof Proposals by Their Actual Scope",
+        "body": "IBHS describes several roof-system measures: enhanced deck attachment, stronger edges and a sealed deck. They address different failure paths. Before comparing prices, ask each contractor which existing conditions were assessed, which of those measures is included, and how concealed work will be documented. A bid labeled 'new roof' or 'hurricane upgrade' leaves those questions unanswered.",
+        "bullets": ["Fictional proposals: A names roof-cover replacement and disposal. B names the same work plus deck-attachment work, edge details and a sealed deck, with specified documentation. No prices or real products are implied.", "Reading question: does proposal A establish that it includes a sealed deck? No. Missing wording is an unanswered scope question, not proof that the work is included or that the contractor will omit it.", "Ask both bidders to identify the exact system, applicable instructions, permits or inspection process, treatment of discovered damage and completion records. Compare the revised scopes before comparing the totals.", "If a FORTIFIED designation is promised, ask how the independent evaluation process is arranged and what documents establish the designation. Do not substitute a sales label or an insurance-discount promise for that process."],
+        "links": [{ href: "/blog/hurricane-contractor-scams-insurance-claim/", label: "Check the contractor, written scope and payment terms before signing" }]
       },
       {
         "heading": "Garage Door: Read the Label and Resolve Missing Evidence",
@@ -2903,7 +2930,8 @@ export const blogPosts: BlogPost[] = [
     "title": "Hurricane Medical Needs: Equipment, Medicine and Care",
     "description": "Confirm medical-device power, medication storage, care destinations and accessible transport. Build a hurricane continuity record with named providers.",
     "datePublished": "2026-08-14",
-    "dateModified": "2026-11-02",
+    "dateModified": "2026-11-11",
+    review: { date: "2026-11-11", scope: "Read Ready.gov People with Disabilities (updated September 9, 2026) and FDA's emergency insulin guidance (content current September 28, 2026). Checked care-facility availability, device identity, product-specific storage and the frozen-insulin warning. No dosing, switching, individual medicine excursion, device runtime or local service was evaluated; earlier DOJ and power-outage sources were not reread.", correction: "Added an exact-product storage inquiry and a care-destination change exercise without turning a general insulin time limit into a rule for every medicine or device." },
     "image": "/images/blog/hurricane-medical-needs-registry-preparedness.png",
     "imageAlt": "A person using a mobility aid reviews a medical go-bag with prescription medicines and durable medical equipment during hurricane planning at home.",
     "sections": [
@@ -2933,6 +2961,12 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "https://www.fda.gov/drugs/emergency-preparedness-drugs/information-regarding-insulin-storage-and-switching-between-products-emergency", label: "Read FDA's insulin storage guidance; confirm your product with the pharmacist" }]
       },
       {
+        "heading": "Take the Exact Product to the Storage Conversation",
+        "body": "FDA's emergency insulin page contains different instructions for manufacturer containers, a particular once-weekly pen and insulin in pump systems. That is why a single internet storage number is a poor substitute for identifying the product and its instructions. Before a threat, give the pharmacist the exact name, strength, container or device, opened status, relevant dates and label instructions. Ask for written transport and temperature-excursion actions for that product. Keep any record of an actual exposure separate from an assumption that the cooler stayed cold.",
+        "bullets": ["Fictional reading question: a caregiver finds a storage rule for a vial, but the person uses a different pen. Is the storage question resolved? No; match the exact product and presentation with the pharmacist and current labeling.", "If exposure occurs, record the known times and temperatures and what is unknown, then contact the pharmacist or clinical team promptly. A temperature reading taken later cannot reconstruct the entire trip.", "FDA says not to use insulin that has been frozen. Plan cooling that avoids freezing and obtain replacement instructions; do not change doses or switch formulations from this article."],
+        "links": [{ href: "https://www.fda.gov/drugs/emergency-preparedness-drugs/information-regarding-insulin-storage-and-switching-between-products-emergency", label: "Read the separate FDA insulin storage sections with your pharmacist" }]
+      },
+      {
         "heading": "Separate Registry Enrollment From Confirmed Services",
         "body": "Ready.gov says many local emergency-management agencies maintain voluntary registries for people needing assistance. Ask the local office whether a relevant program exists, who is eligible, how to apply or renew, what the program actually provides and how status is confirmed. A utility medical-needs listing is a separate process; do not treat it as uninterrupted service or a restoration guarantee. Keep copies of confirmations, but distinguish each of these steps:",
         "bullets": [
@@ -2945,6 +2979,10 @@ export const blogPosts: BlogPost[] = [
       {
         "heading": "Confirm a Care Destination and a Transfer Trigger",
         "body": "For dialysis, infusions, oxygen deliveries, home nursing or other recurring support, ask the provider what happens during closure or service interruption. Ready.gov recommends identifying more than one facility for dialysis or other life-sustaining treatment and checking availability. Record the receiving contact, the service confirmed, required records and supplies, and the accessible transport arrangements. A facility appearing on a map is not evidence it can accept the person. Agree what event triggers a call or transfer with the care team, transport provider and local officials. Do not wait for a backup to fail before asking those questions, and do not use a fixed 'six hours before landfall' rule as a safe travel boundary. Follow applicable evacuation instructions; call 911 for an immediate medical emergency."
+      },
+      {
+        "heading": "Recheck the Dependency That Changed",
+        "body": "Fictional planning exercise: accessible transport was arranged to Facility A, which then reports it cannot provide the required treatment. Facility B says it may be able to receive the person, but has not accepted the appointment. Which parts need attention? Ask the care team to confirm an appropriate receiving service and its acceptance, then ask the transport provider to confirm the revised destination, timing and equipment needs. Retain the earlier confirmation as a dated record; do not silently change its destination and treat it as a new booking. Ready.gov's advice to know the location and availability of more than one treatment facility helps identify alternatives, but each actual arrangement still needs confirmation. An immediate medical emergency requires 911, not completion of this exercise."
       },
       {
         "heading": "Worked Record: A Charged Battery Is Not a Confirmed Plan",
@@ -2993,11 +3031,11 @@ export const blogPosts: BlogPost[] = [
     "slug": "hurricane-flood-insurance-guide-nfip",
     sources: [{ href: "https://www.floodsmart.gov/get-insured/buy-a-policy", label: "NFIP: coverage, separate deductibles, exclusions and waiting-period exceptions" }, { href: "https://www.floodsmart.gov/claims-checklist", label: "NFIP Claims Checklist: declarations, damage evidence and contact records" }, { href: "https://www.floodsmart.gov/recover/start-a-claim", label: "NFIP: report a loss, work with the adjuster and review coverage" }, { href: "https://agents.floodsmart.gov/topics/flood-loss-avoidance", label: "NFIP loss avoidance: eligibility and receipts" }],
     sourceCheck: { date: "2026-11-06", scope: "Read FloodSmart's buy-a-policy page, Claims Checklist and start-a-claim page for coverage fields, separate deductibles, exclusions and documentation. The worksheet is invented teaching material, not a real policy, quote, coverage determination or review of private-policy wording. Loss-avoidance conditions were checked in the earlier October 24 review." },
-    review: { date: "2026-11-06", scope: "Policy-record task, damage-cause wording and safe claim documentation", correction: "Replaced the universal wind-versus-water-line claim and fixed storm countdown with policy-specific questions and an evidence record. Retained waiting-period exceptions and requirements to verify applicable Proof of Loss terms and FEMA notices." },
+    review: { date: "2026-11-11", scope: "Reread FloodSmart's buy-a-policy page and Claims Checklist for building versus contents, separate deductibles, NFIP temporary-housing exclusion and estimate review. The coverage-sorting exercise is invented. Individual forms, private insurance, waiting-period exceptions and earlier loss-avoidance provisions were not independently rechecked.", correction: "Distinguished representative building, contents and excluded expenses before comparing policy limits; retained prior effective-date, cause-of-loss and document-deadline cautions." },
     "title": "Hurricane Flood Insurance: Check Coverage and Claim Evidence",
     "description": "Use an NFIP and private flood policy checklist to record coverage, dates, limits, deductibles and claim evidence, with a worked example and questions for your agent.",
     "datePublished": "2026-08-14",
-    "dateModified": "2026-11-06",
+    "dateModified": "2026-11-11",
     "image": "/images/blog/hurricane-flood-insurance-guide-nfip.png",
     "imageAlt": "A homeowner photographs flood damage and insurance documents with a tablet after a hurricane flooded the ground floor of a house.",
     "sections": [
@@ -3025,6 +3063,12 @@ export const blogPosts: BlogPost[] = [
           "Question: can the household calculate its claim payment from these four amounts? Answer: no. Covered damage, exclusions, settlement terms and evidence are still needed.",
           "Unfinished task: ask the agent to identify the applicable lower-enclosure provision and settlement basis in writing. Until answered, those fields remain unconfirmed."
         ]
+      },
+      {
+        "heading": "Sort the Expense Before Looking at the Limit",
+        "body": "FloodSmart lists a furnace under building coverage and a washer and dryer under contents coverage. It also lists temporary housing and additional living expenses among NFIP exclusions. Use those distinctions to ask better policy questions: an expense does not become building damage simply because it occurred after the same flood. The applicable form, location, cause and conditions still control the claim; the examples below are a reading exercise, not coverage decisions for real property.",
+        "bullets": ["Fictional task: the household has a damaged furnace, a damaged washer and a hotel receipt. Which coverage questions should it open? Building coverage for the furnace; contents coverage for the washer; a separate temporary-housing inquiry rather than treating the hotel as an NFIP contents item.", "The building and contents entries each need their own selected coverage, limit and deductible. Having building coverage alone does not establish that belongings were insured.", "For the hotel, NFIP's exclusion means the household should check any other applicable policy or available assistance separately. Neither is automatically available because NFIP excludes the expense.", "Retain the item's location, safe photographs and receipts. Basement or lower-enclosure restrictions can affect the answer, so ask the agent for the actual provision rather than using this category exercise as approval."],
+        "links": [{ href: "https://www.floodsmart.gov/get-insured/buy-a-policy", label: "Compare FloodSmart's building, contents and excluded-expense lists" }, { href: "/blog/hurricane-additional-living-expenses-ale-coverage/", label: "Check additional-living-expense conditions under a separate policy" }]
       },
       {
         "heading": "Compare NFIP and Private Policies by the Same Questions",
