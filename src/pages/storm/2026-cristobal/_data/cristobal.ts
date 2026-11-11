@@ -20,7 +20,7 @@ export const cristobal: StormArchive = {
   ],
   live: {
     bulletin:
-      "Historical planning archive, source check October 24, 2026: NHC's season summary lists Cristobal at 40 kt (about 45 mph) and 1008 mb. The advisory archive documents the short-lived open-Atlantic system. Season statistics are subject to revision; this page does not present an unlinked final Tropical Cyclone Report or infer zero casualties from a blank season-table entry.",
+      "Historical example: public Advisory 5 was checked November 11, 2026. At 1500 UTC August 13 it identifies a post-tropical remnant low at 39.4N, 36.8W with 30 mph winds and pressure 1018 mb. It forecasts later dissipation and ends NHC public advisories. The separate season-summary peak of 40 kt and minimum pressure of 1008 mb retain their October 24 check date; this bulletin does not verify those lifetime values or a casualty total.",
     rows: [
       { label: "Classification", value: "Tropical Storm (season summary; provisional)" },
       { label: "Peak intensity", value: "45 mph (40 kt), ~1008 mb" },
@@ -31,17 +31,16 @@ export const cristobal: StormArchive = {
       { label: "Direct deaths", value: "No verified total presented here" },
       { label: "U.S. damage", value: "No verified loss estimate presented here" }
     ],
-    advisoryNumber: "Archived advisories and season summary",
-    advisoryTime: "Sources checked October 24, 2026",
+    advisoryNumber: "5 - final public advisory",
+    advisoryTime: "1500 UTC August 13, 2026 (3 PM GMT)",
     nhcAdvisoryUrl: "https://www.nhc.noaa.gov/archive/2026/al03/al032026.public.005.shtml",
     nhcSourceUrl: "https://www.nhc.noaa.gov/data/tcr/index.php?season=2026&basin=atl"
   },
   timeline: [
-    { date: "Aug 11, 2026", event: "Disturbance east of Bermuda gains organization and is tagged Invest 93L." },
-    { date: "Aug 12, 2026 (AM)", event: "NHC begins advisories on Tropical Storm Cristobal, the season's third named storm, over the subtropical Atlantic." },
-    { date: "Aug 12, 2026 (PM)", event: "Cristobal reaches peak winds near 45 mph while moving east at roughly 20 mph; no land threat is expected." },
-    { date: "Aug 13, 2026 (AM)", event: "Cristobal weakens to a tropical depression about 610 miles west of the Azores as conditions deteriorate." },
-    { date: "Aug 13, 2026, 1500 UTC", event: "Final NHC advisory 5 identifies a post-tropical remnant low with 30 mph winds and 1018 mb pressure, 535 miles west-northwest of the Azores. Dissipation later that night is a forecast in this bulletin, not an observed final time." }
+    { date: "Aug 13, 2026, 1500 UTC - status", event: "Advisory 5 identifies a post-tropical remnant low with 30 mph winds and 1018 mb pressure, 535 miles west-northwest of the Azores. This is a selected final-bulletin reading, not a complete genesis-to-dissipation track." },
+    { date: "Same bulletin - motion", event: "The center is moving northeast at 16 mph. This is translational motion, a different quantity from maximum sustained wind." },
+    { date: "Same bulletin - outlook", event: "Dissipation later that night is a forecast in this bulletin, not an observed final time. No coastal watches or warnings are in effect, and the land-hazards section says none." },
+    { date: "Same bulletin - next advisory", event: "NHC ends its public advisory series and points to NWS High Seas Forecasts for additional information. The marine AWIPS identifier printed in the bulletin is NFDHSFAT1." }
   ],
   impact: [
     {
@@ -55,9 +54,9 @@ export const cristobal: StormArchive = {
         "At 1500 UTC August 13, the final advisory identified a post-tropical remnant low with 30 mph winds. It forecast dissipation later that night. Use the archived forecast discussions to examine the expected environment; the final public advisory alone does not verify the later dissipation time or a forecast accuracy claim."
     },
     {
-      title: "Season context",
+      title: "Reading task: which speed describes the wind?",
       body:
-        "Cristobal formed during a quiet opening to the 2026 Atlantic season. By mid-August the basin had produced only three named storms — Arthur, Bertha, and Cristobal — all tropical storms, with no hurricanes yet. The season's traditional peak was just beginning."
+        "The answer is 30 mph, the maximum sustained wind in Advisory 5. The 16 mph figure describes the center's northeastward movement. Subtracting them to obtain 14 mph would not give the wind at an island or vessel: the bulletin does not supply the local wind field needed for that calculation. Likewise, its 535-mile distance from the Azores is location context, not a forecast arrival time; dividing distance by current motion assumes a constant heading and speed that the bulletin does not promise."
     },
     {
       title: "How 2026 Cristobal compares with past Cristobal storms",
@@ -73,12 +72,12 @@ export const cristobal: StormArchive = {
         "Cristobal 2020 formed from the remnants of Eastern Pacific Tropical Storm Amanda, crossed into the Gulf of Mexico, and made landfall in southeast Louisiana on June 7.",
       stats: [
         { label: "Peak winds", value: "60 mph (50 kt)" },
-        { label: "Min pressure", value: "988 mb" },
-        { label: "Landfall", value: "Grand Isle, Louisiana" },
-        { label: "Source", value: "NHC 2020 season archive; impact totals not reproduced" }
+        { label: "Min pressure", value: "988 mb before extratropical transition; not the Louisiana landfall value" },
+        { label: "Louisiana landfall", value: "Plaquemines Parish, east of Grand Isle; ~2200 UTC June 7, 45 kt" },
+        { label: "Source", value: "NHC AL032020 report, January 13, 2021; PDF pages 3-4, checked November 11, 2026" }
       ],
       comparison:
-        "2020 Cristobal made a Louisiana landfall and carried rainfall inland; the reviewed 2026 archive describes an open-ocean system. This comparison concerns track and intensity, not an attribution of every later inland weather event."
+        "The 2020 report separates a 50 kt peak from a 45 kt Louisiana landfall. Pressure fell to 990 mb just before that landfall and later reached 988 mb before extratropical transition. The lowest pressure and strongest wind occurred at different stages. Pair each number with its time and stage before comparing with the 2026 summary."
     },
     {
       year: 2014,
@@ -119,9 +118,9 @@ export const cristobal: StormArchive = {
         "Read NHC advisories together with local NWS warnings and local emergency management instructions. NHC information remains relevant near land, while local products add detail for your community. Use the live tracker to find the current sources."
     },
     {
-      title: "Treat El Niño seasons as still dangerous",
+      title: "Complete a source record before using an archived map",
       body:
-        "A below-normal forecast does not mean a safe season. Arthur, Bertha, and Cristobal all showed that even weak, short-lived storms can matter — and a single major hurricane can define a year."
+        "Record AL032026, public Advisory 5, August 13 at 1500 UTC, post-tropical remnant low, 30 mph maximum wind, 16 mph northeastward motion and the linked original bulletin. Mark later-night dissipation as forecast and subsequent outcome as not established here. This completed record makes a screenshot usable as a historical example without turning it into today's warning or an observation of what happened afterward."
     }
   ],
   faqs: [

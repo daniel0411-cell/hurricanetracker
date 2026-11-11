@@ -203,11 +203,11 @@ export const stormTrackerPages: StormTrackerPage[] = [
     slug: "dolly",
     name: "Dolly",
     basin: "Atlantic",
-    title: "Tropical Storm Dolly 2026 Tracker: NHC Path & Live Map",
-    description: "Track Tropical Storm Dolly 2026 with the latest NHC position, forecast path, live map, advisory updates, radar, satellite and local alert links.",
+    title: "Dolly: Historical Peak and Landfall Intensity Explained",
+    description: "Read NHC's 2008 Dolly report: distinguish the 85 kt peak, 75 kt island landfall and 70 kt mainland landfall, separately from the current storm feed.",
     primaryKeywords: ["tropical storm dolly tracker", "hurricane dolly path", "dolly live tracker map", "where is storm dolly now"],
     searchDemandNote:
-      "Use this page for Tropical Storm Dolly live tracker, path, map, current position, forecast, and NHC advisory update searches.",
+      "Use the historical report to answer peak-versus-landfall questions; use the separately dated feed for current status.",
     overview:
       "Use this Dolly entry to check whether the current feed contains an active storm and to find dated official records. A retained feed observation is not a complete historical track or a post-season best-track report. Confirm the year and advisory time before interpreting a position as current.",
     historicalReport: {
@@ -216,7 +216,7 @@ export const stormTrackerPages: StormTrackerPage[] = [
       title: "NHC Tropical Cyclone Report: Hurricane Dolly, 20-25 July 2008",
       url: "https://www.nhc.noaa.gov/data/tcr/AL042008_Dolly.pdf",
       reportDate: "2009-01-22",
-      checkedOn: "2026-11-02",
+      checkedOn: "2026-11-11",
       summary: "The official report separates Dolly's Category 2 peak from its Category 1 landfall on South Padre Island. The events below are post-season best-track estimates from the Synoptic History section (PDF pages 1-2), not a current forecast or a reconstruction of any 2026 system.",
       timeline: [
         { date: "20 July 2008, around 1200 UTC", event: "Dolly formed as a tropical storm in the western Caribbean, about 270 nautical miles east of Chetumal, Mexico, with winds near 40 kt." },
@@ -227,7 +227,8 @@ export const stormTrackerPages: StormTrackerPage[] = [
       ],
       lessons: [
         { heading: "Peak Category and Landfall Category Are Different Records", body: "Using 85 kt to describe the South Padre Island landfall would merge two observations four hours apart. NHC's Winds and Pressure section also says it could not determine whether Category 2 winds reached the Texas coast during the hours before the center's landfall. A Category 1 landfall estimate therefore does not prove every earlier coastal wind was below Category 2 strength." },
-        { heading: "A Lower Wind Category Did Not Remove Water Damage", body: "NHC reports storm surge up to 4 feet at South Padre Island, Port Mansfield and the Port of Brownsville, with 3-4 feet of water across the bay side of South Padre Island (Meteorological Statistics section, PDF page 3). These are historical observations at named places, not a uniform water depth across Texas or an estimate for your home. Use the report's observation tables for station details and current local products for present hazards." }
+        { heading: "A Lower Wind Category Did Not Remove Water Damage", body: "NHC reports storm surge up to 4 feet at South Padre Island, Port Mansfield and the Port of Brownsville, with 3-4 feet of water across the bay side of South Padre Island (Meteorological Statistics section, PDF page 3). These are historical observations at named places, not a uniform water depth across Texas or an estimate for your home. Use the report's observation tables for station details and current local products for present hazards." },
+        { heading: "Reading Task: Which Intensity Belongs in a Landfall Caption?", body: "For a caption describing the center crossing South Padre Island just after 1800 UTC July 23, choose 75 kt, not the earlier 85 kt peak or the later 70 kt mainland crossing. The peak-to-island decrease is 10 kt over roughly four hours; the additional decrease to the mainland is 5 kt over about two hours. These selected milestones do not establish a uniform weakening rate between them or every coastal location's maximum wind. Answer source: Synoptic History, PDF page 2." }
       ]
     },
     trackerFocus: [
@@ -245,7 +246,7 @@ export const stormTrackerPages: StormTrackerPage[] = [
       {
         question: "Where is Tropical Storm Dolly headed?",
         answer:
-          "Use the latest NHC forecast track, cone, and discussion on this page. The center line and any single advisory can change, while wind, rain, surge, and tornado hazards may extend far outside the forecast center path."
+          "For a present-day forecast, check the dated current-feed status and NHC directly. The 2008 timeline below is historical; it cannot locate or predict another storm named Dolly. A retained observation alone supplies neither a current forecast path nor a complete best track."
       },
       {
         question: "How does the 2026 Dolly compare to past Dolly storms?",
@@ -273,7 +274,7 @@ export const stormTrackerPages: StormTrackerPage[] = [
       url: "https://www.nhc.noaa.gov/archive/2026/al05/al052026.public.002.shtml",
       relatedSources: [{ href: "https://www.nhc.noaa.gov/archive/2026/al05/al052026.public.003.shtml", label: "NHC public Advisory 3: Tropical Storm Edouard, September 1 at 0300 UTC" }],
       reportDate: "2026-08-31, 2100 UTC (4 PM CDT)",
-      checkedOn: "2026-11-06",
+      checkedOn: "2026-11-11",
       summary: "Historical operational bulletin, not a current forecast or post-season report. Advisory 2 still calls AL052026 Tropical Depression Five, with 35 mph sustained winds at 28.2N, 91.5W. It lists a Tropical Storm Warning from Port Bolivar to the Vermilion/Iberia Parish Line and a Storm Surge Watch from High Island to the Vermilion/Cameron Parish Line. Different hazard boundaries must be read separately.",
       timeline: [
         { date: "31 August 2026, 2100 UTC", event: "Public Advisory 2 reports Tropical Depression Five with 35 mph winds and 1011 mb pressure. Its outlook forecasts strengthening; that forecast does not make the system a named storm at this time." },
@@ -281,21 +282,22 @@ export const stormTrackerPages: StormTrackerPage[] = [
       ],
       lessons: [
         { heading: "Use the Same Storm Identifier Across a Name Change", body: "Open Advisory 2 and the separately linked Advisory 3. Both carry AL052026. The sustained-wind field changes from 35 to 40 mph across six hours; this is a comparison of operational estimates, not a post-season verification or a 24-hour rapid-intensification calculation. Preserve the issuer, number, issue time, classification and units with each entry." },
-        { heading: "Reading Task: Are the Two Hazard Areas Identical?", body: "No. In Advisory 2 the wind warning begins at Port Bolivar and ends at the Vermilion/Iberia line; the surge watch begins at High Island and ends at the Vermilion/Cameron line. Record each hazard and its own endpoints. Do not copy one boundary into the other or turn the historical coastal segments into today's evacuation order. Advisory 3 changes the surge product to a warning; that later change belongs to a later issue time." }
+        { heading: "Reading Task: Are the Two Hazard Areas Identical?", body: "No. In Advisory 2 the wind warning begins at Port Bolivar and ends at the Vermilion/Iberia line; the surge watch begins at High Island and ends at the Vermilion/Cameron line. Record each hazard and its own endpoints. Do not copy one boundary into the other or turn the historical coastal segments into today's evacuation order. Advisory 3 changes the surge product to a warning; that later change belongs to a later issue time." },
+        { heading: "Reading Task: Does a Hurricane Watch Mean It Is a Hurricane?", body: "No. Advisory 3 adds a Hurricane Watch from High Island to Cameron while reporting Tropical Storm Edouard with 40 mph maximum sustained winds. A watch concerns possible future conditions in its named area; the classification describes the cyclone at the issue time. The surge forecast for High Island to the Vermilion/Cameron line also changes from 2-4 feet in Advisory 2 to 3-5 feet in Advisory 3. That is a revised forecast, not an observed one-foot rise or two ranges to add together. Keep the separate Vermilion/Cameron-to-Morgan City range of 1-3 feet attached to its own segment." }
       ]
     },
     trackerFocus: [
       "Use AL052026 to pair the public advisories. Advisory 2 is Tropical Depression Five; Advisory 3 names Edouard. The latter is dated August 31 locally but September 1 in UTC.",
       "Use the official NHC forecast path together with the cone, wind field, rainfall, and surge products — not a single model or the center line.",
       "During the advisory cycle, a Tropical Storm Warning covered Port Bolivar, Texas, to the Vermilion/Iberia Parish Line, Louisiana, and a Storm Surge Watch covered High Island to the Vermilion/Cameron Parish Line.",
-      "Edouard is no longer listed in the current NHC feed. Check current NWS alerts and local emergency management updates for any remaining rainfall, flooding, or recovery concerns.",
+      "For today's status, read the feed's availability and observation time before opening the current official NHC products. These two historical bulletins do not establish today's activity or a final outcome.",
       "A repeated storm name is not a forecast. Match the year and basin identifier before comparing any historical Edouard record."
     ],
     faqs: [
       {
         question: "Is Tropical Storm Edouard active right now?",
         answer:
-          "No. Edouard is no longer listed in the current NHC tropical cyclone feed. This page preserves its final observed track and advisory context; use current NWS alerts for any remaining local hazards."
+          "Check the separately dated current-feed status and official NHC products. The two historical bulletins here cover the naming transition, not the final track or today's activity. An unavailable feed cannot establish inactivity."
       },
       {
         question: "Has Edouard ever hit the United States?",
@@ -305,7 +307,7 @@ export const stormTrackerPages: StormTrackerPage[] = [
       {
         question: "What happened to Tropical Storm Edouard?",
         answer:
-          "Edouard moved toward the Upper Texas and southwest Louisiana coast during its advisory cycle and is no longer listed as an active NHC tropical cyclone. Review archived advisories for its track and current local alerts for any lingering impacts."
+          "The selected record shows Tropical Depression Five at 2100 UTC August 31 and Tropical Storm Edouard at 0300 UTC September 1. Advisory 3 adds a Hurricane Watch and changes the surge watch to a warning. Use later official records for its eventual track, landfall and impacts."
       }
     ]
   },
@@ -327,7 +329,7 @@ export const stormTrackerPages: StormTrackerPage[] = [
       title: "NHC archived public advisory 39: Post-Tropical Cyclone Fay",
       url: "https://www.nhc.noaa.gov/archive/2026/al06/al062026.public.039.shtml",
       reportDate: "2026-09-29, 2100 UTC (5 PM AST)",
-      checkedOn: "2026-11-06",
+      checkedOn: "2026-11-11",
       summary: "Historical operational bulletin, not a current forecast or post-season report. Advisory 39 places Fay at 23.7N, 48.2W, with maximum sustained winds near 30 mph, movement west-southwest near 12 mph and pressure 1011 mb. It says no coastal watches or warnings were in effect, lists no hazards affecting land and directs additional marine information to NWS High Seas Forecasts.",
       timeline: [
         { date: "29 September 2026, 2100 UTC", event: "NHC classifies Fay as post-tropical in public Advisory 39. The printed 5 PM AST and 2100 UTC are the same issue time, not two different observations." },
@@ -335,7 +337,7 @@ export const stormTrackerPages: StormTrackerPage[] = [
         { date: "Advisory 39, next advisory", event: "NHC says this is its last public advisory and names NWS High Seas Forecasts, AWIPS NFDHSFAT1 / WMO FZNT01 KWBC, for additional information." }
       ],
       lessons: [
-        { heading: "Classification, Wind and Motion Are Separate Fields", body: "Post-tropical describes the cyclone's structure. The 30 mph maximum sustained wind and 12 mph movement describe different quantities; they cannot be substituted for each other. The location in the bulletin is an operational center estimate, not a measurement of the wind or water at a household." },
+        { heading: "Reading Task: Can 30 mph and 12 mph Give a Local Wind?", body: "No. The 30 mph maximum sustained wind and 12 mph west-southwest motion describe different quantities. Subtracting them to give 18 mph is not a supported local-wind estimate. The bulletin supplies a center position, not a location-specific wind field. Post-tropical describes the structure; it is neither a wind measurement nor a statement that every marine hazard has ended." },
         { heading: "Reading Task: Was Dissipation Already Verified?", body: "No. The outlook says Fay is forecast to dissipate in a day or so. The next-advisory section verifies that NHC was ending its public advisory series, not that the system had already disappeared. Copy the classification, wind, motion, time and announced information source into separate fields. Use later official records to establish an eventual outcome." }
       ]
     },
@@ -349,7 +351,7 @@ export const stormTrackerPages: StormTrackerPage[] = [
       {
         question: "Is Tropical Storm Fay still active?",
         answer:
-          "No. Fay became post-tropical, and the NHC issued its final advisory on September 29, 2026. This page preserves the final observed status and official advisory context."
+          "The September 29, 2026 bulletin identifies Fay as post-tropical and ends NHC public advisories while forecasting later dissipation. It does not verify that later outcome or today's conditions. Check the current-feed status and official sources separately."
       },
       {
         question: "Did Fay ever make landfall in the United States?",

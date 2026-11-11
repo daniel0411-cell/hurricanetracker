@@ -9,7 +9,7 @@ const s = cristobal;
 const url = `${site.url}/storm/2026-${s.name.toLowerCase()}/`;
 const title = `Tropical Storm Cristobal 2026: NHC Data & History`;
 const description = `Review Cristobal 2026's provisional NHC statistics, final post-tropical advisory, timeline, and comparisons with historical storms of the same name.`;
-const lastModified = "2026-10-24T00:00:00.000Z";
+const lastModified = "2026-11-11T00:00:00.000Z";
 const datePublished = "2026-08-13T00:00:00.000Z";
 const jsonLd = graph(
   websiteSchema(),
@@ -87,13 +87,14 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="impact-title">
     <div class="inner">
       <p class="eyebrow">Impacts</p>
-      <h2 id="impact-title">What {s.name} {s.year} Did</h2>
+      <h2 id="impact-title">What the Bulletin Establishes About {s.name} {s.year}</h2>
       <div class="stack section-grid">
         {s.impact.map((section) => (
           <article class="panel"><h3>{section.title}</h3><p>{section.body}</p></article>
         ))}
       </div>
       <h3 class="historical-heading">Historical {s.name} storms</h3>
+      <p><a href="https://www.nhc.noaa.gov/data/tcr/AL032020_Cristobal.pdf">NHC Cristobal 2020 report: landfall and pressure chronology, PDF pages 3-4</a>.</p>
       <div class="grid-2 section-grid">
         {s.historical.map((h) => (
           <article class="panel historical-card">

@@ -8,8 +8,8 @@ import { bertha } from "./_data/bertha";
 const s = bertha;
 const url = `${site.url}/storm/2026-${s.name.toLowerCase()}/`;
 const title = `Tropical Storm Bertha 2026: NHC Data & History`;
-const description = `Tropical Storm Bertha 2026 tracked the northern Gulf Coast from Florida to Texas. Review NHC data, timeline, impacts, and past Bertha storms.`;
-const lastModified = "2026-10-24T00:00:00.000Z";
+const description = `Compare Bertha's final 2026 NHC bulletins: six-hour wind and pressure changes, coastal cancellations and continuing hazards, with a sourced 2020 comparison.`;
+const lastModified = "2026-11-11T00:00:00.000Z";
 const datePublished = "2026-07-23T00:00:00.000Z";
 const jsonLd = graph(
   websiteSchema(),
@@ -61,8 +61,8 @@ const jsonLd = graph(
       </article>
       <article class="panel">
         <p class="eyebrow">Why it mattered</p>
-        <h2>A Slow Grind, Not a Strike</h2>
-        <p>{s.classification} {s.name} {s.year} lingered along the Gulf Coast for days. Its risk came from duration and repeat exposure, not peak intensity.</p>
+        <h2>Read the Cancellation and the Remaining Hazards</h2>
+        <p>The last bulletin ends coastal watches and warnings while retaining rainfall, elevated-water and surf concerns. Compare each field at its own issue time.</p>
         <p>Pair this history with live trackers and local alerts before the next system forms.</p>
         <p class="section-actions">
           <a class="action-link" href="/hurricane-tracker/storm/">Named storm trackers</a>
@@ -87,13 +87,15 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="impact-title">
     <div class="inner">
       <p class="eyebrow">Impacts</p>
-      <h2 id="impact-title">What {s.name} {s.year} Did</h2>
+      <h2 id="impact-title">What the Bulletins Establish About {s.name} {s.year}</h2>
       <div class="stack section-grid">
         {s.impact.map((section) => (
           <article class="panel"><h3>{section.title}</h3><p>{section.body}</p></article>
         ))}
       </div>
+      <p><a href="https://www.nhc.noaa.gov/archive/2026/al02/al022026.public.018.shtml">Read public Advisory 18, 2100 UTC July 23</a> alongside the final bulletin linked above.</p>
       <h3 class="historical-heading">Historical {s.name} storms</h3>
+      <p><a href="https://www.nhc.noaa.gov/data/tcr/AL022020_Bertha.pdf">NHC Bertha 2020 report: formation and landfall, PDF page 2</a>.</p>
       <div class="grid-2 section-grid">
         {s.historical.map((h) => (
           <article class="panel historical-card">

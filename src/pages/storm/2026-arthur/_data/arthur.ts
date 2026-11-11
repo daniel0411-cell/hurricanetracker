@@ -166,14 +166,14 @@ export const arthur: StormArchive = {
   ],
   preparedness: [
     {
-      title: "Treat weak storms as flood threats",
+      title: "Reading task: do two rainfall forecasts add together?",
       body:
-        "Arthur's lesson is that category and wind speed do not equal danger. If you live on the Gulf Coast, keep a flood plan: know your flood zone, elevate valuables, and never drive through flooded roads. A foot of moving water can float most vehicles."
+        "Advisories 7 and 8 both describe 5-10 inches with isolated totals near 20 inches through early Friday. Adding the two ranges to get 10-20 inches would double-count overlapping storm-total forecasts. The answer is to retain the later bulletin's range, time window and area, not sum consecutive updates. These historical forecasts were rechecked November 11, 2026; they do not supply a measured total at a particular gauge."
     },
     {
-      title: "Watch the rainfall, not just the cone",
+      title: "Reading task: did the bulletin date move forward?",
       body:
-        "The forecast cone shows where the center may go, not where rain will fall. Use NWS local forecasts and flood watches alongside the NHC track, especially when a system is slow or near land."
+        "Yes in UTC, but not in the printed local date. Advisory 7 at 4 PM CDT June 17 is 2100 UTC June 17. Advisory 8 at 10 PM CDT June 17 is 0300 UTC June 18, six hours later. Pair both clocks before ordering archived bulletins. Coastal watches and warnings end in Advisory 8 while the inland rainfall forecast remains; these are separate product statements."
     },
     {
       title: "Pre-stage before landfall",
@@ -192,7 +192,7 @@ export const arthur: StormArchive = {
     },
     {
       question: "Why was Arthur dangerous if it was only a tropical storm?",
-      answer: "Its danger came from rainfall and flooding, not wind. NHC warned of 5–10 inches of rain with isolated totals near 20 inches across the Gulf Coast and Southeast."
+      answer: "NHC retained a forecast of 5-10 inches of rain, with isolated totals near 20 inches, after the post-tropical transition and coastal-warning cancellations. That establishes a forecast flood concern, not a complete attribution of observed damage or proof that other hazards were absent."
     },
     {
       question: "How does 2026 Arthur differ from 2014 Arthur?",

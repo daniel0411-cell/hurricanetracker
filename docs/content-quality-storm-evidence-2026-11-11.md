@@ -1,0 +1,34 @@
+# Six historical storm pages: evidence and reading tasks
+
+## Scope and baseline
+
+Baseline: main and freshly fetched origin/main at 80f7c845a7521d9aa81f4ce2062047cb1fdf83a6 (0/0), origin default main. Revised six existing pages: Arthur, Bertha and Cristobal 2026 archives, plus Dolly, Edouard and Fay named trackers. No new routes, sitemap-source changes, dependency changes or current-weather claims. Existing ReminderSignup and push/send work remains excluded.
+
+This is a focused review of selected bulletins and report sections, not six complete lifecycle/impact audits. Older season-summary checks and historical claims retain their scope and dates. No observed impacts or images are invented.
+
+## Sources actually read November 11
+
+All URLs below successfully returned official content. Public-bulletin preformatted text was read with its issue time, identifier, status and hazard sections. PDFs were converted with the existing MarkItDown executable and the relevant prose sections inspected. Source files and conversion outputs are in task temporary files, not published assets.
+
+- Arthur public advisories [7](https://www.nhc.noaa.gov/archive/2026/al01/al012026.public.007.shtml) and [8](https://www.nhc.noaa.gov/archive/2026/al01/al012026.public.008.shtml): 2100 UTC June 17 and 0300 UTC June 18. Added UTC/local-date comparison and overlapping storm-total rainfall exercise; removed an unsupported vehicle-water generalization and an exclusive attribution of danger to rain. The November check covers these bulletins, not a new season-summary or 2014/2020 report audit.
+- Bertha public advisories [18](https://www.nhc.noaa.gov/archive/2026/al02/al022026.public.018.shtml) and [19](https://www.nhc.noaa.gov/archive/2026/al02/al022026.public.019.shtml): 2100 UTC July 23 and 0300 UTC July 24. Wind 40 to 35 mph, pressure 1006 to 1008 mb, tropical storm to remnants; final-bulletin rainfall 1-3 inches, isolated 4, South Texas that night. Replaced unsupported steering, generalized landfall, coastwide warning and surge stories with these bounded records. Older provisional season values remain explicitly dated October 24.
+- [Bertha 2020 TCR, AL022020](https://www.nhc.noaa.gov/data/tcr/AL022020_Bertha.pdf), July 8, 2026 revision, Synoptic History PDF page 2: analyzed formation 0600 UTC May 27, Isle of Palms landfall around 1330 UTC, 45 kt. Replaced ambiguous one-hour naming/landfall claim with the explicit 7.5-hour analyzed interval. Did not adopt the report's revised fatality discussion as a new impact section. The retained 2008 comparison was not freshly researched.
+- [Cristobal public Advisory 5](https://www.nhc.noaa.gov/archive/2026/al03/al032026.public.005.shtml), 1500 UTC August 13: 30 mph wind, 16 mph northeastward motion, 1018 mb, post-tropical remnant low. Removed unsupported early invest chronology and seasonal narrative. Added wind-versus-motion and source-record tasks; later dissipation stays a forecast. Used the printed AWIPS marine identifier only: the bulletin's WMO station string appears inconsistent (KBWC), so no guessed corrected identifier was published.
+- [Cristobal 2020 TCR, AL032020](https://www.nhc.noaa.gov/data/tcr/AL032020_Cristobal.pdf), January 13, 2021, PDF pages 3-4: Louisiana landfall in Plaquemines Parish east of Grand Isle around 2200 UTC June 7, 45 kt; pressure 990 mb just before Louisiana landfall, later 988 mb before extratropical transition. The existing 988 mb value was not simply false: it needed its lifecycle context. Added that distinction and the original report link. Retained 2014 comparison not freshly researched.
+- [Dolly 2008 TCR, AL042008](https://www.nhc.noaa.gov/data/tcr/AL042008_Dolly.pdf), January 22, 2009: Synoptic History PDF pages 1-2 and statistics page 3. Rechecked selected peak, landfall and water claims; added a caption-selection task choosing 75 kt for South Padre Island, distinct from the earlier 85 kt peak and later 70 kt mainland crossing. Changed stale static data copy that advertised latest 2026 tracking. The route still uses its existing feed-dependent metadata behavior; the custom data title is not claimed to override it.
+- Edouard public advisories [2](https://www.nhc.noaa.gov/archive/2026/al05/al052026.public.002.shtml) and [3](https://www.nhc.noaa.gov/archive/2026/al05/al052026.public.003.shtml): naming and warning transition across 2100/0300 UTC. Added an exercise showing a Hurricane Watch coexisting with a 40 mph tropical storm, and the first surge segment's 2-4 to 3-5 foot forecast revision. Removed static claims of present inactivity or a complete final observed track.
+- [Fay public Advisory 39](https://www.nhc.noaa.gov/archive/2026/al06/al062026.public.039.shtml), 2100 UTC September 29: 30 mph sustained wind, 12 mph motion, forecast later dissipation and marine information handoff. Added a concrete invalid-subtraction exercise and bounded the static status FAQ to the dated bulletin. No eventual dissipation time verified; retained 2008/2020 landfall comparisons not rechecked.
+
+Initial sandbox PDF requests failed to connect to the configured local proxy (127.0.0.1:7892); approved network execution succeeded for all three PDFs. No failed request was interpreted as evidence of no change or an unavailable official document.
+
+## Validation and release
+
+Build and Astro check passed: zero errors/warnings, six pre-existing hints. Metadata, schema, static internal-link, media and 55 local-page date checks passed. Built-Worker content regression passed 112/112 required routes and 46 article source/asset records, with no skipped pages.
+
+Task browser check: 1440px/360px, six pages, HTTP 200, single H1, canonical, source target, new exercise text, Article date and FAQ schema, no horizontal overflow. Existing effective schema dates for Erin/Melissa/Isaias remain November 4; this batch does not claim to revise them. The initial test incorrectly expected the template fallback (November 6); inspection confirmed schema/SEO already resolve dates through contentDates. Corrected the test and removed an unnecessary template change. Visually reviewed Bertha mobile and Dolly desktop screenshots. Proof/script: scratch/storm-evidence-2026-11-11/.
+
+Release uses a clean committed archive with an independent build, excluding unrelated dirty code and scratch. Actual commit, deployment metadata and production checks are recorded separately under docs/deployments/. No indexing submission or AdSense approval claim.
+
+## Next priorities
+
+Inspect the remaining 2008/2014 historical comparison claims and Erin/Melissa source-specific tasks before extending these pages again. A fresh source note does not make all retained facts freshly verified. Then review repeated explanatory prose and evidence accessibility across archives. Add media only if an actual report figure or documented observation improves the reading task, with timestamp, units, attribution and mobile legibility.

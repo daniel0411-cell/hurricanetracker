@@ -9,7 +9,7 @@ const s = arthur;
 const url = `${site.url}/storm/2026-${s.name.toLowerCase()}/`;
 const title = `Tropical Storm Arthur 2026: NHC Data & History`;
 const description = `Review Arthur's 2026 NHC advisories, 45 mph peak winds, Texas-coast positions and rainfall forecasts, with clear distinctions between forecasts and observations.`;
-const lastModified = "2026-10-23T00:00:00.000Z";
+const lastModified = "2026-11-11T00:00:00.000Z";
 const datePublished = "2026-06-18T00:00:00.000Z";
 const jsonLd = graph(
   websiteSchema(),
@@ -125,7 +125,8 @@ const jsonLd = graph(
 
   <section class="band" aria-labelledby="prep-title">
     <div class="inner">
-      <p class="eyebrow">Preparedness</p>
+      <p class="eyebrow">Preparedness and reading practice</p>
+      <p>Compare <a href="https://www.nhc.noaa.gov/archive/2026/al01/al012026.public.007.shtml">Advisory 7, 2100 UTC June 17</a> with the final Advisory 8 linked above. Historical example, not a current forecast.</p>
       <h2 id="prep-title">Lessons From {s.name} {s.year}</h2>
       <div class="grid-2 section-grid">
         {s.preparedness.map((section) => (
