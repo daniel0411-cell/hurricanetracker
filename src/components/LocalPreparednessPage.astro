@@ -1,7 +1,7 @@
 ---
 import FaqBlock from "./FaqBlock.astro";
 import Layout from "../layouts/Layout.astro";
-import { site } from "../data/site";
+import { site, states } from "../data/site";
 import { preparednessSteps, type LocalPreparednessPage } from "../data/localPreparednessPages";
 import { articleSchema, breadcrumbSchema, faqSchema, graph, howToSchema, websiteSchema } from "../lib/schema";
 
@@ -9,6 +9,9 @@ const { page } = Astro.props as { page: LocalPreparednessPage };
 const path = page.kind === "state" ? `state/${page.slug}/preparedness/` : `city/${page.slug}/hurricane-tracker/`;
 const url = `${site.url}/${path}`;
 const statePage = `/state/${page.stateSlug}/preparedness/`;
+const hasStateTracker = states.some(([, name]) => name === page.stateName);
+const currentTracker = page.kind === "city" ? `/hurricane-tracker/city/${page.slug}/` : hasStateTracker ? `/tracker/${page.stateSlug}/` : "/hurricane-tracker/live/";
+const currentTrackerLabel = page.kind === "city" || hasStateTracker ? `Current ${page.name} storm context and alerts` : "All-basin live hurricane tracker";
 const lastModified = page.dateModified ?? site.contentLastModified;
 const record = page.planningRecord;
 const jsonLd = graph(
@@ -21,7 +24,7 @@ const jsonLd = graph(
 ---
 
 <Layout title={page.title} description={page.description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
-  <section class="band local-hero" aria-labelledby="local-title"><div class="inner"><p class="eyebrow">2026 Atlantic season readiness</p><h1 id="local-title">{page.name} Hurricane {page.kind === "state" ? "Preparedness" : "Preparedness and Evacuation"} Guide</h1><p class="answer">Use this standing guide to prepare supplies, transport, evacuation arrangements, and official contacts before a storm. It does not describe a current threat to {page.name}.</p>{page.dateModified && <p>Guide revised <time datetime={page.dateModified}>{page.dateModified}</time>.</p>}<p class="section-actions"><a class="action-link" href="/2026-hurricane-season/">2026 season hub</a><a class="action-link secondary-action" href={page.kind === "city" ? `/hurricane-tracker/city/${page.slug}/` : `/tracker/${page.stateSlug}/`}>Current {page.name} storm context and alerts</a></p></div></section>
+  <section class="band local-hero" aria-labelledby="local-title"><div class="inner"><p class="eyebrow">2026 Atlantic season readiness</p><h1 id="local-title">{page.name} Hurricane {page.kind === "state" ? "Preparedness" : "Preparedness and Evacuation"} Guide</h1><p class="answer">Use this standing guide to prepare supplies, transport, evacuation arrangements, and official contacts before a storm. It does not describe a current threat to {page.name}.</p>{page.dateModified && <p>Guide revised <time datetime={page.dateModified}>{page.dateModified}</time>.</p>}<p class="section-actions"><a class="action-link" href="/2026-hurricane-season/">2026 season hub</a><a class="action-link secondary-action" href={currentTracker}>{currentTrackerLabel}</a></p></div></section>
 
   <nav class="local-sections inner" aria-label={`${page.name} guide sections`}>
     <a href="#official-resources">Official resources</a>
@@ -42,7 +45,7 @@ const jsonLd = graph(
 
   <section class="band" aria-labelledby="official-resources"><div class="inner"><p class="eyebrow">Decision sources</p><h2 id="official-resources">Official {page.name} Emergency Resources</h2><p class="answer">Shelter locations and evacuation orders change by event. Use the official links below for current information rather than treating this guide as an emergency directive.</p><div class="resource-grid">{page.resources.map((resource) => <a href={resource.href} rel="noopener nofollow">{resource.label}</a>)}<a href="https://www.weather.gov/" rel="noopener nofollow">National Weather Service alerts</a><a href="https://www.nhc.noaa.gov/" rel="noopener nofollow">National Hurricane Center</a></div></div></section>
 
-  <section class="band link-band" aria-labelledby="planning-links"><div class="inner"><p class="eyebrow">Keep planning connected</p><h2 id="planning-links">Track the Storm, Then Check Local Risk</h2><div class="link-grid">{page.kind === "city" && <a href={statePage}>Open {page.stateName} preparedness guide</a>}<a href={`/tracker/${page.stateSlug}/`}>Open {page.stateName} live tracker</a><a href="/hurricane-tracker/live/">Open live hurricane tracker</a><a href="/tools/preparedness-checklist/">Build a preparedness checklist</a><a href="/tools/storm-surge-checker/">Screen surge alerts at a ZIP representative point</a><a href="/hurricane-tracker/storm/">Current and archived named storms</a></div></div></section>
+  <section class="band link-band" aria-labelledby="planning-links"><div class="inner"><p class="eyebrow">Keep planning connected</p><h2 id="planning-links">Track the Storm, Then Check Local Risk</h2><div class="link-grid">{page.kind === "city" && <a href={statePage}>Open {page.stateName} preparedness guide</a>}{hasStateTracker && <a href={`/tracker/${page.stateSlug}/`}>Open {page.stateName} live tracker</a>}<a href="/hurricane-tracker/live/">Open live hurricane tracker</a><a href="/tools/preparedness-checklist/">Build a preparedness checklist</a><a href="/tools/storm-surge-checker/">Screen surge alerts at a ZIP representative point</a><a href="/hurricane-tracker/storm/">Current and archived named storms</a></div></div></section>
 
   <FaqBlock faqs={page.faqs} />
 </Layout>

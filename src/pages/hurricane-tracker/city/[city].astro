@@ -96,7 +96,6 @@ const jsonLd = graph(
       <h1 id="city-title">{city.name} Hurricane Tracker and Local Risk Guide</h1>
       {city.dateModified && <p class="small">Guide updated {lastModified.slice(0, 10)}. This date includes material guide or template revisions, not live weather conditions.</p>}
       {city.sourceCheck && <p class="small">Source check {city.sourceCheck.date} · {city.sourceCheck.scope}</p>}
-      <p class="answer">This page helps {city.name} residents connect state NWS alerts, NHC storm context, evacuation-zone checks, and household planning tools before wind, surge, flooding, or road constraints reduce options.</p>
       <p class="answer">{city.overview}</p>
       {planningGuide && <p><a href="#city-live">Read {city.name} area NWS alerts</a> &middot; <a href={planningGuide}>Prepare a {city.name} household and transport record</a></p>}
     </div>
@@ -146,14 +145,13 @@ const jsonLd = graph(
     <div class="inner grid-2">
       <article>
         <h2 id="city-counties">Nearby Counties and Local Checks</h2>
-        <p>Use these nearby county or city names as a starting point, then verify exact emergency instructions with local officials.</p>
         <ul class="check-list">
           {city.nearbyCounties.map((county) => <li>{county}</li>)}
         </ul>
       </article>
       <article class="panel">
-        <h2>Decision Reminder</h2>
-        <p>HurricaneHub can screen state-level alerts and storm context. It cannot determine your exact evacuation zone, shelter eligibility, bridge closure, or road safety.</p>
+        <h2>Match the Alert to Your Address</h2>
+        <p>Check the issuing agency, affected area, issue time and required action. Confirm evacuation zones, shelters and road access with the local resources below.</p>
         <p><a class="action-link" href="/tools/alert-action-decoder/">Decode an official alert</a></p>
       </article>
     </div>
@@ -169,7 +167,7 @@ const jsonLd = graph(
       </article>
       <article>
         <h2>Verify Local Instructions Before Leaving</h2>
-        <p>{city.planningNote} Save the responsible local agency's update before travel, and check the order's area, issue time, and departure instructions against your exact address.</p>
+        <p>Save the responsible local agency's update before travel, and check the order's area, issue time, and departure instructions against your exact address.</p>
         <ul class="check-list">
           {(city.officialResources ?? []).filter((resource) => !resource.url.includes("nhc.noaa.gov")).map((resource) => <li><a href={resource.url}>{resource.name}</a>: {resource.description}</li>)}
         </ul>
@@ -182,7 +180,6 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">Local action paths</p>
       <h2 id="city-action-paths">What Should {city.name} Residents Do Next?</h2>
-      <p class="answer">Use the city tracker to understand local hurricane context, then move into the tool that matches the decision you need to make now.</p>
       <div class="grid-2 section-grid">
         {actionPaths.map((path) => (
           <article class="panel">
@@ -198,13 +195,11 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">Nearby hurricane tracker pages</p>
       <h2 id="nearby-city-links">Compare {city.name} With Other {city.stateName} Hurricane Trackers</h2>
-      <p class="answer">A hurricane can shift risk from one metro area to another depending on track angle, coastline shape, rainfall placement, and evacuation routes. Use these nearby pages to compare storm surge, flooding, outage, and local-alert context before focusing on one location.</p>
       <div class="grid-3 section-grid">
         {nearbyCityLinks.map((nearbyCity) => (
           <article class="panel">
             <p class="eyebrow">{nearbyCity.region}</p>
             <h3>{nearbyCity.name} Hurricane Tracker</h3>
-            <p>{nearbyCity.planningNote}</p>
             <a href={`/hurricane-tracker/city/${nearbyCity.slug}/`}>Open {nearbyCity.name}</a>
           </article>
         ))}
@@ -222,7 +217,6 @@ const jsonLd = graph(
       <div class="inner">
         <p class="eyebrow">Official source links</p>
         <h2 id="official-resources">{city.name} Official Hurricane Resources</h2>
-        <p class="answer">Use these official sources for evacuation orders, shelters, road closures, local alerts, and current NHC advisories before making a life-safety decision.</p>
         <div class="grid-3 section-grid">
           {city.officialResources.map((resource) => (
             <article class="panel">

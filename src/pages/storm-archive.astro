@@ -242,15 +242,15 @@ const jsonLd = graph(
     <section class="band" aria-labelledby="preserved-storms">
       <div class="inner">
         <p class="eyebrow">Preserved storm records</p>
-        <h2 id="preserved-storms">Named Storm Pages From This Season</h2>
-        <p class="answer">These stable URLs remain available after a system leaves the active NHC feed, preserving its final recorded status and source context.</p>
+        <h2 id="preserved-storms">Saved Feed Observations</h2>
+        <p class="answer">These pages retain observations saved by HurricaneHub while monitoring the NHC feed. An inactive record is the last observation saved here, not necessarily the final advisory or a complete storm history. Use the separately researched archives below for historical analysis.</p>
         <div class="grid-3 section-grid">
           {registryStorms.map((storm) => (
             <article class="panel">
-              <span class={`badge ${storm.active ? "warn" : ""}`}>{storm.active ? "Active" : "Archived"}</span>
+              <span class={`badge ${storm.active ? "warn" : ""}`}>{storm.active ? "Active" : "Saved observation"}</span>
               <h3>{storm.name ?? storm.id}</h3>
-              <p>{storm.classification ?? "Tropical system"} · {storm.intensity ? formatWind(Number(storm.intensity)) : storm.windSpeed ?? "final intensity pending"}</p>
-              <p class="source-note">Last NHC record {storm.lastSeen}</p>
+              <p>{storm.classification ?? "Tropical system"} · {storm.intensity ? formatWind(Number(storm.intensity)) : storm.windSpeed ?? "intensity not recorded"}</p>
+              <p class="source-note">Last saved observation {storm.lastSeen}</p>
               <a href={`/hurricane-tracker/storm/${storm.slug}/`}>Open {storm.name ?? "storm"} page</a>
             </article>
           ))}

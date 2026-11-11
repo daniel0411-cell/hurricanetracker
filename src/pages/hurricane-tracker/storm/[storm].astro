@@ -57,6 +57,8 @@ if (!knownPage && !activeStorm && successorSlug && successorSlug !== slug) {
 }
 if (!knownPage && !activeStorm && !archivedStorm) return Astro.redirect("/storm-archive/", 302);
 const stormRecord = activeStorm ?? archivedStorm;
+// Retained feed observations need an editorial report before becoming indexed archives.
+const noindex = !knownPage?.historicalReport && !activeStorm;
 const isArchived = feedAvailable && !activeStorm && Boolean(archivedStorm);
 const stormName = stormRecord?.name ?? knownPage?.name ?? slug.replace(/(^|-)(\w)/g, (_, space, letter) => `${space}${letter.toUpperCase()}`);
 const basinCode = activeStorm?.id?.slice(0, 2).toLowerCase();
@@ -146,7 +148,7 @@ const jsonLd = graph(
   ])
 );
 ---
-<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified}>
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified} noindex={noindex}>
   <section class="band" aria-labelledby="storm-title">
     <div class="inner">
       <p class="eyebrow">{basin} storm tracker</p>

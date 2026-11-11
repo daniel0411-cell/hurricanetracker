@@ -14,9 +14,10 @@ type Props = {
   ogImage?: string;
   imageAlt?: string;
   publishedTime?: string;
+  noindex?: boolean;
 };
 
-const { title, description, canonical, siteName, jsonLd, lastModified, image, ogImage, imageAlt, publishedTime } = Astro.props;
+const { title, description, canonical, siteName, jsonLd, lastModified, image, ogImage, imageAlt, publishedTime, noindex = false } = Astro.props;
 const modified = contentModifiedFor(canonical, lastModified ?? site.contentLastModified);
 const schema = jsonLd ?? graph(websiteSchema(), organizationSchema());
 
@@ -87,7 +88,7 @@ const schemaWithBreadcrumb = (() => {
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalHref} />
 <meta name="last-modified" content={modified} />
-<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+<meta name="robots" content={noindex ? "noindex,follow" : "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"} />
 <meta property="og:type" content={ogType} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />

@@ -18,6 +18,7 @@ type Props = {
   ogImage?: string;
   imageAlt?: string;
   publishedTime?: string;
+  noindex?: boolean;
   lang?: Lang;
   showTopAd?: boolean;
   showBottomAd?: boolean;
@@ -33,6 +34,7 @@ const {
   ogImage,
   imageAlt,
   publishedTime,
+  noindex = false,
   lang = defaultLang,
   showTopAd = false,
   showBottomAd = false
@@ -70,6 +72,7 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
       ogImage={ogImage}
       imageAlt={imageAlt}
       publishedTime={publishedTime}
+      noindex={noindex}
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
