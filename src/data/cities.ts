@@ -653,6 +653,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "key-west",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read Monroe County Evacuation Information, Special Needs Registry, Shelters and resident reentry sticker HTML. Checked five departure zones versus three reentry regions and the separate Key West city sticker. No visible article revision dates. No address, current order, shelter opening, application, ride, medical placement or return permission was verified; retained hazard background was not reverified." },
     name: "Key West",
     stateCode: "FL",
     stateName: "Florida",
@@ -665,19 +667,23 @@ export const hurricaneCities: HurricaneCity[] = [
       "Key West hurricane risk is different from mainland Florida because the city sits at the end of a long island chain with one primary road connection to the mainland. Tropical systems moving through the Florida Straits, western Caribbean, or Gulf can bring surge, wind, marine hazards, and supply interruptions. The most important decision is often when to leave, not whether the storm center is aimed exactly at Key West.",
     localHazards: [
       {
-        heading: "Overseas Highway Timing",
+        heading: "Write Down the Departure Zone, Not the Sticker Number",
         body:
-          "U.S. 1 and the bridges through the Keys are critical evacuation and supply routes. Traffic, fuel limits, bridge restrictions, and emergency orders can reduce options well before peak wind."
+          "Monroe County's evacuation page divides the Keys into five departure zones. Zone 1 covers mile markers 0 through 6, including the Key West end of the chain. Record the zone for the actual lodging or home, then read the order's resident or visitor scope and timing. The county's Upper, Middle and Lower Keys reentry regions are a different system. A number on a return sticker cannot tell you when to depart. Save the official instruction and its publication time alongside the address so another household member can check the same decision."
       },
       {
-        heading: "Storm Surge and Marine Exposure",
+        heading: "Confirm the Receiving Place Before Driving Up the Keys",
         body:
-          "Low elevation and surrounding water make surge, wave action, and marina damage central hazards. Boat owners and waterfront residents should complete preparations before conditions make docks unsafe."
+          "U.S. 1 connects the island chain, but a road name alone leaves the travel plan incomplete. Record the destination, acceptance of household members and pets, transport, fuel and contact method. Monroe County publishes different in-county and mainland shelter arrangements; use the event's opening announcement to select a receiving place. A school appearing in standing guidance is a candidate to check, not evidence that its doors are open. Visitors should resolve rental checkout and onward lodging separately from the county evacuation instruction."
       },
       {
-        heading: "Medical and Supply Constraints",
+        heading: "Move a Care Request Through Each Confirmation",
         body:
-          "Island residents should plan for prescriptions, oxygen, mobility needs, pet evacuation, fuel, and backup lodging earlier than mainland households because local resources can tighten quickly."
+          "The county's Special Needs Registry describes medical review by the Florida Department of Health. Keep application status, eligibility assessment, transport instructions and receiving care as separate entries. Update the contact and medical information used by the program, and arrange treatment continuity with the care provider. A submitted form leaves important questions open: who will contact the resident, what equipment travels, who accompanies them and where care can continue? Follow the county's actual instructions for the event rather than assuming that registration has booked an accessible vehicle or medical bed."
+      },
+      {
+        heading: "Exercise: Departure Zone and Return Sticker",
+        body: "Fictional example: a Key West household has recorded evacuation Zone 1 and owns a Key West resident sticker. Does that mean it may return as soon as an announcement mentions reentry region 1? Answer: no. Monroe explicitly separates its evacuation zones from reentry regions, and Key West uses its own white city sticker rather than the county's barcoded stickers. Read the return announcement's geography, eligible people and access conditions. The useful completed task is a record of the applicable instruction and required identification, not a guess based on matching numbers. This example establishes no current evacuation or return status."
       }
     ],
     evacuationFocus: [
@@ -700,6 +706,14 @@ export const hurricaneCities: HurricaneCity[] = [
           "Key West depends on limited island routes, bridge access, fuel, shelters, and long travel time to safer inland areas. Waiting can reduce options quickly."
       },
       {
+        question: "Are Monroe evacuation and reentry zones the same?",
+        answer: "No. The county describes five evacuation zones and three county reentry regions. Key West also uses its own city resident sticker. Read the applicable departure or return announcement rather than equating the numbers."
+      },
+      {
+        question: "Does a Monroe Special Needs application confirm a ride?",
+        answer: "The county describes medical review and event instructions. Confirm assessment status, transport, equipment and receiving care separately; a submitted application does not establish all of those arrangements."
+      },
+      {
         question: "Is Key West vulnerable to storm surge?",
         answer:
           "Yes. Low elevation and water on all sides make storm surge and marine hazards serious even when wind category is not the only concern."
@@ -712,10 +726,12 @@ export const hurricaneCities: HurricaneCity[] = [
     ],
     officialResources: [
       {
-        name: "Monroe County Emergency Management",
-        description: "Official Florida Keys evacuation, alerts, shelter, and hurricane preparedness information.",
-        url: "https://www.monroecounty-fl.gov/897/Emergency-Management"
+        name: "Monroe County Evacuation Information",
+        description: "Five departure zones, phased evacuation and links to shelter and assistance planning.",
+        url: "https://www.monroecounty-fl.gov/897/Evacuation-Information"
       },
+      { name: "Monroe Special Needs Registry", description: "Application review and care-planning information; confirm event arrangements separately.", url: "https://www.monroecounty-fl.gov/148/Special-Needs-Registry" },
+      { name: "Monroe Resident Reentry Stickers", description: "County reentry regions and the separate Key West city sticker.", url: "https://www.monroecounty-fl.gov/916/Resident-Reentry-Vehicle-Windshield-Stic" },
       {
         name: "NWS Key West",
         description: "Official National Weather Service alerts and forecasts for the Florida Keys.",
@@ -1645,6 +1661,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "lake-charles",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read Lake Charles city homepage alert-channel entries. Its linked emergency-alert endpoint returned a JavaScript portal shell; Calcasieu's listed preparedness URL returned HTTP 403. This limited check confirms navigation labels, not alert delivery, parish rules or service availability. No address, order, road, shelter, ride, medical arrangement or industrial status was verified; retained hazard background was not reverified." },
     name: "Lake Charles",
     stateCode: "LA",
     stateName: "Louisiana",
@@ -1652,16 +1670,17 @@ export const hurricaneCities: HurricaneCity[] = [
     risks: ["Calcasieu surge", "industrial corridor outages", "rapid intensification", "inland flooding"],
     nearbyCounties: ["Calcasieu", "Cameron", "Beauregard"],
     planningNote:
-      "Lake Charles households should plan early for Gulf surge, Calcasieu water impacts, industrial corridor outages, and rapid intensification near the Louisiana coast.",
+      "Record the parish for the actual address, the instruction that applies there, a receiving destination and the services needed to reach it. Use NHC discussions for changes in the approaching storm.",
     overview:
       "Lake Charles hurricane risk is shaped by the southwest Louisiana coast, Calcasieu Lake, nearby Cameron Parish, industrial infrastructure, and a history of intense Gulf landfalls. Storms can intensify late and bring surge, wind, flooding, and long recovery challenges.",
     localHazards: [
-      { heading: "Calcasieu and Cameron Surge", body: "Surge can move through coastal waterways and low-lying routes before the strongest winds arrive." },
-      { heading: "Wind and Industrial Outages", body: "Strong winds can damage homes, utilities, refineries, and industrial facilities, extending recovery timelines." },
-      { heading: "Late Strengthening", body: "Warm Gulf water can allow storms to intensify close to landfall, so households should not wait for perfect forecast certainty." }
+      { heading: "Give Each Address Its Own Parish Instruction", body: "A Lake Charles household may have relatives, work or a destination in Cameron or Beauregard Parish. Record each address's jurisdiction before applying an evacuation notice. A Cameron instruction is relevant to a journey through that parish, but it does not automatically describe the rule for a Calcasieu home. Write down the issuing authority, affected area, publication time and action required. For the coastal waterways and low routes in the plan, consult the actual flood and road information instead of estimating safety from distance inland or the forecast center line." },
+      { heading: "Choose Emergency Messages and City-Service Updates Separately", body: "Lake Charles' homepage provides separate entries for emergency alerts, website notifications and city-service alerts. Use the entry that matches the information needed and check its current signup instructions. A subscription for a service update does not demonstrate receipt of an evacuation warning. Keep parish emergency information and NWS Lake Charles available through more than one channel, and save an offline household contact plan. Our linked emergency-alert request returned a portal shell, so this guide does not claim to have tested registration, message delivery or the current contents of that portal." },
+      { heading: "Specify What the Receiving Destination Must Provide", body: "For a household using powered equipment or ongoing treatment, write the care and access requirements before choosing lodging. Ask the provider and responsible local service which transport and receiving arrangements are available for that person. Record acceptance, equipment, medication storage, caregiver travel and an alternative contact. A hotel booking, shelter listing and medical receiving arrangement are different confirmations. For return, check the home's access and required utilities as well as the destination's departure arrangements. An announced road reopening alone leaves power-dependent care unresolved." },
+      { heading: "Exercise: A Relative's Order and a Service Message", body: "Fictional example: a Lake Charles resident receives a city-service email and a relative forwards a Cameron Parish evacuation notice. Which one settles the resident's departure instruction? Answer: neither without checking the message's purpose and the home's jurisdiction. Find the Calcasieu instruction that applies to the actual address; use the Cameron notice separately if the route or relatives are affected. Then confirm transport and the receiving place. Do not infer storm intensification from warm water alone: use the latest NHC advisory and discussion for the approaching system. No present order or travel condition is established by this exercise." }
     ],
     evacuationFocus: [
-      "Follow Calcasieu and Cameron parish evacuation guidance.",
+      "Identify the home's parish and read the applicable instruction; check other parishes separately for the route and destination.",
       "Leave early from surge zones, mobile homes, and low-lying communities.",
       "Plan fuel, lodging, pets, medicine, and documents before traffic builds.",
       "Prepare for long outages and delayed return after major landfalls."
@@ -1674,11 +1693,14 @@ export const hurricaneCities: HurricaneCity[] = [
       "Southwest Louisiana hurricane tracker"
     ],
     faqs: [
-      { question: "Why is Lake Charles vulnerable to rapid hurricane changes?", answer: "Storms approaching southwest Louisiana can intensify over warm Gulf water, reducing decision time before landfall." },
+      { question: "Where should I check changes in an approaching storm?", answer: "Use the latest NHC advisory and discussion, together with NWS Lake Charles local hazards. Warm Gulf water alone is insufficient to predict whether a particular storm will intensify." },
       { question: "Should Lake Charles residents evacuate for surge risk?", answer: "Residents in official surge zones, mobile homes, or low-lying areas should follow parish orders and leave early when advised." },
-      { question: "What should Lake Charles households prepare for after landfall?", answer: "Prepare for outages, fuel limits, debris, industrial disruptions, road closures, and delayed reentry." }
+      { question: "What should Lake Charles households prepare for after landfall?", answer: "Prepare for outages, fuel limits, debris, industrial disruptions, road closures, and delayed reentry." },
+      { question: "Does a Cameron Parish order automatically cover my Lake Charles home?", answer: "Check the actual address and jurisdiction. Apply the responsible authority's instruction to that location, and check Cameron separately when a route, relative or destination there is involved." },
+      { question: "Does signing up for city-service updates confirm emergency alert delivery?", answer: "The city lists separate emergency, website and city-service notification entries. Check the current emergency signup instructions and keep another warning channel available; delivery was not tested for this guide." }
     ],
     officialResources: [
+      { name: "Lake Charles Official City Website", description: "Separate entries for emergency, website and city-service notifications; delivery was not tested.", url: "https://www.cityoflakecharles.com/" },
       { name: "Calcasieu Parish Emergency Preparedness", description: "Official Calcasieu Parish emergency alerts, evacuation, and preparedness information.", url: "https://www.calcasieu.gov/services/emergency-preparedness" },
       { name: "NWS Lake Charles", description: "Official National Weather Service alerts and forecasts for southwest Louisiana.", url: "https://www.weather.gov/lch/" },
       { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
@@ -1688,6 +1710,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "outer-banks",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read NC Emergency Management Know Your Zone FAQ and Currituck Emergency Management HTML, including its alert-platform transition notice. No visible article revision dates. Dare and Hyde entries returned HTTP 403; NCDOT ferry HTML exposed only limited navigation, not service status. No county order, address result, ferry, road, alert delivery or reentry permission was verified; retained hazard background was not reverified." },
     name: "Outer Banks",
     stateCode: "NC",
     stateName: "North Carolina",
@@ -1699,9 +1723,10 @@ export const hurricaneCities: HurricaneCity[] = [
     overview:
       "The Outer Banks face a distinct hurricane risk because narrow barrier islands can be cut by ocean overwash, sound-side flooding, bridge restrictions, and ferry disruptions. Visitors and residents often receive different evacuation timing, so official Dare, Hyde, and Currituck guidance matters.",
     localHazards: [
-      { heading: "NC-12 and Bridge Access", body: "Overwash, sand, standing water, and wind can close key routes before and after a storm." },
-      { heading: "Sound-Side Flooding", body: "Wind direction can push water across the sounds even after ocean conditions change." },
-      { heading: "Visitor Evacuation Timing", body: "Visitors may be told to leave earlier to reduce road pressure and preserve local resources." }
+      { heading: "Identify the County Before Reading an Order", body: "Outer Banks is a regional label spanning Dare, Hyde and Currituck counties. NC Emergency Management lists all three in Know Your Zone, but local officials issue evacuation instructions and zone sets vary by county. Start with the street address and county, then save the map result and the actual instruction's scope. A visitor in Corolla should not automatically apply a Dare County notice, and a mainland address needs its own lookup. If the map fails or the address is unclear, contact the responsible local emergency office rather than assigning a zone from a nearby beach name." },
+      { heading: "Check Each Transport Leg and the Receiving Place", body: "For the planned journey, list the road, bridge or ferry legs actually needed and a destination confirmed to receive the household. Check road conditions through DriveNC and ferry information through NCDOT separately; a road being usable does not establish that a ferry is operating. Save the latest result and the next check time. NC Emergency Management also directs residents to ReadyNC for open shelters. A shelter opening, a ferry departure and permission to reenter an island answer different questions and need separate confirmation before travel." },
+      { heading: "Check Whether the Alert Account Needs Replacing", body: "Currituck's Emergency Management page carries a notification-platform upgrade notice requiring all users to create a new account, including existing subscribers. A past successful message therefore does not settle whether the current registration is ready. Follow the county's current signup instructions and verify the contact details used for the trip. For Dare or Hyde, use that county's own notification and emergency information; the Currituck notice does not describe their systems. No subscriber delivery was tested for this guide, and receiving an alert does not by itself confirm road access." },
+      { heading: "Exercise: One Regional Name, Two Different Permissions", body: "Fictional example: a Corolla visitor saves a Dare County return notice and a week-old ferry timetable. Can the visitor use these to restart the trip? Answer: neither establishes the required conditions. First identify the lodging's county and the instruction that applies to visitors there. Then check the actual route, any ferry service needed and the lodging's readiness to receive guests. NC Emergency Management describes locally staged reentry and advises visitors to contact accommodations. Keep those checks distinct from an evacuation-zone lookup: a zone describes departure planning, not a reservation or permission to return." }
     ],
     evacuationFocus: [
       "Follow Dare, Hyde, or Currituck evacuation instructions for residents and visitors.",
@@ -1719,10 +1744,14 @@ export const hurricaneCities: HurricaneCity[] = [
     faqs: [
       { question: "Why do Outer Banks evacuations start early?", answer: "Barrier-island routes, bridges, ferries, and NC-12 can become limited by overwash, flooding, wind, and traffic before peak conditions." },
       { question: "Is sound-side flooding dangerous on the Outer Banks?", answer: "Yes. Wind can push water into the sounds and flood areas that may not face the highest ocean surge." },
-      { question: "Should visitors watch different instructions?", answer: "Yes. Visitor evacuation orders may come earlier than resident orders, so check county guidance directly." }
+      { question: "Should visitors watch different instructions?", answer: "Yes. Visitor evacuation orders may come earlier than resident orders, so check county guidance directly." },
+      { question: "Will my old Currituck Alert account automatically continue?", answer: "The county page carries a platform-transition notice requiring all users, including existing subscribers, to create a new account. Follow its current instructions and verify your contact details; message delivery was not tested here." },
+      { question: "Does a road reopening confirm ferry service or visitor reentry?", answer: "Check those separately: current road conditions, the required ferry service, the local return instruction and the accommodation's readiness to receive visitors. A reopening on one leg does not establish the whole journey." }
     ],
     officialResources: [
       { name: "Dare County Emergency Management", description: "Official Outer Banks evacuation, alerts, and emergency management information for Dare County.", url: "https://www.darenc.gov/departments/emergency-management" },
+      { name: "NC Know Your Zone", description: "Address lookup and FAQ on local orders, shelters and staged reentry.", url: "https://www.ncdps.gov/our-organization/emergency-management/emergency-preparedness/know-your-zone" },
+      { name: "Currituck Emergency Management", description: "County contacts and alert-platform transition instructions; confirm current registration.", url: "https://currituckcountync.gov/emergency-management/" },
       { name: "NWS Newport/Morehead City", description: "Official National Weather Service alerts and forecasts for the Outer Banks.", url: "https://www.weather.gov/mhx/" },
       { name: "National Hurricane Center", description: "Official NHC advisories, forecast cones, watches, warnings, and tropical cyclone updates.", url: "https://www.nhc.noaa.gov/" }
     ],
@@ -2088,6 +2117,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "brownsville",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read Cameron County Emergency Management HTML and Cameron County 911 emergency contact directory. County HTML mixes a 2026 plan notice with older links and inconsistent registry/deadline wording; used only agency/resource roles and the explicit no-service-guarantee statement. Linked maps, videos and application forms were not reviewed. Brownsville's city emergency page returned HTTP 403. No order, address, ride, shelter or road status was verified; retained hazard background was not reverified." },
     name: "Brownsville",
     stateCode: "TX",
     stateName: "Texas",
@@ -2100,19 +2131,23 @@ export const hurricaneCities: HurricaneCity[] = [
       "Brownsville hurricane risk is shaped by the lower Texas coast, Boca Chica and South Padre Island exposure, Rio Grande Valley rainfall, and the possibility of fast intensification in the western Gulf. Residents may need to make decisions with limited lead time, especially for mobile homes, coastal communities, and households needing transportation, medical support, cooling, or power-dependent care.",
     localHazards: [
       {
-        heading: "Lower Coast Surge",
+        heading: "Match the Coastal Address to the Instruction",
         body:
-          "Boca Chica, South Padre Island, low coastal roads, and nearby bay areas can face surge and overwash when western Gulf storms push water inland."
+          "A Brownsville home, a South Padre Island rental and a workplace near Boca Chica need separate location records. Start with the address and responsible city or county, then read the actual evacuation instruction for that place. Cameron County's emergency page links evacuation zones and route maps, while the 911 emergency-resources page is a contact directory. Use the directory to find the responsible office; open the relevant map or announcement separately. A countywide resource link does not establish that every address has the same departure instruction or route."
       },
       {
-        heading: "Valley Rainfall Flooding",
+        heading: "Turn STEAR Information Into Follow-up Questions",
         body:
-          "Slow or wet tropical systems can flood roads and neighborhoods across Cameron, Willacy, and Hidalgo counties even away from the immediate shoreline."
+          "Cameron County describes STEAR as a voluntary record of assistance needs and explicitly says registration does not guarantee a specific service. The page also uses older 'reserve your ride' wording, so treat registration as planning information and ask the responsible local service what has actually been arranged. Confirm who will contact the person, the pickup instructions, accessible vehicle or equipment requirements, accompanying care and receiving destination. Use the current official registration process rather than assuming an old form link or a fixed cutoff printed on this mixed-age resource page remains applicable."
       },
       {
-        heading: "Distance and Heat After Landfall",
+        heading: "Check the Whole Valley Journey, Including Return",
         body:
-          "Evacuation destinations, fuel, cooling, power restoration, and medical access can be challenging across the Rio Grande Valley after a tropical cyclone."
+          "Write down the destination's acceptance and the road legs needed to reach it. Check current road information for those legs; a regional evacuation map is planning material rather than a statement that lanes are open. Include fuel, cooling, prescriptions, caregiver travel and a contact who can receive an update if the route changes. Before returning, ask whether the home and required services are usable, not merely whether a major road has reopened. Keep utility restoration, medical access and permission to enter the neighborhood as separate checks."
+      },
+      {
+        heading: "Exercise: Is a Registry Entry a Ride?",
+        body: "Fictional example: a household has a STEAR registration record, the county 911 directory and a saved regional route map. Has assisted evacuation been confirmed? Answer: no. The registry records needs, the directory identifies contacts, and the map helps plan travel. None supplies a confirmed pickup, accessible vehicle or receiving acceptance. Ask the responsible local service about the actual arrangements and document the reply. If the household has an immediate emergency, use emergency services rather than treating a preparedness registry as an emergency dispatch request. This exercise confirms no current service or road condition."
       }
     ],
     evacuationFocus: [
@@ -2135,6 +2170,14 @@ export const hurricaneCities: HurricaneCity[] = [
           "Yes. Western Gulf storms can strengthen quickly, so Brownsville residents should follow official guidance and prepare before forecasts become urgent."
       },
       {
+        question: "Does Cameron County STEAR registration reserve a vehicle?",
+        answer: "The county explicitly says registration does not guarantee a specific service. Confirm the event's pickup, accessibility, accompanying care and receiving arrangements with the responsible service."
+      },
+      {
+        question: "Does the Cameron County 911 resource page show evacuation routes?",
+        answer: "The reviewed 911 page is an agency contact directory. The separate County Emergency Management page links maps and preparedness material; check current instructions and road conditions separately."
+      },
+      {
         question: "Does Brownsville face storm surge risk?",
         answer:
           "Yes. Coastal Cameron County, Boca Chica, South Padre Island, and bay areas can face surge and overwash during Gulf tropical systems."
@@ -2147,10 +2190,11 @@ export const hurricaneCities: HurricaneCity[] = [
     ],
     officialResources: [
       {
-        name: "Cameron County Emergency Resources",
-        description: "Official Cameron County emergency preparedness, evacuation route, shelter, and disaster resource information.",
+        name: "Cameron County 911 Contact Directory",
+        description: "Agency and assistance contacts; open evacuation maps and shelter announcements separately.",
         url: "https://www.cameroncounty911.com/emergency-resources/"
       },
+      { name: "Cameron County Emergency Management", description: "Preparedness, zone/route and STEAR entries. Some material is older; confirm current procedures with the responsible service.", url: "https://www.cameroncountytx.gov/emergency-management/" },
       {
         name: "NWS Brownsville/Rio Grande Valley",
         description: "Official National Weather Service alerts and forecasts for Brownsville and the Rio Grande Valley.",
@@ -2269,6 +2313,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "clearwater",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read Pinellas Emergency Information (displayed update September 25, 2026), Special Needs HTML and Sheriff's Emergency Access Permit requirements. Checked zone/flood-map distinction, registry follow-up and barrier-island permit scope. No visible revision dates on the latter two pages. No address, current order, shelter assignment, pickup, application, bridge or return permission was verified; retained hazard background was not reverified." },
     name: "Clearwater",
     stateCode: "FL",
     stateName: "Florida",
@@ -2281,19 +2327,23 @@ export const hurricaneCities: HurricaneCity[] = [
       "Clearwater hurricane risk combines Gulf beach exposure, Tampa Bay surge, barrier-island evacuation timing, bridge routes, high-rise condo planning, and visitor travel pressure. A storm passing near the west coast of Florida can push water into both beach communities and bay-facing neighborhoods, making official zone guidance more useful than distance from the forecast cone.",
     localHazards: [
       {
-        heading: "Beach and Bay Surge",
+        heading: "Keep the Evacuation Zone and Flood Zone in Separate Fields",
         body:
-          "Clearwater Beach, Sand Key, low coastal roads, and bay-side neighborhoods can face surge and flooding from different wind directions during the same storm."
+          "Pinellas County distinguishes surge-based evacuation zones from FEMA flood zones. Look up the actual home or rental address through Know Your Zone, then record the current local instruction separately. An insurance flood-zone label answers a different question from which evacuation zone an order names. A Clearwater mailing address also does not settle whether a property is on the barrier island. Keep the address, zone result, instruction and checked time together so that a visitor or caregiver can reproduce the lookup without substituting a nearby hotel's result."
       },
       {
-        heading: "Bridge and Causeway Timing",
+        heading: "Confirm Registry Follow-up and Receiving Arrangements",
         body:
-          "Access to beach communities depends on bridges and causeways that can be affected by wind, flooding, traffic, and official restrictions before peak conditions."
+          "Pinellas' Special Needs program assigns a shelter type using the application information; applicants do not choose a particular shelter location. The page describes confirmation and annual follow-up, so keep contact and needs information current and respond to the county's requests. If contacted about an evacuation ride, follow the response instructions rather than assuming a vehicle has been dispatched. Document the actual pickup, equipment, caregiver and receiving instructions. A preferred school, an application receipt and the shelter assignment are different entries; use the event's directions to complete the plan."
       },
       {
-        heading: "Visitors, Condos, and Garages",
+        heading: "Prepare the Barrier-Island Return Credential Separately",
         body:
-          "Hotels, rentals, high-rise condos, elevators, parking garages, and unfamiliar routes can complicate evacuation, shelter, and reentry decisions."
+          "The Pinellas Sheriff lists Clearwater Beach among the barrier-island communities covered by Emergency Access Permits. The program has eligibility and documentation requirements, distinguishes residential from commercial applications, and states that a request does not guarantee issuance. Check the official process for the actual property and applicant. An issued permit supports the reentry verification process after an evacuation order is lifted; it is not an instruction that the bridge is currently open or the building is habitable. Visitors should also confirm their lodging's return arrangements instead of assuming a host's credential covers every guest."
+      },
+      {
+        heading: "Exercise: Three Records With Different Jobs",
+        body: "Fictional example: a beach renter has a FEMA flood-map printout, a special-needs application receipt and a reentry-permit request email. Which establishes the evacuation zone, assigned receiving place and permission to return today? Answer: none establishes all three, and each named decision still needs its own check. Use Pinellas' address lookup and current order for departure; follow the program's assignment and ride instructions for assistance; verify permit issuance and the actual return announcement for reentry. Keep this record separate from building access, elevators and utilities needed by the household. No application or travel status was verified here."
       }
     ],
     evacuationFocus: [
@@ -2316,6 +2366,14 @@ export const hurricaneCities: HurricaneCity[] = [
           "Yes. Clearwater can face Gulf beach surge, bay flooding, bridge constraints, wind, rain, and outages depending on storm track and wind direction."
       },
       {
+        question: "Can I use a FEMA flood zone as my Pinellas evacuation zone?",
+        answer: "Pinellas distinguishes the two. Use the actual address in the evacuation-zone lookup and read the current order; the flood-map designation answers a different planning question."
+      },
+      {
+        question: "Does a Clearwater Beach access-permit request allow reentry?",
+        answer: "The Sheriff's Office reviews eligibility and says requests do not guarantee issuance. Confirm the issued credential and actual return announcement separately; a request email does not establish current entry permission."
+      },
+      {
         question: "Should Clearwater Beach visitors leave early?",
         answer:
           "Visitors should follow Pinellas County and local guidance and leave early when advised because beach routes, hotels, fuel, and flights can become constrained."
@@ -2332,6 +2390,9 @@ export const hurricaneCities: HurricaneCity[] = [
         description: "Official Pinellas County evacuation zones, shelters, alerts, and Tampa Bay hurricane preparedness resources.",
         url: "https://pinellas.gov/emergency-information/"
       },
+      { name: "Pinellas Know Your Zone", description: "Look up the actual address's evacuation zone; read current instructions separately.", url: "https://kyz.pinellascounty.org/" },
+      { name: "Pinellas Special Needs", description: "Application, follow-up, shelter-type and transport instructions.", url: "https://pinellas.gov/special-needs/" },
+      { name: "Pinellas Sheriff Emergency Access Permits", description: "Barrier-island eligibility, application and post-evacuation entry requirements.", url: "https://www.pinellassheriff.gov/EmergencyAccessPermit" },
       {
         name: "NWS Tampa Bay",
         description: "Official National Weather Service alerts and forecasts for Clearwater and Tampa Bay.",
@@ -2348,6 +2409,8 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "morehead-city",
+    dateModified: "2026-11-11",
+    sourceCheck: { date: "2026-11-11", scope: "Read Morehead City Fire/EMS Resources, Carteret Emergency Services and NC Emergency Management Know Your Zone HTML. Checked distinct town form entries, county medically fragile registry/CodeRED/public-shelter links and local-order FAQ. No visible article revision dates. Linked forms, registration systems and shelter lists were not reviewed. No eligibility, application, address, opening, ride, road or receiving-care arrangement was verified; retained hazard background was not reverified." },
     name: "Morehead City",
     stateCode: "NC",
     stateName: "North Carolina",
@@ -2360,19 +2423,23 @@ export const hurricaneCities: HurricaneCity[] = [
       "Morehead City hurricane risk is shaped by Bogue Sound, nearby barrier islands, marina and port exposure, coastal surge, river and sound-side flooding, and road access across Carteret County. Tropical systems affecting eastern North Carolina can bring water impacts before and after closest approach, so residents should combine local emergency resources with NWS Newport/Morehead City alerts.",
     localHazards: [
       {
-        heading: "Sound-Side and Coastal Flooding",
+        heading: "Use the Address Before the Crystal Coast Label",
         body:
-          "Wind direction can push water into Bogue Sound, low roads, marinas, and waterfront neighborhoods even when the strongest ocean surf is elsewhere."
+          "Morehead City, Atlantic Beach and other Crystal Coast communities share regional hazards but do not share every local instruction. Record the household's actual street address and jurisdiction, then use Carteret County's Know Your Zone entry and the applicable official announcement. NC Emergency Management lists Carteret among participating counties and explains that local officials issue orders. A nearby beach's zone result cannot substitute for the home or destination. Keep current NWS Newport/Morehead City water and wind information alongside this location record rather than treating distance from the forecast center as a flood assessment."
       },
       {
-        heading: "Barrier-Island and Bridge Access",
+        heading: "Ask Which Assistance Process Fits the Need",
         body:
-          "Atlantic Beach, Emerald Isle, and nearby coastal routes can be affected by overwash, bridge restrictions, evacuation timing, and delayed reentry."
+          "The town's Fire/EMS resource page links a Companion Shelter Pre-Registration form and a separate Special Needs Registry form. Carteret County's Emergency Services page has a Medically Fragile Registry entry. These labels identify different processes to ask about; they do not establish equivalent eligibility, acceptance or transport. Contact the responsible program to confirm which current process fits the person's needs before sending private information. Record the reply, application status, required care, transport and receiving arrangements separately. We reviewed the entry pages, not the linked forms, and therefore do not assign eligibility from their names."
       },
       {
-        heading: "Marine and Port Hazards",
+        heading: "Connect the County Announcement to an Actual Journey",
         body:
-          "Boat owners, waterfront businesses, and port users should prepare for surge, debris, dock damage, dangerous seas, and access limits before conditions worsen."
+          "Carteret Emergency Services provides separate CodeRED emergency-alert, public-shelter and evacuation-lookup entries. Use the alert channel to obtain instructions and the opening announcement to identify a receiving place, then check the road or bridge legs actually needed. A public-shelter link alone leaves opening time, acceptance and transport unresolved. If a family member is on a barrier island, record that journey separately from a Morehead City trip. Boat and dock preparations also need their own early arrangements; completing a household departure checklist does not confirm marina access or that a vessel can be moved safely."
+      },
+      {
+        heading: "Exercise: A Form Download Is Only the Starting Point",
+        body: "Fictional example: a caregiver downloads the town's Companion Shelter form and finds the county's medically fragile signup and public-shelter links. Has a medical receiving place been booked? Answer: no. The link names do not establish eligibility, completed registration, acceptance, care capability or a ride. Ask the responsible program which process applies, then record its actual response and the event's receiving instructions. A CodeRED subscription is a communication arrangement, not a care placement. This exercise uses the real entry-page labels but makes no claim about the unreviewed forms' contents or any currently operating shelter."
       }
     ],
     evacuationFocus: [
@@ -2395,6 +2462,14 @@ export const hurricaneCities: HurricaneCity[] = [
           "Wind direction can push water into sounds, canals, marinas, and low roads, so water impacts may differ from the ocean-side surf forecast."
       },
       {
+        question: "Are the town's companion shelter and county medical registry interchangeable?",
+        answer: "Their entry pages identify separate processes. Ask the responsible program which applies and confirm eligibility, acceptance, transport and care; the linked forms were not reviewed for this guide."
+      },
+      {
+        question: "Does Carteret CodeRED registration book a shelter space?",
+        answer: "CodeRED is an emergency-alert entry. Check the event's shelter opening, acceptance and travel arrangements separately; an alert subscription does not establish a receiving placement."
+      },
+      {
         question: "Do Morehead City residents need to watch barrier-island access?",
         answer:
           "Yes. Nearby beaches and islands depend on bridges and low roads that can be affected by overwash, flooding, evacuation orders, and reentry controls."
@@ -2411,6 +2486,8 @@ export const hurricaneCities: HurricaneCity[] = [
         description: "Official Morehead City emergency resource information for residents, visitors, businesses, and storm planning.",
         url: "https://www.moreheadcitync.gov/275/Resources"
       },
+      { name: "Carteret County Emergency Services", description: "County emergency management, CodeRED, medically fragile registry and public-shelter entries.", url: "https://www.carteretcountync.gov/138/Emergency-Services" },
+      { name: "NC Know Your Zone", description: "Participating coastal counties, address lookup and local evacuation-order FAQ.", url: "https://www.ncdps.gov/our-organization/emergency-management/emergency-preparedness/know-your-zone" },
       {
         name: "NWS Newport/Morehead City",
         description: "Official National Weather Service alerts and forecasts for Morehead City and eastern North Carolina.",
