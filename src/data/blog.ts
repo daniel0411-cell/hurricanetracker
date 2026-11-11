@@ -1394,7 +1394,7 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Insurance Deductibles: What Coastal Homeowners Should Know",
     description: "Understand percentage hurricane deductibles, named-storm versus windstorm deductibles, flood coverage gaps, and how to review your policy before a storm.",
     datePublished: "2026-08-07",
-    dateModified: "2026-11-08",
+    dateModified: "2026-11-11",
     sourceCheck: { date: "2026-11-08", scope: "Read TDI deductible examples (October 14, 2024), windstorm coverage (June 1, 2026) and ALE guide (April 10, 2025). Texas/TWIA examples are labeled, not nationwide triggers. No individual contract, moratorium, credit or claim was verified." },
     review: { date: "2026-11-08", scope: "Coverage and purchase restrictions", correction: "Removed a universal named-storm moratorium claim and the implication that an inventory establishes replacement-cost coverage or guarantees faster settlement." },
     image: "/images/blog/hurricane-insurance-deductibles-guide.png",
@@ -1422,8 +1422,9 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "/blog/hurricane-flood-insurance-guide-nfip/", label: "Check flood policy coverage and waiting-period questions" }]
       },
       {
-        heading: "Complete the Missing Fields Before Using the Calculation",
-        body: "In the $400,000 example, knowing 2% gives the $8,000 arithmetic but does not prove that this deductible applies. Make a policy record: dwelling limit and policy period; endorsement name; deductible percentage and dollar conversion; trigger area and time wording; per-event or other application; insurer confirmation date. If the endorsement is missing, mark the trigger unconfirmed. Compare that dollar exposure with available funds before choosing a deductible, and review it again when the coverage limit changes."
+        heading: "Compare Deductible Options in Dollars",
+        body: "Hypothetical comparison, assuming the same $400,000 dwelling limit and an otherwise eligible $20,000 loss: a 2% deductible is $8,000, leaving $12,000 after subtraction; a 5% deductible is $20,000, leaving zero after subtraction. The difference in deductible exposure is $12,000. A smaller premium alone does not tell you whether the household could fund that difference. This comparison holds the coverage base and loss constant; it does not compare actual policies or account for exclusions, valuation or limits.",
+        bullets: ["Ask for both quotations on the same coverage limit and identify any other changed terms before comparing premiums.", "Find the actual endorsement, trigger and application period. A quoted percentage does not establish that it applies to this loss.", "If the coverage limit rises to $440,000, the same 2% becomes $8,800. Recalculate after renewal instead of carrying forward last year's dollar amount.", "Keep the deductible for each relevant policy separate; do not subtract a wind deductible from a flood claim."]
       },
       {
         heading: "Prepare Before Storm Season",
@@ -2180,7 +2181,7 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Recovery: Keep an Evidence and Contact File",
     description: "Build a hurricane recovery file linking damage photos, insurer instructions, receipts and unfinished tasks, after official access and safety checks.",
     datePublished: "2026-08-12",
-    dateModified: "2026-11-10",
+    dateModified: "2026-11-11",
     image: "/images/blog/what-to-do-after-a-hurricane.jpg",
     imageAlt: "A homeowner carries water-damaged belongings out of a flood-damaged house after a hurricane while a neighbor stacks storm debris.",
     sections: [
@@ -2218,7 +2219,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Return-Home Decision Checklist",
-        body: "There is no universal number of hours after landfall when a home is safe. Use this short checklist with local emergency management: the route is open, the evacuation order is lifted, utilities are safe or disconnected, floodwater has receded, the structure shows no obvious instability, and your household has the protective equipment and supplies needed for a brief inspection. If any answer is no or uncertain, wait and ask the responsible official or a qualified professional.",
+        body: "There is no universal number of hours after landfall when a home is safe. Check official access permission and the route before making the trip, then resolve building and utility concerns with the responsible providers or qualified professionals. The absence of visible collapse does not establish structural safety, and disconnected power does not resolve gas, contamination or damaged wiring. This list helps identify reasons to stop and seek help; completing it cannot certify a building or authorize entry.",
         bullets: [
           "Local officials have authorized re-entry for your neighborhood.",
           "Roads, bridges, and access points are open and not covered by moving water.",
@@ -2248,8 +2249,8 @@ export const blogPosts: BlogPost[] = [
         ]
       },
       {
-        heading: "Document Everything Before You Clean Up",
-        body: "Insurance and assistance programs usually need evidence. When it is safe, photograph and video damage before cleanup, keep receipts, and write down dates, locations, and conversations. Your policy terms and insurer instructions control what documentation is required, so contact them early and keep copies of everything you send.",
+        heading: "Connect Each Photo to a Location and a Task",
+        body: "When photographs can be taken safely, preserve the originals and give each affected room or exterior area a consistent label. In a fictional recovery file, kitchen photo K01 shows a water line; K02 shows a damaged cabinet; receipt R01 records necessary temporary work. Link these items to the same kitchen entry, with observation dates and the insurer's next request. A photo of water establishes an observation, not the cause of every loss or coverage. Mark unknown causes as unknown and keep any professional assessment separately. Do not enter or handle dangerous materials just to complete a photo series.",
         bullets: [
           "Photograph every room and damaged item from multiple angles.",
           "Capture the roof and exterior if it is safe to do so.",
@@ -2361,7 +2362,7 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Pet Safety: Evacuation, Kits and Animal Care",
     description: "How to prepare dogs, cats, and backyard livestock for a hurricane: pet go-bags, ID and microchips, pet-friendly evacuation, and post-storm hazards to avoid.",
     datePublished: "2026-08-12",
-    dateModified: "2026-11-10",
+    dateModified: "2026-11-11",
     sourceCheck: { date: "2026-11-08", scope: "Read Ready.gov Pets and Animals, updated March 20, 2026: evacuation, buddy system, supplies, carriers and large-animal transport. DOJ service-animal FAQ Q7-12 and Q18-21 was checked November 6, 2026 for hotel access and handler responsibilities. The confirmation record is an editorial example. No shelter availability, individual animal's medical needs or transport arrangement was verified." },
     review: { date: "2026-11-08", scope: "Evacuation and animal-care wording", correction: "Removed unsupported claims about rescue frequency, the most dangerous period and the strongest reunion method. Replaced generic livestock shelter advice with species-specific planning questions." },
     image: "/images/blog/hurricane-pet-safety.png",
@@ -2383,8 +2384,8 @@ export const blogPosts: BlogPost[] = [
         ]
       },
       {
-        heading: "ID and Microchip Before the Storm",
-        body: "Use both a visible ID tag and current microchip registration rather than assuming either guarantees reunion. Check that your phone number, address and an emergency contact outside the area are current in the registry. Keep a photo of you with each animal and copies of registration and veterinary records in the evacuation bag. A chip does not arrange transport, reserve a shelter space or replace a carrier."
+        heading: "Make Identification Usable When You Cannot Answer",
+        body: "Check that the phone number, address and agreed backup contact on the tag and microchip registry are current before a storm; identification does not guarantee reunion. If your primary phone is unavailable, the backup contact needs a way to reach the responsible caregiver. Keep a photo of you with each animal and the registry's contact information with the veterinary records. Share identifying details with the appropriate shelter or animal-control agency if an animal is lost, while keeping private access instructions out of public posts."
       },
       {
         heading: "Service Animals Follow Different Access Rules",
@@ -2396,6 +2397,10 @@ export const blogPosts: BlogPost[] = [
         body: "A list of pet-friendly hotels is only a starting point. Ask the actual destination about the species, number and size of animals it accepts, space for the event, reservation requirements, carriers, vaccination records and fees. Record who answered and when, then recheck when conditions change. Arrange a neighbor, friend or relative who can help if you cannot reach home; make sure that person can access the supplies and knows where the animals hide.",
         bullets: ["Illustrative record: two cats; carriers located and practiced; driver assigned; destination acceptance not yet confirmed; backup caregiver contacted but transport not tested.", "The unresolved destination remains a task even though the bag is packed. A search result saying pets allowed is not a confirmed placement.", "Discuss service-animal access separately with the receiving facility; do not assume household-pet boarding rules answer that question.", "Practice leaving a carrier open with familiar bedding and treats before an emergency, as Ready.gov recommends. Do not wait until departure to discover an animal cannot be loaded safely."],
         links: [{ href: "https://www.ready.gov/pets", label: "Ready.gov: evacuation planning, carrier practice and animal supplies" }]
+      },
+      {
+        heading: "Check That the Backup Can Move All the Animals",
+        body: "Fictional rehearsal: the household has two cats, one carrier and a neighbor willing to drive. The driver is confirmed, but the animal transport plan is incomplete. Before an emergency, obtain suitable carriers, practice loading safely and check the actual vehicle space with the people and essential bags included. Confirm the receiving destination accepts both cats and assign who carries their records and supplies. If the usual driver cannot come, give the agreed backup private access instructions through an appropriate channel. Do not count a willing caregiver as transport capacity or assume a destination's general pet policy confirms space."
       },
       {
         heading: "During the Storm: Keep Pets Indoors and Calm",
@@ -2532,6 +2537,10 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "/blog/hurricane-emergency-kit-checklist/", label: "Count supplies and close actual inventory gaps" }]
       },
       {
+        heading: "Pack Daily-Use Items Without Losing Access Before Departure",
+        body: "Some essentials are still in use when the main bag is packed. In a fictional household, glasses are beside the bed, the communication device is charging and medicines are stored under their product-specific instructions. Put those items on a short last-to-pack list with their exact location and the person responsible. At departure, check the actual items, compatible chargers and paper instructions into the bag or transport container. Keep needed items reachable during travel. Do not move temperature-sensitive medicine into an unsuitable bag just to check it off early; follow the pharmacist's transport instructions. This list is for items already available, not a reason to delay an evacuation to shop or retrieve possessions."
+      },
+      {
         heading: "Worked Record: A Missing Item Is an Unfinished Task",
         body: "Illustrative example, not an inspected home: a household finds a working kitchen flashlight, an empty medicine cooler and a utility sheet with no gas-provider number. The record can say 'light tested, complete'; 'cooling and transport plan, unresolved, ask pharmacist'; and 'utility contact and procedure, unresolved, contact provider'. Do not mark the room ready because the objects exist, or close a gas valve to demonstrate completion. Assign each unresolved task to a person and a next action; if an evacuation order arrives first, leave with the available essentials and seek official assistance for unmet needs.",
         links: [{ href: "/blog/how-to-check-your-hurricane-evacuation-zone/", label: "Make a separate address and evacuation-instruction record" }, { href: "/hurricane-tracker/live/", label: "Check current storm context and product timestamps" }]
@@ -2612,8 +2621,8 @@ export const blogPosts: BlogPost[] = [
         ]
       },
       {
-        heading: "Ask About Specific Shelter Accommodations",
-        body: "Contact the destination's operator through an official local channel. Ask about the particular accessible entrance, toilet, communication support, caregiver arrangements and space for equipment the household needs. If medical care, refrigeration or equipment power is necessary, confirm it separately with the operator and care team. An accessible building is not proof of skilled nursing or support for a particular medical device. Save the answer, contact and date, and recheck activation and availability as instructed. If something remains unconfirmed, write it down and seek another arrangement rather than assuming it will be supplied."
+        heading: "Ask About the Stay, Not Only the Accessible Entrance",
+        body: "Contact the destination's operator about the particular entrance, toilet, communication support, sleeping arrangements and equipment space the person needs. Ask who provides any assistance with meals or personal care and whether the caregiver can remain with the person. Confirm medical care, refrigeration and equipment power separately with the operator and care team. An accessible building does not establish skilled nursing or support for a particular device. Record who answered, the arrangements actually offered, what remains unresolved and when to check activation or availability again."
       },
       {
         heading: "Separate Service-Animal Access From Pet Arrangements",
@@ -2629,6 +2638,10 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Worked Handoff: The Usual Helper Cannot Arrive",
         body: "Illustrative example, not a current service arrangement: an older adult uses a wheelchair and prefers written messages. Their daughter normally helps them leave the apartment, but cannot reach the building. The household record names a backup neighbor who has agreed to help with the door and carry the bag. That agreement does not establish that the neighbor can perform a transfer or that an accessible vehicle is booked. During a calm-weather rehearsal, the family marks the vehicle and destination assistance as 'not confirmed,' contacts the transport provider, and obtains a receiving helper's agreement. They also test a written message and a backup contact method. The completed plan records who confirmed each part and when to recheck; it does not treat the neighbor's willingness as proof the whole trip is ready."
+      },
+      {
+        heading: "Rehearse a Missed Pickup Without Improvised Transfers",
+        body: "Fictional exercise: an accessible vehicle is booked, but the pickup window passes without a vehicle or a message. Use the provider's recorded contact and agreed contingency; ask local emergency management for instructions if the arrangement cannot be restored. Tell them about the specific access or assistance problem rather than only naming a diagnosis. A neighbor's offer of a standard car does not resolve a wheelchair transfer or safe equipment transport. Practice the contact sequence before a storm without calling emergency lines for a drill. During a real immediate emergency, call 911; a rehearsal cannot establish that ordinary travel remains safe."
       },
       {
         heading: "Recheck Care Before Returning Home",
@@ -2722,6 +2735,11 @@ export const blogPosts: BlogPost[] = [
         ]
       },
       {
+        heading: "When a Receipt Is Missing, Separate Facts From Estimates",
+        body: "Fictional inventory exercise: a damaged television has a readable model label and an older household photo, but no purchase receipt. Record the model and photo reference, the purchase date or price you can actually establish, and any clearly labeled estimate. Ask the insurer which alternative documents it will consider, such as an order record or a redacted transaction record. A current replacement quote belongs in a separate field; it is not proof of the original purchase price or the amount payable. Do not invent an exact date or value to fill a blank. Never reenter an unsafe area to retrieve a label or paperwork.",
+        bullets: ["Link each supporting document to one inventory item and retain what was submitted and when.", "Keep sensitive account details out of the inventory; use the insurer's verified submission channel for requested documents.", "An insurer may request further evidence. Ask what remains missing and whether a submission deadline applies; an unanswered question does not extend it."]
+      },
+      {
         heading: "Make Emergency Repairs—But Save Every Receipt",
         body: "Policies commonly require reasonable steps to prevent further damage when safe. Ask your insurer which temporary measures and expenses may be covered, retain receipts, and photograph work before and after. Coverage, limits, and authorization depend on the policy; reimbursement is not guaranteed.",
         bullets: [
@@ -2729,7 +2747,7 @@ export const blogPosts: BlogPost[] = [
           "If pipes are broken, follow the utility's safe shutoff instructions without entering flooded or electrically hazardous areas.",
           "Keep every receipt for materials, labor, tarps, generators, and lodging.",
           "Photograph the damage before and after each repair.",
-          "Do not make permanent repairs before the adjuster visits unless an emergency demands it."
+          "Ask the insurer about inspection and permanent-repair requirements; use qualified help for necessary emergency measures without delaying urgent safety actions."
         ]
       },
       {
@@ -3255,7 +3273,7 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Additional Living Expenses Coverage After Displacement",
     description: "Learn how additional living expenses coverage may help after hurricane displacement, what receipts to keep, and why policy terms control the claim.",
     datePublished: "2026-08-16",
-    dateModified: "2026-11-08",
+    dateModified: "2026-11-11",
     sourceCheck: { date: "2026-11-08", scope: "Read TDI When do policies pay for additional living expenses? (updated April 10, 2025). Used its explanation of extra costs, covered damage, receipts and NFIP exclusion; did not generalize its Texas wind rules or typical limits nationwide. Calculations and records are hypothetical, not a coverage decision." },
     image: "/images/blog/hurricane-insurance-claim-guide-documentation.png",
     imageAlt: "A family reviews hurricane insurance documents and temporary lodging receipts after an evacuation.",
@@ -3292,8 +3310,8 @@ export const blogPosts: BlogPost[] = [
         body: "Before hurricane season, ask your insurer or agent whether your policy includes ALE or loss-of-use coverage, what the limit is, whether flood-related displacement is handled differently, and what documentation is required. Store the answer with your hurricane documents."
       },
       {
-        heading: "During Displacement: Keep Spending Reasonable",
-        body: "Most policies use reasonableness language. Choose lodging and meals that match the household's needs rather than treating ALE as open-ended spending. If a long displacement is likely, ask the adjuster whether a temporary rental, hotel extension, or other option should be approved in writing."
+        heading: "Compare a Hotel Extension With a Rental on the Same Dates",
+        body: "Fictional budget exercise: 14 hotel nights at $140 cost $1,960. A proposed rental costs $1,600 for those same dates plus a $150 nonrefundable fee, or $1,750. A separately refundable $300 deposit brings the initial cash needed to $2,050, even though the deposit is not automatically a final expense. Compare kitchen access, transport and accessibility needs as well as the room rate. Keep fees, deposits and refunds in separate rows; if money is returned, update the record. Ask the insurer which option and charges it accepts before relying on reimbursement. These amounts are invented, not local price quotes or a coverage decision."
       },
       {
         heading: "Use HurricaneHub to Prepare Documents",
@@ -3421,7 +3439,7 @@ export const blogPosts: BlogPost[] = [
     title: "How to Prevent Mold After a Hurricane Flood",
     description: "A cautious, official-source-oriented guide to reducing mold risk after hurricane flooding, including safe reentry, drying, cleanup, documentation, and when to call professionals.",
     datePublished: "2026-08-17",
-    dateModified: "2026-11-08",
+    dateModified: "2026-11-11",
     sourceCheck: { date: "2026-11-08", scope: "Read EPA Mold Cleanup in Your Home (updated June 4, 2026) and A Brief Guide to Mold, Moisture and Your Home (updated February 18, 2026), including contaminated water, HVAC, PPE and biocides. No building, contamination, medical condition or completed remediation was assessed." },
     review: { date: "2026-11-08", scope: "Flood cleanup boundaries", correction: "Removed routine disinfection as a universal mold-cleanup step. Explained that EPA's small-area guidance is not clearance for sewage or contaminated floodwater, and added HVAC and professional-help limits." },
     image: "/images/blog/hurricane-mold-prevention-after-flood.jpg",
@@ -3457,7 +3475,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "What Usually Cannot Be Saved",
         body:
-          "Flood-soaked carpet padding, insulation, mattresses, upholstered furniture, and damaged drywall often cannot be fully dried or cleaned. Before disposal, photograph items and check insurer or adjuster instructions so cleanup does not erase documentation needed for a claim."
+          "Flood-soaked porous materials such as carpet padding, insulation, mattresses and drywall may need removal rather than surface cleaning. Have unresolved contamination and hidden damage assessed by appropriate professionals. Photograph and describe discarded items when safe, ask the insurer what evidence it needs, and record necessary disposal. Do not retain a contaminated item or delay an urgent health measure solely to wait for an adjuster."
       },
       {
         heading: "Cleaning Hard Surfaces",
@@ -3481,9 +3499,9 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "/blog/hurricane-insurance-claim-guide-documentation/", label: "Organize damage evidence and separate claim deadlines" }, { href: "/blog/hurricane-flood-insurance-guide-nfip/", label: "Check flood coverage separately from homeowners insurance" }]
       },
       {
-        heading: "Official Resources to Check",
-        body:
-          "EPA says moisture control is essential: removing visible mold without fixing the water problem can allow it to return. Record the repair, drying and removal work and check for recurring moisture, visible growth or odor after cleanup. Appearance alone is not a clearance certificate for a flood-damaged home. Use local health and building instructions and experienced professionals for unresolved contamination, hidden damage or occupancy questions."
+        heading: "When Growth Returns After Surface Cleaning",
+        body: "Fictional follow-up: a cleaned wall looks better, but staining and odor return after rain. Repeating the same cleaner does not identify or fix the moisture source. Record when the change appeared, the weather or plumbing event you observed, and the affected area without opening a wall or entering an unsafe space. Ask the appropriate repair or remediation professional to assess the source, hidden damage and drying needs. Keep the assessment and completed work with the recovery record. A photograph showing no visible mold cannot establish that concealed materials are dry or that occupancy is safe.",
+        links: [{ href: "https://www.epa.gov/mold/brief-guide-mold-moisture-and-your-home", label: "EPA guidance on moisture control and recurring mold" }]
       }
     ],
     faqs: [
@@ -3634,7 +3652,7 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Preparedness Plan for Small Businesses",
     description: "A practical hurricane planning guide for small businesses covering staff communication, records backup, building checks, closure triggers, insurance, and reopening.",
     datePublished: "2026-08-17",
-    dateModified: "2026-11-08",
+    dateModified: "2026-11-11",
     sourceCheck: { date: "2026-11-08", scope: "Read Ready.gov Business Continuity Planning, updated March 25, 2026, including its team, process and test-resource descriptions. Did not claim to have watched training videos or tested an actual business. The shop scenario and printable record are editorial examples, not legal, engineering or insurance approval." },
     image: "/images/blog/hurricane-small-business-preparedness-plan.png",
     imageAlt: "A small business team reviews a hurricane preparedness checklist beside a laptop and printed records.",
@@ -3686,8 +3704,9 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "/blog/hurricane-generator-safety-carbon-monoxide/", label: "Check generator placement and carbon-monoxide precautions" }]
       },
       {
-        heading: "Confirm Suppliers and Cash Commitments",
-        body: "In the example, the owner records the next supplier delivery, a cancellation contact, payroll due dates and the costs that continue while closed. Ask the supplier whether a changed delivery date is confirmed; do not treat a sent email as acceptance. Review business-interruption and extra-expense terms before relying on insurance for wages, spoiled stock or temporary premises. Put assistance applications in a separate task list rather than counting unapproved grants or loans as cash on hand."
+        heading: "Separate Cash Available Now From Money Requested",
+        body: "Fictional seven-day cash exercise for the shop: unrestricted cash is $6,000; planned payroll is $2,400, rent is $1,800 and a supplier payment is $900. Subtraction leaves $900 before other costs, not a full recovery budget. A requested $5,000 insurance advance stays in a separate pending row until its status and availability are confirmed. Use actual due dates, identify other obligations and update payments when they occur. This arithmetic is not advice to delay payroll, taxes or contractual duties; resolve those questions with the appropriate adviser.",
+        bullets: ["Confirm any supplier cancellation or delivery change with the supplier; a sent email is not acceptance.", "Review business-interruption and extra-expense terms separately from the cash sheet. An expected claim or an assistance application is not available operating cash.", "If a critical payment is unresolved, assign a responsible person and a follow-up date before announcing a reopening that depends on it."]
       },
       {
         heading: "Insurance and Financial Continuity",
@@ -3775,7 +3794,7 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane School and Daycare Emergency Plan for Families",
     description: "A family-focused hurricane guide for school closures, daycare pickup, child go-bags, communication plans, documents, pets, and post-storm routines.",
     datePublished: "2026-08-17",
-    dateModified: "2026-11-10",
+    dateModified: "2026-11-11",
     image: "/images/blog/hurricane-school-daycare-emergency-plan.png",
     imageAlt: "A parent reviews a hurricane family communication plan and school pickup contacts with a child.",
     sections: [
@@ -3790,7 +3809,7 @@ export const blogPosts: BlogPost[] = [
       { heading: "Ask Daycare About Its Own Relocation Plan", body: "Ask the director who decides closure or early collection, how families are notified, what happens if the building must be left, whether staff transport children, and how parents learn the relocation destination. Confirm how authorized adults are recorded and changed, what happens when the usual adult cannot arrive, and what supplies must accompany an infant or a child with care needs. Record the answer and date rather than assuming the district's bus or reunification process applies. Ask how medication and essential care instructions travel if relocation occurs, and arrange changes through the program's actual procedure. Do not independently send a child or caregiver to a rumored shelter or school as a substitute for confirmed instructions." },
       { heading: "Children With Medical, Disability, or Sensory Needs", body: "Coordinate with the school nurse, daycare director, medical provider, or support team before hurricane season. Written instructions should cover medication, mobility, device power, communication needs, and backup care locations.", links: [{ href: "/blog/hurricane-safety-seniors-children-disability/", label: "Plan household medical, mobility and communication needs" }] },
       { heading: "Pets and Service Animals", body: "Include animal supplies and care responsibilities in the household plan. Confirm service-animal access separately with the receiving facility rather than treating household-pet boarding rules as the answer. For pets, check the actual destination's acceptance, carrier and record requirements early.", links: [{ href: "/blog/hurricane-pet-safety/", label: "Confirm animal transport, supplies and destination arrangements" }] },
-      { heading: "After the Storm", body: "Return children to routine when roads, homes, and school buildings are safe. Expect schedule changes, transport disruption, stress reactions, or temporary childcare gaps. Limit repeated storm footage, keep communication calm, and watch official school district updates." },
+      { heading: "A Reopening Notice Does Not Resolve Every Childcare Gap", body: "Fictional return-to-school exercise: the district announces that classes resume Monday, but the independent daycare and afterschool provider have not confirmed reopening. Record the school day, bus service, afterschool program and daycare as separate arrangements. Check the notice for your child's campus and any changed hours, then confirm how the child reaches school and who receives them afterward. Do not send a child early or assume the usual late pickup is available without the program's confirmation. Ask the school how to handle a remaining transport or displacement problem; a household plan does not decide attendance rules.", links: [{ href: "/blog/hurricane-safety-seniors-children-disability/", label: "Recheck transport, communication and receiving assistance" }] },
       { heading: "Track Weather and Local Decisions", body: "Use current tracking and alerts for storm context, then rely on the school district, local emergency management, NWS, and NHC for official closure, weather, and evacuation information.", links: [{ href: "/hurricane-tracker/live/", label: "Check current storm context" }, { href: "/alerts/", label: "Read weather alerts separately from school decisions" }] }
     ],
     faqs: [
