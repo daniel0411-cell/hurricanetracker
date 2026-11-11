@@ -30,7 +30,7 @@ export const blogPosts: BlogPost[] = [
     title: "Eyewall Replacement Cycle Explained: Why Hurricane Winds Can Change",
     description: "Learn what an eyewall replacement cycle is, why hurricane winds can weaken then rebound, and how to read the signal in NHC forecasts and satellite imagery.",
     datePublished: "2026-09-14",
-    dateModified: "2026-11-05",
+    dateModified: "2026-11-11",
     sourceCheck: { date: "2026-11-05", scope: "Irma discussion 28 and final report page 3; conceptual diagram checked against those historical descriptions. Michael remains a separate radar-reading example. No current structure or intensity diagnosis." },
     image: "/images/blog/external/nws-michael-2018-radar-eye.png",
     imageAlt: "Historical Michael radar comparison showing an eye and surrounding precipitation, alongside radial velocity.",
@@ -42,7 +42,7 @@ export const blogPosts: BlogPost[] = [
     sections: [
       { heading: "Direct Answer", body: "An eyewall replacement cycle happens when a hurricane's original eyewall is surrounded by a new outer ring of thunderstorms. The inner eyewall can weaken, the wind field can expand, and maximum winds may later strengthen again after the outer eyewall contracts. It is a structural change, not a reliable sign that the storm is becoming safe." },
       { heading: "What the Eyewall Does", body: "The eyewall is the ring of intense thunderstorms around a hurricane's eye. It usually contains the strongest sustained winds and the most violent convection. When the inner ring is disrupted, pressure, wind speed, rainfall placement, and the storm's area of damaging wind can all change at once.", bullets: ["The eye can become larger or less distinct.", "Peak winds may temporarily decrease.", "The wind field can spread over a wider area.", "Rain bands and surge risk do not disappear during a weakening phase."] },
-      { heading: "How a Replacement Cycle Forms", body: "Powerful hurricanes often generate an outer band of thunderstorms at the edge of their wind field. That band can organize into a second eyewall and begin drawing energy and angular momentum away from the original core. Aircraft reconnaissance, microwave satellite imagery, radar, and forecaster analysis help identify the process, but timing the next intensity change remains difficult." },
+      { heading: "How a Replacement Cycle Forms", body: "An outer band of thunderstorms can organize into a second eyewall around the existing one. During a replacement, the inner eyewall weakens while the outer ring becomes dominant. An outer rainband alone does not establish a second eyewall, and two rings in one snapshot do not show whether replacement has finished. Forecasters compare the evolving structure with observations such as aircraft wind measurements; the time and direction of the next intensity change remain uncertain." },
       { heading: "Read the Three Stages", body: "Follow the colors rather than treating the panels as three measurements. First, the red original eyewall surrounds the pale eye. Next, a teal outer eyewall forms around the original ring. Finally, the red ring fades while the teal ring becomes the primary eyewall. The drawing illustrates a completed replacement; a real double-eyewall structure does not guarantee this outcome or a fixed timetable.", bullets: ["The pale center is the eye region, not a wind-speed measurement or a safe area to enter.", "The rings represent eyewall structure, not the outer boundary of damaging winds.", "Later contraction and renewed strengthening are possible, not guaranteed.", "Reading check: do two eyewalls mean a safer storm? No. The structure alone does not establish peak wind, the full wind field, or local water and wind hazards."] },
       { heading: "Why Wind Speed Can Drop Then Rebound", body: "During the transition, the inner eyewall may collapse before the outer eyewall becomes dominant. Maximum sustained wind can fall even while the storm grows larger. Once the outer ring contracts, the pressure gradient can tighten again and the peak wind can recover. Do not interpret a short-term category change as a complete reset of the hazard.", bullets: ["A weaker peak wind can coexist with a broader wind field.", "Storm surge depends on size, track, speed, and coastline shape as well as intensity.", "Rainfall and tornado threats can continue outside the eyewall."] },
       { heading: "A Historical Example: Irma on September 6, 2017", body: "On printed page 3, NHC's final Irma report describes slight weakening later on September 6, a double wind maximum, concentric eyewalls observed by radar, and a larger wind field than previously. This is a concrete example of why peak wind and storm size must be read separately. An earlier passage on that page describes eye enlargement and renewed strengthening likely associated with a completed replacement; it is a separate part of the storm's evolution. Neither passage turns the conceptual panels above into an observed, timed sequence.", links: [{ href: "https://www.nhc.noaa.gov/data/tcr/AL112017_Irma.pdf#page=3", label: "Read the dated sequence in NHC's final Irma report" }] },
@@ -282,7 +282,7 @@ export const blogPosts: BlogPost[] = [
     title: "How to Read a Hurricane Watch or Warning Message",
     description: "Read a hurricane alert's issuer, location, time and instructions. Work through a labeled example and record what still needs local confirmation.",
     datePublished: "2025-06-18",
-    dateModified: "2026-11-02",
+    dateModified: "2026-11-11",
     sourceCheck: { date: "2026-11-02", scope: "NWS hurricane watch/warning guide: wind and surge definitions and timing only. Its older outlook-period text was not used. NHC glossary retrieval timed out. No current warning, local order, road or shelter status verified." },
     image: "/images/blog/what-hurricane-watch-warning-means.png",
     imageAlt: "A kitchen counter with a smartphone showing weather alerts, a NOAA weather radio, flashlight, batteries, and an evacuation map.",
@@ -314,8 +314,8 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "https://www.weather.gov/safety/hurricane-ww", label: "NWS: wind-warning timing and local instructions" }]
       },
       {
-        heading: "Check What the Example Still Cannot Tell You",
-        body: "In the Tuesday/Wednesday example, you can conclude only that the forecast-center time is not a safe-departure time. The example gives no street address, local order, wind-arrival product, transport availability or safe destination. Those remain unresolved. If a map fails to load or an official order cannot be retrieved, record that gap and contact the local agency; a missing answer is not evidence that no order exists. Do not circulate the illustrative example as an actual advisory.",
+        heading: "Read a Partial Cancellation by Coastal Segment",
+        body: "Continue the fictional example: a later bulletin says the hurricane warning was discontinued for a coastal segment south of your town. Compare the endpoints in the update with the original warning before telling anyone the warning ended. If your segment was not listed, that sentence does not establish that your warning ended. Read the current complete warning list, then check the local evacuation order separately. If you cannot place your town against the stated endpoints, use the official map or ask the local office rather than guessing from the headline.",
         links: [{ href: "/blog/how-to-check-your-hurricane-evacuation-zone/", label: "Find the local zone map and compare its label with the current order" }]
       },
       {
@@ -552,7 +552,7 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Power Outage Plan for Food, Medicine, and Devices",
     description: "Prepare for a hurricane power outage with a practical plan for food safety, refrigerated medicine, medical equipment, charging, water, generators, and communication.",
     datePublished: "2026-08-04",
-    dateModified: "2026-10-27",
+    dateModified: "2026-11-11",
     sourceCheck: { date: "2026-10-27", scope: "Ready.gov water quantities and CDC/CPSC generator precautions checked for this revision. FoodSafety.gov and USDA food-chart requests returned HTTP 403; existing food timing guidance was retained, not independently reverified. No product-specific medicine instructions or current service availability verified." },
     image: "/images/blog/hurricane-power-outage-food-medicine-plan.png",
     imageAlt: "A portable generator operates outdoors away from a home while emergency lights and supplies are ready for a power outage.",
@@ -587,7 +587,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Use Observations, Not a Timer Alone",
-        body: "At the start of an outage, record the date, local time and time zone, then note appliance or cooler readings with their units and the time observed. If you discover the outage on returning home, write that the start time is unknown instead of resetting a food-safety clock to your arrival. Avoid repeatedly opening doors just to fill the log. Keep food decisions separate from medicine decisions: a refrigerator reading is useful information for a pharmacist but is not a medicine-specific release criterion. Unknown temperatures, uncertain outage duration or repeated interruptions are reasons to seek appropriate guidance, not assume a safe interval.",
+        body: "Suppose you return at 6 p.m. to find the power back on, a cold refrigerator and a clock that reset. You know power was interrupted; the cold reading cannot tell you how warm the contents got before service returned. Write down the last time power was known to be on and any outage or temperature records you have. If you cannot establish that perishable food stayed safe, discard it rather than tasting it. For refrigerated medicine, give the pharmacist the same timeline, the product name and any measured temperatures; ask what to do about the next dose or a replacement. The food decision cannot answer the medicine question.",
         bullets: ["Record facts: power lost at 6:10 PM; cooler checked at 8:00 PM; actual reading and unit; action taken.", "Record uncertainty: appliance thermometer missing, outage start unknown, or cooler opened repeatedly.", "Record the decision source: food chart for the specific item, pharmacist for a named medicine, supplier for an essential device. Do not taste-test food."]
       },
       {
@@ -759,7 +759,7 @@ export const blogPosts: BlogPost[] = [
     title: "How Far Is a Hurricane From Me?",
     description: "Learn what a hurricane's current distance from your location can tell you, what it cannot predict, and how to pair distance with official alerts.",
     datePublished: "2026-08-04",
-    dateModified: "2026-11-10",
+    dateModified: "2026-11-11",
     review: { date: "2026-11-10", scope: "Reviewed the local distance-calculation implementation and added fictional number-reading examples. Retained NHC references were not newly read; no current storm position or household hazard was verified.", correction: "Separated rounded center distance from hazard arrival, travel distance and evidence of an all-clear." },
     image: "/images/blog/how-far-is-a-hurricane-from-me.png",
     imageAlt: "A resident stands on a porch looking at a distant hurricane spiral on the ocean horizon while holding a phone with a map.",
@@ -781,7 +781,8 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Why Distance Is Not Enough",
-        body: "Hurricanes are large, moving systems. Their strongest impacts may occur far from the center, and water hazards can be dangerous well ahead of landfall. A current position cannot replace forecast cones, local flood guidance, or evacuation-zone instructions."
+        body: "Two towns can be equally far from the center and face different winds. In a fictional advisory, tropical-storm-force winds extend up to 120 nautical miles in the northeast quadrant and up to 50 in the southwest. At 90 nautical miles northeast, a town is inside that quadrant's maximum radius, but the radius alone does not show that every point inside it has those winds. At 90 nautical miles southwest, the other town is beyond its quadrant's reported maximum radius at that time. Compare direction and use the same units: the calculator displays statute miles, while advisory radii may be in nautical miles. Neither comparison establishes future wind arrival or the limit of surge and rainfall flooding.",
+        links: [{ href: "https://www.nhc.noaa.gov/aboutnhcprod.shtml", label: "NHC guide to advisory products and wind radii" }]
       },
       {
         heading: "What the Calculator Measures",
@@ -983,7 +984,7 @@ export const blogPosts: BlogPost[] = [
     title: "How to Check Your Hurricane Evacuation Zone",
     description: "Learn how to check your hurricane evacuation zone, why ZIP codes are not enough, and what to do when local officials issue evacuation instructions.",
     datePublished: "2026-08-05",
-    dateModified: "2026-11-02",
+    dateModified: "2026-11-11",
     sourceCheck: { date: "2026-11-02", scope: "Miami-Dade official storm-surge page: A-E planning zones, linked lookup, event-specific orders and mobile-home/medical exceptions. No address entered and no ArcGIS map result or current evacuation order verified. FEMA portal retrieval failed; no FEMA map was checked." },
     image: "/images/blog/how-to-check-your-hurricane-evacuation-zone.png",
     imageAlt: "A person views a color-coded coastal hurricane evacuation zone map on a laptop and points at the screen.",
@@ -1018,9 +1019,8 @@ export const blogPosts: BlogPost[] = [
         body: "First confirm the county and street spelling and whether the marker is on the correct building. A blank tile, unmatched address or missing legend is a failed lookup, not a no-risk result. Use the official page's alternative instructions or contact the agency for help. Do not substitute a nearby property's result, a ZIP-code tool or a FEMA insurance zone. If an evacuation instruction already applies to you, a broken map is not a reason to delay following it."
       },
       {
-        heading: "Why ZIP Codes Are Not Enough",
-        body: "Two homes in the same ZIP code can have different storm surge, flood, road, and shelter instructions.",
-        bullets: ["Use your exact address when the official local map allows it.", "Check whether your zone is based on storm surge, river flooding, or another hazard.", "Write down the zone name before a storm is close.", "Recheck local instructions when watches or warnings are issued."]
+        heading: "When One Street Address Covers Several Buildings",
+        body: "Fictional example: a waterfront apartment complex has one mailing address, and the map drops its pin at the leasing office. The resident's building is across a mapped zone boundary. Record the actual building address or identifier and ask local emergency management which zone and current order apply. Keep a map screenshot with its legend to explain the discrepancy. Do not copy the leasing office result or infer that an upstairs unit is exempt. Ask separately about the departure route if it crosses a low area or a bridge; the building's zone label does not tell you whether the route is open."
       },
       {
         heading: "When To Act",
@@ -3801,7 +3801,7 @@ export const blogPosts: BlogPost[] = [
     title: "Emergency Water Storage and Purification for Hurricanes",
     description: "How much emergency water to store for a hurricane, which containers to use, how to follow boil-water notices, and when boiling or filtering is not enough.",
     datePublished: "2026-08-18",
-    dateModified: "2026-11-02",
+    dateModified: "2026-11-11",
     image: "/images/blog/hurricane-emergency-kit-checklist.png",
     imageAlt: "Household hurricane emergency supplies with sealed drinking-water containers ready for an outage.",
     imageCaption: "AI-generated preparedness illustration, not a photograph of an actual water advisory or distribution site.",
@@ -3859,6 +3859,10 @@ export const blogPosts: BlogPost[] = [
           "Write 'not confirmed' beside any missing field. Water pressure returning, clear appearance or a neighbor's message does not fill that gap.",
           "After an explicit rescission for your provider and area, follow its flushing, filter and ice-maker instructions. Do not invent a universal flushing duration or reuse ice made while the water was unsafe."
         ]
+      },
+      {
+        heading: "When Your Neighbor Says the Notice Was Lifted",
+        body: "In a fictional apartment complex, water is flowing again and a neighbor forwards a notice saying service is cleared for another pressure zone. First match the utility and affected area with the original notice for your building. The return of pressure and a clearance for another area do not lift your notice. Until your utility confirms that your address is included in a rescission, keep following the applicable instructions and use an approved alternative water supply. Once cleared, read the utility's restart instructions before using ice makers, filters or other equipment connected to the water line."
       },
       {
         heading: "Boiling Questionable Water",
