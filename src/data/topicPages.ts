@@ -1121,6 +1121,8 @@ export const topicPages: TopicPage[] = [
     primaryAction: { label: "Open live hurricane tracker", href: "/hurricane-tracker/live/" },
     secondaryAction: { label: "Check active alerts", href: "/alerts/" },
     intent: "hurricane cruise itinerary, hurricane flight cancellation, hurricane season travel",
+    sourceCheck: "Checked November 12, 2026: read U.S. DOT Refunds (last updated November 7, 2025), including cancelled flights, significant changes, alternative travel and the merchant of record. No specific flight, sailing, port status, cruise contract, waiver or insurance policy was verified. The booking example is fictional.",
+    sources: [{ href: "https://www.transportation.gov/individuals/aviation-consumer-protection/refunds", label: "U.S. DOT: ticket refunds, significant changes and booking agents" }],
     steps: [
       {
         title: "Check the Official Storm Context",
@@ -1158,12 +1160,26 @@ export const topicPages: TopicPage[] = [
         eyebrow: "Flight disruption",
         title: "Hurricane Flight Delays and Cancellations Need Carrier-Specific Checks",
         body:
-          "Airlines may delay, cancel, reroute, or restrict operations because of wind, flooding, airport closures, crew and aircraft positioning, or downstream network effects. A weather-related cancellation does not create the same options in every booking or jurisdiction. Read the airline's current travel waiver and the U.S. Department of Transportation consumer guidance, then contact the airline or booking provider for the options that apply to your ticket.",
+          "Airlines may delay, cancel or reroute flights because of local weather, airport operations or disruption elsewhere in their network. For flights to, from or within the United States, DOT says an airline cancellation entitles you to a ticket refund regardless of the reason if you choose not to travel or accept alternative compensation. Weather does not by itself remove that right, including on a nonrefundable ticket. A significant delay or change can also qualify if you decline travel and alternative compensation. A change-fee waiver is a separate offer; read its dates, airports and fare-difference conditions before accepting it.",
         bullets: [
           "Check the airline directly before relying on a third-party booking alert",
-          "Review any travel waiver before voluntarily changing a ticket",
+          "Separate airline cancellation from your voluntary cancellation while the flight operates as scheduled; a nonrefundable fare generally does not become refundable just because a storm is forecast",
+          "DOT significant-change examples include arrival 3 or more hours late on domestic itineraries or 6 or more hours late on international itineraries, changed origin/destination airports or more connections; read the full list",
+          "Taking the changed or replacement flight does not also entitle you to a full ticket refund under this rule; credits and vouchers are choices to assess before accepting",
           "Monitor airport operations, ground transport, and hotel plans as separate risks",
           "Keep receipts and written notices for your own records"
+        ]
+      },
+      {
+        eyebrow: "Separate reservations",
+        title: "One Cancelled Flight Does Not Cancel Every Booking",
+        body: "Fictional example: your U.S. domestic flight to a cruise port is cancelled, but the cruise still sails from the same terminal. If you decline the replacement flight and compensation, the flight refund question falls under DOT guidance. The separately booked cruise and hotel still need their own cancellation decisions; the flight refund does not establish a right to reimbursement from either provider. Conversely, a changed cruise itinerary does not by itself cancel a flight that operates as scheduled. Check each supplier before its response deadline rather than assuming one cancellation covers the entire trip.",
+        bullets: [
+          "For each reservation, record the supplier, booking reference, service date, actual change and the response deadline with time zone",
+          "For airfare, identify the merchant of record on the payment statement; DOT identifies that airline or ticket agent as responsible for a ticket refund when due",
+          "Compare replacement travel, refund and credit choices before accepting; save the notice and your response",
+          "Ask the cruise line or booking agent for the sailing-specific notice and applicable contract; a skipped port and a cancelled sailing are different events",
+          "Assess hotel, transfer and insurance claims under their own terms; a ticket refund is not a promise to pay those separate losses"
         ]
       },
       {
@@ -1183,7 +1199,7 @@ export const topicPages: TopicPage[] = [
       { name: "Live Hurricane Tracker Map", href: "/hurricane-tracker/live/", description: "Check current NHC storm context, timing, and active system status." },
       { name: "Hurricane Radar and Satellite", href: "/radar/", description: "Review nearby rain bands and current weather around travel locations." },
       { name: "Active NWS Alerts", href: "/alerts/", description: "Check official weather alerts near ports, airports, and destinations." },
-      { name: "U.S. DOT Air Travel Consumer Guidance", href: "https://www.transportation.gov/airconsumer", description: "Read current federal air-travel consumer information and official resources." }
+      { name: "U.S. DOT Ticket Refund Guidance", href: "https://www.transportation.gov/individuals/aviation-consumer-protection/refunds", description: "Check cancellation, significant-change, alternative-travel and booking-agent refund rules." }
     ],
     faqs: [
       {
@@ -1194,7 +1210,7 @@ export const topicPages: TopicPage[] = [
       {
         question: "Can I get a refund if a hurricane affects my flight?",
         answer:
-          "Options depend on what happened, your ticket, the airline's current policy, applicable law, and how the booking was made. Check the airline directly and review U.S. DOT guidance instead of assuming a weather waiver guarantees a refund."
+          "For a flight to, from or within the United States, DOT says an airline cancellation qualifies for a ticket refund regardless of the cause if you decline travel and alternative compensation. A significant delay or change can also qualify. If the flight operates as scheduled and you voluntarily cancel a nonrefundable ticket, a forecast alone generally does not create the same right. Check the full DOT guidance, the actual notice and any separate waiver."
       },
       {
         question: "Does travel insurance cover hurricane disruption?",

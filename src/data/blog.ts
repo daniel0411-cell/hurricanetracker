@@ -478,12 +478,13 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "what-to-do-during-a-hurricane-warning",
+    sourceCheck: { date: "2026-11-12", scope: "Read NHC glossary hurricane-warning and storm-surge-warning definitions, including lead-time reference and continuation for dangerous water. Ready.gov and linked local resources were not newly checked; no live warning, order, route or shelter was verified." },
     sources: [{ href: "https://www.ready.gov/hurricanes", label: "Ready.gov: actions during a hurricane threat" }, { href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC warning definitions" }],
     title: "What to Do During a Hurricane Warning: Immediate Actions",
     description: "Prioritize people, transport, medicines, pets, and safe shelter during a hurricane warning. Follow local deadlines instead of assuming 24 hours remain.",
     datePublished: "2026-08-04",
-    dateModified: "2026-11-10",
-    review: { date: "2026-11-10", scope: "Editorial review of action order, unsafe-task wording and a fictional household handoff. No current warning, local order, shelter or road was verified.", correction: "Removed the implied first-hour allowance and made optional preparation conditional on safe conditions and current instructions." },
+    dateModified: "2026-11-12",
+    review: { date: "2026-11-12", scope: "Checked warning wording against the NHC glossary and reviewed the existing action sequence. No current local order or travel condition was verified.", correction: "Explained the tropical-storm-wind reference for lead time and why a hurricane warning may continue after hurricane-force winds subside." },
     image: "/images/blog/what-to-do-during-a-hurricane-warning.png",
     imageAlt: "A couple sits in a living room during a hurricane warning, listening to a weather radio and checking a smartphone as rain streaks the window.",
     sections: [
@@ -495,6 +496,11 @@ export const blogPosts: BlogPost[] = [
         heading: "Start With the Instruction That Applies Now",
         body: "A warning does not guarantee another 24 hours of safe travel. Read the local order and expected onset of hazardous conditions before assigning jobs. If officials say to leave now, go; do not complete this list first. If safe time remains, prioritize people, transport, and essential records rather than shopping or property improvements.",
         bullets: ["Read the full NWS alert and county emergency guidance, including the named area, issue time and required action.", "Contact anyone who needs help with transport, mobility, medication, or pets; confirm who is responding.", "Confirm transport and a destination. A fuel stop is only an option if current conditions and instructions allow it without delaying departure.", "Collect essential medicines, IDs and ready supplies only as time and safety allow; an unfinished bag is not a reason to ignore immediate instructions."]
+      },
+      {
+        heading: "Read the Warning Clock Correctly",
+        body: "NHC defines a hurricane warning as expected sustained winds of at least 64 kt (74 mph) somewhere in the specified area. Its usual 36-hour lead time is measured before anticipated tropical-storm-force winds, because preparation becomes difficult at that earlier stage. It is not 36 hours before the center arrives or a fresh allowance to start outdoor work whenever you first see the alert. NHC also allows the warning to remain in effect for dangerously high water or high water and waves after winds drop below hurricane force. A weaker wind reading therefore does not establish an all-clear; read the latest full message and local instructions.",
+        links: [{ href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC glossary: hurricane warning timing and dangerous-water continuation" }]
       },
       {
         heading: "Before Winds Increase",
@@ -820,22 +826,23 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "storm-surge-warning-vs-hurricane-warning",
+    sourceCheck: { date: "2026-11-12", scope: "Read NHC glossary entries for hurricane warning and storm surge warning. Checked thresholds, timing, dangerous-water continuation and adjacent-area isolation. Surge maps, live warnings and local evacuation orders were not checked." },
     sources: [{ href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC glossary: storm surge and hurricane warnings" }, { href: "https://www.nhc.noaa.gov/surge/", label: "NHC storm surge products and explanation" }],
     title: "Storm Surge Warning vs. Hurricane Warning",
     description: "Understand the difference between storm surge and hurricane warnings, why water hazards can arrive before peak wind, and when to leave.",
     datePublished: "2026-08-04",
-    dateModified: "2026-11-10",
-    review: { date: "2026-11-10", scope: "Editorial review of independent water and wind messages, cancellation scope and household decisions using existing NWS/NHC research notes. Retained sources were not newly read; no current warning, evacuation order, address or forecast map was checked.", correction: "Clarified that a wind-warning change, cone position or missing water-map color does not independently clear coastal flooding risk." },
+    dateModified: "2026-11-12",
+    review: { date: "2026-11-12", scope: "Compared the existing hazard distinctions with newly read NHC definitions. No current warning, evacuation order, address or forecast map was checked.", correction: "Qualified the wind-versus-water shorthand: hurricane warnings can continue for dangerous water, and surge warnings can include places isolated by nearby inundation." },
     image: "/images/blog/storm-surge-warning-vs-hurricane-warning.png",
     imageAlt: "A coastal homeowner studies an evacuation route sign while seawater begins lapping at the yard.",
     sections: [
       {
         heading: "Direct Answer",
-        body: "A hurricane warning addresses expected hurricane conditions, while a storm surge warning focuses on life-threatening water rising inland from the coast. Both require attention, but surge can make evacuation routes unsafe before peak winds arrive."
+        body: "A hurricane warning announces expected hurricane-force winds; a storm surge warning identifies danger of life-threatening coastal inundation. Read both and the separate local evacuation order. These are not exclusive wind-only and water-only labels: NHC can keep a hurricane warning in effect for dangerous water after winds weaken. Surge can make evacuation routes unsafe before peak winds arrive."
       },
       {
         heading: "Compare the Hazard and the Clock",
-        body: "A hurricane warning concerns expected hurricane-force winds, with lead time generally measured from tropical-storm-force wind onset. A storm surge warning concerns life-threatening coastal inundation, generally within 36 hours, and may be issued earlier when other hazards could limit protective action. Neither clock guarantees that a road remains open until that time. A surge warning can cover places outside the forecast cone or with lower local winds.",
+        body: "A hurricane warning concerns expected sustained winds of at least 64 kt (74 mph) somewhere in its area. Its usual 36-hour lead time is measured before tropical-storm-force wind onset, not the hurricane's arrival. A storm surge warning concerns life-threatening coastal inundation, generally within 36 hours, and may be issued earlier when other hazards could limit protective action. Neither clock guarantees that a road remains open until that time. A surge warning can cover places outside the forecast cone or with lower local winds. NHC may also include locations that could be isolated by nearby inundation even if life-threatening water is not expected at that exact location.",
         bullets: ["Read the water warning's named area and inundation guidance, not only the storm category.", "Compare the local evacuation order with your exact zone and travel needs.", "Do not substitute a FEMA insurance-zone label for the local evacuation-zone system.", "Treat the two warnings as separate information; the absence of one does not cancel the other."]
       },
       {
@@ -843,11 +850,6 @@ export const blogPosts: BlogPost[] = [
         body: "Keep the issuing agency, issue time, affected area and instruction with each message. A hurricane warning addresses wind conditions; a storm surge warning addresses coastal inundation; an evacuation order identifies the groups or zones instructed to leave. They can overlap without having identical boundaries or end times. A county-wide summary is not enough to decide whether a particular coastal segment or address is covered. Read each original message and the local order rather than converting the storm's category into a single stay-or-leave answer.",
         bullets: ["Wind: does the named warning area cover the location, and what wind timing and protective instruction are given?", "Water: does the surge-warning area cover the coast or connected waterway, and which inundation guidance applies?", "Evacuation: which local jurisdiction issued the order, which zone or housing group is named, and what action time is stated?", "Other hazards: read flood and tornado warnings separately; absence of a surge warning does not clear rainfall flooding."],
         links: [{ href: "/blog/what-hurricane-watch-warning-means/", label: "Record the issuer, area, time and instruction from the full message" }]
-      },
-      {
-        heading: "Why Storm Surge Needs Its Own Decision",
-        body: "Water changes travel and shelter decisions differently from wind.",
-        bullets: ["Flooded roads can become impassable before the storm center arrives.", "Barrier islands, bays, rivers, and low-lying neighborhoods may need earlier decisions.", "Storm surge risk can vary sharply by evacuation zone.", "A wind-safe building may still be inaccessible after water rises."]
       },
       {
         heading: "Two Situations That Need Different Answers",
@@ -867,11 +869,8 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "What To Do",
-        body: "Read the full local alert, check your evacuation zone, and leave when your zone is directed to evacuate. Do not drive through floodwater or wait to see visible water on your street before acting."
-      },
-      {
-        heading: "Use More Than One Alert",
-        body: "Storm surge warnings can occur alongside hurricane, flash flood, tornado, or evacuation alerts. The HurricaneHub Alert Action Decoder can help turn the alert type into a household action list, but official local instructions control."
+        body: "Read the full local alerts and evacuation order, match your address to the named zone and follow the applicable protective instructions. Leave when directed while safe travel is possible; do not wait to see water on the street. An immediate tornado or extreme wind warning requires its shelter action. Do not drive through floodwater. Keep checking separate water, wind and flood messages until local authorities permit return and access is confirmed.",
+        links: [{ href: "/tools/alert-action-decoder/", label: "Review protective actions for each official alert type" }]
       }
     ],
     faqs: [
@@ -1190,12 +1189,13 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "real-time-hurricane-tracking-2026",
+    sourceCheck: { date: "2026-11-12", scope: "Read the archived Atlantic outlook issued at 7 PM EST November 11 (0000 UTC November 12) and NHC glossary warning definitions. The retained November 8 AL94 example and climatology were not newly rechecked. No current local or marine warnings or tracker-layer freshness were verified." },
     sources: [{ href: "https://www.nhc.noaa.gov/", label: "NHC current tropical cyclone advisories" }, { href: "https://www.weather.gov/", label: "NWS local hazard warnings" }, { href: "https://www.nhc.noaa.gov/climo/", label: "NHC Atlantic season dates and historical activity peak" }, { href: "https://www.nhc.noaa.gov/archive/xgtwo/gtwo_archive.php?basin=atlc&fdays=7&current_issuance=202611080000", label: "NHC November 8, 2026, 00:00 UTC outlook: AL94" }],
     title: "Real-Time Hurricane Tracking: 2026 Late-Season Guide",
     description: "Track late-season hurricane risks with NHC outlooks, radar, satellite imagery, and local alerts. Learn why low formation odds can still mean coastal danger.",
     datePublished: "2026-08-06",
-    dateModified: "2026-11-10",
-    review: { date: "2026-11-10", scope: "Editorial review of product clocks and cross-basin identification, retaining the previously checked November 8 outlook example. Sources were not newly read; no present storm, warning or feed freshness was verified.", correction: "Added a fictional time-label exercise and a product-by-product handoff instead of assigning one freshness time to an entire dashboard." },
+    dateModified: "2026-11-12",
+    review: { date: "2026-11-12", scope: "Reviewed the difference between a formation outlook, an active-storm list and unavailable data using a newly read dated NHC archive example.", correction: "Added a bounded no-formation example with its permanent archive link and a failure-state fallback; no static passage is labeled as live conditions." },
     image: "/images/blog/real-time-hurricane-tracking-2026.png",
     imageAlt: "A person views a live hurricane tracking dashboard on a large monitor showing satellite, radar, and a forecast cone.",
     sections: [
@@ -1225,6 +1225,11 @@ export const blogPosts: BlogPost[] = [
           { href: "/tracker/south-carolina/", label: "South Carolina coastal planning and official resources" },
           { href: "/tracker/virginia/", label: "Virginia coastal planning and official resources" }
         ]
+      },
+      {
+        heading: "Three Different Meanings of an Empty Map",
+        body: "A successfully loaded active-cyclone list with no Atlantic entries describes that list at its stated time. A formation outlook answers a different question: NHC's 7 PM EST November 11, 2026 bulletin (0000 UTC November 12) said tropical cyclone formation was not expected during the next seven days in the North Atlantic, Caribbean and Gulf. Neither statement verifies local surf, marine or flood conditions. A failed request, blank text panel or missing timestamp establishes neither result. If the tracker or official page fails to load, record status as unavailable and open NHC's homepage for the actual signed bulletin; check local NWS hazards separately. This archived example is not a forecast for the day you read this article.",
+        links: [{ href: "https://www.nhc.noaa.gov/archive/xgtwo/gtwo_archive.php?basin=atlc&fdays=7&current_issuance=202611120000", label: "Read the archived November 12, 2026, 0000 UTC Atlantic outlook" }, { href: "https://www.nhc.noaa.gov/", label: "Find the current signed outlook and active-cyclone advisories at NHC" }]
       },
       {
         heading: "How Real-Time Hurricane Tracking Works",
@@ -2826,13 +2831,13 @@ export const blogPosts: BlogPost[] = [
   },
   {
     "slug": "hurricane-home-hardening-checklist",
-    sources: [{ href: "https://ibhs.org/hurricanereadyhomeupgrades/", label: "IBHS: roof, rated garage-door and opening upgrades" }, { href: "https://ibhs.org/hurricanereadyhomebeforeevent", label: "IBHS: preparation as a hurricane approaches" }, { href: "https://www.ready.gov/hurricanes", label: "Ready.gov: local orders and household preparation" }, { href: "https://www.nhc.noaa.gov/aboutcone.shtml", label: "NHC: definition of the track forecast cone" }, { href: "https://www.nhc.noaa.gov/aboutnhcgraphics.shtml#TOA", label: "NHC: wind-arrival products and uncertainty" }],
+    sources: [{ href: "https://ibhs.org/hurricanereadyhome/", label: "IBHS: annual roof, drainage and garage-door maintenance" }, { href: "https://ibhs.org/hurricanereadyhomeupgrades/", label: "IBHS: roof, rated garage-door and opening upgrades" }, { href: "https://ibhs.org/hurricanereadyhomebeforeevent", label: "IBHS: preparation as a hurricane approaches" }, { href: "https://www.ready.gov/hurricanes", label: "Ready.gov: local orders and household preparation" }, { href: "https://www.nhc.noaa.gov/aboutcone.shtml", label: "NHC: definition of the track forecast cone" }, { href: "https://www.nhc.noaa.gov/aboutnhcgraphics.shtml#TOA", label: "NHC: wind-arrival products and uncertainty" }],
     "title": "Hurricane Home Hardening: Roof, Door and Window Checklist",
     "description": "Plan hurricane upgrades for roofs, garage doors and windows. Check ratings, installation records and contractor questions before a storm threatens your home.",
     "datePublished": "2026-08-14",
-    "dateModified": "2026-11-11",
-    review: { date: "2026-11-11", scope: "Reread IBHS Home Upgrades for its roof-system, garage-door pressure-label and impact-protection distinctions. The proposal comparison is fictional and supplies no engineering design. Earlier NHC timing and Ready.gov references were not reread; no building, installation or local code requirement was checked.", correction: "Added a like-for-like proposal comparison separating roof-cover work from sealed-deck and attachment work, with missing scope left unresolved rather than inferred from a price or storm-category claim." },
-    sourceCheck: { date: "2026-11-02", scope: "Read IBHS Home Upgrades and Just Before the Storm, Ready.gov hurricane guidance, and NHC cone and wind-arrival definitions. Product-record examples are illustrative, not engineering or a code assessment. No building, product approval, contractor, insurance discount, current forecast or evacuation instruction was verified." },
+    "dateModified": "2026-11-13",
+    review: { date: "2026-11-13", scope: "Read IBHS Home Upgrades and Annual Home Prep for roof-system measures, retained garage-door labels, independent FORTIFIED evaluation and annual maintenance. The handover checklist is editorial guidance, not an inspection protocol. Earlier NHC and Ready.gov sources were not reread; no property, local code, product installation or insurance incentive was evaluated.", correction: "Replaced a repetitive fictional label example with completion records, separate permit/designation/insurer decisions and an ongoing maintenance handover." },
+    sourceCheck: { date: "2026-11-13", scope: "Read IBHS Home Upgrades and Annual Home Prep. Confirmed the distinction between physical upgrades, independent evaluation and possible insurance incentives, plus roof assessment and annual garage-door servicing. Earlier November 2 NHC, Ready.gov and pre-event checks are retained rather than newly verified. No building, contractor, product approval, current warning or discount was checked." },
     "image": "/images/blog/hurricane-home-hardening-checklist.png",
     "imageAlt": "Editorial illustration of a person fitting a plywood panel over a window on a house.",
     "sections": [
@@ -2880,8 +2885,20 @@ export const blogPosts: BlogPost[] = [
         "bullets": ["What existing condition or failure path does this work address?", "Which product and installation documents apply to this exact opening or roof system?", "Who determines local code requirements, permits and inspections?", "What documentation and operating instructions will I receive at completion?", "Which limitations remain, including flood exposure and the need to evacuate?"]
       },
       {
-        "heading": "Worked Example: A Product Label Is Only One Part of the Record",
-        "body": "Illustrative example, not a real inspection: the owner records 'G1, garage opening; model label present; positive and negative PSF values readable; required local rating not yet confirmed; installation record missing'. The next action is to send the label and opening information privately to a qualified installer and ask the local building department about requirements. The status remains unresolved. It must not become 'Category 3 safe' or 'safe to shelter' based on the label alone. Close the documentation task only when the suitability and installation questions have answers, while retaining the limits on what was actually assessed."
+        "heading": "At Completion: Collect the Handover and Resolve Outstanding Items",
+        "body": "Before treating a project as complete in your records, compare the installed work with the agreed written scope and ask the contractor to explain any change. This household handover does not replace a professional inspection. IBHS specifically says to retain the installed garage door's wind-rating label and describes independent evaluation for a FORTIFIED Roof. Keep the following decisions separate rather than using an invoice as proof of all of them:",
+        "bullets": [
+          "Installation record: product identity, opening or roof location, instructions, completion photos and documentation of concealed work agreed in the scope. Keep the physical garage-door label in place as well as a photo.",
+          "Permit or inspection status: ask the responsible local authority what closeout is required and retain the resulting record. A contractor's completion notice does not by itself establish official approval.",
+          "FORTIFIED status, if pursued: obtain the designation documentation through the program's evaluation process. Do not relabel an ordinary reroofing invoice as a designation.",
+          "Insurance status: submit the evidence requested by the insurer and obtain its decision separately. IBHS says a designation may qualify for an incentive; it does not promise one for every home or policy.",
+          "Operating handover: have the installer explain the protection's deployment, storage and maintenance instructions. Identify missing hardware, inaccessible openings or assistance needs while there is time to resolve them."
+        ]
+      },
+      {
+        "heading": "Keep the Upgrade Working After the Contractor Leaves",
+        "body": "Use the product instructions to schedule maintenance rather than inventing a universal service interval. IBHS's annual guidance calls for garage-door servicing every year and roof inspection by a trusted, licensed roofing company; it also identifies loose gutter attachments and blocked drainage as issues to address. Arrange qualified help for roof access, elevated work and garage-door mechanisms. Do not adjust springs, tracks or anchors from this checklist. Keep service dates, observed damage, changes and the next responsible contact with the handover documents. After damage or alterations, ask whether the earlier assessment and documents still describe the system. A past inspection or designation does not establish its present condition.",
+        "links": [{ href: "https://ibhs.org/hurricanereadyhome/", label: "Use IBHS annual home preparation and maintenance guidance" }]
       },
       {
         "heading": "Separate Annual Work From Deploying Existing Protection",
@@ -3047,13 +3064,13 @@ export const blogPosts: BlogPost[] = [
   },
   {
     "slug": "hurricane-flood-insurance-guide-nfip",
-    sources: [{ href: "https://www.floodsmart.gov/get-insured/buy-a-policy", label: "NFIP: coverage, separate deductibles, exclusions and waiting-period exceptions" }, { href: "https://www.floodsmart.gov/claims-checklist", label: "NFIP Claims Checklist: declarations, damage evidence and contact records" }, { href: "https://www.floodsmart.gov/recover/start-a-claim", label: "NFIP: report a loss, work with the adjuster and review coverage" }, { href: "https://agents.floodsmart.gov/topics/flood-loss-avoidance", label: "NFIP loss avoidance: eligibility and receipts" }],
-    sourceCheck: { date: "2026-11-06", scope: "Read FloodSmart's buy-a-policy page, Claims Checklist and start-a-claim page for coverage fields, separate deductibles, exclusions and documentation. The worksheet is invented teaching material, not a real policy, quote, coverage determination or review of private-policy wording. Loss-avoidance conditions were checked in the earlier October 24 review." },
-    review: { date: "2026-11-11", scope: "Reread FloodSmart's buy-a-policy page and Claims Checklist for building versus contents, separate deductibles, NFIP temporary-housing exclusion and estimate review. The coverage-sorting exercise is invented. Individual forms, private insurance, waiting-period exceptions and earlier loss-avoidance provisions were not independently rechecked.", correction: "Distinguished representative building, contents and excluded expenses before comparing policy limits; retained prior effective-date, cause-of-loss and document-deadline cautions." },
+    sources: [{ href: "https://www.floodsmart.gov/get-insured/renew-a-policy", label: "NFIP: annual renewal, expiration and mortgage payment questions" }, { href: "https://www.floodsmart.gov/get-insured/buy-a-policy", label: "NFIP: coverage, separate deductibles, exclusions and waiting-period exceptions" }, { href: "https://www.floodsmart.gov/claims-checklist", label: "NFIP Claims Checklist: declarations, damage evidence and contact records" }, { href: "https://www.floodsmart.gov/recover/start-a-claim", label: "NFIP: report a loss, work with the adjuster and review coverage" }, { href: "https://agents.floodsmart.gov/topics/flood-loss-avoidance", label: "NFIP loss avoidance: eligibility and receipts" }],
+    sourceCheck: { date: "2026-11-13", scope: "Read FloodSmart Renew a Policy and Buy a Policy waiting-period FAQ. Other coverage and claims references retain the earlier November 6 and October 24 checks. Illustrations are invented; no real coverage, payment receipt, private-policy wording, lapse or waiting-period exception was determined." },
+    review: { date: "2026-11-13", scope: "Read FloodSmart Renew a Policy and the waiting-period FAQ on Buy a Policy. Checked annual renewal, expiration records, mortgage/escrow questions and the stated exception for coverage changes at renewal. Earlier claim, loss-avoidance and coverage-category research was retained, not independently repeated. No individual policy, lapse reinstatement, private insurer or exception eligibility was evaluated.", correction: "Separated annual renewal from a new purchase and midterm changes; added written effective-date and escrow confirmation without promising continuous coverage after a lapse." },
     "title": "Hurricane Flood Insurance: Check Coverage and Claim Evidence",
     "description": "Use an NFIP and private flood policy checklist to record coverage, dates, limits, deductibles and claim evidence, with a worked example and questions for your agent.",
     "datePublished": "2026-08-14",
-    "dateModified": "2026-11-11",
+    "dateModified": "2026-11-13",
     "image": "/images/blog/hurricane-flood-insurance-guide-nfip.png",
     "imageAlt": "A homeowner photographs flood damage and insurance documents with a tablet after a hurricane flooded the ground floor of a house.",
     "sections": [
@@ -3072,6 +3089,17 @@ export const blogPosts: BlogPost[] = [
           "Follow-up: question, named contact, date asked, written answer and the policy provision it identifies."
         ],
         "links": [{ "href": "https://www.floodsmart.gov/get-insured/buy-a-policy", "label": "Read NFIP coverage options and exclusions" }]
+      },
+      {
+        "heading": "Renewal, New Purchase and Coverage Changes Have Different Timing",
+        "body": "FloodSmart says an NFIP policy must be renewed annually and does not automatically renew. Check the expiration date on the declarations and contact the agent before that date. The end of hurricane season is not the end of flood risk: FloodSmart also identifies snowmelt and nearby construction as possible causes. Use quieter months to review the policy, rather than cancelling solely because November is ending.",
+        "bullets": [
+          "Existing annual policy: confirm the renewal premium, payment route and next term with the agent. If a mortgage lender pays from escrow, ask the lender about the payment and obtain coverage confirmation from the insurance provider; an escrow deduction alone is not your complete policy record.",
+          "New NFIP purchase: the usual waiting period is 30 days. FloodSmart lists exceptions, including certain mortgage transactions. Ask the agent which rule applies and obtain the actual effective date instead of treating an application or quote as active coverage.",
+          "Changing limits at renewal: FloodSmart's FAQ states there is no waiting period for a coverage change made while renewing. Confirm the selected limits and next-term dates in the renewal documents; this does not establish that a midterm increase takes effect immediately.",
+          "Expired policy or uncertain payment: contact the provider promptly about the policy's status and what is required. Do not assume a late payment restores uninterrupted coverage or protects a loss that has already begun. Private-policy renewal and binding terms need their own review."
+        ],
+        "links": [{ href: "https://www.floodsmart.gov/get-insured/renew-a-policy", label: "Check FloodSmart's annual renewal and mortgage-payment guidance" }, { href: "https://www.floodsmart.gov/get-insured/buy-a-policy", label: "Read the NFIP waiting-period FAQ and its exceptions" }]
       },
       {
         "heading": "Worked Example: A Limit Is Not a Payment Estimate",
@@ -3152,6 +3180,10 @@ export const blogPosts: BlogPost[] = [
       }
     ],
     "faqs": [
+      {
+        "question": "Does my NFIP policy automatically renew, with another 30-day wait?",
+        "answer": "FloodSmart says NFIP policies require annual renewal and do not automatically renew. A new policy's usual 30-day waiting period should not be applied to every renewal; its FAQ states that coverage changes made at renewal have no waiting period. Confirm timely payment, the next term and any changed limits with the provider. If the policy expired, ask about your actual status rather than assuming continuous coverage."
+      },
       {
         "question": "Does my homeowners insurance cover hurricane flood damage?",
         "answer": "Standard homeowners policies generally exclude flood, including storm surge. Separate NFIP or private flood coverage is usually needed. NFIP generally has a 30-day waiting period with exceptions; confirm the actual effective date and policy terms with the agent."

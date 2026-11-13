@@ -33,6 +33,8 @@ export const stormTrackerPages: StormTrackerPage[] = [
     slug: "erin",
     name: "Erin",
     basin: "Atlantic",
+    title: "Erin 2025: Peak Winds, Aircraft Readings and Coastal Impacts",
+    description: "Read NHC's Erin 2025 report: distinguish 140 kt peak intensity from aircraft gust readings, offshore track and local coastal flooding observations.",
     primaryKeywords: ["hurricane erin tracker", "hurricane erin tracker map", "hurricane erin forecast"],
     searchDemandNote:
       "Erin tracker queries often spike around active Atlantic advisories, path-map searches, and forecast-update checks.",
@@ -44,8 +46,8 @@ export const stormTrackerPages: StormTrackerPage[] = [
       title: "NHC Tropical Cyclone Report: Hurricane Erin, 11-22 August 2025",
       url: "https://www.nhc.noaa.gov/data/tcr/AL052025_Erin.pdf",
       reportDate: "2026-01-30",
-      checkedOn: "2026-11-02",
-      summary: "NHC's post-season report describes a Category 5 hurricane with a peak intensity of 140 kt and minimum pressure of 913 mb on August 16. Erin later expanded while recurving offshore of the U.S. East Coast. The report's January 30 revision corrects official intensity-forecast verification; it is a revised historical analysis, not a live advisory. Dates and intensities below come from its Synoptic History section (PDF pages 2-3).",
+      checkedOn: "2026-11-12",
+      summary: "NHC's post-season report describes a Category 5 hurricane with a peak intensity of 140 kt and minimum pressure of 913 mb on August 16. Erin later expanded while recurving offshore of the U.S. East Coast. The January 30, 2026 revision corrects official intensity-forecast verification; it is a revised historical analysis, not a live advisory. Checked PDF pages 1-5 for the edition, selected timeline and wind/water comparisons below; the complete report and verification tables were not re-audited.",
       timeline: [
         { date: "11 August 2025, 0000-0600 UTC", event: "A depression formed southwest of Sal, then became a tropical storm while making landfall on Santo Antao in the Cabo Verde Islands by 0600 UTC." },
         { date: "15 August 2025, 1200 UTC", event: "Erin became a hurricane about 375 nautical miles east of the northernmost Leeward Islands." },
@@ -54,6 +56,7 @@ export const stormTrackerPages: StormTrackerPage[] = [
         { date: "22 August 2025, around 1800 UTC", event: "Erin became a hurricane-force extratropical cyclone. Extratropical is a structural classification; it did not mean the winds or ocean hazards immediately ended." }
       ],
       lessons: [
+        { heading: "Why a 179 kt Aircraft Reading Does Not Replace the 140 kt Peak", body: "NHC's Winds and Pressure section (PDF page 4) identifies a dropsonde surface reading of 179 kt around 1403 UTC August 16 as apparently a gust; the low-level average from that drop corresponded to sustained surface wind near 129 kt. The analyzed 140 kt peak at 1800 UTC instead draws on an aircraft flight-level measurement of 154 kt at 700 mb at 1639 UTC. These have different times, heights and averaging meanings. Reporting 179 kt as Erin's official sustained peak would discard the report's interpretation. Keep the measurement type with each number; an aircraft sample is not a certified wind at a particular home." },
         { heading: "An Offshore Center Did Not Keep Coastal Roads Dry", body: "The report's damage discussion (PDF page 5) records North Carolina Highway 12 flooding and closure at Oregon Inlet, with large surf and surge affecting the Outer Banks. This is evidence of a past road impact despite an offshore center, not evidence that Highway 12 is closed or safe today. For a current trip, obtain the road operator's present status and local instructions." },
         { heading: "A Tide-Gauge Number Is Not Water Depth Inside a Home", body: "The report's Storm Surge section (PDF pages 4-5) gives Duck, North Carolina, a peak water level of 3.4 feet relative to Mean Higher High Water (MHHW). That reference level is not ground level or a building's floor. Do not convert it into 3.4 feet of flooding at an address or compare it directly with an above-ground inundation map. Peak cyclone wind, local wind, gauge water level and property flooding are different measurements." }
       ]
@@ -76,6 +79,10 @@ export const stormTrackerPages: StormTrackerPage[] = [
           "Use HurricaneHub's live tracker and radar pages for map context, then verify official forecast positions and watches directly with the National Hurricane Center."
       },
       {
+        question: "Did Erin's winds reach 179 kt in the official best track?",
+        answer: "The 2025 report treats the 179 kt dropsonde surface sample as apparently a gust, not the cyclone's maximum sustained-wind estimate. NHC's analyzed peak is 140 kt at 1800 UTC August 16. The report explains the observations and their averaging in Winds and Pressure, PDF page 4."
+      },
+      {
         question: "Can this page predict where Erin will make landfall?",
         answer:
           "No. This page organizes official tracking sources and decision tools, but NHC forecasts and local emergency management guidance control landfall and evacuation information."
@@ -86,27 +93,34 @@ export const stormTrackerPages: StormTrackerPage[] = [
     slug: "melissa",
     name: "Melissa",
     basin: "Atlantic",
+    title: "Melissa 2025: Jamaica Landfall and NHC Report Explained",
+    description: "Read Melissa's 2025 NHC report: 165 kt peak versus 160 kt Jamaica landfall, Cuba crossing and the separate 2019 storm with the same name.",
     primaryKeywords: ["hurricane melissa tracker live", "hurricane melissa tracker", "hurricane melissa live"],
     searchDemandNote:
       "Melissa searches show strong live-tracker intent, especially for live maps, satellite context, and rapid status checks.",
     overview:
-      "Check the current-feed status separately from the Melissa 2019 report below (AL142019). This historical record covers a subtropical-to-tropical transition offshore of New England, not a hurricane landfall or a current storm. Confirm the year and basin identifier whenever the same name appears in a screenshot or search result.",
+      "Melissa's 2025 hurricane (AL132025) and the 2019 tropical storm (AL142019) are different cyclones. The main historical record below now uses NHC's 2025 report, including the Jamaica and Cuba landfalls. Read its year and identifier before interpreting a search result or map, and check the separately dated feed for current status. A historical landfall is not a current forecast.",
     historicalReport: {
-      year: 2019,
-      stormId: "AL142019",
-      title: "NHC Tropical Cyclone Report: Tropical Storm Melissa, 11-14 October 2019",
-      url: "https://www.nhc.noaa.gov/data/tcr/AL142019_Melissa.pdf",
-      reportDate: "2019-12-31",
-      checkedOn: "2026-11-04",
-      summary: "NHC's report describes a low transitioning from extratropical to subtropical and then tropical while offshore of New England. Its estimated peak intensity was 55 kt as a subtropical storm; it was not a hurricane in this 2019 record. The following sequence is from Synoptic History (PDF page 2); wind and water comparisons are from Meteorological Statistics (PDF pages 3-4).",
+      year: 2025,
+      stormId: "AL132025",
+      title: "NHC Tropical Cyclone Report: Hurricane Melissa, 21-31 October 2025",
+      url: "https://www.nhc.noaa.gov/data/tcr/AL132025_Melissa.pdf",
+      reportDate: "2026-05-19",
+      checkedOn: "2026-11-12",
+      summary: "The May 19 revision supersedes the February 25, 2026 original and updates fatality totals and Jamaica damage estimates. Checked the edition note and Synoptic History on PDF pages 1-5 for the selected milestones below. NHC estimates a 165 kt Category 5 peak before a 160 kt Jamaica landfall. This is a bounded reading of the post-season report, not an audit of every observation, impact total or forecast-verification table, and not a live advisory.",
+      relatedSources: [{ href: "https://www.nhc.noaa.gov/data/tcr/AL142019_Melissa.pdf", label: "Separate historical record: Melissa 2019, AL142019 (previously checked November 4)" }, { href: "https://www.nhc.noaa.gov/data/tcr/index.php?season=2025&basin=atl", label: "NHC 2025 season report directory and revision notices" }],
       timeline: [
-        { date: "11 October 2019, 0600 UTC", event: "Became a subtropical storm about 180 nautical miles south-southeast of Nantucket, with an estimated 55 kt peak intensity." },
-        { date: "12 October 2019, 1200 UTC", event: "Became a tropical storm after the convection and wind field contracted, about 230 nautical miles south-southeast of Nantucket." },
-        { date: "14 October 2019, 1200 UTC", event: "Became a gale-force extratropical low while merging with a front; its circulation opened and dissipated later that day." }
+        { date: "21 October 2025, 0600 UTC", event: "Tropical Storm Melissa formed about 275 nautical miles south of Port-au-Prince, Haiti, with maximum sustained winds of 40 kt." },
+        { date: "25 October 2025, 1800 UTC", event: "Melissa became a hurricane about 150 nautical miles south of Jamaica. It reached Category 5 intensity by 1200 UTC October 27." },
+        { date: "28 October 2025, 1200 UTC", event: "Estimated peak intensity was 165 kt, with central pressure 892 mb, about 40 nautical miles south-southwest of New Hope, Jamaica. This precedes landfall." },
+        { date: "28 October 2025, around 1725 UTC", event: "Landfall near New Hope, Jamaica, at an estimated 160 kt, still Category 5. NHC places emergence from Jamaica's northern coast around 2100 UTC at Category 3 intensity." },
+        { date: "29 October 2025, 0720 UTC", event: "Landfall near Chivirico, Santiago de Cuba, at an estimated 100 kt (Category 3) and 954 mb. This is a separate crossing and intensity estimate." },
+        { date: "31 October 2025, 1200 UTC", event: "Became extratropical about 350 nautical miles north-northeast of Bermuda after bringing strong tropical-storm-force sustained winds and hurricane-force gusts to that island." }
       ],
       lessons: [
-        { heading: "Classification Changed Without Becoming a Hurricane", body: "The 2019 sequence separates structural classification from wind intensity: subtropical, tropical, and extratropical are not successive hurricane categories. Record the year, AL142019 identifier, issue time, classification, and wind unit before comparing it with another Melissa record. Use the 2019 advisory archive for operational bulletins and this post-season report for the analyzed history." },
-        { heading: "Keep Four Wind and Water Metrics Separate", body: "The report gives a 55 kt cyclone peak estimate and separate Wellfleet land observations of 43 kt sustained wind and a 57 kt gust. The gust is not a contradiction of the cyclone's sustained-wind estimate. For water, the report separately describes surge above predicted tide, storm tide relative to a datum, and inundation above ground. A gauge number cannot be copied into an address's indoor flood depth. This comparison explains the historical measurements, not today's conditions." }
+        { heading: "Peak and Jamaica Landfall Are Different Estimates", body: "Synoptic History (PDF page 4) assigns the 165 kt peak to 1200 UTC October 28 and the 160 kt landfall near New Hope to around 1725 UTC. Both are Category 5, so the category alone hides the distinction. A caption for the landfall should use 160 kt with the landfall place and time, rather than copying the earlier peak. These are analyzed cyclone maximum sustained winds, not measured wind at every Jamaican address. The later 100 kt Cuba landfall belongs to another place and time." },
+        { heading: "A Smaller Wind Category Does Not Describe Every Hazard", body: "The report's opening summary (PDF page 1) describes catastrophic wind and storm surge in western Jamaica and heavy rainfall and catastrophic flooding across portions of the Greater Antilles associated with slow motion. The timeline's wind categories cannot supply flood depths or rainfall totals at a home. The transition to an extratropical cyclone also does not by itself end wind or marine hazards. For a present decision, use current local products and instructions, not this historical sequence." },
+        { heading: "Do Not Attach the 2019 History to the 2025 Hurricane", body: "The separately linked 2019 report describes a subtropical-to-tropical storm offshore of New England, not the 2025 Category 5 Jamaica landfall. That older comparison was previously checked November 4; it was not re-audited in this update. Keep AL142019 and AL132025 with their respective records. A name-only search or unlabeled screenshot can mix two real events into a false account." }
       ]
     },
     trackerFocus: [
@@ -120,6 +134,14 @@ export const stormTrackerPages: StormTrackerPage[] = [
         question: "Where is Hurricane Melissa now?",
         answer:
           "If Melissa is active, the latest position should appear in the current NHC storm feed and official advisory links. If not, use the NHC tropical outlook for basin monitoring."
+      },
+      {
+        question: "What was Melissa's intensity at Jamaica landfall in 2025?",
+        answer: "NHC's May 19, 2026 report estimates 160 kt (Category 5) near New Hope around 1725 UTC October 28, 2025. The 165 kt peak occurred earlier, at 1200 UTC. Both are historical post-season estimates; neither is a current wind forecast."
+      },
+      {
+        question: "Was Melissa a hurricane in 2019 or 2025?",
+        answer: "The 2025 record AL132025 is Hurricane Melissa, including the Category 5 Jamaica landfall. The separate 2019 record AL142019 describes a subtropical and then tropical storm, not a hurricane. Confirm the year and identifier before comparing them."
       },
       {
         question: "Does HurricaneHub show Hurricane Melissa live satellite imagery?",
