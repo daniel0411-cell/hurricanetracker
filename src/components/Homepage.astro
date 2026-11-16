@@ -66,8 +66,8 @@ const title = atlanticNames.length
   ? `Hurricane Tracker: ${atlanticNames.slice(0, 2).join(", ")} & NHC Map`
   : "Live Hurricane Tracker | Current NHC Storms, Radar & Alerts";
 const description = atlanticNames.length
-  ? `Track ${atlanticNames.slice(0, 2).join(", ")} and current Atlantic hurricanes with NHC positions, forecast paths, live map, radar, Gulf status, state alerts, and local preparedness tools.`
-  : "Live hurricane tracker with current NHC storm positions, forecast paths, radar, satellite views, state NWS alerts, and preparedness tools.";
+  ? `Track ${atlanticNames.slice(0, 2).join(", ")} and current Atlantic hurricanes with NHC positions, forecast paths, live radar, satellite views, state NWS alerts, and local preparedness tools.`
+  : "Live hurricane tracker for current NHC storms, forecast paths, hurricane radar, satellite views, state NWS alerts, and preparedness tools.";
 const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: site.canonicalUrl, dateModified: lastModified }), faqSchema(faqs));
 ---
 
@@ -89,7 +89,7 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
         <div class="hero-primary">
           <p class="eyebrow"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Official-Source Tracking</p>
           <h1 id="home-title">Live Hurricane Tracker</h1>
-          <p class="hero-summary">Track NHC systems, compare forecast maps, and check weather alerts for your area.</p>
+          <p class="hero-summary">See current NHC storms, compare forecast maps, and check hurricane radar and local weather alerts for your area.</p>
           <div class="hero-actions">
             <a class="action-link" href="/hurricane-tracker/live/">Open live tracker <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
             <a class="hero-secondary-link" href="/radar/"><i class="fa-solid fa-satellite" aria-hidden="true"></i> Radar &amp; satellite</a>
