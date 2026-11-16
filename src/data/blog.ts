@@ -558,8 +558,8 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Power Outage Plan for Food, Medicine, and Devices",
     description: "Prepare for a hurricane power outage with a practical plan for food safety, refrigerated medicine, medical equipment, charging, water, generators, and communication.",
     datePublished: "2026-08-04",
-    dateModified: "2026-11-11",
-    sourceCheck: { date: "2026-10-27", scope: "Ready.gov water quantities and CDC/CPSC generator precautions checked for this revision. FoodSafety.gov and USDA food-chart requests returned HTTP 403; existing food timing guidance was retained, not independently reverified. No product-specific medicine instructions or current service availability verified." },
+    dateModified: "2026-11-15",
+    sourceCheck: { date: "2026-11-14", scope: "Read FoodSafety.gov refrigerated and frozen food outage charts, last reviewed August 8, 2024: closed-door estimates, temperature-exposure columns, food-specific exceptions and refreezing. This resolves the earlier access limitation for that page only. Ready.gov water and CDC/CPSC generator checks are retained from October 27, not newly repeated. No product-specific medicine instructions, flood-contaminated food handling or current service availability verified." },
     image: "/images/blog/hurricane-power-outage-food-medicine-plan.png",
     imageAlt: "A portable generator operates outdoors away from a home while emergency lights and supplies are ready for a power outage.",
     sections: [
@@ -573,14 +573,19 @@ export const blogPosts: BlogPost[] = [
         bullets: ["Ask the clinician, pharmacy, or equipment provider about backup power and medicine storage.", "Keep prescriptions, device instructions, and contact numbers in a waterproof bag.", "Identify a safe destination with reliable power if your household cannot remain safely at home.", "Charge essential devices before watches become warnings."]
       },
       {
-        heading: "Food and Water Plan",
-        body: "Keep water ready for drinking and sanitation, and make a food-safety plan before a storm.",
-        bullets: ["Use coolers and ice to protect essential food if the outage lasts.", "Keep a food thermometer if available and discard food that is unsafe rather than tasting it.", "Store shelf-stable food that does not require cooking.", "Open refrigerator and freezer doors as little as possible."]
+        heading: "Read the Food Row and Temperature Column Together",
+        body: "FoodSafety.gov separates the approximate closed-door holding time from the time food actually spends warm. Its refrigerated-food chart uses exposure to 40°F (4°C) or above for more than two hours as a column condition. That is not an extra two-hour allowance to add after the four-hour refrigerator estimate. Check the actual food row and any exception; the chart does not say every item in a refrigerator has the same outcome.",
+        bullets: ["Under that chart condition, raw or cooked meat, milk, leftovers and cut fruit are discard entries.", "Hard cheeses such as Cheddar and Parmesan, butter and uncut fresh fruit have keep entries; shredded cheese and soft cheese have discard entries.", "Keep doors closed and use appliance thermometers. If an outage exceeds four hours without another safe cold source, the page says to discard refrigerated perishables such as meat, fish, eggs and leftovers.", "Do not taste-test. If the food or its exposure history is uncertain, discard it rather than treating its smell or restored refrigerator temperature as proof."]
       },
       {
         heading: "Keep a Time-and-Temperature Record",
         body: "Write down when power failed and use appliance thermometers if available. Federal food-safety guidance says an unopened refrigerator keeps food safe for about four hours; a full unopened freezer holds temperature for about 48 hours, or 24 hours when half full. These are estimates under closed-door conditions, not permission to keep food that has warmed beyond safe limits. Use the official food chart for each item, never taste food to test it, and follow local boil-water notices separately.",
         links: [{ href: "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage", label: "FoodSafety.gov: which foods to keep or discard" }]
+      },
+      {
+        heading: "Thawed Does Not Always Mean Discard, but Ice Cream Is an Exception",
+        body: "The same official page says frozen food may be safely refrozen if it still contains ice crystals or is at 40°F (4°C) or below, though quality may suffer. Read the frozen-food chart before applying that general rule: ice cream and frozen yogurt are discard entries even in its ice-crystal column. Meat has a different row, and its warm-exposure discard condition still matters. The 48-hour full-freezer and 24-hour half-full estimates assume the door stays closed; they are not a guarantee for every appliance or item. If you cannot establish safe conditions, do not refreeze food merely because power has returned.",
+        links: [{ href: "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage#frozen", label: "Check the official frozen-food rows and refreezing exceptions" }]
       },
       {
         heading: "Write a Separate Plan for Each Medicine or Device",
@@ -1189,13 +1194,13 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "real-time-hurricane-tracking-2026",
-    sourceCheck: { date: "2026-11-12", scope: "Read the archived Atlantic outlook issued at 7 PM EST November 11 (0000 UTC November 12) and NHC glossary warning definitions. The retained November 8 AL94 example and climatology were not newly rechecked. No current local or marine warnings or tracker-layer freshness were verified." },
+    sourceCheck: { date: "2026-11-14", scope: "Read the signed Atlantic outlook issued at 7 AM EST November 14 and the tropical Atlantic High Seas Forecast printed 1030 UTC November 14, synopsis valid 0600 UTC. Checked the cold-front gale area and significant-wave-height definition. These are dated observations, not current warnings. November 12 glossary checks and earlier AL94/climatology research are retained, not newly repeated. No local beach, harbor or road status or tracker-layer freshness verified." },
     sources: [{ href: "https://www.nhc.noaa.gov/", label: "NHC current tropical cyclone advisories" }, { href: "https://www.weather.gov/", label: "NWS local hazard warnings" }, { href: "https://www.nhc.noaa.gov/climo/", label: "NHC Atlantic season dates and historical activity peak" }, { href: "https://www.nhc.noaa.gov/archive/xgtwo/gtwo_archive.php?basin=atlc&fdays=7&current_issuance=202611080000", label: "NHC November 8, 2026, 00:00 UTC outlook: AL94" }],
     title: "Real-Time Hurricane Tracking: 2026 Late-Season Guide",
     description: "Track late-season hurricane risks with NHC outlooks, radar, satellite imagery, and local alerts. Learn why low formation odds can still mean coastal danger.",
     datePublished: "2026-08-06",
-    dateModified: "2026-11-12",
-    review: { date: "2026-11-12", scope: "Reviewed the difference between a formation outlook, an active-storm list and unavailable data using a newly read dated NHC archive example.", correction: "Added a bounded no-formation example with its permanent archive link and a failure-state fallback; no static passage is labeled as live conditions." },
+    dateModified: "2026-11-15",
+    review: { date: "2026-11-15", scope: "Compared the November 14 formation outlook and separate marine bulletin using the November 14 browser research record.", correction: "Replaced the older no-formation example with a geographically bounded comparison; separated significant wave height from individual waves and offshore warnings from local beach conditions." },
     image: "/images/blog/real-time-hurricane-tracking-2026.png",
     imageAlt: "A person views a live hurricane tracking dashboard on a large monitor showing satellite, radar, and a forecast cone.",
     sections: [
@@ -1227,9 +1232,10 @@ export const blogPosts: BlogPost[] = [
         ]
       },
       {
-        heading: "Three Different Meanings of an Empty Map",
-        body: "A successfully loaded active-cyclone list with no Atlantic entries describes that list at its stated time. A formation outlook answers a different question: NHC's 7 PM EST November 11, 2026 bulletin (0000 UTC November 12) said tropical cyclone formation was not expected during the next seven days in the North Atlantic, Caribbean and Gulf. Neither statement verifies local surf, marine or flood conditions. A failed request, blank text panel or missing timestamp establishes neither result. If the tracker or official page fails to load, record status as unavailable and open NHC's homepage for the actual signed bulletin; check local NWS hazards separately. This archived example is not a forecast for the day you read this article.",
-        links: [{ href: "https://www.nhc.noaa.gov/archive/xgtwo/gtwo_archive.php?basin=atlc&fdays=7&current_issuance=202611120000", label: "Read the archived November 12, 2026, 0000 UTC Atlantic outlook" }, { href: "https://www.nhc.noaa.gov/", label: "Find the current signed outlook and active-cyclone advisories at NHC" }]
+        heading: "November 14 Reading Example: No Formation Expected, but an Offshore Gale",
+        body: "NHC's 7 AM EST November 14, 2026 Atlantic outlook said tropical cyclone formation was not expected during the next seven days. Separately, the tropical Atlantic High Seas Forecast printed 1030 UTC that day, with a synopsis valid 0600 UTC, carried a cold-front gale warning. A specified offshore polygon near 30–31°N and 60–63°W had southwest winds of 30–35 kt and seas of 2.5–3.5 m. The formation statement and marine warning answer different questions; the outlook does not cancel the gale. These are dated bulletin examples, not conditions for the day you read this guide, and that offshore polygon does not describe every Atlantic beach or harbor.",
+        bullets: ["Read the signed bulletin, issue time, synopsis valid time and warning coordinates separately. The marine product said it would be superseded by the next issuance in six hours.", "The forecast defines significant wave height as the average of the highest one-third of waves; individual waves may be more than twice that height. A 3.5 m sea is not a maximum individual wave or a coastal inundation depth.", "A successfully loaded cyclone list with no entries, an outlook with no formation expected and a failed or untimed request are three different states. Mark failed data unavailable rather than treating it as calm weather.", "The marine link below changes with later issuances. For a current decision, use the latest forecast for your waters and the local NWS coastal, surf and flood products, not these historical numbers."],
+        links: [{ href: "https://www.nhc.noaa.gov/text/refresh/MIATWOAT+shtml/141124_MIATWOAT.shtml", label: "Read the dated November 14, 2026, 7 AM EST Atlantic outlook" }, { href: "https://www.nhc.noaa.gov/text/MIAHSFAT2.shtml", label: "Read the latest tropical Atlantic High Seas Forecast (updates with each issuance)" }, { href: "https://www.weather.gov/", label: "Find local coastal, surf and flood warnings" }]
       },
       {
         heading: "How Real-Time Hurricane Tracking Works",
@@ -1466,12 +1472,13 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-tracking-after-landfall-inland-flooding-tornadoes",
-    sources: [{ href: "https://www.nhc.noaa.gov/", label: "NHC advisories and handoff instructions" }, { href: "https://www.wpc.ncep.noaa.gov/", label: "NOAA Weather Prediction Center: rainfall and inland updates" }, { href: "https://www.weather.gov/", label: "NWS local flood and tornado warnings" }, { href: "https://www.nhc.noaa.gov/archive/2026/al09/al092026.public.015.shtml", label: "Historical Isaias advisory 15: October 10, 2026, 0900 UTC" }],
+    sources: [{ href: "https://www.wpc.ncep.noaa.gov/qpf/excessive_rainfall_outlook_ero.php", label: "WPC Excessive Rainfall Outlook: probability definition and valid periods" }, { href: "https://www.weather.gov/safety/flood-watch-warning", label: "NWS flood watch, advisory and warning definitions" }, { href: "https://www.nhc.noaa.gov/", label: "NHC advisories and handoff instructions" }, { href: "https://www.wpc.ncep.noaa.gov/", label: "NOAA Weather Prediction Center: rainfall and inland updates" }, { href: "https://www.weather.gov/", label: "NWS local flood and tornado warnings" }, { href: "https://www.nhc.noaa.gov/archive/2026/al09/al092026.public.015.shtml", label: "Historical Isaias advisory 15: October 10, 2026, 0900 UTC" }],
     title: "Hurricane Tracking After Landfall: Why Inland Flooding and Tornado Alerts Matter Most",
     description: "Track inland hurricane flooding, tornado warnings and post-tropical hazards. Learn when to follow NHC, WPC and local NWS alerts after landfall.",
     datePublished: "2026-08-07",
-    dateModified: "2026-11-10",
-    review: { date: "2026-11-10", scope: "Editorial review of inland monitoring, map limitations and warning handoff, using the existing November 6 and November 8 record of Isaias advisory 15. Sources were not newly read; no present flood, tornado, river level, road or local instruction was checked.", correction: "Removed FEMA maps as a flash-flood detection shortcut and county-wide warning expiry as a universal monitoring cutoff." },
+    dateModified: "2026-11-15",
+    sourceCheck: { date: "2026-11-15", scope: "Read WPC's ERO interactive-page definition and displayed issue/valid-time fields, its official risk-category graphic, and NWS Flood Warning vs. Watch definitions. Checked the 25-mile probability scope and warning/advisory/watch distinctions only. The existing Isaias handoff example is retained from November research, not newly reverified. No present warning area, river forecast, road status or local instruction was checked." },
+    review: { date: "2026-11-15", scope: "Revised the outlook-versus-warning passage against WPC and NWS documentation, retaining the earlier storm-specific handoff record.", correction: "Explained the ERO probability's spatial meaning, kept issue and valid times separate, and distinguished a forecast category from an official watch, advisory or warning." },
     image: "/images/blog/hurricane-tracking-after-landfall-inland-flooding-tornadoes.jpg",
     imageAlt: "A resident wades through a flooded inland street after a hurricane, a downed tree across the road and a distant funnel cloud on the horizon.",
     sections: [
@@ -1505,9 +1512,15 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "https://www.nhc.noaa.gov/archive/2026/al09/al092026.public.015.shtml", label: "Read the dated Isaias advisory and its next-update instructions" }, { href: "/blog/nws-hurricane-alert-meanings/", label: "Compare the separate coastal cancellations and continuing hazards" }]
       },
       {
-        heading: "Keep the Rainfall Outlook Separate From the Local Warning",
-        body: "Use a WPC outlook for broader rainfall-risk context, then read the local NWS warning or river forecast for its named area and valid period. Do not translate an outlook color into an address-level flood depth or a road-opening time. A river forecast concerns its identified location and does not describe every nearby street. Record the issuing source, issue time, affected waterway or warning area, instruction and next update separately; a screenshot of one product cannot fill the missing fields in another.",
-        links: [{ href: "/blog/hurricane-flood-zone-map-fema-understanding/", label: "Distinguish insurance flood zones from forecasts and current warnings" }]
+        heading: "What the Rainfall Outlook Probability Actually Describes",
+        body: "WPC defines its Excessive Rainfall Outlook as the probability that rainfall will exceed flash flood guidance within 40 km (25 miles) of a point. It is not the probability that your home will flood, the percentage of a county under water or a forecast depth on a road. Its category graphic describes Marginal as isolated flash floods possible, Slight as scattered flash floods possible, Moderate as numerous flash floods likely and High as widespread flash floods expected. A point's category provides planning context; it is not a local warning or evacuation order. No risk label means flash floods are generally not expected, not that every stream or street is certified safe.",
+        links: [{ href: "https://www.wpc.ncep.noaa.gov/qpf/excessive_rainfall_outlook_ero.php", label: "Read the WPC outlook definition and selected forecast period" }, { href: "https://www.wpc.ncep.noaa.gov/para/para_images/ERO_Categories.png", label: "Read WPC's official risk-category explanations" }]
+      },
+      {
+        heading: "Move From the Outlook to the Warning for Your Location",
+        body: "Check the selected outlook's issue time and explicit valid start/end rather than assuming Day 1 means the next 24 hours from when you opened it. Then read the local NWS product separately. A Flood Watch means conditions favor flooding and calls for preparation; a Flood Advisory concerns flooding below warning criteria but can still become dangerous without caution. Flood and Flash Flood Warnings mean flooding is imminent or occurring and call for action. Do not wait for a higher WPC category before following a warning's protective instructions. Flash flooding can occur where rain is not currently falling.",
+        bullets: ["For an outlook, record the selected day, issue time, valid interval and category at the area of interest.", "For a warning, read its affected area, valid period and protective instructions directly. An older outlook screenshot does not override a newer warning.", "For river flooding, check the identified river location and current official forecast separately; a broad outlook color cannot supply a local crest or road-opening time."],
+        links: [{ href: "https://www.weather.gov/safety/flood-watch-warning", label: "Compare official NWS flood watches, advisories and warnings" }, { href: "/blog/hurricane-flood-zone-map-fema-understanding/", label: "Separate insurance flood zones from forecasts and current warnings" }]
       },
       {
         heading: "Tools for Inland Extreme Weather Alerts",

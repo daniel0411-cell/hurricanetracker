@@ -10,6 +10,7 @@ const legacyPaths: Record<string, string> = {
   "/storm": "/hurricane-tracker/storm/",
   "/city/tampa": "/city/tampa/hurricane-tracker/",
   "/city/charleston": "/city/charleston/hurricane-tracker/",
+  "/city/wilmington": "/city/wilmington/hurricane-tracker/",
   "/city/virginia-beach": "/city/virginia-beach/hurricane-tracker/",
   "/state/texas": "/state/texas/preparedness/",
   "/state/north-carolina": "/state/north-carolina/preparedness/",
