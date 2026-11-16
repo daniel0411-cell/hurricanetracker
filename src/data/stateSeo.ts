@@ -40,7 +40,7 @@ const profiles: Record<string, Omit<StateSeoProfile, "title" | "headline"> & { t
     titleTail: "Current NHC Track & Alerts",
     headlineTail: "Live Gulf Track, Alerts, and New Orleans Risk",
     description:
-      "Check Louisiana hurricanes with the current NHC track, nearest active storm, NWS alerts, Gulf surge risk, and New Orleans, Baton Rouge, and Lake Charles updates.",
+      "Louisiana hurricane tracker with the current NHC storm track, Gulf surge risk, NWS alerts, evacuation planning, and New Orleans, Baton Rouge, and Lake Charles updates.",
     queryFocus: ["louisiana hurricane tracker", "hurricane tracker louisiana", "new orleans hurricane tracker", "louisiana hurricane alerts"]
   },
   "south-carolina": {

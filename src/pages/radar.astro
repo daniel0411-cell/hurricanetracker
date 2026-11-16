@@ -6,10 +6,10 @@ import Layout from "../layouts/Layout.astro";
 import { faqs, site, states } from "../data/site";
 import { articleSchema, faqSchema, graph, howToSchema, itemListSchema, websiteSchema } from "../lib/schema";
 
-const title = "Live Hurricane Radar & Satellite Map | NHC Tracks";
-const description = "Open the live hurricane radar and satellite map to compare rain bands, NOAA GOES loops, NHC storm tracks, forecast layers, and local NWS alerts.";
+const title = "Hurricane Radar & Satellite | Live NHC Map & Alerts";
+const description = "Use live hurricane radar and NOAA GOES satellite views to check rain bands and storm structure, then open NHC tracks and local NWS alerts.";
 const url = `${site.url}/radar/`;
-const lastModified = site.contentLastModified;
+const lastModified = "2026-11-16T00:00:00.000Z";
 const radarNextPaths = [
   {
     name: "Open the live hurricane tracker",
@@ -135,6 +135,7 @@ const jsonLd = graph(
       <p class="eyebrow">Live radar and satellite</p>
       <h1 id="radar-title">Live Hurricane Radar and Satellite Map</h1>
       <p class="answer">Compare live hurricane radar with NOAA GOES-East GeoColor, infrared, water-vapor, and official satellite-loop views for the Atlantic, Gulf, East Coast, and Caribbean. Use cloud structure for observation, then check NHC and NWS sources for forecasts and local decisions.</p>
+      <p class="source-note">The map layers have separate observation and retrieval times. A blank, delayed, or successfully loaded layer does not establish that conditions are safe. On November 16, 2026, NHC listed no Atlantic tropical cyclones; still check local NWS coastal-flood, surf, wind, and marine products for the location and valid period you care about.</p>
     </div>
 
     <section class="radar-stage" aria-label="Interactive North Atlantic map">

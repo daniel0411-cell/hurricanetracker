@@ -31,7 +31,7 @@ const postTropicalStorms = storms.filter((storm) => storm.classification === "PT
 const stormSummary = storms.length ? `${tropicalStorms.length} active tropical system${tropicalStorms.length === 1 ? "" : "s"}${postTropicalStorms.length ? ` and ${postTropicalStorms.length} post-tropical system${postTropicalStorms.length === 1 ? "" : "s"}` : ""}` : "No active NHC systems listed";
 const activeStormNames = tropicalStorms.map((storm) => storm.name).filter(Boolean).slice(0, 2);
 const activeContext = storms.length ? ` Track ${storms.map((storm) => storm.name).filter(Boolean).join(", ")} now.` : "";
-const lastModified = "2026-11-04T00:00:00.000Z";
+const lastModified = "2026-11-16T00:00:00.000Z";
 const updatedLabel = feedAvailable ? new Date(stormFeed!.fetchedAt!).toLocaleString("en-US", {
   timeZone: "UTC",
   month: "short",
@@ -207,6 +207,7 @@ const jsonLd = graph(
         <strong class="storm-count" data-live-storm-count>{feedAvailable ? storms.length : "—"}</strong>
         <span data-live-storm-label>{!feedAvailable ? "current status unverified" : storms.length === 1 ? "active NHC system" : "active NHC systems"}</span>
         <p class="source-note" data-live-updated>{feedAvailable ? `Feed checked ${updatedLabel} UTC` : "Current feed unavailable or stale; check NHC directly."}</p>
+        <p class="source-note">A zero-storm snapshot only describes the verified NHC tropical-cyclone feed. Check marine, coastal-flood, surf, and local NWS products separately; a failed or stale feed is unavailable, not an all-clear.</p>
         <a href="https://www.nhc.noaa.gov/" rel="noopener nofollow">Verify with the National Hurricane Center</a>
       </aside>
     </div>

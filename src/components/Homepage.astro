@@ -60,14 +60,14 @@ const selectedGuides = [
   if (!post?.figures?.[0]) throw new Error(`Missing sourced figure for ${guide.slug}`);
   return { ...guide, post, figure: post.figures[0] };
 });
-const lastModified = "2026-11-10T00:00:00.000Z";
+const lastModified = "2026-11-16T00:00:00.000Z";
 const atlanticNames = atlanticStorms.map((storm) => storm.name).filter(Boolean);
 const title = atlanticNames.length
   ? `Hurricane Tracker: ${atlanticNames.slice(0, 2).join(", ")} & NHC Map`
-  : "Hurricane Tracker | Current Storms, NHC Map & Alerts";
+  : "Live Hurricane Tracker | Current NHC Storms, Radar & Alerts";
 const description = atlanticNames.length
   ? `Track ${atlanticNames.slice(0, 2).join(", ")} and current Atlantic hurricanes with NHC positions, forecast paths, live map, radar, Gulf status, state alerts, and local preparedness tools.`
-  : "Track current hurricanes with NHC positions and forecast paths, then open the live map, radar, state NWS alerts, and local preparedness tools.";
+  : "Live hurricane tracker with current NHC storm positions, forecast paths, radar, satellite views, state NWS alerts, and preparedness tools.";
 const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: site.canonicalUrl, dateModified: lastModified }), faqSchema(faqs));
 ---
 

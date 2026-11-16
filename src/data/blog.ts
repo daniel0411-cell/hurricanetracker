@@ -1194,13 +1194,13 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "real-time-hurricane-tracking-2026",
-    sourceCheck: { date: "2026-11-14", scope: "Read the signed Atlantic outlook issued at 7 AM EST November 14 and the tropical Atlantic High Seas Forecast printed 1030 UTC November 14, synopsis valid 0600 UTC. Checked the cold-front gale area and significant-wave-height definition. These are dated observations, not current warnings. November 12 glossary checks and earlier AL94/climatology research are retained, not newly repeated. No local beach, harbor or road status or tracker-layer freshness verified." },
+    sourceCheck: { date: "2026-11-16", scope: "Checked the NHC homepage and Atlantic Tropical Weather Outlook on November 16, 2026 for current Atlantic cyclone and development-area status. The November 14 High Seas Forecast and its cold-front gale example remain dated observations, not current warnings. No local beach, harbor or road status or tracker-layer freshness verified." },
     sources: [{ href: "https://www.nhc.noaa.gov/", label: "NHC current tropical cyclone advisories" }, { href: "https://www.weather.gov/", label: "NWS local hazard warnings" }, { href: "https://www.nhc.noaa.gov/climo/", label: "NHC Atlantic season dates and historical activity peak" }, { href: "https://www.nhc.noaa.gov/archive/xgtwo/gtwo_archive.php?basin=atlc&fdays=7&current_issuance=202611080000", label: "NHC November 8, 2026, 00:00 UTC outlook: AL94" }],
     title: "Real-Time Hurricane Tracking: 2026 Late-Season Guide",
     description: "Track late-season hurricane risks with NHC outlooks, radar, satellite imagery, and local alerts. Learn why low formation odds can still mean coastal danger.",
     datePublished: "2026-08-06",
-    dateModified: "2026-11-15",
-    review: { date: "2026-11-15", scope: "Compared the November 14 formation outlook and separate marine bulletin using the November 14 browser research record.", correction: "Replaced the older no-formation example with a geographically bounded comparison; separated significant wave height from individual waves and offshore warnings from local beach conditions." },
+    dateModified: "2026-11-16",
+    review: { date: "2026-11-16", scope: "Checked the NHC homepage and current Atlantic Tropical Weather Outlook on November 16; confirmed no Atlantic tropical cyclones or listed Atlantic development areas at the check time. Existing November 14 marine example remains dated.", correction: "Added a current-status boundary section separating no tropical cyclone formation from marine, coastal-flood, surf, and local NWS hazards; retained issuance and valid-time checks." },
     image: "/images/blog/real-time-hurricane-tracking-2026.png",
     imageAlt: "A person views a live hurricane tracking dashboard on a large monitor showing satellite, radar, and a forecast cone.",
     sections: [
@@ -1236,6 +1236,17 @@ export const blogPosts: BlogPost[] = [
         body: "NHC's 7 AM EST November 14, 2026 Atlantic outlook said tropical cyclone formation was not expected during the next seven days. Separately, the tropical Atlantic High Seas Forecast printed 1030 UTC that day, with a synopsis valid 0600 UTC, carried a cold-front gale warning. A specified offshore polygon near 30–31°N and 60–63°W had southwest winds of 30–35 kt and seas of 2.5–3.5 m. The formation statement and marine warning answer different questions; the outlook does not cancel the gale. These are dated bulletin examples, not conditions for the day you read this guide, and that offshore polygon does not describe every Atlantic beach or harbor.",
         bullets: ["Read the signed bulletin, issue time, synopsis valid time and warning coordinates separately. The marine product said it would be superseded by the next issuance in six hours.", "The forecast defines significant wave height as the average of the highest one-third of waves; individual waves may be more than twice that height. A 3.5 m sea is not a maximum individual wave or a coastal inundation depth.", "A successfully loaded cyclone list with no entries, an outlook with no formation expected and a failed or untimed request are three different states. Mark failed data unavailable rather than treating it as calm weather.", "The marine link below changes with later issuances. For a current decision, use the latest forecast for your waters and the local NWS coastal, surf and flood products, not these historical numbers."],
         links: [{ href: "https://www.nhc.noaa.gov/text/refresh/MIATWOAT+shtml/141124_MIATWOAT.shtml", label: "Read the dated November 14, 2026, 7 AM EST Atlantic outlook" }, { href: "https://www.nhc.noaa.gov/text/MIAHSFAT2.shtml", label: "Read the latest tropical Atlantic High Seas Forecast (updates with each issuance)" }, { href: "https://www.weather.gov/", label: "Find local coastal, surf and flood warnings" }]
+      },
+      {
+        heading: "November 16, 2026 Check: No Atlantic Cyclone Listed",
+        body: "The NHC homepage checked on November 16, 2026 listed no tropical cyclones in the Atlantic, and its Atlantic two-day and seven-day outlooks listed no development area. This is a timestamped status check, not a forecast that every coastal location is safe. Tropical-cyclone formation, offshore gale conditions, high surf, coastal flooding, and rainfall hazards are separate questions. For a current decision, open the newest NHC outlook and the Ocean Prediction Center or local NWS products for the waters and shoreline you care about. If a feed fails or lacks a usable timestamp, mark the status unavailable rather than converting the failure into “no storms.”",
+        bullets: ["Keep the basin and issue time with the status: a Pacific system is not an Atlantic system, and an old bulletin is not a current warning.", "Read marine warnings and coastal-flood statements by their area and valid period; a broad “no formation expected” sentence does not cancel them.", "Use local emergency management for evacuation orders, road closures, and shelter instructions. A tracker map is context, not an all-clear."],
+        links: [
+          { href: "https://www.nhc.noaa.gov/", label: "Check NHC current tropical cyclone status" },
+          { href: "https://www.nhc.noaa.gov/text/MIATWOAT.shtml", label: "Read the latest Atlantic Tropical Weather Outlook" },
+          { href: "https://ocean.weather.gov/", label: "Check Ocean Prediction Center marine forecasts" },
+          { href: "https://www.weather.gov/", label: "Find local NWS warnings and coastal statements" }
+        ]
       },
       {
         heading: "How Real-Time Hurricane Tracking Works",
@@ -1684,10 +1695,10 @@ export const blogPosts: BlogPost[] = [
     slug: "saffir-simpson-hurricane-wind-scale-explained",
     sources: [{ href: "https://www.nhc.noaa.gov/aboutsshws.php", label: "NHC Saffir-Simpson Hurricane Wind Scale: wind thresholds and potential damage" }, { href: "https://www.nhc.noaa.gov/aboutgloss.shtml", label: "NHC glossary: maximum sustained surface wind" }, { href: "https://www.nhc.noaa.gov/archive/2017/al11/al112017.discus.028.shtml", label: "Historical Irma discussion 28: September 6, 2017 at 0300 UTC" }, { href: "https://www.nhc.noaa.gov/data/hurdat/hurdat2-1851-2025-092326.txt", label: "NHC HURDAT2: Michael AL142018, October 10 at 1200 and 1730 UTC" }, { href: "https://www.nhc.noaa.gov/aboutcone.shtml", label: "NHC: the cone describes uncertainty in the center track" }],
     review: { date: "2026-11-10", scope: "Editorial review of category boundaries and downgrade interpretation, retaining the November 6 scale, Irma and Michael evidence. Sources were not newly read; no local wind or damage estimate was checked.", correction: "Added a one-knot classification exercise and clarified that category steps are not damage ratios. Earlier corrections separating peak, landfall and local impacts remain." },
-    title: "Hurricane Categories 1-5: Read the Wind Scale Correctly",
-    description: "Read hurricane Categories 1-5 using NHC wind thresholds and a real Irma advisory. Separate sustained wind, landfall intensity, surge and local damage.",
+    title: "Hurricane Categories 1-5: Wind Scale Explained",
+    description: "Hurricane Categories 1-5 explained with NHC wind thresholds. Learn what the scale measures, and how surge, rain, tornadoes, and damage differ.",
     datePublished: "2026-08-10",
-    dateModified: "2026-11-10",
+    dateModified: "2026-11-16",
     sourceCheck: { date: "2026-11-06", scope: "NHC scale and glossary; Irma discussion 28 INIT and forecast rows; Michael AL142018 best-track entries at 1200 and 1730 UTC on October 10, 2018. Historical products only; no current forecast or property-specific damage assessment." },
     image: "/images/blog/saffir-simpson-scale.png",
     imageAlt: "A woman in a safety vest surveys hurricane damage in a residential neighborhood with a fallen oak tree, damaged roof, and emergency vehicles in the background.",
