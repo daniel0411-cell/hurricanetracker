@@ -60,7 +60,7 @@ const selectedGuides = [
   if (!post?.figures?.[0]) throw new Error(`Missing sourced figure for ${guide.slug}`);
   return { ...guide, post, figure: post.figures[0] };
 });
-const lastModified = "2026-11-16T00:00:00.000Z";
+const lastModified = "2026-11-17T00:00:00.000Z";
 const atlanticNames = atlanticStorms.map((storm) => storm.name).filter(Boolean);
 const title = atlanticNames.length
   ? `Hurricane Tracker: ${atlanticNames.slice(0, 2).join(", ")} & NHC Map`
@@ -89,9 +89,9 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
         <div class="hero-primary">
           <p class="eyebrow"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Official-Source Tracking</p>
           <h1 id="home-title">Live Hurricane Tracker</h1>
-          <p class="hero-summary">See current NHC storms, compare forecast maps, and check hurricane radar and local weather alerts for your area.</p>
+          <p class="hero-summary">See whether the NHC lists an active storm today, compare forecast maps, and check radar and local alerts for your area.</p>
           <div class="hero-actions">
-            <a class="action-link" href="/hurricane-tracker/live/">Open live tracker <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            <a class="action-link" href="/hurricane-tracker/live/">See today’s NHC status <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
             <a class="hero-secondary-link" href="/radar/"><i class="fa-solid fa-satellite" aria-hidden="true"></i> Radar &amp; satellite</a>
             <a class="hero-secondary-link" href="#local-alerts-heading"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Check local alerts</a>
           </div>

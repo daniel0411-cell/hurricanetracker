@@ -47,15 +47,15 @@ const stormNameLinks: Record<string, string> = {
   Isaias: "/hurricane-tracker/storm/isaias/"
 };
 const namedStorms = new Set([...activeNames, ...archivedNames]).size;
-const lastModified = "2026-11-16T00:00:00.000Z";
+const lastModified = "2026-11-17T00:00:00.000Z";
 const feedCheckedAt = feed?.updatedAt ?? feed?.fetchedAt;
 const activeStormNames = storms.map((storm) => storm.name).filter(Boolean);
 const currentAnswer = !feedAvailable
   ? "Current NHC data is temporarily unavailable. Check official NHC advisories and local NWS alerts for current conditions."
   : storms.length ? `The latest NHC Atlantic feed lists ${storms.length} active system${storms.length === 1 ? "" : "s"}${activeStormNames.length ? `: ${activeStormNames.join(", ")}` : ""}.` : "The latest NHC Atlantic feed lists no active Atlantic tropical cyclones.";
-const title = "2026 Hurricane Season: Dates, Storms & NHC Tracker";
+const title = "2026 Hurricane Season Tracker | Dates, Storms & NHC Updates";
 const description = feedAvailable
-  ? `2026 Atlantic hurricane season dates, current NHC storms, official outlooks, storm names, and late-season safety guidance. ${storms.length ? `${storms.length} active system${storms.length === 1 ? "" : "s"}.` : "No active Atlantic systems in the verified feed."}`
+  ? `2026 Atlantic hurricane season dates, today's NHC storm status, official outlooks, storm names, and late-season safety guidance. ${storms.length ? `${storms.length} active system${storms.length === 1 ? "" : "s"}.` : "No active Atlantic systems in the verified feed."}`
   : "2026 Atlantic hurricane season dates, storm names, and late-season guidance. Current NHC data is temporarily unavailable; check official advisories and local alerts.";
 const verifiedLabel = feedCheckedAt ? new Date(feedCheckedAt).toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit", timeZone: "UTC" }) : "unavailable";
 const faqs = [

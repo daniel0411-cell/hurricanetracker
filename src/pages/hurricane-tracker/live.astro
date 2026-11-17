@@ -31,7 +31,7 @@ const postTropicalStorms = storms.filter((storm) => storm.classification === "PT
 const stormSummary = storms.length ? `${tropicalStorms.length} active tropical system${tropicalStorms.length === 1 ? "" : "s"}${postTropicalStorms.length ? ` and ${postTropicalStorms.length} post-tropical system${postTropicalStorms.length === 1 ? "" : "s"}` : ""}` : "No active NHC systems listed";
 const activeStormNames = tropicalStorms.map((storm) => storm.name).filter(Boolean).slice(0, 2);
 const activeContext = storms.length ? ` Track ${storms.map((storm) => storm.name).filter(Boolean).join(", ")} now.` : "";
-const lastModified = "2026-11-16T00:00:00.000Z";
+const lastModified = "2026-11-17T00:00:00.000Z";
 const updatedLabel = feedAvailable ? new Date(stormFeed!.fetchedAt!).toLocaleString("en-US", {
   timeZone: "UTC",
   month: "short",
@@ -193,7 +193,7 @@ const jsonLd = graph(
       <div>
         <p class="eyebrow">Current NHC storm data</p>
         <h1 id="live-title">Live Hurricane Tracker: Current NHC Storms and Map</h1>
-        <p class="answer" data-live-answer>{!feedAvailable ? "The current NHC feed could not be verified. Check NHC directly for current storm status." : storms.length ? `The latest NHC feed lists ${stormSummary}: ${storms.map((storm) => `${storm.name ?? storm.id ?? "unnamed system"} (${classificationLabel(storm.classification)})`).join(", ")}.` : "No active tropical cyclone is listed in the verified NHC feed."} Use the map, official advisories, and local NWS alerts together.</p>
+        <p class="answer" data-live-answer>{!feedAvailable ? "The current NHC feed could not be verified. Check NHC directly for current storm status." : storms.length ? `The latest NHC feed lists ${stormSummary}: ${storms.map((storm) => `${storm.name ?? storm.id ?? "unnamed system"} (${classificationLabel(storm.classification)})`).join(", ")}.` : "No active tropical cyclone is listed in the verified NHC feed."} Start with the current count, then open the map for forecast context and your local NWS alerts for action.</p>
         <p class="section-actions">
           <a class="action-link" href="#current-hurricanes" data-track-event="view_current_storms">View current storms</a>
           <a class="action-link secondary-action" href="#live-map-heading" data-track-event="open_live_map">Open live map</a>

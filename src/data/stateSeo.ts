@@ -40,7 +40,7 @@ const profiles: Record<string, Omit<StateSeoProfile, "title" | "headline"> & { t
     titleTail: "Current NHC Track & Alerts",
     headlineTail: "Live Gulf Track, Alerts, and New Orleans Risk",
     description:
-      "Louisiana hurricane tracker with the current NHC storm track, Gulf surge risk, NWS alerts, evacuation planning, and New Orleans, Baton Rouge, and Lake Charles updates.",
+      "Louisiana hurricane tracker for today's NHC storm status, Gulf surge risk, NWS alerts, evacuation planning, and New Orleans, Baton Rouge, and Lake Charles updates.",
     queryFocus: ["louisiana hurricane tracker", "hurricane tracker louisiana", "new orleans hurricane tracker", "louisiana hurricane alerts"]
   },
   "south-carolina": {
@@ -68,7 +68,7 @@ const profiles: Record<string, Omit<StateSeoProfile, "title" | "headline"> & { t
     titleTail: "Current NHC & NWS Updates",
     headlineTail: "Live NHC Track, Alerts, and Hampton Roads Risk",
     description:
-      "Is a hurricane near Virginia? Check the current NHC track, nearest active storm, NWS alerts, Chesapeake Bay risk, Virginia Beach, and Norfolk updates.",
+      "Is a hurricane near Virginia today? Check the current NHC track, nearest active storm, NWS alerts, Chesapeake Bay risk, Virginia Beach, and Norfolk updates.",
     queryFocus: ["virginia hurricane tracker", "hurricane tracker virginia", "hampton roads hurricane tracker", "virginia beach hurricane tracker"]
   }
 };
