@@ -43,10 +43,10 @@ const updatedLabel = feedAvailable ? new Date(stormFeed!.fetchedAt!).toLocaleStr
 const atlanticStormNames = tropicalStorms.filter((storm) => /^AL/i.test(storm.id ?? "")).map((storm) => storm.name).filter(Boolean).slice(0, 2);
 const title = atlanticStormNames.length
   ? `Live Hurricane Tracker: ${atlanticStormNames.join(", ")} & NHC Map`
-  : "Live Hurricane Tracker | Current Storms & NHC Map";
+  : "Live Hurricane Tracker Today | NHC Storm Map & Alerts";
 const description = !feedAvailable ? "Current NHC storm data is temporarily unverified. Open official advisories, radar, satellite and local alerts; a failed feed cannot establish no active storms." : atlanticStormNames.length
   ? `Track ${atlanticStormNames.join(", ")} and current NHC storms on the live map with forecast paths, Gulf status, advisories, radar, satellite and local alerts. Updated ${updatedLabel} UTC.`
-  : `${stormSummary}. Track current hurricanes on the live NHC map with storm paths, advisories, radar, satellite and local alerts. Updated ${updatedLabel} UTC.${activeContext}`;
+  : `${stormSummary}. Check today's NHC storm map with forecast paths, advisories, radar, satellite and local alerts. Updated ${updatedLabel} UTC.${activeContext}`;
 const liveTrackerPaths = [
   {
     name: "Check active storms",

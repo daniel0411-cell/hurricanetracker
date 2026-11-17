@@ -64,10 +64,10 @@ const lastModified = "2026-11-16T00:00:00.000Z";
 const atlanticNames = atlanticStorms.map((storm) => storm.name).filter(Boolean);
 const title = atlanticNames.length
   ? `Hurricane Tracker: ${atlanticNames.slice(0, 2).join(", ")} & NHC Map`
-  : "Live Hurricane Tracker | Current NHC Storms, Radar & Alerts";
+  : "Hurricane Tracker Today | Live NHC Storms, Radar & Alerts";
 const description = atlanticNames.length
   ? `Track ${atlanticNames.slice(0, 2).join(", ")} and current Atlantic hurricanes with NHC positions, forecast paths, live radar, satellite views, state NWS alerts, and local preparedness tools.`
-  : "Live hurricane tracker for current NHC storms, forecast paths, hurricane radar, satellite views, state NWS alerts, and preparedness tools.";
+  : "Hurricane tracker today with current NHC storms, forecast paths, hurricane radar, satellite views, state NWS alerts, and preparedness tools.";
 const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: site.canonicalUrl, dateModified: lastModified }), faqSchema(faqs));
 ---
 
