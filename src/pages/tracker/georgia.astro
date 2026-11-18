@@ -22,7 +22,7 @@ const seo = getStateSeoProfile(state);
 const title = seo.title;
 const description = seo.description;
 const canonical = `${site.url}/tracker/${state.slug}/`;
-const lastModified = "2026-11-04T00:00:00.000Z";
+const lastModified = "2026-11-17T00:00:00.000Z";
 const currentStatus = await getStateCurrentStatus(code);
 
 const evidence = stateEvidence[code];
@@ -76,6 +76,7 @@ const jsonLd = graph(
       <h1 id="tracker-state-title">{seo.headline}</h1>
       <p class="answer">{intro}</p>
       <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
+      <p class="intent-answer"><strong>Quick answer:</strong> This page checks the latest NHC storm feed and Georgia NWS alerts. An empty storm list does not prove that every local hazard is absent; use the alerts below for coastal flooding, severe weather, and evacuation instructions.</p>
 
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>

@@ -30,17 +30,17 @@ const profiles: Record<string, Omit<StateSeoProfile, "title" | "headline"> & { t
     queryFocus: ["hurricane tracker north carolina", "hurricane nc tracker", "hurricane tracker nc", "north carolina hurricane tracker"]
   },
   georgia: {
-    titleTail: "Live NHC Track, NWS Alerts, Savannah and Brunswick Risk",
-    headlineTail: "Live NHC Track, Alerts, Savannah, and Brunswick Risk",
+    titleTail: "Current NHC Track & Alerts",
+    headlineTail: "Is a Hurricane Coming to Georgia? Live Track and Alerts",
     description:
-      "Track Georgia hurricanes with live NHC context, NWS alerts, Savannah and Brunswick city trackers, coastal flooding, river flooding, tree damage, and evacuation-zone planning.",
+      "Is a hurricane coming to Georgia? Check today's verified NHC storm status, Georgia NWS alerts, Savannah and Brunswick risk, flooding, and evacuation planning.",
     queryFocus: ["hurricane tracker georgia", "georgia hurricane tracker", "georgia hurricane alerts", "savannah hurricane tracker"]
   },
   louisiana: {
-    titleTail: "Current NHC Track & Alerts",
-    headlineTail: "Live Gulf Track, Alerts, and New Orleans Risk",
+    titleTail: "Current Gulf Track & Alerts",
+    headlineTail: "Is a Hurricane Coming to Louisiana? Live Gulf Track",
     description:
-      "Louisiana hurricane tracker for today's NHC storm status, Gulf surge risk, NWS alerts, evacuation planning, and New Orleans, Baton Rouge, and Lake Charles updates.",
+      "Is a hurricane coming to Louisiana? Check today's verified NHC Gulf status, Louisiana NWS alerts, surge risk, evacuation planning, and New Orleans updates.",
     queryFocus: ["louisiana hurricane tracker", "hurricane tracker louisiana", "new orleans hurricane tracker", "louisiana hurricane alerts"]
   },
   "south-carolina": {
@@ -58,17 +58,17 @@ const profiles: Record<string, Omit<StateSeoProfile, "title" | "headline"> & { t
     queryFocus: ["alabama hurricane tracker", "hurricane tracker alabama", "hurricane al", "mobile hurricane tracker"]
   },
   mississippi: {
-    titleTail: "Live Gulf Track, NWS Alerts, Gulfport and Biloxi Risk",
-    headlineTail: "Live Gulf Track, Alerts, Gulfport, and Biloxi Risk",
+    titleTail: "Gulf Track & Alerts",
+    headlineTail: "Is a Hurricane Coming to Mississippi? Live Gulf Track",
     description:
-      "Track Mississippi hurricanes with live NHC context, NWS alerts, Gulfport and Biloxi city trackers, coastal surge, river flooding, mobile home risk, and outage planning.",
+      "Is a hurricane coming to Mississippi? Check today's verified NHC Gulf status, Mississippi NWS alerts, Gulfport and Biloxi surge risk, and evacuation planning.",
     queryFocus: ["hurricane tracker mississippi", "mississippi hurricane tracker", "gulfport hurricane tracker", "biloxi hurricane tracker"]
   },
   virginia: {
-    titleTail: "Current NHC & NWS Updates",
-    headlineTail: "Live NHC Track, Alerts, and Hampton Roads Risk",
+    titleTail: "NHC Track & Surge Alerts",
+    headlineTail: "Is a Hurricane Near Virginia Today? Live Track and Alerts",
     description:
-      "Is a hurricane near Virginia today? Check the current NHC track, nearest active storm, NWS alerts, Chesapeake Bay risk, Virginia Beach, and Norfolk updates.",
+      "Is a hurricane near Virginia today? Check verified NHC status, Virginia NWS alerts, Chesapeake Bay surge risk, Virginia Beach, Norfolk, and evacuation guidance.",
     queryFocus: ["virginia hurricane tracker", "hurricane tracker virginia", "hampton roads hurricane tracker", "virginia beach hurricane tracker"]
   }
 };
