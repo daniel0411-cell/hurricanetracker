@@ -4,9 +4,18 @@ import Layout from "../../layouts/Layout.astro";
 import { faqs, site } from "../../data/site";
 import { articleSchema, faqSchema, graph, webApplicationSchema, websiteSchema } from "../../lib/schema";
 
-const title = "County Hurricane Risk Lookup by ZIP Code";
-const description = "Use a ZIP code to open point-based NWS alerts, a supported state tracker or general live tracker, weather.gov forecast, and county emergency planning checks.";
+const title = "Hurricane Alerts by ZIP & County Planning Resources";
+const lastModified = "2026-11-21";
+const description = "Screen point-based NWS alerts by ZIP, then choose official county resources for evacuation zones, shelter checks and assistance planning.";
 const url = `${site.url}/tools/county-hurricane-risk/`;
+const countyResources = [
+  { name: "Miami-Dade County, Florida", url: "https://www.miamidade.gov/initiative/weather-ready/hurricanes/home.page", linkLabel: "Open Miami-Dade hurricane planning", guidance: "Start with Storm Surge Planning Zone, then compare the address result with Emergency Evacuations and current county instructions.", scope: "The county hub also links the Emergency & Evacuation Assistance Program. Use the county-linked map for the full street address, then confirm assistance eligibility and arrangements separately." },
+  { name: "Broward County, Florida", url: "https://www.broward.org/Hurricane/", linkLabel: "Open Broward hurricane dashboard", guidance: "Use the Evacuations entry for local planning. Check the dashboard's shelter details for the current event before selecting a destination.", scope: "The official dashboard lists shelter status and pet information and links special-needs and registration resources. Recheck those details at the source; no placement or transport is confirmed here." },
+  { name: "Lee County, Florida", url: "https://www.leefl.gov/919/Hurricane-Preparation-Guide", linkLabel: "Open Lee County hurricane preparation guide", guidance: "Use Find My Evacuation Zone and Public Shelters as separate checks. Keep the address zone result separate from the current evacuation announcement.", scope: "The county guide links zone maps, shelter resources and special-needs planning. Check the map edition and legend before recording your address zone; that result does not establish a current evacuation order." },
+  { name: "Harris County, Texas", url: "https://www.readyharris.org/", linkLabel: "Open ReadyHarris official resources", guidance: "Use the county's evacuation ZIP-zone resource for its stated purpose, then confirm the applicable local instruction. Check traffic and flood observations separately.", scope: "ReadyHarris links evacuation maps, Houston TranStar, flood observations and STEAR assistance registration. A ZIP-zone map does not certify parcel flood risk, road access or a reserved ride." },
+  { name: "Orleans Parish / New Orleans, Louisiana", url: "https://ready.nola.gov/plan/hurricane/#cae", linkLabel: "Open NOLA Ready hurricane and assisted-evacuation plan", guidance: "Read the city-assisted evacuation section if you cannot leave on your own. Check the current city announcement for activation and pickup instructions.", scope: "The standing plan describes assistance during a mandatory evacuation. Eligibility and operational instructions must be confirmed; it is not a present transport booking or an order for neighboring parishes." },
+  { name: "New Hanover County, North Carolina", url: "https://www.nhcgov.com/203/Evacuation-Shelters", linkLabel: "Open New Hanover evacuation and shelter guidance", guidance: "Use the county's Know Your Zone entry and the event-specific shelter announcement. The emergency type and affected area determine which facilities open.", scope: "The county explains that officials announce shelter openings during an event. A planning location or zone entry alone does not confirm an open shelter or an available space." }
+];
 const pageFaqs = [
   { question: "Can a ZIP code identify my exact county or evacuation zone?", answer: "Not reliably. ZIP codes can cross county, parish, borough, and evacuation-zone boundaries. This tool uses the ZIP centroid for NWS alert screening, then sends you to official address-level county and evacuation resources." },
   { question: "Which source issues hurricane evacuation orders?", answer: "County, parish, city, state, or territorial emergency officials issue local evacuation instructions. The NHC issues tropical cyclone forecasts, while local NWS offices issue hazard alerts for affected areas." },
@@ -15,7 +24,7 @@ const pageFaqs = [
 ];
 const jsonLd = graph(
   websiteSchema(),
-  articleSchema({ title, description, url, dateModified: site.contentLastModified }),
+  articleSchema({ title, description, url, dateModified: lastModified }),
   webApplicationSchema({
     name: title,
     description,
@@ -25,8 +34,8 @@ const jsonLd = graph(
   faqSchema(pageFaqs)
 );
 ---
-<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={site.contentLastModified} showBottomAd={true}>
-  <section class="band" aria-labelledby="county-title"><div class="inner"><p class="eyebrow">Location-first official sources</p><h1 id="county-title">County Hurricane Risk Lookup by ZIP Code</h1><p class="answer">Enter a ZIP code to screen active NWS alerts at that point, open a supported state tracker or general live tracker, and organize the county-level checks that control evacuation, shelters, roads, and local instructions.</p></div></section>
+<Layout title={title} description={description} canonical={url} jsonLd={jsonLd} lastModified={lastModified} showBottomAd={true}>
+  <section class="band" aria-labelledby="county-title"><div class="inner"><p class="eyebrow">Location-first official sources</p><h1 id="county-title">Hurricane Alerts by ZIP & County Planning Resources</h1><p class="answer">Enter a ZIP code to screen active NWS alerts at that point, open a supported state tracker or general live tracker, and organize the county-level checks that control evacuation, shelters, roads, and local instructions.</p></div></section>
 
   <section class="band" aria-labelledby="county-form-heading"><div class="inner grid-2">
     <form class="panel county-form" id="county-form"><h2 id="county-form-heading">Check a ZIP Code</h2><label for="county-zip">US ZIP code</label><input id="county-zip" name="zip" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" maxlength="5" placeholder="33101" required /><button type="submit">Check official local paths</button><p class="source-note" id="county-status" role="status">The ZIP centroid is a screening point, not a parcel, county, flood-zone, or evacuation-zone determination.</p></form>
@@ -34,6 +43,17 @@ const jsonLd = graph(
   </div></section>
 
   <section class="band" aria-labelledby="county-method"><div class="inner grid-2"><article class="panel"><h2 id="county-method">What This Tool Can Confirm</h2><ul class="check-list"><li>ZIP centroid, city, and state returned by the location service.</li><li>Active NWS alerts that apply to the resolved point.</li><li>A dedicated tracker for supported states, or the general live tracker, plus the weather.gov point forecast.</li><li>The next official checks for county emergency management and evacuation zones.</li></ul></article><article class="panel"><h2>What Still Requires an Address</h2><ul class="check-list"><li>Exact county or parish when a ZIP crosses boundaries.</li><li>Local hurricane evacuation zone or shelter assignment.</li><li>FEMA flood-zone and parcel elevation questions.</li><li>Road closures, transport pickup, reentry, and local orders.</li></ul></article></div></section>
+  <section class="band" id="county-resources" aria-labelledby="county-resources-heading"><div class="inner">
+    <h2 id="county-resources-heading">Choose Your County or Parish</h2>
+    <p>These six starting points are a curated directory, not a county match for your ZIP. Confirm the full address and responsible jurisdiction yourself. A zone map, assistance registration and current evacuation order answer different questions.</p>
+    <div class="grid-2">
+      {countyResources.map((county) => <article class="panel"><h3>{county.name}</h3><p>{county.guidance}</p><a href={county.url} rel="noopener">{county.linkLabel}</a><p class="source-note">{county.scope}</p></article>)}
+    </div>
+    <h3>Record the Check Before Relying on It</h3>
+    <ol class="check-list"><li>Confirm the county or parish for the street address; check municipal instructions too.</li><li>Record the official zone result and map edition, separately from any current order and its issue time.</li><li>Ask whether the intended shelter is open for this event and accepts your household's care and pet needs.</li><li>Confirm assistance eligibility, registration, pickup and destination with the operator. A registration entry does not book a ride or a bed.</li></ol>
+    <p>Outside these areas, use your state emergency-management directory or your local government's emergency-management office. A neighboring county's instructions do not establish what applies to your home. For multiple saved locations, use the <a href="/tools/my-hurricane-dashboard/">point-alert dashboard</a>; for a paper state-level summary, use the <a href="/tools/hurricane-brief/">printable hurricane brief</a>.</p>
+    <p class="source-note">Official resource pages read November 21, 2026. This is a resource review date, not a map edition, current order, shelter status or confirmation of assistance.</p>
+  </div></section>
   <FaqBlock faqs={pageFaqs} />
 </Layout>
 
@@ -91,7 +111,7 @@ const jsonLd = graph(
       const place = `${location.city || zip}, ${location.state}`;
       const weatherUrl = `https://forecast.weather.gov/MapClick.php?lat=${encodeURIComponent(location.latitude)}&lon=${encodeURIComponent(location.longitude)}`;
       if (titleEl) titleEl.textContent = place;
-      if (result) result.innerHTML = `<p><strong>${alertItems.length} active point-based NWS alert${alertItems.length === 1 ? "" : "s"}</strong> returned for the ZIP centroid. This is not an all-clear or an exact county result.</p>${alertItems.length ? `<ul class="check-list">${alertItems.slice(0, 5).map((alert) => `<li><strong>${escapeHtml(alert.event || "Weather alert")}</strong>: ${escapeHtml(alert.headline || "Open weather.gov for details")}${alert.expires ? ` · expires ${escapeHtml(new Date(alert.expires).toLocaleString())}` : ""}</li>`).join("")}</ul>` : ""}<p class="result-links"><a href="${trackerLink}">${escapeHtml(trackerLabel)}</a><a href="${weatherUrl}" rel="noopener nofollow">Open weather.gov for this point</a><a href="https://www.google.com/search?q=${encodeURIComponent(`${location.city || zip} ${location.state} county emergency management evacuation zone`)}" rel="noopener nofollow">Find county emergency management</a></p><ol class="check-list"><li>Confirm the street address with county or parish emergency management.</li><li>Check the official evacuation-zone and shelter lookup.</li><li>Read each NWS alert's affected area and expiration.</li><li>Verify roads, transport, and reentry with local officials.</li></ol>`;
+      if (result) result.innerHTML = `<p><strong>${alertItems.length} active point-based NWS alert${alertItems.length === 1 ? "" : "s"}</strong> returned for the ZIP centroid. This is not an all-clear or an exact county result.</p>${alertItems.length > 5 ? `<p>Showing 5 of ${alertItems.length} alerts. <a href="https://api.weather.gov/alerts/active?point=${encodeURIComponent(`${location.latitude},${location.longitude}`)}" rel="noopener">Read all point alerts and instructions at NWS</a>.</p>` : ""}${alertItems.length ? `<ul class="check-list">${alertItems.slice(0, 5).map((alert) => `<li><strong>${escapeHtml(alert.event || "Weather alert")}</strong>: ${escapeHtml(alert.headline || "Open weather.gov for details")}${alert.expires ? ` · expires ${escapeHtml(new Date(alert.expires).toLocaleString())}` : ""}</li>`).join("")}</ul>` : ""}<p class="result-links"><a href="${trackerLink}">${escapeHtml(trackerLabel)}</a><a href="${weatherUrl}" rel="noopener nofollow">Open weather.gov for this point</a><a href="#county-resources">Choose an official county or parish resource</a></p><ol class="check-list"><li>Confirm the street address with county or parish emergency management.</li><li>Check the official evacuation-zone and shelter lookup.</li><li>Read each NWS alert's affected area and expiration.</li><li>Verify roads, transport, and reentry with local officials.</li></ol>`;
       if (status) status.textContent = `ZIP ${zip}; point ${location.latitude}, ${location.longitude}. NWS feed retrieved ${new Date(alerts.fetchedAt!).toLocaleString()}. Verify the street address with local emergency management.`;
     } catch (error) {
       if (currentRequest !== requestId) return;

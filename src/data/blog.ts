@@ -210,8 +210,9 @@ export const blogPosts: BlogPost[] = [
     title: "How to Prepare Your Home for a Hurricane",
     description: "Prioritize safe home preparation before a hurricane: deploy existing protection, keep exits clear, assign unfinished work, and stop before departure is delayed.",
     datePublished: "2025-06-03",
-    dateModified: "2026-11-10",
-    review: { date: "2026-11-10", scope: "Editorial review of near-term property tasks, clear exits and stop-work decisions, using the existing November 2 research record for Ready.gov and IBHS. These sources were not newly read; no building, product installation, weather condition or local order was checked.", correction: "Removed warning upgrades as a universal work cutoff and separated existing protection from unfinished retrofit projects." },
+    dateModified: "2026-11-21",
+    sourceCheck: { date: "2026-11-21", scope: "Read Ready.gov Hurricanes (updated October 16, 2026): drains and gutters, outside furniture, shutters, secure records, charging, supplies and immediate compliance with local evacuation instructions. IBHS retains the November 2 research record and was not newly read. The work-handoff worksheet is editorial; no building, installation, utility, weather or local order was verified." },
+    review: { date: "2026-11-21", scope: "Editorial review of near-term property tasks, clear exits and stop-work decisions, with a new Ready.gov check and an unfinished-task handoff worksheet. IBHS retains its earlier research date; no building, product installation, weather condition or local order was checked.", correction: "Removed warning upgrades as a universal work cutoff and separated existing protection from unfinished retrofit projects." },
     image: "/images/blog/how-to-prepare-your-home-for-a-hurricane.jpg",
     imageAlt: "Homeowners install storm shutters and stack sandbags while preparing a coastal home for an approaching hurricane.",
     sections: [
@@ -252,6 +253,41 @@ export const blogPosts: BlogPost[] = [
         heading: "Assign the Work Before the Departure Deadline",
         body: "Write a short job list with an owner, required equipment, and stop time. For example: one adult brings patio furniture indoors; another packs medicines and records while confirming the destination. If shutters require a contractor or missing fasteners, solve that ahead of season. Tape on glass is not an alternative to rated protection. Keep the exit route clear and do not leave a ladder, extension cord, or heavy panel blocking the door.",
         bullets: ["Confirm which openings already have approved protection and where the hardware is stored.", "Ask a landlord or association which exterior work residents may perform.", "Keep vehicle keys, shoes, and go-bags accessible after furniture is moved.", "If an evacuation order leaves no safe work window, leave rather than finishing property tasks."]
+      },
+      {
+        "heading": "Keep an Unfinished-Task Handoff Instead of a False All-Done Check",
+        "body": "Copy this short record during calm-weather preparation. Give each task one responsible person and a visible status: completed and checked, awaiting help, or deferred. A booked appointment or a box of parts does not mean protection is installed. At departure, the useful record tells the household what is still incomplete without sending someone back to finish it.",
+        "table": {
+          "caption": "Household work handoff — illustrative prompts, not a building inspection",
+          "columns": [
+            "Task",
+            "Completion check",
+            "If it cannot be completed safely"
+          ],
+          "rows": [
+            [
+              "Move loose outdoor objects",
+              "Items are secured and do not obstruct doors, stairs or the vehicle path",
+              "Stop outdoor work when unsafe; do not sacrifice the departure window for remaining objects"
+            ],
+            [
+              "Deploy existing opening protection",
+              "Correct system and hardware installed according to its instructions by capable help",
+              "Record the opening as unresolved; seek qualified help early rather than improvising"
+            ],
+            [
+              "Charge and pack essential devices",
+              "Needed devices and appropriate chargers remain accessible for travel",
+              "Resolve equipment-specific needs with the provider; a charging icon does not establish backup runtime"
+            ],
+            [
+              "Pack records and medicines",
+              "Responsible carrier can reach the portable folder and required supplies",
+              "Tell the departing household about missing items; do not return to danger for property or paperwork"
+            ]
+          ],
+          "note": "Add names and local instruction references privately. This record cannot establish that a building is safe to shelter in or extend an official departure deadline."
+        }
       },
       {
         heading: "Walk the Exit After Moving the Furniture",
@@ -671,7 +707,8 @@ export const blogPosts: BlogPost[] = [
     description: "Prepare a hurricane documents checklist with IDs, insurance details, property photos, prescriptions, contacts, and records needed before evacuation or damage.",
     datePublished: "2026-08-04",
     dateModified: "2026-11-21",
-    review: {date: "2026-11-21",scope: "Editorial revision adding a private offline records index and a concrete retrieval test. The retained Ready.gov reference was not newly reread; no insurance coverage, account access or household record was verified.",correction: "Separated a document’s secure location from its retrieval status and kept passwords, policy numbers and detailed health information out of the shared index."},
+    sourceCheck: { date: "2026-11-21", scope: "Read Ready.gov Financial Preparedness (updated March 13, 2026): record categories, protected storage, policy review, typical flood exclusion and caution sharing financial details. The offline test and insurer-question worksheet are editorial aids; linked PDFs, individual policies, account access and claim eligibility were not checked." },
+    review: {date: "2026-11-21",scope: "Editorial revision adding a private offline records index and a concrete retrieval test. Ready.gov financial guidance was reread and a policy-question worksheet added; no individual coverage, account access or household record was verified.",correction: "Separated a document’s secure location from its retrieval status and kept passwords, policy numbers and detailed health information out of the shared index."},
     image: "/images/blog/hurricane-documents-insurance-checklist.png",
     imageAlt: "A person photographs home belongings with a smartphone for insurance while an insurance folder and ID cards sit on the table.",
     sections: [
@@ -742,6 +779,41 @@ export const blogPosts: BlogPost[] = [
         bullets: ["Photo IDs, insurance cards, policy contacts, and property address.", "Prescriptions, medical summaries, and device information.", "Emergency contacts, family meeting locations, and school or workplace details.", "Cash, cards, keys, and copies of important legal records."]
       },
       {heading: "Test Retrieval Before You Need the Folder",body: "Test one actual policy and one essential contact while conditions are safe. Put the device offline, open the full downloaded document, and locate the property address, policy period and official contact. Then ask the authorized person carrying the folder to find the same information. A thumbnail, a file name or a pending insurer request does not pass the test. Reconnect afterward and repair the specific gap: download the missing file, replace an unreadable scan or prepare an appropriate protected paper copy. Keep normal device security enabled; do not place passwords or recovery codes alongside identity records.",bullets: ["Record the check date and outcome: opened and legible, unavailable offline, expired, or awaiting a copy. Do not mark a request as a received document.", "Check dependencies such as battery charge, device unlocking and an unavailable second-factor device before an outage.", "Use a minimal paper contact sheet for quick access; share detailed records only with a responsible household member or authorized representative."]},
+      {
+        "heading": "Turn Missing Pages Into Questions for the Right Contact",
+        "body": "A complete folder and adequate coverage are different checks. Ready.gov recommends reviewing the amount and types of coverage and notes that homeowners insurance does not typically cover flooding. Use the actual policy and an official insurer or agent contact to resolve questions before a threat becomes urgent. Do not send an entire identity or medical folder just to request one missing policy page.",
+        "table": {
+          "caption": "Pre-storm policy questions — record answers privately",
+          "columns": [
+            "What you found",
+            "Who to ask / what to request",
+            "Evidence to keep"
+          ],
+          "rows": [
+            [
+              "Only an insurance card or renewal email",
+              "Insurer or agent: request the current declarations and applicable policy documents",
+              "Received file, policy period and date opened; an email request remains unresolved"
+            ],
+            [
+              "Unsure whether flood coverage exists",
+              "Insurer or agent: ask which contract, if any, covers the relevant property and belongings for flooding",
+              "Separate policy reference and written answer; do not infer coverage from a home-policy logo"
+            ],
+            [
+              "Rented home or shared building",
+              "Your insurer and landlord or association: distinguish your belongings and responsibilities from building coverage",
+              "Your own documents and the responsible contact; another party’s policy is not proof of your coverage"
+            ],
+            [
+              "Unclear deductible, limit or expense coverage",
+              "Insurer or agent: identify the relevant wording, exclusions, limits and conditions",
+              "Page reference and question still outstanding; avoid treating a general checklist as a coverage determination"
+            ]
+          ],
+          "note": "This is a preparation worksheet, not an insurance quote, coverage decision or claims deadline calendar. Do not post completed policy details publicly."
+        }
+      },
       {
         heading: "Worked Example: A Missing Flood Policy",
         body: "Fictional exercise: a renter finds an auto insurance card and a home-related insurance email, but cannot locate the separate flood-policy record they expected. Do not fill the gap by assuming the email covers flooding or that a landlord's policy covers the renter's possessions. Before a threat becomes urgent, contact the relevant insurer or agent to clarify what records and coverage actually exist. Record an unanswered question as unresolved. This exercise checks document readiness; it cannot establish coverage or create it after a loss.",
@@ -851,8 +923,9 @@ export const blogPosts: BlogPost[] = [
     title: "How Far Is a Hurricane From Me?",
     description: "Learn what a hurricane's current distance from your location can tell you, what it cannot predict, and how to pair distance with official alerts.",
     datePublished: "2026-08-04",
-    dateModified: "2026-11-11",
-    review: { date: "2026-11-10", scope: "Reviewed the local distance-calculation implementation and added fictional number-reading examples. Retained NHC references were not newly read; no current storm position or household hazard was verified.", correction: "Separated rounded center distance from hazard arrival, travel distance and evidence of an all-clear." },
+    dateModified: "2026-11-21",
+    sourceCheck: { date: "2026-11-21", scope: "Read NHC cone definition (2026 radii based on 2021–2025 errors) and Text Product Descriptions: public-advisory position and hazards, quadrant wind radii, wind probabilities and local statements. No visible revision date on those NHC pages. Retained glossary not newly read; no current storm, alert or local order verified. Examples and product-choice table are editorial." },
+    review: { date: "2026-11-21", scope: "Reviewed the local distance-calculation implementation and added fictional number-reading examples. Reread NHC cone and text-product definitions and added a product-choice table; the glossary was not newly read and no current storm position or household hazard was verified.", correction: "Separated rounded center distance from hazard arrival, travel distance and evidence of an all-clear." },
     image: "/images/blog/how-far-is-a-hurricane-from-me.png",
     imageAlt: "A resident stands on a porch looking at a distant hurricane spiral on the ocean horizon while holding a phone with a map.",
     sections: [
@@ -869,12 +942,57 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "What Distance Can Help With",
         body: "Distance is helpful for basic geographic context, especially when an active storm is offshore or moving between basins.",
-        bullets: ["Understand whether the storm is generally near your region.", "Compare multiple active systems at a glance.", "Pair the current position with the official NHC forecast discussion.", "Use local NWS alerts to determine whether your state has current hazards."]
+        bullets: ["Understand whether the storm is generally near your region.", "Compare multiple active systems at a glance.", "Pair the current position with the official NHC forecast discussion.", "Read local NWS alert areas and instructions; a statewide list needs a separate location check."]
       },
       {
         heading: "Why Distance Is Not Enough",
         body: "Two towns can be equally far from the center and face different winds. In a fictional advisory, tropical-storm-force winds extend up to 120 nautical miles in the northeast quadrant and up to 50 in the southwest. At 90 nautical miles northeast, a town is inside that quadrant's maximum radius, but the radius alone does not show that every point inside it has those winds. At 90 nautical miles southwest, the other town is beyond its quadrant's reported maximum radius at that time. Compare direction and use the same units: the calculator displays statute miles, while advisory radii may be in nautical miles. Neither comparison establishes future wind arrival or the limit of surge and rainfall flooding.",
         links: [{ href: "https://www.nhc.noaa.gov/aboutnhcprod.shtml", label: "NHC guide to advisory products and wind radii" }]
+      },
+      {
+        "heading": "Match the Question to the Official Product",
+        "body": "The cone describes the probable track of the center. Its circle sizes use historical track errors; they do not describe a storm’s physical size or give a household a safe-distance boundary. The text advisory separates location, motion and hazards for a reason. Use the product that answers the decision you actually face, keeping its issue time, valid period, units and location together.",
+        "table": {
+          "caption": "What to open after reading a center-distance result",
+          "columns": [
+            "Your question",
+            "Relevant official information",
+            "What the distance cannot establish"
+          ],
+          "rows": [
+            [
+              "Where is the center now?",
+              "NHC Public Advisory: position, reference location, direction, speed and time",
+              "Whether damaging conditions are already at your location"
+            ],
+            [
+              "How far do strong winds extend?",
+              "NHC Forecast/Advisory: maximum wind radii by quadrant and forecast valid time",
+              "A uniform circular wind field or an address-level wind measurement"
+            ],
+            [
+              "How likely are sustained winds?",
+              "NHC wind-speed probabilities: threshold, location and forecast period",
+              "The chance from a distance alone, or flood and surge risk"
+            ],
+            [
+              "What effects and actions apply locally?",
+              "Local NWS alerts and Hurricane Local Statements; local emergency-management instructions",
+              "An evacuation zone, open road, shelter space or permission to stay"
+            ]
+          ],
+          "note": "This is a reading guide, not a live forecast. Verify current products directly. A radius, probability and center distance answer different questions."
+        },
+        "links": [
+          {
+            "href": "https://www.nhc.noaa.gov/aboutnhcprod.shtml",
+            "label": "Read NHC text-product definitions and local-statement scope"
+          },
+          {
+            "href": "/tools/county-hurricane-risk/",
+            "label": "Screen alerts at a ZIP center and open official county planning resources"
+          }
+        ]
       },
       {
         heading: "What the Calculator Measures",
@@ -896,7 +1014,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Best Next Step",
-        body: "Use the HurricaneHub distance calculator for context, then open your state tracker and local risk plan. The official alert for your county is more important than a distance number."
+        body: "Use the HurricaneHub distance calculator for geographic context, then read the current NHC hazard summary and the NWS alert area for your location. A state list may include places far away, while a ZIP center can differ from your home. Confirm evacuation zones and orders with local emergency management; the distance number cannot settle those questions."
       }
     ],
     faqs: [

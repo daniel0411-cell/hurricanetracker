@@ -7,7 +7,7 @@ import { articleSchema, faqSchema, graph, itemListSchema, websiteSchema } from "
 const title = "Hurricane Tools";
 const description = "Use HurricaneHub tools for emergency preparedness, hurricane kit planning, and household decision support based on official NOAA and NHC source awareness.";
 const url = `${site.url}/tools/`;
-const lastModified = site.contentLastModified;
+const lastModified = "2026-11-21";
 const tools = [
   {
     name: "Florida Wind Mitigation Savings Calculator",
@@ -21,7 +21,7 @@ const tools = [
   },
   {
     name: "My Hurricane Dashboard",
-    description: "Build a ZIP-based dashboard with state alerts, active storms, radar shortcuts, and next decision tools.",
+    description: "Save up to five ZIP locations and screen point-based NWS alerts, NHC storms and radar shortcuts.",
     url: `${site.url}/tools/my-hurricane-dashboard/`
   },
   {
@@ -30,12 +30,12 @@ const tools = [
     url: `${site.url}/tools/impact-window-estimator/`
   },
   {
-    name: "Local Risk and Action Plan",
+    name: "State Hurricane Alerts and Household Action Plan",
     description: "Resolve a ZIP code to its state, read NWS alerts, and record official protective actions and deadlines.",
     url: `${site.url}/tools/local-risk-plan/`
   },
   {
-    name: "County Hurricane Risk Lookup",
+    name: "Hurricane Alerts by ZIP and County Resources",
     description: "Use a ZIP code to screen point-based NWS alerts, open the matching state tracker, and verify county evacuation and emergency sources.",
     url: `${site.url}/tools/county-hurricane-risk/`
   },
@@ -56,7 +56,7 @@ const tools = [
   },
   {
     name: "Hurricane Brief Generator",
-    description: "Generate a printable ZIP-based brief with current NWS alerts, NHC storm context, and next household decisions.",
+    description: "Print a state-alert and NHC storm handoff with separate retrieval and source times; ZIP selects the state.",
     url: `${site.url}/tools/hurricane-brief/`
   },
   {
@@ -76,7 +76,7 @@ const tools = [
   },
   {
     name: "Storm Surge ZIP Checker",
-    description: "Check whether your ZIP code is inside an active NWS storm surge watch or warning, plus nearby official hurricane alerts.",
+    description: "Screen NWS surge and tropical alerts at a ZIP representative point; verify your exact address and evacuation zone locally.",
     url: `${site.url}/tools/storm-surge-checker/`
   },
   {
@@ -164,7 +164,7 @@ const searchIntentPaths = [
     toolHref: "/tools/storm-surge-checker/",
     topicLabel: "Storm surge map guide",
     toolLabel: "Check surge alerts by ZIP",
-    summary: "Separate storm surge from wind category, then check whether nearby NWS surge alerts are active for a ZIP code."
+    summary: "Separate storm surge from wind category, then screen NWS surge alerts at a ZIP representative point and verify address-based local instructions."
   },
   {
     intent: "hurricane preparedness checklist",
@@ -214,6 +214,19 @@ const jsonLd = graph(
             </ol>
           </article>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="scope-heading">
+    <div class="inner">
+      <h2 id="scope-heading">Point Alerts, State Summaries or a Household Record?</h2>
+      <p>Choose the geographic scope as well as the format. A ZIP center is approximate; a state alert list can include distant places. Neither establishes your evacuation zone or replaces current local instructions.</p>
+      <div class="grid-2">
+        <article class="post-card"><h3>Check one approximate location</h3><p><a href="/tools/county-hurricane-risk/">ZIP alerts and county resources</a> screens NWS alerts at the ZIP center. Select county resources yourself; the ZIP does not establish your county or evacuation zone.</p></article>
+        <article class="post-card"><h3>Read alerts across a state</h3><p><a href="/tools/impact-window-estimator/">State Alert and Action Summary</a> organizes state alerts and hazard actions. It does not estimate when wind will arrive at your home.</p></article>
+        <article class="post-card"><h3>Record household instructions</h3><p><a href="/tools/local-risk-plan/">State Alerts and Household Action Plan</a> pairs the state overview with your record of official actions and deadlines. Confirm who, where and when each instruction applies.</p></article>
+        <article class="post-card"><h3>Revisit or hand off information</h3><p><a href="/tools/my-hurricane-dashboard/">My Hurricane Dashboard</a> keeps up to five ZIP locations for repeat checks. <a href="/tools/hurricane-brief/">Hurricane Brief Generator</a> prints a state overview and storm context with source times; paper copies need rechecking.</p></article>
       </div>
     </div>
   </section>
