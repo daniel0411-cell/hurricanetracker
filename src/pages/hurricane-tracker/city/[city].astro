@@ -1,4 +1,5 @@
 ---
+import { nearbyStateCities } from "../../../lib/cityRecommendations";
 import FaqBlock from "../../../components/FaqBlock.astro";
 import Layout from "../../../layouts/Layout.astro";
 import { hurricaneCities, getCityBySlug } from "../../../data/cities";
@@ -24,16 +25,11 @@ if (!city) {
 const title = `${city.name} Hurricane Tracker & Alerts`;
 const description = `Track ${city.name} hurricane risk with local NWS alerts, NHC storm context, storm surge, flooding, evacuation planning, and household decision tools.`;
 const url = `${site.url}/hurricane-tracker/city/${city.slug}/`;
-const lastModified = contentModifiedFor(url, city.dateModified ?? site.contentLastModified);
+const lastModified = new Date(Math.max(Date.parse(contentModifiedFor(url, city.dateModified ?? site.contentLastModified)), Date.parse("2026-11-21T00:00:00.000Z"))).toISOString();
 const planningGuide = ["miami", "tampa", "houston"].includes(city.slug) ? `/city/${city.slug}/hurricane-tracker/` : null;
 const state = getStateByCode(city.stateCode);
 const stateSlug = state?.slug ?? city.stateName.toLowerCase().replaceAll(" ", "-");
-const stateCities = hurricaneCities
-  .filter((candidate) => candidate.stateCode === city.stateCode && candidate.slug !== city.slug)
-  .slice(0, 6);
-const nearbyCityLinks = stateCities.length
-  ? stateCities
-  : hurricaneCities.filter((candidate) => candidate.slug !== city.slug).slice(0, 6);
+const nearbyCityLinks = nearbyStateCities(city, hurricaneCities);
 const nextStateLinks = coastalStates
   .filter((candidate) => candidate.code !== city.stateCode)
   .slice(0, 4);
@@ -97,12 +93,24 @@ const jsonLd = graph(
       {city.dateModified && <p class="small">Guide updated {lastModified.slice(0, 10)}. This date includes material guide or template revisions, not live weather conditions.</p>}
       {city.sourceCheck && <p class="small">Source check {city.sourceCheck.date} · {city.sourceCheck.scope}</p>}
       <p class="answer">{city.overview}</p>
-      {planningGuide && <p><a href="#city-live">Read {city.name} area NWS alerts</a> &middot; <a href={planningGuide}>Prepare a {city.name} household and transport record</a></p>}
+      <nav aria-label="City guide sections"><p><a href="#city-live">Current local alerts</a> &middot; <a href="#official-resources">Official local instructions</a> &middot; <a href="#city-hazards">Local planning guide</a></p></nav>
+      {planningGuide && <p><a href={planningGuide}>Prepare a {city.name} household and transport record</a></p>}
     </div>
   </section>
 
   <section class="band" data-city-storm-relevance data-city-lat={city.lat} data-city-lon={city.lon}>
     <div class="inner"><p class="eyebrow">Current hurricane impacts</p><h2>Is a Hurricane Affecting {city.name} Right Now?</h2><p class="answer" data-city-storm-answer>Checking the current NHC feed for systems within 500 miles of {city.name}. This distance screen is not a landfall forecast or an impact boundary.</p><div class="grid-3 section-grid" data-city-storm-list></div><p class="source-note">Always pair storm distance with the active {city.name} area NWS alerts below and local emergency-management instructions.</p></div>
+  </section>
+
+  <section class="band" aria-labelledby="city-live">
+    <div class="inner">
+      <p class="eyebrow">Live from NWS</p>
+      <h2 id="city-live">Active {city.name} Area Alerts</h2>
+      <p class="answer">Active National Weather Service alerts for the {city.name} area, loaded live from the official NWS feed. Always confirm details with local emergency management.</p>
+      <div id="city-alerts" class="alert-feed" data-lat={city.lat} data-lon={city.lon}>
+        <p class="alert-feed-status">Loading live alerts…</p>
+      </div>
+    </div>
   </section>
 
   <section class="band" aria-labelledby="city-actions">
@@ -191,10 +199,11 @@ const jsonLd = graph(
     </div>
   </section>
 
-  <section class="band" aria-labelledby="nearby-city-links">
+  {nearbyCityLinks.length > 0 && <section class="band" aria-labelledby="nearby-city-links">
     <div class="inner">
       <p class="eyebrow">Nearby hurricane tracker pages</p>
       <h2 id="nearby-city-links">Compare {city.name} With Other {city.stateName} Hurricane Trackers</h2>
+      <p class="small">Listed by straight-line proximity within {city.stateName} for browsing. This order does not identify an evacuation route or a safe destination.</p>
       <div class="grid-3 section-grid">
         {nearbyCityLinks.map((nearbyCity) => (
           <article class="panel">
@@ -205,10 +214,10 @@ const jsonLd = graph(
         ))}
       </div>
     </div>
-  </section>
+  </section>}
 
-  <nav class="band" aria-label="Neighboring state checks"><div class="inner">
-    <h2>Neighboring State Alerts</h2>
+  <nav class="band" aria-label="Other coastal state trackers"><div class="inner">
+    <h2>Other Coastal State Trackers</h2>
     <ul>{nextStateLinks.map((stateLink) => <li><a href={`/tracker/${stateLink.slug}/`}>{stateLink.name} hurricane tracker</a></li>)}</ul>
   </div></nav>
 
@@ -229,17 +238,6 @@ const jsonLd = graph(
       </div>
     </section>
   ) : null}
-
-  <section class="band" aria-labelledby="city-live">
-    <div class="inner">
-      <p class="eyebrow">Live from NWS</p>
-      <h2 id="city-live">Active {city.name} Area Alerts</h2>
-      <p class="answer">Active National Weather Service alerts for the {city.name} area, loaded live from the official NWS feed. Always confirm details with local emergency management.</p>
-      <div id="city-alerts" class="alert-feed" data-lat={city.lat} data-lon={city.lon}>
-        <p class="alert-feed-status">Loading live alerts…</p>
-      </div>
-    </div>
-  </section>
 
   <FaqBlock faqs={pageFaqs} />
 </Layout>

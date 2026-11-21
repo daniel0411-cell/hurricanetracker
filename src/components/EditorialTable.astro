@@ -1,0 +1,30 @@
+---
+import ReferenceText from "./ReferenceText.astro";
+interface Props { caption: string; columns: string[]; rows: string[][]; note?: string }
+const { caption, columns, rows, note } = Astro.props;
+---
+<div class="editorial-table-scroll" role="region" aria-label={caption} tabindex="0">
+  <table>
+    <caption>{caption}</caption>
+    <thead><tr>{columns.map((column) => <th scope="col">{column}</th>)}</tr></thead>
+    <tbody>{rows.map((row) => <tr>{row.map((cell, index) => index === 0 ? <th scope="row"><ReferenceText text={cell} /></th> : <td><ReferenceText text={cell} /></td>)}</tr>)}</tbody>
+  </table>
+</div>
+{note && <p class="small"><ReferenceText text={note} /></p>}
+<style>
+  .editorial-table-scroll { max-width: 100%; overflow-x: auto; margin-block: 1.25rem; }
+  .editorial-table-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; line-height: 1.5; }
+  caption { text-align: left; font-weight: 700; margin-bottom: 0.75rem; }
+  th, td { padding: 0.75rem; border: 1px solid var(--line); vertical-align: top; min-width: 9rem; overflow-wrap: anywhere; }
+  th { text-transform: none; letter-spacing: normal; }
+  thead th { background: var(--surface, var(--bg)); }
+  tbody th { font-weight: 600; }
+  @media print {
+    .editorial-table-scroll { overflow: visible; }
+    table { font-size: 9pt; table-layout: fixed; }
+    th, td { min-width: 0; padding: 5pt; }
+    tr { break-inside: avoid; }
+    thead { display: table-header-group; }
+  }
+</style>

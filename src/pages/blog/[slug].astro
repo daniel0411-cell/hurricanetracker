@@ -1,10 +1,12 @@
 ---
+import { getBlogActions } from "../../data/blogActions";
+import EditorialTable from "../../components/EditorialTable.astro";
 import Layout from "../../layouts/Layout.astro";
 import FaqBlock from "../../components/FaqBlock.astro";
 import AdPlacement from "../../components/AdPlacement.astro";
 import ReferenceText from "../../components/ReferenceText.astro";
 import ContentFigure from "../../components/ContentFigure.astro";
-import { blogPosts, getBlogOgImage, getCategory, getRelatedPosts } from "../../data/blog";
+import { blogPosts, getBlogOgImage, getRelatedPosts } from "../../data/blog";
 import { site } from "../../data/site";
 import { blogPostingSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 
@@ -18,70 +20,9 @@ const description = post.description;
 const url = `${site.url}/blog/${post.slug}/`;
 const lastModified = new Date(post.dateModified).toISOString();
 const relatedPosts = getRelatedPosts(post.slug, 3);
-const category = getCategory(post.slug);
 const postFaqs = post.faqs ?? [];
 const adsEnabled = import.meta.env.PUBLIC_ADS_ENABLED === "true";
-const textSignal = [
-  post.slug,
-  post.title,
-  post.description,
-  category,
-  ...post.sections.flatMap((section) => [section.heading, section.body, ...(section.bullets ?? [])])
-].join(" ").toLowerCase();
-const actionLibrary = [
-  {
-    name: "Build a preparedness checklist",
-    href: "/tools/preparedness-checklist/",
-    description: "Turn the article into a supplies, documents, pets, and household readiness checklist.",
-    match: /prepared|checklist|kit|home|pet|family|document|medicine|medical|senior|children|disability/
-  },
-  {
-    name: "Decode current alert language",
-    href: "/tools/alert-action-decoder/",
-    description: "Translate watch, warning, surge, flood, tornado, and evacuation wording into household actions.",
-    match: /watch|warning|alert|evacuation|surge|flood|tornado|zone|leave|nws/
-  },
-  {
-    name: "Open the live hurricane tracker",
-    href: "/hurricane-tracker/live/",
-    description: "Check current NHC storm context, live map shortcuts, radar, and active alert pathways.",
-    match: /tracker|tracking|forecast|cone|spaghetti|rapid|intensification|radar|satellite|category|scale|cyclone|typhoon/
-  },
-  {
-    name: "Check city hurricane trackers",
-    href: "/hurricane-tracker/city/",
-    description: "Move from general guidance to local storm surge, flooding, route, outage, and alert context.",
-    match: /local|city|county|coast|inland|landfall|route|bridge|state/
-  },
-  {
-    name: "Plan for power outages",
-    href: "/tools/power-outage-planner/",
-    description: "Prepare for charging, food safety, refrigerated medicine, generators, pets, and communication.",
-    match: /power|outage|generator|food|refrigerated|charging|device|devices/
-  },
-  {
-    name: "Estimate storm distance",
-    href: "/tools/storm-distance-calculator/",
-    description: "Compare a ZIP code with current NHC storm positions and understand distance limits.",
-    match: /distance|far|position|latitude|location/
-  },
-  {
-    name: "Review insurance and recovery steps",
-    href: "/blog/hurricane-insurance-claim-guide-documentation/",
-    description: "Organize damage evidence, insurer contacts, receipts, and questions about a claim.",
-    match: /insurance|claim|deductible|nfip|damage|recovery|after|document/
-  }
-];
-const matchedActions = actionLibrary.filter((action) => action.match.test(textSignal));
-const defaultActions = [
-  actionLibrary[0],
-  actionLibrary[1],
-  actionLibrary[2],
-  actionLibrary[3]
-];
-const nextActions = [...matchedActions, ...defaultActions]
-  .filter((action, index, arr) => action.href !== `/blog/${post.slug}/` && arr.findIndex((item) => item.href === action.href) === index)
-  .slice(0, 2);
+const nextActions = getBlogActions(post.slug);
 const ogImage = getBlogOgImage(post);
 const jsonLd = graph(
   websiteSchema(),
@@ -142,6 +83,7 @@ const jsonLd = graph(
                 {section.bullets.map((bullet) => <li><ReferenceText text={bullet} /></li>)}
               </ul>
             )}
+            {section.table && <EditorialTable {...section.table} />}
             {section.links && (
               <ul class="check-list">
                 {section.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
@@ -196,6 +138,7 @@ const jsonLd = graph(
   .article-intro h1 { font-size: 2.5rem; line-height: 1.15; max-width: 30ch; }
   .article-intro p { margin-block: 16px; }
   .article-grid h2 { font-size: 1.5rem; line-height: 1.3; }
+  .article-grid > .stack { min-width: 0; grid-template-columns: minmax(0, 1fr); }
   .diagram-article { grid-template-columns: minmax(0, 1fr); }
   .diagram-article section > p, .diagram-article section > ul, .diagram-article > aside { max-width: 75ch; }
   .source-check summary { cursor: pointer; padding-block: 6px; }

@@ -16,6 +16,7 @@ export type BlogPost = {
     body: string;
     bullets?: string[];
     links?: Array<{ href: string; label: string }>;
+    table?: { caption: string; columns: string[]; rows: string[][]; note?: string };
   }>;
   faqs?: Array<{
     question: string;
@@ -558,8 +559,8 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Power Outage Plan for Food, Medicine, and Devices",
     description: "Prepare for a hurricane power outage with a practical plan for food safety, refrigerated medicine, medical equipment, charging, water, generators, and communication.",
     datePublished: "2026-08-04",
-    dateModified: "2026-11-15",
-    sourceCheck: { date: "2026-11-14", scope: "Read FoodSafety.gov refrigerated and frozen food outage charts, last reviewed August 8, 2024: closed-door estimates, temperature-exposure columns, food-specific exceptions and refreezing. This resolves the earlier access limitation for that page only. Ready.gov water and CDC/CPSC generator checks are retained from October 27, not newly repeated. No product-specific medicine instructions, flood-contaminated food handling or current service availability verified." },
+    dateModified: "2026-11-21",
+    sourceCheck: {date: "2026-11-21",scope: "Reread FoodSafety.gov Food Safety During Power Outage (last reviewed August 8, 2024): closed-door holding estimates, refrigerated exposure conditions, food-specific rows, refreezing and the ice-cream exception. Existing Ready.gov water and generator checks retain their prior dates. No medicine product, household temperature history or current service availability checked."},
     image: "/images/blog/hurricane-power-outage-food-medicine-plan.png",
     imageAlt: "A portable generator operates outdoors away from a home while emergency lights and supplies are ready for a power outage.",
     sections: [
@@ -579,8 +580,49 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Keep a Time-and-Temperature Record",
-        body: "Write down when power failed and use appliance thermometers if available. Federal food-safety guidance says an unopened refrigerator keeps food safe for about four hours; a full unopened freezer holds temperature for about 48 hours, or 24 hours when half full. These are estimates under closed-door conditions, not permission to keep food that has warmed beyond safe limits. Use the official food chart for each item, never taste food to test it, and follow local boil-water notices separately.",
-        links: [{ href: "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage", label: "FoodSafety.gov: which foods to keep or discard" }]
+        body: "Start the record when you notice an interruption: the last time power was known to be on, when the outage was discovered, any measured temperature and the time and unit of that reading. The closed-door estimates below help plan access to ice or another cold source; they do not replace the food-specific keep/discard chart. Opening the doors, warm starting temperatures and uncertain outage history limit what you can conclude.",
+        links: [
+          {
+            href: "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage",
+            label: "FoodSafety.gov: which foods to keep or discard"
+          }
+        ],
+        table: {
+          caption: "Food cooling estimates and decision boundaries — FoodSafety.gov",
+          columns: [
+            "Storage or condition",
+            "Official estimate or chart rule",
+            "How to use it"
+          ],
+          rows: [
+            [
+              "Refrigerator kept closed",
+              "Keeps food safe for up to about 4 hours",
+              "After 4 hours without power or another safe cold source, discard refrigerated perishables such as meat, fish, eggs and leftovers."
+            ],
+            [
+              "Full freezer kept closed",
+              "Approximately 48 hours of temperature holding",
+              "This is an estimate, not a promise that each food remains safe for that long."
+            ],
+            [
+              "Half-full freezer kept closed",
+              "Approximately 24 hours of temperature holding",
+              "Check the actual food condition and applicable chart row; do not add the refrigerator’s 4 hours."
+            ],
+            [
+              "Refrigerated food exposed to warmth",
+              "Chart column: 40°F (4°C) or above for more than 2 hours",
+              "Read the specific food row. This is not an extra 2 hours to add after the refrigerator estimate."
+            ],
+            [
+              "Frozen food with ice crystals or at 40°F (4°C) or below",
+              "General refreezing rule, subject to the food row",
+              "Check exceptions: ice cream and frozen yogurt are discard entries even in the ice-crystal column."
+            ]
+          ],
+          note: "These rules concern food, not medicine. Do not taste-test. If safe conditions cannot be established, discard questionable food. Flood contamination and local water notices require separate instructions."
+        }
       },
       {
         heading: "Thawed Does Not Always Mean Discard, but Ice Cream Is an Exception",
@@ -632,8 +674,8 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Documents and Insurance Checklist",
     description: "Prepare a hurricane documents checklist with IDs, insurance details, property photos, prescriptions, contacts, and records needed before evacuation or damage.",
     datePublished: "2026-08-04",
-    dateModified: "2026-11-10",
-    review: { date: "2026-11-10", scope: "Editorial review of safe photography, private-record handling and a fictional offline retrieval exercise. The retained Ready.gov reference was not newly verified; no policy terms or claim eligibility were checked.", correction: "Limited exterior photography to safe ground-level views and added retrieval checks that do not require sharing credentials." },
+    dateModified: "2026-11-21",
+    review: {date: "2026-11-21",scope: "Editorial revision adding a private offline records index and a concrete retrieval test. The retained Ready.gov reference was not newly reread; no insurance coverage, account access or household record was verified.",correction: "Separated a document’s secure location from its retrieval status and kept passwords, policy numbers and detailed health information out of the shared index."},
     image: "/images/blog/hurricane-documents-insurance-checklist.png",
     imageAlt: "A person photographs home belongings with a smartphone for insurance while an insurance folder and ID cards sit on the table.",
     sections: [
@@ -648,19 +690,62 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Make a Records Index That Works Offline",
-        body: "Use one line for each record: document name, person responsible, secure copy location, date checked, and contact number. Include separate entries for home, flood, auto, and renters policies if applicable; a single insurer logo does not establish that all hazards are covered. Keep a portable copy and an off-site backup, and test that you can open needed files without a mobile signal. Share sensitive copies only with the responsible household member or authorized representative.",
-        bullets: ["Identification and prescriptions: confirm names, expiry dates, and refill contacts.", "Insurance: save declarations, policy numbers, deductibles, and official claims contacts.", "Inventory: pair room photos with serial numbers and available receipts.", "Lease or ownership records: include a landlord, association, or mortgage contact where relevant."]
+        body: "Make a short index that points to protected records instead of reproducing all their contents. Keep home, flood, renters and auto insurance as separate entries where applicable; one insurer logo does not establish every type of coverage. The blank fields below are prompts to copy into your own private paper or digital record. Complete only the categories your household needs.",
+        table: {
+          caption: "Private records index — copy the prompts and fill them offline",
+          columns: [
+            "Record",
+            "Protected copy location",
+            "Responsible person / contact",
+            "Last opened / unresolved item"
+          ],
+          rows: [
+            [
+              "Identification and essential legal records",
+              "[Portable folder / protected offline file location]",
+              "[Person carrying it; relevant official contact]",
+              "[Date opened; expired or missing copy]"
+            ],
+            [
+              "Home or renters policy",
+              "[Declarations and applicable policy wording]",
+              "[Owner; insurer’s official claims contact]",
+              "[Date opened; renewal or missing page]"
+            ],
+            [
+              "Separate flood policy, if held",
+              "[Policy document location; do not infer coverage from a home policy]",
+              "[Owner; insurer or agent contact]",
+              "[Date opened; coverage question to ask]"
+            ],
+            [
+              "Auto insurance, if held",
+              "[Current policy or card location]",
+              "[Owner; insurer’s official contact]",
+              "[Date opened; replacement needed]"
+            ],
+            [
+              "Room inventory and receipts",
+              "[Dated photo set and receipt-folder location]",
+              "[Person maintaining the inventory]",
+              "[Date opened; unreadable files or missing room]"
+            ],
+            [
+              "Prescriptions and equipment instructions",
+              "[Protected health-record location]",
+              "[Responsible person; pharmacy or equipment provider]",
+              "[Date opened; refill or transport question]"
+            ]
+          ],
+          note: "This table is a template, not a form that saves information. Keep detailed copies protected. Do not add passwords, PINs, recovery codes or unnecessary medical details to a shared checklist; avoid posting the completed index publicly."
+        }
       },
       {
         heading: "What To Take If You Evacuate",
         body: "Keep the documents you may need while away from home in your go-bag instead of a storage bin.",
         bullets: ["Photo IDs, insurance cards, policy contacts, and property address.", "Prescriptions, medical summaries, and device information.", "Emergency contacts, family meeting locations, and school or workplace details.", "Cash, cards, keys, and copies of important legal records."]
       },
-      {
-        heading: "Test Retrieval Before You Need the Folder",
-        body: "A file saved in the cloud is not necessarily available during an outage. While conditions are safe, try opening the needed copies without a mobile signal. Check whether the document is actually downloaded, whether the device can unlock and whether another responsible household member knows the protected copy's location. Do not disable security or put passwords, recovery codes and identity records together to make this exercise easier.",
-        bullets: ["Open the actual document, not just its filename or a thumbnail. Confirm that names, dates and contact numbers are legible.", "Check access dependencies: a flat phone, unavailable second-factor device or forgotten account can block an otherwise valid backup.", "Keep a minimal paper contact sheet separate from detailed medical, identity and financial copies. A shared task list should point to protected records rather than expose them.", "Assign a person and next action to missing items; 'requested from insurer' is different from 'copy available offline.'"]
-      },
+      {heading: "Test Retrieval Before You Need the Folder",body: "Test one actual policy and one essential contact while conditions are safe. Put the device offline, open the full downloaded document, and locate the property address, policy period and official contact. Then ask the authorized person carrying the folder to find the same information. A thumbnail, a file name or a pending insurer request does not pass the test. Reconnect afterward and repair the specific gap: download the missing file, replace an unreadable scan or prepare an appropriate protected paper copy. Keep normal device security enabled; do not place passwords or recovery codes alongside identity records.",bullets: ["Record the check date and outcome: opened and legible, unavailable offline, expired, or awaiting a copy. Do not mark a request as a received document.", "Check dependencies such as battery charge, device unlocking and an unavailable second-factor device before an outage.", "Use a minimal paper contact sheet for quick access; share detailed records only with a responsible household member or authorized representative."]},
       {
         heading: "Worked Example: A Missing Flood Policy",
         body: "Fictional exercise: a renter finds an auto insurance card and a home-related insurance email, but cannot locate the separate flood-policy record they expected. Do not fill the gap by assuming the email covers flooding or that a landlord's policy covers the renter's possessions. Before a threat becomes urgent, contact the relevant insurer or agent to clarify what records and coverage actually exist. Record an unanswered question as unresolved. This exercise checks document readiness; it cannot establish coverage or create it after a loss.",
@@ -1194,19 +1279,73 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "real-time-hurricane-tracking-2026",
-    sourceCheck: { date: "2026-11-16", scope: "Checked the NHC homepage and Atlantic Tropical Weather Outlook on November 16, 2026 for current Atlantic cyclone and development-area status. The November 14 High Seas Forecast and its cold-front gale example remain dated observations, not current warnings. No local beach, harbor or road status or tracker-layer freshness verified." },
-    sources: [{ href: "https://www.nhc.noaa.gov/", label: "NHC current tropical cyclone advisories" }, { href: "https://www.weather.gov/", label: "NWS local hazard warnings" }, { href: "https://www.nhc.noaa.gov/climo/", label: "NHC Atlantic season dates and historical activity peak" }, { href: "https://www.nhc.noaa.gov/archive/xgtwo/gtwo_archive.php?basin=atlc&fdays=7&current_issuance=202611080000", label: "NHC November 8, 2026, 00:00 UTC outlook: AL94" }],
+    sourceCheck: {date: "2026-11-21",scope: "Read NHC Product Descriptions for advisory issuance, intermediate/special updates and forecast valid times. Previously recorded climatology and local-warning explanations retain their earlier checks. Removed three dated November status snapshots; no current basin status, local warning or tracker-layer freshness newly verified."},
+    sources: [{href: "https://www.nhc.noaa.gov/",label: "NHC current tropical cyclone advisories"}, {href: "https://www.weather.gov/",label: "NWS local hazard warnings"}, {href: "https://www.nhc.noaa.gov/climo/",label: "NHC Atlantic season dates and historical activity peak"}, {href: "https://www.nhc.noaa.gov/aboutnhcprod.shtml",label: "NHC Product Descriptions: advisory schedules, special updates and forecast valid times"}],
     title: "Real-Time Hurricane Tracking: 2026 Late-Season Guide",
     description: "Track late-season hurricane risks with NHC outlooks, radar, satellite imagery, and local alerts. Learn why low formation odds can still mean coastal danger.",
     datePublished: "2026-08-06",
-    dateModified: "2026-11-16",
-    review: { date: "2026-11-16", scope: "Checked the NHC homepage and current Atlantic Tropical Weather Outlook on November 16; confirmed no Atlantic tropical cyclones or listed Atlantic development areas at the check time. Existing November 14 marine example remains dated.", correction: "Added a current-status boundary section separating no tropical cyclone formation from marine, coastal-flood, surf, and local NWS hazards; retained issuance and valid-time checks." },
+    dateModified: "2026-11-21",
+    review: {date: "2026-11-21",scope: "Editorial revision of product selection and the four-clock worked example, with NHC product definitions checked today. The illustrative timestamps are invented; this article does not report today’s weather.",correction: "Replaced consecutive November 8, 14 and 16 status snapshots with a reusable product workflow; kept failed data distinct from no storms and marine/local hazards distinct from formation odds."},
     image: "/images/blog/real-time-hurricane-tracking-2026.png",
     imageAlt: "A person views a live hurricane tracking dashboard on a large monitor showing satellite, radar, and a forecast cone.",
     sections: [
       {
         heading: "Direct Answer",
         body: "Real-time hurricane tracking starts with the latest National Hurricane Center outlook or advisory, then adds radar, satellite imagery, and local National Weather Service alerts. The Atlantic season continues through November 30. Late in the season, check coastal flooding and marine warnings even when no named tropical cyclone appears on the tracker. A low chance of tropical or subtropical development does not mean a low chance of strong winds, dangerous surf, or coastal flooding. Use HurricaneHub to organize the available observations and planning links, and follow official warnings and local evacuation instructions for action."
+      },
+      {
+        heading: "Choose the Product Before Reading the Number",
+        body: "Start with the question you need answered, then open the original agency product. Check the basin, location and time on every product; different panels on a dashboard need not describe the same place or moment. This guide explains a repeatable reading method rather than reporting current storm conditions. A valid empty cyclone list is different from a failed feed, and neither can settle a separate coastal-flood or marine question.",
+        table: {
+          caption: "A source-to-question workflow for the next check",
+          columns: [
+            "Question",
+            "Original product or authority",
+            "Record before comparing"
+          ],
+          rows: [
+            [
+              "Is tropical development being monitored?",
+              "NHC Tropical Weather Outlook",
+              "Basin, issue time, area and formation window; probability concerns tropical/subtropical formation."
+            ],
+            [
+              "Where is an established storm analyzed and forecast?",
+              "NHC current advisory and discussion",
+              "Storm identifier/year, advisory number, issue time, analyzed position and each forecast valid time."
+            ],
+            [
+              "What does this cloud or precipitation image show?",
+              "The labeled satellite or radar product",
+              "Observation time, product type, coverage and any missing frames; not the page-load time."
+            ],
+            [
+              "What hazards apply to my shoreline or waters?",
+              "Local NWS office and the responsible marine forecast",
+              "Warning area and valid period; tropical-formation odds do not measure surf, surge or gale risk."
+            ],
+            [
+              "What action does my household need to take?",
+              "Local emergency management and relevant providers",
+              "Applicable official instruction and deadline, then unresolved transport or care arrangements."
+            ]
+          ],
+          note: "If a source fails or has no usable timestamp, record unavailable or unverified and try its official channel. Do not translate an access failure into “no storms” or “no warning”."
+        },
+        links: [
+          {
+            href: "https://www.nhc.noaa.gov/",
+            label: "Open current NHC products for the relevant basin"
+          },
+          {
+            href: "https://www.weather.gov/",
+            label: "Find the local NWS office and warning text"
+          },
+          {
+            href: "https://ocean.weather.gov/",
+            label: "Check Ocean Prediction Center marine products"
+          }
+        ]
       },
       {
         heading: "Is November a Peak Month for Atlantic Hurricanes?",
@@ -1217,56 +1356,53 @@ export const blogPosts: BlogPost[] = [
         ]
       },
       {
-        heading: "November 8, 2026 Outlook Example: Near-Zero Formation Odds and Gale Warnings",
-        body: "In the outlook issued at 7:00 p.m. EST on November 7 (00:00 UTC November 8), NHC described AL94 as a broad, non-tropical low several hundred miles south-southeast of Bermuda. Its circulation had become less defined near fronts, and subtropical development was not expected as it moved generally eastward and merged with a frontal system over the next day or two. Formation chances were near 0 percent through both 48 hours and seven days. The same bulletin directed readers to National Weather Service High Seas Forecasts, including Gale Warnings. AL94 was a disturbance identifier, not a named hurricane. These percentages concern tropical or subtropical formation within that bulletin's windows; they do not measure the chance of hazardous seas or flooding at an address. This is a dated reading example, checked November 8, not an automatically refreshed forecast. Use the newest outlook and the warning area and valid time in the marine forecast before making plans.",
-        links: [
-          { href: "https://www.nhc.noaa.gov/text/MIATWOAT.shtml", label: "Read the latest official Atlantic Tropical Weather Outlook" },
-          { href: "https://www.nhc.noaa.gov/archive/xgtwo/gtwo_archive.php?basin=atlc&fdays=7&current_issuance=202611080000", label: "Read the November 8, 2026, 00:00 UTC NHC outlook used in this example" },
-          { href: "https://ocean.weather.gov/shtml/NFDHSFAT1.php", label: "Read the Atlantic High Seas Forecast referenced by NHC" },
-          { href: "https://www.weather.gov/", label: "Find your local NWS coastal flood, wind, and surf alerts" },
-          { href: "https://www.wpc.ncep.noaa.gov/", label: "Check Weather Prediction Center rainfall and weather guidance" },
-          { href: "https://ocean.weather.gov/", label: "Check Ocean Prediction Center marine forecasts" },
-          { href: "/tracker/north-carolina/", label: "North Carolina coastal planning and official resources" },
-          { href: "/tracker/south-carolina/", label: "South Carolina coastal planning and official resources" },
-          { href: "/tracker/virginia/", label: "Virginia coastal planning and official resources" }
-        ]
-      },
-      {
-        heading: "November 14 Reading Example: No Formation Expected, but an Offshore Gale",
-        body: "NHC's 7 AM EST November 14, 2026 Atlantic outlook said tropical cyclone formation was not expected during the next seven days. Separately, the tropical Atlantic High Seas Forecast printed 1030 UTC that day, with a synopsis valid 0600 UTC, carried a cold-front gale warning. A specified offshore polygon near 30–31°N and 60–63°W had southwest winds of 30–35 kt and seas of 2.5–3.5 m. The formation statement and marine warning answer different questions; the outlook does not cancel the gale. These are dated bulletin examples, not conditions for the day you read this guide, and that offshore polygon does not describe every Atlantic beach or harbor.",
-        bullets: ["Read the signed bulletin, issue time, synopsis valid time and warning coordinates separately. The marine product said it would be superseded by the next issuance in six hours.", "The forecast defines significant wave height as the average of the highest one-third of waves; individual waves may be more than twice that height. A 3.5 m sea is not a maximum individual wave or a coastal inundation depth.", "A successfully loaded cyclone list with no entries, an outlook with no formation expected and a failed or untimed request are three different states. Mark failed data unavailable rather than treating it as calm weather.", "The marine link below changes with later issuances. For a current decision, use the latest forecast for your waters and the local NWS coastal, surf and flood products, not these historical numbers."],
-        links: [{ href: "https://www.nhc.noaa.gov/text/refresh/MIATWOAT+shtml/141124_MIATWOAT.shtml", label: "Read the dated November 14, 2026, 7 AM EST Atlantic outlook" }, { href: "https://www.nhc.noaa.gov/text/MIAHSFAT2.shtml", label: "Read the latest tropical Atlantic High Seas Forecast (updates with each issuance)" }, { href: "https://www.weather.gov/", label: "Find local coastal, surf and flood warnings" }]
-      },
-      {
-        heading: "November 16, 2026 Check: No Atlantic Cyclone Listed",
-        body: "The NHC homepage checked on November 16, 2026 listed no tropical cyclones in the Atlantic, and its Atlantic two-day and seven-day outlooks listed no development area. This is a timestamped status check, not a forecast that every coastal location is safe. Tropical-cyclone formation, offshore gale conditions, high surf, coastal flooding, and rainfall hazards are separate questions. For a current decision, open the newest NHC outlook and the Ocean Prediction Center or local NWS products for the waters and shoreline you care about. If a feed fails or lacks a usable timestamp, mark the status unavailable rather than converting the failure into “no storms.”",
-        bullets: ["Keep the basin and issue time with the status: a Pacific system is not an Atlantic system, and an old bulletin is not a current warning.", "Read marine warnings and coastal-flood statements by their area and valid period; a broad “no formation expected” sentence does not cancel them.", "Use local emergency management for evacuation orders, road closures, and shelter instructions. A tracker map is context, not an all-clear."],
-        links: [
-          { href: "https://www.nhc.noaa.gov/", label: "Check NHC current tropical cyclone status" },
-          { href: "https://www.nhc.noaa.gov/text/MIATWOAT.shtml", label: "Read the latest Atlantic Tropical Weather Outlook" },
-          { href: "https://ocean.weather.gov/", label: "Check Ocean Prediction Center marine forecasts" },
-          { href: "https://www.weather.gov/", label: "Find local NWS warnings and coastal statements" }
-        ]
-      },
-      {
         heading: "How Real-Time Hurricane Tracking Works",
         body: "Different observations answer different questions. GOES satellite imagery shows cloud structure over broad areas, including locations beyond coastal radar coverage. Land-based Doppler radar shows precipitation and measured motion within its coverage. When available, aircraft reconnaissance samples wind, pressure, and the storm environment. Forecasters combine these observations rather than reading storm strength from a single image. Compare valid times before putting two products side by side; a newly loaded page can still contain an older observation.",
         bullets: ["GeoColor helps show cloud patterns; it is not a quantitative cloud-top-temperature map.", "Infrared imagery can show cloud-top brightness temperatures, but those temperatures alone do not determine surface wind speed.", "Radar coverage, beam height, and range limit what a coastal radar can observe over the ocean.", "Aircraft, buoy, and other ocean observations supplement satellite estimates when available."]
       },
-      {
-        heading: "Four Clocks on One Tracking Screen",
-        body: "Keep the page retrieval time, observation time, bulletin issue time and forecast valid time in separate fields. A forecast can be current as a bulletin while describing a future position; an image can be the newest available frame while still being too old for the comparison you intended. A page-level updated label cannot establish the freshness of every layer. If a layer supplies no usable time, record that gap and open its official source rather than borrowing another layer's timestamp.",
-        bullets: ["Retrieval: when your device received the page or feed, not when the weather was observed.", "Observation: the time represented by the image or reported storm position.", "Issuance: when the agency released the bulletin; read its next-update instructions separately.", "Validity: the date and time a forecast position or warning period refers to, including the time zone."]
-      },
+      {heading: "Four Clocks on One Tracking Screen",body: "Keep the page retrieval time, observation time, bulletin issue time and forecast valid time in separate fields. A forecast can be current as a bulletin while describing a future position; an image can be the newest available frame while still being too old for the comparison you intended. A page-level updated label cannot establish the freshness of every layer. If a layer supplies no usable time, record that gap and open its official source rather than borrowing another layer's timestamp. NHC regular public advisories are generally six-hourly, with intermediate advisories at three-hour intervals when coastal watches or warnings are in effect; special advisories can be issued at other times. Read the actual bulletin’s next-update text rather than assuming that a regular interval guarantees nothing will change sooner.",bullets: ["Retrieval: when your device received the page or feed, not when the weather was observed.", "Observation: the time represented by the image or reported storm position.", "Issuance: when the agency released the bulletin; read its next-update instructions separately.", "Validity: the date and time a forecast position or warning period refers to, including the time zone."],links: [{href: "https://www.nhc.noaa.gov/aboutnhcprod.shtml",label: "Read NHC advisory schedules and forecast product definitions"}]},
       {
         heading: "Reading Exercise: Which Item Is From 12:07 UTC?",
-        body: "Fictional screen: retrieved November 10 at 12:07 UTC; bulletin issued at 12:00 UTC; satellite frame labeled 11:40 UTC; forecast point valid November 11 at 12:00 UTC. Only retrieval occurred at 12:07. The satellite observation is 27 minutes earlier than retrieval; the forecast point describes the next day. Those differences alone do not prove an outage, an intensity change or a missed agency update. Check each product's own schedule and next-update text. Do not caption the forecast point as the storm's observed position at 12:07, or label the satellite frame with the bulletin's issue time.",
-        links: [{ href: "/blog/hurricane-radar-vs-satellite/", label: "Check image sequence times before interpreting movement" }]
+        body: "Fictional screen, not an actual advisory: a page was retrieved November 10 at 12:07 UTC, but its products carry the times below. Only the page retrieval occurred at 12:07. Compare each product’s own schedule and next-update text before calling it late or broken; these differences alone do not establish an intensity change or a missed update.",
+        links: [
+          {
+            href: "/blog/hurricane-radar-vs-satellite/",
+            label: "Check image sequence times before interpreting movement"
+          }
+        ],
+        table: {
+          caption: "Four-clock reading exercise — all times invented",
+          columns: [
+            "Field",
+            "Date and time shown",
+            "Meaning at retrieval"
+          ],
+          rows: [
+            [
+              "Page retrieval",
+              "November 10, 12:07 UTC",
+              "When the device obtained the page; not a weather observation."
+            ],
+            [
+              "Bulletin issue",
+              "November 10, 12:00 UTC",
+              "Released 7 minutes before retrieval; not every image’s observation time."
+            ],
+            [
+              "Satellite observation",
+              "November 10, 11:40 UTC",
+              "Image is 27 minutes earlier than retrieval; compare its own expected cadence."
+            ],
+            [
+              "Forecast position valid",
+              "November 11, 12:00 UTC",
+              "A point for the following day; not the storm’s observed position at 12:07."
+            ]
+          ],
+          note: "Keep dates and timezones with the numbers. A 12:00 label on a future forecast point and a 12:00 bulletin issue time have different meanings."
+        }
       },
-      {
-        heading: "Keep the Storm Identifier With the Handoff",
-        body: "When sharing a dashboard update, name the basin, storm identifier and year as well as the display name. A feed showing several basins can contain a valid Pacific advisory alongside an Atlantic outlook. Copy the source and time for each product, then state the local warning or household question that still needs checking. An outlook about formation, a named-storm advisory and a local coastal warning cannot replace one another merely because they are on the same screen. Keep the November 8 AL94 passage above labeled as a dated example when forwarding it; its presence on a newly opened page does not turn it into today's outlook."
-      },
+      {heading: "Keep the Storm Identifier With the Handoff",body: "When sharing a dashboard update, name the basin, storm identifier and year as well as the display name. A feed showing several basins can contain a valid Pacific advisory alongside an Atlantic outlook. Copy the source and time for each product, then state the local warning or household question that still needs checking. An outlook about formation, a named-storm advisory and a local coastal warning cannot replace one another merely because they are on the same screen. Retain the original issue date when sharing an older example; reopening an article cannot make that example current."},
       {
         heading: "Reading Extreme Weather Alerts",
         body: "A tropical storm watch generally means tropical storm conditions are possible within 48 hours. A hurricane warning means hurricane conditions are expected, with the warning generally issued 36 hours before the anticipated onset of tropical-storm-force winds because preparation becomes dangerous after those winds arrive. These lead times are planning guidance, not a countdown you can safely wait out. Read the bulletin for its exact area, timing, and actions. The Saffir-Simpson category describes maximum sustained wind, not storm surge, rainfall flooding, or tornado risk.",
@@ -1295,36 +1431,7 @@ export const blogPosts: BlogPost[] = [
         ]
       }
     ],
-    faqs: [
-      {
-        question: "Which sources should I use for real-time hurricane tracking?",
-        answer: "Use NHC for outlooks and tropical cyclone advisories, your local NWS office for local hazards, and emergency management for evacuation orders. HurricaneHub helps organize storm information, radar, satellite views, alerts, and planning links."
-      },
-      {
-        question: "How often do hurricane trackers update?",
-        answer: "Regular NHC public advisories are generally issued every six hours. Intermediate public advisories are issued every three hours when coastal watches or warnings are in effect; special advisories can be issued at other times. Check the bulletin's next-advisory instructions and the observation timestamp, not only when a tracker page refreshed."
-      },
-      {
-        question: "Does a low formation probability mean the coast is safe?",
-        answer: "No. Formation probability describes the chance of tropical or subtropical development within a specified period. A non-tropical low can still bring strong winds, coastal flooding, and dangerous surf. Check local NWS and marine warnings regardless of whether a system receives a name."
-      },
-      {
-        question: "Is November a peak month for Atlantic hurricanes?",
-        answer: "No. The historical peak is near September 10, with most activity between mid-August and mid-October. November remains part of the official Atlantic season through November 30, and tropical cyclones can occur outside those dates. Follow current forecasts and warnings."
-      },
-      {
-        question: "Are the November 8 AL94 formation percentages a live forecast?",
-        answer: "No. They describe the NHC outlook issued at 7:00 p.m. EST November 7, 2026, equivalent to 00:00 UTC November 8. Both the 48-hour and seven-day formation chances were near 0 percent in that bulletin. The example is dated; use the latest NHC outlook and local or marine warnings for current decisions."
-      },
-      {
-        question: "Does the Saffir-Simpson scale measure storm surge?",
-        answer: "No. The Saffir-Simpson scale rates hurricanes by wind speed only. Storm surge, rainfall flooding, and tornado risk are separate hazards that can be deadly even in lower-category storms."
-      },
-      {
-        question: "Can one dashboard update time certify every map layer?",
-        answer: "No. Read each layer's observation or valid time and the bulletin's issue time separately. Page retrieval time does not turn an older image into a new observation or a forecast point into the current position."
-      }
-    ]
+    faqs: [{question: "Which sources should I use for real-time hurricane tracking?",answer: "Use NHC for outlooks and tropical cyclone advisories, your local NWS office for local hazards, and emergency management for evacuation orders. HurricaneHub helps organize storm information, radar, satellite views, alerts, and planning links."}, {question: "How often do hurricane trackers update?",answer: "Regular NHC public advisories are generally issued every six hours. Intermediate public advisories are issued every three hours when coastal watches or warnings are in effect; special advisories can be issued at other times. Check the bulletin's next-advisory instructions and the observation timestamp, not only when a tracker page refreshed."}, {question: "Does a low formation probability mean the coast is safe?",answer: "No. Formation probability describes the chance of tropical or subtropical development within a specified period. A non-tropical low can still bring strong winds, coastal flooding, and dangerous surf. Check local NWS and marine warnings regardless of whether a system receives a name."}, {question: "Is November a peak month for Atlantic hurricanes?",answer: "No. The historical peak is near September 10, with most activity between mid-August and mid-October. November remains part of the official Atlantic season through November 30, and tropical cyclones can occur outside those dates. Follow current forecasts and warnings."}, {question: "Does the Saffir-Simpson scale measure storm surge?",answer: "No. The Saffir-Simpson scale rates hurricanes by wind speed only. Storm surge, rainfall flooding, and tornado risk are separate hazards that can be deadly even in lower-category storms."}, {question: "Can one dashboard update time certify every map layer?",answer: "No. Read each layer's observation or valid time and the bulletin's issue time separately. Page retrieval time does not turn an older image into a new observation or a forecast point into the current position."}]
   },
   {
     slug: "how-to-read-the-hurricane-cone-of-uncertainty",
@@ -2466,8 +2573,8 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Home Preparedness: Room-by-Room Checklist",
     description: "Check rooms, supplies, documents and utility instructions before a hurricane. Track unfinished tasks without delaying evacuation or starting structural repairs.",
     datePublished: "2026-08-13",
-    dateModified: "2026-11-11",
-    review: { date: "2026-11-11", scope: "Read Ready.gov Safety Skills (updated March 20, 2026) for utility-specific practice and qualified gas restoration. Added an illustrative item-location and access exercise; the earlier hurricane and wind-arrival references were not reread. No home, utility system or departure route was inspected.", correction: "Distinguished a room checklist from a packing and access test, and clarified that identifying utility controls is not a reason to operate them during rehearsal." },
+    dateModified: "2026-11-21",
+    review: {date: "2026-11-21",scope: "Editorial revision of the packing/location matrix and the one-light inventory exercise. Existing official utility and wind-arrival checks retain their recorded dates; no home, item, route or utility system was inspected.",correction: "Made stay-at-home, carry and last-to-pack locations explicit and removed a second repetitive unfinished-task scenario."},
     sourceCheck: { date: "2026-11-02", scope: "Read Ready.gov hurricane and safety-skills guidance, including gas practice and qualified restart, plus NHC wind-arrival product definitions. The walkthrough and worked record are editorial planning examples, not a home inspection. No current warning, utility configuration, address, supply inventory or safe route was verified." },
     image: "/images/blog/hurricane-home-preparedness-room-by-room-checklist.png",
     imageAlt: "A homeowner walks through a bright living room with a clipboard, checking hurricane preparedness items while an emergency kit stands ready by the door.",
@@ -2479,7 +2586,55 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Record an Owner, a Location and a Completion Check",
-        body: "For each task, write who will do it, where the item is and what proves it is ready. Use three statuses: complete, unresolved and needs a professional. A shopping list is not proof that supplies are present; a flashlight is ready only after a check that it works and can be reached in darkness. Keep the record offline with your departure bag. Renters should report building or fixture problems to the manager rather than alter shared equipment. Do not post your address, medication list or door-access details on a public checklist."
+        body: "Give each essential item one current location and one intended destination. A room can contain supplies without those supplies being usable or available to the person who needs them. Copy this matrix into a private household list, replace the example checks with your own instructions, and assign a person to any gap. It is an inventory and access exercise, not a building inspection.",
+        table: {
+          caption: "Packing and access matrix — adapt before a storm threatens",
+          columns: [
+            "Room / item",
+            "Stays, carries or last to pack",
+            "Completion check",
+            "Gap to assign"
+          ],
+          rows: [
+            [
+              "Bedroom light",
+              "Choose its home location or departure bag",
+              "Locate it and test it safely with its batteries",
+              "Do not count this same light as a second light in another room."
+            ],
+            [
+              "Documents folder",
+              "Carry with the designated person",
+              "Open the essential copies offline; find the paper contacts",
+              "Missing policy or unreadable copy: name the person obtaining it."
+            ],
+            [
+              "Daily-use glasses or communication device",
+              "Last to pack; note its exact location",
+              "Check the actual item and compatible charger into the bag",
+              "Assign who gathers it while preserving access before departure."
+            ],
+            [
+              "Medicine and any cooling supplies",
+              "Follow the pharmacist’s storage and transport instructions",
+              "Confirm product-specific instructions and required supplies",
+              "An empty cooler is not a confirmed medicine transport plan."
+            ],
+            [
+              "Kitchen water and food",
+              "Separate home supply from what can be carried safely",
+              "Count actual quantities and check access without blocking exits",
+              "Assign missing supply; never delay an evacuation to shop."
+            ],
+            [
+              "Utility contact sheet",
+              "Carry a paper copy; keep a protected backup",
+              "Find the provider number and agreed instructions",
+              "Locate controls in advance; do not turn off gas to rehearse."
+            ]
+          ],
+          note: "People and required care take priority. Follow evacuation instructions even with unfinished rows. Do not use this exercise to climb, lift heavy objects or operate utility equipment."
+        }
       },
       {
         heading: "Entryways, Living Room, and Common Spaces",
@@ -2568,11 +2723,6 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Pack Daily-Use Items Without Losing Access Before Departure",
         body: "Some essentials are still in use when the main bag is packed. In a fictional household, glasses are beside the bed, the communication device is charging and medicines are stored under their product-specific instructions. Put those items on a short last-to-pack list with their exact location and the person responsible. At departure, check the actual items, compatible chargers and paper instructions into the bag or transport container. Keep needed items reachable during travel. Do not move temperature-sensitive medicine into an unsuitable bag just to check it off early; follow the pharmacist's transport instructions. This list is for items already available, not a reason to delay an evacuation to shop or retrieve possessions."
-      },
-      {
-        heading: "Worked Record: A Missing Item Is an Unfinished Task",
-        body: "Illustrative example, not an inspected home: a household finds a working kitchen flashlight, an empty medicine cooler and a utility sheet with no gas-provider number. The record can say 'light tested, complete'; 'cooling and transport plan, unresolved, ask pharmacist'; and 'utility contact and procedure, unresolved, contact provider'. Do not mark the room ready because the objects exist, or close a gas valve to demonstrate completion. Assign each unresolved task to a person and a next action; if an evacuation order arrives first, leave with the available essentials and seek official assistance for unmet needs.",
-        links: [{ href: "/blog/how-to-check-your-hurricane-evacuation-zone/", label: "Make a separate address and evacuation-instruction record" }, { href: "/hurricane-tracker/live/", label: "Check current storm context and product timestamps" }]
       }
     ],
     faqs: [
@@ -3329,8 +3479,8 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Additional Living Expenses Coverage After Displacement",
     description: "Learn how additional living expenses coverage may help after hurricane displacement, what receipts to keep, and why policy terms control the claim.",
     datePublished: "2026-08-16",
-    dateModified: "2026-11-11",
-    sourceCheck: { date: "2026-11-08", scope: "Read TDI When do policies pay for additional living expenses? (updated April 10, 2025). Used its explanation of extra costs, covered damage, receipts and NFIP exclusion; did not generalize its Texas wind rules or typical limits nationwide. Calculations and records are hypothetical, not a coverage decision." },
+    dateModified: "2026-11-21",
+    sourceCheck: {date: "2026-11-21",scope: "Reread TDI When do policies pay for additional living expenses? (page updated April 10, 2025): extra costs, covered damage, receipts, limits and NFIP exclusion. Texas-specific arrangements are not national rules. Both budget tables use invented amounts; no policy, local price, claim or eligibility was verified."},
     image: "/images/blog/hurricane-insurance-claim-guide-documentation.png",
     imageAlt: "A family reviews hurricane insurance documents and temporary lodging receipts after an evacuation.",
     sections: [
@@ -3344,8 +3494,37 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Worked Example: Extra Meals Are Not the Entire Food Bill",
-        body: "Hypothetical record, not a payout estimate: a household normally spends $210 on food over seven days. While displaced without a kitchen it spends $350, with itemized receipts. The increase is $350 minus $210, or $140. It also has a separate $840 lodging bill for those seven days. Record the food difference and lodging in separate rows; do not present the full $350 food bill as all additional, or assume the $140 and $840 will be paid. The insurer still has to determine coverage, necessity, reasonable amounts, applicable limits and any other policy conditions.",
-        bullets: ["Food row: seven-day dates; usual cost $210 with its basis; actual cost $350; increase $140; receipt references; insurer decision pending.", "Lodging row: same dates; $840 itemized bill; reason the home could not be occupied; household needs; insurer decision pending.", "Do not count the same expense twice or assume a continuing mortgage payment is an added lodging cost.", "If the insurer accepts $980 for this hypothetical period against a confirmed $5,000 ALE limit, arithmetic leaves $4,020 before other accepted expenses. Neither number predicts how long repairs will take."]
+        body: "Hypothetical seven-day record, not a payout estimate: a household has itemized food and lodging receipts after displacement. Show the usual spending basis alongside the actual cost so an adjuster can see what is additional. An expense entry is a request for review; coverage, necessity, reasonable amounts and policy conditions still need to be established.",
+        table: {
+          caption: "Example expense record — invented amounts, insurer decision pending",
+          columns: [
+            "Category and period",
+            "Usual cost and basis",
+            "Actual cost",
+            "Additional amount requested / evidence"
+          ],
+          rows: [
+            [
+              "Meals, same seven days",
+              "$210, supported by the household’s normal spending record",
+              "$350 in itemized receipts",
+              "$140 difference; attach receipt references and explain the lack of a kitchen."
+            ],
+            [
+              "Temporary lodging, same seven days",
+              "No usual temporary-lodging expense in this example",
+              "$840 itemized lodging bill",
+              "$840 requested; retain the dates and reason the home could not be occupied."
+            ],
+            [
+              "Combined request",
+              "Do not count normal food spending again",
+              "$1,190 paid for these two categories",
+              "$980 requested, not $1,190; both rows remain pending until the insurer decides."
+            ]
+          ],
+          note: "If the insurer accepts $980 against a separately confirmed $5,000 ALE limit, $4,020 remains before other accepted expenses. This arithmetic does not predict repair time or payment. Do not count a continuing mortgage payment as an added hotel charge."
+        }
       },
       {
         heading: "Limits, Time Caps, and Policy Terms",
@@ -3367,7 +3546,48 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Compare a Hotel Extension With a Rental on the Same Dates",
-        body: "Fictional budget exercise: 14 hotel nights at $140 cost $1,960. A proposed rental costs $1,600 for those same dates plus a $150 nonrefundable fee, or $1,750. A separately refundable $300 deposit brings the initial cash needed to $2,050, even though the deposit is not automatically a final expense. Compare kitchen access, transport and accessibility needs as well as the room rate. Keep fees, deposits and refunds in separate rows; if money is returned, update the record. Ask the insurer which option and charges it accepts before relying on reimbursement. These amounts are invented, not local price quotes or a coverage decision."
+        body: "Use the same dates, household size and practical needs for each option. In this fictional 14-night comparison, the rental has a lower nonrefundable cost but requires more initial cash because of a deposit. Kitchen access, travel, accessibility, cancellation terms and the ability to extend the stay can change the comparison. Ask the insurer which option and charges it accepts before relying on reimbursement.",
+        table: {
+          caption: "Fourteen-night lodging comparison — fictional budget, not local quotes",
+          columns: [
+            "Cost component",
+            "Hotel option",
+            "Rental option"
+          ],
+          rows: [
+            [
+              "Accommodation",
+              "$140 × 14 nights = $1,960",
+              "$1,600 for the same dates"
+            ],
+            [
+              "Nonrefundable fee",
+              "$0 assumed for this exercise",
+              "$150"
+            ],
+            [
+              "Nonrefundable subtotal",
+              "$1,960",
+              "$1,750"
+            ],
+            [
+              "Separately refundable deposit",
+              "$0 assumed",
+              "$300; track whether and when it is returned"
+            ],
+            [
+              "Initial cash needed",
+              "$1,960",
+              "$2,050"
+            ],
+            [
+              "Not established by these totals",
+              "Whether the policy accepts these costs",
+              "Whether the policy accepts these costs"
+            ]
+          ],
+          note: "Check taxes, other fees and terms for an actual booking; this example assumes no other charges. A refundable deposit is a cash requirement, not automatically a final expense. Update the record when money is returned and avoid submitting it twice."
+        }
       },
       {
         heading: "Use HurricaneHub to Prepare Documents",
@@ -3413,7 +3633,7 @@ export const blogPosts: BlogPost[] = [
     title: "Household Hurricane Tracking: Roles and an Update Log",
     description: "Turn verified hurricane updates into a household log: assign contacts, separate facts from unfinished tasks, confirm arrangements, and hand off the next check.",
     datePublished: "2026-08-16",
-    dateModified: "2026-11-06",
+    dateModified: "2026-11-21",
     image: "/images/blog/real-time-hurricane-tracking-2026.png",
     imageAlt: "A person uses a live hurricane tracker map on a laptop while checking weather alerts on a phone.",
     sections: [
@@ -3429,18 +3649,79 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Separate a Verified Message From an Assigned Task",
-        body: "Use one line for the official message: issuer, original URL, product or order, issue time and timezone, affected area and protective instruction. Use another line for the household task: responsible person, required confirmation and status. Copy an official deadline with its source. If the household chooses an earlier check-in, label it a household check-in rather than an agency deadline. Do not let filling out this worksheet delay immediate protective action.",
-        bullets: ["Message: what the source says, for which area, and at what time.", "Task: what needs to be arranged, by whom, and what will count as confirmation.", "Status: unconfirmed, requested or confirmed, with the response time and source kept privately."]
+        body: "Copy a small log into your private household record. Keep the official message separate from the job it creates: reading an order is different from confirming transport. Fill in the agency’s exact area and deadline with its original source; label a household check-in as your own. Use a new entry when an instruction changes so the reason for an earlier decision stays traceable. Do not let filling out the log delay immediate protective action.",
+        table: {
+          caption: "Household update log — blank fields to copy, not an official protocol",
+          columns: [
+            "Entry",
+            "Source facts to retain",
+            "Household follow-through"
+          ],
+          rows: [
+            [
+              "Official message",
+              "[Issuer; original URL; product/order; issue date, time and timezone]",
+              "[Affected area; exact protective instruction; official deadline, if stated]"
+            ],
+            [
+              "Time checked / changes",
+              "[When opened; what changed from the previous original message]",
+              "[Unverified comparison or failed source explicitly marked]"
+            ],
+            [
+              "Task and owner",
+              "[Instruction or provider need that creates the task]",
+              "[Responsible person; backup contact; specific action]"
+            ],
+            [
+              "Confirmation",
+              "[Who replied, by what channel and when]",
+              "[Unconfirmed / requested / confirmed; what is still missing]"
+            ],
+            [
+              "Next check",
+              "[Agency’s next update time, if given]",
+              "[Household check-in and earlier triggers, such as a new warning or provider reply]"
+            ]
+          ],
+          note: "Keep addresses, contacts and health information private. “Requested” is not “confirmed,” and a chosen check-in does not postpone an official deadline or an immediate warning."
+        }
       },
       {
         heading: "Worked Example: A Bookmarked Shelter Is Still Unconfirmed",
         body: "Illustrative household log: one adult has saved the county's shelter-planning page; another has agreed to drive; no one has verified a facility's opening or receiving requirements. Mark 'official source saved' complete, but keep destination and transport arrangements unresolved until the relevant confirmations are obtained. New Hanover's real Evacuation & Shelters page explains that its predetermined locations are for planning and may not open or close together. The example does not identify an open shelter or tell a household to wait for an opening before following an evacuation instruction.",
-        bullets: ["Source task: reopen the current county notice and identify any actual opening, its time and facility.", "Destination task: confirm acceptance and any accessibility, care or pet requirements with the responsible provider.", "Transport task: confirm the driver or service, pickup and receiving destination; agreeing to help is not the entire arrangement."],
-        links: [{ href: "https://www.nhcgov.com/203/Evacuation-Shelters", label: "Read the county's planning-versus-opening distinction" }]
-      },
-      {
-        heading: "Reading Check: What Can the Next Person Mark Complete?",
-        body: "Question: the handoff says 'Shelter page saved; driver asked; no reply; current order not checked.' Are transport, destination and official status confirmed? Answer: none of those three is confirmed. The completed item is finding a source page. The next checker should read the current instruction and obtain the missing arrangements, while following any immediate warning already received. An unchecked item means unresolved information; it is not a recommendation to stay, leave or drive a particular route."
+        links: [
+          {
+            href: "https://www.nhcgov.com/203/Evacuation-Shelters",
+            label: "Read the county's planning-versus-opening distinction"
+          }
+        ],
+        table: {
+          caption: "Illustrative shelter handoff — no actual opening or arrangement verified",
+          columns: [
+            "Work item",
+            "What the example establishes",
+            "What is still needed"
+          ],
+          rows: [
+            [
+              "County source",
+              "The official shelter-planning page has been saved",
+              "Read the current event notice for an actual opening, facility and time."
+            ],
+            [
+              "Destination",
+              "No receiving arrangement confirmed",
+              "Confirm the facility’s opening and any accessibility, care or pet requirements through the responsible source."
+            ],
+            [
+              "Transport",
+              "One adult has agreed to help",
+              "Confirm the driver or service, pickup and receiving destination; record the response."
+            ]
+          ],
+          note: "Example handoff: “County source saved; destination unconfirmed; transport details still requested. The next checker owns the current notice and missing replies.” This is not a current evacuation instruction. Follow any applicable official action immediately."
+        }
       },
       {
         heading: "Use Event Triggers for the Next Check",
@@ -3487,7 +3768,8 @@ export const blogPosts: BlogPost[] = [
         question: "Does finding a shelter on a county list complete the destination plan?",
         answer: "No. Confirm its actual opening and receiving requirements through the current county notice and relevant provider. The county page used in this guide explicitly distinguishes planning locations from event openings."
       }
-    ]
+    ],
+    review: {date: "2026-11-21",scope: "Editorial revision of a blank household update log and the already-labeled illustrative shelter handoff. The November 6 official-source check is retained; no shelter opening, transport, order or local warning was newly verified.",correction: "Replaced repeated completion-check prose with separate source, task and confirmation fields; removed the duplicate shelter quiz."}
   },
   {
     slug: "hurricane-mold-prevention-after-flood",
