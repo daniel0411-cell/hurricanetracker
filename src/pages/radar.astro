@@ -135,7 +135,7 @@ const jsonLd = graph(
       <p class="eyebrow">Live radar and satellite</p>
       <h1 id="radar-title">Live Hurricane Radar and Satellite Map</h1>
       <p class="answer">Compare live hurricane radar with NOAA GOES-East GeoColor, infrared, water-vapor, and official satellite-loop views for the Atlantic, Gulf, East Coast, and Caribbean. Use cloud structure for observation, then check NHC and NWS sources for forecasts and local decisions.</p>
-      <p class="source-note">The map layers have separate observation and retrieval times. A blank, delayed, or successfully loaded layer does not establish that conditions are safe. On November 16, 2026, NHC listed no Atlantic tropical cyclones; still check local NWS coastal-flood, surf, wind, and marine products for the location and valid period you care about.</p>
+      <p class="source-note">The map layers have separate observation and retrieval times. A blank, delayed, or successfully loaded layer does not establish that conditions are safe. Even when no tropical cyclones are listed, check local NWS coastal-flood, surf, wind, and marine products for the location and valid period you care about.</p>
     </div>
 
     <section class="radar-stage" aria-label="Interactive North Atlantic map">
@@ -1266,7 +1266,7 @@ const jsonLd = graph(
 <style>
   .radar-page {
     background:
-      linear-gradient(180deg, #eef4f6 0, var(--surface) 34%, #f7f9fa 100%);
+      linear-gradient(180deg, var(--surface) 0, var(--panel) 34%, var(--surface) 100%);
   }
 
   .radar-warning {

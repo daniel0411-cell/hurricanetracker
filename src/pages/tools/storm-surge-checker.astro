@@ -130,7 +130,7 @@ const jsonLd = graph(
 </Layout>
 
 <script>
-  // @ts-nocheck
+  import { isSurgeFeedAvailable } from "../../lib/weatherFeedStatus";
   type SurgeAlert = { event?: string; headline?: string; severity?: string; urgency?: string; expires?: string; isSurge?: boolean };
   type SurgeResult = {
     zip?: string;
@@ -140,6 +140,9 @@ const jsonLd = graph(
     inSurgeWarning?: boolean;
     inSurgeWatch?: boolean;
     relevantAlerts?: SurgeAlert[];
+    fetchedAt?: string;
+    latitude?: number;
+    longitude?: number;
     error?: string;
   };
 
@@ -149,6 +152,20 @@ const jsonLd = graph(
   const levelEl = document.querySelector<HTMLElement>("#surge-level");
   const summaryEl = document.querySelector<HTMLElement>("#surge-summary");
   const alertsEl = document.querySelector<HTMLElement>("#surge-alerts");
+
+  let requestId = 0;
+  let controller: AbortController | undefined;
+  function clearResult(heading: string, message: string) {
+    if (levelEl) { levelEl.textContent = heading; levelEl.className = ""; }
+    if (summaryEl) summaryEl.textContent = message;
+    if (alertsEl) alertsEl.innerHTML = "";
+  }
+  zipInput?.addEventListener("input", () => {
+    requestId++;
+    controller?.abort();
+    clearResult("Waiting for ZIP", "Submit the ZIP to load a new result. Previous results have been cleared.");
+    if (statusEl) statusEl.textContent = "Ready for a new lookup.";
+  });
 
   function escapeHtml(value: unknown) {
     const replacements: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
@@ -172,20 +189,28 @@ const jsonLd = graph(
 
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
+    const currentRequest = ++requestId;
+    controller?.abort();
+    const controllerForRequest = new AbortController();
+    controller = controllerForRequest;
+    clearResult("Waiting for valid ZIP", "No current result. Check weather.gov and local evacuation instructions.");
     const zip = (zipInput?.value ?? "").trim();
     if (!/^\d{5}$/.test(zip)) {
       if (statusEl) statusEl.textContent = "Enter a valid five-digit US ZIP code.";
       return;
     }
+    const timeout = setTimeout(() => controllerForRequest.abort(), 20_000);
     try {
+      clearResult("Checking...", "Waiting for a verified alert feed for this ZIP.");
       if (statusEl) statusEl.textContent = "Checking official NWS alerts...";
       if (levelEl) levelEl.textContent = "Checking...";
-      const response = await fetch(`/api/nws/surge?zip=${encodeURIComponent(zip)}`);
+      const response = await fetch(`/api/nws/surge?zip=${encodeURIComponent(zip)}`, { signal: controllerForRequest.signal });
       const data = await response.json() as SurgeResult;
-      if (!response.ok || data.error) {
-        throw new Error(data.error ?? "Surge check unavailable");
+      if (!response.ok || !data || data.error || !isSurgeFeedAvailable(data) || data.zip !== zip) {
+        throw new Error(data?.error ?? "Surge check unavailable");
       }
 
+      if (currentRequest !== requestId) return;
       const place = `${data.city || data.zip}, ${data.state}`;
       let headline: string;
       if (data.surgeLevel === "warning") {
@@ -206,10 +231,14 @@ const jsonLd = graph(
         summaryEl.textContent = `${place}, ZIP ${data.zip || zip}: the National Weather Service returned ${data.relevantAlerts?.length ?? 0} tropical alert${(data.relevantAlerts?.length ?? 0) === 1 ? "" : "s"} for the ZIP representative point, not all addresses. Read official warning boundaries and local evacuation instructions.`;
       }
       renderAlerts(data.relevantAlerts ?? []);
-      if (statusEl) statusEl.textContent = `Response received ${new Date().toLocaleString()}. Feed results may be cached; check each warning's issue and expiry times. Follow local emergency management instructions.`;
+      if (statusEl) statusEl.textContent = `ZIP point ${data.latitude}, ${data.longitude}. NWS feed retrieved ${new Date(data.fetchedAt!).toLocaleString()}. Check each warning's issue and expiry times. Follow local emergency management instructions.`;
     } catch (error) {
+      if (currentRequest !== requestId) return;
+      clearResult("Surge check unavailable", "No current alert result could be verified. A failed lookup does not mean no surge risk. Check weather.gov and local evacuation instructions.");
       console.error("HurricaneHub surge checker failed", error);
       if (statusEl) statusEl.textContent = "Surge check unavailable. Check weather.gov and retry shortly.";
+    } finally {
+      clearTimeout(timeout);
     }
   });
 </script>

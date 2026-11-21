@@ -125,6 +125,10 @@ export const GET: APIRoute = async ({ url }) => {
       features?: Array<{ properties?: { event?: string; headline?: string; severity?: string; urgency?: string; expires?: string; id?: string } }>;
     };
 
+    if (!Array.isArray(nwsData?.features) || !nwsData.features.every((feature) => feature?.properties && typeof feature.properties.event === "string" && feature.properties.event.length > 0)) {
+      return jsonResponse({ error: "National Weather Service alert data could not be verified." }, { status: 502 });
+    }
+
     const relevantAlerts: Array<{ event: string; headline: string; severity: string; urgency: string; expires: string; isSurge: boolean }> = [];
     for (const f of nwsData.features ?? []) {
       const props = f.properties ?? {};

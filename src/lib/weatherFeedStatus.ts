@@ -23,3 +23,16 @@ export function isAlertFeedAvailable(feed: { alerts?: Array<{ event?: string }>;
     && feed.cacheStatus !== "stale"
     && isFreshFeed(feed.fetchedAt, 10);
 }
+
+
+export function isSurgeFeedAvailable(feed: { zip?: string; state?: string; latitude?: number; longitude?: number; surgeLevel?: string; relevantAlerts?: Array<{ event?: string; isSurge?: boolean }>; fetchedAt?: string } | null) {
+  if (!feed || !/^\d{5}$/.test(feed.zip ?? "") || !/^[A-Z]{2}$/.test(feed.state ?? "")
+    || !Number.isFinite(feed.latitude) || Math.abs(feed.latitude!) > 90
+    || !Number.isFinite(feed.longitude) || Math.abs(feed.longitude!) > 180
+    || !Array.isArray(feed.relevantAlerts)
+    || !feed.relevantAlerts.every((alert) => alert && typeof alert.event === "string" && alert.event.length > 0 && typeof alert.isSurge === "boolean")
+    || !isFreshFeed(feed.fetchedAt, 10)) return false;
+  const expectedLevel = feed.relevantAlerts.some((alert) => alert.event === "Storm Surge Warning") ? "warning"
+    : feed.relevantAlerts.some((alert) => alert.event === "Storm Surge Watch") ? "watch" : "none";
+  return feed.surgeLevel === expectedLevel;
+}
