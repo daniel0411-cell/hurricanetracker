@@ -3329,12 +3329,12 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "hurricane-insurance-claim-guide-documentation",
     sources: [{ href: "https://www.floodsmart.gov/recover/start-a-claim", label: "NFIP: starting a flood claim and resolving questions" }, { href: "https://www.floodsmart.gov/claims-checklist", label: "NFIP: claim documentation and separate submission steps" }, { href: "https://content.naic.org/consumer/natural-disasters", label: "NAIC: disaster claims and consumer resources" }, { href: "https://content.naic.org/state-insurance-departments", label: "NAIC: state insurance department contacts" }],
-    sourceCheck: { date: "2026-11-06", scope: "Read NFIP's Start a Claim and Claims Checklist and NAIC's natural-disaster resource page. The record exercise is illustrative. No individual policy, state-specific filing or suit deadline, wind exclusion, coverage determination or claim settlement was verified." },
-    review: { date: "2026-11-11", scope: "Reread NFIP's Claims Checklist for safe access, documentation, adjuster identification and correcting estimates. Added fictional quantity and unit-price arithmetic. Earlier NAIC references, individual policies and state-specific deadlines were not rechecked.", correction: "Removed the implication that readers assign settlement terms to items or must enter damaged areas with an adjuster. Replaced adversarial settlement wording with an itemized evidence comparison; prior deadline and coverage corrections remain." },
+    sourceCheck: {"date": "2026-11-23", "scope": "Reread NFIP's Claims Checklist for conversation logs, submission destination, supporting documents, estimate corrections and retained records. No visible page update date was found. Earlier Start a Claim and NAIC sources were not reread; no individual policy, submission, proof of loss, deadline extension or coverage decision was verified. The versioned submission example is an editorial exercise, not an official form."},
+    review: {"date": "2026-11-23", "scope": "Added a fictional document-submission sequence distinguishing transmission, receipt, missing evidence and correction. Consolidated repeated claim-log instructions. Earlier safe-access, valuation and deadline corrections remain.", "correction": "An upload receipt is not confirmation of complete documentation, proof-of-loss compliance or coverage. Retain each submitted version and the insurer's actual response."},
     title: "Hurricane Insurance Claims: Documentation and Step-by-Step Process",
     description: "How to document hurricane damage, contact the insurer, organize receipts, prepare for the adjuster, review an estimate, and ask about dispute options.",
     datePublished: "2026-08-13",
-    dateModified: "2026-11-11",
+    dateModified: "2026-11-23",
     image: "/images/blog/hurricane-insurance-claim-guide-documentation.png",
     imageAlt: "A homeowner documents storm damage with a smartphone in a living room where rain water has soaked the floor and furniture is pushed aside.",
     sections: [
@@ -3368,10 +3368,9 @@ export const blogPosts: BlogPost[] = [
         body: "Report damage as soon as it is safe and follow your insurer's reporting instructions. Have the policy number, contact details, and an initial description ready. Ask how the claim will be assigned and when to expect the next contact; filing order alone does not establish an adjuster schedule or payment priority.",
         bullets: [
           "Notify the relevant insurer promptly when safe, using its official reporting channel; ask for written confirmation of the next steps.",
-          "Write down the claim number, the adjuster's name, and every phone number you are given.",
+          "Keep the claim number, verified contacts and dated call notes together; record who requested each next step.",
           "Identify the applicable wind, homeowners and flood policies and ask each insurer which damage it needs you to report.",
-          "If you have flood coverage, file the flood claim separately with the NFIP or your flood insurer.",
-          "Keep a claim log: date, time, who you spoke to, and what was said each call."
+          "If you have flood coverage, file the flood claim separately with the NFIP or your flood insurer."
         ]
       },
       {
@@ -3462,9 +3461,54 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "https://www.floodsmart.gov/claims-checklist", label: "Read the NFIP claim steps without applying them to every insurance policy" }]
       },
       {
-        heading: "Worked Record: A Claim Number Is Not a Completed Claim",
-        body: "Illustrative example: a household has a homeowners claim number and a separate flood policy, but no written list of required flood documents. Mark 'homeowners loss reported' complete only after retaining the acknowledgment. Mark 'flood loss reported' and 'flood proof-of-loss requirements and due date' unresolved until the flood insurer confirms them. Keep the photographed damage and expense log linked to the relevant claims. Completing one phone call does not complete every policy's reporting, evidence or dispute requirements.",
-        links: [{ href: "/blog/hurricane-flood-insurance-guide-nfip/", label: "Record separate flood coverages, limits and deductibles" }]
+        "heading": "Track the File From Preparation to Follow-Up",
+        "body": "NFIP's checklist says to ask where documentation should be submitted, log conversations and retain claim records. Turn that into a separate record for each policy and claim. Note the document or inventory-item reference, exact file version, verified destination, date sent and transmission evidence. Record the insurer's response separately. Use its required forms and instructions; this editorial register cannot replace a signed proof of loss or decide that a deadline has been met.",
+        "table": {
+          "caption": "Fictional submission sequence for one flood claim; no real files or dates",
+          "columns": [
+            "Step and file",
+            "Evidence in the record",
+            "What remains open"
+          ],
+          "rows": [
+            [
+              "Inventory v1 prepared",
+              "Saved locally with photo references",
+              "Not sent; local preparation is not submission."
+            ],
+            [
+              "Inventory v1 transmitted",
+              "Copy of sent file and portal receipt retained",
+              "Ask whether it is readable and what is still required."
+            ],
+            [
+              "Insurer replies about v1",
+              "Reply identifies missing model information for item 7",
+              "Receipt confirmed; requested evidence is still outstanding."
+            ],
+            [
+              "Inventory v2 sent as correction",
+              "Item 7 updated; v1, v2 and the explanatory message retained",
+              "Record the new receipt and response; do not assume the file satisfies every claim requirement."
+            ]
+          ],
+          "note": "A transmission receipt, insurer acknowledgement, documentation requirement and coverage decision answer different questions. None should be relabeled as another."
+        },
+        "bullets": [
+          "Reader check: after the third row, has the missing-information request been answered? No. Record the requested item, responsible person and applicable due date rather than marking the entire claim complete.",
+          "If a correction changes an earlier value or description, explain what changed and why. Keep the earlier submission instead of silently overwriting the only copy. Ask how to identify the corrected file in the insurer's system.",
+          "A file prepared for the homeowners claim has not thereby been submitted to the flood insurer. Maintain a separate submission trail for each, protect private identifiers and use verified channels. If transmission fails, contact the insurer promptly about an accepted alternative; an error or unanswered query does not extend a deadline."
+        ],
+        "links": [
+          {
+            "href": "https://www.floodsmart.gov/claims-checklist",
+            "label": "Read NFIP's documentation, estimate-review and record-retention steps"
+          },
+          {
+            "href": "/blog/hurricane-flood-insurance-guide-nfip/",
+            "label": "Keep flood policy and claim requirements separate from homeowners insurance"
+          }
+        ]
       },
       {
         heading: "Stay Informed With HurricaneHub",
@@ -3492,9 +3536,9 @@ export const blogPosts: BlogPost[] = [
     "title": "Hurricane Home Hardening: Roof, Door and Window Checklist",
     "description": "Plan hurricane upgrades for roofs, garage doors and windows. Check ratings, installation records and contractor questions before a storm threatens your home.",
     "datePublished": "2026-08-14",
-    "dateModified": "2026-11-13",
-    review: { date: "2026-11-13", scope: "Read IBHS Home Upgrades and Annual Home Prep for roof-system measures, retained garage-door labels, independent FORTIFIED evaluation and annual maintenance. The handover checklist is editorial guidance, not an inspection protocol. Earlier NHC and Ready.gov sources were not reread; no property, local code, product installation or insurance incentive was evaluated.", correction: "Replaced a repetitive fictional label example with completion records, separate permit/designation/insurer decisions and an ongoing maintenance handover." },
-    sourceCheck: { date: "2026-11-13", scope: "Read IBHS Home Upgrades and Annual Home Prep. Confirmed the distinction between physical upgrades, independent evaluation and possible insurance incentives, plus roof assessment and annual garage-door servicing. Earlier November 2 NHC, Ready.gov and pre-event checks are retained rather than newly verified. No building, contractor, product approval, current warning or discount was checked." },
+    "dateModified": "2026-11-23",
+    review: {"date": "2026-11-23", "scope": "Replaced the generic closing action paragraph with a fictional enquiry table separating a defect, missing performance evidence, maintenance and a future upgrade. The table organizes household questions; it is not an inspection or engineering priority order.", "correction": "Limited resources do not make every unresolved item a purchase decision. Obtain the relevant professional findings before choosing scope; no universal upgrade ranking, price or return on investment is claimed. Earlier closeout and insurance distinctions remain."},
+    sourceCheck: {"date": "2026-11-23", "scope": "Reread IBHS Home Upgrades and Annual Home Prep for professional roof assessment, rating-label and local garage-door requirements, annual servicing and the separate upgrade process. No visible publication or update date was found on either page. Earlier Ready.gov, NHC and pre-event sources were not reread. No building, code, product installation, contractor, cost or insurance incentive was evaluated."},
     "image": "/images/blog/hurricane-home-hardening-checklist.png",
     "imageAlt": "Editorial illustration of a person fitting a plywood panel over a window on a house.",
     "sections": [
@@ -3588,8 +3632,44 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "/blog/hurricane-home-preparedness-room-by-room-checklist/", label: "Check household rooms and record unfinished tasks" }, { href: "/blog/how-to-check-your-hurricane-evacuation-zone/", label: "Check the address, local planning zone and current orders separately" }]
       },
       {
-        "heading": "Choose the Next Action From the Unresolved Evidence",
-        "body": "If the record shows a roof leak, arrange an assessment. If a door rating is missing, locate documentation or obtain a qualified review. If protection is installed but nobody can deploy it, arrange training or assistance in advance. If a storm is already threatening and a safe deployment cannot be completed, prioritize people and local instructions rather than improvising a structural fix. Save the resolved record offline and recheck it after alterations, damage or maintenance."
+        "heading": "Choose the Next Enquiry Before Choosing the Next Purchase",
+        "body": "A limited budget makes clear questions more useful than a universal shopping order. IBHS separates annual maintenance from building upgrades, and calls for a professional roof inspection and annual garage-door service. Use the fictional record below to identify the next enquiry. The rows are different kinds of work, not a ranking of urgency, construction order or expected savings. Actual condition and any immediate hazard need qualified assessment; a storm threat changes the task to safe preparation and local instructions.",
+        "table": {
+          "caption": "Fictional property notes: turn each uncertainty into a specific professional enquiry",
+          "columns": [
+            "Household observation",
+            "Next contact and question",
+            "Evidence before deciding"
+          ],
+          "rows": [
+            [
+              "Water stain after rain; cause unknown",
+              "Qualified roofer: what assessment and repair are needed?",
+              "Written findings and defined repair scope; do not infer the cause from the stain alone."
+            ],
+            [
+              "Garage-door rating label missing",
+              "Door professional and local building department: what rating is required and can this door be documented?",
+              "Applicable requirement and existing-door evidence or a replacement proposal; a missing label does not establish protection."
+            ],
+            [
+              "Annual garage-door service not recorded",
+              "Door service professional: arrange the appropriate service and identify defects.",
+              "Service findings and any further work required; servicing alone does not create a wind rating."
+            ],
+            [
+              "Reroofing planned; upgrade quote vague",
+              "Roofing professional: which deck, edge and water-protection measures are included?",
+              "Comparable written scopes, required approvals and evaluation arrangements if a designation is sought."
+            ]
+          ],
+          "note": "Keep observations made from safe positions. Do not climb onto a roof or adjust garage-door springs, tracks or anchors to complete the record."
+        },
+        "bullets": [
+          "Reader check: does the stain prove that buying new shingles is the right first purchase? No. The cause and repair scope remain unresolved until assessed. Similarly, a service invoice does not answer the separate rating question.",
+          "Ask each professional which findings need prompt action, which tasks depend on other work and what can be planned with maintenance or reroofing. Record the responsible contact, agreed next step and unresolved scope before comparing prices; this guide cannot set a safe delay for a particular defect.",
+          "If existing protection cannot be deployed safely or a threat is already approaching, prioritize people and applicable local instructions. Retain the findings and recheck the record after repairs, alterations or damage."
+        ]
       }
     ],
     "faqs": [
@@ -4359,8 +4439,8 @@ export const blogPosts: BlogPost[] = [
     title: "How to Read a FEMA Flood Zone Map Before Hurricane Season",
     description: "Learn what FEMA flood zone letters, base flood elevation, and map updates mean for hurricane preparedness, flood insurance questions, and local evacuation planning.",
     datePublished: "2026-08-17",
-    dateModified: "2026-11-10",
-    review: { date: "2026-11-10", scope: "Editorial review of annual-chance wording, elevation arithmetic and unresolved map boundaries, retaining the October 27 FEMA tutorial evidence. Sources were not newly read; no property, effective panel, survey, premium or lender determination was checked.", correction: "Added a conditional probability exercise and same-datum elevation example without treating them as a property forecast or determination." },
+    dateModified: "2026-11-23",
+    review: {"date": "2026-11-23", "scope": "Editorial comparison of an older saved record and a later lookup, retaining the October 27 FEMA tutorial research. Attempts to access MSC and the tutorial directory did not yield readable source content today; no new FEMA fact check, property search, effective map, amendment or current interface was verified.", "correction": "Separate access date from effective date and preserve preliminary products and unconfirmed letters as distinct records rather than silently replacing the earlier result. Earlier probability and elevation corrections remain."},
     sourceCheck: { date: "2026-10-27", scope: "FEMA's January 2022 tutorial, its Zone AE teaching screenshot and linked tutorial directory. No current property determination, effective panel, insurance quote or evacuation order verified. November 8 changes only improve link text; the FEMA sources were not rechecked that day." },
     image: "/images/blog/hurricane-flood-zone-map-fema-understanding.png",
     imageAlt: "A coastal homeowner reviews a digital flood zone map with property documents on a desk.",
@@ -4417,9 +4497,44 @@ export const blogPosts: BlogPost[] = [
           "Search the full address in FEMA's Flood Map Service Center, verify the building's position, then save a FIRMette or the appropriate map result with its legend, panel number and effective date. A FIRMette is an extract of a flood map, not a new storm forecast. Separately open the responsible county's evacuation-zone tool and current instructions. A county planning-zone result belongs in a different field from the FEMA flood-zone result; similarly named letters are not interchangeable. If an address search lands on the wrong road or a boundary runs through the property, stop short of making a property determination and ask the local floodplain administrator for help."
       },
       {
-        heading: "Make a Record You Can Actually Recheck",
-        body: "For a practice run, use the tutorial's Zone AE example to fill only the supported entry: 'Teaching example: Zone AE; approximate pin; current property status not checked.' Leave the reader's own address, effective panel and elevation fields blank until those have been verified. For a real lookup, keep the following record privately with your household documents rather than posting an address screenshot in a public discussion.",
-        bullets: ["Property: full address, intended structure and whether the search pin was checked against landmarks.", "Map: panel identifier, effective date, zone at the structure, saved map/legend and date you accessed them.", "Changes: applicable amendment or revision identifiers, or a note that applicability still needs official confirmation.", "Elevation: any BFE, its units and vertical datum, plus the qualified source for the building elevation; do not subtract unlike references.", "Separate evacuation check: county, planning-zone result, lookup date and where current orders will be checked.", "Unresolved question: the exact item to ask the floodplain administrator, lender or insurer, with the response date and contact."]
+        "heading": "Compare the Saved Record With the Later Lookup",
+        "body": "Keep the earlier map and a dated copy of the later result; do not replace the old screenshot and lose the evidence behind it. For each record, identify the same intended structure, map panel and effective date, zone, legend, access date and any amendment or revision needing confirmation. Keep elevation units and datum with any elevation comparison. In the fictional exercise below, Panel A and Panel B are placeholders, not valid FEMA identifiers, and no real property was searched.",
+        "table": {
+          "caption": "Fictional comparison: a later lookup does not itself establish a changed effective zone",
+          "columns": [
+            "Record field",
+            "Earlier saved record",
+            "Later lookup notes"
+          ],
+          "rows": [
+            [
+              "Structure",
+              "Intended building identified against landmarks",
+              "Same building being checked; retain the identifying map context."
+            ],
+            [
+              "Effective map",
+              "Panel A, Zone AE; effective date saved",
+              "Panel A still shown as effective; no new effective date established."
+            ],
+            [
+              "Preliminary product",
+              "Not recorded",
+              "Panel B shows Zone X in this exercise; retain separately as preliminary."
+            ],
+            [
+              "Amendment or revision",
+              "No review recorded",
+              "A letter is listed; applicability to this structure remains unconfirmed."
+            ]
+          ],
+          "note": "These invented entries illustrate record handling, not a FEMA result. A newly noticed letter or preliminary map does not establish that this structure changed zone."
+        },
+        "bullets": [
+          "Reader task: may the household replace AE with X in its effective-map record? The example does not establish that change. Ask the floodplain administrator which effective panel and letters apply to the intended structure.",
+          "A useful enquiry attaches both map records and the actual letter identifier: 'Which effective panel and amendments apply to this building, and does this listed letter change its mapped status?' Save the response date, responding office and supporting documents with the question.",
+          "Keep the county evacuation-zone lookup and current instructions in a separate record. Neither version of a FEMA map establishes today's evacuation instruction. An unresolved map question is not a reason to postpone an applicable local order."
+        ]
       },
       {
         heading: "If the Pin or Boundary Is Unclear, Preserve the Question",
