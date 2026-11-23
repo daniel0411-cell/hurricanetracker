@@ -32,3 +32,7 @@ No commit, push, deployment, security-setting change or AdSense action in this b
 ## Continuing authorization
 
 On November 23 the user explicitly instructed that completed, validated changes should be committed and deployed directly in future work. This authorizes routine commit, push and deployment after the required version and validation checks; it does not authorize discarding other work or prohibited configuration/route changes. The three-article batch above is now being released under that instruction.
+
+## Completed release
+
+The earlier no-release statement describes the pre-release checkpoint. Subsequently committed and pushed as 1cf90a47c2a31d33d4171c2bf10a7832c025b9a1. Production Worker e5065a67-8ce6-4b26-b49b-b8e92e5bfd4b received 100% traffic at 2026-11-23T08:29:11.850Z, independently confirmed through deployments list and versions view with the full Git message. All three live article markers, canonical and JSON-LD were verified over HTTP 200. Homepage and ads.txt also returned 200; expected pub-1321310404115919 was present. See content-ten-opportunities-2026-11-23.md for the next ten identified editorial opportunities and complete scope boundaries.
