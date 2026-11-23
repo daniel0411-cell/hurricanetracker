@@ -1,5 +1,5 @@
 SMALL-BUSINESS HURRICANE PLANNING RECORD
-HurricaneHub | Revised November 8, 2026
+HurricaneHub | Revised November 23, 2026
 
 General planning aid. Follow current official protective instructions.
 This record is not building, utility, insurance or reopening approval.
@@ -35,6 +35,35 @@ Continuing costs / payroll dates / person responsible: _______________
 Policy and claim contacts / secure records location: ________________
 Coverage questions still pending: ___________________________________
 Do not count unapproved assistance or insurance as available funds.
+
+CASH WORKSHEET (planning arithmetic, not a coverage or payment decision)
+As of date/time: __________________ Record owner: ___________________
+Starting unrestricted cash: $_________ Source/account reference: _____
+Keep account numbers and credentials out of this record.
+
+DUE PAYMENTS (repeat rows; identify planned versus already paid)
+Due date / item / amount: ___________________________________________
+Status (planned or paid) / actual payment date: ______________________
+Cash balance after payments actually made: $_________________________
+Projected balance after remaining listed payments: $_________________
+Other costs not yet included / person checking: _____________________
+
+PENDING FUNDING (separate from available cash)
+Request / amount / recipient / submitted date: ______________________
+Status / confirmation source / next check and owner: ________________
+Date and amount actually available, if confirmed: ___________________
+Reconcile confirmed funds to the cash record once; do not count twice.
+A submitted claim, requested advance or assistance application is not
+available cash. Resolve payroll, tax and contractual questions with the
+appropriate adviser; this worksheet does not authorize delayed payment.
+
+FICTIONAL CHECK (not a business budget or a funding prediction)
+Starting cash $6,000 minus payroll $2,400, rent $1,800 and supplier $900
+leaves a projected $900 after all three listed payments, before other
+costs. With only payroll actually paid, cash is $3,600 and $2,700 of
+listed payments remain planned. A requested $5,000 advance stays in the
+pending record; it is not added to either balance until available.
+Replace the exercise with actual dates and verified payment statuses.
 
 REOPENING CONFIRMATIONS (pending until actually confirmed)
 Item                         Who/source        When        Limitation

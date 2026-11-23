@@ -765,6 +765,11 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
     align-self: start;
   }
 
+  .article-grid > .stack {
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .stack {
     display: grid;
     gap: clamp(14px, 2vw, 18px);

@@ -1947,16 +1947,15 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Insurance Deductibles: What Coastal Homeowners Should Know",
     description: "Understand percentage hurricane deductibles, named-storm versus windstorm deductibles, flood coverage gaps, and how to review your policy before a storm.",
     datePublished: "2026-08-07",
-    dateModified: "2026-11-11",
+    dateModified: "2026-11-23",
     sourceCheck: { date: "2026-11-08", scope: "Read TDI deductible examples (October 14, 2024), windstorm coverage (June 1, 2026) and ALE guide (April 10, 2025). Texas/TWIA examples are labeled, not nationwide triggers. No individual contract, moratorium, credit or claim was verified." },
     review: { date: "2026-11-08", scope: "Coverage and purchase restrictions", correction: "Removed a universal named-storm moratorium claim and the implication that an inventory establishes replacement-cost coverage or guarantees faster settlement." },
     image: "/images/blog/hurricane-insurance-deductibles-guide.png",
     imageAlt: "A homeowner reviews an insurance policy document with a calculator and pen at a dining table, coastal house visible through the window.",
     sections: [
       {
-        heading: "Hurricane Deductible vs Standard Deductible",
-        body:
-          "A standard homeowners deductible may be a flat dollar amount; a hurricane deductible may be a percentage of the dwelling coverage limit. For example, 2% of a $400,000 limit is $8,000, not 2% of the repair bill. If an eligible covered loss is $20,000 and that deductible applies, simple subtraction leaves $12,000 before other policy conditions. This is an arithmetic example, not a settlement promise: exclusions, limits, depreciation, and other terms affect payment. Ask whether the deductible applies per event or by another policy period."
+        "heading": "Hurricane Deductible vs Standard Deductible",
+        "body": "A standard homeowners deductible may be a flat dollar amount; a hurricane deductible may be a percentage of the dwelling coverage limit. Calculate that percentage from the coverage base specified in the policy, not from the repair bill. Find the applicable endorsement and ask whether it applies per event or by another policy period before using the comparison below."
       },
       {
         heading: "Named-Storm, Windstorm, and Hurricane Deductibles",
@@ -1975,9 +1974,48 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "/blog/hurricane-flood-insurance-guide-nfip/", label: "Check flood policy coverage and waiting-period questions" }]
       },
       {
-        heading: "Compare Deductible Options in Dollars",
-        body: "Hypothetical comparison, assuming the same $400,000 dwelling limit and an otherwise eligible $20,000 loss: a 2% deductible is $8,000, leaving $12,000 after subtraction; a 5% deductible is $20,000, leaving zero after subtraction. The difference in deductible exposure is $12,000. A smaller premium alone does not tell you whether the household could fund that difference. This comparison holds the coverage base and loss constant; it does not compare actual policies or account for exclusions, valuation or limits.",
-        bullets: ["Ask for both quotations on the same coverage limit and identify any other changed terms before comparing premiums.", "Find the actual endorsement, trigger and application period. A quoted percentage does not establish that it applies to this loss.", "If the coverage limit rises to $440,000, the same 2% becomes $8,800. Recalculate after renewal instead of carrying forward last year's dollar amount.", "Keep the deductible for each relevant policy separate; do not subtract a wind deductible from a flood claim."]
+        "heading": "Compare Deductible Options in Dollars",
+        "body": "This hypothetical comparison holds the dwelling limit and otherwise eligible loss constant. Compare actual quotations on the same coverage base and identify any other changed terms. A lower premium alone does not show whether the household could fund the higher deductible.",
+        "bullets": [
+          "If the coverage limit rises to $440,000, the same 2% becomes $8,800. Recalculate after renewal instead of carrying forward last year's dollar amount.",
+          "Keep the deductible for each relevant policy separate; do not subtract a wind deductible from a flood claim."
+        ],
+        "table": {
+          "caption": "Two deductible options — hypothetical arithmetic, not settlement estimates",
+          "columns": [
+            "Comparison field",
+            "2% option",
+            "5% option"
+          ],
+          "rows": [
+            [
+              "Assumed dwelling coverage limit",
+              "$400,000",
+              "$400,000"
+            ],
+            [
+              "Percentage deductible",
+              "2% × $400,000 = $8,000",
+              "5% × $400,000 = $20,000"
+            ],
+            [
+              "Assumed otherwise eligible loss",
+              "$20,000",
+              "$20,000"
+            ],
+            [
+              "Loss minus deductible",
+              "$12,000",
+              "$0"
+            ],
+            [
+              "Difference in deductible exposure",
+              "The 5% option is $12,000 higher",
+              "The 5% option is $12,000 higher"
+            ]
+          ],
+          "note": "Subtraction is not an insurer payment decision. Exclusions, valuation, depreciation, limits and other policy conditions can affect payment and total out-of-pocket costs. Confirm which deductible and trigger actually apply."
+        }
       },
       {
         heading: "Prepare Before Storm Season",
@@ -2015,10 +2053,10 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "hurricane-tracking-after-landfall-inland-flooding-tornadoes",
     sources: [{ href: "https://www.wpc.ncep.noaa.gov/qpf/excessive_rainfall_outlook_ero.php", label: "WPC Excessive Rainfall Outlook: probability definition and valid periods" }, { href: "https://www.weather.gov/safety/flood-watch-warning", label: "NWS flood watch, advisory and warning definitions" }, { href: "https://www.nhc.noaa.gov/", label: "NHC advisories and handoff instructions" }, { href: "https://www.wpc.ncep.noaa.gov/", label: "NOAA Weather Prediction Center: rainfall and inland updates" }, { href: "https://www.weather.gov/", label: "NWS local flood and tornado warnings" }, { href: "https://www.nhc.noaa.gov/archive/2026/al09/al092026.public.015.shtml", label: "Historical Isaias advisory 15: October 10, 2026, 0900 UTC" }],
-    title: "Hurricane Tracking After Landfall: Why Inland Flooding and Tornado Alerts Matter Most",
+    title: "After Landfall: Inland Hurricane Flooding and Tornado Alerts",
     description: "Track inland hurricane flooding, tornado warnings and post-tropical hazards. Learn when to follow NHC, WPC and local NWS alerts after landfall.",
     datePublished: "2026-08-07",
-    dateModified: "2026-11-15",
+    dateModified: "2026-11-23",
     sourceCheck: { date: "2026-11-15", scope: "Read WPC's ERO interactive-page definition and displayed issue/valid-time fields, its official risk-category graphic, and NWS Flood Warning vs. Watch definitions. Checked the 25-mile probability scope and warning/advisory/watch distinctions only. The existing Isaias handoff example is retained from November research, not newly reverified. No present warning area, river forecast, road status or local instruction was checked." },
     review: { date: "2026-11-15", scope: "Revised the outlook-versus-warning passage against WPC and NWS documentation, retaining the earlier storm-specific handoff record.", correction: "Explained the ERO probability's spatial meaning, kept issue and valid times separate, and distinguished a forecast category from an official watch, advisory or warning." },
     image: "/images/blog/hurricane-tracking-after-landfall-inland-flooding-tornadoes.jpg",
@@ -2029,8 +2067,8 @@ export const blogPosts: BlogPost[] = [
         body: "Danger does not end at landfall or when a storm becomes post-tropical. Heavy rainfall, flash and river flooding, damaging winds, and possible tornadoes can threaten communities far inland. Check current local National Weather Service warnings and Weather Prediction Center rainfall outlooks rather than treating a weaker classification or an empty tropical-storm list as an all-clear."
       },
       {
-        heading: "The Hidden Killer After Landfall: Inland Flooding",
-        body: "Heavy rainfall can cause dangerous flooding far from the coast. A slow-moving system may prolong rainfall, while mountains, fronts, saturated ground, and local drainage can worsen impacts. A weakening wind classification does not measure these hazards. Monitor WPC rainfall outlooks, local NWS flood warnings, and official river forecasts, including upstream rainfall when local weather improves."
+        "heading": "Inland Flooding After Landfall",
+        "body": "Heavy rainfall can cause dangerous flooding far from the coast. A slow-moving system may prolong rainfall, while mountains, fronts, saturated ground, and local drainage can worsen impacts. A weakening wind classification does not measure these hazards. Monitor WPC rainfall outlooks, local NWS flood warnings, and official river forecasts, including upstream rainfall when local weather improves."
       },
       {
         heading: "How Inland Flood Warnings Differ from Coastal Surge Alerts",
@@ -2981,7 +3019,7 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Pet Safety: Evacuation, Kits and Animal Care",
     description: "How to prepare dogs, cats, and backyard livestock for a hurricane: pet go-bags, ID and microchips, pet-friendly evacuation, and post-storm hazards to avoid.",
     datePublished: "2026-08-12",
-    dateModified: "2026-11-11",
+    dateModified: "2026-11-23",
     sourceCheck: { date: "2026-11-08", scope: "Read Ready.gov Pets and Animals, updated March 20, 2026: evacuation, buddy system, supplies, carriers and large-animal transport. DOJ service-animal FAQ Q7-12 and Q18-21 was checked November 6, 2026 for hotel access and handler responsibilities. The confirmation record is an editorial example. No shelter availability, individual animal's medical needs or transport arrangement was verified." },
     review: { date: "2026-11-08", scope: "Evacuation and animal-care wording", correction: "Removed unsupported claims about rescue frequency, the most dangerous period and the strongest reunion method. Replaced generic livestock shelter advice with species-specific planning questions." },
     image: "/images/blog/hurricane-pet-safety.png",
@@ -3012,14 +3050,21 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "https://www.ada.gov/resources/service-animals-faqs/", label: "Read DOJ Q7-12 and Q18-21, including hotel access and documentation" }]
       },
       {
-        heading: "Confirm a Destination, a Driver and a Backup Caregiver",
-        body: "A list of pet-friendly hotels is only a starting point. Ask the actual destination about the species, number and size of animals it accepts, space for the event, reservation requirements, carriers, vaccination records and fees. Record who answered and when, then recheck when conditions change. Arrange a neighbor, friend or relative who can help if you cannot reach home; make sure that person can access the supplies and knows where the animals hide.",
-        bullets: ["Illustrative record: two cats; carriers located and practiced; driver assigned; destination acceptance not yet confirmed; backup caregiver contacted but transport not tested.", "The unresolved destination remains a task even though the bag is packed. A search result saying pets allowed is not a confirmed placement.", "Discuss service-animal access separately with the receiving facility; do not assume household-pet boarding rules answer that question.", "Practice leaving a carrier open with familiar bedding and treats before an emergency, as Ready.gov recommends. Do not wait until departure to discover an animal cannot be loaded safely."],
-        links: [{ href: "https://www.ready.gov/pets", label: "Ready.gov: evacuation planning, carrier practice and animal supplies" }]
-      },
-      {
-        heading: "Check That the Backup Can Move All the Animals",
-        body: "Fictional rehearsal: the household has two cats, one carrier and a neighbor willing to drive. The driver is confirmed, but the animal transport plan is incomplete. Before an emergency, obtain suitable carriers, practice loading safely and check the actual vehicle space with the people and essential bags included. Confirm the receiving destination accepts both cats and assign who carries their records and supplies. If the usual driver cannot come, give the agreed backup private access instructions through an appropriate channel. Do not count a willing caregiver as transport capacity or assume a destination's general pet policy confirms space."
+        "heading": "Rehearse Transport for Every Animal",
+        "body": "A pet-friendly listing is a lead until the destination confirms arrangements for your animals and the event. In this fictional rehearsal, a household has two cats, one carrier and a neighbor willing to drive. The driver is confirmed, but transport capacity and the receiving destination remain unresolved. Work through the actual animals, equipment and vehicle together before an emergency.",
+        "bullets": [
+          "Count animals and suitable carriers; arrange the missing equipment and practice safe loading in advance. Ready.gov recommends leaving a carrier open with familiar bedding and treats before an emergency.",
+          "Check actual vehicle space with people, carriers and essential bags included. A willing caregiver does not establish that everything fits or can be loaded safely.",
+          "Ask the destination about species, number and size limits, event space, reservations, vaccination records, carriers and fees. Record who answered and when; recheck changed conditions.",
+          "Agree who drives, who carries veterinary records and supplies, and who can take over if the usual person is unavailable. Give the agreed backup private access instructions and information about where animals hide.",
+          "Keep unanswered capacity or destination questions as tasks. Confirm service-animal access separately; ordinary household-pet rules do not answer that question."
+        ],
+        "links": [
+          {
+            "href": "https://www.ready.gov/pets",
+            "label": "Ready.gov: evacuation planning, carrier practice and animal supplies"
+          }
+        ]
       },
       {
         heading: "During the Storm: Keep Pets Indoors and Calm",
@@ -3949,7 +3994,7 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Generator Safety: How to Avoid Carbon Monoxide Poisoning",
     description: "Use portable generators safely during hurricane outages: outdoor placement, CO alarms, fuel handling, extension cords, and medical-device planning.",
     datePublished: "2026-08-16",
-    dateModified: "2026-11-10",
+    dateModified: "2026-11-23",
     review: { date: "2026-11-10", scope: "Editorial review of setup readiness, connection limits and alternatives when a location is unusable, retaining the October 27 CDC/CPSC research and illustration. Sources were not newly read; no generator, installation, load calculation or medical-device compatibility was inspected.", correction: "Distinguished owning equipment from a usable power plan and a transfer switch from a source of electricity." },
     sourceCheck: { date: "2026-10-27", scope: "CDC and CPSC generator placement, CO alarms and emergency response, plus the unaltered CDC illustration. Not a product-manual, site-specific electrical or current local emergency-order review." },
     image: "/images/blog/hurricane-power-outage-food-medicine-plan.png",
@@ -3957,8 +4002,8 @@ export const blogPosts: BlogPost[] = [
     figures: [{ src: "/images/blog/external/cdc-generator-placement.jpg", width: 326, height: 276, afterSection: "Read the Official Placement Diagram", alt: "CDC diagram prohibits generators indoors, in garages and carports, and shows outdoor placement far from windows, doors and vents.", caption: "CDC generator safety illustration, reproduced without alteration. It shows prohibited spaces and the outdoor-placement principle; it is not to scale and does not label a numerical distance. Use the CDC distance guidance in the adjacent checklist. Source accessed October 27, 2026; illustration publication date not stated.", sourceUrl: "https://www.cdc.gov/carbon-monoxide/media/images/generators_factsheet.jpg", sourceLabel: "Open the original CDC illustration" }],
     sections: [
       {
-        heading: "Direct Answer",
-        body: "Run a portable generator only outdoors and away from doors, windows, vents, garages, crawl spaces, and attached structures. Carbon monoxide is invisible and can build up quickly, so pair generator use with working battery or battery-backup carbon monoxide alarms. Follow the generator manual, local fire guidance, and official emergency instructions before relying on a generator during a hurricane outage."
+        "heading": "Direct Answer",
+        "body": "If a CO alarm sounds or carbon monoxide poisoning is suspected, get outside into fresh air immediately, then call 911. Do not stay inside to find the cause or shut down equipment, and do not reenter until emergency responders say it is safe. For planned operation, run a portable generator only outdoors: CDC says more than 20 feet from windows, doors and vents; CPSC says at least 20 feet from homes, with exhaust facing away. Apply both precautions, consider neighboring homes and keep working battery or battery-backup CO alarms. Distance alone does not guarantee safety; follow the manual and official instructions."
       },
       {
         heading: "Why Generator Safety Matters After Hurricanes",
@@ -4000,9 +4045,14 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "/tools/power-outage-planner/", label: "Build and print the household outage record" }, { href: "/blog/hurricane-power-outage-food-medicine-plan/", label: "Separate food, medicine and medical-device outage decisions" }]
       },
       {
-        heading: "Resolve the Missing Part Before Counting the Plan Ready",
-        body: "Write down the intended location, responsible operator, manual, connection arrangement, alarm check and alternative power or care destination. Mark unresolved items honestly. A purchased generator with no suitable outdoor location is not a usable outage plan; a location that floods or forces exhaust toward another home cannot be fixed by moving the unit into a garage. If conditions or instructions make the setup unusable, use the arranged alternative and follow local protective instructions. Do not wait for an essential device to fail before seeking appropriate help.",
-        links: [{ href: "/blog/hurricane-safety-seniors-children-disability/", label: "Plan accessible transport, equipment support and a suitable receiving destination" }]
+        "heading": "Resolve the Missing Part Before Counting the Plan Ready",
+        "body": "Before counting the plan ready, check the operator, manual, connection arrangement, alarm test and alternative power or care destination. Mark missing items unresolved. If flooding, drifting exhaust or official instructions make the planned outdoor setup unusable, use the arranged alternative; do not move the unit into a prohibited space. Arrange essential-device support before power fails.",
+        "links": [
+          {
+            "href": "/blog/hurricane-safety-seniors-children-disability/",
+            "label": "Plan accessible transport, equipment support and a suitable receiving destination"
+          }
+        ]
       },
       {
         heading: "Official Source Check",
@@ -4042,7 +4092,7 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Additional Living Expenses Coverage After Displacement",
     description: "Learn how additional living expenses coverage may help after hurricane displacement, what receipts to keep, and why policy terms control the claim.",
     datePublished: "2026-08-16",
-    dateModified: "2026-11-21",
+    dateModified: "2026-11-23",
     sourceCheck: {date: "2026-11-21",scope: "Reread TDI When do policies pay for additional living expenses? (page updated April 10, 2025): extra costs, covered damage, receipts, limits and NFIP exclusion. Texas-specific arrangements are not national rules. Both budget tables use invented amounts; no policy, local price, claim or eligibility was verified."},
     image: "/images/blog/hurricane-insurance-claim-guide-documentation.png",
     imageAlt: "A family reviews hurricane insurance documents and temporary lodging receipts after an evacuation.",
@@ -4180,8 +4230,8 @@ export const blogPosts: BlogPost[] = [
         answer: "Many renters policies include some loss-of-use coverage, but limits vary. Review your declarations page or contact the insurer for your exact cap and covered situations."
       },
       {
-        question: "What receipts should I keep for ALE?",
-        answer: "Keep dated, itemized receipts for lodging, extra meals, pet boarding, storage, travel, and other displacement-related costs. Also keep notes explaining the connection to the claim."
+        "question": "What receipts should I keep for ALE?",
+        "answer": "Retain dated, itemized receipts for displacement-related costs you actually incur, such as lodging, meals, pet boarding, storage or travel, with notes explaining their purpose. Keeping a receipt does not mean the category is insured. For costs such as meals, record normal spending separately so the request identifies the extra expense. Track the amount requested and insurer response separately; mark acceptance pending until decided under the policy and cause of loss."
       },
       {
         question: "Is ALE the same as FEMA disaster assistance?",
@@ -4340,7 +4390,7 @@ export const blogPosts: BlogPost[] = [
     title: "How to Prevent Mold After a Hurricane Flood",
     description: "A cautious, official-source-oriented guide to reducing mold risk after hurricane flooding, including safe reentry, drying, cleanup, documentation, and when to call professionals.",
     datePublished: "2026-08-17",
-    dateModified: "2026-11-11",
+    dateModified: "2026-11-23",
     sourceCheck: { date: "2026-11-08", scope: "Read EPA Mold Cleanup in Your Home (updated June 4, 2026) and A Brief Guide to Mold, Moisture and Your Home (updated February 18, 2026), including contaminated water, HVAC, PPE and biocides. No building, contamination, medical condition or completed remediation was assessed." },
     review: { date: "2026-11-08", scope: "Flood cleanup boundaries", correction: "Removed routine disinfection as a universal mold-cleanup step. Explained that EPA's small-area guidance is not clearance for sewage or contaminated floodwater, and added HVAC and professional-help limits." },
     image: "/images/blog/hurricane-mold-prevention-after-flood.jpg",
@@ -4427,9 +4477,8 @@ export const blogPosts: BlogPost[] = [
           "No. Product choice depends on the surface and contamination. Follow EPA and product-label instructions, and never mix bleach with ammonia or other cleaners. Porous wet materials may need removal instead of cleaning."
       },
       {
-        question: "What should I do before throwing away flood-damaged items?",
-        answer:
-          "When it is safe, take dated photos or video, list damaged items, keep receipts, and check insurer or adjuster instructions before disposal so documentation is preserved."
+        "question": "What should I do before throwing away flood-damaged items?",
+        "answer": "When it is safe, take dated photos or video, describe the damaged items and record necessary disposal. Ask the insurer what evidence it needs, but do not retain contaminated items or delay an urgent health measure solely while waiting for an adjuster. Keep receipts and any professional assessment; documentation does not establish coverage."
       }
     ]
   },
@@ -4588,7 +4637,7 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane Preparedness Plan for Small Businesses",
     description: "A practical hurricane planning guide for small businesses covering staff communication, records backup, building checks, closure triggers, insurance, and reopening.",
     datePublished: "2026-08-17",
-    dateModified: "2026-11-11",
+    dateModified: "2026-11-23",
     sourceCheck: { date: "2026-11-08", scope: "Read Ready.gov Business Continuity Planning, updated March 25, 2026, including its team, process and test-resource descriptions. Did not claim to have watched training videos or tested an actual business. The shop scenario and printable record are editorial examples, not legal, engineering or insurance approval." },
     image: "/images/blog/hurricane-small-business-preparedness-plan.png",
     imageAlt: "A small business team reviews a hurricane preparedness checklist beside a laptop and printed records.",
@@ -4640,9 +4689,14 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "/blog/hurricane-generator-safety-carbon-monoxide/", label: "Check generator placement and carbon-monoxide precautions" }]
       },
       {
-        heading: "Separate Cash Available Now From Money Requested",
-        body: "Fictional seven-day cash exercise for the shop: unrestricted cash is $6,000; planned payroll is $2,400, rent is $1,800 and a supplier payment is $900. Subtraction leaves $900 before other costs, not a full recovery budget. A requested $5,000 insurance advance stays in a separate pending row until its status and availability are confirmed. Use actual due dates, identify other obligations and update payments when they occur. This arithmetic is not advice to delay payroll, taxes or contractual duties; resolve those questions with the appropriate adviser.",
-        bullets: ["Confirm any supplier cancellation or delivery change with the supplier; a sent email is not acceptance.", "Review business-interruption and extra-expense terms separately from the cash sheet. An expected claim or an assistance application is not available operating cash.", "If a critical payment is unresolved, assign a responsible person and a follow-up date before announcing a reopening that depends on it."]
+        "heading": "Separate Cash Available Now From Money Requested",
+        "body": "Fictional seven-day cash exercise for the shop: unrestricted cash is $6,000; planned payroll is $2,400, rent is $1,800 and a supplier payment is $900. Subtraction leaves $900 before other costs, not a full recovery budget. A requested $5,000 insurance advance stays in a separate pending row until its status and availability are confirmed. Use actual due dates, identify other obligations and update payments when they occur. This arithmetic is not advice to delay payroll, taxes or contractual duties; resolve those questions with the appropriate adviser.",
+        "bullets": [
+          "Use the cash worksheet in the printable record: starting unrestricted cash, each payment and due date, planned versus paid status, and a separately recorded funding request. Keep each running balance tied to the payments included.",
+          "Confirm any supplier cancellation or delivery change with the supplier; a sent email is not acceptance.",
+          "Review business-interruption and extra-expense terms separately from the cash sheet. An expected claim or an assistance application is not available operating cash.",
+          "If a critical payment is unresolved, assign a responsible person and a follow-up date before announcing a reopening that depends on it."
+        ]
       },
       {
         heading: "Insurance and Financial Continuity",
@@ -4656,9 +4710,18 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "/blog/what-to-do-after-a-hurricane/", label: "Review recovery priorities before returning" }, { href: "/blog/hurricane-mold-prevention-after-flood/", label: "Identify contaminated-water and mold cleanup limits" }]
       },
       {
-        heading: "Keep a Short Record the Team Can Reach",
-        body: "Use the printable record for contacts, decisions, dependencies and pending confirmations. Keep a paper copy and an approved offline copy where authorized staff can find them. Store passwords, customer lists, payment details and private medical information elsewhere in secure systems. Run a short exercise before the season: assume the owner and normal internet connection are unavailable, then check whether the backup can find the closure message and restoration instructions. Record failures as tasks with an owner and follow-up date.",
-        links: [{ href: "/downloads/small-business-hurricane-plan.txt", label: "Open the printable small-business hurricane planning record" }, { href: "https://www.ready.gov/business-continuity-plan", label: "Find Ready.gov continuity planning and test resources" }]
+        "heading": "Keep a Short Record the Team Can Reach",
+        "body": "Use the printable record for contacts, decisions, dependencies, the cash worksheet and pending confirmations. Keep paper and approved offline copies available to authorized staff; keep credentials, payment details, customer lists and private medical information in secure systems elsewhere. Rehearse with the owner and normal internet connection unavailable. Can the backup find the closure message, recovery instructions and current cash record? Give each failure an owner and follow-up date.",
+        "links": [
+          {
+            "href": "/downloads/small-business-hurricane-plan.txt",
+            "label": "Open the printable small-business hurricane planning record"
+          },
+          {
+            "href": "https://www.ready.gov/business-continuity-plan",
+            "label": "Find Ready.gov continuity planning and test resources"
+          }
+        ]
       }
     ],
     faqs: [
@@ -4696,13 +4759,46 @@ export const blogPosts: BlogPost[] = [
     title: "Apartment Hurricane Preparedness Checklist for Renters",
     description: "A renter-focused hurricane checklist for apartment go-bags, renters insurance, building rules, pets, documents, outages, and safe evacuation decisions.",
     datePublished: "2026-08-17",
-    dateModified: "2026-11-09",
+    dateModified: "2026-11-23",
     image: "/images/blog/apartment-hurricane-preparedness-renters-checklist.png",
     imageAlt: "Apartment renters organize hurricane supplies, documents, and a go-bag on a kitchen table.",
     sections: [
       { heading: "Why Renters Need a Different Hurricane Plan", body: "Apartment renters cannot control the roof, exterior shutters, elevators, drainage, or building repairs, so the plan should focus on people, documents, communication, insurance, pets, and knowing when official guidance says to leave. Use property-manager instructions, local emergency management, NWS alerts, and NHC advisories as the decision sources." },
-      { heading: "Write Down Who Handles Each Building Task", body: "Keep a dated building contact sheet: management's emergency number, after-hours maintenance, the unit address, and your household's backup contact. Ask management who installs approved window protection, how emergency notices reach tenants, whether access gates work without power, and how to report a leak. Record the answer and any unresolved question. For example, a resident who depends on an elevator needs a confirmed transport and accessible destination plan before outages, rather than assuming a neighbor can carry them downstairs. Written permission for a modification does not establish that the installation meets local code." },
-      { heading: "Turn Building Questions Into a Usable Record", body: "Use one private sheet with four columns: question, person responsible, confirmed answer and date, and remaining action. Record how to receive notices if the resident portal fails; where to report a hazard; whether an accessible exit and transport plan are arranged; and where the household will go with pets or medical equipment. Ask what backup power actually serves. A generator serving emergency lighting does not establish that apartment outlets, elevators, water pumps or cooling will work. Mark unanswered questions as unresolved rather than converting a staff member's expectation into a guarantee. Keep the sheet with your lease and a paper copy of essential numbers; do not publish unit numbers or access codes in a shared neighborhood post." },
+      {
+        "heading": "Confirm Building Arrangements Before an Outage",
+        "body": "Keep this record privately with your lease and paper emergency numbers. For each question, record management's answer, who supplied it and when, plus the remaining task and person responsible. An expectation is not a confirmed service, and an unanswered question remains unresolved.",
+        "table": {
+          "caption": "Apartment building questions — fill with actual management answers",
+          "columns": [
+            "Question to confirm",
+            "Record the answer and date",
+            "Remaining action"
+          ],
+          "rows": [
+            [
+              "Emergency notices and hazard reports",
+              "Published emergency and after-hours contacts; backup channel if the portal fails",
+              "Confirm how the household receives and reports urgent information."
+            ],
+            [
+              "Gates, doors and stairwell access",
+              "Management instructions for loss of power and accessible departure",
+              "Resolve household access and transport needs before an outage; do not improvise a stair carry."
+            ],
+            [
+              "Elevators and backup power",
+              "Which services the generator actually supplies; named source and date",
+              "Do not infer elevator, unit outlet, pump or cooling service from emergency lighting."
+            ],
+            [
+              "Window protection and repairs",
+              "Who handles approved protection and how to report damage",
+              "Obtain required permission; permission alone does not establish code compliance or safe installation."
+            ]
+          ],
+          "note": "Add the unit address and household backup contact to your private copy. Do not publish unit numbers, access codes or private care information. Management cannot cancel an official evacuation order."
+        }
+      },
       { heading: "Build a Renter Go-Bag", body: "Keep a bag where each household member can grab it quickly if your building loses power, floods, or receives an evacuation order.", bullets: ["Photo ID, lease copy, renters insurance information, medications, chargers, and emergency contacts.", "Water, no-cook food, flashlight, batteries, radio, basic first aid, and cash in small bills.", "Pet food, carriers, vaccination records, leashes, and a pet-friendly destination plan.", "Comfort items for children and written care notes for seniors, disabled household members, or medical needs."] },
       { heading: "Room-by-Room Apartment Checks", body: "Move valuables and electronics away from windows and low floors when safe. Bring balcony items indoors, keep shoes and flashlights near beds, know two stairwell routes, and photograph every room before storm season or before damage cleanup when safe." },
       { heading: "Elevators, Upper Floors, and Shared Buildings", body: "Power outages can stop elevators, card access, water pumps, and air conditioning. Upper floors may avoid some flooding but can face stronger wind, broken glass, stairwell access issues, and heat after outages. Ask property management about emergency procedures before a storm threatens." },
@@ -4731,7 +4827,7 @@ export const blogPosts: BlogPost[] = [
     title: "Hurricane School and Daycare Emergency Plan for Families",
     description: "A family-focused hurricane guide for school closures, daycare pickup, child go-bags, communication plans, documents, pets, and post-storm routines.",
     datePublished: "2026-08-17",
-    dateModified: "2026-11-21",
+    dateModified: "2026-11-23",
     image: "/images/blog/hurricane-school-daycare-emergency-plan.png",
     imageAlt: "A parent reviews a hurricane family communication plan and school pickup contacts with a child.",
     sections: [
@@ -4739,12 +4835,36 @@ export const blogPosts: BlogPost[] = [
       { heading: "Read What the Notice Actually Changes", body: "Separate a delayed opening, a full closure, an early dismissal, an afterschool cancellation and an offsite reunification. Each changes a different part of the family plan. Save the official notice and check the affected campus or program, effective date, dismissal or opening time, transport instructions, pickup location and next-update channel. Do not assume a district announcement covers a separately operated daycare. Charleston County School District's published procedures illustrate the distinction: afterschool activities can be canceled without a full-day closure, and a delayed start does not provide supervision before the announced schedule. These are that district's procedures, not a nationwide timetable. Confirm your own program's instructions before changing a child's destination or arrival time.", table: { caption: "Read the action in the notice before changing the family schedule", columns: ["Notice type", "What the caregiver must establish"], rows: [["Delayed opening", "New arrival time and when supervision begins; do not assume early drop-off."], ["Early dismissal", "Collection time, transport changes and which authorized adult will collect each child."], ["Afterschool cancellation", "Whether the school day continues and who receives the child when the canceled program would normally begin."], ["Full closure", "Affected campus and date; arrange care and check independent programs separately."], ["Offsite reunification", "Official destination, check-in process, pickup authorization and required identification."]], note: "Planning questions, not an active closure notice. The actual school or daycare instructions control." } },
       { heading: "A District Example: Charleston County Reunification", body: "Charleston County School District describes emergencies in which students and staff travel by school bus to a safe facility away from campus. Parents are notified as soon as practical and directed to a designated reunification site. At check-in, staff verify identification before reunification; the district asks adults to have a driver's license or government-issued photo ID and says the collecting person should be listed in the student's file as a parent, guardian or emergency contact. It also asks families to update school records when phone numbers change. This is a published procedure read on November 9, 2026, not a current relocation notice or confirmation that any particular adult is approved. Use it to identify questions for your school, then follow the actual incident instructions rather than traveling to an assumed site.", links: [{ href: "https://www.ccsdschools.com/departments2/operations/security-and-emergency-management-b6/emergency-preparedness-and-response-procedures/family-reunification", label: "Read the district's identification and check-in procedure" }] },
       { heading: "Child-Focused Go-Bag", body: "Children need basic supplies plus familiar items that reduce stress during sheltering, evacuation, or extended closures.", bullets: ["Medications, written care notes, allergy information, insurance cards, and copies of school or daycare contacts.", "Comfort items, simple games, books, chargers, headphones, and child-friendly no-cook food.", "Diapers, formula, wipes, special foods, mobility supplies, or device chargers when needed.", "A paper contact card with authorized pickup adults and an out-of-area family contact."] },
-      { heading: "Confirm Pickup Before Anyone Travels", body: "For each child, save the campus or program, official notification channel, published phone number, primary pickup adult, authorized backup, ID requirements and reunification instructions. Check authorization in the program's actual system: a relative listed on your household sheet is not automatically permitted to collect a child. After a notice, agree which adult is collecting which child before either leaves. Use the official destination if students relocate, and share the completed pickup and intended safe destination privately. Keep custody and medical details out of public messages. If a phone fails or a route closes, contact the program through its published channel rather than choosing an alternate campus." },
-      { heading: "Check the School's Record, Not Only Your Phone", body: "A correct number in a caregiver's phone does not mean the school's notification system has it. Charleston County says its texts use the cell number stored in PowerSchool and calls use the primary phone number stored there. Ask your school how to review and update its equivalent record, whether the backup caregiver receives notices, and where official updates remain available if a message is delayed. Save the school's published number on paper. Keep pickup authorization distinct from an emergency contact or a household group chat: ask the school what permission each record actually gives, which ID is needed and how custody restrictions are handled privately. A name on this article's planning sheet cannot grant authority to collect a child." },
-      { heading: "Practice a Two-Campus Pickup", body: "Consider a hypothetical family with one child at elementary school and another at an independent daycare. The school announces early dismissal, the daycare has not announced a change, the usual driver is at work and a relative has offered help. First verify each program's current notice. Then check that the relative is accepted for pickup under the relevant program's procedure and can bring the required ID. Assign one adult to each child and confirm those assignments before either travels. If the relative is only on the family contact sheet, the authorization step remains unresolved. If a campus relocates, use the official destination and check-in instructions. After collection, send one agreed message identifying which child is with which adult and the intended safe destination; avoid broadcasting that information publicly." },
+      {
+        "heading": "Confirm the Pickup Sequence Before Anyone Travels",
+        "body": "Use the actual school or daycare procedure for each child. A household contact sheet, emergency contact entry and pickup authorization are not necessarily the same thing. Resolve authorization and transport before a storm rather than assigning someone who may be refused collection.",
+        "bullets": [
+          "Read the official notice: match the campus or program, date, hours, transport changes and any offsite reunification destination.",
+          "Confirm that the collecting adult is authorized in the program's actual system and can bring the required ID. Handle custody restrictions privately with the program.",
+          "Agree which adult collects which child before travel. If a phone fails or a route closes, use the program's published contact rather than an assumed alternate campus.",
+          "After collection, send the agreed private message identifying the child, collecting adult and intended safe destination; do not broadcast custody or medical details."
+        ]
+      },
+      {
+        "heading": "Check the School's Record, Not Only Your Phone",
+        "body": "Charleston County says texts use the cell number in PowerSchool and calls use the primary phone number stored there. Check how your school updates its equivalent record and whether the backup caregiver receives notices. Save the published number on paper and identify where official updates remain available if a message is delayed. Correct household phone contacts alone do not update the school's system."
+      },
+      {
+        "heading": "Practice a Two-Campus Pickup",
+        "body": "Fictional exercise: the elementary school announces early dismissal, while an independent daycare has not announced a change. Do not copy the school's hours or destination into the daycare plan. Verify each program separately, then apply the pickup sequence above. If the proposed relative is listed only on the family sheet, authorization remains unresolved; if a campus relocates, its official destination replaces the usual pickup assumption."
+      },
       { heading: "Ask Daycare About Its Own Relocation Plan", body: "Ask the director who decides closure or early collection, how families are notified, what happens if the building must be left, whether staff transport children, and how parents learn the relocation destination. Confirm how authorized adults are recorded and changed, what happens when the usual adult cannot arrive, and what supplies must accompany an infant or a child with care needs. Record the answer and date rather than assuming the district's bus or reunification process applies. Ask how medication and essential care instructions travel if relocation occurs, and arrange changes through the program's actual procedure. Do not independently send a child or caregiver to a rumored shelter or school as a substitute for confirmed instructions." },
       { heading: "Children With Medical, Disability, or Sensory Needs", body: "Coordinate with the school nurse, daycare director, medical provider, or support team before hurricane season. Written instructions should cover medication, mobility, device power, communication needs, and backup care locations.", links: [{ href: "/blog/hurricane-safety-seniors-children-disability/", label: "Plan household medical, mobility and communication needs" }] },
-      { heading: "Pets and Service Animals", body: "Include animal supplies and care responsibilities in the household plan. Confirm service-animal access separately with the receiving facility rather than treating household-pet boarding rules as the answer. For pets, check the actual destination's acceptance, carrier and record requirements early.", links: [{ href: "/blog/hurricane-pet-safety/", label: "Confirm animal transport, supplies and destination arrangements" }] },
+      {
+        "heading": "Pets and Service Animals",
+        "body": "Arrange animal care alongside the child's transport and receiving destination. Confirm service-animal access separately from ordinary pet rules; use the animal guide for supplies and household-pet arrangements.",
+        "links": [
+          {
+            "href": "/blog/hurricane-pet-safety/",
+            "label": "Confirm animal transport, supplies and destination arrangements"
+          }
+        ]
+      },
       { heading: "A Reopening Notice Does Not Resolve Every Childcare Gap", body: "Fictional return-to-school exercise: the district announces that classes resume Monday, but the independent daycare and afterschool provider have not confirmed reopening. Record the school day, bus service, afterschool program and daycare as separate arrangements. Check the notice for your child's campus and any changed hours, then confirm how the child reaches school and who receives them afterward. Do not send a child early or assume the usual late pickup is available without the program's confirmation. Ask the school how to handle a remaining transport or displacement problem; a household plan does not decide attendance rules.", links: [{ href: "/blog/hurricane-safety-seniors-children-disability/", label: "Recheck transport, communication and receiving assistance" }] },
       { heading: "Track Weather and Local Decisions", body: "Use current tracking and alerts for storm context, then rely on the school district, local emergency management, NWS, and NHC for official closure, weather, and evacuation information.", links: [{ href: "/hurricane-tracker/live/", label: "Check current storm context" }, { href: "/alerts/", label: "Read weather alerts separately from school decisions" }] }
     ],
@@ -4799,7 +4919,7 @@ export const blogPosts: BlogPost[] = [
     title: "Emergency Water Storage and Purification for Hurricanes",
     description: "How much emergency water to store for a hurricane, which containers to use, how to follow boil-water notices, and when boiling or filtering is not enough.",
     datePublished: "2026-08-18",
-    dateModified: "2026-11-11",
+    dateModified: "2026-11-23",
     image: "/images/blog/hurricane-emergency-kit-checklist.png",
     imageAlt: "Household hurricane emergency supplies with sealed drinking-water containers ready for an outage.",
     imageCaption: "AI-generated preparedness illustration, not a photograph of an actual water advisory or distribution site.",
@@ -4827,15 +4947,50 @@ export const blogPosts: BlogPost[] = [
         body: "Keep emergency water in a cool location away from direct sunlight, gasoline, pesticides, and household chemicals. CDC guidance recommends replacing water stored in self-filled containers every six months. Follow the printed date and storage instructions for commercial bottled water, and inspect every container for leaks or contamination before use."
       },
       {
-        heading: "Understand Local Water Advisories",
-        body: "A boil-water advisory, do-not-drink advisory, and do-not-use advisory are different instructions, not three interchangeable names. CDC describes the distinctions below. The exact local notice controls permitted activities; do not assume advice for one type applies to another.",
-        bullets: [
-          "Boil water: use commercially bottled water or water boiled as instructed for drinking and food preparation. Boiling kills germs, but is not a treatment for chemical contamination.",
-          "Do not drink: use commercially bottled water for drinking, cooking, brushing teeth, produce washing, formula, ice and pets. Check the notice for bathing, dishes, cleaning and other uses; do not assume boiling makes the water safe.",
-          "Do not use: do not use tap water for any purpose while the advisory remains in effect. Contact with skin, eyes or lungs can also be hazardous. Follow officials' alternative-water instructions.",
-          "During any drinking-water advisory, CDC says not to use water or ice dispensers connected to the water line. A refrigerator or pitcher filter does not automatically make that water safe."
+        "heading": "Understand Local Water Advisories",
+        "body": "Read the exact notice from your utility or health department. CDC distinguishes three advisory types with different instructions. A filter or the return of pressure is not an exemption from an advisory.",
+        "links": [
+          {
+            "href": "https://www.cdc.gov/water-emergency/about/drinking-water-advisories-an-overview.html",
+            "label": "Read CDC's activity-by-activity advisory guidance"
+          }
         ],
-        links: [{ href: "https://www.cdc.gov/water-emergency/about/drinking-water-advisories-an-overview.html", label: "Read CDC's activity-by-activity advisory guidance" }]
+        "table": {
+          "caption": "Water advisory types — the local notice controls permitted activities",
+          "columns": [
+            "Advisory",
+            "Drinking and food preparation",
+            "Other uses and treatment limits"
+          ],
+          "rows": [
+            [
+              "Boil water",
+              "Use commercially bottled water or water boiled as instructed. Follow the notice for drinking and food preparation.",
+              "Check activity-specific instructions. Boiling kills germs but does not treat chemical contamination."
+            ],
+            [
+              "Do not drink",
+              "Use commercially bottled water for drinking, cooking, teeth brushing, produce washing, formula, ice and pets.",
+              "Check the notice for bathing, dishes and cleaning. Do not assume boiling makes the water safe."
+            ],
+            [
+              "Do not use",
+              "Do not use tap water for any purpose while the advisory applies. Follow official alternative-water instructions.",
+              "Skin, eye or lung contact can also be hazardous. Instructions for a boil-water notice do not apply instead."
+            ]
+          ],
+          "note": "During any drinking-water advisory, CDC says not to use water or ice dispensers connected to the water line. A refrigerator or pitcher filter does not automatically make the water safe."
+        }
+      },
+      {
+        heading: "Make a Five-Field Water Notice Record",
+        body: "Before changing household routines, save the official notice URL and record five things: issuing utility or health department; affected service area or addresses; advisory type and effective time; prohibited and permitted activities; and the official place to check for updates or rescission. Use your water bill or property manager to identify the provider if you do not have an individual account. An apartment address, city boundary and water-service boundary are not necessarily the same. If the notice is unclear, ask the supplier rather than borrowing a neighboring city's instructions.",
+        bullets: [
+          "Record drinking, cooking, teeth brushing, ice, infant feeding and pet water separately; do not reduce all restrictions to 'avoid drinking straight from the tap.'",
+          "Record bathing and handwashing instructions from this notice. CDC's general boil-water guidance allows some uses with precautions, but that is not permission during a do-not-use order.",
+          "Write 'not confirmed' beside any missing field. Water pressure returning, clear appearance or a neighbor's message does not fill that gap.",
+          "After an explicit rescission for your provider and area, follow its flushing, filter and ice-maker instructions. Do not invent a universal flushing duration or reuse ice made while the water was unsafe."
+        ]
       },
       {
         heading: "Read a Real Historical Notice Timeline: Austin, February 2022",
@@ -4849,18 +5004,8 @@ export const blogPosts: BlogPost[] = [
         links: [{ href: "https://services.austintexas.gov/edims/document.cfm?id=376266", label: "Read Austin Water's original February 2022 memo and attachments (PDF)" }]
       },
       {
-        heading: "Make a Five-Field Water Notice Record",
-        body: "Before changing household routines, save the official notice URL and record five things: issuing utility or health department; affected service area or addresses; advisory type and effective time; prohibited and permitted activities; and the official place to check for updates or rescission. Use your water bill or property manager to identify the provider if you do not have an individual account. An apartment address, city boundary and water-service boundary are not necessarily the same. If the notice is unclear, ask the supplier rather than borrowing a neighboring city's instructions.",
-        bullets: [
-          "Record drinking, cooking, teeth brushing, ice, infant feeding and pet water separately; do not reduce all restrictions to 'avoid drinking straight from the tap.'",
-          "Record bathing and handwashing instructions from this notice. CDC's general boil-water guidance allows some uses with precautions, but that is not permission during a do-not-use order.",
-          "Write 'not confirmed' beside any missing field. Water pressure returning, clear appearance or a neighbor's message does not fill that gap.",
-          "After an explicit rescission for your provider and area, follow its flushing, filter and ice-maker instructions. Do not invent a universal flushing duration or reuse ice made while the water was unsafe."
-        ]
-      },
-      {
-        heading: "When Your Neighbor Says the Notice Was Lifted",
-        body: "In a fictional apartment complex, water is flowing again and a neighbor forwards a notice saying service is cleared for another pressure zone. First match the utility and affected area with the original notice for your building. The return of pressure and a clearance for another area do not lift your notice. Until your utility confirms that your address is included in a rescission, keep following the applicable instructions and use an approved alternative water supply. Once cleared, read the utility's restart instructions before using ice makers, filters or other equipment connected to the water line."
+        "heading": "When Your Neighbor Says the Notice Was Lifted",
+        "body": "Fictional check: a neighbor forwards a clearance for another pressure zone while your building's water is flowing again. Match its utility and affected area to your original notice. Neither restored pressure nor another area's clearance lifts your notice. Keep following the applicable instructions until the utility confirms rescission for your provider and area, then follow its equipment restart instructions."
       },
       {
         heading: "Boiling Questionable Water",
