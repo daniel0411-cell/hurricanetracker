@@ -30,3 +30,11 @@ Semantic comparison with /tmp/hurricane-ten-before-20261123.ts confirms 46 recor
 npm run check: 0 errors, 0 warnings, 4 existing hints, 235 files. npm run build: passed city verification, OG generation and full Cloudflare server build. Build retained the existing duplicate robots.txt route warning. Logs: /tmp/hurricane-ten-check-20261123.log and /tmp/hurricane-ten-build-20261123.log. Final built CSS independently contains the global article grid constraint; final content contains the updated inland title and water wording. Initial development browser retained older styles; final built Worker preview and production are checked separately below.
 
 Final check after the layout edit: 0 errors, 0 warnings, 4 existing hints (235 files), log /tmp/hurricane-ten-final-check-20261123.log. Built local Worker HTTP probe returned 200, but browser navigation continued to reach the old production page; no successful final mobile visual check is claimed at this stage. Browser viewport override reset. Release will be verified independently against production markers and Worker metadata.
+
+## Production release receipt
+
+Content commit 9455ba7bb7856a6e6ae05bb3711480479d5537a3 was pushed to origin/main. Fresh pre-deploy fetch confirmed 0/0. Worker version 974857e1-36b4-4a31-88d0-1189c9dcc79a created 2026-11-23T09:06:53.067Z; independent deployments list and versions view confirmed 100% production traffic and the full content commit in its message.
+
+All ten production article URLs returned successful HTTP responses and contained the new content markers, correct canonical URL and parseable JSON-LD. Production business download is byte-identical to the revised source. Homepage HTTP 200. ads.txt returns google.com, pub-1321310404115919, DIRECT, f08c47fec0942fa0. Verification output: /tmp/hurricane-ten-production-20261123.json.
+
+Production browser verification completed after pages loaded: deductible, apartment and water tables all tested at viewport width 390. Each table region width 339, scroll content 433, overflow-x auto; document width 375, below viewport width. Deductible table region is keyboard-focusable (tabIndex 0). New captions confirmed in the rendered pages. Temporary viewport reset. No AdSense approval or crawling outcome is inferred from these checks.
