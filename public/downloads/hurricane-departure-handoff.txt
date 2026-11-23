@@ -21,6 +21,16 @@ Pets / carriers / medicines / essential equipment / owner: ________
 _________________________________________________________________
 Unresolved essentials / next action / responsible person: _________
 
+CHANGE HANDOFF (repeat whenever an arrangement changes)
+Revision / date / time / time zone: ______________________________
+Old destination or assignment no longer in use: __________________
+Replacement / who confirmed it and when: _________________________
+Affected driver, helper or contact: ______________________________
+Acknowledged change / accepted assignment / time: ________________
+Still unresolved / owner / next action: __________________________
+Update affected paper copies. A message sent is not confirmation
+that the driver received a new address or accepted a new pickup.
+
 Official route source / time checked / restrictions: ______________
 Permitted alternative / source: __________________________________
 Follow current official routes and restrictions. Do not use an app
@@ -38,5 +48,5 @@ _________________________________________________________________
 Receipts can document costs; they do not establish coverage or aid.
 
 Source: https://www.ready.gov/evacuation (updated March 20, 2026).
-Page read November 9, 2026. No current route or service verified.
-HurricaneHub editorial worksheet revised November 9, 2026.
+Page reread November 23, 2026. No current route or service verified.
+HurricaneHub editorial worksheet revised November 23, 2026.

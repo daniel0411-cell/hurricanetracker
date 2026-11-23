@@ -2,6 +2,7 @@ HURRICANE COMMUNICATION CHECK-IN RECORD
 Private household aid - not an emergency dispatch or alert service.
 
 Plan owner / revision date: ______________________________________
+Current revision / people given updated paper copies: ____________
 Local contact / number: __________________________________________
 Out-of-area contact / number / backup method: _____________________
 Local meeting place / alternative if unsafe: _____________________
@@ -18,6 +19,10 @@ Immediate help needed: ___________________________________________
 Next check-in date / time / time zone: ____________________________
 Recipient / method / sent time: __________________________________
 Human acknowledgement / time / what was understood: _______________
+Task requested / intended responsible person: ____________________
+Task explicitly accepted OR declined / by whom / time: ___________
+If declined or unanswered, backup / confirmation still needed: ____
+Completion reported / by whom / time: ____________________________
 Relay contact / confirmed relay OR pending: _______________________
 Open task / responsible person / next action: _____________________
 
@@ -28,16 +33,19 @@ What to do if still unacknowledged: _______________________________
 Charge / compatible cable / power-bank check: _____________________
 Provider pickup authorizations checked separately with: ___________
 
-A sent or delivered indicator does not confirm human understanding,
-a pickup agreement or a completed relay. Texts can fail too.
+A sent or delivered indicator does not confirm human understanding.
+Acknowledgement does not by itself accept a task. Acceptance does
+not report completion or confirm a separate relay. Texts can fail too.
+Example: "Received, but I cannot collect Sam" means acknowledged,
+pickup unassigned. Confirm an authorized backup separately.
 A missed check-in alone is not proof that rescue is needed. Do not
 drive into hazardous conditions to investigate or find a signal.
 For known immediate danger, contact emergency services and provide
 the last known exact location and needs. Keep private information
 limited to trusted people who need it; protect document backups.
 
-Sources read November 9, 2026:
+Sources reread November 23, 2026:
 https://www.ready.gov/plan (updated September 1, 2026)
 https://www.ready.gov/get-tech-ready (updated March 13, 2026)
 No carrier, alert subscription, emergency texting or PDF was tested.
-HurricaneHub editorial worksheet revised November 9, 2026.
+HurricaneHub editorial worksheet revised November 23, 2026.

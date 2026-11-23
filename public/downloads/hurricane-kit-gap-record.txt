@@ -10,9 +10,11 @@ Add extra household needs separately: ____________________________
 Example only: 4 people x 3 days = 12 gallons; 8 usable = 4 short.
 Several-day needs vary. This example does not set a universal duration.
 
-For each item record:
+For each item record (copy this block for additional items):
 Item / location (home, carry bag or vehicle): _____________________
 Target quantity: ______ Usable on hand: ______ Shortfall: _________
+Not yet usable / untested / expected delivery: ____________________
+Do not include these in the usable-on-hand figure.
 Expiry / rotation / next review date: ____________________________
 Owner and next action: ___________________________________________
 Status (packed / missing / awaiting confirmation): _______________
@@ -21,6 +23,15 @@ Repeat for water, suitable ready-to-eat food and opener, lights,
 radio, batteries, phone cable and power bank, sanitation, first aid,
 documents, cash, medicines, equipment, infant and pet supplies.
 Do not count one item in multiple places unless the plan moves it.
+
+WHEN MOVING OR USING SHARED SUPPLIES
+Item / quantity / date: __________________________________________
+Moved from: __________________ To: _______________________________
+Revised home stock: ______ Carry bag: ______ Vehicle: _____________
+Total remaining (count each physical item once): __________________
+Used quantity / replacement owner / next review: _________________
+Example: move 2 of 8 stored gallons into a bag. Home = 6, bag = 2,
+total = 8, not 10. This movement does not close a water shortfall.
 
 Carry-bag owner and safe practice result: _________________________
 Transport / baggage / equipment arrangements confirmed by: _______
@@ -37,5 +48,5 @@ Do not delay an ordered departure to finish optional packing.
 Keep sensitive medical and identity records in protected storage.
 
 Source: https://www.ready.gov/kit (updated July 1, 2026).
-Page read November 9, 2026; linked PDFs not reviewed.
-HurricaneHub editorial worksheet revised November 9, 2026.
+Page reread November 23, 2026; linked PDFs not reviewed.
+HurricaneHub editorial worksheet revised November 23, 2026.

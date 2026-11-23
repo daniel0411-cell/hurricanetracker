@@ -92,116 +92,277 @@ export const blogPosts: BlogPost[] = [
     ]
   },
   {
-    slug: "how-el-nino-affects-hurricanes",
-    sources: [{ href: "https://www.climate.gov/enso", label: "NOAA: ENSO information and explanations" }, { href: "https://www.cpc.ncep.noaa.gov/products/outlooks/hurricane.shtml", label: "NOAA Climate Prediction Center: hurricane outlook" }],
-    imageCaption: "NOAA/NESDIS ocean-temperature illustration of an El Nino episode; historical background, not a current hurricane or current ENSO analysis.",
-    title: "How El Niño Affects Atlantic Hurricane Activity",
-    description: "Learn how El Niño can change Atlantic and Pacific hurricane patterns, why it does not control one storm, and how to use official forecasts safely.",
-    datePublished: "2026-09-09",
-    dateModified: "2026-11-10",
-    review: { date: "2026-11-10", scope: "Editorial review of climate context versus storm forecasts and observed activity. Retained references were not newly read; no current ENSO state, seasonal outlook or active storm was checked.", correction: "Removed the unnecessary named-storm comparison and added a date-and-basin check before using climate information." },
-    image: "/images/blog/external/noaa-el-nino-sst.jpg",
-    imageAlt: "NOAA satellite image showing El Niño sea-surface temperature departure from normal across the Pacific Ocean.",
-    figures: [
+    "slug": "how-el-nino-affects-hurricanes",
+    "sources": [
       {
-        src: "/images/blog/external/noaa-el-nino-sst.jpg",
-        alt: "NOAA satellite image showing the El Niño sea-surface temperature departure from normal across the Pacific Ocean.",
-        caption: "NOAA/NESDIS satellite imagery shows the ocean temperature background associated with an El Niño episode. Public domain."
+        "href": "https://www.climate.gov/enso",
+        "label": "NOAA: ENSO information and explanations"
       },
       {
-        src: "/images/blog/external/nasa-el-nino-ocean.jpg",
-        alt: "NASA Earth Observatory visualization of ocean conditions during an El Niño event.",
-        caption: "NASA Earth Observatory visualization of El Niño ocean conditions. Public domain; image courtesy of NASA/JPL-Caltech."
-      },
-      {
-        src: "/images/blog/external/noaa-enso-satellite.png",
-        alt: "NOAA satellite view showing a strong El Niño pattern across the Pacific Ocean.",
-        caption: "NOAA/NESDIS satellite view of a strong El Niño pattern. Public domain; image courtesy of NOAA."
+        "href": "https://www.cpc.ncep.noaa.gov/products/outlooks/hurricane.shtml",
+        "label": "NOAA Climate Prediction Center: hurricane outlook"
       }
     ],
-    sections: [
+    "imageCaption": "NOAA/NESDIS ocean-temperature illustration of an El Nino episode; historical background, not a current hurricane or current ENSO analysis.",
+    "title": "How El Niño Affects Atlantic Hurricane Activity",
+    "description": "Learn how El Niño can change Atlantic and Pacific hurricane patterns, why it does not control one storm, and how to use official forecasts safely.",
+    "datePublished": "2026-09-09",
+    "dateModified": "2026-11-22",
+    "review": {
+      "date": "2026-11-22",
+      "scope": "Editorial restructuring of the retained climate explanation; external browsing was unavailable, so NOAA sources, current ENSO phase and current outlooks were not rechecked.",
+      "correction": "Separated climate assessment, seasonal forecast and storm-advisory questions in a comparison table, removed the duplicate hero figure and consolidated repeated planning cautions."
+    },
+    "image": "/images/blog/external/noaa-el-nino-sst.jpg",
+    "imageAlt": "NOAA satellite image showing El Niño sea-surface temperature departure from normal across the Pacific Ocean.",
+    "figures": [
       {
-        heading: "El Niño Is a Climate Pattern, Not a Hurricane",
-        body: "El Niño describes unusually warm sea-surface temperatures across part of the equatorial Pacific and the atmosphere's response to them. A hurricane is an individual tropical cyclone described by observations and official forecasts. The two can be discussed together as background and event, but they are not the same thing. A climate pattern alone does not establish why a specific storm formed, its eventual track or the hazards at an address."
+        "src": "/images/blog/external/nasa-el-nino-ocean.jpg",
+        "alt": "NASA Earth Observatory visualization of ocean conditions during an El Niño event.",
+        "caption": "NASA Earth Observatory visualization of El Niño ocean conditions. Public domain; image courtesy of NASA/JPL-Caltech."
       },
       {
-        heading: "Why Atlantic Activity Often Changes",
-        body: "During many El Niño episodes, the altered circulation increases upper-level westerly winds over the tropical Atlantic. That can increase vertical wind shear, the change in wind speed or direction with height. Shear may tilt a developing circulation, separate thunderstorms from the center, or limit intensification. This is a basin-wide tendency, not a guarantee: sea-surface temperature, moisture, dry air, African easterly waves, and each storm's track also matter.",
-        bullets: ["Seasonal outlooks describe probabilities across a basin, not a city-specific landfall.", "A below-normal season can still produce a dangerous hurricane.", "A single storm can develop despite an otherwise unfavorable climate pattern."]
-      },
-      {
-        heading: "The Pacific Response Can Differ",
-        body: "El Niño often supports a more favorable large-scale environment for eastern and central Pacific tropical cyclones than for Atlantic systems, but the result varies by location, month, and other weather patterns. That is why a Pacific storm and an Atlantic outlook should be read separately. Match the basin and season in the outlook before applying its explanation; a statement about Atlantic activity is not a forecast for a Pacific island."
-      },
-      {
-        heading: "Read the Climate Assessment and Hurricane Outlook as Different Records",
-        body: "An assessment of ocean and atmosphere conditions, a forecast of how ENSO may evolve and a seasonal hurricane outlook answer different questions. Record the issue date, the period being assessed or forecast and the basin addressed. A forecast of a future climate phase is not evidence that the phase is already established, and an old sea-temperature illustration is not today's analysis. This article explains the relationship; it does not report the current ENSO phase.",
-        bullets: ["Climate assessment: what period and observations does the source describe?", "Climate forecast: what future period and uncertainty does it state?", "Hurricane outlook: which basin, season, activity measure and forecast issue date are specified?", "Storm advisory: which individual system, observation time, forecast valid time and local hazards require attention?"],
-        links: [{ href: "https://www.climate.gov/enso", label: "Start with NOAA's ENSO information and its dated updates" }, { href: "https://www.cpc.ncep.noaa.gov/products/outlooks/hurricane.shtml", label: "Read the issue date and scope of NOAA's hurricane outlook" }]
-      },
-      {
-        heading: "A Quiet Basin and One Dangerous Storm Can Coexist",
-        body: "Seasonal activity and household exposure use different units. A basin count summarizes storms over a whole season; one storm's surge, rain or wind can create a local emergency. The existence of one hurricane does not by itself disprove a tendency toward reduced basin activity, just as that tendency cannot clear a coastline of risk. To evaluate the season, compare the same activity measure and time period. To act at home, use the active storm's official products and local instructions.",
-        links: [{ href: "/blog/2025-atlantic-hurricane-season-outlook/", label: "Practice separating a dated seasonal forecast from later observed totals" }, { href: "/blog/how-to-read-the-hurricane-cone-of-uncertainty/", label: "Switch from climate context to an individual storm's track forecast" }]
-      },
-      {
-        heading: "How to Use This Information Safely",
-        body: "Use El Niño information to understand seasonal context, then check HurricaneHub's 2026 hurricane season tracker for observed Atlantic activity. Once a system is active, switch to the live hurricane tracker, current NHC advisory, forecast track, watches or warnings, and local NWS and emergency-management guidance. No climate pattern or map should replace a local evacuation order."
-      },
-      {
-        heading: "What El Niño Cannot Tell You",
-        body: "El Niño cannot identify which city will be hit, determine a storm's exact intensity, or prove that a particular hurricane was caused by the pattern. Those questions require current observations and official forecasts. Treat climate signals as one input to planning, not as a reason to ignore an active storm or delay preparation."
+        "src": "/images/blog/external/noaa-enso-satellite.png",
+        "alt": "NOAA satellite view showing a strong El Niño pattern across the Pacific Ocean.",
+        "caption": "NOAA/NESDIS satellite view of a strong El Niño pattern. Public domain; image courtesy of NOAA."
       }
     ],
-    faqs: [
-      { question: "Does this article identify the current ENSO phase?", answer: "No. It explains the climate relationship. Open a dated NOAA assessment and distinguish the period observed from any future phase forecast; historical illustrations here do not establish present conditions." },
-      { question: "Does El Niño stop Atlantic hurricanes?", answer: "No. El Niño often increases Atlantic vertical wind shear and lowers the statistical odds of basin-wide activity, but it cannot prevent every hurricane or determine the risk for one coastline." },
-      { question: "Can El Niño predict a hurricane landfall?", answer: "No. Seasonal climate patterns provide broad probabilities. Landfall risk comes from the storm's current observations, official NHC forecast, watches or warnings, and local guidance." },
-      { question: "Why can the Pacific and Atlantic respond differently?", answer: "The two basins have different background winds, ocean temperatures, and storm-development regions. A climate pattern that suppresses some Atlantic development can support more favorable Pacific conditions in some periods." },
-      { question: "What should I check during an active storm?", answer: "Check the latest NHC advisory and forecast products, local NWS alerts, and emergency-management instructions. Use HurricaneHub's live tracker as an access point to those current sources." }
+    "sections": [
+      {
+        "heading": "El Niño Is a Climate Pattern, Not a Hurricane",
+        "body": "El Niño describes unusually warm sea-surface temperatures across part of the equatorial Pacific and the atmosphere's response to them. A hurricane is an individual tropical cyclone described by observations and official forecasts. The two can be discussed together as background and event, but they are not the same thing. A climate pattern alone does not establish why a specific storm formed, its eventual track or the hazards at an address."
+      },
+      {
+        "heading": "Why Atlantic Activity Often Changes",
+        "body": "During many El Niño episodes, the altered circulation increases upper-level westerly winds over the tropical Atlantic. That can increase vertical wind shear, the change in wind speed or direction with height. Shear may tilt a developing circulation, separate thunderstorms from the center, or limit intensification. This is a basin-wide tendency, not a guarantee: sea-surface temperature, moisture, dry air, African easterly waves, and each storm's track also matter.",
+        "bullets": [
+          "Seasonal outlooks describe probabilities across a basin, not a city-specific landfall.",
+          "A below-normal season can still produce a dangerous hurricane.",
+          "A single storm can develop despite an otherwise unfavorable climate pattern."
+        ]
+      },
+      {
+        "heading": "The Pacific Response Can Differ",
+        "body": "El Niño often supports a more favorable large-scale environment for eastern and central Pacific tropical cyclones than for Atlantic systems, but the result varies by location, month, and other weather patterns. That is why a Pacific storm and an Atlantic outlook should be read separately. Match the basin and season in the outlook before applying its explanation; a statement about Atlantic activity is not a forecast for a Pacific island."
+      },
+      {
+        "heading": "Choose the Product That Answers Your Question",
+        "body": "A sea-temperature illustration, an ENSO forecast and a hurricane outlook can appear in the same news story while describing different periods and outcomes. Start with the question you need answered. This guide explains the relationship and does not identify the current ENSO phase. A forecast of a future phase is not evidence that the phase is already established.",
+        "links": [
+          {
+            "href": "https://www.climate.gov/enso",
+            "label": "Start with NOAA's ENSO information and its dated updates"
+          },
+          {
+            "href": "https://www.cpc.ncep.noaa.gov/products/outlooks/hurricane.shtml",
+            "label": "Read the issue date and scope of NOAA's hurricane outlook"
+          }
+        ],
+        "table": {
+          "caption": "Climate context and storm decisions use different evidence",
+          "columns": [
+            "Your question",
+            "Product to consult",
+            "What it does not establish"
+          ],
+          "rows": [
+            [
+              "What climate conditions were observed?",
+              "A dated NOAA ENSO assessment; read the observation period.",
+              "The phase months from now or a particular storm track."
+            ],
+            [
+              "How might the climate pattern evolve?",
+              "An ENSO forecast; read its future period and uncertainty.",
+              "That the forecast phase is already present."
+            ],
+            [
+              "What activity is expected across a basin this season?",
+              "The dated hurricane outlook for that basin and season.",
+              "The landfall probability for your address."
+            ],
+            [
+              "What threatens my area now?",
+              "Current storm advisories, local NWS warnings and emergency-management instructions.",
+              "That a seasonal climate tendency cancels a current warning."
+            ]
+          ],
+          "note": "Editorial reading aid. Historical illustrations on this page are not live observations."
+        }
+      },
+      {
+        "heading": "A Quiet Basin and One Dangerous Storm Can Coexist",
+        "body": "Seasonal activity and household exposure use different units. A basin count summarizes storms over a whole season; one storm's surge, rain or wind can create a local emergency. The existence of one hurricane does not by itself disprove a tendency toward reduced basin activity, just as that tendency cannot clear a coastline of risk. To evaluate the season, compare the same activity measure and time period. To act at home, use the active storm's official products and local instructions.",
+        "links": [
+          {
+            "href": "/blog/2025-atlantic-hurricane-season-outlook/",
+            "label": "Practice separating a dated seasonal forecast from later observed totals"
+          },
+          {
+            "href": "/blog/how-to-read-the-hurricane-cone-of-uncertainty/",
+            "label": "Switch from climate context to an individual storm's track forecast"
+          }
+        ]
+      },
+      {
+        "heading": "Turn Seasonal Context Into Preparation, Then Follow the Storm",
+        "body": "For planning before a storm, use the seasonal outlook to understand its stated basin-wide expectations while completing your household preparation. When a storm threatens, the useful questions become its forecast track, wind extent, rainfall, surge and applicable local instructions. These need current products, even during an El Niño episode. Neither the climate label nor an old Pacific ocean image can tell you to stay home, leave, or return after an evacuation.",
+        "links": [
+          {
+            "href": "/blog/how-to-prepare-your-home-for-a-hurricane/",
+            "label": "Prioritize home preparation without delaying departure"
+          },
+          {
+            "href": "/hurricane-tracker/live/",
+            "label": "Find storm advisories and current tracking context"
+          }
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Does this article identify the current ENSO phase?",
+        "answer": "No. It explains the climate relationship. Open a dated NOAA assessment and distinguish the period observed from any future phase forecast; historical illustrations here do not establish present conditions."
+      },
+      {
+        "question": "Does El Niño stop Atlantic hurricanes?",
+        "answer": "No. El Niño often increases Atlantic vertical wind shear and lowers the statistical odds of basin-wide activity, but it cannot prevent every hurricane or determine the risk for one coastline."
+      },
+      {
+        "question": "Can El Niño predict a hurricane landfall?",
+        "answer": "No. Seasonal climate patterns provide broad probabilities. Landfall risk comes from the storm's current observations, official NHC forecast, watches or warnings, and local guidance."
+      },
+      {
+        "question": "Why can the Pacific and Atlantic respond differently?",
+        "answer": "The two basins have different background winds, ocean temperatures, and storm-development regions. A climate pattern that suppresses some Atlantic development can support more favorable Pacific conditions in some periods."
+      },
+      {
+        "question": "What should I check during an active storm?",
+        "answer": "Check the latest NHC advisory and forecast products, local NWS alerts, and emergency-management instructions. Use HurricaneHub's live tracker as an access point to those current sources."
+      }
     ]
   },
   {
-    slug: "2025-atlantic-hurricane-season-outlook",
-    sources: [{ href: "https://www.noaa.gov/news-release/noaa-predicts-above-normal-2025-atlantic-hurricane-season", label: "NOAA May 22, 2025 outlook: original probabilities and ranges" }, { href: "https://www.nhc.noaa.gov/data/tcr/index.php?season=2025&basin=atl", label: "NHC 2025 season archive: observed activity and storm reports" }],
-    review: { date: "2026-11-21", scope: "Editorial consolidation of the archived May 2025 forecast explanation. Numerical claims retain the October 24 research basis; primary sources were not re-read today.", correction: "Labeled the title as an archive and merged overlapping forecast-versus-observation explanations. No final totals or forecast skill score added." },
-    title: "2025 Atlantic Hurricane Outlook: Archived May Forecast",
-    description: "Archived NOAA May 2025 Atlantic outlook: 13-19 named storms, forecast probabilities, climate assumptions, and why basin forecasts cannot predict a local landfall.",
-    datePublished: "2025-05-20",
-    dateModified: "2026-11-21",
-    image: "/images/blog/2025-atlantic-hurricane-season-outlook.png",
-    imageAlt: "A meteorologist reviews a large Atlantic hurricane season outlook display in a weather operations center.",
-    sections: [
+    "slug": "2025-atlantic-hurricane-season-outlook",
+    "sources": [
       {
-        heading: "Archived Forecast: NOAA's May 22, 2025 Release",
-        body: "This page explains the forecast issued before the 2025 Atlantic season, not current conditions or the final 2025 storm count. NOAA's May 22 release assigned a 60% chance of above-normal activity, 30% near-normal, and 10% below-normal for the June 1-November 30 season. The original version of this article predated that release; these historical figures were added in the October 24, 2026 correction. Forecast probabilities should retain their issue date rather than being silently carried into a new year.",
-        links: [{ href: "https://www.noaa.gov/news-release/noaa-predicts-above-normal-2025-atlantic-hurricane-season", label: "Read NOAA's original May 22, 2025 outlook" }]
+        "href": "https://www.noaa.gov/news-release/noaa-predicts-above-normal-2025-atlantic-hurricane-season",
+        "label": "NOAA May 22, 2025 outlook: original probabilities and ranges"
       },
       {
-        heading: "The Forecast Ranges and What They Counted",
-        body: "NOAA forecast 13-19 named storms, including 6-10 hurricanes and 3-5 major hurricanes. Hurricanes are a subset of named storms; major hurricanes are a subset of hurricanes. Adding all three ranges together would double-count storms. NOAA stated 70% confidence in the ranges. That confidence is different from the 60% probability of an above-normal season and is not a probability that any particular city will be struck.",
-        bullets: ["Named storms: sustained winds of at least 39 mph.", "Hurricanes: sustained winds of at least 74 mph.", "Major hurricanes: Category 3-5, sustained winds of at least 111 mph."]
-      },
-      {
-        heading: "Why NOAA Expected Elevated Activity",
-        body: "The May release cited continued ENSO-neutral conditions, warmer-than-average Atlantic waters, forecasts of weak wind shear, and a potentially active West African monsoon. These describe an environment that can favor development across a basin. They cannot identify the track, intensity, or rainfall of a storm that has not formed. A household should use seasonal context to complete preparation, then switch to current official forecasts when a system develops."
-      },
-      {
-        heading: "Read the Percentages Without Turning Them Into a Landfall Forecast",
-        body: "The 60%, 30% and 10% figures describe the release's three season-activity categories and add to 100%. The separate 70% confidence statement belongs to the predicted numerical ranges. Neither figure describes the odds that a particular household will experience hurricane-force wind. Likewise, the upper end of a forecast range is not a promised maximum and the lower end is not a guaranteed minimum. Keep the source's measure beside the number when sharing it.",
-        bullets: ["60% above normal: a probability for the seasonal activity category in this dated release.", "13-19 named storms: a forecast range for a basin-wide count, not a count observed at publication.", "6-10 hurricanes and 3-5 major hurricanes: nested subsets, not extra storms to add to the named-storm range.", "Local landfall, surge and rainfall: separate questions that these seasonal figures do not answer."]
-      },
-      {
-        heading: "How to Compare This Archive With Later Results",
-        body: "For a historical comparison, match the basin, season and metric before comparing a forecast with observations. Keep the May forecast and any later update separate. Use the NHC 2025 archive for observed storms and post-season analyses, recording which report or archive version supplies the count. Operational counts can change in later analysis. This article has not verified final totals and does not score the forecast: one season falling inside or outside a range does not establish long-term probability forecast skill.",
-        bullets: ["Forecast side: record May 22, 2025, Atlantic, and the particular count or activity category being evaluated.", "Observation side: identify the matching season, measure, report version and date consulted.", "Current safety decisions: use today's advisories and local instructions rather than this archived seasonal outlook."],
-        links: [{ href: "https://www.nhc.noaa.gov/data/tcr/index.php?season=2025&basin=atl", label: "Find the matching NHC 2025 historical record" }, { href: "/hurricane-tracker/live/", label: "Open current storm positions and official advisory links" }]
+        "href": "https://www.nhc.noaa.gov/data/tcr/index.php?season=2025&basin=atl",
+        "label": "NHC 2025 season archive: observed activity and storm reports"
       }
     ],
-    faqs: [
-      { question: "Should I add the named-storm, hurricane and major-hurricane ranges?", answer: "No. Hurricanes are included among named storms, and major hurricanes are included among hurricanes. Adding the ranges double-counts storms." },
-      { question: "Does the 60% forecast mean my city had a 60% landfall chance?", answer: "No. It is the above-normal season-activity probability in NOAA's May 22, 2025 release, not a city-specific landfall probability." },
-      { question: "Is this the current hurricane outlook or the final 2025 result?", answer: "Neither. This is an explanation of the archived May 2025 forecast. Use a separately dated current outlook or the matching NHC historical record for those questions." }
+    "review": {
+      "date": "2026-11-22",
+      "scope": "Editorial comparison of retained May 2025 forecast figures. The numerical claims retain their October 24 research basis; external browsing was unavailable and primary sources were not reread.",
+      "correction": "Consolidated duplicated numerical explanations into a forecast table and added a labeled hypothetical counting example. No observed final totals or forecast skill score added."
+    },
+    "title": "2025 Atlantic Hurricane Outlook: Archived May Forecast",
+    "description": "Archived NOAA May 2025 Atlantic outlook: 13-19 named storms, forecast probabilities, climate assumptions, and why basin forecasts cannot predict a local landfall.",
+    "datePublished": "2025-05-20",
+    "dateModified": "2026-11-22",
+    "image": "/images/blog/2025-atlantic-hurricane-season-outlook.png",
+    "imageAlt": "A meteorologist reviews a large Atlantic hurricane season outlook display in a weather operations center.",
+    "sections": [
+      {
+        "heading": "Archived Forecast: NOAA's May 22, 2025 Release",
+        "body": "This page explains the forecast issued before the 2025 Atlantic season, not current conditions or the final 2025 storm count. NOAA's May 22 release assigned a 60% chance of above-normal activity, 30% near-normal, and 10% below-normal for the June 1-November 30 season. The original version of this article predated that release; these historical figures were added in the October 24, 2026 correction. Forecast probabilities should retain their issue date rather than being silently carried into a new year.",
+        "links": [
+          {
+            "href": "https://www.noaa.gov/news-release/noaa-predicts-above-normal-2025-atlantic-hurricane-season",
+            "label": "Read NOAA's original May 22, 2025 outlook"
+          }
+        ]
+      },
+      {
+        "heading": "The Forecast Ranges and What They Counted",
+        "body": "The May outlook used two different kinds of uncertainty: probabilities for seasonal activity categories and confidence in numerical count ranges. The table keeps those measures separate. Hurricane and major-hurricane counts are nested within the named-storm count, so they must not be added to it. These remain forecast figures for the May 22, 2025 release, not observed totals.",
+        "table": {
+          "caption": "NOAA May 22, 2025 Atlantic forecast retained in this archive",
+          "columns": [
+            "Measure",
+            "Forecast in the May release",
+            "How to read it"
+          ],
+          "rows": [
+            [
+              "Season-activity category",
+              "60% above normal; 30% near normal; 10% below normal",
+              "Three alternative activity categories; these probabilities total 100%."
+            ],
+            [
+              "Named storms",
+              "13–19; sustained winds at least 39 mph",
+              "Includes the hurricanes in the next row."
+            ],
+            [
+              "Hurricanes",
+              "6–10; sustained winds at least 74 mph",
+              "A subset of named storms, including major hurricanes."
+            ],
+            [
+              "Major hurricanes",
+              "3–5; Category 3–5, sustained winds at least 111 mph",
+              "A subset of hurricanes."
+            ],
+            [
+              "Confidence in the predicted ranges",
+              "70%",
+              "Separate from the 60% above-normal activity probability."
+            ]
+          ],
+          "note": "The release covers the June 1–November 30, 2025 Atlantic season. These figures do not give a local landfall probability or guarantee a minimum or maximum count."
+        }
+      },
+      {
+        "heading": "Why NOAA Expected Elevated Activity",
+        "body": "The May release cited continued ENSO-neutral conditions, warmer-than-average Atlantic waters, forecasts of weak wind shear, and a potentially active West African monsoon. These describe an environment that can favor development across a basin. They cannot identify the track, intensity, or rainfall of a storm that has not formed. A household should use seasonal context to complete preparation, then switch to current official forecasts when a system develops."
+      },
+      {
+        "heading": "A Counting Example: One Storm Can Appear in Three Rows",
+        "body": "Consider a fictional storm that is named, later reaches hurricane strength and then reaches Category 3. It contributes one to the named-storm total, one to the hurricane total and one to the major-hurricane total. It is still one storm, not three. This is an editorial counting example, not a claim about a 2025 storm. Similarly, the 60% above-normal forecast is not a 60% chance that the fictional storm hits a city. A count, a seasonal activity category and a location-specific hazard describe different outcomes.",
+        "links": [
+          {
+            "href": "/blog/how-el-nino-affects-hurricanes/",
+            "label": "Understand climate context without treating it as a landfall forecast"
+          }
+        ]
+      },
+      {
+        "heading": "How to Compare This Archive With Later Results",
+        "body": "For a historical comparison, match the basin, season and metric before comparing a forecast with observations. Keep the May forecast and any later update separate. Use the NHC 2025 archive for observed storms and post-season analyses, recording which report or archive version supplies the count. Operational counts can change in later analysis. This article has not verified final totals and does not score the forecast: one season falling inside or outside a range does not establish long-term probability forecast skill.",
+        "bullets": [
+          "Forecast side: record May 22, 2025, Atlantic, and the particular count or activity category being evaluated.",
+          "Observation side: identify the matching season, measure, report version and date consulted.",
+          "Current safety decisions: use today's advisories and local instructions rather than this archived seasonal outlook."
+        ],
+        "links": [
+          {
+            "href": "https://www.nhc.noaa.gov/data/tcr/index.php?season=2025&basin=atl",
+            "label": "Find the matching NHC 2025 historical record"
+          },
+          {
+            "href": "/hurricane-tracker/live/",
+            "label": "Open current storm positions and official advisory links"
+          }
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Should I add the named-storm, hurricane and major-hurricane ranges?",
+        "answer": "No. Hurricanes are included among named storms, and major hurricanes are included among hurricanes. Adding the ranges double-counts storms."
+      },
+      {
+        "question": "Does the 60% forecast mean my city had a 60% landfall chance?",
+        "answer": "No. It is the above-normal season-activity probability in NOAA's May 22, 2025 release, not a city-specific landfall probability."
+      },
+      {
+        "question": "Is this the current hurricane outlook or the final 2025 result?",
+        "answer": "Neither. This is an explanation of the archived May 2025 forecast. Use a separately dated current outlook or the matching NHC historical record for those questions."
+      }
     ]
   },
   {
@@ -368,12 +529,20 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-emergency-kit-checklist",
-    sourceCheck: { date: "2026-11-09", scope: "Read Ready.gov Build A Kit (updated July 1, 2026) for several-day supplies, one gallon of water per person per day, household-specific items, maintenance and storage locations. The inventory worksheet, supply-gap arithmetic and packing exercise are editorial aids. No individual's prescription quantity, equipment runtime, water safety or actual kit was verified; linked PDFs were not reviewed." },
+    sourceCheck: {
+      date: "2026-11-23",
+      scope: "Reread Ready.gov Build A Kit (updated July 1, 2026): several-day baseline, one gallon per person per day, household needs, maintenance and storage. Water page and linked PDFs not reread. Usability table and worksheet are editorial; no actual stock, medicine, device runtime or household inspected."
+    },
     sources: [{ href: "https://www.ready.gov/kit", label: "Ready.gov: basic supplies, maintenance and storage (updated July 1, 2026)" }, { href: "https://www.ready.gov/water", label: "Ready.gov: emergency water supply" }],
     title: "Hurricane Emergency Kit Checklist",
-    description: "A decision-focused hurricane emergency kit checklist covering water, food, medicine, documents, power, pets, and evacuation bags.",
+    description: "Check hurricane kit supplies against actual needs: count usable water, test food and power, separate carry bags, and track missing essentials before buying.",
     datePublished: "2026-07-29",
-    dateModified: "2026-11-09",
+    dateModified: "2026-11-23",
+    review: {
+      date: "2026-11-23",
+      scope: "Reviewed usable stock versus purchases, shared-item counting and the linked inventory record after rereading Ready.gov kit guidance.",
+      correction: "Added a worked inventory table, separated usable from untested or expected supplies, and expanded the printable record to prevent double counting."
+    },
     image: "/images/blog/hurricane-emergency-kit-checklist.png",
     imageAlt: "A family in a kitchen checks a hurricane emergency kit laid out on a table with water, food, first aid, flashlight, and pet supplies.",
     sections: [
@@ -409,8 +578,53 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Count the Gap Before Buying More",
-        body: "Use a dated inventory with item, target quantity, usable quantity on hand, shortfall, storage place, review or expiry date, and person responsible. In a hypothetical four-person, three-day water exercise, the baseline is 12 gallons. If eight usable gallons are already stored, the baseline shortfall is four gallons, before adding any extra needs. If you instead plan seven days, the baseline becomes 28 gallons and the same eight gallons leave a 20-gallon gap. These are alternative planning horizons, not quantities to add together. Count only water actually available to the household; an empty container or an expected shop delivery is not stock on hand.",
-        links: [{ href: "/downloads/hurricane-kit-gap-record.txt", label: "Open the blank kit inventory and shortfall record" }, { href: "/blog/hurricane-water-storage-purification-emergency/", label: "Review water containers, rotation and advisory limits" }]
+        body: "Choose a planning duration and count usable stock before shopping. In the fictional exercise below, four people plan three days: the baseline is 12 gallons of water. Eight usable gallons leave four gallons short, before extra needs. Choosing seven days instead would give a 28-gallon baseline and a 20-gallon shortfall; these are alternative plans, not totals to add together. An empty container or a delivery expected tomorrow does not count as water on hand. For equipment, record whether it has actually been tested rather than converting every purchase into a completed task.",
+        links: [
+          {
+            href: "/downloads/hurricane-kit-gap-record.txt",
+            label: "Open the blank kit inventory and shortfall record"
+          },
+          {
+            href: "/blog/hurricane-water-storage-purification-emergency/",
+            label: "Review water containers, rotation and advisory limits"
+          }
+        ],
+        table: {
+          caption: "Fictional inventory: quantity alone does not show readiness",
+          columns: [
+            "Item and target",
+            "What is actually available",
+            "Open task"
+          ],
+          rows: [
+            [
+              "Water: 12-gallon baseline for this three-day exercise",
+              "8 usable gallons",
+              "Obtain 4 more baseline gallons; assess extra needs separately."
+            ],
+            [
+              "Carry-bag water",
+              "2 of those same 8 gallons are assigned to the bag",
+              "Still 8 gallons total, not 10; record where the other 6 are stored."
+            ],
+            [
+              "A shelf-stable meal",
+              "Food is on hand, but the manual opener is missing",
+              "Choose an accessible meal or obtain and test the opener before counting the meal as usable."
+            ],
+            [
+              "Phone charging",
+              "Power bank and cable are on hand; connection untested",
+              "Connect the actual phone and cable; do not mark the task complete merely because both were purchased."
+            ],
+            [
+              "Essential prescription",
+              "Refill requested; collection not confirmed",
+              "Confirm supply and storage with the pharmacist; a request is not medicine on hand."
+            ]
+          ],
+          note: "Editorial example, not a household assessment. The target duration and extra needs must fit the household; a power-bank test does not establish medical-device runtime."
+        }
       },
       {
         heading: "Pack for How You Will Leave",
@@ -423,7 +637,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Close the Open Tasks",
-        body: "Mark items as packed, awaiting confirmation or missing. 'Refill requested' is not the same as medicine collected; 'charger ordered' is not the same as a cable tested. Give each unresolved essential need an owner and next action, such as asking the pharmacy about lawful refill options or confirming transport for equipment. Do not change doses or ration treatment to make an inventory look complete. After a practice pack, put borrowed items back in their assigned place and update the sheet. Store sensitive medical and identity details privately; the inventory can say where a protected record is kept without repeating its full contents."
+        body: "Keep separate entries for physical stock and tasks still awaiting confirmation. Give each missing essential an owner, next action and review time. After moving an item from home storage to the carry bag, update its location rather than counting a second item; after use, reduce the usable quantity until it is replaced. If an item is expired, damaged or not suitable for the intended person, do not hide that problem inside a combined total. Ask the pharmacist about lawful refill options and storage instead of changing doses to make the sheet look complete. Keep sensitive medical and identity details in protected records; this inventory only needs to identify their location."
       },
       {
         heading: "Where to Store It",
@@ -440,12 +654,20 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-evacuation-checklist",
-    sourceCheck: { date: "2026-11-09", scope: "Read Ready.gov Evacuation (updated March 20, 2026) for destinations, transport planning, carry bags, local instructions, recommended routes, flooded-road avoidance and return checks. Departure records and the hypothetical route-change exercise are editorial aids, not a current order or route recommendation. No live shelter, road, transport booking, reentry permission or household's departure deadline was verified." },
+    sourceCheck: {
+      date: "2026-11-23",
+      scope: "Reread Ready.gov Evacuation (updated March 20, 2026): alternative destinations, carry bags, household communication, transport planning, recommended routes and return checks. The confirmation table and change record are editorial; no live order, route, shelter opening, pickup or reentry permission verified."
+    },
     sources: [{ href: "https://www.ready.gov/evacuation", label: "Ready.gov: before, during and after evacuation (updated March 20, 2026)" }],
     title: "Hurricane Evacuation Checklist",
-    description: "A practical hurricane evacuation checklist for when to leave, what to pack, how to choose routes, and how to protect vulnerable household members.",
+    description: "Plan a hurricane evacuation with confirmed transport and destinations, official route instructions, passenger assignments, and a record of unresolved needs.",
     datePublished: "2026-07-29",
-    dateModified: "2026-11-09",
+    dateModified: "2026-11-23",
+    review: {
+      date: "2026-11-23",
+      scope: "Reviewed departure decisions and booking-versus-request language against Ready.gov Evacuation; revised the linked handoff record.",
+      correction: "Replaced a blanket early-departure group statement with planning questions and added confirmation evidence and explicit change handoffs."
+    },
     image: "/images/blog/hurricane-evacuation-checklist.png",
     imageAlt: "A family loads go-bags and a pet carrier into an SUV while preparing to evacuate before a hurricane.",
     sections: [
@@ -460,9 +682,8 @@ export const blogPosts: BlogPost[] = [
         bullets: ["Pack IDs, medicine, documents, chargers, water, food, and pet supplies.", "Fuel the vehicle early and review official routes and alternatives.", "Tell a contact your confirmed destination and transport assignment.", "Do optional property tasks only if safe time remains; do not delay an ordered departure.", "Never drive through flooded roads or around a closure barrier."]
       },
       {
-        heading: "Who Should Leave Early",
-        body:
-          "People in mobile homes, RVs, barrier islands, low-lying neighborhoods, medically dependent households, and homes far from shelters should make decisions earlier than households with safer inland shelter options."
+        heading: "Resolve Longer-Lead Needs Before an Order",
+        body: "If the household needs accessible transport, a pet-accepting destination, medical support or help leaving a mobile home or exposed area, resolve those arrangements early with the appropriate provider or local emergency management. Those needs can require more lead time, but a general list cannot set a safe departure time for every resident. Read the actual order and any housing-specific instructions; do not wait for a forecast category or distance threshold invented by a checklist."
       },
       {
         heading: "Route Planning",
@@ -481,12 +702,53 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Make a Departure Handoff Record",
-        body: "Write one current destination, the person who confirmed it and when, the driver or transport provider, passengers, pets, essential equipment and arrival contact. Mark each arrangement confirmed or unresolved. A shelter listed in an old directory is not proof of opening today; a relative's spare room is not confirmation that equipment or animal needs can be accommodated. If the family must use more than one vehicle, make assignments explicit and agree on a destination rather than relying on staying in sight of one another. Ready.gov encourages one car per family to reduce congestion; use that where it fits the household's actual capacity and access needs.",
-        links: [{ href: "/downloads/hurricane-departure-handoff.txt", label: "Open the blank departure and arrival handoff record" }]
+        body: "Record the destination, who confirmed it and when, the driver or transport provider, each passenger and pet, essential equipment and the arrival contact. The useful distinction is between an arrangement still being requested and one actually confirmed. Ready.gov encourages one car per family to reduce congestion; use that where it fits the household capacity and access needs. If more than one vehicle is necessary, assign passengers and a destination explicitly rather than relying on staying in sight of another car.",
+        links: [
+          {
+            href: "/downloads/hurricane-departure-handoff.txt",
+            label: "Open the blank departure and arrival handoff record"
+          }
+        ],
+        table: {
+          caption: "What counts as a confirmed departure arrangement?",
+          columns: [
+            "Arrangement",
+            "Insufficient by itself",
+            "Record before relying on it"
+          ],
+          rows: [
+            [
+              "Place to stay",
+              "An address in last year's shelter directory",
+              "Current host or official shelter confirmation, opening instructions and suitability for the household."
+            ],
+            [
+              "Transport",
+              "A registry entry or request receipt",
+              "Provider confirmation, pickup instructions and agreed accessibility, equipment and pet arrangements."
+            ],
+            [
+              "Passengers",
+              "Someone else probably collected them",
+              "Which driver or helper is responsible, and their acknowledgement."
+            ],
+            [
+              "Route",
+              "An app's faster estimate or old screenshot",
+              "Current official routes and restrictions; no shortcut through a closure."
+            ],
+            [
+              "Change of plan",
+              "An edit on one person's phone",
+              "Who accepted the revised destination or assignment, plus any unresolved person or need."
+            ]
+          ],
+          note: "Editorial planning aid. It does not book transport or certify a shelter or road. An applicable instruction to leave now takes priority over completing paperwork."
+        }
       },
       {
         heading: "Practice a Closed-Route Change Before the Storm",
-        body: "In a hypothetical exercise, a family has a confirmed host and packed medicine, but a navigation app proposes a shortcut after the intended route closes. The exercise is complete only when the family identifies an officially permitted alternative, updates the destination contact and resolves any transport change. A screenshot taken earlier is not evidence that a road remains open, and another driver's successful trip does not establish current safety. Do not bypass a barrier or enter floodwater to test the route. If safe travel options are unclear, seek current instructions from local authorities from a safe location; this example is not advice to start driving while conditions are hazardous."
+        body: "Before a storm, rehearse a fictional change: a host becomes unavailable after the family has assigned a driver. Cross out the old destination on the current plan, record who confirmed the replacement and send the revised private address to the driver and arrival contact. The task is still unresolved until they acknowledge the change; updating a group chat title is not confirmation. Separately, if a road closes, use current official instructions to establish a permitted alternative. Do not let a practice replacement address become a real instruction to drive, and never bypass a barrier or enter floodwater to test an app's shortcut. If safe travel options are unclear during an actual emergency, seek current local instructions from a safe location."
       },
       {
         heading: "If You Do Not Have a Car",
@@ -1102,18 +1364,26 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "hurricane-family-communication-plan",
-    sourceCheck: { date: "2026-11-09", scope: "Read Ready.gov Make A Plan (updated September 1, 2026) and Get Tech Ready (updated March 13, 2026) for household needs, contacts, practice, short texts, power and protected records. The check-in protocol and fictional exercise are editorial aids. No carrier delivery, emergency texting service, live alert subscription, household plan or linked PDF was tested." },
+    sourceCheck: {
+      date: "2026-11-23",
+      scope: "Reread Ready.gov Make A Plan (updated September 1, 2026) and Get Tech Ready (updated March 13, 2026): household responsibilities, contact methods, practice, lower-bandwidth texts, backup power and protected records. The handoff example and status table are editorial; no carrier delivery, emergency texting service, alert subscription or linked PDF tested."
+    },
     sources: [{ href: "https://www.ready.gov/plan", label: "Ready.gov: household planning (updated September 1, 2026)" }, { href: "https://www.ready.gov/get-tech-ready", label: "Ready.gov: communication and power (updated March 13, 2026)" }],
     title: "Hurricane Family Communication Plan",
-    description: "Build a hurricane family communication plan with contacts, meeting places, evacuation destinations, medication notes, pets, and check-in times.",
+    description: "Make a hurricane family contact plan with acknowledged assignments, backup contacts, accessible offline copies, and clear updates when destinations change.",
     datePublished: "2026-08-04",
-    dateModified: "2026-11-09",
+    dateModified: "2026-11-23",
+    review: {
+      date: "2026-11-23",
+      scope: "Reviewed family responsibilities and acknowledgement states after rereading both Ready.gov sources; aligned the check-in download with the article.",
+      correction: "Distinguished acknowledgement from accepting a task, added an explicit task handoff and plan-revision record, and consolidated repeated rehearsal sections."
+    },
     image: "/images/blog/hurricane-family-communication-plan.png",
     imageAlt: "A multigenerational family plans communication together, smartphones and a handwritten contact list on the table.",
     sections: [
       {
         heading: "Direct Answer",
-        body: "A hurricane family communication plan should name an out-of-area contact, local contact, meeting place, evacuation destination, pet and medical needs, and clear check-in times for before and after travel."
+        body: "Agree on local and out-of-area contacts, meeting places, a confirmed evacuation destination and backup communication methods. Write who is responsible for each person, pet and essential item. For every important message, distinguish sent, acknowledged and accepted: a reply that says message received does not necessarily mean the recipient can perform a pickup. Keep accessible paper copies and an agreed fallback if contact fails."
       },
       {
         heading: "Copy These Fields Onto a Family Contact Card",
@@ -1136,12 +1406,52 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Ask for a Human Acknowledgement",
         body: "Agree on a short message format before a storm: date and time zone, sender, people accounted for, present status, any immediate help needed and next check-in. Share exact locations privately with the people who need them. Ask the recipient to acknowledge what they understood and say whether they relayed it. A phone's sent or delivered indicator is not proof that the intended person read the message, understood the assignment or accepted a pickup. Keep an unanswered task marked unresolved. Avoid filling group chats with repeated all-clear messages when an essential transport or health need still lacks confirmation.",
-        links: [{ href: "/downloads/hurricane-communication-checkin-record.txt", label: "Open the blank check-in and acknowledgement record" }]
+        links: [
+          {
+            href: "/downloads/hurricane-communication-checkin-record.txt",
+            label: "Open the blank check-in and acknowledgement record"
+          }
+        ],
+        table: {
+          caption: "A message can be acknowledged while its task remains open",
+          columns: [
+            "State",
+            "What it establishes",
+            "What remains unresolved"
+          ],
+          rows: [
+            [
+              "Sent or delivered",
+              "The device reports a transmission state.",
+              "Whether the intended person read or understood it."
+            ],
+            [
+              "Acknowledged",
+              "The recipient confirms what they understood.",
+              "Whether they accept the requested task or can do it."
+            ],
+            [
+              "Task accepted",
+              "The named person explicitly agrees to the assignment.",
+              "Whether the task has been completed."
+            ],
+            [
+              "Completed and reported",
+              "The responsible person reports the result and time.",
+              "Other separate tasks, such as relaying the result to another relative."
+            ]
+          ],
+          note: "Editorial coordination terms, not a phone-network guarantee, dispatch status or emergency waiting schedule."
+        }
       },
       {
-        heading: "Practice the Difference Between Sent and Confirmed",
-        body: "Fictional practice exchange, not a storm report: at 14:00 on an agreed exercise date in Eastern Standard Time, Alex sends, 'With Sam at our agreed host. No immediate help needed. Next update 17:00 EST. Please acknowledge and relay to Jo.' At 14:05, Lee replies, 'Received: you and Sam arrived. Jo has not replied; relay is pending.' The household should record arrival acknowledged and relay unresolved, rather than claiming everyone has been reached. At the next check-in, use the full date and time zone again if people are traveling or daylight-saving changes could cause confusion. The example times are practice choices, not recommended waiting intervals for an emergency.",
-        bullets: ["Sender: distinguish arrival, departure, a request for help and a change of plan.", "Recipient: acknowledge who and what you understood; name any open task.", "Relay contact: confirm the relay separately instead of assuming a forwarded message was read.", "Plan owner: revise the current destination and contact card when an arrangement changes."]
+        heading: "Practice a Handoff That the Recipient Cannot Accept",
+        body: "Fictional exercise: Alex asks Lee to collect Sam, following the provider's actual authorization process. Lee replies, \"Message received, but I cannot collect Sam.\" Record the message as acknowledged and the pickup as unassigned. Alex then contacts an authorized backup, obtains that person's explicit acceptance, and confirms any required provider arrangements. Only after the pickup is reported complete should the task be marked completed. This example illustrates household coordination; it does not authorize a pickup or establish that travel is safe.",
+        bullets: [
+          "Keep the current assignment with its owner; a forwarded message does not transfer responsibility by itself.",
+          "If a destination or assigned helper changes, identify the new plan revision and ask affected people to acknowledge that change.",
+          "If the backup also cannot accept, keep the need visibly unresolved and follow the agreed fallback; do not claim a pickup is arranged."
+        ]
       },
       {
         heading: "Plan for No Connection and Limited Power",
@@ -1158,12 +1468,12 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Rehearse One Failed-Contact Scenario",
-        body: "Practice before an emergency: the primary driver cannot be reached, the usual destination is unavailable, and one household member has only the printed card. Ask that person to identify the backup contact and destination without opening a group chat. Confirm school or care pickup authorization directly with the provider; a family plan cannot override its release rules. Replace missing details, test the backup number and record the review date. This exercise checks the plan, not whether travel is safe during an actual storm.",
-        bullets: ["A useful status text: who is with you, where you are, whether you need help, and your next check-in.", "Agree who will relay messages through the out-of-area contact if the household splits up.", "Never treat an overdue check-in alone as a reason to drive into hazardous conditions."]
-      },
-      {
-        heading: "Practice Before the Storm",
-        body: "Review the plan at the start of hurricane season and whenever the household changes. The goal is not a perfect plan; it is fewer decisions when official warnings arrive."
+        body: "Practice before an emergency: the primary driver cannot be reached, the usual destination is unavailable, and one household member has only the printed card. Ask that person to identify the backup contact and find the latest plan revision without opening a group chat. Check that a helper actually accepts any replacement assignment, and confirm school or care pickup authorization with the provider. Test the backup number in ordinary conditions, update affected paper copies and record the review date. Rehearse again when contact details, caregiving or household needs change. The exercise checks communication, not whether travel is safe during a storm.",
+        bullets: [
+          "A useful status text: who is with you, where you are, whether you need help, and your next check-in.",
+          "Agree who will relay messages through the out-of-area contact if the household splits up.",
+          "Never treat an overdue check-in alone as a reason to drive into hazardous conditions."
+        ]
       }
     ],
     faqs: [
@@ -2154,66 +2464,125 @@ export const blogPosts: BlogPost[] = [
     ]
   },
   {
-    slug: "hurricane-vs-typhoon-vs-cyclone",
-    sources: [{ href: "https://oceanservice.noaa.gov/facts/cyclone.html", label: "NOAA: hurricane, typhoon, and tropical cyclone terminology" }],
-    title: "Hurricane vs Typhoon vs Cyclone: What Is the Difference?",
-    description: "Compare hurricane, typhoon and tropical cyclone terminology, regional wind scales and official bulletins without assuming identical categories or local hazards.",
-    datePublished: "2026-08-10",
-    dateModified: "2026-11-10",
-    review: { date: "2026-11-10", scope: "Editorial correction of regional terminology and unsupported comparisons. The retained NOAA reference was not newly read; no current storm, regional bulletin or cross-basin intensity conversion was verified.", correction: "Removed unsupported storm-crossing examples, etymology, basin rankings, uniform seasons and scale-tier counts; distinguished regional naming from warning responsibility and local danger." },
-    image: "/images/blog/hurricane-typhoon-vs-cyclone.png",
-    imageAlt: "A child stands in a museum in front of a large illuminated globe showing glowing hurricane symbols over different ocean basins.",
-    sections: [
+    "slug": "hurricane-vs-typhoon-vs-cyclone",
+    "sources": [
       {
-        heading: "Direct Answer",
-        body: "Hurricane and typhoon are regional terms for sufficiently intense tropical cyclones. Hurricane is used in the North Atlantic and eastern and central North Pacific; typhoon is used in the western North Pacific. Tropical cyclone is the broader term used across basins, including the Indian Ocean and South Pacific. The regional name alone does not establish a storm's intensity, size, surge, rainfall or local danger."
-      },
-      {
-        heading: "Tropical Cyclone Is the Family, Not One Universal Grade",
-        body: "A tropical cyclone is an organized rotating storm system with a closed low-level circulation over tropical or subtropical water. The broad term also includes weaker systems; it does not universally mean hurricane strength. For NHC products, hurricane strength begins at 74 mph sustained winds. Do not carry that threshold into every regional label or assume that a bulletin using the word cyclone describes the same intensity. Read the issuing agency's classification and wind definition."
-      },
-      {
-        heading: "Where Each Name Applies",
-        body: "Use the regional name as a clue to the basin, then identify the actual bulletin issuer and the local authority responsible for protective instructions. A familiar English word does not guarantee the product uses the NHC scale or warning system.",
-        bullets: ["Hurricane: North Atlantic and eastern and central North Pacific. Do not assume every Pacific advisory comes from NHC in Miami; central Pacific advisories have a separate forecasting responsibility.", "Typhoon: western North Pacific. Regional storm information and national or local warnings may come from different responsible agencies.", "Tropical cyclone: widely used in the Indian Ocean, Australian region and South Pacific, as well as a general scientific term. Read the regional classification rather than treating cyclone as a single strength level."],
-        links: [{ href: "https://oceanservice.noaa.gov/facts/cyclone.html", label: "NOAA: regional hurricane, typhoon and cyclone terminology" }]
-      },
-      {
-        heading: "Match the Season to the Basin and Hemisphere",
-        body: "The Atlantic's June 1-November 30 season is not a worldwide tropical-cyclone calendar. The Indian Ocean spans both hemispheres, so a Southern Hemisphere season cannot describe all of it. Seasonal peaks and official season dates also answer different questions: a quieter part of a season does not establish that a current storm is harmless. For travel or family planning, check the destination's responsible weather agency and current bulletins rather than applying the Atlantic calendar everywhere. A single sea-temperature threshold is not enough to diagnose whether a system can develop."
-      },
-      {
-        heading: "Intensity Scales Around the World",
-        body: "Category numbers and descriptive grades belong to a named scale. Before comparing two bulletins, record the agency, scale, wind units, averaging period and whether the number describes sustained wind or a gust. Unit conversion alone cannot make estimates with different averaging periods equivalent. This guide supplies no universal conversion factor or claim that one basin's category equals another's.",
-        bullets: ["Same number, different scale: do not assume the wind thresholds match.", "Same unit, different measurement: a gust is not the same as sustained wind.", "Same storm, different time: an intensity change between bulletins may matter more than the label.", "Same wind grade, different exposure: rainfall, surge, terrain, buildings and access still need separate local information."],
-        links: [{ href: "/blog/saffir-simpson-hurricane-wind-scale-explained/", label: "Read what the Saffir-Simpson wind scale includes and excludes" }]
-      },
-      {
-        heading: "Why a Basin Ranking Does Not Answer the Household Question",
-        body: "Comparisons of storm counts need a stated period, geographic boundary and counting method. Comparisons of wind intensity also need compatible measurements. This article does not present an independently checked basin ranking or historical landfall record. For someone in a threatened area, a basin average cannot identify the most urgent hazard at that location. Read the applicable local wind, water and evacuation instructions even if a headline describes the season as quiet."
-      },
-      {
-        heading: "Can a Hurricane Become a Typhoon?",
-        body: "A tropical cyclone crossing a basin boundary can be described with a different regional term if its intensity meets the receiving region's definition. A change of terminology is not a sudden physical transformation or evidence of a strength change. Check the advisory for the receiving agency, storm identifier, valid time and next-update instructions. Do not infer a handoff or a name change from a map's date line alone. To follow one system across products, match its identifier, position and time as well as its regional description."
-      },
-      {
-        heading: "Tracking Tropical Cyclones Worldwide",
-        body: "Start with the agency responsible for the destination's tropical-cyclone bulletins and the national or local authority issuing public warnings. HurricaneHub's NHC-based views are not a worldwide warning service. For a family in another basin, save the original bulletin URL, local language and time zone, emergency-management channel and a contact who can relay instructions. Do not substitute a foreign agency's intensity estimate for an applicable local warning, or treat an empty HurricaneHub storm list as proof of no typhoon or cyclone threat.",
-        links: [{ href: "/blog/official-hurricane-information-sources-rumor-verification/", label: "Verify the issuer, affected area, time and instruction before sharing an update" }]
+        "href": "https://oceanservice.noaa.gov/facts/cyclone.html",
+        "label": "NOAA: hurricane, typhoon, and tropical cyclone terminology"
       }
     ],
-    faqs: [
+    "title": "Hurricane vs Typhoon vs Cyclone: What Is the Difference?",
+    "description": "Compare hurricane, typhoon and tropical cyclone terminology, regional wind scales and official bulletins without assuming identical categories or local hazards.",
+    "datePublished": "2026-08-10",
+    "dateModified": "2026-11-22",
+    "review": {
+      "date": "2026-11-22",
+      "scope": "Editorial restructuring of retained regional terminology; external browsing was unavailable. NOAA terminology, regional agency classifications, live bulletins and wind-averaging conversions were not newly verified.",
+      "correction": "Added a regional terminology table and a hypothetical bulletin comparison; replaced the off-topic basin-ranking discussion and retained the distinction between a regional label and a local warning."
+    },
+    "image": "/images/blog/hurricane-typhoon-vs-cyclone.png",
+    "imageAlt": "A child stands in a museum in front of a large illuminated globe showing glowing hurricane symbols over different ocean basins.",
+    "sections": [
       {
-        question: "Is a typhoon stronger than a hurricane?",
-        answer: "The word typhoon does not by itself mean stronger than hurricane. They are regional terms for the same family of storms. Compare agency, scale, wind units, averaging period and valid time before comparing intensity; local hazards still need separate guidance."
+        "heading": "Direct Answer",
+        "body": "Hurricane and typhoon are regional terms for sufficiently intense tropical cyclones. Hurricane is used in the North Atlantic and eastern and central North Pacific; typhoon is used in the western North Pacific. Tropical cyclone is the broader term used across basins, including the Indian Ocean and South Pacific. The regional name alone does not establish a storm's intensity, size, surge, rainfall or local danger."
       },
       {
-        question: "What is the difference between a cyclone and a tornado?",
-        answer: "A tropical cyclone is a large organized storm system; a tornado is a localized rotating column associated with a thunderstorm and in contact with the surface. Tropical cyclones can produce tornadoes, so the tropical-cyclone advisory does not replace a local tornado warning."
+        "heading": "Tropical Cyclone Is the Family, Not One Universal Grade",
+        "body": "A tropical cyclone is an organized rotating storm system with a closed low-level circulation over tropical or subtropical water. The broad term also includes weaker systems; it does not universally mean hurricane strength. For NHC products, hurricane strength begins at 74 mph sustained winds. Do not carry that threshold into every regional label or assume that a bulletin using the word cyclone describes the same intensity. Read the issuing agency's classification and wind definition."
       },
       {
-        question: "Can I apply the Atlantic hurricane calendar to every cyclone region?",
-        answer: "No. Seasons and activity patterns differ by basin and hemisphere. The Indian Ocean spans both hemispheres, and an official season date is not a guarantee that no storm can occur outside it. Check the destination's responsible weather agency and current information."
+        "heading": "Where Each Name Applies",
+        "body": "Use the regional name as a clue to the basin, then identify the actual bulletin issuer and the local authority responsible for protective instructions. A familiar English word does not guarantee the product uses the NHC scale or warning system.",
+        "links": [
+          {
+            "href": "https://oceanservice.noaa.gov/facts/cyclone.html",
+            "label": "NOAA: regional hurricane, typhoon and cyclone terminology"
+          }
+        ],
+        "table": {
+          "caption": "Regional terminology is a starting point for reading a bulletin",
+          "columns": [
+            "Term",
+            "Region described here",
+            "What to establish next"
+          ],
+          "rows": [
+            [
+              "Hurricane",
+              "North Atlantic; eastern and central North Pacific",
+              "The advisory issuer and the applicable local warnings; do not assume all Pacific bulletins come from NHC in Miami."
+            ],
+            [
+              "Typhoon",
+              "Western North Pacific",
+              "The issuing agency and the national or local warning authority for the affected place."
+            ],
+            [
+              "Tropical cyclone",
+              "A general term across basins, also used in the Indian Ocean, Australian region and South Pacific",
+              "The regional intensity classification; the general term alone does not specify hurricane strength."
+            ]
+          ],
+          "note": "A terminology guide, not a map of warning jurisdictions. Regional wording does not establish wind, rainfall, surge or evacuation requirements."
+        }
+      },
+      {
+        "heading": "Match the Season to the Basin and Hemisphere",
+        "body": "The Atlantic's June 1-November 30 season is not a worldwide tropical-cyclone calendar. The Indian Ocean spans both hemispheres, so a Southern Hemisphere season cannot describe all of it. Seasonal peaks and official season dates also answer different questions: a quieter part of a season does not establish that a current storm is harmless. For travel or family planning, check the destination's responsible weather agency and current bulletins rather than applying the Atlantic calendar everywhere. A single sea-temperature threshold is not enough to diagnose whether a system can develop."
+      },
+      {
+        "heading": "Intensity Scales Around the World",
+        "body": "Category numbers and descriptive grades belong to a named scale. Before comparing two bulletins, record the agency, scale, wind units, averaging period and whether the number describes sustained wind or a gust. Unit conversion alone cannot make estimates with different averaging periods equivalent. This guide supplies no universal conversion factor or claim that one basin's category equals another's.",
+        "bullets": [
+          "Same number, different scale: do not assume the wind thresholds match.",
+          "Same unit, different measurement: a gust is not the same as sustained wind.",
+          "Same storm, different time: an intensity change between bulletins may matter more than the label.",
+          "Same wind grade, different exposure: rainfall, surge, terrain, buildings and access still need separate local information."
+        ],
+        "links": [
+          {
+            "href": "/blog/saffir-simpson-hurricane-wind-scale-explained/",
+            "label": "Read what the Saffir-Simpson wind scale includes and excludes"
+          }
+        ]
+      },
+      {
+        "heading": "Compare Two Bulletins Without Guessing Which Storm Is Stronger",
+        "body": "Suppose one headline says hurricane and another says typhoon. These fictional headlines establish regional terminology, not which storm has higher winds. Open each original bulletin and compare the sustained-wind value, units, averaging period and valid time. If those definitions differ or are missing, leave the intensity comparison unresolved rather than ranking the labels. Even comparable peak winds do not identify which location faces more surge or rainfall; that requires the separate hazard forecasts and local exposure.",
+        "bullets": [
+          "A gust in one headline and sustained wind in another are not equivalent measurements.",
+          "Changing knots to mph does not reconcile different wind-averaging periods.",
+          "An older advisory can describe an earlier intensity; compare valid times before calling two reports contradictory."
+        ]
+      },
+      {
+        "heading": "Can a Hurricane Become a Typhoon?",
+        "body": "A tropical cyclone crossing a basin boundary can be described with a different regional term if its intensity meets the receiving region's definition. A change of terminology is not a sudden physical transformation or evidence of a strength change. Check the advisory for the receiving agency, storm identifier, valid time and next-update instructions. Do not infer a handoff or a name change from a map's date line alone. To follow one system across products, match its identifier, position and time as well as its regional description."
+      },
+      {
+        "heading": "Tracking Tropical Cyclones Worldwide",
+        "body": "Start with the agency responsible for the destination's tropical-cyclone bulletins and the national or local authority issuing public warnings. HurricaneHub's NHC-based views are not a worldwide warning service. For a family in another basin, save the original bulletin URL, local language and time zone, emergency-management channel and a contact who can relay instructions. Do not substitute a foreign agency's intensity estimate for an applicable local warning, or treat an empty HurricaneHub storm list as proof of no typhoon or cyclone threat.",
+        "links": [
+          {
+            "href": "/blog/official-hurricane-information-sources-rumor-verification/",
+            "label": "Verify the issuer, affected area, time and instruction before sharing an update"
+          }
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Is a typhoon stronger than a hurricane?",
+        "answer": "The word typhoon does not by itself mean stronger than hurricane. They are regional terms for the same family of storms. Compare agency, scale, wind units, averaging period and valid time before comparing intensity; local hazards still need separate guidance."
+      },
+      {
+        "question": "What is the difference between a cyclone and a tornado?",
+        "answer": "A tropical cyclone is a large organized storm system; a tornado is a localized rotating column associated with a thunderstorm and in contact with the surface. Tropical cyclones can produce tornadoes, so the tropical-cyclone advisory does not replace a local tornado warning."
+      },
+      {
+        "question": "Can I apply the Atlantic hurricane calendar to every cyclone region?",
+        "answer": "No. Seasons and activity patterns differ by basin and hemisphere. The Indian Ocean spans both hemispheres, and an official season date is not a guarantee that no storm can occur outside it. Check the destination's responsible weather agency and current information."
       }
     ]
   },
