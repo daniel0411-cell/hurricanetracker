@@ -10,6 +10,13 @@ export type HurricaneCity = {
   overview: string;
   dateModified?: string;
   sourceCheck?: { date: string; scope: string };
+  searchEntry?: {
+    title: string;
+    description: string;
+    headline: string;
+    summary: string;
+    actions: Array<{ label: string; href: string; detail: string }>;
+  };
   localHazards: Array<{
     heading: string;
     body: string;
@@ -1181,7 +1188,18 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "wilmington",
-    dateModified: "2026-11-06",
+    dateModified: "2026-11-24",
+    searchEntry: {
+      title: "Wilmington NC Hurricane Tracker: Storms & Alerts",
+      description: "Check Wilmington NC storm tracking and local NWS alerts, then verify New Hanover evacuation instructions, Cape Fear river forecasts and DriveNC road closures.",
+      headline: "Wilmington NC Hurricane Tracker: What to Check Today",
+      summary: "Is a hurricane coming to Wilmington, NC? Start with the current NHC storm check and local NWS alerts below. The distance screen cannot predict landfall or rule out rain, surge or tornadoes; beach access and Cape Fear flooding need separate checks.",
+      actions: [
+        { label: "Check Wilmington area alerts", href: "#city-live", detail: "Read the affected area and validity in each NWS product; the city-center lookup does not cover every beach or inland address." },
+        { label: "Check New Hanover instructions", href: "https://www.nhcgov.com/203/Evacuation-Shelters", detail: "For Wilmington, Wrightsville Beach, Carolina Beach or Kure Beach, confirm the applicable local order and any actual shelter opening." },
+        { label: "Check river forecasts and road restrictions", href: "#official-resources", detail: "Use the NWPS Burgaw record for that station and DriveNC for the exact road segment. Falling river levels alone do not reopen a damaged road." }
+      ]
+    },
     sourceCheck: { date: "2026-11-06", scope: "Read NWS Wilmington's historical Florence summary (Pender County river/road account), New Hanover's Flooding and Evacuation & Shelters pages, the NWPS Burgaw station identity and DriveNC entry. No live gauge values, current road or shelter status, address zone or individual route were verified." },
     name: "Wilmington",
     stateCode: "NC",
@@ -1807,7 +1825,18 @@ export const hurricaneCities: HurricaneCity[] = [
   },
   {
     slug: "myrtle-beach",
-    dateModified: "2026-11-11",
+    dateModified: "2026-11-24",
+    searchEntry: {
+      title: "Myrtle Beach Hurricane Update: Tracker & Alerts",
+      description: "Find Myrtle Beach hurricane updates with NHC storm tracking, local NWS alerts and Horry County evacuation guidance for residents, hotels and rental visitors.",
+      headline: "Myrtle Beach Hurricane Update: What to Check Today",
+      summary: "For today's Myrtle Beach hurricane update, check the current NHC storm screen and local NWS alerts below, then verify Horry County instructions for your exact address. A storm's distance or an empty list cannot establish that the Grand Strand is safe.",
+      actions: [
+        { label: "Check Myrtle Beach area alerts", href: "#city-live", detail: "Open the full NWS message for its issue time, affected area, hazard and instructions; conditions can differ across Horry County." },
+        { label: "Check Horry County evacuation instructions", href: "https://www.horrycountysc.gov/departments/emergency-management/hurricanes/evacuations/", detail: "Keep your home or rental address with the departure-area instructions. Follow current officers and signs for any controlled routes." },
+        { label: "Confirm a destination and transport", href: "https://www.horrycountysc.gov/departments/emergency-management/hurricanes/shelters/", detail: "Verify an active receiving site and any ride separately. A hotel message, standing shelter list or navigation route is not confirmation." }
+      ]
+    },
     sourceCheck: { date: "2026-11-11", scope: "Read Horry County's Emergency Management, Evacuations and Shelters HTML: notification channels, departure-area route descriptions, conditional US 501 reversal, opening announcements and Coast RTA entry. No visible article revision dates. Did not adopt older agency names, medical admission details or a category-based shelter rule as present operations. Linked maps, bus routes and current openings were not reviewed. No address, order, road, shelter, ride or care arrangement was verified; retained hazard background was not reverified." },
     name: "Myrtle Beach",
     stateCode: "SC",

@@ -166,11 +166,11 @@ export const topicPages: TopicPage[] = [
   },
   {
     slug: "tropical-storm-vs-hurricane",
-    title: "Tropical Storm vs Hurricane Explained",
+    title: "Tropical Storm vs Hurricane: Winds & Flood Risk",
     shortTitle: "Tropical Storm vs Hurricane",
-    description: "Compare a tropical storm vs hurricane by wind speed, forecast labels, warnings, surge, rainfall, tornado, and preparation decisions.",
-    sourceCheck: "Checked November 6, 2026: Ian public advisory 28 (September 29, 2022, 1500 UTC) and 32 (September 30, 1500 UTC). The exercise compares operational classifications, forecast wording and warning fields; it is not a best-track intensity comparison or current alert check.",
-    sources: [{ href: "https://www.nhc.noaa.gov/archive/2022/al09/al092022.public.028.shtml", label: "NHC: Tropical Storm Ian advisory 28, September 29, 2022" }, { href: "https://www.nhc.noaa.gov/archive/2022/al09/al092022.public.032.shtml", label: "NHC: Hurricane Ian advisory 32, September 30, 2022" }],
+    description: "Tropical storm: 39–73 mph. Hurricane: 74 mph or more. Compare sustained winds, flooding and warnings, with a dated NHC example showing why the labels differ.",
+    sourceCheck: "NWS wind thresholds and wind/surge warning definitions rechecked November 24, 2026; its older outlook-period wording was not used. Historical examples checked November 6, 2026: Ian public advisory 28 (September 29, 2022, 1500 UTC) and 32 (September 30, 1500 UTC). The exercise compares operational classifications, forecast wording and warning fields; it is not a best-track intensity comparison or current alert check.",
+    sources: [{ href: "https://www.weather.gov/safety/hurricane-ww", label: "NWS: sustained-wind thresholds and separate wind/water warning definitions" }, { href: "https://www.nhc.noaa.gov/archive/2022/al09/al092022.public.028.shtml", label: "NHC: Tropical Storm Ian advisory 28, September 29, 2022" }, { href: "https://www.nhc.noaa.gov/archive/2022/al09/al092022.public.032.shtml", label: "NHC: Hurricane Ian advisory 32, September 30, 2022" }],
     eyebrow: "Storm classification guide",
     intro: "A tropical storm has maximum sustained winds of 39 to 73 mph, while a hurricane has sustained winds of at least 74 mph. The label describes wind intensity near the circulation, not the full danger: either can cause life-threatening flooding, surge, tornadoes, and outages.",
     primaryAction: { label: "Check current storm classifications", href: "/hurricane-tracker/live/" },
@@ -182,10 +182,10 @@ export const topicPages: TopicPage[] = [
       { title: "Match the Local Action", body: "Use state and city trackers plus local emergency management guidance to decide what preparation is needed.", href: "/tracker/", label: "Choose a location" }
     ],
     sections: [
+      { eyebrow: "Compare the labels", title: "Tropical Storm vs Hurricane: The Wind-Speed Difference", body: "A tropical storm has maximum sustained winds of 39–73 mph; a hurricane begins at 74 mph. Read the current sustained-wind field in the official advisory, not a peak gust, a future forecast row or a warning headline. Both labels describe tropical cyclones.", bullets: ["Tropical storm: sustained winds 39–73 mph; it does not receive a Saffir-Simpson hurricane category", "Hurricane: sustained winds at least 74 mph; Categories 1–5 describe its wind intensity", "Tropical depression: below tropical-storm strength, with sustained winds below 39 mph", "A cyclone's classification is different from the conditions forecast in a watch or warning area"] },
+      { eyebrow: "Compare the hazards", title: "Does a Tropical Storm Mean Less Flood Risk?", body: "No. The wind label alone cannot rank rainfall flooding or coastal inundation. Storm size, forward speed, terrain, tides and vulnerability also matter. A weaker-wind, slow-moving system can still produce dangerous water impacts; tornadoes and outages need separate planning. Check the rainfall, river and surge products for the place and time you need instead of waiting for a hurricane label.", bullets: ["For current intensity: read the NHC classification, sustained wind and issue time", "For coastal water: read surge products and local evacuation-zone instructions", "For inland water: read NWS flood warnings and the relevant river forecast", "For action: follow the actual local order or immediate shelter instruction, even if the storm's wind label has changed"] },
       { eyebrow: "Historical example: Ian 2022", title: "A Tropical Storm Bulletin With a Hurricane Warning", body: "At 11:00 AM EDT / 1500 UTC on September 29, 2022, public advisory 28 was headed Tropical Storm Ian and listed maximum sustained winds of 70 mph. It also issued a hurricane warning from the Savannah River to Little River Inlet and forecast Ian to become a hurricane again that evening. The current classification and the expected conditions in a warning area were different fields, not a contradiction.", bullets: ["Current operational classification at issuance: tropical storm", "Current maximum sustained wind: 70 mph; the bulletin says higher gusts", "Forecast change: expected to become a hurricane again that evening", "Hurricane warning area: Savannah River to Little River Inlet, as printed in that historical bulletin"] },
       { eyebrow: "Reading task", title: "Which Field Answers the Question?", body: "Question: does the hurricane warning in advisory 28 prove Ian was already a hurricane at that issue time? Answer: no. The heading and current sustained-wind field identify a tropical storm; the warning communicates expected hurricane conditions in its stated area. Public advisory 32, issued the next day at 1500 UTC, instead says Hurricane Ian and lists 85 mph. These are two dated operational assessments, not a current diagnosis or a substitute for the final storm report.", bullets: ["For 'what is it now?', read the classification and sustained wind with the issue time", "For 'what may happen here?', read the forecast, warning area and hazard sections", "Do not classify a cyclone using a gust, a future forecast row or a warning headline", "Record the year and storm ID AL092022 so the example is not mistaken for today's Ian"] },
-      { eyebrow: "Wind thresholds", title: "What Is the Difference Between a Tropical Storm and a Hurricane?", body: "The NHC classifies tropical cyclones primarily by maximum sustained wind. A tropical depression is below 39 mph, a tropical storm is 39 to 73 mph, and a hurricane begins at 74 mph.", bullets: ["Tropical depression: 38 mph or less", "Tropical storm: 39 to 73 mph", "Hurricane: 74 mph or higher", "Major hurricane: Category 3 or higher"] },
-      { eyebrow: "Real-world risk", title: "A Tropical Storm Can Still Be Deadly", body: "Storm size, forward speed, rainfall, terrain, tides, and vulnerability can matter more locally than the wind label.", bullets: ["Freshwater flooding far inland", "Storm surge along bays and coastlines", "Tornadoes in outer rain bands", "Long power and communication outages"] }
     ],
     nextLinks: [
       { name: "Live Hurricane Tracker", href: "/hurricane-tracker/live/", description: "See current NHC classifications and advisory times." },
@@ -454,15 +454,15 @@ export const topicPages: TopicPage[] = [
   },
   {
     slug: "hurricane-warning",
-    title: "Hurricane Warning vs Watch Explained",
+    title: "Hurricane Warning: Meaning & Local Action Steps",
     shortTitle: "Hurricane Warning",
-    description: "Understand what a hurricane warning means, how it differs from a watch, and how to turn NWS alerts into a household action plan.",
-    eyebrow: "Warning language guide",
+    description: "A hurricane warning means hurricane conditions are expected. Check the latest official area, timing and instructions, then separate evacuation from shelter action.",
+    eyebrow: "Read the warning, then check the local action",
     intro: "A hurricane warning means hurricane conditions are expected in the specified area. Its usual 36-hour lead time is measured before the anticipated onset of tropical-storm-force winds, when preparations become difficult. A hurricane watch is generally issued 48 hours before that onset. Read the complete local product for its area and instructions.",
     primaryAction: { label: "Check active alerts", href: "/alerts/" },
     secondaryAction: { label: "Decode an alert", href: "/tools/alert-action-decoder/" },
     intent: "what is a hurricane warning, hurricane watch vs warning, NWS hurricane alert",
-    sourceCheck: "Checked November 10, 2026: NWS hurricane watches and warnings page, limited to wind and surge definitions, 48/36-hour reference times and Extreme Wind Warning shelter instructions. Its older tropical-outlook period text was not used. The exercises below are HurricaneHub teaching examples, not actual alerts or verified local orders.",
+    sourceCheck: "Definitions rechecked November 24, 2026: NWS hurricane watches and warnings page, limited to wind and surge definitions, 48/36-hour reference times and Extreme Wind Warning shelter instructions. Its older tropical-outlook period text was not used. The exercises below are HurricaneHub teaching examples, not actual alerts or verified local orders.",
     sources: [
       { href: "https://www.weather.gov/safety/hurricane-ww", label: "NWS: Hurricane watches, warnings and immediate extreme-wind shelter instructions" }
     ],
@@ -472,6 +472,7 @@ export const topicPages: TopicPage[] = [
       { title: "Match the Hazard to the Action", body: "Read the specific instruction rather than treating every warning as an evacuation signal. Extreme Wind Warnings require immediate interior shelter; local evacuation orders have separate departure instructions.", href: "/tools/alert-action-decoder/", label: "Decode the alert" }
     ],
     sections: [
+      { eyebrow: "Use the full product", title: "Have a Warning Notification? Check These Four Fields", body: "This page explains how to read a warning; it is not a list of warnings in force. Open the current alert for the address or area you need, then keep its issuer, coverage, timing and instruction together. A storm name, social screenshot or warning-color map does not supply all four.", bullets: ["Issuer and version: open the original NWS/NHC product and check for an update or cancellation", "Affected area: match the named coastal segment, county or zone to your location; the entire state is not automatically covered", "Time: separate issue time, valid period and forecast hazard arrival, retaining the time zone", "Instruction: record any local evacuation order separately; an Extreme Wind or Tornado Warning can instead require immediate shelter"] },
       { eyebrow: "Definitions", title: "Watch Versus Warning", body: "A watch means conditions are possible; a warning means they are expected. For hurricane watch/warning lead times, the 48/36-hour reference is the anticipated onset of tropical-storm-force winds, not arrival of the hurricane-force core.", bullets: ["Hurricane watch: possible hurricane conditions", "Hurricane warning: expected hurricane conditions", "Storm surge warning: life-threatening inundation expected, generally within 36 hours", "Storm surge watch: life-threatening inundation possible, generally within 48 hours", "Extreme Wind and Tornado Warnings: immediate shelter instructions"] },
       {
         eyebrow: "Timing exercise",
@@ -509,6 +510,7 @@ export const topicPages: TopicPage[] = [
       { eyebrow: "Action", title: "The Alert Is Not the Whole Plan", body: "Pair the alert with local evacuation orders, your zone, housing type, mobility, medical needs, pets, and route timing.", bullets: ["Follow local emergency management", "Do not wait for the center line", "Leave early if your household needs more time", "Use official shelter and road information"] }
     ],
     nextLinks: [
+      { name: "Watch vs Warning Comparison", href: "/blog/hurricane-watch-vs-warning/", description: "Compare possible versus expected conditions and the usual 48/36-hour reference times." },
       { name: "Active NWS Alerts", href: "/alerts/", description: "Review current official alert products." },
       { name: "Alert Action Decoder", href: "/tools/alert-action-decoder/", description: "Turn alert wording into planning steps." },
       { name: "Evacuation Decision Helper", href: "/tools/evacuation-decision-helper/", description: "Organize household constraints and timing." },

@@ -22,8 +22,8 @@ if (!city) {
   return Astro.redirect("/tracker/");
 }
 
-const title = `${city.name} Hurricane Tracker & Alerts`;
-const description = `Track ${city.name} hurricane risk with local NWS alerts, NHC storm context, storm surge, flooding, evacuation planning, and household decision tools.`;
+const title = city.searchEntry?.title ?? `${city.name} Hurricane Tracker & Alerts`;
+const description = city.searchEntry?.description ?? `Track ${city.name} hurricane risk with local NWS alerts, NHC storm context, storm surge, flooding, evacuation planning, and household decision tools.`;
 const url = `${site.url}/hurricane-tracker/city/${city.slug}/`;
 const lastModified = new Date(Math.max(Date.parse(contentModifiedFor(url, city.dateModified ?? site.contentLastModified)), Date.parse("2026-11-21T00:00:00.000Z"))).toISOString();
 const planningGuide = ["miami", "tampa", "houston"].includes(city.slug) ? `/city/${city.slug}/hurricane-tracker/` : null;
@@ -89,11 +89,13 @@ const jsonLd = graph(
   <section class="band" aria-labelledby="city-title">
     <div class="inner">
       <p class="eyebrow">{city.region}</p>
-      <h1 id="city-title">{city.name} Hurricane Tracker and Local Risk Guide</h1>
+      <h1 id="city-title">{city.searchEntry?.headline ?? `${city.name} Hurricane Tracker and Local Risk Guide`}</h1>
       {city.dateModified && <p class="small">Guide updated {lastModified.slice(0, 10)}. This date includes material guide or template revisions, not live weather conditions.</p>}
-      {city.sourceCheck && <p class="small">Source check {city.sourceCheck.date} · {city.sourceCheck.scope}</p>}
-      <p class="answer">{city.overview}</p>
+      {city.sourceCheck && !city.searchEntry && <p class="small">Source check {city.sourceCheck.date} · {city.sourceCheck.scope}</p>}
+      <p class="answer">{city.searchEntry?.summary ?? city.overview}</p>
       <nav aria-label="City guide sections"><p><a href="#city-live">Current local alerts</a> &middot; <a href="#official-resources">Official local instructions</a> &middot; <a href="#city-hazards">Local planning guide</a></p></nav>
+      {city.searchEntry && <p class="source-note">Check each product's issue and valid times below. The guide date is not a weather update. If a check fails or is old, open <a href="https://www.nhc.noaa.gov/">NHC</a> and <a href="https://www.weather.gov/ilm/">NWS Wilmington</a> directly.</p>}
+      {city.searchEntry && city.sourceCheck && <details><summary>Guide sources and scope of the editorial check</summary><p class="small">Source check {city.sourceCheck.date} · {city.sourceCheck.scope}</p></details>}
       {planningGuide && <p><a href={planningGuide}>Prepare a {city.name} household and transport record</a></p>}
     </div>
   </section>
@@ -112,6 +114,8 @@ const jsonLd = graph(
       </div>
     </div>
   </section>
+
+  {city.searchEntry && <section class="band" aria-labelledby="city-next-check"><div class="inner"><h2 id="city-next-check">Your Next Local Checks</h2><div class="grid-3 section-grid">{city.searchEntry.actions.map((action) => <article class="panel"><h3><a href={action.href}>{action.label}</a></h3><p>{action.detail}</p></article>)}</div></div></section>}
 
   <section class="band" aria-labelledby="city-actions">
     <div class="inner grid-2">
@@ -138,6 +142,7 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">Local hurricane risk</p>
       <h2 id="city-hazards">{city.name} Hurricane Hazards to Watch</h2>
+      {city.searchEntry && <p>{city.overview}</p>}
       <div class="grid-3 section-grid">
         {city.localHazards.map((hazard) => (
           <article class="panel">
