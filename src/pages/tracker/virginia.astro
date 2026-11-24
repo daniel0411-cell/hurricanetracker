@@ -22,7 +22,7 @@ const seo = getStateSeoProfile(state);
 const title = seo.title;
 const description = seo.description;
 const canonical = `${site.url}/tracker/${state.slug}/`;
-const lastModified = "2026-11-17T00:00:00.000Z";
+const lastModified = "2026-11-24T00:00:00.000Z";
 const currentStatus = await getStateCurrentStatus(code);
 
 const evidence = stateEvidence[code];
@@ -73,15 +73,24 @@ const jsonLd = graph(
   <article class="band" aria-labelledby="tracker-state-title">
     <div class="inner">
       <p class="eyebrow">{region} hurricane operations</p>
-      <h1 id="tracker-state-title">{name} Hurricane Tracker – Live Updates</h1>
+      <h1 id="tracker-state-title">{seo.headline}</h1>
+      <p class="answer">Is a hurricane approaching Virginia? Start with the current NHC status, then check local warnings for the coast, Chesapeake Bay and your inland route.</p>
       <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
-      <p class="answer">{intro}</p>
-      <p class="intent-answer"><strong>Quick answer:</strong> Use the verified NHC status for the regional storm picture, then check Virginia NWS alerts and local evacuation guidance. Chesapeake Bay surge and inland flooding can affect Virginia even when the storm center stays offshore.</p>
+      <section class="intent-answer" aria-labelledby="virginia-next-step">
+        <h2 id="virginia-next-step">What should I check for my part of Virginia?</h2>
+        <ul class="check-list">
+          <li><strong>Virginia Beach and the oceanfront:</strong> use the <a href="/hurricane-tracker/city/virginia-beach/">Virginia Beach tracker and evacuation resources</a> to check the locality's zone and instructions.</li>
+          <li><strong>Norfolk and Hampton Roads:</strong> open the <a href="/hurricane-tracker/city/norfolk/">Norfolk tracker and crossing resources</a>; check <a href="https://511.vdot.virginia.gov/">511 Virginia</a> for restrictions on your actual bridge, tunnel and connecting roads.</li>
+          <li><strong>Chesapeake Bay or an inland destination:</strong> read the <a href="#alerts-heading">Virginia NWS alerts below</a> for the affected area and valid period. Coastal-water and inland-flood warnings require separate checks.</li>
+        </ul>
+        <p>A storm can remain offshore while local hazards continue. Use local emergency instructions for evacuation decisions.</p>
+      </section>
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
       <StateAlerts state={code} />
 
+      <p class="answer">{intro}</p>
       <StatePreparednessEvidence code={code} name={name} />
 
       <h2 id="city-trackers">{name} City Hurricane Trackers</h2>

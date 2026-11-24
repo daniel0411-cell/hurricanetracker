@@ -60,14 +60,14 @@ const selectedGuides = [
   if (!post?.figures?.[0]) throw new Error(`Missing sourced figure for ${guide.slug}`);
   return { ...guide, post, figure: post.figures[0] };
 });
-const lastModified = "2026-11-17T00:00:00.000Z";
+const lastModified = "2026-11-24T00:00:00.000Z";
 const atlanticNames = atlanticStorms.map((storm) => storm.name).filter(Boolean);
 const title = atlanticNames.length
   ? `Hurricane Tracker: ${atlanticNames.slice(0, 2).join(", ")} & NHC Map`
-  : "Hurricane Tracker Today | Live NHC Storms, Radar & Alerts";
+  : "Hurricane Tracker: Current Storms & Forecast Maps";
 const description = atlanticNames.length
-  ? `Track ${atlanticNames.slice(0, 2).join(", ")} and current Atlantic hurricanes with NHC positions, forecast paths, live radar, satellite views, state NWS alerts, and local preparedness tools.`
-  : "Hurricane tracker today with current NHC storms, forecast paths, hurricane radar, satellite views, state NWS alerts, and preparedness tools.";
+  ? `Track ${atlanticNames.slice(0, 2).join(", ")} with NHC storm positions and forecast maps. Check the Atlantic outlook and find local NWS alerts by ZIP code or state.`
+  : "Check current Atlantic storm status and the NHC outlook, open forecast maps, and find local NWS alerts by US ZIP code or coastal state.";
 const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: site.canonicalUrl, dateModified: lastModified }), faqSchema(faqs));
 ---
 
@@ -88,11 +88,11 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
       <div class="inner hero-layout">
         <div class="hero-primary">
           <p class="eyebrow"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Official-Source Tracking</p>
-          <h1 id="home-title">Live Hurricane Tracker</h1>
-          <p class="hero-summary">See whether the NHC lists an active storm today, compare forecast maps, and check radar and local alerts for your area.</p>
+          <h1 id="home-title">Hurricane Tracker: Current Storms &amp; Local Alerts</h1>
+          <p class="hero-summary">Start with the Atlantic status and feed-check time below. Open the tracking map for storm paths, or check your US ZIP code for local NWS alerts.</p>
           <div class="hero-actions">
-            <a class="action-link" href="/hurricane-tracker/live/">See today’s NHC status <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
-            <a class="hero-secondary-link" href="/radar/"><i class="fa-solid fa-satellite" aria-hidden="true"></i> Radar &amp; satellite</a>
+            <a class="action-link" href="/hurricane-tracker/live/#live-map-heading">Open storm tracking map <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            <a class="hero-secondary-link" href="/radar/"><i class="fa-solid fa-satellite" aria-hidden="true"></i> Compare rain &amp; clouds</a>
             <a class="hero-secondary-link" href="#local-alerts-heading"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Check local alerts</a>
           </div>
         </div>
@@ -107,6 +107,7 @@ const jsonLd = graph(websiteSchema(), articleSchema({ title, description, url: s
           <h2 id="activity-heading">{stormHeading}</h2>
           <p class="source-note" id="storm-feed-status">{stormsAvailable ? `Feed checked ${checked(stormFeed?.fetchedAt)}.` : "The feed failed validation, is stale, or could not be reached. This is not a zero-storm result."}</p>
           {pacificStorms.length > 0 && <p class="source-note pacific-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> {pacificStorms.length} additional NHC system{pacificStorms.length === 1 ? "" : "s"} in the Eastern or Central Pacific; not included in this Atlantic count.</p>}
+          <p class="verify-link"><a href="#current-heading">Read the Atlantic outlook</a> · <a href="#directory-heading">Find your state</a></p>
           <p class="verify-link"><a href="https://www.nhc.noaa.gov/">Verify official NHC advisories <span aria-hidden="true">&rarr;</span></a></p>
           <p class="source-note disclaimer-note">Check local alerts for flooding, surf, and other hazards, including when the Atlantic is quiet.</p>
         </aside>

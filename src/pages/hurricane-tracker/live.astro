@@ -31,7 +31,7 @@ const postTropicalStorms = storms.filter((storm) => storm.classification === "PT
 const stormSummary = storms.length ? `${tropicalStorms.length} active tropical system${tropicalStorms.length === 1 ? "" : "s"}${postTropicalStorms.length ? ` and ${postTropicalStorms.length} post-tropical system${postTropicalStorms.length === 1 ? "" : "s"}` : ""}` : "No active NHC systems listed";
 const activeStormNames = tropicalStorms.map((storm) => storm.name).filter(Boolean).slice(0, 2);
 const activeContext = storms.length ? ` Track ${storms.map((storm) => storm.name).filter(Boolean).join(", ")} now.` : "";
-const lastModified = "2026-11-17T00:00:00.000Z";
+const lastModified = "2026-11-24T00:00:00.000Z";
 const updatedLabel = feedAvailable ? new Date(stormFeed!.fetchedAt!).toLocaleString("en-US", {
   timeZone: "UTC",
   month: "short",
@@ -43,10 +43,10 @@ const updatedLabel = feedAvailable ? new Date(stormFeed!.fetchedAt!).toLocaleStr
 const atlanticStormNames = tropicalStorms.filter((storm) => /^AL/i.test(storm.id ?? "")).map((storm) => storm.name).filter(Boolean).slice(0, 2);
 const title = atlanticStormNames.length
   ? `Live Hurricane Tracker: ${atlanticStormNames.join(", ")} & NHC Map`
-  : "Live Hurricane Tracker Today | NHC Storm Map & Alerts";
-const description = !feedAvailable ? "Current NHC storm data is temporarily unverified. Open official advisories, radar, satellite and local alerts; a failed feed cannot establish no active storms." : atlanticStormNames.length
-  ? `Track ${atlanticStormNames.join(", ")} and current NHC storms on the live map with forecast paths, Gulf status, advisories, radar, satellite and local alerts. Updated ${updatedLabel} UTC.`
-  : `${stormSummary}. Check today's NHC storm map with forecast paths, advisories, radar, satellite and local alerts. Updated ${updatedLabel} UTC.${activeContext}`;
+  : "Live Hurricane Tracker: Map, Tracks & Cone";
+const description = !feedAvailable ? "Current NHC storm status could not be verified. Open official advisories, the tracking map and local alerts; unavailable data is not an all-clear." : atlanticStormNames.length
+  ? `Track ${atlanticStormNames.join(", ")} with the live NHC map, forecast tracks and cones. Read advisories, compare radar and satellite, and check local NWS alerts.`
+  : `${stormSummary}. Explore the NHC tracking map, forecast cone guidance and local alerts.${activeContext}`;
 const liveTrackerPaths = [
   {
     name: "Check active storms",
@@ -192,11 +192,11 @@ const jsonLd = graph(
     <div class="inner live-hero-grid">
       <div>
         <p class="eyebrow">Current NHC storm data</p>
-        <h1 id="live-title">Live Hurricane Tracker: Current NHC Storms and Map</h1>
-        <p class="answer" data-live-answer>{!feedAvailable ? "The current NHC feed could not be verified. Check NHC directly for current storm status." : storms.length ? `The latest NHC feed lists ${stormSummary}: ${storms.map((storm) => `${storm.name ?? storm.id ?? "unnamed system"} (${classificationLabel(storm.classification)})`).join(", ")}.` : "No active tropical cyclone is listed in the verified NHC feed."} Start with the current count, then open the map for forecast context and your local NWS alerts for action.</p>
+        <h1 id="live-title">Live Hurricane Tracker: Storm Map &amp; Forecast Cone</h1>
+        <p class="answer" data-live-answer>{!feedAvailable ? "The current NHC feed could not be verified. Check NHC directly for current storm status." : storms.length ? `The latest NHC feed lists ${stormSummary}: ${storms.map((storm) => `${storm.name ?? storm.id ?? "unnamed system"} (${classificationLabel(storm.classification)})`).join(", ")}.` : "No active tropical cyclone is listed in the verified NHC feed."} Select a listed storm to read its advisory, compare its forecast track and cone on the map, then check local alerts.</p>
         <p class="section-actions">
-          <a class="action-link" href="#current-hurricanes" data-track-event="view_current_storms">View current storms</a>
-          <a class="action-link secondary-action" href="#live-map-heading" data-track-event="open_live_map">Open live map</a>
+          <a class="action-link" href="#live-map-heading" data-track-event="open_live_map">Explore tracking map</a>
+          <a class="action-link secondary-action" href="#current-hurricanes" data-track-event="view_current_storms">Read storm advisories</a>
           {activeStormNames[0] && <a class="action-link secondary-action" href={`/hurricane-tracker/storm/${String(activeStormNames[0]).toLowerCase()}/`} data-track-event="open_active_storm">Track {activeStormNames[0]}</a>}
           <a class="action-link secondary-action" href="/hurricane-tracker/gulf/" data-track-event="open_gulf_tracker">Check the Gulf now</a>
           <a class="action-link secondary-action" href="/2026-hurricane-season/">2026 season storms and names</a>
@@ -220,7 +220,7 @@ const jsonLd = graph(
           <div>
             <p class="eyebrow"><span class="live-indicator"></span> Interactive weather operations</p>
             <h2 id="live-map-heading">Live NHC Hurricane Tracking Map</h2>
-            <p>Explore current NHC hurricane positions, forecast tracks, live radar, and NOAA GOES satellite-loop views across the Atlantic, Gulf, and Pacific basins.</p>
+            <p>Select an NHC storm marker for advisory context. Use Forecast to compare the center track and cone when available, or switch between rain radar and GOES-East satellite. Satellite coverage differs from the NHC basin coverage.</p>
           </div>
           <div class="map-source-stack" aria-label="Live map sources">
             <span>NHC positions</span>
@@ -237,7 +237,7 @@ const jsonLd = graph(
           ></iframe>
         </div>
         <div class="map-console-footer">
-          <p><strong>How to read this map:</strong> switch layers to compare precipitation with cloud structure. NHC markers show the latest reported center, not the full hazard area.</p>
+          <p><strong>Read the times separately:</strong> a storm advisory, forecast and radar frame can have different valid times. The feed-check time above records retrieval, not a new forecast. A missing cone or layer is unavailable data, not evidence of no threat.</p>
           <a href="#current-hurricanes">View storm details</a>
         </div>
       </div>

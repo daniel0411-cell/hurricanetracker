@@ -183,6 +183,14 @@ export const arthur: StormArchive = {
   ],
   faqs: [
     {
+      question: "Which Arthur was a hurricane: 2014, 2020 or 2026?",
+      answer: "NHC labels its 2014 Arthur archive Hurricane Arthur. Its 2020 and 2026 archives are Tropical Storm Arthur. This page covers AL012026; use the year selector for the separate AL012014 and AL012020 records. Do not transfer a track, intensity or impact total from one year to another."
+    },
+    {
+      question: "Does this Arthur archive show a storm active today?",
+      answer: "No. This is a dated 2026 archive. Open the live NHC tracker to check the current system list and its timestamp. The existence of a historical page is not evidence that a storm with that name is active now."
+    },
+    {
       question: "Was Arthur the first named storm of the 2026 season?",
       answer: "Yes. The National Hurricane Center upgraded Potential Tropical Cyclone One to Tropical Storm Arthur on June 17, 2026, making it the season's first named system."
     },

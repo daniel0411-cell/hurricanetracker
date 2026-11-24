@@ -7,7 +7,7 @@ export type StateSeoProfile = {
   queryFocus: string[];
 };
 
-const profiles: Record<string, Omit<StateSeoProfile, "title" | "headline"> & { titleTail: string; headlineTail: string }> = {
+const profiles: Record<string, Omit<StateSeoProfile, "title" | "headline"> & { titleTail: string; headlineTail: string; title?: string; headline?: string }> = {
   florida: {
     titleTail: "Is a Hurricane Coming to Florida?",
     headlineTail: "Live NHC Track, Alerts, and Evacuation Zones",
@@ -30,6 +30,8 @@ const profiles: Record<string, Omit<StateSeoProfile, "title" | "headline"> & { t
     queryFocus: ["hurricane tracker north carolina", "hurricane nc tracker", "hurricane tracker nc", "north carolina hurricane tracker"]
   },
   georgia: {
+    title: "Is a Hurricane Coming to Georgia? Tracker & Alerts",
+    headline: "Georgia Hurricane Tracker: Is a Hurricane Coming?",
     titleTail: "Current NHC Track & Alerts",
     headlineTail: "Is a Hurricane Coming to Georgia? Live Track and Alerts",
     description:
@@ -65,6 +67,8 @@ const profiles: Record<string, Omit<StateSeoProfile, "title" | "headline"> & { t
     queryFocus: ["hurricane tracker mississippi", "mississippi hurricane tracker", "gulfport hurricane tracker", "biloxi hurricane tracker"]
   },
   virginia: {
+    title: "Virginia Hurricane Tracker: Current Storms & Alerts",
+    headline: "Virginia Hurricane Tracker: Is a Hurricane Coming?",
     titleTail: "NHC Track & Surge Alerts",
     headlineTail: "Is a Hurricane Near Virginia Today? Live Track and Alerts",
     description:
@@ -85,8 +89,8 @@ export function getStateSeoProfile(state: CoastalState): StateSeoProfile {
   }
 
   return {
-    title: `${state.name} Hurricane Tracker | ${profile.titleTail}`,
-    headline: `${state.name} Hurricane Tracker | ${profile.headlineTail}`,
+    title: profile.title ?? `${state.name} Hurricane Tracker | ${profile.titleTail}`,
+    headline: profile.headline ?? `${state.name} Hurricane Tracker | ${profile.headlineTail}`,
     description: profile.description,
     queryFocus: profile.queryFocus
   };

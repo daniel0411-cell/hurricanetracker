@@ -6,10 +6,10 @@ import Layout from "../layouts/Layout.astro";
 import { faqs, site, states } from "../data/site";
 import { articleSchema, faqSchema, graph, howToSchema, itemListSchema, websiteSchema } from "../lib/schema";
 
-const title = "Hurricane Radar & Satellite | Live NHC Map & Alerts";
-const description = "Use live hurricane radar and NOAA GOES satellite views to check rain bands and storm structure, then open National Hurricane Center tracks and local NWS alerts.";
+const title = "Hurricane Radar & Satellite: Rain Bands & GOES Maps";
+const description = "Compare rain bands on precipitation radar with NOAA GOES cloud imagery. Check frame times, switch map layers, and open NHC forecasts and local NWS alerts.";
 const url = `${site.url}/radar/`;
-const lastModified = "2026-11-16T00:00:00.000Z";
+const lastModified = "2026-11-24T00:00:00.000Z";
 const radarNextPaths = [
   {
     name: "Open the live hurricane tracker",
@@ -134,7 +134,7 @@ const jsonLd = graph(
     <div class="radar-intro">
       <p class="eyebrow">Live radar and satellite</p>
       <h1 id="radar-title">Live Hurricane Radar and Satellite Map</h1>
-      <p class="answer">Compare live hurricane radar with NOAA GOES-East GeoColor, infrared, water-vapor, and official satellite-loop views for the Atlantic, Gulf, East Coast, and Caribbean. Use cloud structure for observation, then check NHC and NWS sources for forecasts and local decisions.</p>
+      <p class="answer">Where are the rain bands, and what is happening offshore? Start with Radar for precipitation near radar coverage; switch to Satellite for GOES-East cloud imagery over the Atlantic, Gulf and Caribbean. For where a storm may go next, open the NHC forecast instead.</p>
       <p class="source-note">The map layers have separate observation and retrieval times. A blank, delayed, or successfully loaded layer does not establish that conditions are safe. Even when no tropical cyclones are listed, check local NWS coastal-flood, surf, wind, and marine products for the location and valid period you care about.</p>
     </div>
 
@@ -350,19 +350,19 @@ const jsonLd = graph(
     </section>
 
     <section class="radar-notes" aria-labelledby="radar-notes-heading">
-      <h2 id="radar-notes-heading">How To Use This View</h2>
+      <h2 id="radar-notes-heading">Read the Layer, Time and Location Together</h2>
       <div class="grid-3">
         <article class="panel">
-          <h3>RainViewer Radar</h3>
-          <p>Use the radar layer to inspect recent precipitation bands and squall-line structure. Radar coverage is strongest where ground radar networks are available.</p>
+          <h3>1. Rain: check the radar frame time</h3>
+          <p>Select Radar and read the RainViewer frame time in the map status. Compare it with the current UTC time before using the image. Outside radar coverage, a blank area does not establish that there is no rain.</p>
         </article>
         <article class="panel">
-          <h3>Interactive Satellite Layers</h3>
-          <p>Switch to satellite mode for zoomable GOES-East GeoColor, infrared, and water-vapor layers. Open the official NOAA loop to watch cloud structure change, then use NHC advisories for the forecast.</p>
+          <h3>2. Clouds: read the image time</h3>
+          <p>Select Satellite, choose a band, then open the official NOAA loop and read its printed image times. The time you opened the page is not the observation time. Cloud patterns do not supply surface wind speed or a landfall forecast.</p>
         </article>
         <article class="panel">
-          <h3>Decision Check</h3>
-          <p>Confirm any action with NHC advisories, NWS alerts, and local emergency management. This map is context, not an evacuation order.</p>
+          <h3>3. Local action: choose the alert area</h3>
+          <p>Select your state under Alert area and choose Load alerts; the initial area is Florida, not your detected location. Read the affected area and valid period in each NWS alert. Forecast is simulated reflectivity, not an observed radar frame or the NHC hurricane track.</p>
         </article>
       </div>
     </section>

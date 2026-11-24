@@ -22,7 +22,7 @@ const seo = getStateSeoProfile(state);
 const title = seo.title;
 const description = seo.description;
 const canonical = `${site.url}/tracker/${state.slug}/`;
-const lastModified = "2026-11-17T00:00:00.000Z";
+const lastModified = "2026-11-24T00:00:00.000Z";
 const currentStatus = await getStateCurrentStatus(code);
 
 const evidence = stateEvidence[code];
@@ -74,15 +74,24 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">{region} hurricane operations</p>
       <h1 id="tracker-state-title">{seo.headline}</h1>
-      <p class="answer">{intro}</p>
+      <p class="answer">Check the current NHC storm picture first, then choose coastal or inland Georgia alerts for the address you care about.</p>
       <StateCurrentAnswer stateCode={code} stateName={name} status={currentStatus} />
-      <p class="intent-answer"><strong>Quick answer:</strong> This page checks the latest NHC storm feed and Georgia NWS alerts. An empty storm list does not prove that every local hazard is absent; use the alerts below for coastal flooding, severe weather, and evacuation instructions.</p>
+      <section class="intent-answer" aria-labelledby="georgia-next-step">
+        <h2 id="georgia-next-step">What should I check for my part of Georgia?</h2>
+        <ul class="check-list">
+          <li><strong>Savannah and Chatham County:</strong> open the <a href="/hurricane-tracker/city/savannah/">Savannah coastal planning guide</a>, then confirm the address and any evacuation instruction with the county.</li>
+          <li><strong>Brunswick and the Golden Isles:</strong> use the <a href="/hurricane-tracker/city/brunswick/">Brunswick tracker and local resources</a> for coastal access and surge planning; verify the route before leaving.</li>
+          <li><strong>Inland Georgia or an inland destination:</strong> read the <a href="#alerts-heading">Georgia NWS alerts below</a> for wind, flood and tornado warnings. Check <a href="https://511ga.org/">511GA road conditions</a> for both ends of a trip.</li>
+        </ul>
+        <p>A forecast center near Georgia does not establish landfall here; a center outside Georgia does not exclude local impacts.</p>
+      </section>
 
 
       <h2 id="alerts-heading">Active {name} NWS Alerts</h2>
       <p class="source-note">Live alerts are fetched directly from NOAA and NWS. Verify your county or evacuation zone before acting.</p>
       <StateAlerts state={code} />
 
+      <p class="answer">{intro}</p>
       <StatePreparednessEvidence code={code} name={name} />
 
       <h2 id="city-trackers">{name} City Hurricane Trackers</h2>

@@ -7,9 +7,9 @@ import { arthur } from "./_data/arthur";
 
 const s = arthur;
 const url = `${site.url}/storm/2026-${s.name.toLowerCase()}/`;
-const title = `Tropical Storm Arthur 2026: NHC Data & History`;
-const description = `Review Arthur's 2026 NHC advisories, 45 mph peak winds, Texas-coast positions and rainfall forecasts, with clear distinctions between forecasts and observations.`;
-const lastModified = "2026-11-11T00:00:00.000Z";
+const title = `Arthur 2026: Tropical Storm Track & NHC Archive`;
+const description = `Looking for Arthur? Read the 2026 tropical storm record, distinguish it from Hurricane Arthur 2014, and open NHC archives for each year.`;
+const lastModified = "2026-11-24T00:00:00.000Z";
 const datePublished = "2026-06-18T00:00:00.000Z";
 const jsonLd = graph(
   websiteSchema(),
@@ -28,7 +28,14 @@ const jsonLd = graph(
     <div class="inner">
       <p class="eyebrow">{s.basin} · {s.code} · {s.pronunciation}</p>
       <h1 id="hero-title">Tropical Storm {s.name} {s.year}: NHC Data, Timeline &amp; History</h1>
-      <p class="answer">{s.summary}</p>
+      <p class="answer"><strong>This is the 2026 tropical storm record.</strong> Hurricane Arthur in 2014 and Tropical Storm Arthur in 2020 are different systems. Choose the year below before comparing tracks or wind speeds.</p>
+      <nav class="arthur-years" aria-label="Choose an Arthur storm record">
+        <a href="#live-title">2026 · This tropical storm archive</a>
+        <a href="https://www.nhc.noaa.gov/archive/2014/ARTHUR.shtml">2014 · NHC hurricane archive</a>
+        <a href="https://www.nhc.noaa.gov/archive/2020/ARTHUR.shtml">2020 · NHC tropical storm archive</a>
+        <a href="/hurricane-tracker/live/#current-hurricanes">Today · Check all current NHC systems</a>
+      </nav>
+      <p>{s.summary}</p>
       <div class="hero-stats">
         {s.heroStats.map((stat) => (
           <div class="hero-stat"><span class="hero-stat-value">{stat.value}</span><span class="hero-stat-label">{stat.label}</span></div>
@@ -93,7 +100,8 @@ const jsonLd = graph(
           <article class="panel"><h3>{section.title}</h3><p>{section.body}</p></article>
         ))}
       </div>
-      <h3 class="historical-heading">Historical {s.name} storms</h3>
+      <h3 class="historical-heading">Hurricane Arthur or Tropical Storm Arthur: Which Year?</h3>
+      <p>The same name does not mean the same storm. NHC labels its 2014 archive Hurricane Arthur and its 2020 and 2026 archives Tropical Storm Arthur. Use the year and NHC identifier together; an archived storm does not establish current conditions.</p>
       <div class="grid-2 section-grid">
         {s.historical.map((h) => (
           <article class="panel historical-card">
@@ -156,6 +164,7 @@ const jsonLd = graph(
 </Layout>
 
 <style>
+  .arthur-years { display: flex; flex-wrap: wrap; gap: 10px 20px; margin: 18px 0; padding: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; font-weight: 700; }
   .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 22px 0 10px; }
   .hero-stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
   .hero-stat-value { font-weight: 800; color: var(--ocean); font-size: 1.05rem; }
