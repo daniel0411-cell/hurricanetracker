@@ -216,5 +216,93 @@
     "reviewed": "2026-11-27",
     "context": "Original blank editorial workflow matching the article’s existing household log. No actual contacts, orders, receipts or successful arrangements are depicted. Not an official emergency protocol.",
     "mobileSrc": "/images/guides/household-update-handoff-mobile.png"
+  },
+  "/hurricane-tracker/hurricane-categories/": {
+    "src": "/images/guides/wind-category-reading-desktop.png",
+    "mobileSrc": "/images/guides/wind-category-reading-mobile.png",
+    "alt": "Wind-only comparison: hurricane categories 1 through 5 in mph and knots; categories 3 through 5 are major hurricanes. Separate products are needed for water and tornado hazards.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.nhc.noaa.gov/aboutsshws.php",
+    "rights": "Original HurricaneHub explanatory composition; facts referenced to the linked federal source. No agency map, interface or current observation reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Original HurricaneHub teaching comparison using the NHC Saffir-Simpson thresholds, checked November 27, 2026. These are maximum sustained wind categories, not gusts, local damage estimates or residential flood depths. Read the prose thresholds and separate hazard products below."
+  },
+  "/blog/saffir-simpson-hurricane-wind-scale-explained/": {
+    "src": "/images/guides/wind-category-reading-desktop.png",
+    "mobileSrc": "/images/guides/wind-category-reading-mobile.png",
+    "alt": "Wind-only comparison: hurricane categories 1 through 5 in mph and knots; categories 3 through 5 are major hurricanes. Separate products are needed for water and tornado hazards.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.nhc.noaa.gov/aboutsshws.php",
+    "rights": "Original HurricaneHub explanatory composition; facts referenced to the linked federal source. No agency map, interface or current observation reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Original HurricaneHub teaching comparison using the NHC Saffir-Simpson thresholds, checked November 27, 2026. These are maximum sustained wind categories, not gusts, local damage estimates or residential flood depths. Read the prose thresholds and separate hazard products below."
+  },
+  "/hurricane-tracker/hurricane-warning/": {
+    "src": "/images/guides/watch-warning-clock-desktop.png",
+    "mobileSrc": "/images/guides/watch-warning-clock-mobile.png",
+    "alt": "Lead-time diagram: a hurricane watch is usually issued 48 hours and a warning 36 hours before anticipated tropical-storm-force winds, not before landfall. The timeline is not a household travel deadline.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.nhc.noaa.gov/aboutgloss.shtml",
+    "rights": "Original HurricaneHub explanatory composition; facts referenced to the linked federal source. No agency map, interface or current observation reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Original HurricaneHub teaching timeline, not a current alert. NHC definitions checked November 27, 2026: hurricane conditions are possible for a watch and expected for a warning somewhere in the stated area. Both lead times refer to anticipated tropical-storm-force winds. Reading an old message does not restart the clock; local orders may require earlier action."
+  },
+  "/blog/what-hurricane-watch-warning-means/": {
+    "src": "/images/guides/watch-warning-clock-desktop.png",
+    "mobileSrc": "/images/guides/watch-warning-clock-mobile.png",
+    "alt": "Lead-time diagram: a hurricane watch is usually issued 48 hours and a warning 36 hours before anticipated tropical-storm-force winds, not before landfall. The timeline is not a household travel deadline.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.nhc.noaa.gov/aboutgloss.shtml",
+    "rights": "Original HurricaneHub explanatory composition; facts referenced to the linked federal source. No agency map, interface or current observation reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Original HurricaneHub teaching timeline, not a current alert. NHC definitions checked November 27, 2026: hurricane conditions are possible for a watch and expected for a warning somewhere in the stated area. Both lead times refer to anticipated tropical-storm-force winds. Reading an old message does not restart the clock; local orders may require earlier action."
+  },
+  "/blog/hurricane-watch-vs-warning/": {
+    "src": "/images/guides/watch-warning-clock-desktop.png",
+    "mobileSrc": "/images/guides/watch-warning-clock-mobile.png",
+    "alt": "Lead-time diagram: a hurricane watch is usually issued 48 hours and a warning 36 hours before anticipated tropical-storm-force winds, not before landfall. The timeline is not a household travel deadline.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.nhc.noaa.gov/aboutgloss.shtml",
+    "rights": "Original HurricaneHub explanatory composition; facts referenced to the linked federal source. No agency map, interface or current observation reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Original HurricaneHub teaching timeline, not a current alert. NHC definitions checked November 27, 2026: hurricane conditions are possible for a watch and expected for a warning somewhere in the stated area. Both lead times refer to anticipated tropical-storm-force winds. Reading an old message does not restart the clock; local orders may require earlier action."
+  },
+  "/hurricane-tracker/evacuation-zones/": {
+    "src": "/images/guides/local-check-record-desktop.png",
+    "mobileSrc": "/images/guides/local-check-record-mobile.png",
+    "alt": "Four separate evacuation-planning records: exact location, weather message, current local instruction, and confirmed travel or care arrangements. No zones or current orders are assigned.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.ready.gov/evacuation",
+    "rights": "Original HurricaneHub explanatory composition; facts referenced to the linked federal source. No agency map, interface or current observation reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Original HurricaneHub planning workflow, not a local map, completed address lookup or evacuation order. Record the official zone result and current order separately, then confirm transport and destination with the responsible people or agencies. A blank or failed lookup does not establish safety. Local terminology and instructions take priority."
+  },
+  "/hurricane-tracker/evacuation-plan/": {
+    "src": "/images/guides/local-check-record-desktop.png",
+    "mobileSrc": "/images/guides/local-check-record-mobile.png",
+    "alt": "Four separate evacuation-planning records: exact location, weather message, current local instruction, and confirmed travel or care arrangements. No zones or current orders are assigned.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.ready.gov/evacuation",
+    "rights": "Original HurricaneHub explanatory composition; facts referenced to the linked federal source. No agency map, interface or current observation reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Original HurricaneHub planning workflow, not a local map, completed address lookup or evacuation order. Record the official zone result and current order separately, then confirm transport and destination with the responsible people or agencies. A blank or failed lookup does not establish safety. Local terminology and instructions take priority."
+  },
+  "/blog/how-to-check-your-hurricane-evacuation-zone/": {
+    "src": "/images/guides/local-check-record-desktop.png",
+    "mobileSrc": "/images/guides/local-check-record-mobile.png",
+    "alt": "Four separate evacuation-planning records: exact location, weather message, current local instruction, and confirmed travel or care arrangements. No zones or current orders are assigned.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.ready.gov/evacuation",
+    "rights": "Original HurricaneHub explanatory composition; facts referenced to the linked federal source. No agency map, interface or current observation reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Original HurricaneHub planning workflow, not a local map, completed address lookup or evacuation order. Record the official zone result and current order separately, then confirm transport and destination with the responsible people or agencies. A blank or failed lookup does not establish safety. Local terminology and instructions take priority."
   }
 }

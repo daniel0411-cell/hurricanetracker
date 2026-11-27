@@ -964,6 +964,46 @@
     "height": 675,
     "bytes": 3127
   },
+  "/images/guides/watch-warning-clock-desktop.png": {
+    "width": 1200,
+    "height": 880,
+    "bytes": 93212
+  },
+  "/images/guides/watch-warning-clock-desktop.svg": {
+    "width": 1200,
+    "height": 880,
+    "bytes": 2339
+  },
+  "/images/guides/watch-warning-clock-mobile.png": {
+    "width": 720,
+    "height": 1170,
+    "bytes": 84139
+  },
+  "/images/guides/watch-warning-clock-mobile.svg": {
+    "width": 720,
+    "height": 1170,
+    "bytes": 2491
+  },
+  "/images/guides/wind-category-reading-desktop.png": {
+    "width": 1200,
+    "height": 850,
+    "bytes": 67168
+  },
+  "/images/guides/wind-category-reading-desktop.svg": {
+    "width": 1200,
+    "height": 850,
+    "bytes": 2738
+  },
+  "/images/guides/wind-category-reading-mobile.png": {
+    "width": 720,
+    "height": 1130,
+    "bytes": 64255
+  },
+  "/images/guides/wind-category-reading-mobile.svg": {
+    "width": 720,
+    "height": 1130,
+    "bytes": 2772
+  },
   "/images/og/default-og.png": {
     "width": 1200,
     "height": 630,

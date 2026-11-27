@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { imageSize } from './image-metadata.mjs';
 import ts from 'typescript';
 
@@ -34,7 +34,15 @@ for (const [route, entry] of Object.entries(registry)) {
   if (route.startsWith('/blog/')) {
     const post = blogPosts.find(p => route === `/blog/${p.slug}/`);
     const figure = post?.figures?.find(f => f.src === entry.src);
-    if (!post || (!figure && post.image !== entry.src)) throw new Error(`${route}: image absent from body`);
+    if (!post) {
+      // Independent Astro articles do not belong to blog.ts. Verify their real
+      // presentation source as well; rendered acceptance checks the final HTML.
+      const standalone = `src/pages${route.slice(0,-1)}.astro`;
+      if (!existsSync(standalone)) throw new Error(`${route}: missing blog source`);
+      const body = readFileSync(standalone, 'utf8');
+      if (!body.includes(`src="${entry.src}"`) || !body.includes('caption="') || !body.includes('alt="')) throw new Error(`${route}: standalone figure absent/incomplete`);
+      if (entry.mobileSrc && !body.includes(`mobileSrc="${entry.mobileSrc}"`)) throw new Error(`${route}: standalone mobile figure absent`);
+    } else if (!figure && post.image !== entry.src) throw new Error(`${route}: image absent from body`);
     if (figure && !figure.caption) throw new Error(`${route}: missing context caption`);
   }
 }

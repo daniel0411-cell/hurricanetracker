@@ -1,4 +1,5 @@
 ---
+import ContentFigure from "../../components/ContentFigure.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { site } from "../../data/site";
 import { blogPostingSchema } from "../../lib/schema";
@@ -20,7 +21,7 @@ const jsonLd = blogPostingSchema({
 });
 ---
 
-<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={modified} ogImage="https://www.hurricanetracker.cc/images/blog/og/hurricane-watch-vs-warning.png">
+<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd} lastModified={modified}>
   <div class="prose">
     <article>
       <h1>{title}</h1>
@@ -44,6 +45,8 @@ const jsonLd = blogPostingSchema({
           </tbody>
         </table>
       </div>
+
+      <ContentFigure src="/images/guides/watch-warning-clock-desktop.png" mobileSrc="/images/guides/watch-warning-clock-mobile.png" alt="Lead-time diagram: a hurricane watch is usually issued 48 hours and a warning 36 hours before anticipated tropical-storm-force winds, not before landfall. The timeline is not a household travel deadline." caption="Original HurricaneHub teaching timeline, not a current alert. NHC definitions checked November 27, 2026: hurricane conditions are possible for a watch and expected for a warning somewhere in the stated area. Both lead times refer to anticipated tropical-storm-force winds. Reading an old message does not restart the clock; local orders may require earlier action." sourceUrl="https://www.nhc.noaa.gov/aboutgloss.shtml" sourceLabel="NHC glossary: hurricane watch and warning" fullSize={true} />
 
       <h2>What a Hurricane Watch Means</h2>
       <p>

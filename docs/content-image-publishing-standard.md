@@ -34,3 +34,5 @@ Applies to all future content and image/template edits. Goal: help readers and m
 ## Reproducible original diagrams
 
 The first search-presentation batch uses `node scripts/gen-search-guides.mjs` to retain editable SVG originals and generate native-size PNGs with the existing renderer. Review all regenerated files before staging; it also exports existing radar/season SVGs without upscaling. A generator is an authoring aid, not evidence of factual correctness. Dated interface screenshots are captured separately from the actual public interface, with the displayed observation time and limitations recorded.
+
+Wind-category and watch/warning diagrams are authored with `node scripts/gen-warning-guides.mjs`. Their PNGs use native source dimensions, with equivalent mobile compositions. Preserve unit thresholds and the tropical-storm-wind lead-time reference; do not convert them into current alerts or household travel deadlines. Independent `.astro` blog articles also require body/registry/metadata verification and rendered acceptance, even though they are outside `blog.ts`.
