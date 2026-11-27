@@ -1,0 +1,882 @@
+{
+  "/images/blog/2025-atlantic-hurricane-season-outlook.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1614166
+  },
+  "/images/blog/apartment-hurricane-preparedness-renters-checklist.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1503646
+  },
+  "/images/blog/apartment-hurricane-preparedness-renters-checklist.svg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 920
+  },
+  "/images/blog/below-normal-hurricane-season-2026-tracker.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1595719
+  },
+  "/images/blog/below-normal-hurricane-season-2026-tracker.svg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 5285
+  },
+  "/images/blog/cape-verde-hurricanes-atlantic-tracking.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1586916
+  },
+  "/images/blog/cape-verde-hurricanes-atlantic-tracking.svg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 1729
+  },
+  "/images/blog/climate-background-vs-storm.svg": {
+    "width": 1600,
+    "height": 900,
+    "bytes": 2260
+  },
+  "/images/blog/el-nino-hurricane-climate-background.svg": {
+    "width": 1600,
+    "height": 900,
+    "bytes": 2472
+  },
+  "/images/blog/el-nino-wind-shear.svg": {
+    "width": 1600,
+    "height": 900,
+    "bytes": 2220
+  },
+  "/images/blog/external/cdc-generator-placement.jpg": {
+    "width": 326,
+    "height": 276,
+    "bytes": 63383
+  },
+  "/images/blog/external/fema-flood-map-tutorial-zone-ae.jpg": {
+    "width": 940,
+    "height": 716,
+    "bytes": 173655
+  },
+  "/images/blog/external/nasa-el-nino-ocean.jpg": {
+    "width": 1280,
+    "height": 853,
+    "bytes": 83039
+  },
+  "/images/blog/external/nhc-cone-helene-2024-example.png": {
+    "width": 897,
+    "height": 736,
+    "bytes": 244800
+  },
+  "/images/blog/external/nhc-surge-charleston-teaching-example-optimized.jpg": {
+    "width": 1650,
+    "height": 1275,
+    "bytes": 693489
+  },
+  "/images/blog/external/nhc-surge-charleston-teaching-example.jpg": {
+    "width": 1650,
+    "height": 1275,
+    "bytes": 820631
+  },
+  "/images/blog/external/nhc-surge-depth-legend.png": {
+    "width": 580,
+    "height": 202,
+    "bytes": 9953
+  },
+  "/images/blog/external/noaa-el-nino-sst.jpg": {
+    "width": 1275,
+    "height": 717,
+    "bytes": 678015
+  },
+  "/images/blog/external/noaa-enso-satellite.png": {
+    "width": 1920,
+    "height": 1080,
+    "bytes": 1883014
+  },
+  "/images/blog/external/nws-ian-2022-radar-visible-1301z.jpg": {
+    "width": 737,
+    "height": 485,
+    "bytes": 220363
+  },
+  "/images/blog/external/nws-ian-2022-radar-visible-1711z.jpg": {
+    "width": 737,
+    "height": 485,
+    "bytes": 211730
+  },
+  "/images/blog/external/nws-michael-2018-radar-eye.jpg": {
+    "width": 975,
+    "height": 564,
+    "bytes": 353212
+  },
+  "/images/blog/external/nws-michael-2018-radar-eye.png": {
+    "width": 975,
+    "height": 564,
+    "bytes": 1570220
+  },
+  "/images/blog/how-far-is-a-hurricane-from-me.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1705319
+  },
+  "/images/blog/how-to-check-your-hurricane-evacuation-zone.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1505998
+  },
+  "/images/blog/how-to-prepare-your-home-for-a-hurricane.jpg": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 389353
+  },
+  "/images/blog/how-to-prepare-your-home-for-a-hurricane.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 2030725
+  },
+  "/images/blog/how-to-read-the-hurricane-cone-of-uncertainty.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1671263
+  },
+  "/images/blog/hurricane-contractor-scams-insurance-claim.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1656041
+  },
+  "/images/blog/hurricane-contractor-scams-insurance-claim.svg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 918
+  },
+  "/images/blog/hurricane-documents-insurance-checklist.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1418390
+  },
+  "/images/blog/hurricane-emergency-kit-checklist.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1738364
+  },
+  "/images/blog/hurricane-evacuation-checklist.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1736547
+  },
+  "/images/blog/hurricane-family-communication-plan.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1682804
+  },
+  "/images/blog/hurricane-flood-insurance-guide-nfip.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1718842
+  },
+  "/images/blog/hurricane-flood-insurance-guide-nfip.svg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 903
+  },
+  "/images/blog/hurricane-flood-zone-map-fema-understanding.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1718842
+  },
+  "/images/blog/hurricane-flood-zone-map-fema-understanding.svg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 903
+  },
+  "/images/blog/hurricane-home-hardening-checklist.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1877635
+  },
+  "/images/blog/hurricane-home-hardening-checklist.svg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 918
+  },
+  "/images/blog/hurricane-home-preparedness-room-by-room-checklist.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1503646
+  },
+  "/images/blog/hurricane-home-preparedness-room-by-room-checklist.svg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 920
+  },
+  "/images/blog/hurricane-insurance-claim-guide-documentation.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1656041
+  },
+  "/images/blog/hurricane-insurance-claim-guide-documentation.svg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 918
+  },
+  "/images/blog/hurricane-insurance-deductibles-guide.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1517802
+  },
+  "/images/blog/hurricane-medical-needs-registry-preparedness.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1520457
+  },
+  "/images/blog/hurricane-medical-needs-registry-preparedness.svg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 936
+  },
+  "/images/blog/hurricane-mold-prevention-after-flood.jpg": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 305888
+  },
+  "/images/blog/hurricane-mold-prevention-after-flood.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1884579
+  },
+  "/images/blog/hurricane-mold-prevention-after-flood.svg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 943
+  },
+  "/images/blog/hurricane-pet-safety.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1738011
+  },
+  "/images/blog/hurricane-pet-safety.svg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 927
+  },
+  "/images/blog/hurricane-power-outage-food-medicine-plan.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1646441
+  },
+  "/images/blog/hurricane-preparation-timeline-72-48-24-hours.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1790520
+  },
+  "/images/blog/hurricane-radar-vs-satellite.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1544175
+  },
+  "/images/blog/hurricane-rapid-intensification.png": {
+    "width": 1000,
+    "height": 684,
+    "bytes": 207287
+  },
+  "/images/blog/hurricane-safety-seniors-children-disability.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1581287
+  },
+  "/images/blog/hurricane-safety-seniors-children-disability.svg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 945
+  },
+  "/images/blog/hurricane-school-daycare-emergency-plan.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1682804
+  },
+  "/images/blog/hurricane-school-daycare-emergency-plan.svg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 920
+  },
+  "/images/blog/hurricane-small-business-preparedness-plan.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1503646
+  },
+  "/images/blog/hurricane-small-business-preparedness-plan.svg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 920
+  },
+  "/images/blog/hurricane-spaghetti-models.png": {
+    "width": 1000,
+    "height": 684,
+    "bytes": 265972
+  },
+  "/images/blog/hurricane-storm-surge-forecasting.jpg": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 371708
+  },
+  "/images/blog/hurricane-storm-surge-forecasting.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1926617
+  },
+  "/images/blog/hurricane-tracking-after-landfall-inland-flooding-tornadoes.jpg": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 391034
+  },
+  "/images/blog/hurricane-tracking-after-landfall-inland-flooding-tornadoes.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1934733
+  },
+  "/images/blog/hurricane-typhoon-vs-cyclone.png": {
+    "width": 1000,
+    "height": 684,
+    "bytes": 183683
+  },
+  "/images/blog/nws-hurricane-alert-meanings.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1425898
+  },
+  "/images/blog/og/2025-atlantic-hurricane-season-outlook.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 129282
+  },
+  "/images/blog/og/apartment-hurricane-preparedness-renters-checklist.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 66583
+  },
+  "/images/blog/og/below-normal-hurricane-season-2026-real-time-tracker.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 35437
+  },
+  "/images/blog/og/below-normal-hurricane-season-2026-tracker.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 102490
+  },
+  "/images/blog/og/cape-verde-hurricanes-atlantic-tracking.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 166849
+  },
+  "/images/blog/og/climate-background-vs-storm.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 94352
+  },
+  "/images/blog/og/el-nino-hurricane-climate-background.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 98436
+  },
+  "/images/blog/og/el-nino-wind-shear.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 93382
+  },
+  "/images/blog/og/flood-advisory-vs-watch-vs-warning.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 161862
+  },
+  "/images/blog/og/how-el-nino-affects-hurricanes.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 25769
+  },
+  "/images/blog/og/how-far-is-a-hurricane-from-me.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 21059
+  },
+  "/images/blog/og/how-to-check-your-hurricane-evacuation-zone.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 25158
+  },
+  "/images/blog/og/how-to-prepare-your-home-for-a-hurricane.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 68263
+  },
+  "/images/blog/og/how-to-read-hurricane-spaghetti-models.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 29784
+  },
+  "/images/blog/og/how-to-read-the-hurricane-cone-of-uncertainty.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 25987
+  },
+  "/images/blog/og/how-to-use-hurricane-tracker-live-tools.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 26998
+  },
+  "/images/blog/og/hurricane-additional-living-expenses-ale-coverage.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 32006
+  },
+  "/images/blog/og/hurricane-cone-of-uncertainty.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 86396
+  },
+  "/images/blog/og/hurricane-contractor-scams-insurance-claim.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 67004
+  },
+  "/images/blog/og/hurricane-distance-map.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 78713
+  },
+  "/images/blog/og/hurricane-documents-insurance-checklist.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 25171
+  },
+  "/images/blog/og/hurricane-documents-insurance.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 64960
+  },
+  "/images/blog/og/hurricane-emergency-kit-checklist.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 73079
+  },
+  "/images/blog/og/hurricane-evacuation-checklist.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 71835
+  },
+  "/images/blog/og/hurricane-evacuation-zone-map.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 68369
+  },
+  "/images/blog/og/hurricane-eyewall-replacement-cycle-explained.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 33576
+  },
+  "/images/blog/og/hurricane-family-communication-plan.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 22568
+  },
+  "/images/blog/og/hurricane-family-communication.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 64581
+  },
+  "/images/blog/og/hurricane-flood-insurance-guide-nfip.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 64003
+  },
+  "/images/blog/og/hurricane-flood-zone-map-fema-understanding.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 64003
+  },
+  "/images/blog/og/hurricane-generator-safety-carbon-monoxide.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 32166
+  },
+  "/images/blog/og/hurricane-home-hardening-checklist.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 66547
+  },
+  "/images/blog/og/hurricane-home-preparedness-room-by-room-checklist.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 66583
+  },
+  "/images/blog/og/hurricane-inland-flooding-tornado-alerts.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 82929
+  },
+  "/images/blog/og/hurricane-insurance-claim-guide-documentation.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 67004
+  },
+  "/images/blog/og/hurricane-insurance-deductibles-guide.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 33548
+  },
+  "/images/blog/og/hurricane-insurance-deductibles.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 78710
+  },
+  "/images/blog/og/hurricane-medical-needs-registry-preparedness.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 69212
+  },
+  "/images/blog/og/hurricane-mold-prevention-after-flood.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 68397
+  },
+  "/images/blog/og/hurricane-pet-safety.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 66476
+  },
+  "/images/blog/og/hurricane-power-outage-food-medicine-plan.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 30333
+  },
+  "/images/blog/og/hurricane-power-outage-generator.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 64785
+  },
+  "/images/blog/og/hurricane-preparation-timeline-72-48-24-hours.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 27096
+  },
+  "/images/blog/og/hurricane-preparation-timeline.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 75247
+  },
+  "/images/blog/og/hurricane-radar-vs-satellite.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 89379
+  },
+  "/images/blog/og/hurricane-rapid-intensification.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 94210
+  },
+  "/images/blog/og/hurricane-safety-seniors-children-disability.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 69695
+  },
+  "/images/blog/og/hurricane-school-daycare-emergency-plan.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 66583
+  },
+  "/images/blog/og/hurricane-small-business-preparedness-plan.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 66583
+  },
+  "/images/blog/og/hurricane-spaghetti-models.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 103740
+  },
+  "/images/blog/og/hurricane-storm-surge-forecasting.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 103816
+  },
+  "/images/blog/og/hurricane-tracking-after-landfall-inland-flooding-tornadoes.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 37266
+  },
+  "/images/blog/og/hurricane-typhoon-cyclone.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 93802
+  },
+  "/images/blog/og/hurricane-vs-typhoon-vs-cyclone.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 28482
+  },
+  "/images/blog/og/hurricane-warning-24-hour-action.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 75901
+  },
+  "/images/blog/og/hurricane-watch-vs-warning.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 157962
+  },
+  "/images/blog/og/hurricane-water-storage-purification-emergency.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 29030
+  },
+  "/images/blog/og/nws-alert-banners.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 63675
+  },
+  "/images/blog/og/nws-hurricane-alert-meanings.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 33007
+  },
+  "/images/blog/og/official-hurricane-information-sources-rumor-verification.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 32039
+  },
+  "/images/blog/og/real-time-hurricane-tracking-2026.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 187074
+  },
+  "/images/blog/og/rip-current-statement-gulf-coast.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 154154
+  },
+  "/images/blog/og/saffir-simpson-hurricane-wind-scale-explained.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 37203
+  },
+  "/images/blog/og/saffir-simpson-scale-explained.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 103919
+  },
+  "/images/blog/og/storm-surge-coastal-flooding.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 62029
+  },
+  "/images/blog/og/storm-surge-warning-vs-hurricane-warning.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 25494
+  },
+  "/images/blog/og/what-hurricane-watch-warning-means.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 69774
+  },
+  "/images/blog/og/what-to-do-after-a-hurricane.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 68397
+  },
+  "/images/blog/og/what-to-do-during-a-hurricane-warning.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 29050
+  },
+  "/images/blog/real-time-hurricane-tracking-2026.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1633275
+  },
+  "/images/blog/saffir-simpson-scale.png": {
+    "width": 1000,
+    "height": 684,
+    "bytes": 274004
+  },
+  "/images/blog/storm-surge-warning-vs-hurricane-warning.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1659611
+  },
+  "/images/blog/what-hurricane-watch-warning-means.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1371791
+  },
+  "/images/blog/what-to-do-after-a-hurricane.jpg": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 305888
+  },
+  "/images/blog/what-to-do-after-a-hurricane.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1884579
+  },
+  "/images/blog/what-to-do-after-a-hurricane.svg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 943
+  },
+  "/images/blog/what-to-do-during-a-hurricane-warning.png": {
+    "width": 1216,
+    "height": 832,
+    "bytes": 1701864
+  },
+  "/images/guides/atlantic-hurricane-season-timeline.svg": {
+    "width": 1200,
+    "height": 675,
+    "bytes": 2365
+  },
+  "/images/guides/eyewall-cycle-desktop.svg": {
+    "width": 1600,
+    "height": 900,
+    "bytes": 6496
+  },
+  "/images/guides/eyewall-cycle-mobile.svg": {
+    "width": 1080,
+    "height": 1800,
+    "bytes": 6264
+  },
+  "/images/guides/forecast-cone-impact-boundary.svg": {
+    "width": 1200,
+    "height": 675,
+    "bytes": 2105
+  },
+  "/images/guides/hurricane-category-wind-scale.svg": {
+    "width": 1200,
+    "height": 675,
+    "bytes": 3187
+  },
+  "/images/guides/hurricane-decision-path-desktop.png": {
+    "width": 1200,
+    "height": 675,
+    "bytes": 824697
+  },
+  "/images/guides/hurricane-decision-path-mobile.png": {
+    "width": 750,
+    "height": 800,
+    "bytes": 598866
+  },
+  "/images/guides/hurricane-decision-path.svg": {
+    "width": 1200,
+    "height": 675,
+    "bytes": 3508
+  },
+  "/images/guides/hurricane-preparedness-timeline.svg": {
+    "width": 1200,
+    "height": 675,
+    "bytes": 2879
+  },
+  "/images/guides/irma-valid-time-desktop.svg": {
+    "width": 1600,
+    "height": 1320,
+    "bytes": 5091
+  },
+  "/images/guides/irma-valid-time-desktop.webp": {
+    "width": 1600,
+    "height": 1320,
+    "bytes": 57466
+  },
+  "/images/guides/irma-valid-time-mobile.svg": {
+    "width": 720,
+    "height": 2080,
+    "bytes": 5052
+  },
+  "/images/guides/irma-valid-time-mobile.webp": {
+    "width": 720,
+    "height": 2080,
+    "bytes": 50956
+  },
+  "/images/guides/joaquin-2015/detail-cycle.png": {
+    "width": 450,
+    "height": 108,
+    "bytes": 1755
+  },
+  "/images/guides/joaquin-2015/detail-emx2.png": {
+    "width": 552,
+    "height": 384,
+    "bytes": 2887
+  },
+  "/images/guides/joaquin-2015/detail-hwfi.png": {
+    "width": 528,
+    "height": 306,
+    "bytes": 4077
+  },
+  "/images/guides/joaquin-2015/detail-tvca.png": {
+    "width": 648,
+    "height": 420,
+    "bytes": 7458
+  },
+  "/images/guides/joaquin-2015/original.png": {
+    "width": 1327,
+    "height": 1002,
+    "bytes": 41117
+  },
+  "/images/guides/joaquin-2015/reading-annotated.webp": {
+    "width": 1800,
+    "height": 1400,
+    "bytes": 216822
+  },
+  "/images/guides/michael-2018-reflectivity-detail.png": {
+    "width": 490,
+    "height": 564,
+    "bytes": 727260
+  },
+  "/images/guides/michael-2018-velocity-detail.png": {
+    "width": 485,
+    "height": 564,
+    "bytes": 748988
+  },
+  "/images/guides/michael-24h-desktop.svg": {
+    "width": 1600,
+    "height": 1000,
+    "bytes": 3369
+  },
+  "/images/guides/michael-24h-desktop.webp": {
+    "width": 1600,
+    "height": 1000,
+    "bytes": 33304
+  },
+  "/images/guides/michael-24h-mobile.svg": {
+    "width": 720,
+    "height": 1480,
+    "bytes": 3419
+  },
+  "/images/guides/michael-24h-mobile.webp": {
+    "width": 720,
+    "height": 1480,
+    "bytes": 37550
+  },
+  "/images/guides/radar-vs-satellite.svg": {
+    "width": 1200,
+    "height": 675,
+    "bytes": 2468
+  },
+  "/images/guides/storm-hazard-map-differences.svg": {
+    "width": 1200,
+    "height": 675,
+    "bytes": 2539
+  },
+  "/images/guides/tropical-development-stages.svg": {
+    "width": 1200,
+    "height": 675,
+    "bytes": 3127
+  },
+  "/images/og/default-og.png": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 229438
+  },
+  "/images/og/default-og.svg": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 2119
+  }
+}

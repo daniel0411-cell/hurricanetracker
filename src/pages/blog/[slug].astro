@@ -8,6 +8,7 @@ import ReferenceText from "../../components/ReferenceText.astro";
 import ContentFigure from "../../components/ContentFigure.astro";
 import { blogPosts, getBlogOgImage, getRelatedPosts } from "../../data/blog";
 import { site } from "../../data/site";
+import { imageMetadata, representativeImage } from "../../lib/contentImages";
 import { blogPostingSchema, faqSchema, graph, itemListSchema, websiteSchema } from "../../lib/schema";
 
 const slug = Astro.params.slug ?? "";
@@ -23,7 +24,9 @@ const relatedPosts = getRelatedPosts(post.slug, 3);
 const postFaqs = post.faqs ?? [];
 const adsEnabled = import.meta.env.PUBLIC_ADS_ENABLED === "true";
 const nextActions = getBlogActions(post.slug);
-const ogImage = getBlogOgImage(post);
+const representative = representativeImage(url);
+const ogImage = representative?.src ?? getBlogOgImage(post);
+const heroSize = imageMetadata(post.image);
 const jsonLd = graph(
   websiteSchema(),
   blogPostingSchema({
@@ -58,7 +61,7 @@ const jsonLd = graph(
       <p class="small">By <a href="/about/">HurricaneHub</a> · Published {post.datePublished} · Last modified {post.dateModified}</p>
       {post.sourceCheck && <details class="source-check small"><summary>Source check {post.sourceCheck.date}</summary><p>{post.sourceCheck.scope}</p></details>}
       {!post.figures?.some((figure) => figure.afterSection) && <figure>
-        <img class="article-hero-image" src={post.image} alt={post.imageAlt} width="1600" height="900" decoding="async" fetchpriority="high" />
+        <img class="article-hero-image" src={post.image} alt={post.imageAlt} width={heroSize?.width} height={heroSize?.height} style={`max-width: ${heroSize?.width}px; width: 100%; height: auto`} decoding="async" fetchpriority="high" />
         <figcaption class="small">{post.imageCaption ?? "Editorial cover illustration, not an official forecast graphic or an observed image of the event described."}</figcaption>
       </figure>}
       {post.review && <p class="small">Correction check {post.review.date} · {post.review.scope}. {post.review.correction}</p>}
@@ -95,7 +98,7 @@ const jsonLd = graph(
           </section>
         ))}
         {post.figures?.filter((figure) => !post.sections.some((section) => section.heading === figure.afterSection)).map((figure) => (
-          <ContentFigure {...figure} width={figure.width ?? 1600} height={figure.height ?? 900} fullSize={true} />
+          <ContentFigure {...figure} fullSize={true} />
         ))}
         <AdPlacement placement="in-content" enabled={adsEnabled} />
         <section aria-labelledby="article-sources">

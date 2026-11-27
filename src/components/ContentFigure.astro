@@ -1,11 +1,18 @@
 ---
-const { src, mobileSrc, mobileBreakpoint = 767, alt, caption, width = 1200, height = 675, mobileWidth = 750, mobileHeight = 800, sourceUrl, sourceLabel, fullSize = false } = Astro.props;
+import { imageMetadata } from "../lib/contentImages";
+const { src, mobileSrc, mobileBreakpoint = 767, alt, caption, sourceUrl, sourceLabel, fullSize = false } = Astro.props;
+const measured = imageMetadata(src);
+const mobileMeasured = mobileSrc ? imageMetadata(mobileSrc) : undefined;
+const width = measured?.width ?? Astro.props.width;
+const height = measured?.height ?? Astro.props.height;
+const mobileWidth = mobileMeasured?.width ?? Astro.props.mobileWidth;
+const mobileHeight = mobileMeasured?.height ?? Astro.props.mobileHeight;
 ---
 <figure class="content-figure">
   {mobileSrc ? (
     <picture>
       <source media={`(max-width: ${mobileBreakpoint}px)`} srcset={mobileSrc} width={mobileWidth} height={mobileHeight} />
-      <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+      <img src={src} alt={alt} width={width} height={height} style={`max-width: ${width}px`} loading="lazy" decoding="async" />
     </picture>
   ) : <img src={src} alt={alt} width={width} height={height} style={`max-width: ${width}px`} loading="lazy" decoding="async" />}
   <figcaption>{caption}</figcaption>

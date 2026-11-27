@@ -71,11 +71,16 @@
 - 每页传 `title`（建议 50–60 字符）+ `description`（120–160 字符）+ `canonical`（带尾斜杠）
 - canonical 由 `SEO.astro` 自动归一到 `https://www.hurricanetracker.cc/...`，不要手写绝对 URL
 - 必含 canonical / Open Graph / Twitter Card（`SEO.astro` 已统一渲染）
-- 图片必须含 `alt`；博客 hero 用显式 `width/height` 的 `<img>` + `decoding="async"`；OG 图由 `gen-og.mjs` 生成 1200×630 PNG（**不要手写 og:image 路径**）
+- 图片必须含 `alt`；博客 hero 用显式 `width/height` 的 `<img>` + `decoding="async"`；经审校的正文代表图通过 `src/data/representativeImages.json` 统一配置；没有合适素材时保留 `gen-og.mjs` 的 1200×630 社交卡作为后备，不将其当作优质配图完成证明（**不要在页面手写 og:image 路径**）
 - 结构化数据用 JSON-LD，通过 `graph()` 拼装（实际类型：WebSite/Organization/Article/BlogPosting/FAQPage/HowTo/ItemList/BreadcrumbList）
 - 内部链接用描述性锚文本，从首页 `/` 或 `/hurricane-tracker/` 出发 2–3 次点击可达
 - 动态数据页 SSR（fetch `/api/*.json`），静态内容页 `export const prerender = true` + `getStaticPaths()`
 - 每页须有 `lastModified`（来自 `site.contentLastModified` 或页面 prop）
+
+## 图片发布规范
+- 所有新增内容、配图和图片模板调整必须遵守 [内容图片发布规范](docs/content-image-publishing-standard.md)，包含真实性、来源与版权依据、alt/图注、位置、真实尺寸、元数据一致性及发布验收。
+- `npm run build` 的既有 prebuild 流程会执行图片校验；发布时还须运行规范中的实际 SSR 页面验收，并记录桌面/手机的实际视口。不能仅靠自动检查判断相关性、真实性或版权。
+- 不因图片模板或元数据调整批量刷新文章日期，不承诺 Google 缩略图或点击率结果。
 
 ## 程序化 SEO 页面规范
 - 每个生成页面 ≥800 字原创内容（禁止纯模板变量替换）

@@ -1,0 +1,112 @@
+{
+  "/blog/hurricane-eyewall-replacement-cycle-explained/": {
+    "src": "/images/blog/external/nws-michael-2018-radar-eye.jpg",
+    "creator": "NOAA/NWS",
+    "sourceUrl": "https://www.weather.gov/tae/HurricaneMichael2018",
+    "rights": "US federal agency educational material; retained agency credit, no third-party credit identified in the retained figure; no endorsement implied.",
+    "rightsUrl": "https://www.weather.gov/disclaimer",
+    "reviewed": "2026-11-27",
+    "context": "Historical teaching example, not current weather or a property lookup. Original section caption records dates and limitations.",
+    "alt": "Historical Michael radar reflectivity showing an eye and surrounding precipitation on the left, with a separate radial-velocity product on the right."
+  },
+  "/blog/official-hurricane-information-sources-rumor-verification/": {
+    "src": "/images/blog/external/nhc-cone-helene-2024-example.png",
+    "creator": "NOAA/NHC",
+    "sourceUrl": "https://www.nhc.noaa.gov/aboutcone.shtml",
+    "rights": "US federal agency educational material; retained agency credit, no third-party credit identified in the retained figure; no endorsement implied.",
+    "rightsUrl": "https://www.weather.gov/disclaimer",
+    "reviewed": "2026-11-27",
+    "context": "Historical teaching example, not current weather or a property lookup. Original section caption records dates and limitations.",
+    "alt": "Historical NHC Helene advisory 9 with September 25, 2024 issue label at lower left, used to check a screenshot's age."
+  },
+  "/blog/hurricane-radar-vs-satellite/": {
+    "src": "/images/blog/external/nws-ian-2022-radar-visible-1301z.jpg",
+    "creator": "NOAA/NWS",
+    "sourceUrl": "https://www.weather.gov/ilm/HurricaneIan",
+    "rights": "US federal agency educational material; retained agency credit, no third-party credit identified in the retained figure; no endorsement implied.",
+    "rightsUrl": "https://www.weather.gov/disclaimer",
+    "reviewed": "2026-11-27",
+    "context": "Historical teaching example, not current weather or a property lookup. Original section caption records dates and limitations.",
+    "alt": "Historical NWS Ian composite with grayscale visible clouds, colored radar echoes and a Fri 13:01Z 30-Sep timestamp."
+  },
+  "/blog/how-to-read-the-hurricane-cone-of-uncertainty/": {
+    "src": "/images/blog/external/nhc-cone-helene-2024-example.png",
+    "creator": "NOAA/NHC",
+    "sourceUrl": "https://www.nhc.noaa.gov/aboutcone.shtml",
+    "rights": "US federal agency educational material; retained agency credit, no third-party credit identified in the retained figure; no endorsement implied.",
+    "rightsUrl": "https://www.weather.gov/disclaimer",
+    "reviewed": "2026-11-27",
+    "context": "Historical teaching example, not current weather or a property lookup. Original section caption records dates and limitations.",
+    "alt": "NHC Helene advisory 9 example, September 25, 2024: forecast center points and white cone, wind watch and warning areas, and a separate current wind-field estimate."
+  },
+  "/blog/hurricane-storm-surge-forecasting/": {
+    "src": "/images/blog/external/nhc-surge-charleston-teaching-example-optimized.jpg",
+    "creator": "NOAA/NHC",
+    "sourceUrl": "https://www.nhc.noaa.gov/surge/inundation/images/inundation-charleston-example.jpg",
+    "rights": "US federal agency educational material; retained agency credit, no third-party credit identified in the retained figure; no endorsement implied.",
+    "rightsUrl": "https://www.weather.gov/disclaimer",
+    "reviewed": "2026-11-27",
+    "context": "Historical teaching example, not current weather or a property lookup. Original section caption records dates and limitations.",
+    "alt": "NHC fictional Hurricane X storm surge teaching map around Charleston, with an above-ground depth legend and gray intertidal areas."
+  },
+  "/blog/hurricane-flood-zone-map-fema-understanding/": {
+    "src": "/images/blog/external/fema-flood-map-tutorial-zone-ae.jpg",
+    "creator": "FEMA",
+    "sourceUrl": "https://www.fema.gov/sites/default/files/documents/how-to-read-flood-insurance-rate-map-tutorial.pdf#page=12",
+    "rights": "US federal agency educational material; retained agency credit, no third-party credit identified in the retained figure; no endorsement implied.",
+    "rightsUrl": "https://www.usa.gov/government-copyright",
+    "reviewed": "2026-11-27",
+    "context": "Historical teaching example, not current weather or a property lookup. Original section caption records dates and limitations.",
+    "alt": "Map detail from FEMA's tutorial: arrow 1 marks an approximate pin, arrow 2 marks the map number and effective date, and arrow 3 marks Zone AE."
+  },
+  "/blog/hurricane-rapid-intensification/": {
+    "src": "/images/guides/michael-24h-desktop.webp",
+    "creator": "HurricaneHub; data NOAA/NHC",
+    "sourceUrl": "https://www.nhc.noaa.gov/data/hurdat/hurdat2-1851-2025-092326.txt",
+    "rights": "Original explanatory composition or annotations; NOAA/NHC underlying data and chart, no endorsement. See retained provenance notes.",
+    "rightsUrl": "https://www.weather.gov/disclaimer",
+    "reviewed": "2026-11-27",
+    "context": "Historical explanatory image, not an official current product.",
+    "alt": "Historical Michael best-track comparison: 90 kt on October 9, 2018 at 12 UTC and 125 kt 24 hours later; original teaching diagram."
+  },
+  "/hurricane-tracker/why-hurricane-forecasts-change/": {
+    "src": "/images/guides/irma-valid-time-desktop.webp",
+    "creator": "HurricaneHub; data NOAA/NHC",
+    "sourceUrl": "https://www.nhc.noaa.gov/archive/2017/al11/al112017.discus.028.shtml",
+    "rights": "Original explanatory composition or annotations; NOAA/NHC underlying data and chart, no endorsement. See retained provenance notes.",
+    "rightsUrl": "https://www.weather.gov/disclaimer",
+    "reviewed": "2026-11-27",
+    "context": "Historical explanatory image, not an official current product.",
+    "alt": "Historical Irma forecast rows from discussions 26 and 28 compared at the same September 6, 2017 12 UTC valid time, not observed intensification."
+  },
+  "/hurricane-tracker/spaghetti-models/": {
+    "src": "/images/guides/joaquin-2015/reading-annotated.webp",
+    "creator": "HurricaneHub annotations; NOAA/NHC chart",
+    "sourceUrl": "https://www.nhc.noaa.gov/outreach/presentations/NHC2017_TrackForecasting.pdf#page=15",
+    "rights": "Original explanatory composition or annotations; NOAA/NHC underlying data and chart, no endorsement. See retained provenance notes.",
+    "rightsUrl": "https://www.weather.gov/disclaimer",
+    "reviewed": "2026-11-27",
+    "context": "Historical explanatory image, not an official current product.",
+    "alt": "Annotated historical Joaquin 2015 model-track teaching chart; numbered reading aids do not add new forecast trajectories."
+  },
+  "/hurricane-tracker/what-does-a-hurricane-look-like/": {
+    "src": "/images/blog/external/nws-michael-2018-radar-eye.jpg",
+    "creator": "NOAA/NWS",
+    "sourceUrl": "https://www.weather.gov/tae/HurricaneMichael2018",
+    "rights": "US federal agency educational material; retained agency credit, no third-party credit identified in the retained figure; no endorsement implied.",
+    "rightsUrl": "https://www.weather.gov/disclaimer",
+    "reviewed": "2026-11-27",
+    "context": "Historical teaching example, not current weather or a property lookup. Original section caption records dates and limitations.",
+    "alt": "Historical Michael radar on October 10, 2018: reflectivity eye and eyewall at left, radial velocity at right. Not a current observation."
+  },
+  "/hurricane-tracker/storm-surge-map/": {
+    "src": "/images/blog/external/nhc-surge-charleston-teaching-example-optimized.jpg",
+    "creator": "NOAA/NHC",
+    "sourceUrl": "https://www.nhc.noaa.gov/surge/inundation/images/inundation-charleston-example.jpg",
+    "rights": "US federal agency educational material; retained agency credit, no third-party credit identified in the retained figure; no endorsement implied.",
+    "rightsUrl": "https://www.weather.gov/disclaimer",
+    "reviewed": "2026-11-27",
+    "context": "Historical teaching example, not current weather or a property lookup. Original section caption records dates and limitations.",
+    "alt": "Fictional NHC Hurricane X inundation teaching map near Charleston, with above-ground depth legend; not a current forecast or evacuation map."
+  }
+}

@@ -89,3 +89,6 @@ for (const post of blogPosts) {
 }
 
 console.log(`\nGenerated ${count} SVG cards and verified ${blogPosts.length} article OG images in ${OUT_DIR}`);
+
+// Prebuild also verifies provenance records, body associations and actual sizes.
+await import('./verify-content-images.mjs');

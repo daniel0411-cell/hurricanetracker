@@ -2,6 +2,7 @@
 import { breadcrumbSchema, graph, organizationSchema, websiteSchema } from "../lib/schema";
 import { site } from "../data/site";
 import { contentModifiedFor } from "../data/contentDates";
+import { imageMetadata, representativeImage } from "../lib/contentImages";
 
 type Props = {
   title: string;
@@ -34,15 +35,16 @@ function normalizeCanonical(input: string): string {
   return u.href;
 }
 const canonicalHref = normalizeCanonical(canonical);
+const preventIndex = noindex || new URL(canonicalHref).pathname === '/404/';
+const representative = representativeImage(canonicalHref);
 
 const absoluteImage = image ? new URL(image, canonicalHref).href : undefined;
-const absoluteOgImage = ogImage ? new URL(ogImage, canonicalHref).href : absoluteImage ?? new URL("/images/og/default-og.png", canonicalHref).href;
+const absoluteOgImage = representative ? new URL(representative.src, canonicalHref).href : ogImage ? new URL(ogImage, canonicalHref).href : absoluteImage ?? new URL("/images/og/default-og.png", canonicalHref).href;
 
-// Social cards from scripts/gen-og.mjs and the site default are always 1200x630.
-// Only declare dimensions for those; a page-supplied hero `image` fallback has
-// unknown intrinsic size and a wrong og:image:width breaks crawler previews.
-const ogImageIsSocialCard = Boolean(ogImage) || !absoluteImage;
-const ogImageAlt = imageAlt ?? `${title} — ${siteName}`;
+// Declare measured local dimensions only, never assume an explicit OG URL is 1200x630.
+const ogSize = new URL(absoluteOgImage).origin === new URL(canonicalHref).origin ? imageMetadata(absoluteOgImage) : undefined;
+const isFallbackCard = !representative && (Boolean(ogImage) || !absoluteImage);
+const ogImageAlt = representative?.alt ?? (isFallbackCard ? `${title} — ${siteName} editorial share card` : imageAlt ?? `${title} — ${siteName}`);
 
 // Blog article URLs are /blog/<slug>/; everything else stays a website.
 // Derived from the canonical path so no page has to pass an extra prop.
@@ -75,20 +77,27 @@ function breadcrumbsFor(canonicalUrl: string) {
 const breadcrumb = breadcrumbsFor(canonicalHref);
 const schemaWithBreadcrumb = (() => {
   const current = schema as { "@graph"?: object[] };
+  const alignImage = (node: object) => {
+    const item = node as Record<string, unknown>;
+    const types = Array.isArray(item['@type']) ? item['@type'] : [item['@type']];
+    return representative && types.some(t => ['Article', 'BlogPosting', 'LiveBlogPosting'].includes(String(t)))
+      ? { ...item, image: absoluteOgImage } : item;
+  };
+  const pageImage = representative ? [{ '@type': 'WebPage', '@id': canonicalHref, url: canonicalHref, primaryImageOfPage: { '@type': 'ImageObject', url: absoluteOgImage, width: ogSize?.width, height: ogSize?.height, caption: representative.alt } }] : [];
   if (Array.isArray(current["@graph"])) {
     return {
       ...current,
-      "@graph": [...current["@graph"], breadcrumb]
+      "@graph": [...current["@graph"].map(alignImage), ...pageImage, breadcrumb]
     };
   }
-  return graph(current, breadcrumb);
+  return graph(alignImage(current), ...pageImage, breadcrumb);
 })();
 ---
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalHref} />
 <meta name="last-modified" content={modified} />
-<meta name="robots" content={noindex ? "noindex,follow" : "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"} />
+<meta name="robots" content={preventIndex ? "noindex,follow" : "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"} />
 <meta property="og:type" content={ogType} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
@@ -97,8 +106,8 @@ const schemaWithBreadcrumb = (() => {
 <meta property="og:locale" content="en_US" />
 {absoluteOgImage && <meta property="og:image" content={absoluteOgImage} />}
 {absoluteOgImage && <meta property="og:image:alt" content={ogImageAlt} />}
-{absoluteOgImage && ogImageIsSocialCard && <meta property="og:image:width" content="1200" />}
-{absoluteOgImage && ogImageIsSocialCard && <meta property="og:image:height" content="630" />}
+{ogSize && <meta property="og:image:width" content={String(ogSize.width)} />}
+{ogSize && <meta property="og:image:height" content={String(ogSize.height)} />}
 {isArticle && publishedTime && <meta property="article:published_time" content={publishedTime} />}
 {isArticle && <meta property="article:modified_time" content={modified} />}
 <meta name="twitter:card" content="summary_large_image" />
