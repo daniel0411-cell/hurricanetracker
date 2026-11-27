@@ -25,6 +25,13 @@ for (const [route, entry] of Object.entries(registry)) {
   assert(meta('robots')?.includes('max-image-preview:large'), `${route}: missing large preview permission`);
   const imgs = [...html.matchAll(/<img\b[^>]*>/g)].map(m => attrs(m[0]));
   assert(imgs.some(i => i.src === entry.src), `${route}: representative absent from body img`);
+  if (entry.mobileSrc) {
+    const sources = [...html.matchAll(/<source\b[^>]*>/g)].map(m => attrs(m[0]));
+    const source = sources.find(s => s.srcset === entry.mobileSrc);
+    const mobile = metadata[entry.mobileSrc];
+    assert(source && +source.width === mobile.width && +source.height === mobile.height && source.media, `${route}: missing or incorrectly sized mobile source`);
+    resources.add(entry.mobileSrc);
+  }
   for (const img of imgs) {
     const size = metadata[img.src];
     if (!size) continue;

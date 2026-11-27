@@ -19,7 +19,7 @@ function scan(dir) {
 }
 scan('public/images');
 for (const [route, entry] of Object.entries(registry)) {
-  if (!/^\/.*\/$/.test(route)) throw new Error(`Noncanonical representative route: ${route}`);
+  if (route !== '/' && !/^\/.*\/$/.test(route)) throw new Error(`Noncanonical representative route: ${route}`);
   for (const key of ['src','alt','creator','sourceUrl','rights','rightsUrl','reviewed','context']) {
     if (!entry[key]) throw new Error(`${route}: missing ${key}`);
   }
@@ -27,6 +27,10 @@ for (const [route, entry] of Object.entries(registry)) {
   const size = images[entry.src];
   if (!size || !size.width || !size.height) throw new Error(`${route}: missing/invalid representative image`);
   if (size.bytes > 750_000) throw new Error(`${route}: representative exceeds 750 KB review budget`);
+  if (entry.mobileSrc) {
+    const mobile = images[entry.mobileSrc];
+    if (!mobile?.width || !mobile.height || mobile.bytes > 750_000) throw new Error(`${route}: missing or oversized mobile representative`);
+  }
   if (route.startsWith('/blog/')) {
     const post = blogPosts.find(p => route === `/blog/${p.slug}/`);
     const figure = post?.figures?.find(f => f.src === entry.src);

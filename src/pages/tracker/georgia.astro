@@ -1,4 +1,5 @@
 ---
+import ContentFigure from "../../components/ContentFigure.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import FaqBlock from "../../components/FaqBlock.astro";
 import StatePreparednessEvidence from "../../components/StatePreparednessEvidence.astro";
@@ -93,6 +94,7 @@ const jsonLd = graph(
 
       <p class="answer">{intro}</p>
       <StatePreparednessEvidence code={code} name={name} />
+      <ContentFigure src="/images/guides/local-check-record-desktop.png" mobileSrc="/images/guides/local-check-record-mobile.png" alt="Four separate local records: exact location, weather message, local instruction, and confirmed travel or care arrangements. No map, current order or zone assignment is shown." caption="Original HurricaneHub planning diagram, not a local map, zone lookup or current order. Keep your exact address, the weather message, the responsible authority’s instruction and confirmed arrangements as separate records. The linked local resources below supply the actual instructions." fullSize={true} />
 
       <h2 id="city-trackers">{name} City Hurricane Trackers</h2>
       <p class="source-note">Open city guides for local surge, flooding, evacuation-route, and outage planning notes within {name}.</p>

@@ -1,5 +1,6 @@
 ---
 import { nearbyStateCities } from "../../../lib/cityRecommendations";
+import ContentFigure from "../../../components/ContentFigure.astro";
 import FaqBlock from "../../../components/FaqBlock.astro";
 import Layout from "../../../layouts/Layout.astro";
 import { hurricaneCities, getCityBySlug } from "../../../data/cities";
@@ -116,6 +117,8 @@ const jsonLd = graph(
   </section>
 
   {city.searchEntry && <section class="band" aria-labelledby="city-next-check"><div class="inner"><h2 id="city-next-check">Your Next Local Checks</h2><div class="grid-3 section-grid">{city.searchEntry.actions.map((action) => <article class="panel"><h3><a href={action.href}>{action.label}</a></h3><p>{action.detail}</p></article>)}</div></div></section>}
+
+  {["myrtle-beach", "wilmington"].includes(city.slug) && <section class="band" aria-labelledby="local-record-heading"><div class="inner"><h2 id="local-record-heading">Keep Four Different Local Checks Separate</h2><p>Your current weather message, address lookup and official instruction can have different areas and times. Read the local resources below before completing your household record.</p><ContentFigure src="/images/guides/local-check-record-desktop.png" mobileSrc="/images/guides/local-check-record-mobile.png" alt="Four separate local records: exact location, weather message, local instruction, and confirmed travel or care arrangements. No map, current order or zone assignment is shown." caption="Original HurricaneHub planning diagram, not a local map, zone lookup or current order. Keep your exact address, the weather message, the responsible authority’s instruction and confirmed arrangements as separate records. The linked local resources below supply the actual instructions." fullSize={true} /></div></section>}
 
   <section class="band" aria-labelledby="city-actions">
     <div class="inner grid-2">

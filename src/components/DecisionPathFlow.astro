@@ -1,4 +1,5 @@
 ---
+import ContentFigure from "./ContentFigure.astro";
 // Observation, forecast, and local-action resources answer different questions.
 ---
 
@@ -109,21 +110,7 @@
 
   <p class="pipeline-sources">Official references: <a href="https://www.weather.gov/jetstream/remote/intro">NWS remote sensing</a>, <a href="https://www.nhc.noaa.gov/aboutcone.shtml">NHC cone definition</a>, and <a href="https://www.ready.gov/evacuation">Ready.gov evacuation planning</a>.</p>
 
-  <!-- Expandable Diagram for Visual Learners -->
-  <details class="pipeline-diagram-toggle">
-    <summary>
-      <i class="fa-solid fa-image" aria-hidden="true"></i>
-      <span>View illustrative concept diagram (Visual Infographic)</span>
-      <i class="fa-solid fa-chevron-down toggle-chevron" aria-hidden="true"></i>
-    </summary>
-    <div class="diagram-wrap">
-      <picture>
-        <source media="(max-width: 767px)" srcset="/images/guides/hurricane-decision-path-mobile.png" width="750" height="800" />
-        <img src="/images/guides/hurricane-decision-path-desktop.png" alt="Conceptual infographic showing the relationship between radar observation, NHC forecast track, and local NWS warnings" width="1200" height="675" loading="lazy" decoding="async" />
-      </picture>
-      <p class="diagram-caption">Illustrative map only, not a current forecast. Maps provide context; verify current NHC advisories, local NWS alerts, and official emergency instructions before acting.</p>
-    </div>
-  </details>
+  <ContentFigure src="/images/guides/source-to-action-desktop.png" mobileSrc="/images/guides/source-to-action-mobile.png" alt="Source-to-question diagram: NHC for storm context, NWS for local weather alerts, and local authorities for address-specific instructions; failed checks remain unavailable." caption="Original HurricaneHub source-selection diagram, not an official product or current weather report. Check each source’s area and time separately; a failed check cannot establish an all-clear. The cards above explain each check and link to the relevant tools." sourceUrl="https://www.nhc.noaa.gov/" sourceLabel="Open official NHC products" fullSize={true} />
 </div>
 
 <style>
@@ -363,48 +350,6 @@
     margin-right: 6px;
   }
 
-  /* Optional toggle diagram */
-  .pipeline-diagram-toggle {
-    margin-top: 18px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--panel);
-    overflow: hidden;
-  }
-  .pipeline-diagram-toggle summary {
-    padding: 12px 18px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--surface);
-    user-select: none;
-  }
-  .pipeline-diagram-toggle summary:hover {
-    color: var(--ink);
-  }
-  .diagram-wrap {
-    padding: 16px;
-    background: var(--panel);
-    border-top: 1px solid var(--line);
-  }
-  .diagram-wrap img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 6px;
-    border: 1px solid var(--line);
-  }
-  .diagram-caption {
-    margin: 8px 0 0;
-    font-size: 0.82rem;
-    color: var(--muted);
-    line-height: 1.4;
-  }
-
   .pipeline-sources {
     margin: 14px 0 0;
     font-size: 0.85rem;
@@ -416,15 +361,7 @@
     text-decoration: underline;
     text-underline-offset: 3px;
   }
-  .toggle-chevron {
-    margin-left: auto;
-    flex-shrink: 0;
-  }
-  details[open] .toggle-chevron {
-    transform: rotate(180deg);
-  }
-  .decision-pipeline a:focus-visible,
-  .pipeline-diagram-toggle summary:focus-visible {
+  .decision-pipeline a:focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 3px;
   }

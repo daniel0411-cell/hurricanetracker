@@ -729,6 +729,21 @@
     "height": 832,
     "bytes": 1701864
   },
+  "/images/guides/atlantic-hurricane-season-timeline-mobile.png": {
+    "width": 720,
+    "height": 840,
+    "bytes": 43859
+  },
+  "/images/guides/atlantic-hurricane-season-timeline-mobile.svg": {
+    "width": 720,
+    "height": 840,
+    "bytes": 1731
+  },
+  "/images/guides/atlantic-hurricane-season-timeline.png": {
+    "width": 1200,
+    "height": 675,
+    "bytes": 55676
+  },
   "/images/guides/atlantic-hurricane-season-timeline.svg": {
     "width": 1200,
     "height": 675,
@@ -748,6 +763,26 @@
     "width": 1200,
     "height": 675,
     "bytes": 2105
+  },
+  "/images/guides/household-update-handoff-desktop.png": {
+    "width": 1200,
+    "height": 720,
+    "bytes": 81196
+  },
+  "/images/guides/household-update-handoff-desktop.svg": {
+    "width": 1200,
+    "height": 720,
+    "bytes": 2790
+  },
+  "/images/guides/household-update-handoff-mobile.png": {
+    "width": 720,
+    "height": 1176,
+    "bytes": 74196
+  },
+  "/images/guides/household-update-handoff-mobile.svg": {
+    "width": 720,
+    "height": 1176,
+    "bytes": 2332
   },
   "/images/guides/hurricane-category-wind-scale.svg": {
     "width": 1200,
@@ -824,6 +859,31 @@
     "height": 1400,
     "bytes": 216822
   },
+  "/images/guides/live-snapshot-2026-11-27.jpg": {
+    "width": 380,
+    "height": 449,
+    "bytes": 22227
+  },
+  "/images/guides/local-check-record-desktop.png": {
+    "width": 1200,
+    "height": 900,
+    "bytes": 92010
+  },
+  "/images/guides/local-check-record-desktop.svg": {
+    "width": 1200,
+    "height": 900,
+    "bytes": 2703
+  },
+  "/images/guides/local-check-record-mobile.png": {
+    "width": 720,
+    "height": 1446,
+    "bytes": 86966
+  },
+  "/images/guides/local-check-record-mobile.svg": {
+    "width": 720,
+    "height": 1446,
+    "bytes": 2717
+  },
   "/images/guides/michael-2018-reflectivity-detail.png": {
     "width": 490,
     "height": 564,
@@ -854,10 +914,45 @@
     "height": 1480,
     "bytes": 37550
   },
+  "/images/guides/radar-vs-satellite-mobile.png": {
+    "width": 720,
+    "height": 920,
+    "bytes": 58316
+  },
+  "/images/guides/radar-vs-satellite-mobile.svg": {
+    "width": 720,
+    "height": 920,
+    "bytes": 1587
+  },
+  "/images/guides/radar-vs-satellite.png": {
+    "width": 1200,
+    "height": 675,
+    "bytes": 67075
+  },
   "/images/guides/radar-vs-satellite.svg": {
     "width": 1200,
     "height": 675,
     "bytes": 2468
+  },
+  "/images/guides/source-to-action-desktop.png": {
+    "width": 1200,
+    "height": 720,
+    "bytes": 77310
+  },
+  "/images/guides/source-to-action-desktop.svg": {
+    "width": 1200,
+    "height": 720,
+    "bytes": 2843
+  },
+  "/images/guides/source-to-action-mobile.png": {
+    "width": 720,
+    "height": 1176,
+    "bytes": 73019
+  },
+  "/images/guides/source-to-action-mobile.svg": {
+    "width": 720,
+    "height": 1176,
+    "bytes": 2326
   },
   "/images/guides/storm-hazard-map-differences.svg": {
     "width": 1200,

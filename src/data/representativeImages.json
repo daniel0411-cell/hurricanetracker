@@ -108,5 +108,113 @@
     "reviewed": "2026-11-27",
     "context": "Historical teaching example, not current weather or a property lookup. Original section caption records dates and limitations.",
     "alt": "Fictional NHC Hurricane X inundation teaching map near Charleston, with above-ground depth legend; not a current forecast or evacuation map."
+  },
+  "/": {
+    "src": "/images/guides/source-to-action-desktop.png",
+    "alt": "Source-to-question diagram: NHC for storm context, NWS for local weather alerts, and local authorities for address-specific instructions; failed checks remain unavailable.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.hurricanetracker.cc/#decision-path-heading",
+    "rights": "Original HurricaneHub explanatory layout or authorized screenshot of its public interface; no third-party weather observation or map reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Original editorial source-selection diagram. No weather observation, probability, geographic boundary or current instruction is depicted.",
+    "mobileSrc": "/images/guides/source-to-action-mobile.png"
+  },
+  "/tracker/georgia/": {
+    "src": "/images/guides/local-check-record-desktop.png",
+    "alt": "Four separate local records: exact location, weather message, local instruction, and confirmed travel or care arrangements. No map, current order or zone assignment is shown.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.hurricanetracker.cc/tracker/georgia/",
+    "rights": "Original HurricaneHub explanatory layout or authorized screenshot of its public interface; no third-party weather observation or map reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Original generic planning workflow, explicitly not a region-specific map. Context and official local resources are in the page; no address, zone, order, road or arrangement is verified by the diagram.",
+    "mobileSrc": "/images/guides/local-check-record-mobile.png"
+  },
+  "/tracker/virginia/": {
+    "src": "/images/guides/local-check-record-desktop.png",
+    "alt": "Four separate local records: exact location, weather message, local instruction, and confirmed travel or care arrangements. No map, current order or zone assignment is shown.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.hurricanetracker.cc/tracker/virginia/",
+    "rights": "Original HurricaneHub explanatory layout or authorized screenshot of its public interface; no third-party weather observation or map reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Original generic planning workflow, explicitly not a region-specific map. Context and official local resources are in the page; no address, zone, order, road or arrangement is verified by the diagram.",
+    "mobileSrc": "/images/guides/local-check-record-mobile.png"
+  },
+  "/hurricane-tracker/city/myrtle-beach/": {
+    "src": "/images/guides/local-check-record-desktop.png",
+    "alt": "Four separate local records: exact location, weather message, local instruction, and confirmed travel or care arrangements. No map, current order or zone assignment is shown.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.hurricanetracker.cc/hurricane-tracker/city/myrtle-beach/",
+    "rights": "Original HurricaneHub explanatory layout or authorized screenshot of its public interface; no third-party weather observation or map reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Original generic planning workflow, explicitly not a region-specific map. Context and official local resources are in the page; no address, zone, order, road or arrangement is verified by the diagram.",
+    "mobileSrc": "/images/guides/local-check-record-mobile.png"
+  },
+  "/hurricane-tracker/city/wilmington/": {
+    "src": "/images/guides/local-check-record-desktop.png",
+    "alt": "Four separate local records: exact location, weather message, local instruction, and confirmed travel or care arrangements. No map, current order or zone assignment is shown.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.hurricanetracker.cc/hurricane-tracker/city/wilmington/",
+    "rights": "Original HurricaneHub explanatory layout or authorized screenshot of its public interface; no third-party weather observation or map reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Original generic planning workflow, explicitly not a region-specific map. Context and official local resources are in the page; no address, zone, order, road or arrangement is verified by the diagram.",
+    "mobileSrc": "/images/guides/local-check-record-mobile.png"
+  },
+  "/hurricane-tracker/live/": {
+    "src": "/images/guides/live-snapshot-2026-11-27.jpg",
+    "alt": "Historical HurricaneHub status-panel screenshot from November 27, 2026: zero active NHC systems, a UTC check time, and a warning that this is not a local all-clear.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.hurricanetracker.cc/hurricane-tracker/live/",
+    "rights": "Original HurricaneHub explanatory layout or authorized screenshot of its public interface; no third-party weather observation or map reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Unaltered crop of the actual public status panel observed 2026-11-27; no personal data, map tiles or invented active storm. Retained timestamp is retrieval time, not advisory issue time. Small intrinsic image is not enlarged."
+  },
+  "/blog/real-time-hurricane-tracking-2026/": {
+    "src": "/images/guides/live-snapshot-2026-11-27.jpg",
+    "alt": "Historical HurricaneHub status-panel screenshot from November 27, 2026: zero active NHC systems, a UTC check time, and a warning that this is not a local all-clear.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.hurricanetracker.cc/hurricane-tracker/live/",
+    "rights": "Original HurricaneHub explanatory layout or authorized screenshot of its public interface; no third-party weather observation or map reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Unaltered crop of the actual public status panel observed 2026-11-27; no personal data, map tiles or invented active storm. Retained timestamp is retrieval time, not advisory issue time. Small intrinsic image is not enlarged."
+  },
+  "/radar/": {
+    "src": "/images/guides/radar-vs-satellite.png",
+    "alt": "Original comparison diagram: radar shows nearby precipitation echoes, while GOES satellite shows cloud structure; neither alone predicts local hurricane impacts.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.hurricanetracker.cc/radar/#radar-decision-heading",
+    "rights": "Original HurricaneHub explanatory layout or authorized screenshot of its public interface; no third-party weather observation or map reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Native-size raster export of the existing original explanatory SVG. Sources and observation-versus-forecast limits remain in neighboring prose; not measured weather.",
+    "mobileSrc": "/images/guides/radar-vs-satellite-mobile.png"
+  },
+  "/2026-hurricane-season/": {
+    "src": "/images/guides/atlantic-hurricane-season-timeline.png",
+    "alt": "Schematic Atlantic season timeline, June through November, marking the historical peak near September 10; not a current or 2026 activity forecast.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.nhc.noaa.gov/climo/",
+    "rights": "Original HurricaneHub explanatory layout or authorized screenshot of its public interface; no third-party weather observation or map reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Native-size raster export of an existing original schematic. Curve is qualitative, not sampled activity counts or a 2026 forecast. Mobile variant states the same dates without a curve.",
+    "mobileSrc": "/images/guides/atlantic-hurricane-season-timeline-mobile.png"
+  },
+  "/blog/how-to-use-hurricane-tracker-live-tools/": {
+    "src": "/images/guides/household-update-handoff-desktop.png",
+    "alt": "Household handoff diagram with three separate records: source fact, household task and confirmation; a request is different from a confirmed arrangement.",
+    "creator": "HurricaneHub",
+    "sourceUrl": "https://www.hurricanetracker.cc/blog/how-to-use-hurricane-tracker-live-tools/",
+    "rights": "Original HurricaneHub explanatory layout or authorized screenshot of its public interface; no third-party weather observation or map reproduced.",
+    "rightsUrl": "https://www.hurricanetracker.cc/about/",
+    "reviewed": "2026-11-27",
+    "context": "Original blank editorial workflow matching the article’s existing household log. No actual contacts, orders, receipts or successful arrangements are depicted. Not an official emergency protocol.",
+    "mobileSrc": "/images/guides/household-update-handoff-mobile.png"
   }
 }
